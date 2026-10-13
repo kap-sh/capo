@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#GenericWebhook``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -59,4 +59,13 @@ def deserialize_json(data: dict) -> GenericWebhook:
         out["webhook_secret"] = data["webhookSecret"]
     if data.get("apiKey") is not None:
         out["api_key"] = data["apiKey"]
+    return out
+
+
+def redact_sensitive(value: GenericWebhook) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "webhook_secret" in value:
+        out["webhook_secret"] = "*** Sensitive Data Redacted ***"
+    if "api_key" in value:
+        out["api_key"] = "*** Sensitive Data Redacted ***"
     return out

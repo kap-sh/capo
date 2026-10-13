@@ -7,6 +7,7 @@ import capo_cleanrooms._auth._sigv4
 from capo_cleanrooms._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -110,7 +111,9 @@ class ConfiguredTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateConfiguredTable")
+        )
         input_: capo_cleanrooms.types.create_configured_table_input.CreateConfiguredTableInput = {
             "name": name,
             "table_reference": table_reference,
@@ -166,7 +169,9 @@ class ConfiguredTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConfiguredTable")
+        )
         input_: capo_cleanrooms.types.get_configured_table_input.GetConfiguredTableInput = {
             "configured_table_identifier": configured_table_identifier
         }
@@ -236,7 +241,9 @@ class ConfiguredTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateConfiguredTable")
+        )
         input_: capo_cleanrooms.types.update_configured_table_input.UpdateConfiguredTableInput = {
             "configured_table_identifier": configured_table_identifier
         }
@@ -296,7 +303,9 @@ class ConfiguredTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguredTable")
+        )
         input_: capo_cleanrooms.types.delete_configured_table_input.DeleteConfiguredTableInput = {
             "configured_table_identifier": configured_table_identifier
         }
@@ -348,7 +357,9 @@ class ConfiguredTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConfiguredTables")
+        )
         input_: capo_cleanrooms.types.list_configured_tables_input.ListConfiguredTablesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -403,7 +414,9 @@ class ConfiguredTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateConfiguredTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.create_configured_table_analysis_rule_input.CreateConfiguredTableAnalysisRuleInput = {
             "configured_table_identifier": configured_table_identifier,
             "analysis_rule_type": analysis_rule_type,
@@ -455,7 +468,9 @@ class ConfiguredTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguredTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.delete_configured_table_analysis_rule_input.DeleteConfiguredTableAnalysisRuleInput = {
             "configured_table_identifier": configured_table_identifier,
             "analysis_rule_type": analysis_rule_type,
@@ -505,7 +520,9 @@ class ConfiguredTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConfiguredTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.get_configured_table_analysis_rule_input.GetConfiguredTableAnalysisRuleInput = {
             "configured_table_identifier": configured_table_identifier,
             "analysis_rule_type": analysis_rule_type,
@@ -559,7 +576,9 @@ class ConfiguredTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateConfiguredTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.update_configured_table_analysis_rule_input.UpdateConfiguredTableAnalysisRuleInput = {
             "configured_table_identifier": configured_table_identifier,
             "analysis_rule_type": analysis_rule_type,
@@ -632,7 +651,9 @@ class AsyncConfiguredTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateConfiguredTable")
+        )
         input_: capo_cleanrooms.types.create_configured_table_input.CreateConfiguredTableInput = {
             "name": name,
             "table_reference": table_reference,
@@ -689,7 +710,9 @@ class AsyncConfiguredTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConfiguredTable")
+        )
         input_: capo_cleanrooms.types.get_configured_table_input.GetConfiguredTableInput = {
             "configured_table_identifier": configured_table_identifier
         }
@@ -760,7 +783,9 @@ class AsyncConfiguredTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateConfiguredTable")
+        )
         input_: capo_cleanrooms.types.update_configured_table_input.UpdateConfiguredTableInput = {
             "configured_table_identifier": configured_table_identifier
         }
@@ -821,7 +846,9 @@ class AsyncConfiguredTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguredTable")
+        )
         input_: capo_cleanrooms.types.delete_configured_table_input.DeleteConfiguredTableInput = {
             "configured_table_identifier": configured_table_identifier
         }
@@ -874,7 +901,9 @@ class AsyncConfiguredTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConfiguredTables")
+        )
         input_: capo_cleanrooms.types.list_configured_tables_input.ListConfiguredTablesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -930,7 +959,9 @@ class AsyncConfiguredTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateConfiguredTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.create_configured_table_analysis_rule_input.CreateConfiguredTableAnalysisRuleInput = {
             "configured_table_identifier": configured_table_identifier,
             "analysis_rule_type": analysis_rule_type,
@@ -983,7 +1014,9 @@ class AsyncConfiguredTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguredTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.delete_configured_table_analysis_rule_input.DeleteConfiguredTableAnalysisRuleInput = {
             "configured_table_identifier": configured_table_identifier,
             "analysis_rule_type": analysis_rule_type,
@@ -1034,7 +1067,9 @@ class AsyncConfiguredTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConfiguredTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.get_configured_table_analysis_rule_input.GetConfiguredTableAnalysisRuleInput = {
             "configured_table_identifier": configured_table_identifier,
             "analysis_rule_type": analysis_rule_type,
@@ -1089,7 +1124,9 @@ class AsyncConfiguredTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateConfiguredTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.update_configured_table_analysis_rule_input.UpdateConfiguredTableAnalysisRuleInput = {
             "configured_table_identifier": configured_table_identifier,
             "analysis_rule_type": analysis_rule_type,

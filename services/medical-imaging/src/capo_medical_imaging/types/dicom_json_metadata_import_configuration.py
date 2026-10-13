@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.medicalimaging#DicomJsonMetadataImportConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -43,5 +43,18 @@ def deserialize_json(data: dict) -> DicomJsonMetadataImportConfiguration:
     else:
         raise DeserializationError(
             "DicomJsonMetadataImportConfiguration.dicom_metadata_mappings required"
+        )
+    return out
+
+
+def redact_sensitive(value: DicomJsonMetadataImportConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "dicom_metadata_mappings" in value:
+        import capo_medical_imaging.types.dicom_metadata_mappings
+
+        out["dicom_metadata_mappings"] = (
+            capo_medical_imaging.types.dicom_metadata_mappings.redact_sensitive(
+                value["dicom_metadata_mappings"]
+            )
         )
     return out

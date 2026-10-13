@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#PutParameterRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -121,4 +121,11 @@ def deserialize_aws_json_1_1(data: dict) -> PutParameterRequest:
         out["policies"] = data["Policies"]
     if data.get("DataType") is not None:
         out["data_type"] = data["DataType"]
+    return out
+
+
+def redact_sensitive(value: PutParameterRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        out["value"] = "*** Sensitive Data Redacted ***"
     return out

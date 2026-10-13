@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#DescribeTrackerResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -129,4 +129,13 @@ def deserialize_json(data: dict) -> DescribeTrackerResponse:
         out["event_bridge_enabled"] = data["EventBridgeEnabled"]
     if data.get("KmsKeyEnableGeospatialQueries") is not None:
         out["kms_key_enable_geospatial_queries"] = data["KmsKeyEnableGeospatialQueries"]
+    return out
+
+
+def redact_sensitive(value: DescribeTrackerResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "create_time" in value:
+        out["create_time"] = "*** Sensitive Data Redacted ***"
+    if "update_time" in value:
+        out["update_time"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.frauddetector#EventVariableSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,4 +37,15 @@ def deserialize_aws_json_1_1(data: dict) -> EventVariableSummary:
         out["value"] = data["value"]
     if data.get("source") is not None:
         out["source"] = data["source"]
+    return out
+
+
+def redact_sensitive(value: EventVariableSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "value" in value:
+        out["value"] = "*** Sensitive Data Redacted ***"
+    if "source" in value:
+        out["source"] = "*** Sensitive Data Redacted ***"
     return out

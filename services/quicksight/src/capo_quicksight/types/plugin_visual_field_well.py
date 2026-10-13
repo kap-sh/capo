@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#PluginVisualFieldWell``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -88,6 +88,31 @@ def deserialize_json(data: dict) -> PluginVisualFieldWell:
         out["unaggregated"] = (
             capo_quicksight.types.unaggregated_field_list.deserialize_json(
                 data["Unaggregated"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: PluginVisualFieldWell) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "dimensions" in value:
+        import capo_quicksight.types.dimension_field_list
+
+        out["dimensions"] = capo_quicksight.types.dimension_field_list.redact_sensitive(
+            value["dimensions"]
+        )
+    if "measures" in value:
+        import capo_quicksight.types.measure_field_list
+
+        out["measures"] = capo_quicksight.types.measure_field_list.redact_sensitive(
+            value["measures"]
+        )
+    if "unaggregated" in value:
+        import capo_quicksight.types.unaggregated_field_list
+
+        out["unaggregated"] = (
+            capo_quicksight.types.unaggregated_field_list.redact_sensitive(
+                value["unaggregated"]
             )
         )
     return out

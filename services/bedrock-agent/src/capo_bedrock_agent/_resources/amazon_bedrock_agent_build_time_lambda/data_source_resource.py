@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agent._auth._signers
 import capo_bedrock_agent._auth._sigv4
 from capo_bedrock_agent._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -112,7 +113,34 @@ class DataSourceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.create_data_source_request.CreateDataSourceRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_data_source_request
+
+            return capo_bedrock_agent.types.create_data_source_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.create_data_source_response.CreateDataSourceResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_data_source_response
+
+            return (
+                capo_bedrock_agent.types.create_data_source_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDataSource",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agent.types.create_data_source_request.CreateDataSourceRequest = {
             "knowledge_base_id": knowledge_base_id,
             "name": name,
@@ -179,7 +207,9 @@ class DataSourceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDataSource")
+        )
         input_: capo_bedrock_agent.types.delete_data_source_request.DeleteDataSourceRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,
@@ -229,7 +259,19 @@ class DataSourceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agent.types.get_data_source_response.GetDataSourceResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.get_data_source_response
+
+            return capo_bedrock_agent.types.get_data_source_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDataSource", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agent.types.get_data_source_request.GetDataSourceRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,
@@ -281,7 +323,9 @@ class DataSourceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDataSources")
+        )
         input_: capo_bedrock_agent.types.list_data_sources_request.ListDataSourcesRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -357,7 +401,34 @@ class DataSourceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.update_data_source_request.UpdateDataSourceRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_data_source_request
+
+            return capo_bedrock_agent.types.update_data_source_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.update_data_source_response.UpdateDataSourceResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_data_source_response
+
+            return (
+                capo_bedrock_agent.types.update_data_source_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDataSource",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agent.types.update_data_source_request.UpdateDataSourceRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,
@@ -451,7 +522,34 @@ class AsyncDataSourceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.create_data_source_request.CreateDataSourceRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_data_source_request
+
+            return capo_bedrock_agent.types.create_data_source_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.create_data_source_response.CreateDataSourceResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_data_source_response
+
+            return (
+                capo_bedrock_agent.types.create_data_source_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDataSource",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agent.types.create_data_source_request.CreateDataSourceRequest = {
             "knowledge_base_id": knowledge_base_id,
             "name": name,
@@ -519,7 +617,9 @@ class AsyncDataSourceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDataSource")
+        )
         input_: capo_bedrock_agent.types.delete_data_source_request.DeleteDataSourceRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,
@@ -570,7 +670,19 @@ class AsyncDataSourceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agent.types.get_data_source_response.GetDataSourceResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.get_data_source_response
+
+            return capo_bedrock_agent.types.get_data_source_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDataSource", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agent.types.get_data_source_request.GetDataSourceRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,
@@ -623,7 +735,9 @@ class AsyncDataSourceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDataSources")
+        )
         input_: capo_bedrock_agent.types.list_data_sources_request.ListDataSourcesRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -700,7 +814,34 @@ class AsyncDataSourceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.update_data_source_request.UpdateDataSourceRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_data_source_request
+
+            return capo_bedrock_agent.types.update_data_source_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.update_data_source_response.UpdateDataSourceResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_data_source_response
+
+            return (
+                capo_bedrock_agent.types.update_data_source_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDataSource",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agent.types.update_data_source_request.UpdateDataSourceRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,

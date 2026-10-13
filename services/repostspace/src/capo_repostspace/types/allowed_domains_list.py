@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.repostspace#AllowedDomainsList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_repostspace.types.email_domain
@@ -15,3 +15,7 @@ def serialize_json(value: AllowedDomainsList) -> list:
 
 def deserialize_json(data: list) -> AllowedDomainsList:
     return [item for item in data if item is not None]
+
+
+def redact_sensitive(value: AllowedDomainsList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

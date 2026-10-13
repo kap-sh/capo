@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#SendDurableExecutionCallbackSuccessRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -38,4 +38,13 @@ def deserialize_json(data: dict) -> SendDurableExecutionCallbackSuccessRequest:
         out["result"] = capo_lambda.types.binary_operation_payload.deserialize_json(
             data["Result"]
         )
+    return out
+
+
+def redact_sensitive(
+    value: SendDurableExecutionCallbackSuccessRequest,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "result" in value:
+        out["result"] = "*** Sensitive Data Redacted ***"
     return out

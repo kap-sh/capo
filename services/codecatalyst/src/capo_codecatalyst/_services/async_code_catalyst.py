@@ -24,7 +24,9 @@ from capo_codecatalyst._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -200,7 +202,9 @@ class AsyncCodeCatalystClient:
         self.space = AsyncSpace(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncCodeCatalystClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncCodeCatalystClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncCodeCatalystClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -208,8 +212,10 @@ class AsyncCodeCatalystClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -263,7 +269,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUserDetails")
+        )
         input_: capo_codecatalyst.types.get_user_details_request.GetUserDetailsRequest = {}
         if id is not None:
             input_["id"] = id
@@ -308,7 +316,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("VerifySession")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -358,7 +368,21 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_codecatalyst.types.create_access_token_response.CreateAccessTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_codecatalyst.types.create_access_token_response
+
+            return (
+                capo_codecatalyst.types.create_access_token_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateAccessToken", redact_output=_redact_output),
+        )
         input_: capo_codecatalyst.types.create_access_token_request.CreateAccessTokenRequest = {
             "name": name
         }
@@ -411,7 +435,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessToken")
+        )
         input_: capo_codecatalyst.types.delete_access_token_request.DeleteAccessTokenRequest = {
             "id": id
         }
@@ -462,7 +488,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessTokens")
+        )
         input_: capo_codecatalyst.types.list_access_tokens_request.ListAccessTokensRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -536,7 +564,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSpace")
+        )
         input_: capo_codecatalyst.types.get_space_request.GetSpaceRequest = {
             "name": name
         }
@@ -589,7 +619,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSpace")
+        )
         input_: capo_codecatalyst.types.update_space_request.UpdateSpaceRequest = {
             "name": name
         }
@@ -640,7 +672,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSpace")
+        )
         input_: capo_codecatalyst.types.delete_space_request.DeleteSpaceRequest = {
             "name": name
         }
@@ -689,7 +723,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSpaces")
+        )
         input_: capo_codecatalyst.types.list_spaces_request.ListSpacesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -765,7 +801,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDevEnvironments")
+        )
         input_: capo_codecatalyst.types.list_dev_environments_request.ListDevEnvironmentsRequest = {
             "space_name": space_name
         }
@@ -859,7 +897,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEventLogs")
+        )
         input_: capo_codecatalyst.types.list_event_logs_request.ListEventLogsRequest = {
             "space_name": space_name,
             "start_time": start_time,
@@ -951,7 +991,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProject")
+        )
         input_: capo_codecatalyst.types.create_project_request.CreateProjectRequest = {
             "space_name": space_name,
             "display_name": display_name,
@@ -1005,7 +1047,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProject")
+        )
         input_: capo_codecatalyst.types.get_project_request.GetProjectRequest = {
             "space_name": space_name,
             "name": name,
@@ -1061,7 +1105,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProject")
+        )
         input_: capo_codecatalyst.types.update_project_request.UpdateProjectRequest = {
             "space_name": space_name,
             "name": name,
@@ -1115,7 +1161,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProject")
+        )
         input_: capo_codecatalyst.types.delete_project_request.DeleteProjectRequest = {
             "space_name": space_name,
             "name": name,
@@ -1173,7 +1221,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProjects")
+        )
         input_: capo_codecatalyst.types.list_projects_request.ListProjectsRequest = {
             "space_name": space_name
         }
@@ -1283,7 +1333,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDevEnvironment")
+        )
         input_: capo_codecatalyst.types.create_dev_environment_request.CreateDevEnvironmentRequest = {
             "space_name": space_name,
             "project_name": project_name,
@@ -1353,7 +1405,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDevEnvironment")
+        )
         input_: capo_codecatalyst.types.get_dev_environment_request.GetDevEnvironmentRequest = {
             "space_name": space_name,
             "project_name": project_name,
@@ -1426,7 +1480,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDevEnvironment")
+        )
         input_: capo_codecatalyst.types.update_dev_environment_request.UpdateDevEnvironmentRequest = {
             "space_name": space_name,
             "project_name": project_name,
@@ -1491,7 +1547,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDevEnvironment")
+        )
         input_: capo_codecatalyst.types.delete_dev_environment_request.DeleteDevEnvironmentRequest = {
             "space_name": space_name,
             "project_name": project_name,
@@ -1550,7 +1608,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDevEnvironmentSessions")
+        )
         input_: capo_codecatalyst.types.list_dev_environment_sessions_request.ListDevEnvironmentSessionsRequest = {
             "space_name": space_name,
             "project_name": project_name,
@@ -1648,7 +1708,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDevEnvironment")
+        )
         input_: capo_codecatalyst.types.start_dev_environment_request.StartDevEnvironmentRequest = {
             "space_name": space_name,
             "project_name": project_name,
@@ -1710,7 +1772,21 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_codecatalyst.types.start_dev_environment_session_response.StartDevEnvironmentSessionResponse",
+        ) -> dict[str, Any]:
+            import capo_codecatalyst.types.start_dev_environment_session_response
+
+            return capo_codecatalyst.types.start_dev_environment_session_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartDevEnvironmentSession", redact_output=_redact_output
+            ),
+        )
         input_: capo_codecatalyst.types.start_dev_environment_session_request.StartDevEnvironmentSessionRequest = {
             "space_name": space_name,
             "project_name": project_name,
@@ -1766,7 +1842,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopDevEnvironment")
+        )
         input_: capo_codecatalyst.types.stop_dev_environment_request.StopDevEnvironmentRequest = {
             "space_name": space_name,
             "project_name": project_name,
@@ -1823,7 +1901,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopDevEnvironmentSession")
+        )
         input_: capo_codecatalyst.types.stop_dev_environment_session_request.StopDevEnvironmentSessionRequest = {
             "space_name": space_name,
             "project_name": project_name,
@@ -1883,7 +1963,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSourceRepository")
+        )
         input_: capo_codecatalyst.types.create_source_repository_request.CreateSourceRepositoryRequest = {
             "space_name": space_name,
             "project_name": project_name,
@@ -1940,7 +2022,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSourceRepository")
+        )
         input_: capo_codecatalyst.types.get_source_repository_request.GetSourceRepositoryRequest = {
             "space_name": space_name,
             "project_name": project_name,
@@ -1995,7 +2079,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSourceRepository")
+        )
         input_: capo_codecatalyst.types.delete_source_repository_request.DeleteSourceRepositoryRequest = {
             "space_name": space_name,
             "project_name": project_name,
@@ -2052,7 +2138,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSourceRepositories")
+        )
         input_: capo_codecatalyst.types.list_source_repositories_request.ListSourceRepositoriesRequest = {
             "space_name": space_name,
             "project_name": project_name,
@@ -2135,7 +2223,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSourceRepositoryCloneUrls")
+        )
         input_: capo_codecatalyst.types.get_source_repository_clone_urls_request.GetSourceRepositoryCloneUrlsRequest = {
             "space_name": space_name,
             "project_name": project_name,
@@ -2194,7 +2284,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSourceRepositoryBranch")
+        )
         input_: capo_codecatalyst.types.create_source_repository_branch_request.CreateSourceRepositoryBranchRequest = {
             "space_name": space_name,
             "project_name": project_name,
@@ -2256,7 +2348,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSourceRepositoryBranches")
+        )
         input_: capo_codecatalyst.types.list_source_repository_branches_request.ListSourceRepositoryBranchesRequest = {
             "space_name": space_name,
             "project_name": project_name,
@@ -2342,7 +2436,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkflow")
+        )
         input_: capo_codecatalyst.types.get_workflow_request.GetWorkflowRequest = {
             "space_name": space_name,
             "id": id,
@@ -2403,7 +2499,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkflows")
+        )
         input_: capo_codecatalyst.types.list_workflows_request.ListWorkflowsRequest = {
             "space_name": space_name,
             "project_name": project_name,
@@ -2494,7 +2592,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartWorkflowRun")
+        )
         input_: capo_codecatalyst.types.start_workflow_run_request.StartWorkflowRunRequest = {
             "space_name": space_name,
             "project_name": project_name,
@@ -2552,7 +2652,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkflowRun")
+        )
         input_: capo_codecatalyst.types.get_workflow_run_request.GetWorkflowRunRequest = {
             "space_name": space_name,
             "id": id,
@@ -2615,7 +2717,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkflowRuns")
+        )
         input_: capo_codecatalyst.types.list_workflow_runs_request.ListWorkflowRunsRequest = {
             "space_name": space_name,
             "project_name": project_name,
@@ -2706,7 +2810,9 @@ class AsyncCodeCatalystClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSubscription")
+        )
         input_: capo_codecatalyst.types.get_subscription_request.GetSubscriptionRequest = {
             "space_name": space_name
         }

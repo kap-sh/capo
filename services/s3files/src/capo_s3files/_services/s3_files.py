@@ -22,10 +22,12 @@ from capo_s3files._pagination import resolve_path as _resolve_path
 from capo_s3files._services._aws_config import aws_config
 from capo_s3files._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -161,7 +163,9 @@ class S3FilesClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[S3FilesClientConfig] = None
+        self,
+        config_overrides: Optional[S3FilesClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: S3FilesClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -169,8 +173,10 @@ class S3FilesClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -231,7 +237,9 @@ class S3FilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccessPoint")
+        )
         input_: capo_s3files.types.create_access_point_request.CreateAccessPointRequest = {
             "file_system_id": file_system_id
         }
@@ -302,7 +310,9 @@ class S3FilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFileSystem")
+        )
         input_: capo_s3files.types.create_file_system_request.CreateFileSystemRequest = {
             "bucket": bucket,
             "role_arn": role_arn,
@@ -376,7 +386,9 @@ class S3FilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMountTarget")
+        )
         input_: capo_s3files.types.create_mount_target_request.CreateMountTargetRequest = {
             "file_system_id": file_system_id,
             "subnet_id": subnet_id,
@@ -430,7 +442,9 @@ class S3FilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessPoint")
+        )
         input_: capo_s3files.types.delete_access_point_request.DeleteAccessPointRequest = {
             "access_point_id": access_point_id
         }
@@ -477,7 +491,9 @@ class S3FilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFileSystem")
+        )
         input_: capo_s3files.types.delete_file_system_request.DeleteFileSystemRequest = {
             "file_system_id": file_system_id
         }
@@ -523,7 +539,9 @@ class S3FilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFileSystemPolicy")
+        )
         input_: capo_s3files.types.delete_file_system_policy_request.DeleteFileSystemPolicyRequest = {
             "file_system_id": file_system_id
         }
@@ -568,7 +586,9 @@ class S3FilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMountTarget")
+        )
         input_: capo_s3files.types.delete_mount_target_request.DeleteMountTargetRequest = {
             "mount_target_id": mount_target_id
         }
@@ -614,7 +634,9 @@ class S3FilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessPoint")
+        )
         input_: capo_s3files.types.get_access_point_request.GetAccessPointRequest = {
             "access_point_id": access_point_id
         }
@@ -660,7 +682,9 @@ class S3FilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFileSystem")
+        )
         input_: capo_s3files.types.get_file_system_request.GetFileSystemRequest = {
             "file_system_id": file_system_id
         }
@@ -708,7 +732,9 @@ class S3FilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFileSystemPolicy")
+        )
         input_: capo_s3files.types.get_file_system_policy_request.GetFileSystemPolicyRequest = {
             "file_system_id": file_system_id
         }
@@ -754,7 +780,9 @@ class S3FilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMountTarget")
+        )
         input_: capo_s3files.types.get_mount_target_request.GetMountTargetRequest = {
             "mount_target_id": mount_target_id
         }
@@ -800,7 +828,9 @@ class S3FilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSynchronizationConfiguration")
+        )
         input_: capo_s3files.types.get_synchronization_configuration_request.GetSynchronizationConfigurationRequest = {
             "file_system_id": file_system_id
         }
@@ -850,7 +880,9 @@ class S3FilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessPoints")
+        )
         input_: capo_s3files.types.list_access_points_request.ListAccessPointsRequest = {
             "file_system_id": file_system_id
         }
@@ -926,7 +958,9 @@ class S3FilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFileSystems")
+        )
         input_: capo_s3files.types.list_file_systems_request.ListFileSystemsRequest = {}
         if bucket is not None:
             input_["bucket"] = bucket
@@ -1009,7 +1043,9 @@ class S3FilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMountTargets")
+        )
         input_: capo_s3files.types.list_mount_targets_request.ListMountTargetsRequest = {}
         if file_system_id is not None:
             input_["file_system_id"] = file_system_id
@@ -1096,7 +1132,9 @@ class S3FilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_s3files.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_id": resource_id
         }
@@ -1173,7 +1211,9 @@ class S3FilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutFileSystemPolicy")
+        )
         input_: capo_s3files.types.put_file_system_policy_request.PutFileSystemPolicyRequest = {
             "file_system_id": file_system_id,
             "policy": policy,
@@ -1227,7 +1267,9 @@ class S3FilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutSynchronizationConfiguration")
+        )
         input_: capo_s3files.types.put_synchronization_configuration_request.PutSynchronizationConfigurationRequest = {
             "file_system_id": file_system_id,
             "import_data_rules": import_data_rules,
@@ -1277,7 +1319,9 @@ class S3FilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_s3files.types.tag_resource_request.TagResourceRequest = {
             "resource_id": resource_id,
             "tags": tags,
@@ -1324,7 +1368,9 @@ class S3FilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_s3files.types.untag_resource_request.UntagResourceRequest = {
             "resource_id": resource_id,
             "tag_keys": tag_keys,
@@ -1373,7 +1419,9 @@ class S3FilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMountTarget")
+        )
         input_: capo_s3files.types.update_mount_target_request.UpdateMountTargetRequest = {
             "mount_target_id": mount_target_id,
             "security_groups": security_groups,

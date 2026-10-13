@@ -25,10 +25,12 @@ from capo_arc_region_switch._resources.arc_region_switch.region_switch_plan impo
 from capo_arc_region_switch._services._aws_config import aws_config
 from capo_arc_region_switch._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -188,7 +190,9 @@ class ARCRegionswitchClient:
         self.region_switch_plan = RegionSwitchPlan(self)
 
     def operation_options(
-        self, config_overrides: Optional[ARCRegionswitchClientConfig] = None
+        self,
+        config_overrides: Optional[ARCRegionswitchClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ARCRegionswitchClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -196,8 +200,10 @@ class ARCRegionswitchClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -254,7 +260,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ApprovePlanExecutionStep")
+        )
         input_: capo_arc_region_switch.types.approve_plan_execution_step_request.ApprovePlanExecutionStepRequest = {
             "plan_arn": plan_arn,
             "execution_id": execution_id,
@@ -309,7 +317,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelPlanExecution")
+        )
         input_: capo_arc_region_switch.types.cancel_plan_execution_request.CancelPlanExecutionRequest = {
             "plan_arn": plan_arn,
             "execution_id": execution_id,
@@ -364,7 +374,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPlanEvaluationStatus")
+        )
         input_: capo_arc_region_switch.types.get_plan_evaluation_status_request.GetPlanEvaluationStatusRequest = {
             "plan_arn": plan_arn
         }
@@ -447,7 +459,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPlanExecution")
+        )
         input_: capo_arc_region_switch.types.get_plan_execution_request.GetPlanExecutionRequest = {
             "plan_arn": plan_arn,
             "execution_id": execution_id,
@@ -523,7 +537,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPlanInRegion")
+        )
         input_: capo_arc_region_switch.types.get_plan_in_region_request.GetPlanInRegionRequest = {
             "arn": arn
         }
@@ -577,7 +593,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPlanExecutionEvents")
+        )
         input_: capo_arc_region_switch.types.list_plan_execution_events_request.ListPlanExecutionEventsRequest = {
             "plan_arn": plan_arn,
             "execution_id": execution_id,
@@ -667,7 +685,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPlanExecutions")
+        )
         input_: capo_arc_region_switch.types.list_plan_executions_request.ListPlanExecutionsRequest = {
             "plan_arn": plan_arn
         }
@@ -751,7 +771,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPlansInRegion")
+        )
         input_: capo_arc_region_switch.types.list_plans_in_region_request.ListPlansInRegionRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -840,7 +862,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRoute53HealthChecks")
+        )
         input_: capo_arc_region_switch.types.list_route53_health_checks_request.ListRoute53HealthChecksRequest = {
             "arn": arn
         }
@@ -952,7 +976,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRoute53HealthChecksInRegion")
+        )
         input_: capo_arc_region_switch.types.list_route53_health_checks_in_region_request.ListRoute53HealthChecksInRegionRequest = {
             "arn": arn
         }
@@ -1051,7 +1077,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceQuotaWarnings")
+        )
         input_: capo_arc_region_switch.types.list_service_quota_warnings_request.ListServiceQuotaWarningsRequest = {}
         if plan_arns is not None:
             input_["plan_arns"] = plan_arns
@@ -1151,7 +1179,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartPlanExecution")
+        )
         input_: capo_arc_region_switch.types.start_plan_execution_request.StartPlanExecutionRequest = {
             "plan_arn": plan_arn,
             "target_region": target_region,
@@ -1217,7 +1247,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePlanExecution")
+        )
         input_: capo_arc_region_switch.types.update_plan_execution_request.UpdatePlanExecutionRequest = {
             "plan_arn": plan_arn,
             "execution_id": execution_id,
@@ -1273,7 +1305,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePlanExecutionStep")
+        )
         input_: capo_arc_region_switch.types.update_plan_execution_step_request.UpdatePlanExecutionStepRequest = {
             "plan_arn": plan_arn,
             "execution_id": execution_id,
@@ -1348,7 +1382,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePlan")
+        )
         input_: capo_arc_region_switch.types.create_plan_request.CreatePlanRequest = {
             "workflows": workflows,
             "execution_role": execution_role,
@@ -1411,7 +1447,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPlan")
+        )
         input_: capo_arc_region_switch.types.get_plan_request.GetPlanRequest = {
             "arn": arn
         }
@@ -1476,7 +1514,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePlan")
+        )
         input_: capo_arc_region_switch.types.update_plan_request.UpdatePlanRequest = {
             "arn": arn,
             "workflows": workflows,
@@ -1534,7 +1574,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePlan")
+        )
         input_: capo_arc_region_switch.types.delete_plan_request.DeletePlanRequest = {
             "arn": arn
         }
@@ -1582,7 +1624,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPlans")
+        )
         input_: capo_arc_region_switch.types.list_plans_request.ListPlansRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1653,7 +1697,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_arc_region_switch.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "arn": arn
         }
@@ -1699,7 +1745,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_arc_region_switch.types.tag_resource_request.TagResourceRequest = {
             "arn": arn,
             "tags": tags,
@@ -1746,7 +1794,9 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_arc_region_switch.types.untag_resource_request.UntagResourceRequest = {
             "arn": arn,
             "resource_tag_keys": resource_tag_keys,

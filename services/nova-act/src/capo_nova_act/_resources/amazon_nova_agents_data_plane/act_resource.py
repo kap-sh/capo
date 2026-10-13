@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_nova_act._auth._signers
 import capo_nova_act._auth._sigv4
 from capo_nova_act._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -92,7 +93,16 @@ class ActResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_nova_act.types.create_act_request.CreateActRequest",
+        ) -> dict[str, Any]:
+            import capo_nova_act.types.create_act_request
+
+            return capo_nova_act.types.create_act_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAct", redact_input=_redact_input)
+        )
         input_: capo_nova_act.types.create_act_request.CreateActRequest = {
             "workflow_definition_name": workflow_definition_name,
             "workflow_run_id": workflow_run_id,
@@ -158,7 +168,9 @@ class ActResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListActs")
+        )
         input_: capo_nova_act.types.list_acts_request.ListActsRequest = {
             "workflow_definition_name": workflow_definition_name
         }
@@ -227,7 +239,28 @@ class ActResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_nova_act.types.invoke_act_step_request.InvokeActStepRequest",
+        ) -> dict[str, Any]:
+            import capo_nova_act.types.invoke_act_step_request
+
+            return capo_nova_act.types.invoke_act_step_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_nova_act.types.invoke_act_step_response.InvokeActStepResponse",
+        ) -> dict[str, Any]:
+            import capo_nova_act.types.invoke_act_step_response
+
+            return capo_nova_act.types.invoke_act_step_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeActStep",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_nova_act.types.invoke_act_step_request.InvokeActStepRequest = {
             "workflow_definition_name": workflow_definition_name,
             "workflow_run_id": workflow_run_id,
@@ -291,7 +324,16 @@ class ActResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_nova_act.types.update_act_request.UpdateActRequest",
+        ) -> dict[str, Any]:
+            import capo_nova_act.types.update_act_request
+
+            return capo_nova_act.types.update_act_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAct", redact_input=_redact_input)
+        )
         input_: capo_nova_act.types.update_act_request.UpdateActRequest = {
             "workflow_definition_name": workflow_definition_name,
             "workflow_run_id": workflow_run_id,
@@ -362,7 +404,16 @@ class AsyncActResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_nova_act.types.create_act_request.CreateActRequest",
+        ) -> dict[str, Any]:
+            import capo_nova_act.types.create_act_request
+
+            return capo_nova_act.types.create_act_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAct", redact_input=_redact_input)
+        )
         input_: capo_nova_act.types.create_act_request.CreateActRequest = {
             "workflow_definition_name": workflow_definition_name,
             "workflow_run_id": workflow_run_id,
@@ -429,7 +480,9 @@ class AsyncActResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListActs")
+        )
         input_: capo_nova_act.types.list_acts_request.ListActsRequest = {
             "workflow_definition_name": workflow_definition_name
         }
@@ -499,7 +552,28 @@ class AsyncActResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_nova_act.types.invoke_act_step_request.InvokeActStepRequest",
+        ) -> dict[str, Any]:
+            import capo_nova_act.types.invoke_act_step_request
+
+            return capo_nova_act.types.invoke_act_step_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_nova_act.types.invoke_act_step_response.InvokeActStepResponse",
+        ) -> dict[str, Any]:
+            import capo_nova_act.types.invoke_act_step_response
+
+            return capo_nova_act.types.invoke_act_step_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeActStep",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_nova_act.types.invoke_act_step_request.InvokeActStepRequest = {
             "workflow_definition_name": workflow_definition_name,
             "workflow_run_id": workflow_run_id,
@@ -564,7 +638,16 @@ class AsyncActResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_nova_act.types.update_act_request.UpdateActRequest",
+        ) -> dict[str, Any]:
+            import capo_nova_act.types.update_act_request
+
+            return capo_nova_act.types.update_act_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAct", redact_input=_redact_input)
+        )
         input_: capo_nova_act.types.update_act_request.UpdateActRequest = {
             "workflow_definition_name": workflow_definition_name,
             "workflow_run_id": workflow_run_id,

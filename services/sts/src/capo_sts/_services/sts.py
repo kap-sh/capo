@@ -19,10 +19,12 @@ from capo_sts._auth._zapros_handler import AuthMiddleware
 from capo_sts._services._aws_config import aws_config
 from capo_sts._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -156,7 +158,9 @@ class STSClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[STSClientConfig] = None
+        self,
+        config_overrides: Optional[STSClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: STSClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -164,8 +168,10 @@ class STSClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -264,7 +270,17 @@ class STSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sts.types.assume_role_response.AssumeRoleResponse",
+        ) -> dict[str, Any]:
+            import capo_sts.types.assume_role_response
+
+            return capo_sts.types.assume_role_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AssumeRole", redact_output=_redact_output),
+        )
         input_: capo_sts.types.assume_role_request.AssumeRoleRequest = {
             "role_arn": role_arn,
             "role_session_name": role_session_name,
@@ -359,7 +375,30 @@ class STSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sts.types.assume_role_with_saml_request.AssumeRoleWithSAMLRequest",
+        ) -> dict[str, Any]:
+            import capo_sts.types.assume_role_with_saml_request
+
+            return capo_sts.types.assume_role_with_saml_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_sts.types.assume_role_with_saml_response.AssumeRoleWithSAMLResponse",
+        ) -> dict[str, Any]:
+            import capo_sts.types.assume_role_with_saml_response
+
+            return capo_sts.types.assume_role_with_saml_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AssumeRoleWithSAML",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sts.types.assume_role_with_saml_request.AssumeRoleWithSAMLRequest = {
             "role_arn": role_arn,
             "principal_arn": principal_arn,
@@ -444,7 +483,36 @@ class STSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sts.types.assume_role_with_web_identity_request.AssumeRoleWithWebIdentityRequest",
+        ) -> dict[str, Any]:
+            import capo_sts.types.assume_role_with_web_identity_request
+
+            return (
+                capo_sts.types.assume_role_with_web_identity_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_sts.types.assume_role_with_web_identity_response.AssumeRoleWithWebIdentityResponse",
+        ) -> dict[str, Any]:
+            import capo_sts.types.assume_role_with_web_identity_response
+
+            return (
+                capo_sts.types.assume_role_with_web_identity_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AssumeRoleWithWebIdentity",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sts.types.assume_role_with_web_identity_request.AssumeRoleWithWebIdentityRequest = {
             "role_arn": role_arn,
             "role_session_name": role_session_name,
@@ -515,7 +583,17 @@ class STSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sts.types.assume_root_response.AssumeRootResponse",
+        ) -> dict[str, Any]:
+            import capo_sts.types.assume_root_response
+
+            return capo_sts.types.assume_root_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AssumeRoot", redact_output=_redact_output),
+        )
         input_: capo_sts.types.assume_root_request.AssumeRootRequest = {
             "target_principal": target_principal,
             "task_policy_arn": task_policy_arn,
@@ -568,7 +646,9 @@ class STSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DecodeAuthorizationMessage")
+        )
         input_: capo_sts.types.decode_authorization_message_request.DecodeAuthorizationMessageRequest = {
             "encoded_message": encoded_message
         }
@@ -610,7 +690,9 @@ class STSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessKeyInfo")
+        )
         input_: capo_sts.types.get_access_key_info_request.GetAccessKeyInfoRequest = {
             "access_key_id": access_key_id
         }
@@ -660,7 +742,9 @@ class STSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCallerIdentity")
+        )
         input_: capo_sts.types.get_caller_identity_request.GetCallerIdentityRequest = {}
 
         response = execute_pipeline(
@@ -703,7 +787,32 @@ class STSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sts.types.get_delegated_access_token_request.GetDelegatedAccessTokenRequest",
+        ) -> dict[str, Any]:
+            import capo_sts.types.get_delegated_access_token_request
+
+            return capo_sts.types.get_delegated_access_token_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sts.types.get_delegated_access_token_response.GetDelegatedAccessTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_sts.types.get_delegated_access_token_response
+
+            return capo_sts.types.get_delegated_access_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetDelegatedAccessToken",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sts.types.get_delegated_access_token_request.GetDelegatedAccessTokenRequest = {
             "trade_in_token": trade_in_token
         }
@@ -770,7 +879,17 @@ class STSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sts.types.get_federation_token_response.GetFederationTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_sts.types.get_federation_token_response
+
+            return capo_sts.types.get_federation_token_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetFederationToken", redact_output=_redact_output),
+        )
         input_: capo_sts.types.get_federation_token_request.GetFederationTokenRequest = {
             "name": name
         }
@@ -839,7 +958,17 @@ class STSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sts.types.get_session_token_response.GetSessionTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_sts.types.get_session_token_response
+
+            return capo_sts.types.get_session_token_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSessionToken", redact_output=_redact_output),
+        )
         input_: capo_sts.types.get_session_token_request.GetSessionTokenRequest = {}
         if duration_seconds is not None:
             input_["duration_seconds"] = duration_seconds
@@ -898,7 +1027,19 @@ class STSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sts.types.get_web_identity_token_response.GetWebIdentityTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_sts.types.get_web_identity_token_response
+
+            return capo_sts.types.get_web_identity_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetWebIdentityToken", redact_output=_redact_output),
+        )
         input_: capo_sts.types.get_web_identity_token_request.GetWebIdentityTokenRequest = {
             "audience": audience,
             "signing_algorithm": signing_algorithm,

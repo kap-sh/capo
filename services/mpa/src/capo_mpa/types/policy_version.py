@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mpa#PolicyVersion``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -124,4 +124,11 @@ def deserialize_json(data: dict) -> PolicyVersion:
         out["document"] = data["Document"]
     else:
         raise DeserializationError("PolicyVersion.document required")
+    return out
+
+
+def redact_sensitive(value: PolicyVersion) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "document" in value:
+        out["document"] = "*** Sensitive Data Redacted ***"
     return out

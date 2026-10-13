@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#FlowTraceNodeOutputFields``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.flow_trace_node_output_field
@@ -37,3 +37,7 @@ def deserialize_json(data: list) -> FlowTraceNodeOutputFields:
             )
         )
     return out
+
+
+def redact_sensitive(value: FlowTraceNodeOutputFields) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

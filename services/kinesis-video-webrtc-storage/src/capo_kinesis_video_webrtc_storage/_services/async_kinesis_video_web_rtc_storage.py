@@ -22,7 +22,9 @@ from capo_kinesis_video_webrtc_storage._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -108,6 +110,7 @@ class AsyncKinesisVideoWebRTCStorageClient:
     def operation_options(
         self,
         config_overrides: Optional[AsyncKinesisVideoWebRTCStorageClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncKinesisVideoWebRTCStorageClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -115,8 +118,10 @@ class AsyncKinesisVideoWebRTCStorageClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -167,7 +172,9 @@ class AsyncKinesisVideoWebRTCStorageClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("JoinStorageSession")
+        )
         input_: capo_kinesis_video_webrtc_storage.types.join_storage_session_input.JoinStorageSessionInput = {
             "channel_arn": channel_arn
         }
@@ -214,7 +221,9 @@ class AsyncKinesisVideoWebRTCStorageClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("JoinStorageSessionAsViewer")
+        )
         input_: capo_kinesis_video_webrtc_storage.types.join_storage_session_as_viewer_input.JoinStorageSessionAsViewerInput = {
             "channel_arn": channel_arn,
             "client_id": client_id,

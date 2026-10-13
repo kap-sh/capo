@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#MessageInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -32,4 +32,13 @@ def deserialize_json(data: dict) -> MessageInput:
         out["value"] = capo_qconnect.types.message_data.deserialize_json(data["value"])
     else:
         raise DeserializationError("MessageInput.value required")
+    return out
+
+
+def redact_sensitive(value: MessageInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        import capo_qconnect.types.message_data
+
+        out["value"] = capo_qconnect.types.message_data.redact_sensitive(value["value"])
     return out

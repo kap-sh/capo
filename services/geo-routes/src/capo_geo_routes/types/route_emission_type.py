@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteEmissionType``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -36,4 +36,13 @@ def deserialize_json(data: dict) -> RouteEmissionType:
         out["type"] = data["Type"]
     else:
         raise DeserializationError("RouteEmissionType.type required")
+    return out
+
+
+def redact_sensitive(value: RouteEmissionType) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "co2_emission_class" in value:
+        out["co2_emission_class"] = "*** Sensitive Data Redacted ***"
+    if "type" in value:
+        out["type"] = "*** Sensitive Data Redacted ***"
     return out

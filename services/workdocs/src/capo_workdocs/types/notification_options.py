@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#NotificationOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -33,4 +33,11 @@ def deserialize_json(data: dict) -> NotificationOptions:
         out["send_email"] = False
     if data.get("EmailMessage") is not None:
         out["email_message"] = data["EmailMessage"]
+    return out
+
+
+def redact_sensitive(value: NotificationOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "email_message" in value:
+        out["email_message"] = "*** Sensitive Data Redacted ***"
     return out

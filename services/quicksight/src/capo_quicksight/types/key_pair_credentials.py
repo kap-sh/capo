@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#KeyPairCredentials``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,13 @@ def deserialize_json(data: dict) -> KeyPairCredentials:
         raise DeserializationError("KeyPairCredentials.private_key required")
     if data.get("PrivateKeyPassphrase") is not None:
         out["private_key_passphrase"] = data["PrivateKeyPassphrase"]
+    return out
+
+
+def redact_sensitive(value: KeyPairCredentials) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "private_key" in value:
+        out["private_key"] = "*** Sensitive Data Redacted ***"
+    if "private_key_passphrase" in value:
+        out["private_key_passphrase"] = "*** Sensitive Data Redacted ***"
     return out

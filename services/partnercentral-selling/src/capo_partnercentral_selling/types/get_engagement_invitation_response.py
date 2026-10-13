@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#GetEngagementInvitationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -259,6 +259,43 @@ def deserialize_aws_json_1_0(data: dict) -> GetEngagementInvitationResponse:
         out["enrichment_context"] = (
             capo_partnercentral_selling.types.enrichment_context.deserialize_aws_json_1_0(
                 data["EnrichmentContext"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GetEngagementInvitationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sender_aws_account_id" in value:
+        out["sender_aws_account_id"] = "*** Sensitive Data Redacted ***"
+    if "receiver" in value:
+        import capo_partnercentral_selling.types.receiver
+
+        out["receiver"] = capo_partnercentral_selling.types.receiver.redact_sensitive(
+            value["receiver"]
+        )
+    if "payload" in value:
+        import capo_partnercentral_selling.types.payload
+
+        out["payload"] = capo_partnercentral_selling.types.payload.redact_sensitive(
+            value["payload"]
+        )
+    if "invitation_message" in value:
+        out["invitation_message"] = "*** Sensitive Data Redacted ***"
+    if "existing_members" in value:
+        import capo_partnercentral_selling.types.engagement_member_summaries
+
+        out["existing_members"] = (
+            capo_partnercentral_selling.types.engagement_member_summaries.redact_sensitive(
+                value["existing_members"]
+            )
+        )
+    if "enrichment_context" in value:
+        import capo_partnercentral_selling.types.enrichment_context
+
+        out["enrichment_context"] = (
+            capo_partnercentral_selling.types.enrichment_context.redact_sensitive(
+                value["enrichment_context"]
             )
         )
     return out

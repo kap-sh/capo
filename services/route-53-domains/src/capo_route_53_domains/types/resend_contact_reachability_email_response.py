@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.route53domains#ResendContactReachabilityEmailResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,4 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> ResendContactReachabilityEmailRespon
         out["email_address"] = data["emailAddress"]
     if data.get("isAlreadyVerified") is not None:
         out["is_already_verified"] = data["isAlreadyVerified"]
+    return out
+
+
+def redact_sensitive(value: ResendContactReachabilityEmailResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "email_address" in value:
+        out["email_address"] = "*** Sensitive Data Redacted ***"
     return out

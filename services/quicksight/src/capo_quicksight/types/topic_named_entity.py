@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TopicNamedEntity``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -126,4 +126,17 @@ def deserialize_json(data: dict) -> TopicNamedEntity:
         out["rank_order"] = data["RankOrder"]
     if data.get("PresentationOrder") is not None:
         out["presentation_order"] = data["PresentationOrder"]
+    return out
+
+
+def redact_sensitive(value: TopicNamedEntity) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "entity_description" in value:
+        out["entity_description"] = "*** Sensitive Data Redacted ***"
+    if "entity_synonyms" in value:
+        import capo_quicksight.types.synonyms
+
+        out["entity_synonyms"] = capo_quicksight.types.synonyms.redact_sensitive(
+            value["entity_synonyms"]
+        )
     return out

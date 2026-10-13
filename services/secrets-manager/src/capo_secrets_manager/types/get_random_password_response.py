@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.secretsmanager#GetRandomPasswordResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -27,4 +27,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetRandomPasswordResponse:
     out: GetRandomPasswordResponse = {}  # type: ignore[typeddict-item]
     if data.get("RandomPassword") is not None:
         out["random_password"] = data["RandomPassword"]
+    return out
+
+
+def redact_sensitive(value: GetRandomPasswordResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "random_password" in value:
+        out["random_password"] = "*** Sensitive Data Redacted ***"
     return out

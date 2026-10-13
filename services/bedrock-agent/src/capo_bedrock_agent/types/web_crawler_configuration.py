@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#WebCrawlerConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -103,4 +103,17 @@ def deserialize_json(data: dict) -> WebCrawlerConfiguration:
         out["user_agent"] = data["userAgent"]
     if data.get("userAgentHeader") is not None:
         out["user_agent_header"] = data["userAgentHeader"]
+    return out
+
+
+def redact_sensitive(value: WebCrawlerConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inclusion_filters" in value:
+        out["inclusion_filters"] = "*** Sensitive Data Redacted ***"
+    if "exclusion_filters" in value:
+        out["exclusion_filters"] = "*** Sensitive Data Redacted ***"
+    if "user_agent" in value:
+        out["user_agent"] = "*** Sensitive Data Redacted ***"
+    if "user_agent_header" in value:
+        out["user_agent_header"] = "*** Sensitive Data Redacted ***"
     return out

@@ -21,10 +21,12 @@ from capo_redshift._pagination import resolve_path as _resolve_path
 from capo_redshift._services._aws_config import aws_config
 from capo_redshift._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -457,7 +459,9 @@ class RedshiftClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[RedshiftClientConfig] = None
+        self,
+        config_overrides: Optional[RedshiftClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: RedshiftClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -465,8 +469,10 @@ class RedshiftClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -525,7 +531,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptReservedNodeExchange")
+        )
         input_: capo_redshift.types.accept_reserved_node_exchange_input_message.AcceptReservedNodeExchangeInputMessage = {}
         if reserved_node_id is not None:
             input_["reserved_node_id"] = reserved_node_id
@@ -589,7 +597,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddPartner")
+        )
         input_: capo_redshift.types.partner_integration_input_message.PartnerIntegrationInputMessage = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -649,7 +659,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateDataShareConsumer")
+        )
         input_: capo_redshift.types.associate_data_share_consumer_message.AssociateDataShareConsumerMessage = {}
         if data_share_arn is not None:
             input_["data_share_arn"] = data_share_arn
@@ -713,7 +725,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AuthorizeClusterSecurityGroupIngress")
+        )
         input_: capo_redshift.types.authorize_cluster_security_group_ingress_message.AuthorizeClusterSecurityGroupIngressMessage = {}
         if cluster_security_group_name is not None:
             input_["cluster_security_group_name"] = cluster_security_group_name
@@ -766,7 +780,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AuthorizeDataShare")
+        )
         input_: capo_redshift.types.authorize_data_share_message.AuthorizeDataShareMessage = {}
         if data_share_arn is not None:
             input_["data_share_arn"] = data_share_arn
@@ -824,7 +840,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AuthorizeEndpointAccess")
+        )
         input_: capo_redshift.types.authorize_endpoint_access_message.AuthorizeEndpointAccessMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -887,7 +905,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AuthorizeSnapshotAccess")
+        )
         input_: capo_redshift.types.authorize_snapshot_access_message.AuthorizeSnapshotAccessMessage = {}
         if snapshot_identifier is not None:
             input_["snapshot_identifier"] = snapshot_identifier
@@ -938,7 +958,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteClusterSnapshots")
+        )
         input_: capo_redshift.types.batch_delete_cluster_snapshots_request.BatchDeleteClusterSnapshotsRequest = {}
         if identifiers is not None:
             input_["identifiers"] = identifiers
@@ -990,7 +1012,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchModifyClusterSnapshots")
+        )
         input_: capo_redshift.types.batch_modify_cluster_snapshots_message.BatchModifyClusterSnapshotsMessage = {}
         if snapshot_identifier_list is not None:
             input_["snapshot_identifier_list"] = snapshot_identifier_list
@@ -1042,7 +1066,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelResize")
+        )
         input_: capo_redshift.types.cancel_resize_message.CancelResizeMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -1104,7 +1130,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CopyClusterSnapshot")
+        )
         input_: capo_redshift.types.copy_cluster_snapshot_message.CopyClusterSnapshotMessage = {}
         if source_snapshot_identifier is not None:
             input_["source_snapshot_identifier"] = source_snapshot_identifier
@@ -1165,7 +1193,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAuthenticationProfile")
+        )
         input_: capo_redshift.types.create_authentication_profile_message.CreateAuthenticationProfileMessage = {}
         if authentication_profile_name is not None:
             input_["authentication_profile_name"] = authentication_profile_name
@@ -1364,7 +1394,28 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_redshift.types.create_cluster_message.CreateClusterMessage",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.create_cluster_message
+
+            return capo_redshift.types.create_cluster_message.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_redshift.types.create_cluster_result.CreateClusterResult",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.create_cluster_result
+
+            return capo_redshift.types.create_cluster_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateCluster",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_redshift.types.create_cluster_message.CreateClusterMessage = {}
         if db_name is not None:
             input_["db_name"] = db_name
@@ -1506,7 +1557,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateClusterParameterGroup")
+        )
         input_: capo_redshift.types.create_cluster_parameter_group_message.CreateClusterParameterGroupMessage = {}
         if parameter_group_name is not None:
             input_["parameter_group_name"] = parameter_group_name
@@ -1564,7 +1617,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateClusterSecurityGroup")
+        )
         input_: capo_redshift.types.create_cluster_security_group_message.CreateClusterSecurityGroupMessage = {}
         if cluster_security_group_name is not None:
             input_["cluster_security_group_name"] = cluster_security_group_name
@@ -1627,7 +1682,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateClusterSnapshot")
+        )
         input_: capo_redshift.types.create_cluster_snapshot_message.CreateClusterSnapshotMessage = {}
         if snapshot_identifier is not None:
             input_["snapshot_identifier"] = snapshot_identifier
@@ -1693,7 +1750,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateClusterSubnetGroup")
+        )
         input_: capo_redshift.types.create_cluster_subnet_group_message.CreateClusterSubnetGroupMessage = {}
         if cluster_subnet_group_name is not None:
             input_["cluster_subnet_group_name"] = cluster_subnet_group_name
@@ -1752,7 +1811,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCustomDomainAssociation")
+        )
         input_: capo_redshift.types.create_custom_domain_association_message.CreateCustomDomainAssociationMessage = {}
         if custom_domain_name is not None:
             input_["custom_domain_name"] = custom_domain_name
@@ -1816,7 +1877,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEndpointAccess")
+        )
         input_: capo_redshift.types.create_endpoint_access_message.CreateEndpointAccessMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -1897,7 +1960,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEventSubscription")
+        )
         input_: capo_redshift.types.create_event_subscription_message.CreateEventSubscriptionMessage = {}
         if subscription_name is not None:
             input_["subscription_name"] = subscription_name
@@ -1961,7 +2026,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHsmClientCertificate")
+        )
         input_: capo_redshift.types.create_hsm_client_certificate_message.CreateHsmClientCertificateMessage = {}
         if hsm_client_certificate_identifier is not None:
             input_["hsm_client_certificate_identifier"] = (
@@ -2027,7 +2094,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHsmConfiguration")
+        )
         input_: capo_redshift.types.create_hsm_configuration_message.CreateHsmConfigurationMessage = {}
         if hsm_configuration_identifier is not None:
             input_["hsm_configuration_identifier"] = hsm_configuration_identifier
@@ -2106,7 +2175,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIntegration")
+        )
         input_: capo_redshift.types.create_integration_message.CreateIntegrationMessage = {}
         if source_arn is not None:
             input_["source_arn"] = source_arn
@@ -2174,7 +2245,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateQev2IdcApplication")
+        )
         input_: capo_redshift.types.create_qev2_idc_application_message.CreateQev2IdcApplicationMessage = {}
         if idc_instance_arn is not None:
             input_["idc_instance_arn"] = idc_instance_arn
@@ -2259,7 +2332,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRedshiftIdcApplication")
+        )
         input_: capo_redshift.types.create_redshift_idc_application_message.CreateRedshiftIdcApplicationMessage = {}
         if idc_instance_arn is not None:
             input_["idc_instance_arn"] = idc_instance_arn
@@ -2343,7 +2418,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateScheduledAction")
+        )
         input_: capo_redshift.types.create_scheduled_action_message.CreateScheduledActionMessage = {}
         if scheduled_action_name is not None:
             input_["scheduled_action_name"] = scheduled_action_name
@@ -2409,7 +2486,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSnapshotCopyGrant")
+        )
         input_: capo_redshift.types.create_snapshot_copy_grant_message.CreateSnapshotCopyGrantMessage = {}
         if snapshot_copy_grant_name is not None:
             input_["snapshot_copy_grant_name"] = snapshot_copy_grant_name
@@ -2477,7 +2556,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSnapshotSchedule")
+        )
         input_: capo_redshift.types.create_snapshot_schedule_message.CreateSnapshotScheduleMessage = {}
         if schedule_definitions is not None:
             input_["schedule_definitions"] = schedule_definitions
@@ -2533,7 +2614,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTags")
+        )
         input_: capo_redshift.types.create_tags_message.CreateTagsMessage = {}
         if resource_name is not None:
             input_["resource_name"] = resource_name
@@ -2602,7 +2685,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUsageLimit")
+        )
         input_: capo_redshift.types.create_usage_limit_message.CreateUsageLimitMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -2657,7 +2742,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeauthorizeDataShare")
+        )
         input_: capo_redshift.types.deauthorize_data_share_message.DeauthorizeDataShareMessage = {}
         if data_share_arn is not None:
             input_["data_share_arn"] = data_share_arn
@@ -2705,7 +2792,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAuthenticationProfile")
+        )
         input_: capo_redshift.types.delete_authentication_profile_message.DeleteAuthenticationProfileMessage = {}
         if authentication_profile_name is not None:
             input_["authentication_profile_name"] = authentication_profile_name
@@ -2764,7 +2853,17 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift.types.delete_cluster_result.DeleteClusterResult",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.delete_cluster_result
+
+            return capo_redshift.types.delete_cluster_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteCluster", redact_output=_redact_output),
+        )
         input_: capo_redshift.types.delete_cluster_message.DeleteClusterMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -2816,7 +2915,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteClusterParameterGroup")
+        )
         input_: capo_redshift.types.delete_cluster_parameter_group_message.DeleteClusterParameterGroupMessage = {}
         if parameter_group_name is not None:
             input_["parameter_group_name"] = parameter_group_name
@@ -2860,7 +2961,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteClusterSecurityGroup")
+        )
         input_: capo_redshift.types.delete_cluster_security_group_message.DeleteClusterSecurityGroupMessage = {}
         if cluster_security_group_name is not None:
             input_["cluster_security_group_name"] = cluster_security_group_name
@@ -2910,7 +3013,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteClusterSnapshot")
+        )
         input_: capo_redshift.types.delete_cluster_snapshot_message.DeleteClusterSnapshotMessage = {}
         if snapshot_identifier is not None:
             input_["snapshot_identifier"] = snapshot_identifier
@@ -2955,7 +3060,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteClusterSubnetGroup")
+        )
         input_: capo_redshift.types.delete_cluster_subnet_group_message.DeleteClusterSubnetGroupMessage = {}
         if cluster_subnet_group_name is not None:
             input_["cluster_subnet_group_name"] = cluster_subnet_group_name
@@ -3003,7 +3110,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCustomDomainAssociation")
+        )
         input_: capo_redshift.types.delete_custom_domain_association_message.DeleteCustomDomainAssociationMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -3050,7 +3159,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEndpointAccess")
+        )
         input_: capo_redshift.types.delete_endpoint_access_message.DeleteEndpointAccessMessage = {}
         if endpoint_name is not None:
             input_["endpoint_name"] = endpoint_name
@@ -3092,7 +3203,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEventSubscription")
+        )
         input_: capo_redshift.types.delete_event_subscription_message.DeleteEventSubscriptionMessage = {}
         if subscription_name is not None:
             input_["subscription_name"] = subscription_name
@@ -3136,7 +3249,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteHsmClientCertificate")
+        )
         input_: capo_redshift.types.delete_hsm_client_certificate_message.DeleteHsmClientCertificateMessage = {}
         if hsm_client_certificate_identifier is not None:
             input_["hsm_client_certificate_identifier"] = (
@@ -3182,7 +3297,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteHsmConfiguration")
+        )
         input_: capo_redshift.types.delete_hsm_configuration_message.DeleteHsmConfigurationMessage = {}
         if hsm_configuration_identifier is not None:
             input_["hsm_configuration_identifier"] = hsm_configuration_identifier
@@ -3228,7 +3345,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIntegration")
+        )
         input_: capo_redshift.types.delete_integration_message.DeleteIntegrationMessage = {}
         if integration_arn is not None:
             input_["integration_arn"] = integration_arn
@@ -3288,7 +3407,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePartner")
+        )
         input_: capo_redshift.types.partner_integration_input_message.PartnerIntegrationInputMessage = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -3338,7 +3459,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQev2IdcApplication")
+        )
         input_: capo_redshift.types.delete_qev2_idc_application_message.DeleteQev2IdcApplicationMessage = {}
         if qev2_idc_application_arn is not None:
             input_["qev2_idc_application_arn"] = qev2_idc_application_arn
@@ -3384,7 +3507,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRedshiftIdcApplication")
+        )
         input_: capo_redshift.types.delete_redshift_idc_application_message.DeleteRedshiftIdcApplicationMessage = {}
         if redshift_idc_application_arn is not None:
             input_["redshift_idc_application_arn"] = redshift_idc_application_arn
@@ -3426,7 +3551,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_redshift.types.delete_resource_policy_message.DeleteResourcePolicyMessage = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -3468,7 +3595,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteScheduledAction")
+        )
         input_: capo_redshift.types.delete_scheduled_action_message.DeleteScheduledActionMessage = {}
         if scheduled_action_name is not None:
             input_["scheduled_action_name"] = scheduled_action_name
@@ -3510,7 +3639,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSnapshotCopyGrant")
+        )
         input_: capo_redshift.types.delete_snapshot_copy_grant_message.DeleteSnapshotCopyGrantMessage = {}
         if snapshot_copy_grant_name is not None:
             input_["snapshot_copy_grant_name"] = snapshot_copy_grant_name
@@ -3552,7 +3683,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSnapshotSchedule")
+        )
         input_: capo_redshift.types.delete_snapshot_schedule_message.DeleteSnapshotScheduleMessage = {}
         if schedule_identifier is not None:
             input_["schedule_identifier"] = schedule_identifier
@@ -3596,7 +3729,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTags")
+        )
         input_: capo_redshift.types.delete_tags_message.DeleteTagsMessage = {}
         if resource_name is not None:
             input_["resource_name"] = resource_name
@@ -3640,7 +3775,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUsageLimit")
+        )
         input_: capo_redshift.types.delete_usage_limit_message.DeleteUsageLimitMessage = {}
         if usage_limit_id is not None:
             input_["usage_limit_id"] = usage_limit_id
@@ -3691,7 +3828,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterNamespace")
+        )
         input_: capo_redshift.types.deregister_namespace_input_message.DeregisterNamespaceInputMessage = {}
         if namespace_identifier is not None:
             input_["namespace_identifier"] = namespace_identifier
@@ -3737,7 +3876,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountAttributes")
+        )
         input_: capo_redshift.types.describe_account_attributes_message.DescribeAccountAttributesMessage = {}
         if attribute_names is not None:
             input_["attribute_names"] = attribute_names
@@ -3783,7 +3924,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAuthenticationProfiles")
+        )
         input_: capo_redshift.types.describe_authentication_profiles_message.DescribeAuthenticationProfilesMessage = {}
         if authentication_profile_name is not None:
             input_["authentication_profile_name"] = authentication_profile_name
@@ -3833,7 +3976,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClusterDbRevisions")
+        )
         input_: capo_redshift.types.describe_cluster_db_revisions_message.DescribeClusterDbRevisionsMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -3916,7 +4061,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClusterParameterGroups")
+        )
         input_: capo_redshift.types.describe_cluster_parameter_groups_message.DescribeClusterParameterGroupsMessage = {}
         if parameter_group_name is not None:
             input_["parameter_group_name"] = parameter_group_name
@@ -4004,7 +4151,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClusterParameters")
+        )
         input_: capo_redshift.types.describe_cluster_parameters_message.DescribeClusterParametersMessage = {}
         if parameter_group_name is not None:
             input_["parameter_group_name"] = parameter_group_name
@@ -4089,7 +4238,17 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift.types.clusters_message.ClustersMessage",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.clusters_message
+
+            return capo_redshift.types.clusters_message.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeClusters", redact_output=_redact_output),
+        )
         input_: capo_redshift.types.describe_clusters_message.DescribeClustersMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -4184,7 +4343,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClusterSecurityGroups")
+        )
         input_: capo_redshift.types.describe_cluster_security_groups_message.DescribeClusterSecurityGroupsMessage = {}
         if cluster_security_group_name is not None:
             input_["cluster_security_group_name"] = cluster_security_group_name
@@ -4297,7 +4458,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClusterSnapshots")
+        )
         input_: capo_redshift.types.describe_cluster_snapshots_message.DescribeClusterSnapshotsMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -4424,7 +4587,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClusterSubnetGroups")
+        )
         input_: capo_redshift.types.describe_cluster_subnet_groups_message.DescribeClusterSubnetGroupsMessage = {}
         if cluster_subnet_group_name is not None:
             input_["cluster_subnet_group_name"] = cluster_subnet_group_name
@@ -4511,7 +4676,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClusterTracks")
+        )
         input_: capo_redshift.types.describe_cluster_tracks_message.DescribeClusterTracksMessage = {}
         if maintenance_track_name is not None:
             input_["maintenance_track_name"] = maintenance_track_name
@@ -4592,7 +4759,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClusterVersions")
+        )
         input_: capo_redshift.types.describe_cluster_versions_message.DescribeClusterVersionsMessage = {}
         if cluster_version is not None:
             input_["cluster_version"] = cluster_version
@@ -4683,7 +4852,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCustomDomainAssociations")
+        )
         input_: capo_redshift.types.describe_custom_domain_associations_message.DescribeCustomDomainAssociationsMessage = {}
         if custom_domain_name is not None:
             input_["custom_domain_name"] = custom_domain_name
@@ -4769,7 +4940,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataShares")
+        )
         input_: capo_redshift.types.describe_data_shares_message.DescribeDataSharesMessage = {}
         if data_share_arn is not None:
             input_["data_share_arn"] = data_share_arn
@@ -4851,7 +5024,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataSharesForConsumer")
+        )
         input_: capo_redshift.types.describe_data_shares_for_consumer_message.DescribeDataSharesForConsumerMessage = {}
         if consumer_arn is not None:
             input_["consumer_arn"] = consumer_arn
@@ -4939,7 +5114,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataSharesForProducer")
+        )
         input_: capo_redshift.types.describe_data_shares_for_producer_message.DescribeDataSharesForProducerMessage = {}
         if producer_arn is not None:
             input_["producer_arn"] = producer_arn
@@ -5022,7 +5199,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDefaultClusterParameters")
+        )
         input_: capo_redshift.types.describe_default_cluster_parameters_message.DescribeDefaultClusterParametersMessage = {}
         if parameter_group_family is not None:
             input_["parameter_group_family"] = parameter_group_family
@@ -5110,7 +5289,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEndpointAccess")
+        )
         input_: capo_redshift.types.describe_endpoint_access_message.DescribeEndpointAccessMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -5207,7 +5388,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEndpointAuthorization")
+        )
         input_: capo_redshift.types.describe_endpoint_authorization_message.DescribeEndpointAuthorizationMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -5288,7 +5471,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEventCategories")
+        )
         input_: capo_redshift.types.describe_event_categories_message.DescribeEventCategoriesMessage = {}
         if source_type is not None:
             input_["source_type"] = source_type
@@ -5344,7 +5529,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEvents")
+        )
         input_: capo_redshift.types.describe_events_message.DescribeEventsMessage = {}
         if source_identifier is not None:
             input_["source_identifier"] = source_identifier
@@ -5445,7 +5632,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEventSubscriptions")
+        )
         input_: capo_redshift.types.describe_event_subscriptions_message.DescribeEventSubscriptionsMessage = {}
         if subscription_name is not None:
             input_["subscription_name"] = subscription_name
@@ -5540,7 +5729,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeHsmClientCertificates")
+        )
         input_: capo_redshift.types.describe_hsm_client_certificates_message.DescribeHsmClientCertificatesMessage = {}
         if hsm_client_certificate_identifier is not None:
             input_["hsm_client_certificate_identifier"] = (
@@ -5637,7 +5828,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeHsmConfigurations")
+        )
         input_: capo_redshift.types.describe_hsm_configurations_message.DescribeHsmConfigurationsMessage = {}
         if hsm_configuration_identifier is not None:
             input_["hsm_configuration_identifier"] = hsm_configuration_identifier
@@ -5731,7 +5924,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInboundIntegrations")
+        )
         input_: capo_redshift.types.describe_inbound_integrations_message.DescribeInboundIntegrationsMessage = {}
         if integration_arn is not None:
             input_["integration_arn"] = integration_arn
@@ -5822,7 +6017,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeIntegrations")
+        )
         input_: capo_redshift.types.describe_integrations_message.DescribeIntegrationsMessage = {}
         if integration_arn is not None:
             input_["integration_arn"] = integration_arn
@@ -5901,7 +6098,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLoggingStatus")
+        )
         input_: capo_redshift.types.describe_logging_status_message.DescribeLoggingStatusMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -5966,7 +6165,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeNodeConfigurationOptions")
+        )
         input_: capo_redshift.types.describe_node_configuration_options_message.DescribeNodeConfigurationOptionsMessage = {}
         if action_type is not None:
             input_["action_type"] = action_type
@@ -6067,7 +6268,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOrderableClusterOptions")
+        )
         input_: capo_redshift.types.describe_orderable_cluster_options_message.DescribeOrderableClusterOptionsMessage = {}
         if cluster_version is not None:
             input_["cluster_version"] = cluster_version
@@ -6161,7 +6364,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePartners")
+        )
         input_: capo_redshift.types.describe_partners_input_message.DescribePartnersInputMessage = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -6219,7 +6424,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeQev2IdcApplications")
+        )
         input_: capo_redshift.types.describe_qev2_idc_applications_message.DescribeQev2IdcApplicationsMessage = {}
         if qev2_idc_application_arn is not None:
             input_["qev2_idc_application_arn"] = qev2_idc_application_arn
@@ -6302,7 +6509,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRedshiftIdcApplications")
+        )
         input_: capo_redshift.types.describe_redshift_idc_applications_message.DescribeRedshiftIdcApplicationsMessage = {}
         if redshift_idc_application_arn is not None:
             input_["redshift_idc_application_arn"] = redshift_idc_application_arn
@@ -6390,7 +6599,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReservedNodeExchangeStatus")
+        )
         input_: capo_redshift.types.describe_reserved_node_exchange_status_input_message.DescribeReservedNodeExchangeStatusInputMessage = {}
         if reserved_node_id is not None:
             input_["reserved_node_id"] = reserved_node_id
@@ -6478,7 +6689,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReservedNodeOfferings")
+        )
         input_: capo_redshift.types.describe_reserved_node_offerings_message.DescribeReservedNodeOfferingsMessage = {}
         if reserved_node_offering_id is not None:
             input_["reserved_node_offering_id"] = reserved_node_offering_id
@@ -6557,7 +6770,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReservedNodes")
+        )
         input_: capo_redshift.types.describe_reserved_nodes_message.DescribeReservedNodesMessage = {}
         if reserved_node_id is not None:
             input_["reserved_node_id"] = reserved_node_id
@@ -6631,7 +6846,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeResize")
+        )
         input_: capo_redshift.types.describe_resize_message.DescribeResizeMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -6695,7 +6912,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeScheduledActions")
+        )
         input_: capo_redshift.types.describe_scheduled_actions_message.DescribeScheduledActionsMessage = {}
         if scheduled_action_name is not None:
             input_["scheduled_action_name"] = scheduled_action_name
@@ -6802,7 +7021,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSnapshotCopyGrants")
+        )
         input_: capo_redshift.types.describe_snapshot_copy_grants_message.DescribeSnapshotCopyGrantsMessage = {}
         if snapshot_copy_grant_name is not None:
             input_["snapshot_copy_grant_name"] = snapshot_copy_grant_name
@@ -6893,7 +7114,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSnapshotSchedules")
+        )
         input_: capo_redshift.types.describe_snapshot_schedules_message.DescribeSnapshotSchedulesMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -6970,7 +7193,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStorage")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -7019,7 +7244,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTableRestoreStatus")
+        )
         input_: capo_redshift.types.describe_table_restore_status_message.DescribeTableRestoreStatusMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -7108,7 +7335,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTags")
+        )
         input_: capo_redshift.types.describe_tags_message.DescribeTagsMessage = {}
         if resource_name is not None:
             input_["resource_name"] = resource_name
@@ -7207,7 +7436,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeUsageLimits")
+        )
         input_: capo_redshift.types.describe_usage_limits_message.DescribeUsageLimitsMessage = {}
         if usage_limit_id is not None:
             input_["usage_limit_id"] = usage_limit_id
@@ -7303,7 +7534,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableLogging")
+        )
         input_: capo_redshift.types.disable_logging_message.DisableLoggingMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -7354,7 +7587,19 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift.types.disable_snapshot_copy_result.DisableSnapshotCopyResult",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.disable_snapshot_copy_result
+
+            return capo_redshift.types.disable_snapshot_copy_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisableSnapshotCopy", redact_output=_redact_output),
+        )
         input_: capo_redshift.types.disable_snapshot_copy_message.DisableSnapshotCopyMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -7404,7 +7649,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateDataShareConsumer")
+        )
         input_: capo_redshift.types.disassociate_data_share_consumer_message.DisassociateDataShareConsumerMessage = {}
         if data_share_arn is not None:
             input_["data_share_arn"] = data_share_arn
@@ -7473,7 +7720,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableLogging")
+        )
         input_: capo_redshift.types.enable_logging_message.EnableLoggingMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -7550,7 +7799,19 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift.types.enable_snapshot_copy_result.EnableSnapshotCopyResult",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.enable_snapshot_copy_result
+
+            return capo_redshift.types.enable_snapshot_copy_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("EnableSnapshotCopy", redact_output=_redact_output),
+        )
         input_: capo_redshift.types.enable_snapshot_copy_message.EnableSnapshotCopyMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -7606,7 +7867,19 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift.types.failover_primary_compute_result.FailoverPrimaryComputeResult",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.failover_primary_compute_result
+
+            return capo_redshift.types.failover_primary_compute_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("FailoverPrimaryCompute", redact_output=_redact_output),
+        )
         input_: capo_redshift.types.failover_primary_compute_input_message.FailoverPrimaryComputeInputMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -7666,7 +7939,17 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift.types.cluster_credentials.ClusterCredentials",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.cluster_credentials
+
+            return capo_redshift.types.cluster_credentials.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetClusterCredentials", redact_output=_redact_output),
+        )
         input_: capo_redshift.types.get_cluster_credentials_message.GetClusterCredentialsMessage = {}
         if db_user is not None:
             input_["db_user"] = db_user
@@ -7730,7 +8013,21 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift.types.cluster_extended_credentials.ClusterExtendedCredentials",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.cluster_extended_credentials
+
+            return capo_redshift.types.cluster_extended_credentials.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetClusterCredentialsWithIAM", redact_output=_redact_output
+            ),
+        )
         input_: capo_redshift.types.get_cluster_credentials_with_iam_message.GetClusterCredentialsWithIAMMessage = {}
         if db_name is not None:
             input_["db_name"] = db_name
@@ -7784,7 +8081,21 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift.types.get_identity_center_auth_token_response.GetIdentityCenterAuthTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.get_identity_center_auth_token_response
+
+            return capo_redshift.types.get_identity_center_auth_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetIdentityCenterAuthToken", redact_output=_redact_output
+            ),
+        )
         input_: capo_redshift.types.get_identity_center_auth_token_request.GetIdentityCenterAuthTokenRequest = {}
         if cluster_ids is not None:
             input_["cluster_ids"] = cluster_ids
@@ -7846,7 +8157,10 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetReservedNodeExchangeConfigurationOptions"),
+        )
         input_: capo_redshift.types.get_reserved_node_exchange_configuration_options_input_message.GetReservedNodeExchangeConfigurationOptionsInputMessage = {}
         if action_type is not None:
             input_["action_type"] = action_type
@@ -7941,7 +8255,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReservedNodeExchangeOfferings")
+        )
         input_: capo_redshift.types.get_reserved_node_exchange_offerings_input_message.GetReservedNodeExchangeOfferingsInputMessage = {}
         if reserved_node_id is not None:
             input_["reserved_node_id"] = reserved_node_id
@@ -8015,7 +8331,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_redshift.types.get_resource_policy_message.GetResourcePolicyMessage = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -8067,7 +8385,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecommendations")
+        )
         input_: capo_redshift.types.list_recommendations_message.ListRecommendationsMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -8149,7 +8469,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyAquaConfiguration")
+        )
         input_: capo_redshift.types.modify_aqua_input_message.ModifyAquaInputMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -8202,7 +8524,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyAuthenticationProfile")
+        )
         input_: capo_redshift.types.modify_authentication_profile_message.ModifyAuthenticationProfileMessage = {}
         if authentication_profile_name is not None:
             input_["authentication_profile_name"] = authentication_profile_name
@@ -8364,7 +8688,28 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_redshift.types.modify_cluster_message.ModifyClusterMessage",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.modify_cluster_message
+
+            return capo_redshift.types.modify_cluster_message.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_redshift.types.modify_cluster_result.ModifyClusterResult",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.modify_cluster_result
+
+            return capo_redshift.types.modify_cluster_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ModifyCluster",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_redshift.types.modify_cluster_message.ModifyClusterMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -8480,7 +8825,21 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift.types.modify_cluster_db_revision_result.ModifyClusterDbRevisionResult",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.modify_cluster_db_revision_result
+
+            return (
+                capo_redshift.types.modify_cluster_db_revision_result.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ModifyClusterDbRevision", redact_output=_redact_output),
+        )
         input_: capo_redshift.types.modify_cluster_db_revision_message.ModifyClusterDbRevisionMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -8536,7 +8895,19 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift.types.modify_cluster_iam_roles_result.ModifyClusterIamRolesResult",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.modify_cluster_iam_roles_result
+
+            return capo_redshift.types.modify_cluster_iam_roles_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ModifyClusterIamRoles", redact_output=_redact_output),
+        )
         input_: capo_redshift.types.modify_cluster_iam_roles_message.ModifyClusterIamRolesMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -8606,7 +8977,21 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift.types.modify_cluster_maintenance_result.ModifyClusterMaintenanceResult",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.modify_cluster_maintenance_result
+
+            return (
+                capo_redshift.types.modify_cluster_maintenance_result.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ModifyClusterMaintenance", redact_output=_redact_output),
+        )
         input_: capo_redshift.types.modify_cluster_maintenance_message.ModifyClusterMaintenanceMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -8664,7 +9049,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyClusterParameterGroup")
+        )
         input_: capo_redshift.types.modify_cluster_parameter_group_message.ModifyClusterParameterGroupMessage = {}
         if parameter_group_name is not None:
             input_["parameter_group_name"] = parameter_group_name
@@ -8719,7 +9106,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyClusterSnapshot")
+        )
         input_: capo_redshift.types.modify_cluster_snapshot_message.ModifyClusterSnapshotMessage = {}
         if snapshot_identifier is not None:
             input_["snapshot_identifier"] = snapshot_identifier
@@ -8774,7 +9163,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyClusterSnapshotSchedule")
+        )
         input_: capo_redshift.types.modify_cluster_snapshot_schedule_message.ModifyClusterSnapshotScheduleMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -8832,7 +9223,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyClusterSubnetGroup")
+        )
         input_: capo_redshift.types.modify_cluster_subnet_group_message.ModifyClusterSubnetGroupMessage = {}
         if cluster_subnet_group_name is not None:
             input_["cluster_subnet_group_name"] = cluster_subnet_group_name
@@ -8890,7 +9283,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyCustomDomainAssociation")
+        )
         input_: capo_redshift.types.modify_custom_domain_association_message.ModifyCustomDomainAssociationMessage = {}
         if custom_domain_name is not None:
             input_["custom_domain_name"] = custom_domain_name
@@ -8944,7 +9339,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyEndpointAccess")
+        )
         input_: capo_redshift.types.modify_endpoint_access_message.ModifyEndpointAccessMessage = {}
         if endpoint_name is not None:
             input_["endpoint_name"] = endpoint_name
@@ -9015,7 +9412,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyEventSubscription")
+        )
         input_: capo_redshift.types.modify_event_subscription_message.ModifyEventSubscriptionMessage = {}
         if subscription_name is not None:
             input_["subscription_name"] = subscription_name
@@ -9082,7 +9481,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyIntegration")
+        )
         input_: capo_redshift.types.modify_integration_message.ModifyIntegrationMessage = {}
         if integration_arn is not None:
             input_["integration_arn"] = integration_arn
@@ -9155,7 +9556,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyLakehouseConfiguration")
+        )
         input_: capo_redshift.types.modify_lakehouse_configuration_message.ModifyLakehouseConfigurationMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -9215,7 +9618,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyQev2IdcApplication")
+        )
         input_: capo_redshift.types.modify_qev2_idc_application_message.ModifyQev2IdcApplicationMessage = {}
         if qev2_idc_application_arn is not None:
             input_["qev2_idc_application_arn"] = qev2_idc_application_arn
@@ -9283,7 +9688,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyRedshiftIdcApplication")
+        )
         input_: capo_redshift.types.modify_redshift_idc_application_message.ModifyRedshiftIdcApplicationMessage = {}
         if redshift_idc_application_arn is not None:
             input_["redshift_idc_application_arn"] = redshift_idc_application_arn
@@ -9358,7 +9765,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyScheduledAction")
+        )
         input_: capo_redshift.types.modify_scheduled_action_message.ModifyScheduledActionMessage = {}
         if scheduled_action_name is not None:
             input_["scheduled_action_name"] = scheduled_action_name
@@ -9423,7 +9832,21 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift.types.modify_snapshot_copy_retention_period_result.ModifySnapshotCopyRetentionPeriodResult",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.modify_snapshot_copy_retention_period_result
+
+            return capo_redshift.types.modify_snapshot_copy_retention_period_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ModifySnapshotCopyRetentionPeriod", redact_output=_redact_output
+            ),
+        )
         input_: capo_redshift.types.modify_snapshot_copy_retention_period_message.ModifySnapshotCopyRetentionPeriodMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -9476,7 +9899,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifySnapshotSchedule")
+        )
         input_: capo_redshift.types.modify_snapshot_schedule_message.ModifySnapshotScheduleMessage = {}
         if schedule_identifier is not None:
             input_["schedule_identifier"] = schedule_identifier
@@ -9527,7 +9952,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyUsageLimit")
+        )
         input_: capo_redshift.types.modify_usage_limit_message.ModifyUsageLimitMessage = {}
         if usage_limit_id is not None:
             input_["usage_limit_id"] = usage_limit_id
@@ -9576,7 +10003,17 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift.types.pause_cluster_result.PauseClusterResult",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.pause_cluster_result
+
+            return capo_redshift.types.pause_cluster_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PauseCluster", redact_output=_redact_output),
+        )
         input_: capo_redshift.types.pause_cluster_message.PauseClusterMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -9626,7 +10063,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PurchaseReservedNodeOffering")
+        )
         input_: capo_redshift.types.purchase_reserved_node_offering_message.PurchaseReservedNodeOfferingMessage = {}
         if reserved_node_offering_id is not None:
             input_["reserved_node_offering_id"] = reserved_node_offering_id
@@ -9676,7 +10115,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_redshift.types.put_resource_policy_message.PutResourcePolicyMessage = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -9722,7 +10163,17 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift.types.reboot_cluster_result.RebootClusterResult",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.reboot_cluster_result
+
+            return capo_redshift.types.reboot_cluster_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RebootCluster", redact_output=_redact_output),
+        )
         input_: capo_redshift.types.reboot_cluster_message.RebootClusterMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -9773,7 +10224,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterNamespace")
+        )
         input_: capo_redshift.types.register_namespace_input_message.RegisterNamespaceInputMessage = {}
         if namespace_identifier is not None:
             input_["namespace_identifier"] = namespace_identifier
@@ -9816,7 +10269,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectDataShare")
+        )
         input_: capo_redshift.types.reject_data_share_message.RejectDataShareMessage = {}
         if data_share_arn is not None:
             input_["data_share_arn"] = data_share_arn
@@ -9866,7 +10321,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetClusterParameterGroup")
+        )
         input_: capo_redshift.types.reset_cluster_parameter_group_message.ResetClusterParameterGroupMessage = {}
         if parameter_group_name is not None:
             input_["parameter_group_name"] = parameter_group_name
@@ -9945,7 +10402,17 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift.types.resize_cluster_result.ResizeClusterResult",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.resize_cluster_result
+
+            return capo_redshift.types.resize_cluster_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ResizeCluster", redact_output=_redact_output),
+        )
         input_: capo_redshift.types.resize_cluster_message.ResizeClusterMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -10160,7 +10627,21 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift.types.restore_from_cluster_snapshot_result.RestoreFromClusterSnapshotResult",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.restore_from_cluster_snapshot_result
+
+            return capo_redshift.types.restore_from_cluster_snapshot_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RestoreFromClusterSnapshot", redact_output=_redact_output
+            ),
+        )
         input_: capo_redshift.types.restore_from_cluster_snapshot_message.RestoreFromClusterSnapshotMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -10313,7 +10794,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreTableFromClusterSnapshot")
+        )
         input_: capo_redshift.types.restore_table_from_cluster_snapshot_message.RestoreTableFromClusterSnapshotMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -10377,7 +10860,17 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift.types.resume_cluster_result.ResumeClusterResult",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.resume_cluster_result
+
+            return capo_redshift.types.resume_cluster_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ResumeCluster", redact_output=_redact_output),
+        )
         input_: capo_redshift.types.resume_cluster_message.ResumeClusterMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -10432,7 +10925,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokeClusterSecurityGroupIngress")
+        )
         input_: capo_redshift.types.revoke_cluster_security_group_ingress_message.RevokeClusterSecurityGroupIngressMessage = {}
         if cluster_security_group_name is not None:
             input_["cluster_security_group_name"] = cluster_security_group_name
@@ -10495,7 +10990,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokeEndpointAccess")
+        )
         input_: capo_redshift.types.revoke_endpoint_access_message.RevokeEndpointAccessMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -10557,7 +11054,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokeSnapshotAccess")
+        )
         input_: capo_redshift.types.revoke_snapshot_access_message.RevokeSnapshotAccessMessage = {}
         if snapshot_identifier is not None:
             input_["snapshot_identifier"] = snapshot_identifier
@@ -10609,7 +11108,19 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift.types.rotate_encryption_key_result.RotateEncryptionKeyResult",
+        ) -> dict[str, Any]:
+            import capo_redshift.types.rotate_encryption_key_result
+
+            return capo_redshift.types.rotate_encryption_key_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RotateEncryptionKey", redact_output=_redact_output),
+        )
         input_: capo_redshift.types.rotate_encryption_key_message.RotateEncryptionKeyMessage = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -10677,7 +11188,9 @@ class RedshiftClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePartnerStatus")
+        )
         input_: capo_redshift.types.update_partner_status_input_message.UpdatePartnerStatusInputMessage = {}
         if account_id is not None:
             input_["account_id"] = account_id

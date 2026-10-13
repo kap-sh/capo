@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#InstanceAccess``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -81,4 +81,13 @@ def deserialize_aws_json_1_1(data: dict) -> InstanceAccess:
                 data["Credentials"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: InstanceAccess) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ip_address" in value:
+        out["ip_address"] = "*** Sensitive Data Redacted ***"
+    if "credentials" in value:
+        out["credentials"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#GuardrailAutomatedReasoningFindingList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.guardrail_automated_reasoning_finding
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> GuardrailAutomatedReasoningFindingList:
             )
         )
     return out
+
+
+def redact_sensitive(value: GuardrailAutomatedReasoningFindingList) -> list[Any]:
+    import capo_bedrock_runtime.types.guardrail_automated_reasoning_finding
+
+    return [
+        capo_bedrock_runtime.types.guardrail_automated_reasoning_finding.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

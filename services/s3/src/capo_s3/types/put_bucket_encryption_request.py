@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#PutBucketEncryptionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -57,5 +57,18 @@ def deserialize_xml(el: Element) -> PutBucketEncryptionRequest:
     else:
         raise DeserializationError(
             "PutBucketEncryptionRequest.server_side_encryption_configuration required"
+        )
+    return out
+
+
+def redact_sensitive(value: PutBucketEncryptionRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "server_side_encryption_configuration" in value:
+        import capo_s3.types.server_side_encryption_configuration
+
+        out["server_side_encryption_configuration"] = (
+            capo_s3.types.server_side_encryption_configuration.redact_sensitive(
+                value["server_side_encryption_configuration"]
+            )
         )
     return out

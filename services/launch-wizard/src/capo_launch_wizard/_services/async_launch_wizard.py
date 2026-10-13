@@ -27,7 +27,9 @@ from capo_launch_wizard._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -163,7 +165,9 @@ class AsyncLaunchWizardClient:
         self.workload = AsyncWorkload(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncLaunchWizardClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncLaunchWizardClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncLaunchWizardClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -171,8 +175,10 @@ class AsyncLaunchWizardClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -229,7 +235,9 @@ class AsyncLaunchWizardClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_launch_wizard.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -282,7 +290,9 @@ class AsyncLaunchWizardClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_launch_wizard.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -336,7 +346,9 @@ class AsyncLaunchWizardClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_launch_wizard.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -402,7 +414,19 @@ class AsyncLaunchWizardClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_launch_wizard.types.create_deployment_input.CreateDeploymentInput",
+        ) -> dict[str, Any]:
+            import capo_launch_wizard.types.create_deployment_input
+
+            return capo_launch_wizard.types.create_deployment_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDeployment", redact_input=_redact_input),
+        )
         input_: capo_launch_wizard.types.create_deployment_input.CreateDeploymentInput = {
             "workload_name": workload_name,
             "deployment_pattern_name": deployment_pattern_name,
@@ -460,7 +484,19 @@ class AsyncLaunchWizardClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_launch_wizard.types.get_deployment_output.GetDeploymentOutput",
+        ) -> dict[str, Any]:
+            import capo_launch_wizard.types.get_deployment_output
+
+            return capo_launch_wizard.types.get_deployment_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDeployment", redact_output=_redact_output),
+        )
         input_: capo_launch_wizard.types.get_deployment_input.GetDeploymentInput = {
             "deployment_id": deployment_id
         }
@@ -529,7 +565,19 @@ class AsyncLaunchWizardClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_launch_wizard.types.update_deployment_input.UpdateDeploymentInput",
+        ) -> dict[str, Any]:
+            import capo_launch_wizard.types.update_deployment_input
+
+            return capo_launch_wizard.types.update_deployment_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateDeployment", redact_input=_redact_input),
+        )
         input_: capo_launch_wizard.types.update_deployment_input.UpdateDeploymentInput = {
             "deployment_id": deployment_id,
             "specifications": specifications,
@@ -590,7 +638,9 @@ class AsyncLaunchWizardClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDeployment")
+        )
         input_: capo_launch_wizard.types.delete_deployment_input.DeleteDeploymentInput = {
             "deployment_id": deployment_id
         }
@@ -648,7 +698,9 @@ class AsyncLaunchWizardClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeployments")
+        )
         input_: capo_launch_wizard.types.list_deployments_input.ListDeploymentsInput = {}
         if filters is not None:
             input_["filters"] = filters
@@ -736,7 +788,9 @@ class AsyncLaunchWizardClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeploymentEvents")
+        )
         input_: capo_launch_wizard.types.list_deployment_events_input.ListDeploymentEventsInput = {
             "deployment_id": deployment_id
         }
@@ -816,7 +870,9 @@ class AsyncLaunchWizardClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkload")
+        )
         input_: capo_launch_wizard.types.get_workload_input.GetWorkloadInput = {
             "workload_name": workload_name
         }
@@ -870,7 +926,9 @@ class AsyncLaunchWizardClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkloads")
+        )
         input_: capo_launch_wizard.types.list_workloads_input.ListWorkloadsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -948,7 +1006,9 @@ class AsyncLaunchWizardClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkloadDeploymentPattern")
+        )
         input_: capo_launch_wizard.types.get_workload_deployment_pattern_input.GetWorkloadDeploymentPatternInput = {
             "workload_name": workload_name,
             "deployment_pattern_name": deployment_pattern_name,
@@ -1006,7 +1066,9 @@ class AsyncLaunchWizardClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkloadDeploymentPatterns")
+        )
         input_: capo_launch_wizard.types.list_workload_deployment_patterns_input.ListWorkloadDeploymentPatternsInput = {
             "workload_name": workload_name
         }
@@ -1084,7 +1146,9 @@ class AsyncLaunchWizardClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeploymentPatternVersion")
+        )
         input_: capo_launch_wizard.types.get_deployment_pattern_version_input.GetDeploymentPatternVersionInput = {
             "workload_name": workload_name,
             "deployment_pattern_name": deployment_pattern_name,
@@ -1150,7 +1214,9 @@ class AsyncLaunchWizardClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeploymentPatternVersions")
+        )
         input_: capo_launch_wizard.types.list_deployment_pattern_versions_input.ListDeploymentPatternVersionsInput = {
             "workload_name": workload_name,
             "deployment_pattern_name": deployment_pattern_name,

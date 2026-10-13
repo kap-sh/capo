@@ -24,7 +24,9 @@ from capo_sso._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -118,7 +120,9 @@ class AsyncSSOClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncSSOClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncSSOClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSSOClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -126,8 +130,10 @@ class AsyncSSOClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -184,7 +190,28 @@ class AsyncSSOClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sso.types.get_role_credentials_request.GetRoleCredentialsRequest",
+        ) -> dict[str, Any]:
+            import capo_sso.types.get_role_credentials_request
+
+            return capo_sso.types.get_role_credentials_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_sso.types.get_role_credentials_response.GetRoleCredentialsResponse",
+        ) -> dict[str, Any]:
+            import capo_sso.types.get_role_credentials_response
+
+            return capo_sso.types.get_role_credentials_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetRoleCredentials",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sso.types.get_role_credentials_request.GetRoleCredentialsRequest = {
             "role_name": role_name,
             "account_id": account_id,
@@ -239,7 +266,17 @@ class AsyncSSOClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sso.types.list_account_roles_request.ListAccountRolesRequest",
+        ) -> dict[str, Any]:
+            import capo_sso.types.list_account_roles_request
+
+            return capo_sso.types.list_account_roles_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAccountRoles", redact_input=_redact_input),
+        )
         input_: capo_sso.types.list_account_roles_request.ListAccountRolesRequest = {
             "access_token": access_token,
             "account_id": account_id,
@@ -320,7 +357,17 @@ class AsyncSSOClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sso.types.list_accounts_request.ListAccountsRequest",
+        ) -> dict[str, Any]:
+            import capo_sso.types.list_accounts_request
+
+            return capo_sso.types.list_accounts_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAccounts", redact_input=_redact_input),
+        )
         input_: capo_sso.types.list_accounts_request.ListAccountsRequest = {
             "access_token": access_token
         }
@@ -391,7 +438,16 @@ class AsyncSSOClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sso.types.logout_request.LogoutRequest",
+        ) -> dict[str, Any]:
+            import capo_sso.types.logout_request
+
+            return capo_sso.types.logout_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Logout", redact_input=_redact_input)
+        )
         input_: capo_sso.types.logout_request.LogoutRequest = {
             "access_token": access_token
         }

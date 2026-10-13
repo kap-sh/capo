@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#CreateDelegationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -54,4 +54,11 @@ def deserialize_json(data: dict) -> CreateDelegationRequest:
         out["role_type"] = capo_auditmanager.types.role_type.deserialize_json(
             data["roleType"]
         )
+    return out
+
+
+def redact_sensitive(value: CreateDelegationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "comment" in value:
+        out["comment"] = "*** Sensitive Data Redacted ***"
     return out

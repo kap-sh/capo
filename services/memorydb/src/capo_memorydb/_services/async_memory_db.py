@@ -24,7 +24,9 @@ from capo_memorydb._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -236,7 +238,9 @@ class AsyncMemoryDBClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncMemoryDBClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncMemoryDBClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncMemoryDBClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -244,8 +248,10 @@ class AsyncMemoryDBClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -300,7 +306,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchUpdateCluster")
+        )
         input_: capo_memorydb.types.batch_update_cluster_request.BatchUpdateClusterRequest = {
             "cluster_names": cluster_names
         }
@@ -363,7 +371,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CopySnapshot")
+        )
         input_: capo_memorydb.types.copy_snapshot_request.CopySnapshotRequest = {
             "source_snapshot_name": source_snapshot_name,
             "target_snapshot_name": target_snapshot_name,
@@ -426,7 +436,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateACL")
+        )
         input_: capo_memorydb.types.create_acl_request.CreateACLRequest = {
             "acl_name": acl_name
         }
@@ -557,7 +569,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCluster")
+        )
         input_: capo_memorydb.types.create_cluster_request.CreateClusterRequest = {
             "cluster_name": cluster_name,
             "node_type": node_type,
@@ -676,7 +690,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMultiRegionCluster")
+        )
         input_: capo_memorydb.types.create_multi_region_cluster_request.CreateMultiRegionClusterRequest = {
             "multi_region_cluster_name_suffix": multi_region_cluster_name_suffix,
             "node_type": node_type,
@@ -749,7 +765,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateParameterGroup")
+        )
         input_: capo_memorydb.types.create_parameter_group_request.CreateParameterGroupRequest = {
             "parameter_group_name": parameter_group_name,
             "family": family,
@@ -811,7 +829,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSnapshot")
+        )
         input_: capo_memorydb.types.create_snapshot_request.CreateSnapshotRequest = {
             "cluster_name": cluster_name,
             "snapshot_name": snapshot_name,
@@ -872,7 +892,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSubnetGroup")
+        )
         input_: capo_memorydb.types.create_subnet_group_request.CreateSubnetGroupRequest = {
             "subnet_group_name": subnet_group_name,
             "subnet_ids": subnet_ids,
@@ -932,7 +954,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUser")
+        )
         input_: capo_memorydb.types.create_user_request.CreateUserRequest = {
             "user_name": user_name,
             "authentication_mode": authentication_mode,
@@ -982,7 +1006,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteACL")
+        )
         input_: capo_memorydb.types.delete_acl_request.DeleteACLRequest = {
             "acl_name": acl_name
         }
@@ -1035,7 +1061,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCluster")
+        )
         input_: capo_memorydb.types.delete_cluster_request.DeleteClusterRequest = {
             "cluster_name": cluster_name
         }
@@ -1085,7 +1113,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMultiRegionCluster")
+        )
         input_: capo_memorydb.types.delete_multi_region_cluster_request.DeleteMultiRegionClusterRequest = {
             "multi_region_cluster_name": multi_region_cluster_name
         }
@@ -1133,7 +1163,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteParameterGroup")
+        )
         input_: capo_memorydb.types.delete_parameter_group_request.DeleteParameterGroupRequest = {
             "parameter_group_name": parameter_group_name
         }
@@ -1181,7 +1213,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSnapshot")
+        )
         input_: capo_memorydb.types.delete_snapshot_request.DeleteSnapshotRequest = {
             "snapshot_name": snapshot_name
         }
@@ -1227,7 +1261,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSubnetGroup")
+        )
         input_: capo_memorydb.types.delete_subnet_group_request.DeleteSubnetGroupRequest = {
             "subnet_group_name": subnet_group_name
         }
@@ -1273,7 +1309,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUser")
+        )
         input_: capo_memorydb.types.delete_user_request.DeleteUserRequest = {
             "user_name": user_name
         }
@@ -1324,7 +1362,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeACLs")
+        )
         input_: capo_memorydb.types.describe_ac_ls_request.DescribeACLsRequest = {}
         if acl_name is not None:
             input_["acl_name"] = acl_name
@@ -1410,7 +1450,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClusters")
+        )
         input_: capo_memorydb.types.describe_clusters_request.DescribeClustersRequest = {}
         if cluster_name is not None:
             input_["cluster_name"] = cluster_name
@@ -1503,7 +1545,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEngineVersions")
+        )
         input_: capo_memorydb.types.describe_engine_versions_request.DescribeEngineVersionsRequest = {}
         if engine is not None:
             input_["engine"] = engine
@@ -1606,7 +1650,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEvents")
+        )
         input_: capo_memorydb.types.describe_events_request.DescribeEventsRequest = {}
         if source_name is not None:
             input_["source_name"] = source_name
@@ -1710,7 +1756,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMultiRegionClusters")
+        )
         input_: capo_memorydb.types.describe_multi_region_clusters_request.DescribeMultiRegionClustersRequest = {}
         if multi_region_cluster_name is not None:
             input_["multi_region_cluster_name"] = multi_region_cluster_name
@@ -1800,7 +1848,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMultiRegionParameterGroups")
+        )
         input_: capo_memorydb.types.describe_multi_region_parameter_groups_request.DescribeMultiRegionParameterGroupsRequest = {}
         if multi_region_parameter_group_name is not None:
             input_["multi_region_parameter_group_name"] = (
@@ -1861,7 +1911,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMultiRegionParameters")
+        )
         input_: capo_memorydb.types.describe_multi_region_parameters_request.DescribeMultiRegionParametersRequest = {
             "multi_region_parameter_group_name": multi_region_parameter_group_name
         }
@@ -1920,7 +1972,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeParameterGroups")
+        )
         input_: capo_memorydb.types.describe_parameter_groups_request.DescribeParameterGroupsRequest = {}
         if parameter_group_name is not None:
             input_["parameter_group_name"] = parameter_group_name
@@ -2002,7 +2056,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeParameters")
+        )
         input_: capo_memorydb.types.describe_parameters_request.DescribeParametersRequest = {
             "parameter_group_name": parameter_group_name
         }
@@ -2094,7 +2150,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReservedNodes")
+        )
         input_: capo_memorydb.types.describe_reserved_nodes_request.DescribeReservedNodesRequest = {}
         if reservation_id is not None:
             input_["reservation_id"] = reservation_id
@@ -2202,7 +2260,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReservedNodesOfferings")
+        )
         input_: capo_memorydb.types.describe_reserved_nodes_offerings_request.DescribeReservedNodesOfferingsRequest = {}
         if reserved_nodes_offering_id is not None:
             input_["reserved_nodes_offering_id"] = reserved_nodes_offering_id
@@ -2304,7 +2364,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeServiceUpdates")
+        )
         input_: capo_memorydb.types.describe_service_updates_request.DescribeServiceUpdatesRequest = {}
         if service_update_name is not None:
             input_["service_update_name"] = service_update_name
@@ -2406,7 +2468,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSnapshots")
+        )
         input_: capo_memorydb.types.describe_snapshots_request.DescribeSnapshotsRequest = {}
         if cluster_name is not None:
             input_["cluster_name"] = cluster_name
@@ -2500,7 +2564,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSubnetGroups")
+        )
         input_: capo_memorydb.types.describe_subnet_groups_request.DescribeSubnetGroupsRequest = {}
         if subnet_group_name is not None:
             input_["subnet_group_name"] = subnet_group_name
@@ -2582,7 +2648,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeUsers")
+        )
         input_: capo_memorydb.types.describe_users_request.DescribeUsersRequest = {}
         if user_name is not None:
             input_["user_name"] = user_name
@@ -2668,7 +2736,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("FailoverShard")
+        )
         input_: capo_memorydb.types.failover_shard_request.FailoverShardRequest = {
             "cluster_name": cluster_name,
             "shard_name": shard_name,
@@ -2715,7 +2785,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAllowedMultiRegionClusterUpdates")
+        )
         input_: capo_memorydb.types.list_allowed_multi_region_cluster_updates_request.ListAllowedMultiRegionClusterUpdatesRequest = {
             "multi_region_cluster_name": multi_region_cluster_name
         }
@@ -2762,7 +2834,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAllowedNodeTypeUpdates")
+        )
         input_: capo_memorydb.types.list_allowed_node_type_updates_request.ListAllowedNodeTypeUpdatesRequest = {
             "cluster_name": cluster_name
         }
@@ -2816,7 +2890,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTags")
+        )
         input_: capo_memorydb.types.list_tags_request.ListTagsRequest = {
             "resource_arn": resource_arn
         }
@@ -2874,7 +2950,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PurchaseReservedNodesOffering")
+        )
         input_: capo_memorydb.types.purchase_reserved_nodes_offering_request.PurchaseReservedNodesOfferingRequest = {
             "reserved_nodes_offering_id": reserved_nodes_offering_id
         }
@@ -2936,7 +3014,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetParameterGroup")
+        )
         input_: capo_memorydb.types.reset_parameter_group_request.ResetParameterGroupRequest = {
             "parameter_group_name": parameter_group_name
         }
@@ -2998,7 +3078,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_memorydb.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -3057,7 +3139,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_memorydb.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -3116,7 +3200,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateACL")
+        )
         input_: capo_memorydb.types.update_acl_request.UpdateACLRequest = {
             "acl_name": acl_name
         }
@@ -3217,7 +3303,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCluster")
+        )
         input_: capo_memorydb.types.update_cluster_request.UpdateClusterRequest = {
             "cluster_name": cluster_name
         }
@@ -3312,7 +3400,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMultiRegionCluster")
+        )
         input_: capo_memorydb.types.update_multi_region_cluster_request.UpdateMultiRegionClusterRequest = {
             "multi_region_cluster_name": multi_region_cluster_name
         }
@@ -3376,7 +3466,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateParameterGroup")
+        )
         input_: capo_memorydb.types.update_parameter_group_request.UpdateParameterGroupRequest = {
             "parameter_group_name": parameter_group_name,
             "parameter_name_values": parameter_name_values,
@@ -3432,7 +3524,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSubnetGroup")
+        )
         input_: capo_memorydb.types.update_subnet_group_request.UpdateSubnetGroupRequest = {
             "subnet_group_name": subnet_group_name
         }
@@ -3491,7 +3585,9 @@ class AsyncMemoryDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUser")
+        )
         input_: capo_memorydb.types.update_user_request.UpdateUserRequest = {
             "user_name": user_name
         }

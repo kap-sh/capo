@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_iot_managed_integrations._auth._signers
 import capo_iot_managed_integrations._auth._sigv4
 from capo_iot_managed_integrations._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -132,7 +133,19 @@ class DeviceDiscoveryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.start_device_discovery_request.StartDeviceDiscoveryRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.start_device_discovery_request
+
+            return capo_iot_managed_integrations.types.start_device_discovery_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartDeviceDiscovery", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.start_device_discovery_request.StartDeviceDiscoveryRequest = {
             "discovery_type": discovery_type
         }
@@ -205,7 +218,19 @@ class DeviceDiscoveryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_device_discovery_response.GetDeviceDiscoveryResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_device_discovery_response
+
+            return capo_iot_managed_integrations.types.get_device_discovery_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDeviceDiscovery", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_device_discovery_request.GetDeviceDiscoveryRequest = {
             "identifier": identifier
         }
@@ -267,7 +292,9 @@ class DeviceDiscoveryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDeviceDiscoveries")
+        )
         input_: capo_iot_managed_integrations.types.list_device_discoveries_request.ListDeviceDiscoveriesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -330,7 +357,19 @@ class DeviceDiscoveryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.list_discovered_devices_response.ListDiscoveredDevicesResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.list_discovered_devices_response
+
+            return capo_iot_managed_integrations.types.list_discovered_devices_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListDiscoveredDevices", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.list_discovered_devices_request.ListDiscoveredDevicesRequest = {
             "identifier": identifier
         }
@@ -432,7 +471,19 @@ class AsyncDeviceDiscoveryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.start_device_discovery_request.StartDeviceDiscoveryRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.start_device_discovery_request
+
+            return capo_iot_managed_integrations.types.start_device_discovery_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartDeviceDiscovery", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.start_device_discovery_request.StartDeviceDiscoveryRequest = {
             "discovery_type": discovery_type
         }
@@ -506,7 +557,19 @@ class AsyncDeviceDiscoveryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_device_discovery_response.GetDeviceDiscoveryResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_device_discovery_response
+
+            return capo_iot_managed_integrations.types.get_device_discovery_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDeviceDiscovery", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_device_discovery_request.GetDeviceDiscoveryRequest = {
             "identifier": identifier
         }
@@ -569,7 +632,9 @@ class AsyncDeviceDiscoveryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDeviceDiscoveries")
+        )
         input_: capo_iot_managed_integrations.types.list_device_discoveries_request.ListDeviceDiscoveriesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -633,7 +698,19 @@ class AsyncDeviceDiscoveryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.list_discovered_devices_response.ListDiscoveredDevicesResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.list_discovered_devices_response
+
+            return capo_iot_managed_integrations.types.list_discovered_devices_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListDiscoveredDevices", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.list_discovered_devices_request.ListDiscoveredDevicesRequest = {
             "identifier": identifier
         }

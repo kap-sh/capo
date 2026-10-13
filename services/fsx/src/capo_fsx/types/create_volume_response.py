@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.fsx#CreateVolumeResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -29,4 +29,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateVolumeResponse:
         import capo_fsx.types.volume
 
         out["volume"] = capo_fsx.types.volume.deserialize_aws_json_1_1(data["Volume"])
+    return out
+
+
+def redact_sensitive(value: CreateVolumeResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "volume" in value:
+        import capo_fsx.types.volume
+
+        out["volume"] = capo_fsx.types.volume.redact_sensitive(value["volume"])
     return out

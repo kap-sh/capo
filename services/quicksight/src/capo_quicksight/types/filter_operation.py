@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#FilterOperation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -86,6 +86,37 @@ def deserialize_json(data: dict) -> FilterOperation:
         out["date_filter_condition"] = (
             capo_quicksight.types.data_set_date_filter_condition.deserialize_json(
                 data["DateFilterCondition"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: FilterOperation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "condition_expression" in value:
+        out["condition_expression"] = "*** Sensitive Data Redacted ***"
+    if "string_filter_condition" in value:
+        import capo_quicksight.types.data_set_string_filter_condition
+
+        out["string_filter_condition"] = (
+            capo_quicksight.types.data_set_string_filter_condition.redact_sensitive(
+                value["string_filter_condition"]
+            )
+        )
+    if "numeric_filter_condition" in value:
+        import capo_quicksight.types.data_set_numeric_filter_condition
+
+        out["numeric_filter_condition"] = (
+            capo_quicksight.types.data_set_numeric_filter_condition.redact_sensitive(
+                value["numeric_filter_condition"]
+            )
+        )
+    if "date_filter_condition" in value:
+        import capo_quicksight.types.data_set_date_filter_condition
+
+        out["date_filter_condition"] = (
+            capo_quicksight.types.data_set_date_filter_condition.redact_sensitive(
+                value["date_filter_condition"]
             )
         )
     return out

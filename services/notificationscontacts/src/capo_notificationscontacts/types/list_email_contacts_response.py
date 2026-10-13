@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.notificationscontacts#ListEmailContactsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_json(data: dict) -> ListEmailContactsResponse:
         )
     else:
         raise DeserializationError("ListEmailContactsResponse.email_contacts required")
+    return out
+
+
+def redact_sensitive(value: ListEmailContactsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "email_contacts" in value:
+        import capo_notificationscontacts.types.email_contacts
+
+        out["email_contacts"] = (
+            capo_notificationscontacts.types.email_contacts.redact_sensitive(
+                value["email_contacts"]
+            )
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glue#BasicAuthenticationCredentials``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,4 +32,11 @@ def deserialize_aws_json_1_1(data: dict) -> BasicAuthenticationCredentials:
         out["username"] = data["Username"]
     if data.get("Password") is not None:
         out["password"] = data["Password"]
+    return out
+
+
+def redact_sensitive(value: BasicAuthenticationCredentials) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
     return out

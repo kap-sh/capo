@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#AgenticRetrieveMemoryRetrieveDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -69,4 +69,11 @@ def deserialize_json(data: dict) -> AgenticRetrieveMemoryRetrieveDetails:
         out["namespace_path"] = data["namespacePath"]
     if data.get("strategyId") is not None:
         out["strategy_id"] = data["strategyId"]
+    return out
+
+
+def redact_sensitive(value: AgenticRetrieveMemoryRetrieveDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input_query" in value:
+        out["input_query"] = "*** Sensitive Data Redacted ***"
     return out

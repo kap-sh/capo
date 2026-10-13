@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.agentregistrycontrol#UpdateRegistryRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -133,6 +133,27 @@ def deserialize_json(data: dict) -> UpdateRegistryRequest:
         out["auto_detection_configuration"] = (
             capo_agent_registry_control.types.updated_auto_detection_configuration.deserialize_json(
                 data["autoDetectionConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateRegistryRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        import capo_agent_registry_control.types.updated_description
+
+        out["description"] = (
+            capo_agent_registry_control.types.updated_description.redact_sensitive(
+                value["description"]
+            )
+        )
+    if "custom_metadata_schema_configuration" in value:
+        import capo_agent_registry_control.types.updated_custom_metadata_schema_configuration
+
+        out["custom_metadata_schema_configuration"] = (
+            capo_agent_registry_control.types.updated_custom_metadata_schema_configuration.redact_sensitive(
+                value["custom_metadata_schema_configuration"]
             )
         )
     return out

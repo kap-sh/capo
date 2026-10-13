@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#AwsProductOptimization``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -35,4 +35,11 @@ def deserialize_aws_json_1_0(data: dict) -> AwsProductOptimization:
         out["savings_amount"] = data["SavingsAmount"]
     else:
         raise DeserializationError("AwsProductOptimization.savings_amount required")
+    return out
+
+
+def redact_sensitive(value: AwsProductOptimization) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "savings_amount" in value:
+        out["savings_amount"] = "*** Sensitive Data Redacted ***"
     return out

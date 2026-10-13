@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TransformStep``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -214,5 +214,30 @@ def deserialize_json(data: dict) -> TransformStep:
 
         out["append_step"] = capo_quicksight.types.append_operation.deserialize_json(
             data["AppendStep"]
+        )
+    return out
+
+
+def redact_sensitive(value: TransformStep) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "filters_step" in value:
+        import capo_quicksight.types.filters_operation
+
+        out["filters_step"] = capo_quicksight.types.filters_operation.redact_sensitive(
+            value["filters_step"]
+        )
+    if "create_columns_step" in value:
+        import capo_quicksight.types.create_columns_operation
+
+        out["create_columns_step"] = (
+            capo_quicksight.types.create_columns_operation.redact_sensitive(
+                value["create_columns_step"]
+            )
+        )
+    if "join_step" in value:
+        import capo_quicksight.types.join_operation
+
+        out["join_step"] = capo_quicksight.types.join_operation.redact_sensitive(
+            value["join_step"]
         )
     return out

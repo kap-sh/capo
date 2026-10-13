@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.apprunner#ImageRepository``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -71,4 +71,17 @@ def deserialize_aws_json_1_0(data: dict) -> ImageRepository:
         )
     else:
         raise DeserializationError("ImageRepository.image_repository_type required")
+    return out
+
+
+def redact_sensitive(value: ImageRepository) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "image_configuration" in value:
+        import capo_apprunner.types.image_configuration
+
+        out["image_configuration"] = (
+            capo_apprunner.types.image_configuration.redact_sensitive(
+                value["image_configuration"]
+            )
+        )
     return out

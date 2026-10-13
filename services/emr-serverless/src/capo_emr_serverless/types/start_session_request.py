@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.emrserverless#StartSessionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -85,4 +85,17 @@ def deserialize_json(data: dict) -> StartSessionRequest:
         out["idle_timeout_minutes"] = data["idleTimeoutMinutes"]
     if data.get("name") is not None:
         out["name"] = data["name"]
+    return out
+
+
+def redact_sensitive(value: StartSessionRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "configuration_overrides" in value:
+        import capo_emr_serverless.types.session_configuration_overrides
+
+        out["configuration_overrides"] = (
+            capo_emr_serverless.types.session_configuration_overrides.redact_sensitive(
+                value["configuration_overrides"]
+            )
+        )
     return out

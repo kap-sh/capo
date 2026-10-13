@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#NameCriteria``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -54,4 +54,15 @@ def deserialize_json(data: dict) -> NameCriteria:
         )
     else:
         raise DeserializationError("NameCriteria.match_type required")
+    return out
+
+
+def redact_sensitive(value: NameCriteria) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "search_text" in value:
+        import capo_connect.types.search_text_list
+
+        out["search_text"] = capo_connect.types.search_text_list.redact_sensitive(
+            value["search_text"]
+        )
     return out

@@ -7,6 +7,7 @@ import capo_groundstation._auth._sigv4
 from capo_groundstation._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -81,7 +82,9 @@ class Config:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateConfig")
+        )
         input_: capo_groundstation.types.create_config_request.CreateConfigRequest = {
             "name": name,
             "config_data": config_data,
@@ -131,7 +134,9 @@ class Config:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConfig")
+        )
         input_: capo_groundstation.types.get_config_request.GetConfigRequest = {
             "config_id": config_id,
             "config_type": config_type,
@@ -183,7 +188,9 @@ class Config:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateConfig")
+        )
         input_: capo_groundstation.types.update_config_request.UpdateConfigRequest = {
             "config_id": config_id,
             "name": name,
@@ -233,7 +240,9 @@ class Config:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConfig")
+        )
         input_: capo_groundstation.types.delete_config_request.DeleteConfigRequest = {
             "config_id": config_id,
             "config_type": config_type,
@@ -285,7 +294,9 @@ class Config:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConfigs")
+        )
         input_: capo_groundstation.types.list_configs_request.ListConfigsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -343,7 +354,9 @@ class AsyncConfig:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateConfig")
+        )
         input_: capo_groundstation.types.create_config_request.CreateConfigRequest = {
             "name": name,
             "config_data": config_data,
@@ -394,7 +407,9 @@ class AsyncConfig:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConfig")
+        )
         input_: capo_groundstation.types.get_config_request.GetConfigRequest = {
             "config_id": config_id,
             "config_type": config_type,
@@ -447,7 +462,9 @@ class AsyncConfig:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateConfig")
+        )
         input_: capo_groundstation.types.update_config_request.UpdateConfigRequest = {
             "config_id": config_id,
             "name": name,
@@ -498,7 +515,9 @@ class AsyncConfig:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConfig")
+        )
         input_: capo_groundstation.types.delete_config_request.DeleteConfigRequest = {
             "config_id": config_id,
             "config_type": config_type,
@@ -551,7 +570,9 @@ class AsyncConfig:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConfigs")
+        )
         input_: capo_groundstation.types.list_configs_request.ListConfigsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

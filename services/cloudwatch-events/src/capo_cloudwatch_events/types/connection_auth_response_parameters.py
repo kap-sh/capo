@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudwatchevents#ConnectionAuthResponseParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -100,6 +100,27 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectionAuthResponseParameters:
         out["invocation_http_parameters"] = (
             capo_cloudwatch_events.types.connection_http_parameters.deserialize_aws_json_1_1(
                 data["InvocationHttpParameters"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ConnectionAuthResponseParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "o_auth_parameters" in value:
+        import capo_cloudwatch_events.types.connection_o_auth_response_parameters
+
+        out["o_auth_parameters"] = (
+            capo_cloudwatch_events.types.connection_o_auth_response_parameters.redact_sensitive(
+                value["o_auth_parameters"]
+            )
+        )
+    if "invocation_http_parameters" in value:
+        import capo_cloudwatch_events.types.connection_http_parameters
+
+        out["invocation_http_parameters"] = (
+            capo_cloudwatch_events.types.connection_http_parameters.redact_sensitive(
+                value["invocation_http_parameters"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#UnaggregatedFieldList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.unaggregated_field
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> UnaggregatedFieldList:
             continue
         out.append(capo_quicksight.types.unaggregated_field.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: UnaggregatedFieldList) -> list[Any]:
+    import capo_quicksight.types.unaggregated_field
+
+    return [
+        capo_quicksight.types.unaggregated_field.redact_sensitive(item)
+        for item in value
+    ]

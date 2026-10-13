@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.redshiftserverless#CreateNamespaceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -143,4 +143,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateNamespaceRequest:
         out["admin_password_secret_kms_key_id"] = data["adminPasswordSecretKmsKeyId"]
     if data.get("redshiftIdcApplicationArn") is not None:
         out["redshift_idc_application_arn"] = data["redshiftIdcApplicationArn"]
+    return out
+
+
+def redact_sensitive(value: CreateNamespaceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "admin_username" in value:
+        out["admin_username"] = "*** Sensitive Data Redacted ***"
+    if "admin_user_password" in value:
+        out["admin_user_password"] = "*** Sensitive Data Redacted ***"
     return out

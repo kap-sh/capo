@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#ListAIGuardrailsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -51,4 +51,17 @@ def deserialize_json(data: dict) -> ListAIGuardrailsResponse:
         )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListAIGuardrailsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ai_guardrail_summaries" in value:
+        import capo_qconnect.types.ai_guardrail_summaries_list
+
+        out["ai_guardrail_summaries"] = (
+            capo_qconnect.types.ai_guardrail_summaries_list.redact_sensitive(
+                value["ai_guardrail_summaries"]
+            )
+        )
     return out

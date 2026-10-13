@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.personalizeevents#ActionInteraction``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -111,4 +111,23 @@ def deserialize_json(data: dict) -> ActionInteraction:
         )
     if data.get("properties") is not None:
         out["properties"] = data["properties"]
+    return out
+
+
+def redact_sensitive(value: ActionInteraction) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "action_id" in value:
+        out["action_id"] = "*** Sensitive Data Redacted ***"
+    if "user_id" in value:
+        out["user_id"] = "*** Sensitive Data Redacted ***"
+    if "impression" in value:
+        import capo_personalize_events.types.action_impression
+
+        out["impression"] = (
+            capo_personalize_events.types.action_impression.redact_sensitive(
+                value["impression"]
+            )
+        )
+    if "properties" in value:
+        out["properties"] = "*** Sensitive Data Redacted ***"
     return out

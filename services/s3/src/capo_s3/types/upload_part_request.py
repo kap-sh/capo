@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#UploadPartRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -86,3 +86,12 @@ class UploadPartRequest(TypedDict, closed=True):
     request_payer: NotRequired["capo_s3.types.request_payer.RequestPayer"]
     expected_bucket_owner: NotRequired["capo_s3.types.account_id.AccountId"]
     """<p>The account ID of the expected bucket owner. If the account ID that you provide does not match the actual owner of the bucket, the request fails with the HTTP status code <code>403 Forbidden</code> (access denied).</p>"""
+
+
+def redact_sensitive(value: UploadPartRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "body" in value:
+        out["body"] = "*** Streaming Data Redacted ***"
+    if "sse_customer_key" in value:
+        out["sse_customer_key"] = "*** Sensitive Data Redacted ***"
+    return out

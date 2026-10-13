@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#CreateInstanceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -96,4 +96,11 @@ def deserialize_json(data: dict) -> CreateInstanceRequest:
         import capo_connect.types.tag_map
 
         out["tags"] = capo_connect.types.tag_map.deserialize_json(data["Tags"])
+    return out
+
+
+def redact_sensitive(value: CreateInstanceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "instance_alias" in value:
+        out["instance_alias"] = "*** Sensitive Data Redacted ***"
     return out

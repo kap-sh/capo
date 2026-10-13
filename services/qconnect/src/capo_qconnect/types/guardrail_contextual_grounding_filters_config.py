@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#GuardrailContextualGroundingFiltersConfig``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_qconnect.types.guardrail_contextual_grounding_filter_config
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> GuardrailContextualGroundingFiltersConfig:
             )
         )
     return out
+
+
+def redact_sensitive(value: GuardrailContextualGroundingFiltersConfig) -> list[Any]:
+    import capo_qconnect.types.guardrail_contextual_grounding_filter_config
+
+    return [
+        capo_qconnect.types.guardrail_contextual_grounding_filter_config.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

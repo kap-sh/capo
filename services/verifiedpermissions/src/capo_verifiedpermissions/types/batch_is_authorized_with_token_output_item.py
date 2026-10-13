@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#BatchIsAuthorizedWithTokenOutputItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -107,5 +107,26 @@ def deserialize_aws_json_1_0(data: dict) -> BatchIsAuthorizedWithTokenOutputItem
     else:
         raise DeserializationError(
             "BatchIsAuthorizedWithTokenOutputItem.errors required"
+        )
+    return out
+
+
+def redact_sensitive(value: BatchIsAuthorizedWithTokenOutputItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "request" in value:
+        import capo_verifiedpermissions.types.batch_is_authorized_with_token_input_item
+
+        out["request"] = (
+            capo_verifiedpermissions.types.batch_is_authorized_with_token_input_item.redact_sensitive(
+                value["request"]
+            )
+        )
+    if "errors" in value:
+        import capo_verifiedpermissions.types.evaluation_error_list
+
+        out["errors"] = (
+            capo_verifiedpermissions.types.evaluation_error_list.redact_sensitive(
+                value["errors"]
+            )
         )
     return out

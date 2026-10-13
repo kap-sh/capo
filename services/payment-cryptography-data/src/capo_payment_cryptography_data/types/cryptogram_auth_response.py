@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#CryptogramAuthResponse``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -68,3 +68,16 @@ def deserialize_json(data: dict) -> CryptogramAuthResponse:
         }
     else:
         raise DeserializationError("CryptogramAuthResponse: no recognized variant key")
+
+
+def redact_sensitive(value: CryptogramAuthResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ArpcMethod2" in value:
+        import capo_payment_cryptography_data.types.cryptogram_verification_arpc_method2
+
+        out["ArpcMethod2"] = (
+            capo_payment_cryptography_data.types.cryptogram_verification_arpc_method2.redact_sensitive(
+                value["ArpcMethod2"]
+            )
+        )
+    return out

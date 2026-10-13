@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connecthealth#PatientInsightsPatientContext``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -54,4 +54,15 @@ def deserialize_json(data: dict) -> PatientInsightsPatientContext:
         out["pronouns"] = capo_connecthealth.types.pronouns.deserialize_json(
             data["pronouns"]
         )
+    return out
+
+
+def redact_sensitive(value: PatientInsightsPatientContext) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "patient_id" in value:
+        out["patient_id"] = "*** Sensitive Data Redacted ***"
+    if "date_of_birth" in value:
+        out["date_of_birth"] = "*** Sensitive Data Redacted ***"
+    if "pronouns" in value:
+        out["pronouns"] = "*** Sensitive Data Redacted ***"
     return out

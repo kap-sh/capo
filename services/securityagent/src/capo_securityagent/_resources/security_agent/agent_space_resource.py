@@ -7,6 +7,7 @@ import capo_securityagent._auth._sigv4
 from capo_securityagent._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -96,7 +97,9 @@ class AgentSpaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAgentSpace")
+        )
         input_: capo_securityagent.types.create_agent_space_input.CreateAgentSpaceInput = {
             "name": name
         }
@@ -166,7 +169,9 @@ class AgentSpaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAgentSpace")
+        )
         input_: capo_securityagent.types.update_agent_space_input.UpdateAgentSpaceInput = {
             "agent_space_id": agent_space_id
         }
@@ -218,7 +223,9 @@ class AgentSpaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAgentSpace")
+        )
         input_: capo_securityagent.types.delete_agent_space_input.DeleteAgentSpaceInput = {
             "agent_space_id": agent_space_id
         }
@@ -262,7 +269,9 @@ class AgentSpaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAgentSpaces")
+        )
         input_: capo_securityagent.types.list_agent_spaces_input.ListAgentSpacesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -306,7 +315,9 @@ class AgentSpaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchGetAgentSpaces")
+        )
         input_: capo_securityagent.types.batch_get_agent_spaces_input.BatchGetAgentSpacesInput = {
             "agent_space_ids": agent_space_ids
         }
@@ -372,7 +383,9 @@ class AsyncAgentSpaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAgentSpace")
+        )
         input_: capo_securityagent.types.create_agent_space_input.CreateAgentSpaceInput = {
             "name": name
         }
@@ -443,7 +456,9 @@ class AsyncAgentSpaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAgentSpace")
+        )
         input_: capo_securityagent.types.update_agent_space_input.UpdateAgentSpaceInput = {
             "agent_space_id": agent_space_id
         }
@@ -496,7 +511,9 @@ class AsyncAgentSpaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAgentSpace")
+        )
         input_: capo_securityagent.types.delete_agent_space_input.DeleteAgentSpaceInput = {
             "agent_space_id": agent_space_id
         }
@@ -541,7 +558,9 @@ class AsyncAgentSpaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAgentSpaces")
+        )
         input_: capo_securityagent.types.list_agent_spaces_input.ListAgentSpacesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -586,7 +605,9 @@ class AsyncAgentSpaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchGetAgentSpaces")
+        )
         input_: capo_securityagent.types.batch_get_agent_spaces_input.BatchGetAgentSpacesInput = {
             "agent_space_ids": agent_space_ids
         }

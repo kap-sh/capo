@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#SecondaryAddressComponentList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_places.types.secondary_address_component
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> SecondaryAddressComponentList:
             capo_geo_places.types.secondary_address_component.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: SecondaryAddressComponentList) -> list[Any]:
+    import capo_geo_places.types.secondary_address_component
+
+    return [
+        capo_geo_places.types.secondary_address_component.redact_sensitive(item)
+        for item in value
+    ]

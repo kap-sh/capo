@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#UpdateEnvironmentInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -121,4 +121,13 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateEnvironmentInput:
         out["component_role_arn"] = data["componentRoleArn"]
     if data.get("codebuildRoleArn") is not None:
         out["codebuild_role_arn"] = data["codebuildRoleArn"]
+    return out
+
+
+def redact_sensitive(value: UpdateEnvironmentInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "spec" in value:
+        out["spec"] = "*** Sensitive Data Redacted ***"
     return out

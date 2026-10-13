@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.codestarnotifications#TargetSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -55,4 +55,11 @@ def deserialize_json(data: dict) -> TargetSummary:
                 data["TargetStatus"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: TargetSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "target_address" in value:
+        out["target_address"] = "*** Sensitive Data Redacted ***"
     return out

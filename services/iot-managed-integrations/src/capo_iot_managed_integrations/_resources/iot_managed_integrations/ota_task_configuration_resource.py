@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_iot_managed_integrations._auth._signers
 import capo_iot_managed_integrations._auth._sigv4
 from capo_iot_managed_integrations._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -92,7 +93,19 @@ class OtaTaskConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.create_ota_task_configuration_request.CreateOtaTaskConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_ota_task_configuration_request
+
+            return capo_iot_managed_integrations.types.create_ota_task_configuration_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateOtaTaskConfiguration", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.create_ota_task_configuration_request.CreateOtaTaskConfigurationRequest = {}
         if description is not None:
             input_["description"] = description
@@ -144,7 +157,9 @@ class OtaTaskConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteOtaTaskConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.delete_ota_task_configuration_request.DeleteOtaTaskConfigurationRequest = {
             "identifier": identifier
         }
@@ -191,7 +206,19 @@ class OtaTaskConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_ota_task_configuration_response.GetOtaTaskConfigurationResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_ota_task_configuration_response
+
+            return capo_iot_managed_integrations.types.get_ota_task_configuration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetOtaTaskConfiguration", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_ota_task_configuration_request.GetOtaTaskConfigurationRequest = {
             "identifier": identifier
         }
@@ -243,7 +270,19 @@ class OtaTaskConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.list_ota_task_configurations_response.ListOtaTaskConfigurationsResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.list_ota_task_configurations_response
+
+            return capo_iot_managed_integrations.types.list_ota_task_configurations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListOtaTaskConfigurations", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.list_ota_task_configurations_request.ListOtaTaskConfigurationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -312,7 +351,19 @@ class AsyncOtaTaskConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.create_ota_task_configuration_request.CreateOtaTaskConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_ota_task_configuration_request
+
+            return capo_iot_managed_integrations.types.create_ota_task_configuration_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateOtaTaskConfiguration", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.create_ota_task_configuration_request.CreateOtaTaskConfigurationRequest = {}
         if description is not None:
             input_["description"] = description
@@ -365,7 +416,9 @@ class AsyncOtaTaskConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteOtaTaskConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.delete_ota_task_configuration_request.DeleteOtaTaskConfigurationRequest = {
             "identifier": identifier
         }
@@ -413,7 +466,19 @@ class AsyncOtaTaskConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_ota_task_configuration_response.GetOtaTaskConfigurationResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_ota_task_configuration_response
+
+            return capo_iot_managed_integrations.types.get_ota_task_configuration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetOtaTaskConfiguration", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_ota_task_configuration_request.GetOtaTaskConfigurationRequest = {
             "identifier": identifier
         }
@@ -466,7 +531,19 @@ class AsyncOtaTaskConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.list_ota_task_configurations_response.ListOtaTaskConfigurationsResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.list_ota_task_configurations_response
+
+            return capo_iot_managed_integrations.types.list_ota_task_configurations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListOtaTaskConfigurations", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.list_ota_task_configurations_request.ListOtaTaskConfigurationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

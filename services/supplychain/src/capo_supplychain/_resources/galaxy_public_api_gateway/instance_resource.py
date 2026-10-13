@@ -8,6 +8,7 @@ import capo_supplychain._auth._sigv4
 from capo_supplychain._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -113,7 +114,9 @@ class InstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateInstance")
+        )
         input_: capo_supplychain.types.create_instance_request.CreateInstanceRequest = {}
         if instance_name is not None:
             input_["instance_name"] = instance_name
@@ -181,7 +184,9 @@ class InstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetInstance")
+        )
         input_: capo_supplychain.types.get_instance_request.GetInstanceRequest = {
             "instance_id": instance_id
         }
@@ -243,7 +248,9 @@ class InstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateInstance")
+        )
         input_: capo_supplychain.types.update_instance_request.UpdateInstanceRequest = {
             "instance_id": instance_id
         }
@@ -301,7 +308,9 @@ class InstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteInstance")
+        )
         input_: capo_supplychain.types.delete_instance_request.DeleteInstanceRequest = {
             "instance_id": instance_id
         }
@@ -378,7 +387,9 @@ class InstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListInstances")
+        )
         input_: capo_supplychain.types.list_instances_request.ListInstancesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -465,7 +476,9 @@ class AsyncInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateInstance")
+        )
         input_: capo_supplychain.types.create_instance_request.CreateInstanceRequest = {}
         if instance_name is not None:
             input_["instance_name"] = instance_name
@@ -534,7 +547,9 @@ class AsyncInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetInstance")
+        )
         input_: capo_supplychain.types.get_instance_request.GetInstanceRequest = {
             "instance_id": instance_id
         }
@@ -597,7 +612,9 @@ class AsyncInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateInstance")
+        )
         input_: capo_supplychain.types.update_instance_request.UpdateInstanceRequest = {
             "instance_id": instance_id
         }
@@ -656,7 +673,9 @@ class AsyncInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteInstance")
+        )
         input_: capo_supplychain.types.delete_instance_request.DeleteInstanceRequest = {
             "instance_id": instance_id
         }
@@ -734,7 +753,9 @@ class AsyncInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListInstances")
+        )
         input_: capo_supplychain.types.list_instances_request.ListInstancesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

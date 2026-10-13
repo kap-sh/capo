@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudfrontkeyvaluestore#GetKeyResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -50,4 +50,11 @@ def deserialize_json(data: dict) -> GetKeyResponse:
         out["total_size_in_bytes"] = data["TotalSizeInBytes"]
     else:
         raise DeserializationError("GetKeyResponse.total_size_in_bytes required")
+    return out
+
+
+def redact_sensitive(value: GetKeyResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        out["value"] = "*** Sensitive Data Redacted ***"
     return out

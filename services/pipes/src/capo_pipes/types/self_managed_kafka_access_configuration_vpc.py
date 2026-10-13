@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#SelfManagedKafkaAccessConfigurationVpc``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -43,5 +43,20 @@ def deserialize_json(data: dict) -> SelfManagedKafkaAccessConfigurationVpc:
 
         out["security_group"] = capo_pipes.types.security_group_ids.deserialize_json(
             data["SecurityGroup"]
+        )
+    return out
+
+
+def redact_sensitive(value: SelfManagedKafkaAccessConfigurationVpc) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "subnets" in value:
+        import capo_pipes.types.subnet_ids
+
+        out["subnets"] = capo_pipes.types.subnet_ids.redact_sensitive(value["subnets"])
+    if "security_group" in value:
+        import capo_pipes.types.security_group_ids
+
+        out["security_group"] = capo_pipes.types.security_group_ids.redact_sensitive(
+            value["security_group"]
         )
     return out

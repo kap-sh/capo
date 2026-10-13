@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.supplychain#DataIntegrationFlowTransformation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -61,6 +61,19 @@ def deserialize_json(data: dict) -> DataIntegrationFlowTransformation:
         out["sql_transformation"] = (
             capo_supplychain.types.data_integration_flow_sql_transformation_configuration.deserialize_json(
                 data["sqlTransformation"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DataIntegrationFlowTransformation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sql_transformation" in value:
+        import capo_supplychain.types.data_integration_flow_sql_transformation_configuration
+
+        out["sql_transformation"] = (
+            capo_supplychain.types.data_integration_flow_sql_transformation_configuration.redact_sensitive(
+                value["sql_transformation"]
             )
         )
     return out

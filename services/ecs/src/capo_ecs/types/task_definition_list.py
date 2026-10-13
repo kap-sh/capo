@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ecs#TaskDefinitionList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_ecs.types.task_definition
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> TaskDefinitionList:
             continue
         out.append(capo_ecs.types.task_definition.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: TaskDefinitionList) -> list[Any]:
+    import capo_ecs.types.task_definition
+
+    return [capo_ecs.types.task_definition.redact_sensitive(item) for item in value]

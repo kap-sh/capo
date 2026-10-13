@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#UpdatePatchBaselineRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -198,4 +198,15 @@ def deserialize_aws_json_1_1(data: dict) -> UpdatePatchBaselineRequest:
         )
     if data.get("Replace") is not None:
         out["replace"] = data["Replace"]
+    return out
+
+
+def redact_sensitive(value: UpdatePatchBaselineRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sources" in value:
+        import capo_ssm.types.patch_source_list
+
+        out["sources"] = capo_ssm.types.patch_source_list.redact_sensitive(
+            value["sources"]
+        )
     return out

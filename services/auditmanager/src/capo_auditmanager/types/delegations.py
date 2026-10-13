@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#Delegations``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_auditmanager.types.delegation
@@ -27,3 +27,7 @@ def deserialize_json(data: list) -> Delegations:
             continue
         out.append(capo_auditmanager.types.delegation.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: Delegations) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

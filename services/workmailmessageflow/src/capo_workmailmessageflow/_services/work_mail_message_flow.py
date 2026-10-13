@@ -21,10 +21,12 @@ from capo_workmailmessageflow._auth._zapros_handler import AuthMiddleware
 from capo_workmailmessageflow._services._aws_config import aws_config
 from capo_workmailmessageflow._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -110,7 +112,9 @@ class WorkMailMessageFlowClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[WorkMailMessageFlowClientConfig] = None
+        self,
+        config_overrides: Optional[WorkMailMessageFlowClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: WorkMailMessageFlowClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -118,8 +122,10 @@ class WorkMailMessageFlowClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -169,7 +175,19 @@ class WorkMailMessageFlowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workmailmessageflow.types.get_raw_message_content_response.GetRawMessageContentResponse",
+        ) -> dict[str, Any]:
+            import capo_workmailmessageflow.types.get_raw_message_content_response
+
+            return capo_workmailmessageflow.types.get_raw_message_content_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetRawMessageContent", redact_output=_redact_output),
+        )
         input_: capo_workmailmessageflow.types.get_raw_message_content_request.GetRawMessageContentRequest = {
             "message_id": message_id
         }
@@ -219,7 +237,9 @@ class WorkMailMessageFlowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRawMessageContent")
+        )
         input_: capo_workmailmessageflow.types.put_raw_message_content_request.PutRawMessageContentRequest = {
             "message_id": message_id,
             "content": content,

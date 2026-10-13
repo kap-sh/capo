@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteTollPass``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -67,6 +67,27 @@ def deserialize_json(data: dict) -> RouteTollPass:
         out["validity_period"] = (
             capo_geo_routes.types.route_toll_pass_validity_period.deserialize_json(
                 data["ValidityPeriod"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: RouteTollPass) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "includes_return_trip" in value:
+        out["includes_return_trip"] = "*** Sensitive Data Redacted ***"
+    if "senior_pass" in value:
+        out["senior_pass"] = "*** Sensitive Data Redacted ***"
+    if "transfer_count" in value:
+        out["transfer_count"] = "*** Sensitive Data Redacted ***"
+    if "trip_count" in value:
+        out["trip_count"] = "*** Sensitive Data Redacted ***"
+    if "validity_period" in value:
+        import capo_geo_routes.types.route_toll_pass_validity_period
+
+        out["validity_period"] = (
+            capo_geo_routes.types.route_toll_pass_validity_period.redact_sensitive(
+                value["validity_period"]
             )
         )
     return out

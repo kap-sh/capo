@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesinstances#ManagedInstanceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -522,4 +522,37 @@ def deserialize_aws_json_1_0(data: dict) -> ManagedInstanceRequest:
         )
     if data.get("UserData") is not None:
         out["user_data"] = data["UserData"]
+    return out
+
+
+def redact_sensitive(value: ManagedInstanceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "block_device_mappings" in value:
+        import capo_workspaces_instances.types.block_device_mappings
+
+        out["block_device_mappings"] = (
+            capo_workspaces_instances.types.block_device_mappings.redact_sensitive(
+                value["block_device_mappings"]
+            )
+        )
+    if "ipv6_addresses" in value:
+        import capo_workspaces_instances.types.ipv6_addresses
+
+        out["ipv6_addresses"] = (
+            capo_workspaces_instances.types.ipv6_addresses.redact_sensitive(
+                value["ipv6_addresses"]
+            )
+        )
+    if "network_interfaces" in value:
+        import capo_workspaces_instances.types.network_interfaces
+
+        out["network_interfaces"] = (
+            capo_workspaces_instances.types.network_interfaces.redact_sensitive(
+                value["network_interfaces"]
+            )
+        )
+    if "private_ip_address" in value:
+        out["private_ip_address"] = "*** Sensitive Data Redacted ***"
+    if "user_data" in value:
+        out["user_data"] = "*** Sensitive Data Redacted ***"
     return out

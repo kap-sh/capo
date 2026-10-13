@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#MetadataFormSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -43,4 +43,11 @@ def deserialize_json(data: dict) -> MetadataFormSummary:
         out["type_revision"] = data["typeRevision"]
     else:
         raise DeserializationError("MetadataFormSummary.type_revision required")
+    return out
+
+
+def redact_sensitive(value: MetadataFormSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "type_name" in value:
+        out["type_name"] = "*** Sensitive Data Redacted ***"
     return out

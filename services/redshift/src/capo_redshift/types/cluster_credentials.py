@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.redshift#ClusterCredentials``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,4 +53,11 @@ def deserialize_query(el: Element) -> ClusterCredentials:
         out["expiration"] = capo_redshift.types.t_stamp.deserialize_query(
             child_expiration
         )
+    return out
+
+
+def redact_sensitive(value: ClusterCredentials) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "db_password" in value:
+        out["db_password"] = "*** Sensitive Data Redacted ***"
     return out

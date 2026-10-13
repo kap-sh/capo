@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.medicalimaging#CopySourceImageSetInformation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,6 +47,19 @@ def deserialize_json(data: dict) -> CopySourceImageSetInformation:
         out["dicom_copies"] = (
             capo_medical_imaging.types.metadata_copies.deserialize_json(
                 data["DICOMCopies"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CopySourceImageSetInformation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "dicom_copies" in value:
+        import capo_medical_imaging.types.metadata_copies
+
+        out["dicom_copies"] = (
+            capo_medical_imaging.types.metadata_copies.redact_sensitive(
+                value["dicom_copies"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectcampaigns#DialRequestList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_connectcampaigns.types.dial_request
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> DialRequestList:
             continue
         out.append(capo_connectcampaigns.types.dial_request.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: DialRequestList) -> list[Any]:
+    import capo_connectcampaigns.types.dial_request
+
+    return [
+        capo_connectcampaigns.types.dial_request.redact_sensitive(item)
+        for item in value
+    ]

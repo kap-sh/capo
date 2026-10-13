@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.grafana#ServiceAccountTokenSummaryWithKey``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -42,4 +42,11 @@ def deserialize_json(data: dict) -> ServiceAccountTokenSummaryWithKey:
         out["key"] = data["key"]
     else:
         raise DeserializationError("ServiceAccountTokenSummaryWithKey.key required")
+    return out
+
+
+def redact_sensitive(value: ServiceAccountTokenSummaryWithKey) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "key" in value:
+        out["key"] = "*** Sensitive Data Redacted ***"
     return out

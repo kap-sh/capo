@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#EngagementContextPayload``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -92,3 +92,30 @@ def deserialize_aws_json_1_0(data: dict) -> EngagementContextPayload:
         raise DeserializationError(
             "EngagementContextPayload: no recognized variant key"
         )
+
+
+def redact_sensitive(value: EngagementContextPayload) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "CustomerProject" in value:
+        import capo_partnercentral_selling.types.customer_projects_context
+
+        out["CustomerProject"] = (
+            capo_partnercentral_selling.types.customer_projects_context.redact_sensitive(
+                value["CustomerProject"]
+            )
+        )
+    if "Lead" in value:
+        import capo_partnercentral_selling.types.lead_context
+
+        out["Lead"] = capo_partnercentral_selling.types.lead_context.redact_sensitive(
+            value["Lead"]
+        )
+    if "ProspectingResult" in value:
+        import capo_partnercentral_selling.types.prospecting_result
+
+        out["ProspectingResult"] = (
+            capo_partnercentral_selling.types.prospecting_result.redact_sensitive(
+                value["ProspectingResult"]
+            )
+        )
+    return out

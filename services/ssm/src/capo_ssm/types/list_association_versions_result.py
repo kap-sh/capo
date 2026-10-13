@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#ListAssociationVersionsResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_aws_json_1_1(data: dict) -> ListAssociationVersionsResult:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListAssociationVersionsResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "association_versions" in value:
+        import capo_ssm.types.association_version_list
+
+        out["association_versions"] = (
+            capo_ssm.types.association_version_list.redact_sensitive(
+                value["association_versions"]
+            )
+        )
     return out

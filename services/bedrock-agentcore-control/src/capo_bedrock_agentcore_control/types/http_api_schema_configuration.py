@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#HttpApiSchemaConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -39,4 +39,17 @@ def deserialize_json(data: dict) -> HttpApiSchemaConfiguration:
         )
     else:
         raise DeserializationError("HttpApiSchemaConfiguration.source required")
+    return out
+
+
+def redact_sensitive(value: HttpApiSchemaConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "source" in value:
+        import capo_bedrock_agentcore_control.types.api_schema_configuration
+
+        out["source"] = (
+            capo_bedrock_agentcore_control.types.api_schema_configuration.redact_sensitive(
+                value["source"]
+            )
+        )
     return out

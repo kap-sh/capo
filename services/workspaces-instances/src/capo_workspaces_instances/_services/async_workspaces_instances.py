@@ -25,7 +25,9 @@ from capo_workspaces_instances._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -150,7 +152,9 @@ class AsyncWorkspacesInstancesClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncWorkspacesInstancesClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncWorkspacesInstancesClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncWorkspacesInstancesClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -158,8 +162,10 @@ class AsyncWorkspacesInstancesClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -215,7 +221,9 @@ class AsyncWorkspacesInstancesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateVolume")
+        )
         input_: capo_workspaces_instances.types.associate_volume_request.AssociateVolumeRequest = {
             "workspace_instance_id": workspace_instance_id,
             "volume_id": volume_id,
@@ -300,7 +308,21 @@ class AsyncWorkspacesInstancesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_instances.types.create_volume_request.CreateVolumeRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_instances.types.create_volume_request
+
+            return (
+                capo_workspaces_instances.types.create_volume_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateVolume", redact_input=_redact_input),
+        )
         input_: capo_workspaces_instances.types.create_volume_request.CreateVolumeRequest = {
             "availability_zone": availability_zone
         }
@@ -378,7 +400,19 @@ class AsyncWorkspacesInstancesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_instances.types.create_workspace_instance_request.CreateWorkspaceInstanceRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_instances.types.create_workspace_instance_request
+
+            return capo_workspaces_instances.types.create_workspace_instance_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateWorkspaceInstance", redact_input=_redact_input),
+        )
         input_: capo_workspaces_instances.types.create_workspace_instance_request.CreateWorkspaceInstanceRequest = {
             "managed_instance": managed_instance
         }
@@ -434,7 +468,9 @@ class AsyncWorkspacesInstancesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVolume")
+        )
         input_: capo_workspaces_instances.types.delete_volume_request.DeleteVolumeRequest = {
             "volume_id": volume_id
         }
@@ -483,7 +519,9 @@ class AsyncWorkspacesInstancesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkspaceInstance")
+        )
         input_: capo_workspaces_instances.types.delete_workspace_instance_request.DeleteWorkspaceInstanceRequest = {
             "workspace_instance_id": workspace_instance_id
         }
@@ -542,7 +580,9 @@ class AsyncWorkspacesInstancesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateVolume")
+        )
         input_: capo_workspaces_instances.types.disassociate_volume_request.DisassociateVolumeRequest = {
             "workspace_instance_id": workspace_instance_id,
             "volume_id": volume_id,
@@ -595,7 +635,9 @@ class AsyncWorkspacesInstancesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkspaceInstance")
+        )
         input_: capo_workspaces_instances.types.get_workspace_instance_request.GetWorkspaceInstanceRequest = {
             "workspace_instance_id": workspace_instance_id
         }
@@ -652,7 +694,32 @@ class AsyncWorkspacesInstancesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_instances.types.list_instance_types_request.ListInstanceTypesRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_instances.types.list_instance_types_request
+
+            return capo_workspaces_instances.types.list_instance_types_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_instances.types.list_instance_types_response.ListInstanceTypesResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_instances.types.list_instance_types_response
+
+            return capo_workspaces_instances.types.list_instance_types_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListInstanceTypes",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workspaces_instances.types.list_instance_types_request.ListInstanceTypesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -738,7 +805,34 @@ class AsyncWorkspacesInstancesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_instances.types.list_regions_request.ListRegionsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_instances.types.list_regions_request
+
+            return (
+                capo_workspaces_instances.types.list_regions_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_instances.types.list_regions_response.ListRegionsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_instances.types.list_regions_response
+
+            return (
+                capo_workspaces_instances.types.list_regions_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListRegions", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_workspaces_instances.types.list_regions_request.ListRegionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -813,7 +907,9 @@ class AsyncWorkspacesInstancesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_workspaces_instances.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "workspace_instance_id": workspace_instance_id
         }
@@ -870,7 +966,32 @@ class AsyncWorkspacesInstancesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_instances.types.list_workspace_instances_request.ListWorkspaceInstancesRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_instances.types.list_workspace_instances_request
+
+            return capo_workspaces_instances.types.list_workspace_instances_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_instances.types.list_workspace_instances_response.ListWorkspaceInstancesResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_instances.types.list_workspace_instances_response
+
+            return capo_workspaces_instances.types.list_workspace_instances_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListWorkspaceInstances",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workspaces_instances.types.list_workspace_instances_request.ListWorkspaceInstancesRequest = {}
         if provision_states is not None:
             input_["provision_states"] = provision_states
@@ -953,7 +1074,9 @@ class AsyncWorkspacesInstancesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_workspaces_instances.types.tag_resource_request.TagResourceRequest = {
             "workspace_instance_id": workspace_instance_id,
             "tags": tags,
@@ -1006,7 +1129,9 @@ class AsyncWorkspacesInstancesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_workspaces_instances.types.untag_resource_request.UntagResourceRequest = {
             "workspace_instance_id": workspace_instance_id,
             "tag_keys": tag_keys,

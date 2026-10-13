@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.voiceid#EvaluateSessionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -88,6 +88,19 @@ def deserialize_aws_json_1_0(data: dict) -> EvaluateSessionResponse:
         out["fraud_detection_result"] = (
             capo_voice_id.types.fraud_detection_result.deserialize_aws_json_1_0(
                 data["FraudDetectionResult"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: EvaluateSessionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "authentication_result" in value:
+        import capo_voice_id.types.authentication_result
+
+        out["authentication_result"] = (
+            capo_voice_id.types.authentication_result.redact_sensitive(
+                value["authentication_result"]
             )
         )
     return out

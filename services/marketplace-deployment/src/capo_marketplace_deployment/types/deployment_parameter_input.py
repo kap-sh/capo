@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.marketplacedeployment#DeploymentParameterInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,11 @@ def deserialize_json(data: dict) -> DeploymentParameterInput:
         out["secret_string"] = data["secretString"]
     else:
         raise DeserializationError("DeploymentParameterInput.secret_string required")
+    return out
+
+
+def redact_sensitive(value: DeploymentParameterInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "secret_string" in value:
+        out["secret_string"] = "*** Sensitive Data Redacted ***"
     return out

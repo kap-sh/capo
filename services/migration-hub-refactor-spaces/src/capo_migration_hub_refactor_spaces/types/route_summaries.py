@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.migrationhubrefactorspaces#RouteSummaries``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_migration_hub_refactor_spaces.types.route_summary
@@ -35,3 +35,12 @@ def deserialize_json(data: list) -> RouteSummaries:
             )
         )
     return out
+
+
+def redact_sensitive(value: RouteSummaries) -> list[Any]:
+    import capo_migration_hub_refactor_spaces.types.route_summary
+
+    return [
+        capo_migration_hub_refactor_spaces.types.route_summary.redact_sensitive(item)
+        for item in value
+    ]

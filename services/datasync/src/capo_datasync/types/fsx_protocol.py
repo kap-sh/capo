@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datasync#FsxProtocol``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -48,4 +48,13 @@ def deserialize_aws_json_1_1(data: dict) -> FsxProtocol:
         out["smb"] = capo_datasync.types.fsx_protocol_smb.deserialize_aws_json_1_1(
             data["SMB"]
         )
+    return out
+
+
+def redact_sensitive(value: FsxProtocol) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "smb" in value:
+        import capo_datasync.types.fsx_protocol_smb
+
+        out["smb"] = capo_datasync.types.fsx_protocol_smb.redact_sensitive(value["smb"])
     return out

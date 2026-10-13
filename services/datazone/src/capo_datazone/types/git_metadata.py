@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#GitMetadata``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -82,4 +82,15 @@ def deserialize_json(data: dict) -> GitMetadata:
         )
     if data.get("commitMessage") is not None:
         out["commit_message"] = data["commitMessage"]
+    return out
+
+
+def redact_sensitive(value: GitMetadata) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "repository" in value:
+        out["repository"] = "*** Sensitive Data Redacted ***"
+    if "branch" in value:
+        out["branch"] = "*** Sensitive Data Redacted ***"
+    if "commit_message" in value:
+        out["commit_message"] = "*** Sensitive Data Redacted ***"
     return out

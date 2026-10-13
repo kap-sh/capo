@@ -23,10 +23,12 @@ from capo_codeguru_security._pagination import resolve_path as _resolve_path
 from capo_codeguru_security._services._aws_config import aws_config
 from capo_codeguru_security._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -148,7 +150,9 @@ class CodeGuruSecurityClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[CodeGuruSecurityClientConfig] = None
+        self,
+        config_overrides: Optional[CodeGuruSecurityClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: CodeGuruSecurityClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -156,8 +160,10 @@ class CodeGuruSecurityClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -209,7 +215,9 @@ class CodeGuruSecurityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetFindings")
+        )
         input_: capo_codeguru_security.types.batch_get_findings_request.BatchGetFindingsRequest = {
             "finding_identifiers": finding_identifiers
         }
@@ -271,7 +279,9 @@ class CodeGuruSecurityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateScan")
+        )
         input_: capo_codeguru_security.types.create_scan_request.CreateScanRequest = {
             "resource_id": resource_id,
             "scan_name": scan_name,
@@ -327,7 +337,19 @@ class CodeGuruSecurityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_codeguru_security.types.create_upload_url_response.CreateUploadUrlResponse",
+        ) -> dict[str, Any]:
+            import capo_codeguru_security.types.create_upload_url_response
+
+            return capo_codeguru_security.types.create_upload_url_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateUploadUrl", redact_output=_redact_output),
+        )
         input_: capo_codeguru_security.types.create_upload_url_request.CreateUploadUrlRequest = {
             "scan_name": scan_name
         }
@@ -367,7 +389,9 @@ class CodeGuruSecurityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountConfiguration")
+        )
         input_: capo_codeguru_security.types.get_account_configuration_request.GetAccountConfigurationRequest = {}
 
         response = execute_pipeline(
@@ -421,7 +445,9 @@ class CodeGuruSecurityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFindings")
+        )
         input_: capo_codeguru_security.types.get_findings_request.GetFindingsRequest = {
             "scan_name": scan_name
         }
@@ -500,7 +526,9 @@ class CodeGuruSecurityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMetricsSummary")
+        )
         input_: capo_codeguru_security.types.get_metrics_summary_request.GetMetricsSummaryRequest = {
             "date": date
         }
@@ -549,7 +577,9 @@ class CodeGuruSecurityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetScan")
+        )
         input_: capo_codeguru_security.types.get_scan_request.GetScanRequest = {
             "scan_name": scan_name
         }
@@ -605,7 +635,9 @@ class CodeGuruSecurityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFindingsMetrics")
+        )
         input_: capo_codeguru_security.types.list_findings_metrics_request.ListFindingsMetricsRequest = {
             "start_date": start_date,
             "end_date": end_date,
@@ -687,7 +719,9 @@ class CodeGuruSecurityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListScans")
+        )
         input_: capo_codeguru_security.types.list_scans_request.ListScansRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -760,7 +794,9 @@ class CodeGuruSecurityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_codeguru_security.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -810,7 +846,9 @@ class CodeGuruSecurityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_codeguru_security.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -861,7 +899,9 @@ class CodeGuruSecurityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_codeguru_security.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -909,7 +949,9 @@ class CodeGuruSecurityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccountConfiguration")
+        )
         input_: capo_codeguru_security.types.update_account_configuration_request.UpdateAccountConfigurationRequest = {
             "encryption_config": encryption_config
         }

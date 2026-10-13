@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DateTimeDefaultValues``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,6 +79,27 @@ def deserialize_json(data: dict) -> DateTimeDefaultValues:
         out["rolling_date"] = (
             capo_quicksight.types.rolling_date_configuration.deserialize_json(
                 data["RollingDate"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DateTimeDefaultValues) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "static_values" in value:
+        import capo_quicksight.types.date_time_default_value_list
+
+        out["static_values"] = (
+            capo_quicksight.types.date_time_default_value_list.redact_sensitive(
+                value["static_values"]
+            )
+        )
+    if "rolling_date" in value:
+        import capo_quicksight.types.rolling_date_configuration
+
+        out["rolling_date"] = (
+            capo_quicksight.types.rolling_date_configuration.redact_sensitive(
+                value["rolling_date"]
             )
         )
     return out

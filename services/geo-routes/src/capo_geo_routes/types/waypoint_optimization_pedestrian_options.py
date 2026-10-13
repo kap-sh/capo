@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#WaypointOptimizationPedestrianOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -35,4 +35,11 @@ def deserialize_json(data: dict) -> WaypointOptimizationPedestrianOptions:
     out: WaypointOptimizationPedestrianOptions = {}  # type: ignore[typeddict-item]
     if data.get("Speed") is not None:
         out["speed"] = float(data["Speed"])
+    return out
+
+
+def redact_sensitive(value: WaypointOptimizationPedestrianOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "speed" in value:
+        out["speed"] = "*** Sensitive Data Redacted ***"
     return out

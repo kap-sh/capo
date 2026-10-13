@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.comprehend#EntityRecognizerPropertiesList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_comprehend.types.entity_recognizer_properties
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_1(data: list) -> EntityRecognizerPropertiesList:
             )
         )
     return out
+
+
+def redact_sensitive(value: EntityRecognizerPropertiesList) -> list[Any]:
+    import capo_comprehend.types.entity_recognizer_properties
+
+    return [
+        capo_comprehend.types.entity_recognizer_properties.redact_sensitive(item)
+        for item in value
+    ]

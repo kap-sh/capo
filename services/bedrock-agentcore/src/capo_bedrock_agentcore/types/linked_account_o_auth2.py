@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#LinkedAccountOAuth2``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -128,3 +128,18 @@ def deserialize_json(data: dict) -> LinkedAccountOAuth2:
         }
     else:
         raise DeserializationError("LinkedAccountOAuth2: no recognized variant key")
+
+
+def redact_sensitive(value: LinkedAccountOAuth2) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "google" in value:
+        out["google"] = "*** Sensitive Data Redacted ***"
+    if "apple" in value:
+        out["apple"] = "*** Sensitive Data Redacted ***"
+    if "x" in value:
+        out["x"] = "*** Sensitive Data Redacted ***"
+    if "telegram" in value:
+        out["telegram"] = "*** Sensitive Data Redacted ***"
+    if "github" in value:
+        out["github"] = "*** Sensitive Data Redacted ***"
+    return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appflow#DatadogConnectorProfileCredentials``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -40,4 +40,11 @@ def deserialize_json(data: dict) -> DatadogConnectorProfileCredentials:
         raise DeserializationError(
             "DatadogConnectorProfileCredentials.application_key required"
         )
+    return out
+
+
+def redact_sensitive(value: DatadogConnectorProfileCredentials) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "api_key" in value:
+        out["api_key"] = "*** Sensitive Data Redacted ***"
     return out

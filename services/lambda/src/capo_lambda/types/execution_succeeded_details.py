@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#ExecutionSucceededDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -32,4 +32,13 @@ def deserialize_json(data: dict) -> ExecutionSucceededDetails:
         out["result"] = capo_lambda.types.event_result.deserialize_json(data["Result"])
     else:
         raise DeserializationError("ExecutionSucceededDetails.result required")
+    return out
+
+
+def redact_sensitive(value: ExecutionSucceededDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "result" in value:
+        import capo_lambda.types.event_result
+
+        out["result"] = capo_lambda.types.event_result.redact_sensitive(value["result"])
     return out

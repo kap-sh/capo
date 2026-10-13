@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_partnercentral_selling._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -90,7 +91,19 @@ class EngagementInvitation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.create_engagement_invitation_request.CreateEngagementInvitationRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.create_engagement_invitation_request
+
+            return capo_partnercentral_selling.types.create_engagement_invitation_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateEngagementInvitation", redact_input=_redact_input),
+        )
         input_: capo_partnercentral_selling.types.create_engagement_invitation_request.CreateEngagementInvitationRequest = {
             "catalog": catalog,
             "client_token": client_token,
@@ -142,7 +155,19 @@ class EngagementInvitation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.get_engagement_invitation_response.GetEngagementInvitationResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.get_engagement_invitation_response
+
+            return capo_partnercentral_selling.types.get_engagement_invitation_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetEngagementInvitation", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_selling.types.get_engagement_invitation_request.GetEngagementInvitationRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -218,7 +243,32 @@ class EngagementInvitation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.list_engagement_invitations_request.ListEngagementInvitationsRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_engagement_invitations_request
+
+            return capo_partnercentral_selling.types.list_engagement_invitations_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.list_engagement_invitations_response.ListEngagementInvitationsResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_engagement_invitations_response
+
+            return capo_partnercentral_selling.types.list_engagement_invitations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListEngagementInvitations",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_partnercentral_selling.types.list_engagement_invitations_request.ListEngagementInvitationsRequest = {
             "catalog": catalog,
             "participant_type": participant_type,
@@ -281,7 +331,9 @@ class EngagementInvitation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AcceptEngagementInvitation")
+        )
         input_: capo_partnercentral_selling.types.accept_engagement_invitation_request.AcceptEngagementInvitationRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -334,7 +386,9 @@ class EngagementInvitation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RejectEngagementInvitation")
+        )
         input_: capo_partnercentral_selling.types.reject_engagement_invitation_request.RejectEngagementInvitationRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -398,7 +452,19 @@ class AsyncEngagementInvitation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.create_engagement_invitation_request.CreateEngagementInvitationRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.create_engagement_invitation_request
+
+            return capo_partnercentral_selling.types.create_engagement_invitation_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateEngagementInvitation", redact_input=_redact_input),
+        )
         input_: capo_partnercentral_selling.types.create_engagement_invitation_request.CreateEngagementInvitationRequest = {
             "catalog": catalog,
             "client_token": client_token,
@@ -451,7 +517,19 @@ class AsyncEngagementInvitation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.get_engagement_invitation_response.GetEngagementInvitationResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.get_engagement_invitation_response
+
+            return capo_partnercentral_selling.types.get_engagement_invitation_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetEngagementInvitation", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_selling.types.get_engagement_invitation_request.GetEngagementInvitationRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -528,7 +606,32 @@ class AsyncEngagementInvitation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.list_engagement_invitations_request.ListEngagementInvitationsRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_engagement_invitations_request
+
+            return capo_partnercentral_selling.types.list_engagement_invitations_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.list_engagement_invitations_response.ListEngagementInvitationsResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_engagement_invitations_response
+
+            return capo_partnercentral_selling.types.list_engagement_invitations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListEngagementInvitations",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_partnercentral_selling.types.list_engagement_invitations_request.ListEngagementInvitationsRequest = {
             "catalog": catalog,
             "participant_type": participant_type,
@@ -592,7 +695,9 @@ class AsyncEngagementInvitation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AcceptEngagementInvitation")
+        )
         input_: capo_partnercentral_selling.types.accept_engagement_invitation_request.AcceptEngagementInvitationRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -646,7 +751,9 @@ class AsyncEngagementInvitation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RejectEngagementInvitation")
+        )
         input_: capo_partnercentral_selling.types.reject_engagement_invitation_request.RejectEngagementInvitationRequest = {
             "catalog": catalog,
             "identifier": identifier,

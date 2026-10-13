@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#EvaluatorConfig``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -89,3 +89,16 @@ def deserialize_json(data: dict) -> EvaluatorConfig:
         }
     else:
         raise DeserializationError("EvaluatorConfig: no recognized variant key")
+
+
+def redact_sensitive(value: EvaluatorConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "llmAsAJudge" in value:
+        import capo_bedrock_agentcore_control.types.llm_as_a_judge_evaluator_config
+
+        out["llmAsAJudge"] = (
+            capo_bedrock_agentcore_control.types.llm_as_a_judge_evaluator_config.redact_sensitive(
+                value["llmAsAJudge"]
+            )
+        )
+    return out

@@ -8,6 +8,7 @@ import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -97,7 +98,9 @@ class PolicyGenerationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartPolicyGeneration")
+        )
         input_: capo_bedrock_agentcore_control.types.start_policy_generation_request.StartPolicyGenerationRequest = {
             "policy_engine_id": policy_engine_id,
             "resource": resource,
@@ -152,7 +155,9 @@ class PolicyGenerationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPolicyGeneration")
+        )
         input_: capo_bedrock_agentcore_control.types.get_policy_generation_request.GetPolicyGenerationRequest = {
             "policy_generation_id": policy_generation_id,
             "policy_engine_id": policy_engine_id,
@@ -208,7 +213,9 @@ class PolicyGenerationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPolicyGenerations")
+        )
         input_: capo_bedrock_agentcore_control.types.list_policy_generations_request.ListPolicyGenerationsRequest = {
             "policy_engine_id": policy_engine_id
         }
@@ -261,7 +268,9 @@ class PolicyGenerationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPolicyGenerationSummary")
+        )
         input_: capo_bedrock_agentcore_control.types.get_policy_generation_summary_request.GetPolicyGenerationSummaryRequest = {
             "policy_generation_id": policy_generation_id,
             "policy_engine_id": policy_engine_id,
@@ -319,7 +328,9 @@ class PolicyGenerationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPolicyGenerationAssets")
+        )
         input_: capo_bedrock_agentcore_control.types.list_policy_generation_assets_request.ListPolicyGenerationAssetsRequest = {
             "policy_generation_id": policy_generation_id,
             "policy_engine_id": policy_engine_id,
@@ -379,7 +390,9 @@ class PolicyGenerationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPolicyGenerationSummaries")
+        )
         input_: capo_bedrock_agentcore_control.types.list_policy_generation_summaries_request.ListPolicyGenerationSummariesRequest = {
             "policy_engine_id": policy_engine_id
         }
@@ -448,7 +461,9 @@ class AsyncPolicyGenerationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartPolicyGeneration")
+        )
         input_: capo_bedrock_agentcore_control.types.start_policy_generation_request.StartPolicyGenerationRequest = {
             "policy_engine_id": policy_engine_id,
             "resource": resource,
@@ -504,7 +519,9 @@ class AsyncPolicyGenerationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPolicyGeneration")
+        )
         input_: capo_bedrock_agentcore_control.types.get_policy_generation_request.GetPolicyGenerationRequest = {
             "policy_generation_id": policy_generation_id,
             "policy_engine_id": policy_engine_id,
@@ -561,7 +578,9 @@ class AsyncPolicyGenerationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPolicyGenerations")
+        )
         input_: capo_bedrock_agentcore_control.types.list_policy_generations_request.ListPolicyGenerationsRequest = {
             "policy_engine_id": policy_engine_id
         }
@@ -615,7 +634,9 @@ class AsyncPolicyGenerationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPolicyGenerationSummary")
+        )
         input_: capo_bedrock_agentcore_control.types.get_policy_generation_summary_request.GetPolicyGenerationSummaryRequest = {
             "policy_generation_id": policy_generation_id,
             "policy_engine_id": policy_engine_id,
@@ -674,7 +695,9 @@ class AsyncPolicyGenerationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPolicyGenerationAssets")
+        )
         input_: capo_bedrock_agentcore_control.types.list_policy_generation_assets_request.ListPolicyGenerationAssetsRequest = {
             "policy_generation_id": policy_generation_id,
             "policy_engine_id": policy_engine_id,
@@ -735,7 +758,9 @@ class AsyncPolicyGenerationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPolicyGenerationSummaries")
+        )
         input_: capo_bedrock_agentcore_control.types.list_policy_generation_summaries_request.ListPolicyGenerationSummariesRequest = {
             "policy_engine_id": policy_engine_id
         }

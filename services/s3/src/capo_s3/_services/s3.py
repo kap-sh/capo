@@ -31,10 +31,12 @@ from capo_s3._presigned_post import PostCondition, PresignedPost, presign_post_s
 from capo_s3._services._aws_config import aws_config
 from capo_s3._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 from capo_s3.errors import ServiceError, WaiterTimeoutError
@@ -507,7 +509,9 @@ class S3Client:
         )
 
     def operation_options(
-        self, config_overrides: Optional[S3ClientConfig] = None
+        self,
+        config_overrides: Optional[S3ClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: S3ClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -515,8 +519,10 @@ class S3Client:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -600,7 +606,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AbortMultipartUpload")
+        )
         input_: capo_s3.types.abort_multipart_upload_request.AbortMultipartUploadRequest = {
             "bucket": bucket,
             "key": key,
@@ -721,7 +729,32 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_s3.types.complete_multipart_upload_request.CompleteMultipartUploadRequest",
+        ) -> dict[str, Any]:
+            import capo_s3.types.complete_multipart_upload_request
+
+            return capo_s3.types.complete_multipart_upload_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_s3.types.complete_multipart_upload_output.CompleteMultipartUploadOutput",
+        ) -> dict[str, Any]:
+            import capo_s3.types.complete_multipart_upload_output
+
+            return capo_s3.types.complete_multipart_upload_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CompleteMultipartUpload",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_s3.types.complete_multipart_upload_request.CompleteMultipartUploadRequest = {
             "bucket": bucket,
             "key": key,
@@ -959,7 +992,26 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_s3.types.copy_object_request.CopyObjectRequest",
+        ) -> dict[str, Any]:
+            import capo_s3.types.copy_object_request
+
+            return capo_s3.types.copy_object_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_s3.types.copy_object_output.CopyObjectOutput",
+        ) -> dict[str, Any]:
+            import capo_s3.types.copy_object_output
+
+            return capo_s3.types.copy_object_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CopyObject", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_s3.types.copy_object_request.CopyObjectRequest = {
             "bucket": bucket,
             "copy_source": copy_source,
@@ -1138,7 +1190,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBucket")
+        )
         input_: capo_s3.types.create_bucket_request.CreateBucketRequest = {
             "bucket": bucket
         }
@@ -1208,7 +1262,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBucketMetadataConfiguration")
+        )
         input_: capo_s3.types.create_bucket_metadata_configuration_request.CreateBucketMetadataConfigurationRequest = {
             "bucket": bucket,
             "metadata_configuration": metadata_configuration,
@@ -1265,7 +1321,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBucketMetadataTableConfiguration")
+        )
         input_: capo_s3.types.create_bucket_metadata_table_configuration_request.CreateBucketMetadataTableConfigurationRequest = {
             "bucket": bucket,
             "metadata_table_configuration": metadata_table_configuration,
@@ -1421,7 +1479,30 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_s3.types.create_multipart_upload_request.CreateMultipartUploadRequest",
+        ) -> dict[str, Any]:
+            import capo_s3.types.create_multipart_upload_request
+
+            return capo_s3.types.create_multipart_upload_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_s3.types.create_multipart_upload_output.CreateMultipartUploadOutput",
+        ) -> dict[str, Any]:
+            import capo_s3.types.create_multipart_upload_output
+
+            return capo_s3.types.create_multipart_upload_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateMultipartUpload",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_s3.types.create_multipart_upload_request.CreateMultipartUploadRequest = {
             "bucket": bucket,
             "key": key,
@@ -1549,7 +1630,28 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_s3.types.create_session_request.CreateSessionRequest",
+        ) -> dict[str, Any]:
+            import capo_s3.types.create_session_request
+
+            return capo_s3.types.create_session_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_s3.types.create_session_output.CreateSessionOutput",
+        ) -> dict[str, Any]:
+            import capo_s3.types.create_session_output
+
+            return capo_s3.types.create_session_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateSession",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_s3.types.create_session_request.CreateSessionRequest = {
             "bucket": bucket
         }
@@ -1607,7 +1709,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBucket")
+        )
         input_: capo_s3.types.delete_bucket_request.DeleteBucketRequest = {
             "bucket": bucket
         }
@@ -1653,7 +1757,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBucketAnalyticsConfiguration")
+        )
         input_: capo_s3.types.delete_bucket_analytics_configuration_request.DeleteBucketAnalyticsConfigurationRequest = {
             "bucket": bucket,
             "id": id,
@@ -1704,7 +1810,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBucketCors")
+        )
         input_: capo_s3.types.delete_bucket_cors_request.DeleteBucketCorsRequest = {
             "bucket": bucket
         }
@@ -1748,7 +1856,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBucketEncryption")
+        )
         input_: capo_s3.types.delete_bucket_encryption_request.DeleteBucketEncryptionRequest = {
             "bucket": bucket
         }
@@ -1794,7 +1904,10 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteBucketIntelligentTieringConfiguration"),
+        )
         input_: capo_s3.types.delete_bucket_intelligent_tiering_configuration_request.DeleteBucketIntelligentTieringConfigurationRequest = {
             "bucket": bucket,
             "id": id,
@@ -1841,7 +1954,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBucketInventoryConfiguration")
+        )
         input_: capo_s3.types.delete_bucket_inventory_configuration_request.DeleteBucketInventoryConfigurationRequest = {
             "bucket": bucket,
             "id": id,
@@ -1892,7 +2007,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBucketLifecycle")
+        )
         input_: capo_s3.types.delete_bucket_lifecycle_request.DeleteBucketLifecycleRequest = {
             "bucket": bucket
         }
@@ -1936,7 +2053,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBucketMetadataConfiguration")
+        )
         input_: capo_s3.types.delete_bucket_metadata_configuration_request.DeleteBucketMetadataConfigurationRequest = {
             "bucket": bucket
         }
@@ -1980,7 +2099,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBucketMetadataTableConfiguration")
+        )
         input_: capo_s3.types.delete_bucket_metadata_table_configuration_request.DeleteBucketMetadataTableConfigurationRequest = {
             "bucket": bucket
         }
@@ -2026,7 +2147,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBucketMetricsConfiguration")
+        )
         input_: capo_s3.types.delete_bucket_metrics_configuration_request.DeleteBucketMetricsConfigurationRequest = {
             "bucket": bucket,
             "id": id,
@@ -2071,7 +2194,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBucketOwnershipControls")
+        )
         input_: capo_s3.types.delete_bucket_ownership_controls_request.DeleteBucketOwnershipControlsRequest = {
             "bucket": bucket
         }
@@ -2121,7 +2246,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBucketPolicy")
+        )
         input_: capo_s3.types.delete_bucket_policy_request.DeleteBucketPolicyRequest = {
             "bucket": bucket
         }
@@ -2171,7 +2298,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBucketReplication")
+        )
         input_: capo_s3.types.delete_bucket_replication_request.DeleteBucketReplicationRequest = {
             "bucket": bucket
         }
@@ -2221,7 +2350,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBucketTagging")
+        )
         input_: capo_s3.types.delete_bucket_tagging_request.DeleteBucketTaggingRequest = {
             "bucket": bucket
         }
@@ -2271,7 +2402,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBucketWebsite")
+        )
         input_: capo_s3.types.delete_bucket_website_request.DeleteBucketWebsiteRequest = {
             "bucket": bucket
         }
@@ -2344,7 +2477,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteObject")
+        )
         input_: capo_s3.types.delete_object_request.DeleteObjectRequest = {
             "bucket": bucket,
             "key": key,
@@ -2484,7 +2619,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteObjectAnnotation")
+        )
         input_: capo_s3.types.delete_object_annotation_request.DeleteObjectAnnotationRequest = {
             "bucket": bucket,
             "key": key,
@@ -2561,7 +2698,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteObjects")
+        )
         input_: capo_s3.types.delete_objects_request.DeleteObjectsRequest = {
             "bucket": bucket,
             "delete": delete,
@@ -2630,7 +2769,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteObjectTagging")
+        )
         input_: capo_s3.types.delete_object_tagging_request.DeleteObjectTaggingRequest = {
             "bucket": bucket,
             "key": key,
@@ -2677,7 +2818,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePublicAccessBlock")
+        )
         input_: capo_s3.types.delete_public_access_block_request.DeletePublicAccessBlockRequest = {
             "bucket": bucket
         }
@@ -2723,7 +2866,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketAbac")
+        )
         input_: capo_s3.types.get_bucket_abac_request.GetBucketAbacRequest = {
             "bucket": bucket
         }
@@ -2770,7 +2915,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketAccelerateConfiguration")
+        )
         input_: capo_s3.types.get_bucket_accelerate_configuration_request.GetBucketAccelerateConfigurationRequest = {
             "bucket": bucket
         }
@@ -2818,7 +2965,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketAcl")
+        )
         input_: capo_s3.types.get_bucket_acl_request.GetBucketAclRequest = {
             "bucket": bucket
         }
@@ -2866,7 +3015,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketAnalyticsConfiguration")
+        )
         input_: capo_s3.types.get_bucket_analytics_configuration_request.GetBucketAnalyticsConfigurationRequest = {
             "bucket": bucket,
             "id": id,
@@ -2919,7 +3070,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketCors")
+        )
         input_: capo_s3.types.get_bucket_cors_request.GetBucketCorsRequest = {
             "bucket": bucket
         }
@@ -2965,7 +3118,17 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_s3.types.get_bucket_encryption_output.GetBucketEncryptionOutput",
+        ) -> dict[str, Any]:
+            import capo_s3.types.get_bucket_encryption_output
+
+            return capo_s3.types.get_bucket_encryption_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetBucketEncryption", redact_output=_redact_output),
+        )
         input_: capo_s3.types.get_bucket_encryption_request.GetBucketEncryptionRequest = {
             "bucket": bucket
         }
@@ -3013,7 +3176,10 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetBucketIntelligentTieringConfiguration"),
+        )
         input_: capo_s3.types.get_bucket_intelligent_tiering_configuration_request.GetBucketIntelligentTieringConfigurationRequest = {
             "bucket": bucket,
             "id": id,
@@ -3062,7 +3228,21 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_s3.types.get_bucket_inventory_configuration_output.GetBucketInventoryConfigurationOutput",
+        ) -> dict[str, Any]:
+            import capo_s3.types.get_bucket_inventory_configuration_output
+
+            return capo_s3.types.get_bucket_inventory_configuration_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetBucketInventoryConfiguration", redact_output=_redact_output
+            ),
+        )
         input_: capo_s3.types.get_bucket_inventory_configuration_request.GetBucketInventoryConfigurationRequest = {
             "bucket": bucket,
             "id": id,
@@ -3115,7 +3295,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketLifecycleConfiguration")
+        )
         input_: capo_s3.types.get_bucket_lifecycle_configuration_request.GetBucketLifecycleConfigurationRequest = {
             "bucket": bucket
         }
@@ -3167,7 +3349,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketLocation")
+        )
         input_: capo_s3.types.get_bucket_location_request.GetBucketLocationRequest = {
             "bucket": bucket
         }
@@ -3213,7 +3397,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketLogging")
+        )
         input_: capo_s3.types.get_bucket_logging_request.GetBucketLoggingRequest = {
             "bucket": bucket
         }
@@ -3259,7 +3445,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketMetadataConfiguration")
+        )
         input_: capo_s3.types.get_bucket_metadata_configuration_request.GetBucketMetadataConfigurationRequest = {
             "bucket": bucket
         }
@@ -3305,7 +3493,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketMetadataTableConfiguration")
+        )
         input_: capo_s3.types.get_bucket_metadata_table_configuration_request.GetBucketMetadataTableConfigurationRequest = {
             "bucket": bucket
         }
@@ -3353,7 +3543,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketMetricsConfiguration")
+        )
         input_: capo_s3.types.get_bucket_metrics_configuration_request.GetBucketMetricsConfigurationRequest = {
             "bucket": bucket,
             "id": id,
@@ -3400,7 +3592,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketNotificationConfiguration")
+        )
         input_: capo_s3.types.get_bucket_notification_configuration_request.GetBucketNotificationConfigurationRequest = {
             "bucket": bucket
         }
@@ -3446,7 +3640,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketOwnershipControls")
+        )
         input_: capo_s3.types.get_bucket_ownership_controls_request.GetBucketOwnershipControlsRequest = {
             "bucket": bucket
         }
@@ -3498,7 +3694,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketPolicy")
+        )
         input_: capo_s3.types.get_bucket_policy_request.GetBucketPolicyRequest = {
             "bucket": bucket
         }
@@ -3544,7 +3742,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketPolicyStatus")
+        )
         input_: capo_s3.types.get_bucket_policy_status_request.GetBucketPolicyStatusRequest = {
             "bucket": bucket
         }
@@ -3596,7 +3796,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketReplication")
+        )
         input_: capo_s3.types.get_bucket_replication_request.GetBucketReplicationRequest = {
             "bucket": bucket
         }
@@ -3650,7 +3852,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketRequestPayment")
+        )
         input_: capo_s3.types.get_bucket_request_payment_request.GetBucketRequestPaymentRequest = {
             "bucket": bucket
         }
@@ -3702,7 +3906,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketTagging")
+        )
         input_: capo_s3.types.get_bucket_tagging_request.GetBucketTaggingRequest = {
             "bucket": bucket
         }
@@ -3754,7 +3960,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketVersioning")
+        )
         input_: capo_s3.types.get_bucket_versioning_request.GetBucketVersioningRequest = {
             "bucket": bucket
         }
@@ -3806,7 +4014,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketWebsite")
+        )
         input_: capo_s3.types.get_bucket_website_request.GetBucketWebsiteRequest = {
             "bucket": bucket
         }
@@ -3920,7 +4130,26 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_s3.types.get_object_request.GetObjectRequest",
+        ) -> dict[str, Any]:
+            import capo_s3.types.get_object_request
+
+            return capo_s3.types.get_object_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_s3.types.get_object_output.GetObjectOutput",
+        ) -> dict[str, Any]:
+            import capo_s3.types.get_object_output
+
+            return capo_s3.types.get_object_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetObject", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_s3.types.get_object_request.GetObjectRequest = {
             "bucket": bucket,
             "key": key,
@@ -4136,7 +4365,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetObjectAcl")
+        )
         input_: capo_s3.types.get_object_acl_request.GetObjectAclRequest = {
             "bucket": bucket,
             "key": key,
@@ -4200,7 +4431,17 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_s3.types.get_object_annotation_output.GetObjectAnnotationOutput",
+        ) -> dict[str, Any]:
+            import capo_s3.types.get_object_annotation_output
+
+            return capo_s3.types.get_object_annotation_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetObjectAnnotation", redact_output=_redact_output),
+        )
         input_: capo_s3.types.get_object_annotation_request.GetObjectAnnotationRequest = {
             "bucket": bucket,
             "key": key,
@@ -4282,7 +4523,17 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_s3.types.get_object_attributes_request.GetObjectAttributesRequest",
+        ) -> dict[str, Any]:
+            import capo_s3.types.get_object_attributes_request
+
+            return capo_s3.types.get_object_attributes_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetObjectAttributes", redact_input=_redact_input),
+        )
         input_: capo_s3.types.get_object_attributes_request.GetObjectAttributesRequest = {
             "bucket": bucket,
             "key": key,
@@ -4349,7 +4600,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetObjectLegalHold")
+        )
         input_: capo_s3.types.get_object_legal_hold_request.GetObjectLegalHoldRequest = {
             "bucket": bucket,
             "key": key,
@@ -4400,7 +4653,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetObjectLockConfiguration")
+        )
         input_: capo_s3.types.get_object_lock_configuration_request.GetObjectLockConfigurationRequest = {
             "bucket": bucket
         }
@@ -4451,7 +4706,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetObjectRetention")
+        )
         input_: capo_s3.types.get_object_retention_request.GetObjectRetentionRequest = {
             "bucket": bucket,
             "key": key,
@@ -4517,7 +4774,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetObjectTagging")
+        )
         input_: capo_s3.types.get_object_tagging_request.GetObjectTaggingRequest = {
             "bucket": bucket,
             "key": key,
@@ -4578,7 +4837,17 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_s3.types.get_object_torrent_output.GetObjectTorrentOutput",
+        ) -> dict[str, Any]:
+            import capo_s3.types.get_object_torrent_output
+
+            return capo_s3.types.get_object_torrent_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetObjectTorrent", redact_output=_redact_output),
+        )
         input_: capo_s3.types.get_object_torrent_request.GetObjectTorrentRequest = {
             "bucket": bucket,
             "key": key,
@@ -4629,7 +4898,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPublicAccessBlock")
+        )
         input_: capo_s3.types.get_public_access_block_request.GetPublicAccessBlockRequest = {
             "bucket": bucket
         }
@@ -4680,7 +4951,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("HeadBucket")
+        )
         input_: capo_s3.types.head_bucket_request.HeadBucketRequest = {"bucket": bucket}
         if expected_bucket_owner is not None:
             input_["expected_bucket_owner"] = expected_bucket_owner
@@ -4884,7 +5157,26 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_s3.types.head_object_request.HeadObjectRequest",
+        ) -> dict[str, Any]:
+            import capo_s3.types.head_object_request
+
+            return capo_s3.types.head_object_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_s3.types.head_object_output.HeadObjectOutput",
+        ) -> dict[str, Any]:
+            import capo_s3.types.head_object_output
+
+            return capo_s3.types.head_object_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "HeadObject", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_s3.types.head_object_request.HeadObjectRequest = {
             "bucket": bucket,
             "key": key,
@@ -5340,7 +5632,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBucketAnalyticsConfigurations")
+        )
         input_: capo_s3.types.list_bucket_analytics_configurations_request.ListBucketAnalyticsConfigurationsRequest = {
             "bucket": bucket
         }
@@ -5390,7 +5684,10 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListBucketIntelligentTieringConfigurations"),
+        )
         input_: capo_s3.types.list_bucket_intelligent_tiering_configurations_request.ListBucketIntelligentTieringConfigurationsRequest = {
             "bucket": bucket
         }
@@ -5440,7 +5737,21 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_s3.types.list_bucket_inventory_configurations_output.ListBucketInventoryConfigurationsOutput",
+        ) -> dict[str, Any]:
+            import capo_s3.types.list_bucket_inventory_configurations_output
+
+            return capo_s3.types.list_bucket_inventory_configurations_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListBucketInventoryConfigurations", redact_output=_redact_output
+            ),
+        )
         input_: capo_s3.types.list_bucket_inventory_configurations_request.ListBucketInventoryConfigurationsRequest = {
             "bucket": bucket
         }
@@ -5490,7 +5801,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBucketMetricsConfigurations")
+        )
         input_: capo_s3.types.list_bucket_metrics_configurations_request.ListBucketMetricsConfigurationsRequest = {
             "bucket": bucket
         }
@@ -5546,7 +5859,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBuckets")
+        )
         input_: capo_s3.types.list_buckets_request.ListBucketsRequest = {}
         if max_buckets is not None:
             input_["max_buckets"] = max_buckets
@@ -5625,7 +5940,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDirectoryBuckets")
+        )
         input_: capo_s3.types.list_directory_buckets_request.ListDirectoryBucketsRequest = {}
         if continuation_token is not None:
             input_["continuation_token"] = continuation_token
@@ -5720,7 +6037,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMultipartUploads")
+        )
         input_: capo_s3.types.list_multipart_uploads_request.ListMultipartUploadsRequest = {
             "bucket": bucket
         }
@@ -5798,7 +6117,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListObjectAnnotations")
+        )
         input_: capo_s3.types.list_object_annotations_request.ListObjectAnnotationsRequest = {
             "bucket": bucket,
             "key": key,
@@ -5912,7 +6233,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListObjects")
+        )
         input_: capo_s3.types.list_objects_request.ListObjectsRequest = {
             "bucket": bucket
         }
@@ -5999,7 +6322,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListObjectsV2")
+        )
         input_: capo_s3.types.list_objects_v2_request.ListObjectsV2Request = {
             "bucket": bucket
         }
@@ -6126,7 +6451,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListObjectVersions")
+        )
         input_: capo_s3.types.list_object_versions_request.ListObjectVersionsRequest = {
             "bucket": bucket
         }
@@ -6213,7 +6540,16 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_s3.types.list_parts_request.ListPartsRequest",
+        ) -> dict[str, Any]:
+            import capo_s3.types.list_parts_request
+
+            return capo_s3.types.list_parts_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListParts", redact_input=_redact_input)
+        )
         input_: capo_s3.types.list_parts_request.ListPartsRequest = {
             "bucket": bucket,
             "key": key,
@@ -6324,7 +6660,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBucketAbac")
+        )
         input_: capo_s3.types.put_bucket_abac_request.PutBucketAbacRequest = {
             "bucket": bucket,
             "abac_status": abac_status,
@@ -6379,7 +6717,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBucketAccelerateConfiguration")
+        )
         input_: capo_s3.types.put_bucket_accelerate_configuration_request.PutBucketAccelerateConfigurationRequest = {
             "bucket": bucket,
             "accelerate_configuration": accelerate_configuration,
@@ -6456,7 +6796,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBucketAcl")
+        )
         input_: capo_s3.types.put_bucket_acl_request.PutBucketAclRequest = {
             "bucket": bucket
         }
@@ -6522,7 +6864,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBucketAnalyticsConfiguration")
+        )
         input_: capo_s3.types.put_bucket_analytics_configuration_request.PutBucketAnalyticsConfigurationRequest = {
             "bucket": bucket,
             "id": id,
@@ -6582,7 +6926,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBucketCors")
+        )
         input_: capo_s3.types.put_bucket_cors_request.PutBucketCorsRequest = {
             "bucket": bucket,
             "cors_configuration": cors_configuration,
@@ -6638,7 +6984,17 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_s3.types.put_bucket_encryption_request.PutBucketEncryptionRequest",
+        ) -> dict[str, Any]:
+            import capo_s3.types.put_bucket_encryption_request
+
+            return capo_s3.types.put_bucket_encryption_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutBucketEncryption", redact_input=_redact_input),
+        )
         input_: capo_s3.types.put_bucket_encryption_request.PutBucketEncryptionRequest = {
             "bucket": bucket,
             "server_side_encryption_configuration": server_side_encryption_configuration,
@@ -6691,7 +7047,10 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutBucketIntelligentTieringConfiguration"),
+        )
         input_: capo_s3.types.put_bucket_intelligent_tiering_configuration_request.PutBucketIntelligentTieringConfigurationRequest = {
             "bucket": bucket,
             "id": id,
@@ -6741,7 +7100,21 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_s3.types.put_bucket_inventory_configuration_request.PutBucketInventoryConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_s3.types.put_bucket_inventory_configuration_request
+
+            return capo_s3.types.put_bucket_inventory_configuration_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutBucketInventoryConfiguration", redact_input=_redact_input
+            ),
+        )
         input_: capo_s3.types.put_bucket_inventory_configuration_request.PutBucketInventoryConfigurationRequest = {
             "bucket": bucket,
             "id": id,
@@ -6807,7 +7180,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBucketLifecycleConfiguration")
+        )
         input_: capo_s3.types.put_bucket_lifecycle_configuration_request.PutBucketLifecycleConfigurationRequest = {
             "bucket": bucket
         }
@@ -6873,7 +7248,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBucketLogging")
+        )
         input_: capo_s3.types.put_bucket_logging_request.PutBucketLoggingRequest = {
             "bucket": bucket,
             "bucket_logging_status": bucket_logging_status,
@@ -6926,7 +7303,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBucketMetricsConfiguration")
+        )
         input_: capo_s3.types.put_bucket_metrics_configuration_request.PutBucketMetricsConfigurationRequest = {
             "bucket": bucket,
             "id": id,
@@ -6983,7 +7362,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBucketNotificationConfiguration")
+        )
         input_: capo_s3.types.put_bucket_notification_configuration_request.PutBucketNotificationConfigurationRequest = {
             "bucket": bucket,
             "notification_configuration": notification_configuration,
@@ -7038,7 +7419,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBucketOwnershipControls")
+        )
         input_: capo_s3.types.put_bucket_ownership_controls_request.PutBucketOwnershipControlsRequest = {
             "bucket": bucket,
             "ownership_controls": ownership_controls,
@@ -7105,7 +7488,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBucketPolicy")
+        )
         input_: capo_s3.types.put_bucket_policy_request.PutBucketPolicyRequest = {
             "bucket": bucket,
             "policy": policy,
@@ -7173,7 +7558,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBucketReplication")
+        )
         input_: capo_s3.types.put_bucket_replication_request.PutBucketReplicationRequest = {
             "bucket": bucket,
             "replication_configuration": replication_configuration,
@@ -7238,7 +7625,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBucketRequestPayment")
+        )
         input_: capo_s3.types.put_bucket_request_payment_request.PutBucketRequestPaymentRequest = {
             "bucket": bucket,
             "request_payment_configuration": request_payment_configuration,
@@ -7301,7 +7690,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBucketTagging")
+        )
         input_: capo_s3.types.put_bucket_tagging_request.PutBucketTaggingRequest = {
             "bucket": bucket,
             "tagging": tagging,
@@ -7366,7 +7757,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBucketVersioning")
+        )
         input_: capo_s3.types.put_bucket_versioning_request.PutBucketVersioningRequest = {
             "bucket": bucket,
             "versioning_configuration": versioning_configuration,
@@ -7431,7 +7824,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBucketWebsite")
+        )
         input_: capo_s3.types.put_bucket_website_request.PutBucketWebsiteRequest = {
             "bucket": bucket,
             "website_configuration": website_configuration,
@@ -7657,7 +8052,26 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_s3.types.put_object_request.PutObjectRequest",
+        ) -> dict[str, Any]:
+            import capo_s3.types.put_object_request
+
+            return capo_s3.types.put_object_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_s3.types.put_object_output.PutObjectOutput",
+        ) -> dict[str, Any]:
+            import capo_s3.types.put_object_output
+
+            return capo_s3.types.put_object_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutObject", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_s3.types.put_object_request.PutObjectRequest = {
             "bucket": bucket,
             "key": key,
@@ -8074,7 +8488,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutObjectAcl")
+        )
         input_: capo_s3.types.put_object_acl_request.PutObjectAclRequest = {
             "bucket": bucket,
             "key": key,
@@ -8201,7 +8617,17 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_s3.types.put_object_annotation_request.PutObjectAnnotationRequest",
+        ) -> dict[str, Any]:
+            import capo_s3.types.put_object_annotation_request
+
+            return capo_s3.types.put_object_annotation_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutObjectAnnotation", redact_input=_redact_input),
+        )
         input_: capo_s3.types.put_object_annotation_request.PutObjectAnnotationRequest = {
             "bucket": bucket,
             "key": key,
@@ -8296,7 +8722,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutObjectLegalHold")
+        )
         input_: capo_s3.types.put_object_legal_hold_request.PutObjectLegalHoldRequest = {
             "bucket": bucket,
             "key": key,
@@ -8366,7 +8794,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutObjectLockConfiguration")
+        )
         input_: capo_s3.types.put_object_lock_configuration_request.PutObjectLockConfigurationRequest = {
             "bucket": bucket
         }
@@ -8441,7 +8871,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutObjectRetention")
+        )
         input_: capo_s3.types.put_object_retention_request.PutObjectRetentionRequest = {
             "bucket": bucket,
             "key": key,
@@ -8520,7 +8952,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutObjectTagging")
+        )
         input_: capo_s3.types.put_object_tagging_request.PutObjectTaggingRequest = {
             "bucket": bucket,
             "key": key,
@@ -8582,7 +9016,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutPublicAccessBlock")
+        )
         input_: capo_s3.types.put_public_access_block_request.PutPublicAccessBlockRequest = {
             "bucket": bucket,
             "public_access_block_configuration": public_access_block_configuration,
@@ -8666,7 +9102,9 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RenameObject")
+        )
         input_: capo_s3.types.rename_object_request.RenameObjectRequest = {
             "bucket": bucket,
             "key": key,
@@ -8750,7 +9188,17 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_s3.types.restore_object_request.RestoreObjectRequest",
+        ) -> dict[str, Any]:
+            import capo_s3.types.restore_object_request
+
+            return capo_s3.types.restore_object_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RestoreObject", redact_input=_redact_input),
+        )
         input_: capo_s3.types.restore_object_request.RestoreObjectRequest = {
             "bucket": bucket,
             "key": key,
@@ -8834,7 +9282,28 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_s3.types.select_object_content_request.SelectObjectContentRequest",
+        ) -> dict[str, Any]:
+            import capo_s3.types.select_object_content_request
+
+            return capo_s3.types.select_object_content_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_s3.types.select_object_content_output.SelectObjectContentOutput",
+        ) -> dict[str, Any]:
+            import capo_s3.types.select_object_content_output
+
+            return capo_s3.types.select_object_content_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SelectObjectContent",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_s3.types.select_object_content_request.SelectObjectContentRequest = {
             "bucket": bucket,
             "key": key,
@@ -8903,7 +9372,10 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateBucketMetadataAnnotationTableConfiguration"),
+        )
         input_: capo_s3.types.update_bucket_metadata_annotation_table_configuration_request.UpdateBucketMetadataAnnotationTableConfigurationRequest = {
             "bucket": bucket,
             "annotation_table_configuration": annotation_table_configuration,
@@ -8960,7 +9432,10 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateBucketMetadataInventoryTableConfiguration"),
+        )
         input_: capo_s3.types.update_bucket_metadata_inventory_table_configuration_request.UpdateBucketMetadataInventoryTableConfigurationRequest = {
             "bucket": bucket,
             "inventory_table_configuration": inventory_table_configuration,
@@ -9017,7 +9492,10 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateBucketMetadataJournalTableConfiguration"),
+        )
         input_: capo_s3.types.update_bucket_metadata_journal_table_configuration_request.UpdateBucketMetadataJournalTableConfigurationRequest = {
             "bucket": bucket,
             "journal_table_configuration": journal_table_configuration,
@@ -9086,7 +9564,19 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_s3.types.update_object_encryption_request.UpdateObjectEncryptionRequest",
+        ) -> dict[str, Any]:
+            import capo_s3.types.update_object_encryption_request
+
+            return capo_s3.types.update_object_encryption_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateObjectEncryption", redact_input=_redact_input),
+        )
         input_: capo_s3.types.update_object_encryption_request.UpdateObjectEncryptionRequest = {
             "bucket": bucket,
             "key": key,
@@ -9209,7 +9699,26 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_s3.types.upload_part_request.UploadPartRequest",
+        ) -> dict[str, Any]:
+            import capo_s3.types.upload_part_request
+
+            return capo_s3.types.upload_part_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_s3.types.upload_part_output.UploadPartOutput",
+        ) -> dict[str, Any]:
+            import capo_s3.types.upload_part_output
+
+            return capo_s3.types.upload_part_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UploadPart", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_s3.types.upload_part_request.UploadPartRequest = {
             "bucket": bucket,
             "key": key,
@@ -9485,7 +9994,28 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_s3.types.upload_part_copy_request.UploadPartCopyRequest",
+        ) -> dict[str, Any]:
+            import capo_s3.types.upload_part_copy_request
+
+            return capo_s3.types.upload_part_copy_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_s3.types.upload_part_copy_output.UploadPartCopyOutput",
+        ) -> dict[str, Any]:
+            import capo_s3.types.upload_part_copy_output
+
+            return capo_s3.types.upload_part_copy_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UploadPartCopy",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_s3.types.upload_part_copy_request.UploadPartCopyRequest = {
             "bucket": bucket,
             "copy_source": copy_source,
@@ -9690,7 +10220,19 @@ class S3Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_s3.types.write_get_object_response_request.WriteGetObjectResponseRequest",
+        ) -> dict[str, Any]:
+            import capo_s3.types.write_get_object_response_request
+
+            return capo_s3.types.write_get_object_response_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("WriteGetObjectResponse", redact_input=_redact_input),
+        )
         input_: capo_s3.types.write_get_object_response_request.WriteGetObjectResponseRequest = {
             "request_route": request_route,
             "request_token": request_token,

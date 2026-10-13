@@ -21,10 +21,12 @@ from capo_clouddirectory._pagination import resolve_path as _resolve_path
 from capo_clouddirectory._services._aws_config import aws_config
 from capo_clouddirectory._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -273,7 +275,9 @@ class CloudDirectoryClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[CloudDirectoryClientConfig] = None
+        self,
+        config_overrides: Optional[CloudDirectoryClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: CloudDirectoryClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -281,8 +285,10 @@ class CloudDirectoryClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -352,7 +358,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddFacetToObject")
+        )
         input_: capo_clouddirectory.types.add_facet_to_object_request.AddFacetToObjectRequest = {
             "directory_arn": directory_arn,
             "schema_facet": schema_facet,
@@ -414,7 +422,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ApplySchema")
+        )
         input_: capo_clouddirectory.types.apply_schema_request.ApplySchemaRequest = {
             "published_schema_arn": published_schema_arn,
             "directory_arn": directory_arn,
@@ -479,7 +489,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachObject")
+        )
         input_: capo_clouddirectory.types.attach_object_request.AttachObjectRequest = {
             "directory_arn": directory_arn,
             "parent_reference": parent_reference,
@@ -542,7 +554,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachPolicy")
+        )
         input_: capo_clouddirectory.types.attach_policy_request.AttachPolicyRequest = {
             "directory_arn": directory_arn,
             "policy_reference": policy_reference,
@@ -607,7 +621,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachToIndex")
+        )
         input_: capo_clouddirectory.types.attach_to_index_request.AttachToIndexRequest = {
             "directory_arn": directory_arn,
             "index_reference": index_reference,
@@ -674,7 +690,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachTypedLink")
+        )
         input_: capo_clouddirectory.types.attach_typed_link_request.AttachTypedLinkRequest = {
             "directory_arn": directory_arn,
             "source_object_reference": source_object_reference,
@@ -738,7 +756,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchRead")
+        )
         input_: capo_clouddirectory.types.batch_read_request.BatchReadRequest = {
             "directory_arn": directory_arn,
             "operations": operations,
@@ -798,7 +818,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchWrite")
+        )
         input_: capo_clouddirectory.types.batch_write_request.BatchWriteRequest = {
             "directory_arn": directory_arn,
             "operations": operations,
@@ -856,7 +878,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDirectory")
+        )
         input_: capo_clouddirectory.types.create_directory_request.CreateDirectoryRequest = {
             "name": name,
             "schema_arn": schema_arn,
@@ -928,7 +952,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFacet")
+        )
         input_: capo_clouddirectory.types.create_facet_request.CreateFacetRequest = {
             "schema_arn": schema_arn,
             "name": name,
@@ -1003,7 +1029,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIndex")
+        )
         input_: capo_clouddirectory.types.create_index_request.CreateIndexRequest = {
             "directory_arn": directory_arn,
             "ordered_indexed_attribute_list": ordered_indexed_attribute_list,
@@ -1079,7 +1107,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateObject")
+        )
         input_: capo_clouddirectory.types.create_object_request.CreateObjectRequest = {
             "directory_arn": directory_arn,
             "schema_facets": schema_facets,
@@ -1140,7 +1170,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSchema")
+        )
         input_: capo_clouddirectory.types.create_schema_request.CreateSchemaRequest = {
             "name": name
         }
@@ -1199,7 +1231,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTypedLinkFacet")
+        )
         input_: capo_clouddirectory.types.create_typed_link_facet_request.CreateTypedLinkFacetRequest = {
             "schema_arn": schema_arn,
             "facet": facet,
@@ -1256,7 +1290,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDirectory")
+        )
         input_: capo_clouddirectory.types.delete_directory_request.DeleteDirectoryRequest = {
             "directory_arn": directory_arn
         }
@@ -1314,7 +1350,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFacet")
+        )
         input_: capo_clouddirectory.types.delete_facet_request.DeleteFacetRequest = {
             "schema_arn": schema_arn,
             "name": name,
@@ -1373,7 +1411,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteObject")
+        )
         input_: capo_clouddirectory.types.delete_object_request.DeleteObjectRequest = {
             "directory_arn": directory_arn,
             "object_reference": object_reference,
@@ -1429,7 +1469,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSchema")
+        )
         input_: capo_clouddirectory.types.delete_schema_request.DeleteSchemaRequest = {
             "schema_arn": schema_arn
         }
@@ -1486,7 +1528,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTypedLinkFacet")
+        )
         input_: capo_clouddirectory.types.delete_typed_link_facet_request.DeleteTypedLinkFacetRequest = {
             "schema_arn": schema_arn,
             "name": name,
@@ -1548,7 +1592,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachFromIndex")
+        )
         input_: capo_clouddirectory.types.detach_from_index_request.DetachFromIndexRequest = {
             "directory_arn": directory_arn,
             "index_reference": index_reference,
@@ -1610,7 +1656,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachObject")
+        )
         input_: capo_clouddirectory.types.detach_object_request.DetachObjectRequest = {
             "directory_arn": directory_arn,
             "parent_reference": parent_reference,
@@ -1672,7 +1720,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachPolicy")
+        )
         input_: capo_clouddirectory.types.detach_policy_request.DetachPolicyRequest = {
             "directory_arn": directory_arn,
             "policy_reference": policy_reference,
@@ -1730,7 +1780,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachTypedLink")
+        )
         input_: capo_clouddirectory.types.detach_typed_link_request.DetachTypedLinkRequest = {
             "directory_arn": directory_arn,
             "typed_link_specifier": typed_link_specifier,
@@ -1788,7 +1840,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableDirectory")
+        )
         input_: capo_clouddirectory.types.disable_directory_request.DisableDirectoryRequest = {
             "directory_arn": directory_arn
         }
@@ -1843,7 +1897,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableDirectory")
+        )
         input_: capo_clouddirectory.types.enable_directory_request.EnableDirectoryRequest = {
             "directory_arn": directory_arn
         }
@@ -1892,7 +1948,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAppliedSchemaVersion")
+        )
         input_: capo_clouddirectory.types.get_applied_schema_version_request.GetAppliedSchemaVersionRequest = {
             "schema_arn": schema_arn
         }
@@ -1945,7 +2003,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDirectory")
+        )
         input_: capo_clouddirectory.types.get_directory_request.GetDirectoryRequest = {
             "directory_arn": directory_arn
         }
@@ -2002,7 +2062,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFacet")
+        )
         input_: capo_clouddirectory.types.get_facet_request.GetFacetRequest = {
             "schema_arn": schema_arn,
             "name": name,
@@ -2062,7 +2124,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLinkAttributes")
+        )
         input_: capo_clouddirectory.types.get_link_attributes_request.GetLinkAttributesRequest = {
             "directory_arn": directory_arn,
             "typed_link_specifier": typed_link_specifier,
@@ -2127,7 +2191,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetObjectAttributes")
+        )
         input_: capo_clouddirectory.types.get_object_attributes_request.GetObjectAttributesRequest = {
             "directory_arn": directory_arn,
             "object_reference": object_reference,
@@ -2193,7 +2259,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetObjectInformation")
+        )
         input_: capo_clouddirectory.types.get_object_information_request.GetObjectInformationRequest = {
             "directory_arn": directory_arn,
             "object_reference": object_reference,
@@ -2252,7 +2320,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSchemaAsJson")
+        )
         input_: capo_clouddirectory.types.get_schema_as_json_request.GetSchemaAsJsonRequest = {
             "schema_arn": schema_arn
         }
@@ -2310,7 +2380,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTypedLinkFacetInformation")
+        )
         input_: capo_clouddirectory.types.get_typed_link_facet_information_request.GetTypedLinkFacetInformationRequest = {
             "schema_arn": schema_arn,
             "name": name,
@@ -2374,7 +2446,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAppliedSchemaArns")
+        )
         input_: capo_clouddirectory.types.list_applied_schema_arns_request.ListAppliedSchemaArnsRequest = {
             "directory_arn": directory_arn
         }
@@ -2472,7 +2546,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAttachedIndices")
+        )
         input_: capo_clouddirectory.types.list_attached_indices_request.ListAttachedIndicesRequest = {
             "directory_arn": directory_arn,
             "target_reference": target_reference,
@@ -2567,7 +2643,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDevelopmentSchemaArns")
+        )
         input_: capo_clouddirectory.types.list_development_schema_arns_request.ListDevelopmentSchemaArnsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2652,7 +2730,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDirectories")
+        )
         input_: capo_clouddirectory.types.list_directories_request.ListDirectoriesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2745,7 +2825,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFacetAttributes")
+        )
         input_: capo_clouddirectory.types.list_facet_attributes_request.ListFacetAttributesRequest = {
             "schema_arn": schema_arn,
             "name": name,
@@ -2836,7 +2918,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFacetNames")
+        )
         input_: capo_clouddirectory.types.list_facet_names_request.ListFacetNamesRequest = {
             "schema_arn": schema_arn
         }
@@ -2940,7 +3024,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIncomingTypedLinks")
+        )
         input_: capo_clouddirectory.types.list_incoming_typed_links_request.ListIncomingTypedLinksRequest = {
             "directory_arn": directory_arn,
             "object_reference": object_reference,
@@ -3025,7 +3111,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIndex")
+        )
         input_: capo_clouddirectory.types.list_index_request.ListIndexRequest = {
             "directory_arn": directory_arn,
             "index_reference": index_reference,
@@ -3121,7 +3209,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListManagedSchemaArns")
+        )
         input_: capo_clouddirectory.types.list_managed_schema_arns_request.ListManagedSchemaArnsRequest = {}
         if schema_arn is not None:
             input_["schema_arn"] = schema_arn
@@ -3221,7 +3311,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListObjectAttributes")
+        )
         input_: capo_clouddirectory.types.list_object_attributes_request.ListObjectAttributesRequest = {
             "directory_arn": directory_arn,
             "object_reference": object_reference,
@@ -3332,7 +3424,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListObjectChildren")
+        )
         input_: capo_clouddirectory.types.list_object_children_request.ListObjectChildrenRequest = {
             "directory_arn": directory_arn,
             "object_reference": object_reference,
@@ -3427,7 +3521,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListObjectParentPaths")
+        )
         input_: capo_clouddirectory.types.list_object_parent_paths_request.ListObjectParentPathsRequest = {
             "directory_arn": directory_arn,
             "object_reference": object_reference,
@@ -3525,7 +3621,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListObjectParents")
+        )
         input_: capo_clouddirectory.types.list_object_parents_request.ListObjectParentsRequest = {
             "directory_arn": directory_arn,
             "object_reference": object_reference,
@@ -3632,7 +3730,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListObjectPolicies")
+        )
         input_: capo_clouddirectory.types.list_object_policies_request.ListObjectPoliciesRequest = {
             "directory_arn": directory_arn,
             "object_reference": object_reference,
@@ -3740,7 +3840,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOutgoingTypedLinks")
+        )
         input_: capo_clouddirectory.types.list_outgoing_typed_links_request.ListOutgoingTypedLinksRequest = {
             "directory_arn": directory_arn,
             "object_reference": object_reference,
@@ -3815,7 +3917,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPolicyAttachments")
+        )
         input_: capo_clouddirectory.types.list_policy_attachments_request.ListPolicyAttachmentsRequest = {
             "directory_arn": directory_arn,
             "policy_reference": policy_reference,
@@ -3907,7 +4011,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPublishedSchemaArns")
+        )
         input_: capo_clouddirectory.types.list_published_schema_arns_request.ListPublishedSchemaArnsRequest = {}
         if schema_arn is not None:
             input_["schema_arn"] = schema_arn
@@ -3990,7 +4096,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_clouddirectory.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -4076,7 +4184,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTypedLinkFacetAttributes")
+        )
         input_: capo_clouddirectory.types.list_typed_link_facet_attributes_request.ListTypedLinkFacetAttributesRequest = {
             "schema_arn": schema_arn,
             "name": name,
@@ -4162,7 +4272,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTypedLinkFacetNames")
+        )
         input_: capo_clouddirectory.types.list_typed_link_facet_names_request.ListTypedLinkFacetNamesRequest = {
             "schema_arn": schema_arn
         }
@@ -4248,7 +4360,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("LookupPolicy")
+        )
         input_: capo_clouddirectory.types.lookup_policy_request.LookupPolicyRequest = {
             "directory_arn": directory_arn,
             "object_reference": object_reference,
@@ -4334,7 +4448,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PublishSchema")
+        )
         input_: capo_clouddirectory.types.publish_schema_request.PublishSchemaRequest = {
             "development_schema_arn": development_schema_arn,
             "version": version,
@@ -4391,7 +4507,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutSchemaFromJson")
+        )
         input_: capo_clouddirectory.types.put_schema_from_json_request.PutSchemaFromJsonRequest = {
             "schema_arn": schema_arn,
             "document": document,
@@ -4447,7 +4565,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveFacetFromObject")
+        )
         input_: capo_clouddirectory.types.remove_facet_from_object_request.RemoveFacetFromObjectRequest = {
             "directory_arn": directory_arn,
             "schema_facet": schema_facet,
@@ -4501,7 +4621,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_clouddirectory.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -4554,7 +4676,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_clouddirectory.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -4618,7 +4742,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFacet")
+        )
         input_: capo_clouddirectory.types.update_facet_request.UpdateFacetRequest = {
             "schema_arn": schema_arn,
             "name": name,
@@ -4678,7 +4804,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLinkAttributes")
+        )
         input_: capo_clouddirectory.types.update_link_attributes_request.UpdateLinkAttributesRequest = {
             "directory_arn": directory_arn,
             "typed_link_specifier": typed_link_specifier,
@@ -4736,7 +4864,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateObjectAttributes")
+        )
         input_: capo_clouddirectory.types.update_object_attributes_request.UpdateObjectAttributesRequest = {
             "directory_arn": directory_arn,
             "object_reference": object_reference,
@@ -4789,7 +4919,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSchema")
+        )
         input_: capo_clouddirectory.types.update_schema_request.UpdateSchemaRequest = {
             "schema_arn": schema_arn,
             "name": name,
@@ -4849,7 +4981,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTypedLinkFacet")
+        )
         input_: capo_clouddirectory.types.update_typed_link_facet_request.UpdateTypedLinkFacetRequest = {
             "schema_arn": schema_arn,
             "name": name,
@@ -4907,7 +5041,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpgradeAppliedSchema")
+        )
         input_: capo_clouddirectory.types.upgrade_applied_schema_request.UpgradeAppliedSchemaRequest = {
             "published_schema_arn": published_schema_arn,
             "directory_arn": directory_arn,
@@ -4967,7 +5103,9 @@ class CloudDirectoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpgradePublishedSchema")
+        )
         input_: capo_clouddirectory.types.upgrade_published_schema_request.UpgradePublishedSchemaRequest = {
             "development_schema_arn": development_schema_arn,
             "published_schema_arn": published_schema_arn,

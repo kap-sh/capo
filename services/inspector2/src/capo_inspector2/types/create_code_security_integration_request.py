@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.inspector2#CreateCodeSecurityIntegrationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -72,4 +72,17 @@ def deserialize_json(data: dict) -> CreateCodeSecurityIntegrationRequest:
         import capo_inspector2.types.tag_map
 
         out["tags"] = capo_inspector2.types.tag_map.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: CreateCodeSecurityIntegrationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "details" in value:
+        import capo_inspector2.types.create_integration_detail
+
+        out["details"] = (
+            capo_inspector2.types.create_integration_detail.redact_sensitive(
+                value["details"]
+            )
+        )
     return out

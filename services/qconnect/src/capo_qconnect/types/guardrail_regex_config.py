@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#GuardrailRegexConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,4 +53,17 @@ def deserialize_json(data: dict) -> GuardrailRegexConfig:
         out["action"] = data["action"]
     else:
         raise DeserializationError("GuardrailRegexConfig.action required")
+    return out
+
+
+def redact_sensitive(value: GuardrailRegexConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "pattern" in value:
+        out["pattern"] = "*** Sensitive Data Redacted ***"
+    if "action" in value:
+        out["action"] = "*** Sensitive Data Redacted ***"
     return out

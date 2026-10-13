@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#PipeTargetSqsQueueParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -34,4 +34,13 @@ def deserialize_json(data: dict) -> PipeTargetSqsQueueParameters:
         out["message_group_id"] = data["MessageGroupId"]
     if data.get("MessageDeduplicationId") is not None:
         out["message_deduplication_id"] = data["MessageDeduplicationId"]
+    return out
+
+
+def redact_sensitive(value: PipeTargetSqsQueueParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "message_group_id" in value:
+        out["message_group_id"] = "*** Sensitive Data Redacted ***"
+    if "message_deduplication_id" in value:
+        out["message_deduplication_id"] = "*** Sensitive Data Redacted ***"
     return out

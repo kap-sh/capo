@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_bcm_pricing_calculator._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -91,7 +92,9 @@ class BillEstimate:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateBillEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.create_bill_estimate_request.CreateBillEstimateRequest = {
             "bill_scenario_id": bill_scenario_id,
             "name": name,
@@ -145,7 +148,9 @@ class BillEstimate:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetBillEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.get_bill_estimate_request.GetBillEstimateRequest = {
             "identifier": identifier
         }
@@ -200,7 +205,9 @@ class BillEstimate:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateBillEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.update_bill_estimate_request.UpdateBillEstimateRequest = {
             "identifier": identifier
         }
@@ -252,7 +259,9 @@ class BillEstimate:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteBillEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.delete_bill_estimate_request.DeleteBillEstimateRequest = {
             "identifier": identifier
         }
@@ -317,7 +326,9 @@ class BillEstimate:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListBillEstimates")
+        )
         input_: capo_bcm_pricing_calculator.types.list_bill_estimates_request.ListBillEstimatesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -388,7 +399,9 @@ class AsyncBillEstimate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateBillEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.create_bill_estimate_request.CreateBillEstimateRequest = {
             "bill_scenario_id": bill_scenario_id,
             "name": name,
@@ -443,7 +456,9 @@ class AsyncBillEstimate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetBillEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.get_bill_estimate_request.GetBillEstimateRequest = {
             "identifier": identifier
         }
@@ -499,7 +514,9 @@ class AsyncBillEstimate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateBillEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.update_bill_estimate_request.UpdateBillEstimateRequest = {
             "identifier": identifier
         }
@@ -552,7 +569,9 @@ class AsyncBillEstimate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteBillEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.delete_bill_estimate_request.DeleteBillEstimateRequest = {
             "identifier": identifier
         }
@@ -618,7 +637,9 @@ class AsyncBillEstimate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListBillEstimates")
+        )
         input_: capo_bcm_pricing_calculator.types.list_bill_estimates_request.ListBillEstimatesRequest = {}
         if filters is not None:
             input_["filters"] = filters

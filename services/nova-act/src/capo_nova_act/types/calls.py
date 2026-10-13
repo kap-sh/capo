@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.novaact#Calls``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_nova_act.types.call
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> Calls:
             continue
         out.append(capo_nova_act.types.call.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: Calls) -> list[Any]:
+    import capo_nova_act.types.call
+
+    return [capo_nova_act.types.call.redact_sensitive(item) for item in value]

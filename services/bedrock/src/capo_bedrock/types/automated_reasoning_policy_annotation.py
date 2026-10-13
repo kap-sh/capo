@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyAnnotation``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -318,3 +318,104 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyAnnotation:
         raise DeserializationError(
             "AutomatedReasoningPolicyAnnotation: no recognized variant key"
         )
+
+
+def redact_sensitive(value: AutomatedReasoningPolicyAnnotation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "addType" in value:
+        import capo_bedrock.types.automated_reasoning_policy_add_type_annotation
+
+        out["addType"] = (
+            capo_bedrock.types.automated_reasoning_policy_add_type_annotation.redact_sensitive(
+                value["addType"]
+            )
+        )
+    if "updateType" in value:
+        import capo_bedrock.types.automated_reasoning_policy_update_type_annotation
+
+        out["updateType"] = (
+            capo_bedrock.types.automated_reasoning_policy_update_type_annotation.redact_sensitive(
+                value["updateType"]
+            )
+        )
+    if "deleteType" in value:
+        import capo_bedrock.types.automated_reasoning_policy_delete_type_annotation
+
+        out["deleteType"] = (
+            capo_bedrock.types.automated_reasoning_policy_delete_type_annotation.redact_sensitive(
+                value["deleteType"]
+            )
+        )
+    if "addVariable" in value:
+        import capo_bedrock.types.automated_reasoning_policy_add_variable_annotation
+
+        out["addVariable"] = (
+            capo_bedrock.types.automated_reasoning_policy_add_variable_annotation.redact_sensitive(
+                value["addVariable"]
+            )
+        )
+    if "updateVariable" in value:
+        import capo_bedrock.types.automated_reasoning_policy_update_variable_annotation
+
+        out["updateVariable"] = (
+            capo_bedrock.types.automated_reasoning_policy_update_variable_annotation.redact_sensitive(
+                value["updateVariable"]
+            )
+        )
+    if "deleteVariable" in value:
+        import capo_bedrock.types.automated_reasoning_policy_delete_variable_annotation
+
+        out["deleteVariable"] = (
+            capo_bedrock.types.automated_reasoning_policy_delete_variable_annotation.redact_sensitive(
+                value["deleteVariable"]
+            )
+        )
+    if "addRule" in value:
+        import capo_bedrock.types.automated_reasoning_policy_add_rule_annotation
+
+        out["addRule"] = (
+            capo_bedrock.types.automated_reasoning_policy_add_rule_annotation.redact_sensitive(
+                value["addRule"]
+            )
+        )
+    if "updateRule" in value:
+        import capo_bedrock.types.automated_reasoning_policy_update_rule_annotation
+
+        out["updateRule"] = (
+            capo_bedrock.types.automated_reasoning_policy_update_rule_annotation.redact_sensitive(
+                value["updateRule"]
+            )
+        )
+    if "addRuleFromNaturalLanguage" in value:
+        import capo_bedrock.types.automated_reasoning_policy_add_rule_from_natural_language_annotation
+
+        out["addRuleFromNaturalLanguage"] = (
+            capo_bedrock.types.automated_reasoning_policy_add_rule_from_natural_language_annotation.redact_sensitive(
+                value["addRuleFromNaturalLanguage"]
+            )
+        )
+    if "updateFromRulesFeedback" in value:
+        import capo_bedrock.types.automated_reasoning_policy_update_from_rule_feedback_annotation
+
+        out["updateFromRulesFeedback"] = (
+            capo_bedrock.types.automated_reasoning_policy_update_from_rule_feedback_annotation.redact_sensitive(
+                value["updateFromRulesFeedback"]
+            )
+        )
+    if "updateFromScenarioFeedback" in value:
+        import capo_bedrock.types.automated_reasoning_policy_update_from_scenario_feedback_annotation
+
+        out["updateFromScenarioFeedback"] = (
+            capo_bedrock.types.automated_reasoning_policy_update_from_scenario_feedback_annotation.redact_sensitive(
+                value["updateFromScenarioFeedback"]
+            )
+        )
+    if "ingestContent" in value:
+        import capo_bedrock.types.automated_reasoning_policy_ingest_content_annotation
+
+        out["ingestContent"] = (
+            capo_bedrock.types.automated_reasoning_policy_ingest_content_annotation.redact_sensitive(
+                value["ingestContent"]
+            )
+        )
+    return out

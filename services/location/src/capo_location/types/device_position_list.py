@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#DevicePositionList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_location.types.device_position
@@ -29,3 +29,11 @@ def deserialize_json(data: list) -> DevicePositionList:
             continue
         out.append(capo_location.types.device_position.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: DevicePositionList) -> list[Any]:
+    import capo_location.types.device_position
+
+    return [
+        capo_location.types.device_position.redact_sensitive(item) for item in value
+    ]

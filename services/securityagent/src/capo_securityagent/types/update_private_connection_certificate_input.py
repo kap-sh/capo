@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityagent#UpdatePrivateConnectionCertificateInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -42,4 +42,11 @@ def deserialize_json(data: dict) -> UpdatePrivateConnectionCertificateInput:
         raise DeserializationError(
             "UpdatePrivateConnectionCertificateInput.certificate required"
         )
+    return out
+
+
+def redact_sensitive(value: UpdatePrivateConnectionCertificateInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "certificate" in value:
+        out["certificate"] = "*** Sensitive Data Redacted ***"
     return out

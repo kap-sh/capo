@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#OutputLocation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -31,4 +31,13 @@ def deserialize_xml(el: Element) -> OutputLocation:
         import capo_s3.types.s3_location
 
         out["s3"] = capo_s3.types.s3_location.deserialize_xml(child_s3)
+    return out
+
+
+def redact_sensitive(value: OutputLocation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "s3" in value:
+        import capo_s3.types.s3_location
+
+        out["s3"] = capo_s3.types.s3_location.redact_sensitive(value["s3"])
     return out

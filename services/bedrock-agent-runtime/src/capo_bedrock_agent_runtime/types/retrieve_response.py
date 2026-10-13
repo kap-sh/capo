@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#RetrieveResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -68,4 +68,11 @@ def deserialize_json(data: dict) -> RetrieveResponse:
         )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: RetrieveResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "retrieval_results" in value:
+        out["retrieval_results"] = "*** Sensitive Data Redacted ***"
     return out

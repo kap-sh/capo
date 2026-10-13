@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridge#Target``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -299,6 +299,27 @@ def deserialize_aws_json_1_1(data: dict) -> Target:
         out["app_sync_parameters"] = (
             capo_eventbridge.types.app_sync_parameters.deserialize_aws_json_1_1(
                 data["AppSyncParameters"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: Target) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "redshift_data_parameters" in value:
+        import capo_eventbridge.types.redshift_data_parameters
+
+        out["redshift_data_parameters"] = (
+            capo_eventbridge.types.redshift_data_parameters.redact_sensitive(
+                value["redshift_data_parameters"]
+            )
+        )
+    if "app_sync_parameters" in value:
+        import capo_eventbridge.types.app_sync_parameters
+
+        out["app_sync_parameters"] = (
+            capo_eventbridge.types.app_sync_parameters.redact_sensitive(
+                value["app_sync_parameters"]
             )
         )
     return out

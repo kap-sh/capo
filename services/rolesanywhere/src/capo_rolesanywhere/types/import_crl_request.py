@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rolesanywhere#ImportCrlRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -68,4 +68,13 @@ def deserialize_json(data: dict) -> ImportCrlRequest:
         out["trust_anchor_arn"] = data["trustAnchorArn"]
     else:
         raise DeserializationError("ImportCrlRequest.trust_anchor_arn required")
+    return out
+
+
+def redact_sensitive(value: ImportCrlRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        import capo_rolesanywhere.types.tag_list
+
+        out["tags"] = capo_rolesanywhere.types.tag_list.redact_sensitive(value["tags"])
     return out

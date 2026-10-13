@@ -22,7 +22,9 @@ from capo_cloudhsm._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -164,7 +166,9 @@ class AsyncCloudHSMClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncCloudHSMClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncCloudHSMClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncCloudHSMClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -172,8 +176,10 @@ class AsyncCloudHSMClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -227,7 +233,9 @@ class AsyncCloudHSMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTagsToResource")
+        )
         input_: capo_cloudhsm.types.add_tags_to_resource_request.AddTagsToResourceRequest = {
             "resource_arn": resource_arn,
             "tag_list": tag_list,
@@ -274,7 +282,9 @@ class AsyncCloudHSMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHapg")
+        )
         input_: capo_cloudhsm.types.create_hapg_request.CreateHapgRequest = {
             "label": label
         }
@@ -333,7 +343,9 @@ class AsyncCloudHSMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHsm")
+        )
         input_: capo_cloudhsm.types.create_hsm_request.CreateHsmRequest = {
             "subnet_id": subnet_id,
             "ssh_key": ssh_key,
@@ -392,7 +404,9 @@ class AsyncCloudHSMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLunaClient")
+        )
         input_: capo_cloudhsm.types.create_luna_client_request.CreateLunaClientRequest = {
             "certificate": certificate
         }
@@ -440,7 +454,9 @@ class AsyncCloudHSMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteHapg")
+        )
         input_: capo_cloudhsm.types.delete_hapg_request.DeleteHapgRequest = {
             "hapg_arn": hapg_arn
         }
@@ -486,7 +502,9 @@ class AsyncCloudHSMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteHsm")
+        )
         input_: capo_cloudhsm.types.delete_hsm_request.DeleteHsmRequest = {
             "hsm_arn": hsm_arn
         }
@@ -532,7 +550,9 @@ class AsyncCloudHSMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLunaClient")
+        )
         input_: capo_cloudhsm.types.delete_luna_client_request.DeleteLunaClientRequest = {
             "client_arn": client_arn
         }
@@ -578,7 +598,9 @@ class AsyncCloudHSMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeHapg")
+        )
         input_: capo_cloudhsm.types.describe_hapg_request.DescribeHapgRequest = {
             "hapg_arn": hapg_arn
         }
@@ -628,7 +650,9 @@ class AsyncCloudHSMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeHsm")
+        )
         input_: capo_cloudhsm.types.describe_hsm_request.DescribeHsmRequest = {}
         if hsm_arn is not None:
             input_["hsm_arn"] = hsm_arn
@@ -680,7 +704,9 @@ class AsyncCloudHSMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLunaClient")
+        )
         input_: capo_cloudhsm.types.describe_luna_client_request.DescribeLunaClientRequest = {}
         if client_arn is not None:
             input_["client_arn"] = client_arn
@@ -732,7 +758,9 @@ class AsyncCloudHSMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConfig")
+        )
         input_: capo_cloudhsm.types.get_config_request.GetConfigRequest = {
             "client_arn": client_arn,
             "client_version": client_version,
@@ -774,7 +802,9 @@ class AsyncCloudHSMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAvailableZones")
+        )
         input_: capo_cloudhsm.types.list_available_zones_request.ListAvailableZonesRequest = {}
 
         response = await aexecute_pipeline(
@@ -820,7 +850,9 @@ class AsyncCloudHSMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHapgs")
+        )
         input_: capo_cloudhsm.types.list_hapgs_request.ListHapgsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -868,7 +900,9 @@ class AsyncCloudHSMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHsms")
+        )
         input_: capo_cloudhsm.types.list_hsms_request.ListHsmsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -916,7 +950,9 @@ class AsyncCloudHSMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLunaClients")
+        )
         input_: capo_cloudhsm.types.list_luna_clients_request.ListLunaClientsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -962,7 +998,9 @@ class AsyncCloudHSMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_cloudhsm.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1014,7 +1052,9 @@ class AsyncCloudHSMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyHapg")
+        )
         input_: capo_cloudhsm.types.modify_hapg_request.ModifyHapgRequest = {
             "hapg_arn": hapg_arn
         }
@@ -1074,7 +1114,9 @@ class AsyncCloudHSMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyHsm")
+        )
         input_: capo_cloudhsm.types.modify_hsm_request.ModifyHsmRequest = {
             "hsm_arn": hsm_arn
         }
@@ -1130,7 +1172,9 @@ class AsyncCloudHSMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyLunaClient")
+        )
         input_: capo_cloudhsm.types.modify_luna_client_request.ModifyLunaClientRequest = {
             "client_arn": client_arn,
             "certificate": certificate,
@@ -1179,7 +1223,9 @@ class AsyncCloudHSMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTagsFromResource")
+        )
         input_: capo_cloudhsm.types.remove_tags_from_resource_request.RemoveTagsFromResourceRequest = {
             "resource_arn": resource_arn,
             "tag_key_list": tag_key_list,

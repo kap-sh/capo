@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#LeadCustomer``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -83,4 +83,21 @@ def deserialize_aws_json_1_0(data: dict) -> LeadCustomer:
         out["aws_maturity"] = data["AwsMaturity"]
     if data.get("MarketSegment") is not None:
         out["market_segment"] = data["MarketSegment"]
+    return out
+
+
+def redact_sensitive(value: LeadCustomer) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "company_name" in value:
+        out["company_name"] = "*** Sensitive Data Redacted ***"
+    if "website_url" in value:
+        out["website_url"] = "*** Sensitive Data Redacted ***"
+    if "address" in value:
+        import capo_partnercentral_selling.types.lead_address
+
+        out["address"] = (
+            capo_partnercentral_selling.types.lead_address.redact_sensitive(
+                value["address"]
+            )
+        )
     return out

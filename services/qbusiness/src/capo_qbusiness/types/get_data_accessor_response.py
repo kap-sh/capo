@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qbusiness#GetDataAccessorResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -139,4 +139,11 @@ def deserialize_json(data: dict) -> GetDataAccessorResponse:
         out["updated_at"] = capo_qbusiness.types.timestamp.deserialize_json(
             data["updatedAt"]
         )
+    return out
+
+
+def redact_sensitive(value: GetDataAccessorResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "display_name" in value:
+        out["display_name"] = "*** Sensitive Data Redacted ***"
     return out

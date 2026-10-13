@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.snowball#JobMetadataList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_snowball.types.job_metadata
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> JobMetadataList:
             continue
         out.append(capo_snowball.types.job_metadata.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: JobMetadataList) -> list[Any]:
+    import capo_snowball.types.job_metadata
+
+    return [capo_snowball.types.job_metadata.redact_sensitive(item) for item in value]

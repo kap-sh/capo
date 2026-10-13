@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#TranslateKeyMaterialInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -77,4 +77,17 @@ def deserialize_json(data: dict) -> TranslateKeyMaterialInput:
         )
     if data.get("KeyCheckValueAlgorithm") is not None:
         out["key_check_value_algorithm"] = data["KeyCheckValueAlgorithm"]
+    return out
+
+
+def redact_sensitive(value: TranslateKeyMaterialInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "incoming_key_material" in value:
+        import capo_payment_cryptography_data.types.incoming_key_material
+
+        out["incoming_key_material"] = (
+            capo_payment_cryptography_data.types.incoming_key_material.redact_sensitive(
+                value["incoming_key_material"]
+            )
+        )
     return out

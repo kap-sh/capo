@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#DBCluster``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -1267,4 +1267,17 @@ def deserialize_query(el: Element) -> DBCluster:
         out["internet_access_gateway_enabled"] = (
             child_internet_access_gateway_enabled.text or ""
         ).lower() == "true"
+    return out
+
+
+def redact_sensitive(value: DBCluster) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "pending_modified_values" in value:
+        import capo_rds.types.cluster_pending_modified_values
+
+        out["pending_modified_values"] = (
+            capo_rds.types.cluster_pending_modified_values.redact_sensitive(
+                value["pending_modified_values"]
+            )
+        )
     return out

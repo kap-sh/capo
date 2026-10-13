@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#GenerativeDataDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -60,4 +60,17 @@ def deserialize_json(data: dict) -> GenerativeDataDetails:
         )
     else:
         raise DeserializationError("GenerativeDataDetails.ranking_data required")
+    return out
+
+
+def redact_sensitive(value: GenerativeDataDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "completion" in value:
+        out["completion"] = "*** Sensitive Data Redacted ***"
+    if "references" in value:
+        import capo_qconnect.types.data_summary_list
+
+        out["references"] = capo_qconnect.types.data_summary_list.redact_sensitive(
+            value["references"]
+        )
     return out

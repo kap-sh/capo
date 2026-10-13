@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#CreateMaintenanceWindowRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -122,4 +122,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateMaintenanceWindowRequest:
         import capo_ssm.types.tag_list
 
         out["tags"] = capo_ssm.types.tag_list.deserialize_aws_json_1_1(data["Tags"])
+    return out
+
+
+def redact_sensitive(value: CreateMaintenanceWindowRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

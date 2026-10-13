@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#PatchSource``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -54,4 +54,11 @@ def deserialize_aws_json_1_1(data: dict) -> PatchSource:
         out["configuration"] = data["Configuration"]
     else:
         raise DeserializationError("PatchSource.configuration required")
+    return out
+
+
+def redact_sensitive(value: PatchSource) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "configuration" in value:
+        out["configuration"] = "*** Sensitive Data Redacted ***"
     return out

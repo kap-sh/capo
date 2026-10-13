@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agentcore_control._auth._signers
 import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -121,7 +122,32 @@ class GatewayTargetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_gateway_target_request.CreateGatewayTargetRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_gateway_target_request
+
+            return capo_bedrock_agentcore_control.types.create_gateway_target_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.create_gateway_target_response.CreateGatewayTargetResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_gateway_target_response
+
+            return capo_bedrock_agentcore_control.types.create_gateway_target_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateGatewayTarget",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.create_gateway_target_request.CreateGatewayTargetRequest = {
             "gateway_identifier": gateway_identifier,
             "target_configuration": target_configuration,
@@ -189,7 +215,9 @@ class GatewayTargetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGatewayTarget")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_gateway_target_request.DeleteGatewayTargetRequest = {
             "gateway_identifier": gateway_identifier,
             "target_id": target_id,
@@ -239,7 +267,19 @@ class GatewayTargetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_gateway_target_response.GetGatewayTargetResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_gateway_target_response
+
+            return capo_bedrock_agentcore_control.types.get_gateway_target_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetGatewayTarget", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_gateway_target_request.GetGatewayTargetRequest = {
             "gateway_identifier": gateway_identifier,
             "target_id": target_id,
@@ -295,7 +335,19 @@ class GatewayTargetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_gateway_targets_response.ListGatewayTargetsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_gateway_targets_response
+
+            return capo_bedrock_agentcore_control.types.list_gateway_targets_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListGatewayTargets", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_gateway_targets_request.ListGatewayTargetsRequest = {
             "gateway_identifier": gateway_identifier
         }
@@ -350,7 +402,19 @@ class GatewayTargetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.synchronize_gateway_targets_response.SynchronizeGatewayTargetsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.synchronize_gateway_targets_response
+
+            return capo_bedrock_agentcore_control.types.synchronize_gateway_targets_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("SynchronizeGatewayTargets", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.synchronize_gateway_targets_request.SynchronizeGatewayTargetsRequest = {
             "gateway_identifier": gateway_identifier,
             "target_id_list": target_id_list,
@@ -427,7 +491,32 @@ class GatewayTargetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_gateway_target_request.UpdateGatewayTargetRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_gateway_target_request
+
+            return capo_bedrock_agentcore_control.types.update_gateway_target_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.update_gateway_target_response.UpdateGatewayTargetResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_gateway_target_response
+
+            return capo_bedrock_agentcore_control.types.update_gateway_target_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateGatewayTarget",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.update_gateway_target_request.UpdateGatewayTargetRequest = {
             "gateway_identifier": gateway_identifier,
             "target_id": target_id,
@@ -528,7 +617,32 @@ class AsyncGatewayTargetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_gateway_target_request.CreateGatewayTargetRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_gateway_target_request
+
+            return capo_bedrock_agentcore_control.types.create_gateway_target_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.create_gateway_target_response.CreateGatewayTargetResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_gateway_target_response
+
+            return capo_bedrock_agentcore_control.types.create_gateway_target_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateGatewayTarget",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.create_gateway_target_request.CreateGatewayTargetRequest = {
             "gateway_identifier": gateway_identifier,
             "target_configuration": target_configuration,
@@ -597,7 +711,9 @@ class AsyncGatewayTargetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGatewayTarget")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_gateway_target_request.DeleteGatewayTargetRequest = {
             "gateway_identifier": gateway_identifier,
             "target_id": target_id,
@@ -648,7 +764,19 @@ class AsyncGatewayTargetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_gateway_target_response.GetGatewayTargetResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_gateway_target_response
+
+            return capo_bedrock_agentcore_control.types.get_gateway_target_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetGatewayTarget", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_gateway_target_request.GetGatewayTargetRequest = {
             "gateway_identifier": gateway_identifier,
             "target_id": target_id,
@@ -705,7 +833,19 @@ class AsyncGatewayTargetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_gateway_targets_response.ListGatewayTargetsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_gateway_targets_response
+
+            return capo_bedrock_agentcore_control.types.list_gateway_targets_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListGatewayTargets", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_gateway_targets_request.ListGatewayTargetsRequest = {
             "gateway_identifier": gateway_identifier
         }
@@ -761,7 +901,19 @@ class AsyncGatewayTargetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.synchronize_gateway_targets_response.SynchronizeGatewayTargetsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.synchronize_gateway_targets_response
+
+            return capo_bedrock_agentcore_control.types.synchronize_gateway_targets_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("SynchronizeGatewayTargets", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.synchronize_gateway_targets_request.SynchronizeGatewayTargetsRequest = {
             "gateway_identifier": gateway_identifier,
             "target_id_list": target_id_list,
@@ -839,7 +991,32 @@ class AsyncGatewayTargetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_gateway_target_request.UpdateGatewayTargetRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_gateway_target_request
+
+            return capo_bedrock_agentcore_control.types.update_gateway_target_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.update_gateway_target_response.UpdateGatewayTargetResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_gateway_target_response
+
+            return capo_bedrock_agentcore_control.types.update_gateway_target_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateGatewayTarget",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.update_gateway_target_request.UpdateGatewayTargetRequest = {
             "gateway_identifier": gateway_identifier,
             "target_id": target_id,

@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_route53globalresolver._auth._signers
 import capo_route53globalresolver._auth._sigv4
 from capo_route53globalresolver._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -96,7 +97,19 @@ class AccessToken:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_route53globalresolver.types.create_access_token_output.CreateAccessTokenOutput",
+        ) -> dict[str, Any]:
+            import capo_route53globalresolver.types.create_access_token_output
+
+            return capo_route53globalresolver.types.create_access_token_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateAccessToken", redact_output=_redact_output),
+        )
         input_: capo_route53globalresolver.types.create_access_token_input.CreateAccessTokenInput = {
             "dns_view_id": dns_view_id
         }
@@ -154,7 +167,19 @@ class AccessToken:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_route53globalresolver.types.get_access_token_output.GetAccessTokenOutput",
+        ) -> dict[str, Any]:
+            import capo_route53globalresolver.types.get_access_token_output
+
+            return capo_route53globalresolver.types.get_access_token_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAccessToken", redact_output=_redact_output),
+        )
         input_: capo_route53globalresolver.types.get_access_token_input.GetAccessTokenInput = {
             "access_token_id": access_token_id
         }
@@ -205,7 +230,9 @@ class AccessToken:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAccessToken")
+        )
         input_: capo_route53globalresolver.types.update_access_token_input.UpdateAccessTokenInput = {
             "access_token_id": access_token_id,
             "name": name,
@@ -254,7 +281,9 @@ class AccessToken:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAccessToken")
+        )
         input_: capo_route53globalresolver.types.delete_access_token_input.DeleteAccessTokenInput = {
             "access_token_id": access_token_id
         }
@@ -307,7 +336,9 @@ class AccessToken:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAccessTokens")
+        )
         input_: capo_route53globalresolver.types.list_access_tokens_input.ListAccessTokensInput = {
             "dns_view_id": dns_view_id
         }
@@ -382,7 +413,19 @@ class AsyncAccessToken:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_route53globalresolver.types.create_access_token_output.CreateAccessTokenOutput",
+        ) -> dict[str, Any]:
+            import capo_route53globalresolver.types.create_access_token_output
+
+            return capo_route53globalresolver.types.create_access_token_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateAccessToken", redact_output=_redact_output),
+        )
         input_: capo_route53globalresolver.types.create_access_token_input.CreateAccessTokenInput = {
             "dns_view_id": dns_view_id
         }
@@ -441,7 +484,19 @@ class AsyncAccessToken:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_route53globalresolver.types.get_access_token_output.GetAccessTokenOutput",
+        ) -> dict[str, Any]:
+            import capo_route53globalresolver.types.get_access_token_output
+
+            return capo_route53globalresolver.types.get_access_token_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAccessToken", redact_output=_redact_output),
+        )
         input_: capo_route53globalresolver.types.get_access_token_input.GetAccessTokenInput = {
             "access_token_id": access_token_id
         }
@@ -493,7 +548,9 @@ class AsyncAccessToken:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAccessToken")
+        )
         input_: capo_route53globalresolver.types.update_access_token_input.UpdateAccessTokenInput = {
             "access_token_id": access_token_id,
             "name": name,
@@ -543,7 +600,9 @@ class AsyncAccessToken:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAccessToken")
+        )
         input_: capo_route53globalresolver.types.delete_access_token_input.DeleteAccessTokenInput = {
             "access_token_id": access_token_id
         }
@@ -597,7 +656,9 @@ class AsyncAccessToken:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAccessTokens")
+        )
         input_: capo_route53globalresolver.types.list_access_tokens_input.ListAccessTokensInput = {
             "dns_view_id": dns_view_id
         }

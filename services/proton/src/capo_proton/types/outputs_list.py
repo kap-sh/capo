@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#OutputsList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_proton.types.output
@@ -27,3 +27,7 @@ def deserialize_aws_json_1_0(data: list) -> OutputsList:
             continue
         out.append(capo_proton.types.output.deserialize_aws_json_1_0(item))
     return out
+
+
+def redact_sensitive(value: OutputsList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

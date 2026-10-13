@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#QueryGenerationConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -48,4 +48,11 @@ def deserialize_json(data: dict) -> QueryGenerationConfiguration:
                 data["generationContext"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: QueryGenerationConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "generation_context" in value:
+        out["generation_context"] = "*** Sensitive Data Redacted ***"
     return out

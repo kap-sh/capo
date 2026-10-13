@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#AutocompleteRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -142,4 +142,23 @@ def deserialize_json(data: dict) -> AutocompleteRequest:
                 data["IntendedUse"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: AutocompleteRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "query_text" in value:
+        out["query_text"] = "*** Sensitive Data Redacted ***"
+    if "bias_position" in value:
+        out["bias_position"] = "*** Sensitive Data Redacted ***"
+    if "filter" in value:
+        import capo_geo_places.types.autocomplete_filter
+
+        out["filter"] = capo_geo_places.types.autocomplete_filter.redact_sensitive(
+            value["filter"]
+        )
+    if "political_view" in value:
+        out["political_view"] = "*** Sensitive Data Redacted ***"
+    if "key" in value:
+        out["key"] = "*** Sensitive Data Redacted ***"
     return out

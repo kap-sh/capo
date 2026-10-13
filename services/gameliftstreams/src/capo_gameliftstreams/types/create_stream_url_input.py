@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gameliftstreams#CreateStreamUrlInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -176,4 +176,11 @@ def deserialize_json(data: dict) -> CreateStreamUrlInput:
         )
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
+    return out
+
+
+def redact_sensitive(value: CreateStreamUrlInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "role_arn" in value:
+        out["role_arn"] = "*** Sensitive Data Redacted ***"
     return out

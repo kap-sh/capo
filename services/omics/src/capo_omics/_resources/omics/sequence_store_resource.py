@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import uuid
 from collections.abc import AsyncIterator, Iterator
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_omics._auth._signers
 import capo_omics._auth._sigv4
@@ -11,6 +11,7 @@ from capo_omics._iter import ensure_async_iterator, ensure_sync_iterator
 from capo_omics._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -171,7 +172,9 @@ class SequenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSequenceStore")
+        )
         input_: capo_omics.types.create_sequence_store_request.CreateSequenceStoreRequest = {
             "name": name
         }
@@ -236,7 +239,9 @@ class SequenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSequenceStore")
+        )
         input_: capo_omics.types.get_sequence_store_request.GetSequenceStoreRequest = {
             "id": id
         }
@@ -305,7 +310,9 @@ class SequenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSequenceStore")
+        )
         input_: capo_omics.types.update_sequence_store_request.UpdateSequenceStoreRequest = {
             "id": id
         }
@@ -367,7 +374,9 @@ class SequenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSequenceStore")
+        )
         input_: capo_omics.types.delete_sequence_store_request.DeleteSequenceStoreRequest = {
             "id": id
         }
@@ -420,7 +429,9 @@ class SequenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSequenceStores")
+        )
         input_: capo_omics.types.list_sequence_stores_request.ListSequenceStoresRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -476,7 +487,9 @@ class SequenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AbortMultipartReadSetUpload")
+        )
         input_: capo_omics.types.abort_multipart_read_set_upload_request.AbortMultipartReadSetUploadRequest = {
             "sequence_store_id": sequence_store_id,
             "upload_id": upload_id,
@@ -531,7 +544,9 @@ class SequenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CompleteMultipartReadSetUpload")
+        )
         input_: capo_omics.types.complete_multipart_read_set_upload_request.CompleteMultipartReadSetUploadRequest = {
             "sequence_store_id": sequence_store_id,
             "upload_id": upload_id,
@@ -605,7 +620,9 @@ class SequenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateMultipartReadSetUpload")
+        )
         input_: capo_omics.types.create_multipart_read_set_upload_request.CreateMultipartReadSetUploadRequest = {
             "sequence_store_id": sequence_store_id,
             "source_file_type": source_file_type,
@@ -669,7 +686,9 @@ class SequenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetReadSetActivationJob")
+        )
         input_: capo_omics.types.get_read_set_activation_job_request.GetReadSetActivationJobRequest = {
             "id": id,
             "sequence_store_id": sequence_store_id,
@@ -722,7 +741,9 @@ class SequenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetReadSetExportJob")
+        )
         input_: capo_omics.types.get_read_set_export_job_request.GetReadSetExportJobRequest = {
             "sequence_store_id": sequence_store_id,
             "id": id,
@@ -775,7 +796,9 @@ class SequenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetReadSetImportJob")
+        )
         input_: capo_omics.types.get_read_set_import_job_request.GetReadSetImportJobRequest = {
             "id": id,
             "sequence_store_id": sequence_store_id,
@@ -830,7 +853,9 @@ class SequenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMultipartReadSetUploads")
+        )
         input_: capo_omics.types.list_multipart_read_set_uploads_request.ListMultipartReadSetUploadsRequest = {
             "sequence_store_id": sequence_store_id
         }
@@ -890,7 +915,9 @@ class SequenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReadSetActivationJobs")
+        )
         input_: capo_omics.types.list_read_set_activation_jobs_request.ListReadSetActivationJobsRequest = {
             "sequence_store_id": sequence_store_id
         }
@@ -952,7 +979,9 @@ class SequenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReadSetExportJobs")
+        )
         input_: capo_omics.types.list_read_set_export_jobs_request.ListReadSetExportJobsRequest = {
             "sequence_store_id": sequence_store_id
         }
@@ -1014,7 +1043,9 @@ class SequenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReadSetImportJobs")
+        )
         input_: capo_omics.types.list_read_set_import_jobs_request.ListReadSetImportJobsRequest = {
             "sequence_store_id": sequence_store_id
         }
@@ -1082,7 +1113,9 @@ class SequenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReadSetUploadParts")
+        )
         input_: capo_omics.types.list_read_set_upload_parts_request.ListReadSetUploadPartsRequest = {
             "sequence_store_id": sequence_store_id,
             "upload_id": upload_id,
@@ -1143,7 +1176,9 @@ class SequenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartReadSetActivationJob")
+        )
         input_: capo_omics.types.start_read_set_activation_job_request.StartReadSetActivationJobRequest = {
             "sequence_store_id": sequence_store_id,
             "sources": sources,
@@ -1203,7 +1238,9 @@ class SequenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartReadSetExportJob")
+        )
         input_: capo_omics.types.start_read_set_export_job_request.StartReadSetExportJobRequest = {
             "sequence_store_id": sequence_store_id,
             "destination": destination,
@@ -1263,7 +1300,9 @@ class SequenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartReadSetImportJob")
+        )
         input_: capo_omics.types.start_read_set_import_job_request.StartReadSetImportJobRequest = {
             "sequence_store_id": sequence_store_id,
             "role_arn": role_arn,
@@ -1325,7 +1364,19 @@ class SequenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_omics.types.upload_read_set_part_request.UploadReadSetPartRequest",
+        ) -> dict[str, Any]:
+            import capo_omics.types.upload_read_set_part_request
+
+            return capo_omics.types.upload_read_set_part_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UploadReadSetPart", redact_input=_redact_input),
+        )
         input_: capo_omics.types.upload_read_set_part_request.UploadReadSetPartRequest = {
             "sequence_store_id": sequence_store_id,
             "upload_id": upload_id,
@@ -1410,7 +1461,9 @@ class AsyncSequenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSequenceStore")
+        )
         input_: capo_omics.types.create_sequence_store_request.CreateSequenceStoreRequest = {
             "name": name
         }
@@ -1476,7 +1529,9 @@ class AsyncSequenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSequenceStore")
+        )
         input_: capo_omics.types.get_sequence_store_request.GetSequenceStoreRequest = {
             "id": id
         }
@@ -1546,7 +1601,9 @@ class AsyncSequenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSequenceStore")
+        )
         input_: capo_omics.types.update_sequence_store_request.UpdateSequenceStoreRequest = {
             "id": id
         }
@@ -1609,7 +1666,9 @@ class AsyncSequenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSequenceStore")
+        )
         input_: capo_omics.types.delete_sequence_store_request.DeleteSequenceStoreRequest = {
             "id": id
         }
@@ -1663,7 +1722,9 @@ class AsyncSequenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSequenceStores")
+        )
         input_: capo_omics.types.list_sequence_stores_request.ListSequenceStoresRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1720,7 +1781,9 @@ class AsyncSequenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AbortMultipartReadSetUpload")
+        )
         input_: capo_omics.types.abort_multipart_read_set_upload_request.AbortMultipartReadSetUploadRequest = {
             "sequence_store_id": sequence_store_id,
             "upload_id": upload_id,
@@ -1776,7 +1839,9 @@ class AsyncSequenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CompleteMultipartReadSetUpload")
+        )
         input_: capo_omics.types.complete_multipart_read_set_upload_request.CompleteMultipartReadSetUploadRequest = {
             "sequence_store_id": sequence_store_id,
             "upload_id": upload_id,
@@ -1851,7 +1916,9 @@ class AsyncSequenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateMultipartReadSetUpload")
+        )
         input_: capo_omics.types.create_multipart_read_set_upload_request.CreateMultipartReadSetUploadRequest = {
             "sequence_store_id": sequence_store_id,
             "source_file_type": source_file_type,
@@ -1916,7 +1983,9 @@ class AsyncSequenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetReadSetActivationJob")
+        )
         input_: capo_omics.types.get_read_set_activation_job_request.GetReadSetActivationJobRequest = {
             "id": id,
             "sequence_store_id": sequence_store_id,
@@ -1970,7 +2039,9 @@ class AsyncSequenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetReadSetExportJob")
+        )
         input_: capo_omics.types.get_read_set_export_job_request.GetReadSetExportJobRequest = {
             "sequence_store_id": sequence_store_id,
             "id": id,
@@ -2024,7 +2095,9 @@ class AsyncSequenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetReadSetImportJob")
+        )
         input_: capo_omics.types.get_read_set_import_job_request.GetReadSetImportJobRequest = {
             "id": id,
             "sequence_store_id": sequence_store_id,
@@ -2080,7 +2153,9 @@ class AsyncSequenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMultipartReadSetUploads")
+        )
         input_: capo_omics.types.list_multipart_read_set_uploads_request.ListMultipartReadSetUploadsRequest = {
             "sequence_store_id": sequence_store_id
         }
@@ -2141,7 +2216,9 @@ class AsyncSequenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReadSetActivationJobs")
+        )
         input_: capo_omics.types.list_read_set_activation_jobs_request.ListReadSetActivationJobsRequest = {
             "sequence_store_id": sequence_store_id
         }
@@ -2204,7 +2281,9 @@ class AsyncSequenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReadSetExportJobs")
+        )
         input_: capo_omics.types.list_read_set_export_jobs_request.ListReadSetExportJobsRequest = {
             "sequence_store_id": sequence_store_id
         }
@@ -2267,7 +2346,9 @@ class AsyncSequenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReadSetImportJobs")
+        )
         input_: capo_omics.types.list_read_set_import_jobs_request.ListReadSetImportJobsRequest = {
             "sequence_store_id": sequence_store_id
         }
@@ -2336,7 +2417,9 @@ class AsyncSequenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReadSetUploadParts")
+        )
         input_: capo_omics.types.list_read_set_upload_parts_request.ListReadSetUploadPartsRequest = {
             "sequence_store_id": sequence_store_id,
             "upload_id": upload_id,
@@ -2398,7 +2481,9 @@ class AsyncSequenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartReadSetActivationJob")
+        )
         input_: capo_omics.types.start_read_set_activation_job_request.StartReadSetActivationJobRequest = {
             "sequence_store_id": sequence_store_id,
             "sources": sources,
@@ -2459,7 +2544,9 @@ class AsyncSequenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartReadSetExportJob")
+        )
         input_: capo_omics.types.start_read_set_export_job_request.StartReadSetExportJobRequest = {
             "sequence_store_id": sequence_store_id,
             "destination": destination,
@@ -2520,7 +2607,9 @@ class AsyncSequenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartReadSetImportJob")
+        )
         input_: capo_omics.types.start_read_set_import_job_request.StartReadSetImportJobRequest = {
             "sequence_store_id": sequence_store_id,
             "role_arn": role_arn,
@@ -2583,7 +2672,19 @@ class AsyncSequenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_omics.types.upload_read_set_part_request.UploadReadSetPartRequest",
+        ) -> dict[str, Any]:
+            import capo_omics.types.upload_read_set_part_request
+
+            return capo_omics.types.upload_read_set_part_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UploadReadSetPart", redact_input=_redact_input),
+        )
         input_: capo_omics.types.upload_read_set_part_request.UploadReadSetPartRequest = {
             "sequence_store_id": sequence_store_id,
             "upload_id": upload_id,

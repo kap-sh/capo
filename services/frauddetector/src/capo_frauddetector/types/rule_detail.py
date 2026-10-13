@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.frauddetector#RuleDetail``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -110,4 +110,11 @@ def deserialize_aws_json_1_1(data: dict) -> RuleDetail:
         out["created_time"] = data["createdTime"]
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
+    return out
+
+
+def redact_sensitive(value: RuleDetail) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "expression" in value:
+        out["expression"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemakerruntimehttp2#RequestPayloadPart``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -63,4 +63,11 @@ def deserialize_event_json(message: Message) -> RequestPayloadPart:
         out["p"] = headers["P"]  # ty: ignore[invalid-assignment]
     if payload:
         out["bytes"] = payload
+    return out
+
+
+def redact_sensitive(value: RequestPayloadPart) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "bytes" in value:
+        out["bytes"] = "*** Sensitive Data Redacted ***"
     return out

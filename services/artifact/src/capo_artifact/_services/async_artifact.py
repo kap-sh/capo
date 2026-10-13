@@ -36,7 +36,9 @@ from capo_artifact._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -179,7 +181,9 @@ class AsyncArtifactClient:
         self.term_resource = AsyncTermResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncArtifactClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncArtifactClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncArtifactClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -187,8 +191,10 @@ class AsyncArtifactClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -242,7 +248,9 @@ class AsyncArtifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_artifact.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -292,7 +300,9 @@ class AsyncArtifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_artifact.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -343,7 +353,9 @@ class AsyncArtifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_artifact.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -394,7 +406,9 @@ class AsyncArtifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountSettings")
+        )
         input_: capo_artifact.types.get_account_settings_request.GetAccountSettingsRequest = {}
 
         response = await aexecute_pipeline(
@@ -450,7 +464,9 @@ class AsyncArtifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccountSettings")
+        )
         input_: capo_artifact.types.put_account_settings_request.PutAccountSettingsRequest = {}
         if notification_subscription_status is not None:
             input_["notification_subscription_status"] = (
@@ -518,7 +534,21 @@ class AsyncArtifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_artifact.types.create_compliance_inquiry_request.CreateComplianceInquiryRequest",
+        ) -> dict[str, Any]:
+            import capo_artifact.types.create_compliance_inquiry_request
+
+            return (
+                capo_artifact.types.create_compliance_inquiry_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateComplianceInquiry", redact_input=_redact_input),
+        )
         input_: capo_artifact.types.create_compliance_inquiry_request.CreateComplianceInquiryRequest = {
             "name": name,
             "inquiry_content": inquiry_content,
@@ -586,7 +616,21 @@ class AsyncArtifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_artifact.types.export_compliance_inquiry_response.ExportComplianceInquiryResponse",
+        ) -> dict[str, Any]:
+            import capo_artifact.types.export_compliance_inquiry_response
+
+            return (
+                capo_artifact.types.export_compliance_inquiry_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ExportComplianceInquiry", redact_output=_redact_output),
+        )
         input_: capo_artifact.types.export_compliance_inquiry_request.ExportComplianceInquiryRequest = {
             "compliance_inquiry_id": compliance_inquiry_id
         }
@@ -644,7 +688,9 @@ class AsyncArtifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetComplianceInquiryMetadata")
+        )
         input_: capo_artifact.types.get_compliance_inquiry_metadata_request.GetComplianceInquiryMetadataRequest = {
             "compliance_inquiry_id": compliance_inquiry_id
         }
@@ -704,7 +750,9 @@ class AsyncArtifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListComplianceInquiries")
+        )
         input_: capo_artifact.types.list_compliance_inquiries_request.ListComplianceInquiriesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -793,7 +841,9 @@ class AsyncArtifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListComplianceInquiryQueries")
+        )
         input_: capo_artifact.types.list_compliance_inquiry_queries_request.ListComplianceInquiryQueriesRequest = {
             "compliance_inquiry_id": compliance_inquiry_id
         }
@@ -891,7 +941,21 @@ class AsyncArtifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_artifact.types.put_compliance_inquiry_feedback_request.PutComplianceInquiryFeedbackRequest",
+        ) -> dict[str, Any]:
+            import capo_artifact.types.put_compliance_inquiry_feedback_request
+
+            return capo_artifact.types.put_compliance_inquiry_feedback_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutComplianceInquiryFeedback", redact_input=_redact_input
+            ),
+        )
         input_: capo_artifact.types.put_compliance_inquiry_feedback_request.PutComplianceInquiryFeedbackRequest = {
             "compliance_inquiry_id": compliance_inquiry_id,
             "rating": rating,
@@ -962,7 +1026,9 @@ class AsyncArtifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCustomerAgreements")
+        )
         input_: capo_artifact.types.list_customer_agreements_request.ListCustomerAgreementsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1049,7 +1115,9 @@ class AsyncArtifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReportMetadata")
+        )
         input_: capo_artifact.types.get_report_metadata_request.GetReportMetadataRequest = {
             "report_id": report_id
         }
@@ -1112,7 +1180,9 @@ class AsyncArtifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReports")
+        )
         input_: capo_artifact.types.list_reports_request.ListReportsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1204,7 +1274,9 @@ class AsyncArtifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReport")
+        )
         input_: capo_artifact.types.get_report_request.GetReportRequest = {
             "report_id": report_id,
             "term_token": term_token,
@@ -1268,7 +1340,9 @@ class AsyncArtifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTermForReport")
+        )
         input_: capo_artifact.types.get_term_for_report_request.GetTermForReportRequest = {
             "report_id": report_id
         }
@@ -1334,7 +1408,9 @@ class AsyncArtifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReportVersions")
+        )
         input_: capo_artifact.types.list_report_versions_request.ListReportVersionsRequest = {
             "report_id": report_id
         }

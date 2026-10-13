@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#AcceptMatchInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -67,4 +67,11 @@ def deserialize_aws_json_1_1(data: dict) -> AcceptMatchInput:
                 data["AcceptanceType"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: AcceptMatchInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "player_ids" in value:
+        out["player_ids"] = "*** Sensitive Data Redacted ***"
     return out

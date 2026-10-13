@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#ListRegistriesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,17 @@ def deserialize_json(data: dict) -> ListRegistriesResponse:
         raise DeserializationError("ListRegistriesResponse.registries required")
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListRegistriesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "registries" in value:
+        import capo_bedrock_agentcore_control.types.registry_summary_list
+
+        out["registries"] = (
+            capo_bedrock_agentcore_control.types.registry_summary_list.redact_sensitive(
+                value["registries"]
+            )
+        )
     return out

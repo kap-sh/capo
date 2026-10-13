@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmessaging#ChannelBanSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_json(data: dict) -> ChannelBanSummary:
 
         out["member"] = capo_chime_sdk_messaging.types.identity.deserialize_json(
             data["Member"]
+        )
+    return out
+
+
+def redact_sensitive(value: ChannelBanSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "member" in value:
+        import capo_chime_sdk_messaging.types.identity
+
+        out["member"] = capo_chime_sdk_messaging.types.identity.redact_sensitive(
+            value["member"]
         )
     return out

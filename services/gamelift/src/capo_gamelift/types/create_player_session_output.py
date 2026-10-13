@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#CreatePlayerSessionOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -36,5 +36,16 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePlayerSessionOutput:
             capo_gamelift.types.player_session.deserialize_aws_json_1_1(
                 data["PlayerSession"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: CreatePlayerSessionOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "player_session" in value:
+        import capo_gamelift.types.player_session
+
+        out["player_session"] = capo_gamelift.types.player_session.redact_sensitive(
+            value["player_session"]
         )
     return out

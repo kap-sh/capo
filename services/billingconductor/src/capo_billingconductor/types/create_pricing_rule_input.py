@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.billingconductor#CreatePricingRuleInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -151,4 +151,13 @@ def deserialize_json(data: dict) -> CreatePricingRuleInput:
         out["usage_type"] = data["UsageType"]
     if data.get("Operation") is not None:
         out["operation"] = data["Operation"]
+    return out
+
+
+def redact_sensitive(value: CreatePricingRuleInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

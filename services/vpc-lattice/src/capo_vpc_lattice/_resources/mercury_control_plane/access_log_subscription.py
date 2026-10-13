@@ -8,6 +8,7 @@ import capo_vpc_lattice._auth._sigv4
 from capo_vpc_lattice._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -95,7 +96,9 @@ class AccessLogSubscription:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAccessLogSubscription")
+        )
         input_: capo_vpc_lattice.types.create_access_log_subscription_request.CreateAccessLogSubscriptionRequest = {
             "resource_identifier": resource_identifier,
             "destination_arn": destination_arn,
@@ -150,7 +153,9 @@ class AccessLogSubscription:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAccessLogSubscription")
+        )
         input_: capo_vpc_lattice.types.get_access_log_subscription_request.GetAccessLogSubscriptionRequest = {
             "access_log_subscription_identifier": access_log_subscription_identifier
         }
@@ -200,7 +205,9 @@ class AccessLogSubscription:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAccessLogSubscription")
+        )
         input_: capo_vpc_lattice.types.update_access_log_subscription_request.UpdateAccessLogSubscriptionRequest = {
             "access_log_subscription_identifier": access_log_subscription_identifier,
             "destination_arn": destination_arn,
@@ -248,7 +255,9 @@ class AccessLogSubscription:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAccessLogSubscription")
+        )
         input_: capo_vpc_lattice.types.delete_access_log_subscription_request.DeleteAccessLogSubscriptionRequest = {
             "access_log_subscription_identifier": access_log_subscription_identifier
         }
@@ -298,7 +307,9 @@ class AccessLogSubscription:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAccessLogSubscriptions")
+        )
         input_: capo_vpc_lattice.types.list_access_log_subscriptions_request.ListAccessLogSubscriptionsRequest = {
             "resource_identifier": resource_identifier
         }
@@ -368,7 +379,9 @@ class AsyncAccessLogSubscription:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAccessLogSubscription")
+        )
         input_: capo_vpc_lattice.types.create_access_log_subscription_request.CreateAccessLogSubscriptionRequest = {
             "resource_identifier": resource_identifier,
             "destination_arn": destination_arn,
@@ -424,7 +437,9 @@ class AsyncAccessLogSubscription:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAccessLogSubscription")
+        )
         input_: capo_vpc_lattice.types.get_access_log_subscription_request.GetAccessLogSubscriptionRequest = {
             "access_log_subscription_identifier": access_log_subscription_identifier
         }
@@ -475,7 +490,9 @@ class AsyncAccessLogSubscription:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAccessLogSubscription")
+        )
         input_: capo_vpc_lattice.types.update_access_log_subscription_request.UpdateAccessLogSubscriptionRequest = {
             "access_log_subscription_identifier": access_log_subscription_identifier,
             "destination_arn": destination_arn,
@@ -524,7 +541,9 @@ class AsyncAccessLogSubscription:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAccessLogSubscription")
+        )
         input_: capo_vpc_lattice.types.delete_access_log_subscription_request.DeleteAccessLogSubscriptionRequest = {
             "access_log_subscription_identifier": access_log_subscription_identifier
         }
@@ -575,7 +594,9 @@ class AsyncAccessLogSubscription:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAccessLogSubscriptions")
+        )
         input_: capo_vpc_lattice.types.list_access_log_subscriptions_request.ListAccessLogSubscriptionsRequest = {
             "resource_identifier": resource_identifier
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#BodySectionConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -102,5 +102,16 @@ def deserialize_json(data: dict) -> BodySectionConfiguration:
             capo_quicksight.types.body_section_repeat_configuration.deserialize_json(
                 data["RepeatConfiguration"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: BodySectionConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        import capo_quicksight.types.body_section_content
+
+        out["content"] = capo_quicksight.types.body_section_content.redact_sensitive(
+            value["content"]
         )
     return out

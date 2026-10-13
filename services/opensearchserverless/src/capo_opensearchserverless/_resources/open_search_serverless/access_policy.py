@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_opensearchserverless._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -89,7 +90,9 @@ class AccessPolicy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAccessPolicy")
+        )
         input_: capo_opensearchserverless.types.create_access_policy_request.CreateAccessPolicyRequest = {
             "type": type,
             "name": name,
@@ -143,7 +146,9 @@ class AccessPolicy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAccessPolicy")
+        )
         input_: capo_opensearchserverless.types.get_access_policy_request.GetAccessPolicyRequest = {
             "type": type,
             "name": name,
@@ -206,7 +211,9 @@ class AccessPolicy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAccessPolicy")
+        )
         input_: capo_opensearchserverless.types.update_access_policy_request.UpdateAccessPolicyRequest = {
             "type": type,
             "name": name,
@@ -267,7 +274,9 @@ class AccessPolicy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAccessPolicy")
+        )
         input_: capo_opensearchserverless.types.delete_access_policy_request.DeleteAccessPolicyRequest = {
             "type": type,
             "name": name,
@@ -323,7 +332,9 @@ class AccessPolicy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAccessPolicies")
+        )
         input_: capo_opensearchserverless.types.list_access_policies_request.ListAccessPoliciesRequest = {
             "type": type
         }
@@ -393,7 +404,9 @@ class AsyncAccessPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAccessPolicy")
+        )
         input_: capo_opensearchserverless.types.create_access_policy_request.CreateAccessPolicyRequest = {
             "type": type,
             "name": name,
@@ -448,7 +461,9 @@ class AsyncAccessPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAccessPolicy")
+        )
         input_: capo_opensearchserverless.types.get_access_policy_request.GetAccessPolicyRequest = {
             "type": type,
             "name": name,
@@ -512,7 +527,9 @@ class AsyncAccessPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAccessPolicy")
+        )
         input_: capo_opensearchserverless.types.update_access_policy_request.UpdateAccessPolicyRequest = {
             "type": type,
             "name": name,
@@ -574,7 +591,9 @@ class AsyncAccessPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAccessPolicy")
+        )
         input_: capo_opensearchserverless.types.delete_access_policy_request.DeleteAccessPolicyRequest = {
             "type": type,
             "name": name,
@@ -631,7 +650,9 @@ class AsyncAccessPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAccessPolicies")
+        )
         input_: capo_opensearchserverless.types.list_access_policies_request.ListAccessPoliciesRequest = {
             "type": type
         }

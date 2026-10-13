@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#AuthenticationConfigurationPatch``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,11 @@ def deserialize_json(data: dict) -> AuthenticationConfigurationPatch:
                 data["basicAuthenticationCredentials"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: AuthenticationConfigurationPatch) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "basic_authentication_credentials" in value:
+        out["basic_authentication_credentials"] = "*** Sensitive Data Redacted ***"
     return out

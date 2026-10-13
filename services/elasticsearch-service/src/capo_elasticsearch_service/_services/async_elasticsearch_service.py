@@ -24,7 +24,9 @@ from capo_elasticsearch_service._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -251,7 +253,9 @@ class AsyncElasticsearchServiceClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncElasticsearchServiceClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncElasticsearchServiceClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncElasticsearchServiceClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -259,8 +263,10 @@ class AsyncElasticsearchServiceClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -312,7 +318,10 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AcceptInboundCrossClusterSearchConnection"),
+        )
         input_: capo_elasticsearch_service.types.accept_inbound_cross_cluster_search_connection_request.AcceptInboundCrossClusterSearchConnectionRequest = {
             "cross_cluster_search_connection_id": cross_cluster_search_connection_id
         }
@@ -359,7 +368,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTags")
+        )
         input_: capo_elasticsearch_service.types.add_tags_request.AddTagsRequest = {
             "arn": arn,
             "tag_list": tag_list,
@@ -411,7 +422,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociatePackage")
+        )
         input_: capo_elasticsearch_service.types.associate_package_request.AssociatePackageRequest = {
             "package_id": package_id,
             "domain_name": domain_name,
@@ -463,7 +476,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AuthorizeVpcEndpointAccess")
+        )
         input_: capo_elasticsearch_service.types.authorize_vpc_endpoint_access_request.AuthorizeVpcEndpointAccessRequest = {
             "domain_name": domain_name,
             "account": account,
@@ -514,7 +529,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelDomainConfigChange")
+        )
         input_: capo_elasticsearch_service.types.cancel_domain_config_change_request.CancelDomainConfigChangeRequest = {
             "domain_name": domain_name
         }
@@ -563,7 +580,10 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CancelElasticsearchServiceSoftwareUpdate"),
+        )
         input_: capo_elasticsearch_service.types.cancel_elasticsearch_service_software_update_request.CancelElasticsearchServiceSoftwareUpdateRequest = {
             "domain_name": domain_name
         }
@@ -687,7 +707,19 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_elasticsearch_service.types.create_elasticsearch_domain_request.CreateElasticsearchDomainRequest",
+        ) -> dict[str, Any]:
+            import capo_elasticsearch_service.types.create_elasticsearch_domain_request
+
+            return capo_elasticsearch_service.types.create_elasticsearch_domain_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateElasticsearchDomain", redact_input=_redact_input),
+        )
         input_: capo_elasticsearch_service.types.create_elasticsearch_domain_request.CreateElasticsearchDomainRequest = {
             "domain_name": domain_name
         }
@@ -778,7 +810,10 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateOutboundCrossClusterSearchConnection"),
+        )
         input_: capo_elasticsearch_service.types.create_outbound_cross_cluster_search_connection_request.CreateOutboundCrossClusterSearchConnectionRequest = {
             "source_domain_info": source_domain_info,
             "destination_domain_info": destination_domain_info,
@@ -840,7 +875,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePackage")
+        )
         input_: capo_elasticsearch_service.types.create_package_request.CreatePackageRequest = {
             "package_name": package_name,
             "package_type": package_type,
@@ -899,7 +936,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVpcEndpoint")
+        )
         input_: capo_elasticsearch_service.types.create_vpc_endpoint_request.CreateVpcEndpointRequest = {
             "domain_arn": domain_arn,
             "vpc_options": vpc_options,
@@ -949,7 +988,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteElasticsearchDomain")
+        )
         input_: capo_elasticsearch_service.types.delete_elasticsearch_domain_request.DeleteElasticsearchDomainRequest = {
             "domain_name": domain_name
         }
@@ -989,7 +1030,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteElasticsearchServiceRole")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -1031,7 +1074,10 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteInboundCrossClusterSearchConnection"),
+        )
         input_: capo_elasticsearch_service.types.delete_inbound_cross_cluster_search_connection_request.DeleteInboundCrossClusterSearchConnectionRequest = {
             "cross_cluster_search_connection_id": cross_cluster_search_connection_id
         }
@@ -1076,7 +1122,10 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteOutboundCrossClusterSearchConnection"),
+        )
         input_: capo_elasticsearch_service.types.delete_outbound_cross_cluster_search_connection_request.DeleteOutboundCrossClusterSearchConnectionRequest = {
             "cross_cluster_search_connection_id": cross_cluster_search_connection_id
         }
@@ -1127,7 +1176,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePackage")
+        )
         input_: capo_elasticsearch_service.types.delete_package_request.DeletePackageRequest = {
             "package_id": package_id
         }
@@ -1174,7 +1225,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVpcEndpoint")
+        )
         input_: capo_elasticsearch_service.types.delete_vpc_endpoint_request.DeleteVpcEndpointRequest = {
             "vpc_endpoint_id": vpc_endpoint_id
         }
@@ -1229,7 +1282,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDomainAutoTunes")
+        )
         input_: capo_elasticsearch_service.types.describe_domain_auto_tunes_request.DescribeDomainAutoTunesRequest = {
             "domain_name": domain_name
         }
@@ -1307,7 +1362,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDomainChangeProgress")
+        )
         input_: capo_elasticsearch_service.types.describe_domain_change_progress_request.DescribeDomainChangeProgressRequest = {
             "domain_name": domain_name
         }
@@ -1356,7 +1413,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeElasticsearchDomain")
+        )
         input_: capo_elasticsearch_service.types.describe_elasticsearch_domain_request.DescribeElasticsearchDomainRequest = {
             "domain_name": domain_name
         }
@@ -1403,7 +1462,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeElasticsearchDomainConfig")
+        )
         input_: capo_elasticsearch_service.types.describe_elasticsearch_domain_config_request.DescribeElasticsearchDomainConfigRequest = {
             "domain_name": domain_name
         }
@@ -1449,7 +1510,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeElasticsearchDomains")
+        )
         input_: capo_elasticsearch_service.types.describe_elasticsearch_domains_request.DescribeElasticsearchDomainsRequest = {
             "domain_names": domain_names
         }
@@ -1504,7 +1567,10 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeElasticsearchInstanceTypeLimits"),
+        )
         input_: capo_elasticsearch_service.types.describe_elasticsearch_instance_type_limits_request.DescribeElasticsearchInstanceTypeLimitsRequest = {
             "instance_type": instance_type,
             "elasticsearch_version": elasticsearch_version,
@@ -1562,7 +1628,10 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeInboundCrossClusterSearchConnections"),
+        )
         input_: capo_elasticsearch_service.types.describe_inbound_cross_cluster_search_connections_request.DescribeInboundCrossClusterSearchConnectionsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1648,7 +1717,10 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeOutboundCrossClusterSearchConnections"),
+        )
         input_: capo_elasticsearch_service.types.describe_outbound_cross_cluster_search_connections_request.DescribeOutboundCrossClusterSearchConnectionsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1737,7 +1809,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePackages")
+        )
         input_: capo_elasticsearch_service.types.describe_packages_request.DescribePackagesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1825,7 +1899,10 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeReservedElasticsearchInstanceOfferings"),
+        )
         input_: capo_elasticsearch_service.types.describe_reserved_elasticsearch_instance_offerings_request.DescribeReservedElasticsearchInstanceOfferingsRequest = {}
         if reserved_elasticsearch_instance_offering_id is not None:
             input_["reserved_elasticsearch_instance_offering_id"] = (
@@ -1915,7 +1992,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReservedElasticsearchInstances")
+        )
         input_: capo_elasticsearch_service.types.describe_reserved_elasticsearch_instances_request.DescribeReservedElasticsearchInstancesRequest = {}
         if reserved_elasticsearch_instance_id is not None:
             input_["reserved_elasticsearch_instance_id"] = (
@@ -1995,7 +2074,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeVpcEndpoints")
+        )
         input_: capo_elasticsearch_service.types.describe_vpc_endpoints_request.DescribeVpcEndpointsRequest = {
             "vpc_endpoint_ids": vpc_endpoint_ids
         }
@@ -2046,7 +2127,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DissociatePackage")
+        )
         input_: capo_elasticsearch_service.types.dissociate_package_request.DissociatePackageRequest = {
             "package_id": package_id,
             "domain_name": domain_name,
@@ -2094,7 +2177,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCompatibleElasticsearchVersions")
+        )
         input_: capo_elasticsearch_service.types.get_compatible_elasticsearch_versions_request.GetCompatibleElasticsearchVersionsRequest = {}
         if domain_name is not None:
             input_["domain_name"] = domain_name
@@ -2150,7 +2235,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPackageVersionHistory")
+        )
         input_: capo_elasticsearch_service.types.get_package_version_history_request.GetPackageVersionHistoryRequest = {
             "package_id": package_id
         }
@@ -2230,7 +2317,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUpgradeHistory")
+        )
         input_: capo_elasticsearch_service.types.get_upgrade_history_request.GetUpgradeHistoryRequest = {
             "domain_name": domain_name
         }
@@ -2304,7 +2393,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUpgradeStatus")
+        )
         input_: capo_elasticsearch_service.types.get_upgrade_status_request.GetUpgradeStatusRequest = {
             "domain_name": domain_name
         }
@@ -2351,7 +2442,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomainNames")
+        )
         input_: capo_elasticsearch_service.types.list_domain_names_request.ListDomainNamesRequest = {}
         if engine_type is not None:
             input_["engine_type"] = engine_type
@@ -2407,7 +2500,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomainsForPackage")
+        )
         input_: capo_elasticsearch_service.types.list_domains_for_package_request.ListDomainsForPackageRequest = {
             "package_id": package_id
         }
@@ -2495,7 +2590,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListElasticsearchInstanceTypes")
+        )
         input_: capo_elasticsearch_service.types.list_elasticsearch_instance_types_request.ListElasticsearchInstanceTypesRequest = {
             "elasticsearch_version": elasticsearch_version
         }
@@ -2582,7 +2679,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListElasticsearchVersions")
+        )
         input_: capo_elasticsearch_service.types.list_elasticsearch_versions_request.ListElasticsearchVersionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2663,7 +2762,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPackagesForDomain")
+        )
         input_: capo_elasticsearch_service.types.list_packages_for_domain_request.ListPackagesForDomainRequest = {
             "domain_name": domain_name
         }
@@ -2739,7 +2840,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTags")
+        )
         input_: capo_elasticsearch_service.types.list_tags_request.ListTagsRequest = {
             "arn": arn
         }
@@ -2790,7 +2893,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVpcEndpointAccess")
+        )
         input_: capo_elasticsearch_service.types.list_vpc_endpoint_access_request.ListVpcEndpointAccessRequest = {
             "domain_name": domain_name
         }
@@ -2840,7 +2945,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVpcEndpoints")
+        )
         input_: capo_elasticsearch_service.types.list_vpc_endpoints_request.ListVpcEndpointsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2891,7 +2998,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVpcEndpointsForDomain")
+        )
         input_: capo_elasticsearch_service.types.list_vpc_endpoints_for_domain_request.ListVpcEndpointsForDomainRequest = {
             "domain_name": domain_name
         }
@@ -2948,7 +3057,10 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PurchaseReservedElasticsearchInstanceOffering"),
+        )
         input_: capo_elasticsearch_service.types.purchase_reserved_elasticsearch_instance_offering_request.PurchaseReservedElasticsearchInstanceOfferingRequest = {
             "reserved_elasticsearch_instance_offering_id": reserved_elasticsearch_instance_offering_id,
             "reservation_name": reservation_name,
@@ -2996,7 +3108,10 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RejectInboundCrossClusterSearchConnection"),
+        )
         input_: capo_elasticsearch_service.types.reject_inbound_cross_cluster_search_connection_request.RejectInboundCrossClusterSearchConnectionRequest = {
             "cross_cluster_search_connection_id": cross_cluster_search_connection_id
         }
@@ -3042,7 +3157,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTags")
+        )
         input_: capo_elasticsearch_service.types.remove_tags_request.RemoveTagsRequest = {
             "arn": arn,
             "tag_keys": tag_keys,
@@ -3093,7 +3210,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokeVpcEndpointAccess")
+        )
         input_: capo_elasticsearch_service.types.revoke_vpc_endpoint_access_request.RevokeVpcEndpointAccessRequest = {
             "domain_name": domain_name,
             "account": account,
@@ -3141,7 +3260,10 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartElasticsearchServiceSoftwareUpdate"),
+        )
         input_: capo_elasticsearch_service.types.start_elasticsearch_service_software_update_request.StartElasticsearchServiceSoftwareUpdateRequest = {
             "domain_name": domain_name
         }
@@ -3260,7 +3382,21 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_elasticsearch_service.types.update_elasticsearch_domain_config_request.UpdateElasticsearchDomainConfigRequest",
+        ) -> dict[str, Any]:
+            import capo_elasticsearch_service.types.update_elasticsearch_domain_config_request
+
+            return capo_elasticsearch_service.types.update_elasticsearch_domain_config_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateElasticsearchDomainConfig", redact_input=_redact_input
+            ),
+        )
         input_: capo_elasticsearch_service.types.update_elasticsearch_domain_config_request.UpdateElasticsearchDomainConfigRequest = {
             "domain_name": domain_name
         }
@@ -3358,7 +3494,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePackage")
+        )
         input_: capo_elasticsearch_service.types.update_package_request.UpdatePackageRequest = {
             "package_id": package_id,
             "package_source": package_source,
@@ -3414,7 +3552,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateVpcEndpoint")
+        )
         input_: capo_elasticsearch_service.types.update_vpc_endpoint_request.UpdateVpcEndpointRequest = {
             "vpc_endpoint_id": vpc_endpoint_id,
             "vpc_options": vpc_options,
@@ -3469,7 +3609,9 @@ class AsyncElasticsearchServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpgradeElasticsearchDomain")
+        )
         input_: capo_elasticsearch_service.types.upgrade_elasticsearch_domain_request.UpgradeElasticsearchDomainRequest = {
             "domain_name": domain_name,
             "target_version": target_version,

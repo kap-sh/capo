@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.storagegateway#ChapCredentials``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_storage_gateway.types.chap_info
@@ -27,3 +27,11 @@ def deserialize_aws_json_1_1(data: list) -> ChapCredentials:
             continue
         out.append(capo_storage_gateway.types.chap_info.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: ChapCredentials) -> list[Any]:
+    import capo_storage_gateway.types.chap_info
+
+    return [
+        capo_storage_gateway.types.chap_info.redact_sensitive(item) for item in value
+    ]

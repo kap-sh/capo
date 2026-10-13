@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotsitewise#SearchSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -105,4 +105,11 @@ def deserialize_json(data: dict) -> SearchSummary:
         )
     if data.get("groupId") is not None:
         out["group_id"] = data["groupId"]
+    return out
+
+
+def redact_sensitive(value: SearchSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "query_statement" in value:
+        out["query_statement"] = "*** Sensitive Data Redacted ***"
     return out

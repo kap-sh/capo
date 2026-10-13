@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.amplifyuibuilder#RefreshTokenResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -35,4 +35,11 @@ def deserialize_json(data: dict) -> RefreshTokenResponse:
         out["expires_in"] = data["expiresIn"]
     else:
         raise DeserializationError("RefreshTokenResponse.expires_in required")
+    return out
+
+
+def redact_sensitive(value: RefreshTokenResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "access_token" in value:
+        out["access_token"] = "*** Sensitive Data Redacted ***"
     return out

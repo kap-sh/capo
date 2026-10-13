@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#ConnectionPoolConfigurationInfo``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -90,4 +90,11 @@ def deserialize_query(el: Element) -> ConnectionPoolConfigurationInfo:
     child_init_query = el.find("InitQuery")
     if child_init_query is not None:
         out["init_query"] = str(child_init_query.text or "")
+    return out
+
+
+def redact_sensitive(value: ConnectionPoolConfigurationInfo) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "init_query" in value:
+        out["init_query"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#KnowledgeBaseLookupOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -54,4 +54,19 @@ def deserialize_json(data: dict) -> KnowledgeBaseLookupOutput:
         out["metadata"] = capo_bedrock_agent_runtime.types.metadata.deserialize_json(
             data["metadata"]
         )
+    return out
+
+
+def redact_sensitive(value: KnowledgeBaseLookupOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "retrieved_references" in value:
+        import capo_bedrock_agent_runtime.types.retrieved_references
+
+        out["retrieved_references"] = (
+            capo_bedrock_agent_runtime.types.retrieved_references.redact_sensitive(
+                value["retrieved_references"]
+            )
+        )
+    if "metadata" in value:
+        out["metadata"] = "*** Sensitive Data Redacted ***"
     return out

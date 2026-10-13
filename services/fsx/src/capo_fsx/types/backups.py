@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.fsx#Backups``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_fsx.types.backup
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> Backups:
             continue
         out.append(capo_fsx.types.backup.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: Backups) -> list[Any]:
+    import capo_fsx.types.backup
+
+    return [capo_fsx.types.backup.redact_sensitive(item) for item in value]

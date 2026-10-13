@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wisdom#QuickResponseSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -142,4 +142,13 @@ def deserialize_json(data: dict) -> QuickResponseSummary:
         import capo_wisdom.types.tags
 
         out["tags"] = capo_wisdom.types.tags.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: QuickResponseSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "channels" in value:
+        import capo_wisdom.types.channels
+
+        out["channels"] = capo_wisdom.types.channels.redact_sensitive(value["channels"])
     return out

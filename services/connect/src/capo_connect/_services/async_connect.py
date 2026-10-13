@@ -25,7 +25,9 @@ from capo_connect._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -1345,7 +1347,9 @@ class AsyncConnectClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncConnectClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncConnectClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncConnectClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -1353,8 +1357,10 @@ class AsyncConnectClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -1412,7 +1418,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ActivateEvaluationForm")
+        )
         input_: capo_connect.types.activate_evaluation_form_request.ActivateEvaluationFormRequest = {
             "instance_id": instance_id,
             "evaluation_form_id": evaluation_form_id,
@@ -1468,7 +1476,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateAnalyticsDataSet")
+        )
         input_: capo_connect.types.associate_analytics_data_set_request.AssociateAnalyticsDataSetRequest = {
             "instance_id": instance_id,
             "data_set_id": data_set_id,
@@ -1523,7 +1533,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateApprovedOrigin")
+        )
         input_: capo_connect.types.associate_approved_origin_request.AssociateApprovedOriginRequest = {
             "instance_id": instance_id,
             "origin": origin,
@@ -1580,7 +1592,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateBot")
+        )
         input_: capo_connect.types.associate_bot_request.AssociateBotRequest = {
             "instance_id": instance_id
         }
@@ -1640,7 +1654,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateContactWithUser")
+        )
         input_: capo_connect.types.associate_contact_with_user_request.AssociateContactWithUserRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -1694,7 +1710,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateDefaultVocabulary")
+        )
         input_: capo_connect.types.associate_default_vocabulary_request.AssociateDefaultVocabularyRequest = {
             "instance_id": instance_id,
             "language_code": language_code,
@@ -1754,7 +1772,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateEmailAddressAlias")
+        )
         input_: capo_connect.types.associate_email_address_alias_request.AssociateEmailAddressAliasRequest = {
             "email_address_id": email_address_id,
             "instance_id": instance_id,
@@ -1814,7 +1834,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateFlow")
+        )
         input_: capo_connect.types.associate_flow_request.AssociateFlowRequest = {
             "instance_id": instance_id,
             "resource_id": resource_id,
@@ -1869,7 +1891,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateHoursOfOperations")
+        )
         input_: capo_connect.types.associate_hours_of_operations_request.AssociateHoursOfOperationsRequest = {
             "instance_id": instance_id,
             "hours_of_operation_id": hours_of_operation_id,
@@ -1926,7 +1950,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateInstanceStorageConfig")
+        )
         input_: capo_connect.types.associate_instance_storage_config_request.AssociateInstanceStorageConfigRequest = {
             "instance_id": instance_id,
             "resource_type": resource_type,
@@ -1983,7 +2009,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateLambdaFunction")
+        )
         input_: capo_connect.types.associate_lambda_function_request.AssociateLambdaFunctionRequest = {
             "instance_id": instance_id,
             "function_arn": function_arn,
@@ -2039,7 +2067,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateLexBot")
+        )
         input_: capo_connect.types.associate_lex_bot_request.AssociateLexBotRequest = {
             "instance_id": instance_id,
             "lex_bot": lex_bot,
@@ -2093,7 +2123,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociatePhoneNumberContactFlow")
+        )
         input_: capo_connect.types.associate_phone_number_contact_flow_request.AssociatePhoneNumberContactFlowRequest = {
             "phone_number_id": phone_number_id,
             "instance_id": instance_id,
@@ -2149,7 +2181,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateQueueEmailAddresses")
+        )
         input_: capo_connect.types.associate_queue_email_addresses_request.AssociateQueueEmailAddressesRequest = {
             "instance_id": instance_id,
             "queue_id": queue_id,
@@ -2205,7 +2239,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateQueueQuickConnects")
+        )
         input_: capo_connect.types.associate_queue_quick_connects_request.AssociateQueueQuickConnectsRequest = {
             "instance_id": instance_id,
             "queue_id": queue_id,
@@ -2263,7 +2299,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateRoutingProfileQueues")
+        )
         input_: capo_connect.types.associate_routing_profile_queues_request.AssociateRoutingProfileQueuesRequest = {
             "instance_id": instance_id,
             "routing_profile_id": routing_profile_id,
@@ -2322,7 +2360,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateSecurityKey")
+        )
         input_: capo_connect.types.associate_security_key_request.AssociateSecurityKeyRequest = {
             "instance_id": instance_id,
             "key": key,
@@ -2380,7 +2420,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateSecurityProfiles")
+        )
         input_: capo_connect.types.associate_security_profiles_request.AssociateSecurityProfilesRequest = {
             "instance_id": instance_id,
             "security_profiles": security_profiles,
@@ -2436,7 +2478,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateTrafficDistributionGroupUser")
+        )
         input_: capo_connect.types.associate_traffic_distribution_group_user_request.AssociateTrafficDistributionGroupUserRequest = {
             "traffic_distribution_group_id": traffic_distribution_group_id,
             "user_id": user_id,
@@ -2488,7 +2532,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateUserProficiencies")
+        )
         input_: capo_connect.types.associate_user_proficiencies_request.AssociateUserProficienciesRequest = {
             "instance_id": instance_id,
             "user_id": user_id,
@@ -2544,7 +2590,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateWorkspace")
+        )
         input_: capo_connect.types.associate_workspace_request.AssociateWorkspaceRequest = {
             "instance_id": instance_id,
             "workspace_id": workspace_id,
@@ -2600,7 +2648,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchAssociateAnalyticsDataSet")
+        )
         input_: capo_connect.types.batch_associate_analytics_data_set_request.BatchAssociateAnalyticsDataSetRequest = {
             "instance_id": instance_id,
             "data_set_ids": data_set_ids,
@@ -2659,7 +2709,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchCreateDataTableValue")
+        )
         input_: capo_connect.types.batch_create_data_table_value_request.BatchCreateDataTableValueRequest = {
             "instance_id": instance_id,
             "data_table_id": data_table_id,
@@ -2715,7 +2767,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteDataTableValue")
+        )
         input_: capo_connect.types.batch_delete_data_table_value_request.BatchDeleteDataTableValueRequest = {
             "instance_id": instance_id,
             "data_table_id": data_table_id,
@@ -2770,7 +2824,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDescribeDataTableValue")
+        )
         input_: capo_connect.types.batch_describe_data_table_value_request.BatchDescribeDataTableValueRequest = {
             "instance_id": instance_id,
             "data_table_id": data_table_id,
@@ -2826,7 +2882,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDisassociateAnalyticsDataSet")
+        )
         input_: capo_connect.types.batch_disassociate_analytics_data_set_request.BatchDisassociateAnalyticsDataSetRequest = {
             "instance_id": instance_id,
             "data_set_ids": data_set_ids,
@@ -2881,7 +2939,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetAttachedFileMetadata")
+        )
         input_: capo_connect.types.batch_get_attached_file_metadata_request.BatchGetAttachedFileMetadataRequest = {
             "file_ids": file_ids,
             "instance_id": instance_id,
@@ -2938,7 +2998,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetFlowAssociation")
+        )
         input_: capo_connect.types.batch_get_flow_association_request.BatchGetFlowAssociationRequest = {
             "instance_id": instance_id,
             "resource_ids": resource_ids,
@@ -2994,7 +3056,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchPutContact")
+        )
         input_: capo_connect.types.batch_put_contact_request.BatchPutContactRequest = {
             "instance_id": instance_id,
             "contact_data_request_list": contact_data_request_list,
@@ -3052,7 +3116,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchUpdateDataTableValue")
+        )
         input_: capo_connect.types.batch_update_data_table_value_request.BatchUpdateDataTableValueRequest = {
             "instance_id": instance_id,
             "data_table_id": data_table_id,
@@ -3115,7 +3181,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ClaimPhoneNumber")
+        )
         input_: capo_connect.types.claim_phone_number_request.ClaimPhoneNumberRequest = {
             "phone_number": phone_number
         }
@@ -3178,7 +3246,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CompleteAttachedFileUpload")
+        )
         input_: capo_connect.types.complete_attached_file_upload_request.CompleteAttachedFileUploadRequest = {
             "instance_id": instance_id,
             "file_id": file_id,
@@ -3244,7 +3314,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAgentStatus")
+        )
         input_: capo_connect.types.create_agent_status_request.CreateAgentStatusRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -3311,7 +3383,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAttachedFile")
+        )
         input_: capo_connect.types.create_attached_file_request.CreateAttachedFileRequest = {
             "instance_id": instance_id,
             "file_use_case_type": file_use_case_type,
@@ -3376,7 +3450,17 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_connect.types.create_auth_code_response.CreateAuthCodeResponse",
+        ) -> dict[str, Any]:
+            import capo_connect.types.create_auth_code_response
+
+            return capo_connect.types.create_auth_code_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateAuthCode", redact_output=_redact_output),
+        )
         input_: capo_connect.types.create_auth_code_request.CreateAuthCodeRequest = {
             "instance_id": instance_id,
             "scope": scope,
@@ -3464,7 +3548,17 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.create_contact_request.CreateContactRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.create_contact_request
+
+            return capo_connect.types.create_contact_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateContact", redact_input=_redact_input),
+        )
         input_: capo_connect.types.create_contact_request.CreateContactRequest = {
             "instance_id": instance_id,
             "channel": channel,
@@ -3556,7 +3650,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateContactFlow")
+        )
         input_: capo_connect.types.create_contact_flow_request.CreateContactFlowRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -3638,7 +3734,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateContactFlowModule")
+        )
         input_: capo_connect.types.create_contact_flow_module_request.CreateContactFlowModuleRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -3714,7 +3812,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateContactFlowModuleAlias")
+        )
         input_: capo_connect.types.create_contact_flow_module_alias_request.CreateContactFlowModuleAliasRequest = {
             "instance_id": instance_id,
             "contact_flow_module_id": contact_flow_module_id,
@@ -3779,7 +3879,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateContactFlowModuleVersion")
+        )
         input_: capo_connect.types.create_contact_flow_module_version_request.CreateContactFlowModuleVersionRequest = {
             "instance_id": instance_id,
             "contact_flow_module_id": contact_flow_module_id,
@@ -3854,7 +3956,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateContactFlowVersion")
+        )
         input_: capo_connect.types.create_contact_flow_version_request.CreateContactFlowVersionRequest = {
             "instance_id": instance_id,
             "contact_flow_id": contact_flow_id,
@@ -3931,7 +4035,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataTable")
+        )
         input_: capo_connect.types.create_data_table_request.CreateDataTableRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -4005,7 +4111,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataTableAttribute")
+        )
         input_: capo_connect.types.create_data_table_attribute_request.CreateDataTableAttributeRequest = {
             "instance_id": instance_id,
             "data_table_id": data_table_id,
@@ -4079,7 +4187,19 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.create_email_address_request.CreateEmailAddressRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.create_email_address_request
+
+            return capo_connect.types.create_email_address_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateEmailAddress", redact_input=_redact_input),
+        )
         input_: capo_connect.types.create_email_address_request.CreateEmailAddressRequest = {
             "instance_id": instance_id,
             "email_address": email_address,
@@ -4175,7 +4295,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEvaluationForm")
+        )
         input_: capo_connect.types.create_evaluation_form_request.CreateEvaluationFormRequest = {
             "instance_id": instance_id,
             "title": title,
@@ -4260,7 +4382,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateExtractionDefinition")
+        )
         input_: capo_connect.types.create_extraction_definition_request.CreateExtractionDefinitionRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -4336,7 +4460,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHoursOfOperation")
+        )
         input_: capo_connect.types.create_hours_of_operation_request.CreateHoursOfOperationRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -4417,7 +4543,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHoursOfOperationOverride")
+        )
         input_: capo_connect.types.create_hours_of_operation_override_request.CreateHoursOfOperationOverrideRequest = {
             "instance_id": instance_id,
             "hours_of_operation_id": hours_of_operation_id,
@@ -4490,7 +4618,17 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.create_instance_request.CreateInstanceRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.create_instance_request
+
+            return capo_connect.types.create_instance_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateInstance", redact_input=_redact_input),
+        )
         input_: capo_connect.types.create_instance_request.CreateInstanceRequest = {
             "identity_management_type": identity_management_type,
             "inbound_calls_enabled": inbound_calls_enabled,
@@ -4563,7 +4701,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIntegrationAssociation")
+        )
         input_: capo_connect.types.create_integration_association_request.CreateIntegrationAssociationRequest = {
             "instance_id": instance_id,
             "integration_type": integration_type,
@@ -4644,7 +4784,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMetric")
+        )
         input_: capo_connect.types.create_metric_request.CreateMetricRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -4725,7 +4867,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateNotification")
+        )
         input_: capo_connect.types.create_notification_request.CreateNotificationRequest = {
             "instance_id": instance_id,
             "recipients": recipients,
@@ -4793,7 +4937,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateParticipant")
+        )
         input_: capo_connect.types.create_participant_request.CreateParticipantRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -4855,7 +5001,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePersistentContactAssociation")
+        )
         input_: capo_connect.types.create_persistent_contact_association_request.CreatePersistentContactAssociationRequest = {
             "instance_id": instance_id,
             "initial_contact_id": initial_contact_id,
@@ -4922,7 +5070,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePredefinedAttribute")
+        )
         input_: capo_connect.types.create_predefined_attribute_request.CreatePredefinedAttributeRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -4988,7 +5138,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePrompt")
+        )
         input_: capo_connect.types.create_prompt_request.CreatePromptRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -5053,7 +5205,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePushNotificationRegistration")
+        )
         input_: capo_connect.types.create_push_notification_registration_request.CreatePushNotificationRegistrationRequest = {
             "instance_id": instance_id,
             "pinpoint_app_arn": pinpoint_app_arn,
@@ -5140,7 +5294,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateQueue")
+        )
         input_: capo_connect.types.create_queue_request.CreateQueueRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -5216,7 +5372,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateQuickConnect")
+        )
         input_: capo_connect.types.create_quick_connect_request.CreateQuickConnectRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -5294,7 +5452,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRoutingProfile")
+        )
         input_: capo_connect.types.create_routing_profile_request.CreateRoutingProfileRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -5374,7 +5534,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRule")
+        )
         input_: capo_connect.types.create_rule_request.CreateRuleRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -5478,7 +5640,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSecurityProfile")
+        )
         input_: capo_connect.types.create_security_profile_request.CreateSecurityProfileRequest = {
             "security_profile_name": security_profile_name,
             "instance_id": instance_id,
@@ -5584,7 +5748,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTaskTemplate")
+        )
         input_: capo_connect.types.create_task_template_request.CreateTaskTemplateRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -5683,7 +5849,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTestCase")
+        )
         input_: capo_connect.types.create_test_case_request.CreateTestCaseRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -5762,7 +5930,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTrafficDistributionGroup")
+        )
         input_: capo_connect.types.create_traffic_distribution_group_request.CreateTrafficDistributionGroupRequest = {
             "name": name,
             "instance_id": instance_id,
@@ -5824,7 +5994,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUseCase")
+        )
         input_: capo_connect.types.create_use_case_request.CreateUseCaseRequest = {
             "instance_id": instance_id,
             "integration_association_id": integration_association_id,
@@ -5924,7 +6096,16 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.create_user_request.CreateUserRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.create_user_request
+
+            return capo_connect.types.create_user_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUser", redact_input=_redact_input)
+        )
         input_: capo_connect.types.create_user_request.CreateUserRequest = {
             "username": username,
             "security_profile_ids": security_profile_ids,
@@ -6007,7 +6188,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUserHierarchyGroup")
+        )
         input_: capo_connect.types.create_user_hierarchy_group_request.CreateUserHierarchyGroupRequest = {
             "name": name,
             "instance_id": instance_id,
@@ -6080,7 +6263,26 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.create_view_request.CreateViewRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.create_view_request
+
+            return capo_connect.types.create_view_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_connect.types.create_view_response.CreateViewResponse",
+        ) -> dict[str, Any]:
+            import capo_connect.types.create_view_response
+
+            return capo_connect.types.create_view_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateView", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_connect.types.create_view_request.CreateViewRequest = {
             "instance_id": instance_id,
             "status": status,
@@ -6150,7 +6352,19 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_connect.types.create_view_version_response.CreateViewVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_connect.types.create_view_version_response
+
+            return capo_connect.types.create_view_version_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateViewVersion", redact_output=_redact_output),
+        )
         input_: capo_connect.types.create_view_version_request.CreateViewVersionRequest = {
             "instance_id": instance_id,
             "view_id": view_id,
@@ -6215,7 +6429,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVocabulary")
+        )
         input_: capo_connect.types.create_vocabulary_request.CreateVocabularyRequest = {
             "instance_id": instance_id,
             "vocabulary_name": vocabulary_name,
@@ -6287,7 +6503,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkspace")
+        )
         input_: capo_connect.types.create_workspace_request.CreateWorkspaceRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -6361,7 +6579,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkspacePage")
+        )
         input_: capo_connect.types.create_workspace_page_request.CreateWorkspacePageRequest = {
             "instance_id": instance_id,
             "workspace_id": workspace_id,
@@ -6420,7 +6640,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeactivateEvaluationForm")
+        )
         input_: capo_connect.types.deactivate_evaluation_form_request.DeactivateEvaluationFormRequest = {
             "instance_id": instance_id,
             "evaluation_form_id": evaluation_form_id,
@@ -6474,7 +6696,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAttachedFile")
+        )
         input_: capo_connect.types.delete_attached_file_request.DeleteAttachedFileRequest = {
             "instance_id": instance_id,
             "file_id": file_id,
@@ -6529,7 +6753,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContactData")
+        )
         input_: capo_connect.types.delete_contact_data_request.DeleteContactDataRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -6579,7 +6805,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContactEvaluation")
+        )
         input_: capo_connect.types.delete_contact_evaluation_request.DeleteContactEvaluationRequest = {
             "instance_id": instance_id,
             "evaluation_id": evaluation_id,
@@ -6631,7 +6859,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContactFlow")
+        )
         input_: capo_connect.types.delete_contact_flow_request.DeleteContactFlowRequest = {
             "instance_id": instance_id,
             "contact_flow_id": contact_flow_id,
@@ -6683,7 +6913,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContactFlowModule")
+        )
         input_: capo_connect.types.delete_contact_flow_module_request.DeleteContactFlowModuleRequest = {
             "instance_id": instance_id,
             "contact_flow_module_id": contact_flow_module_id,
@@ -6737,7 +6969,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContactFlowModuleAlias")
+        )
         input_: capo_connect.types.delete_contact_flow_module_alias_request.DeleteContactFlowModuleAliasRequest = {
             "instance_id": instance_id,
             "contact_flow_module_id": contact_flow_module_id,
@@ -6792,7 +7026,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContactFlowModuleVersion")
+        )
         input_: capo_connect.types.delete_contact_flow_module_version_request.DeleteContactFlowModuleVersionRequest = {
             "instance_id": instance_id,
             "contact_flow_module_id": contact_flow_module_id,
@@ -6847,7 +7083,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContactFlowVersion")
+        )
         input_: capo_connect.types.delete_contact_flow_version_request.DeleteContactFlowVersionRequest = {
             "instance_id": instance_id,
             "contact_flow_id": contact_flow_id,
@@ -6901,7 +7139,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataTable")
+        )
         input_: capo_connect.types.delete_data_table_request.DeleteDataTableRequest = {
             "instance_id": instance_id,
             "data_table_id": data_table_id,
@@ -6956,7 +7196,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataTableAttribute")
+        )
         input_: capo_connect.types.delete_data_table_attribute_request.DeleteDataTableAttributeRequest = {
             "instance_id": instance_id,
             "data_table_id": data_table_id,
@@ -7010,7 +7252,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEmailAddress")
+        )
         input_: capo_connect.types.delete_email_address_request.DeleteEmailAddressRequest = {
             "instance_id": instance_id,
             "email_address_id": email_address_id,
@@ -7063,7 +7307,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEvaluationForm")
+        )
         input_: capo_connect.types.delete_evaluation_form_request.DeleteEvaluationFormRequest = {
             "instance_id": instance_id,
             "evaluation_form_id": evaluation_form_id,
@@ -7116,7 +7362,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteExtractionDefinition")
+        )
         input_: capo_connect.types.delete_extraction_definition_request.DeleteExtractionDefinitionRequest = {
             "instance_id": instance_id,
             "extraction_definition_id": extraction_definition_id,
@@ -7165,7 +7413,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteHoursOfOperation")
+        )
         input_: capo_connect.types.delete_hours_of_operation_request.DeleteHoursOfOperationRequest = {
             "instance_id": instance_id,
             "hours_of_operation_id": hours_of_operation_id,
@@ -7216,7 +7466,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteHoursOfOperationOverride")
+        )
         input_: capo_connect.types.delete_hours_of_operation_override_request.DeleteHoursOfOperationOverrideRequest = {
             "instance_id": instance_id,
             "hours_of_operation_id": hours_of_operation_id,
@@ -7264,7 +7516,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInstance")
+        )
         input_: capo_connect.types.delete_instance_request.DeleteInstanceRequest = {
             "instance_id": instance_id
         }
@@ -7314,7 +7568,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIntegrationAssociation")
+        )
         input_: capo_connect.types.delete_integration_association_request.DeleteIntegrationAssociationRequest = {
             "instance_id": instance_id,
             "integration_association_id": integration_association_id,
@@ -7367,7 +7623,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMetric")
+        )
         input_: capo_connect.types.delete_metric_request.DeleteMetricRequest = {
             "instance_id": instance_id,
             "metric_id": metric_id,
@@ -7419,7 +7677,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNotification")
+        )
         input_: capo_connect.types.delete_notification_request.DeleteNotificationRequest = {
             "instance_id": instance_id,
             "notification_id": notification_id,
@@ -7469,7 +7729,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePredefinedAttribute")
+        )
         input_: capo_connect.types.delete_predefined_attribute_request.DeletePredefinedAttributeRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -7518,7 +7780,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePrompt")
+        )
         input_: capo_connect.types.delete_prompt_request.DeletePromptRequest = {
             "instance_id": instance_id,
             "prompt_id": prompt_id,
@@ -7571,7 +7835,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePushNotificationRegistration")
+        )
         input_: capo_connect.types.delete_push_notification_registration_request.DeletePushNotificationRegistrationRequest = {
             "instance_id": instance_id,
             "registration_id": registration_id,
@@ -7622,7 +7888,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQueue")
+        )
         input_: capo_connect.types.delete_queue_request.DeleteQueueRequest = {
             "instance_id": instance_id,
             "queue_id": queue_id,
@@ -7671,7 +7939,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQuickConnect")
+        )
         input_: capo_connect.types.delete_quick_connect_request.DeleteQuickConnectRequest = {
             "instance_id": instance_id,
             "quick_connect_id": quick_connect_id,
@@ -7721,7 +7991,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRoutingProfile")
+        )
         input_: capo_connect.types.delete_routing_profile_request.DeleteRoutingProfileRequest = {
             "instance_id": instance_id,
             "routing_profile_id": routing_profile_id,
@@ -7770,7 +8042,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRule")
+        )
         input_: capo_connect.types.delete_rule_request.DeleteRuleRequest = {
             "instance_id": instance_id,
             "rule_id": rule_id,
@@ -7821,7 +8095,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSecurityProfile")
+        )
         input_: capo_connect.types.delete_security_profile_request.DeleteSecurityProfileRequest = {
             "instance_id": instance_id,
             "security_profile_id": security_profile_id,
@@ -7873,7 +8149,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSession")
+        )
         input_: capo_connect.types.delete_session_request.DeleteSessionRequest = {
             "instance_id": instance_id,
             "session_id": session_id,
@@ -7924,7 +8202,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTaskTemplate")
+        )
         input_: capo_connect.types.delete_task_template_request.DeleteTaskTemplateRequest = {
             "instance_id": instance_id,
             "task_template_id": task_template_id,
@@ -7976,7 +8256,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTestCase")
+        )
         input_: capo_connect.types.delete_test_case_request.DeleteTestCaseRequest = {
             "instance_id": instance_id,
             "test_case_id": test_case_id,
@@ -8025,7 +8307,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTrafficDistributionGroup")
+        )
         input_: capo_connect.types.delete_traffic_distribution_group_request.DeleteTrafficDistributionGroupRequest = {
             "traffic_distribution_group_id": traffic_distribution_group_id
         }
@@ -8074,7 +8358,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUseCase")
+        )
         input_: capo_connect.types.delete_use_case_request.DeleteUseCaseRequest = {
             "instance_id": instance_id,
             "integration_association_id": integration_association_id,
@@ -8124,7 +8410,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUser")
+        )
         input_: capo_connect.types.delete_user_request.DeleteUserRequest = {
             "instance_id": instance_id,
             "user_id": user_id,
@@ -8174,7 +8462,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUserHierarchyGroup")
+        )
         input_: capo_connect.types.delete_user_hierarchy_group_request.DeleteUserHierarchyGroupRequest = {
             "hierarchy_group_id": hierarchy_group_id,
             "instance_id": instance_id,
@@ -8227,7 +8517,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteView")
+        )
         input_: capo_connect.types.delete_view_request.DeleteViewRequest = {
             "instance_id": instance_id,
             "view_id": view_id,
@@ -8282,7 +8574,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteViewVersion")
+        )
         input_: capo_connect.types.delete_view_version_request.DeleteViewVersionRequest = {
             "instance_id": instance_id,
             "view_id": view_id,
@@ -8335,7 +8629,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVocabulary")
+        )
         input_: capo_connect.types.delete_vocabulary_request.DeleteVocabularyRequest = {
             "instance_id": instance_id,
             "vocabulary_id": vocabulary_id,
@@ -8387,7 +8683,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkspace")
+        )
         input_: capo_connect.types.delete_workspace_request.DeleteWorkspaceRequest = {
             "instance_id": instance_id,
             "workspace_id": workspace_id,
@@ -8440,7 +8738,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkspaceMedia")
+        )
         input_: capo_connect.types.delete_workspace_media_request.DeleteWorkspaceMediaRequest = {
             "instance_id": instance_id,
             "workspace_id": workspace_id,
@@ -8498,7 +8798,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkspacePage")
+        )
         input_: capo_connect.types.delete_workspace_page_request.DeleteWorkspacePageRequest = {
             "instance_id": instance_id,
             "workspace_id": workspace_id,
@@ -8552,7 +8854,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAgentStatus")
+        )
         input_: capo_connect.types.describe_agent_status_request.DescribeAgentStatusRequest = {
             "instance_id": instance_id,
             "agent_status_id": agent_status_id,
@@ -8603,7 +8907,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAttachedFilesConfiguration")
+        )
         input_: capo_connect.types.describe_attached_files_configuration_request.DescribeAttachedFilesConfigurationRequest = {
             "instance_id": instance_id,
             "attachment_scope": attachment_scope,
@@ -8654,7 +8960,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAuthenticationProfile")
+        )
         input_: capo_connect.types.describe_authentication_profile_request.DescribeAuthenticationProfileRequest = {
             "authentication_profile_id": authentication_profile_id,
             "instance_id": instance_id,
@@ -8705,7 +9013,17 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_connect.types.describe_contact_response.DescribeContactResponse",
+        ) -> dict[str, Any]:
+            import capo_connect.types.describe_contact_response
+
+            return capo_connect.types.describe_contact_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeContact", redact_output=_redact_output),
+        )
         input_: capo_connect.types.describe_contact_request.DescribeContactRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -8755,7 +9073,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeContactEvaluation")
+        )
         input_: capo_connect.types.describe_contact_evaluation_request.DescribeContactEvaluationRequest = {
             "instance_id": instance_id,
             "evaluation_id": evaluation_id,
@@ -8809,7 +9129,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeContactFlow")
+        )
         input_: capo_connect.types.describe_contact_flow_request.DescribeContactFlowRequest = {
             "instance_id": instance_id,
             "contact_flow_id": contact_flow_id,
@@ -8861,7 +9183,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeContactFlowModule")
+        )
         input_: capo_connect.types.describe_contact_flow_module_request.DescribeContactFlowModuleRequest = {
             "instance_id": instance_id,
             "contact_flow_module_id": contact_flow_module_id,
@@ -8915,7 +9239,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeContactFlowModuleAlias")
+        )
         input_: capo_connect.types.describe_contact_flow_module_alias_request.DescribeContactFlowModuleAliasRequest = {
             "instance_id": instance_id,
             "contact_flow_module_id": contact_flow_module_id,
@@ -8968,7 +9294,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataTable")
+        )
         input_: capo_connect.types.describe_data_table_request.DescribeDataTableRequest = {
             "instance_id": instance_id,
             "data_table_id": data_table_id,
@@ -9022,7 +9350,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataTableAttribute")
+        )
         input_: capo_connect.types.describe_data_table_attribute_request.DescribeDataTableAttributeRequest = {
             "instance_id": instance_id,
             "data_table_id": data_table_id,
@@ -9075,7 +9405,19 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_connect.types.describe_email_address_response.DescribeEmailAddressResponse",
+        ) -> dict[str, Any]:
+            import capo_connect.types.describe_email_address_response
+
+            return capo_connect.types.describe_email_address_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeEmailAddress", redact_output=_redact_output),
+        )
         input_: capo_connect.types.describe_email_address_request.DescribeEmailAddressRequest = {
             "instance_id": instance_id,
             "email_address_id": email_address_id,
@@ -9129,7 +9471,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEvaluationForm")
+        )
         input_: capo_connect.types.describe_evaluation_form_request.DescribeEvaluationFormRequest = {
             "instance_id": instance_id,
             "evaluation_form_id": evaluation_form_id,
@@ -9182,7 +9526,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeExtractionDefinition")
+        )
         input_: capo_connect.types.describe_extraction_definition_request.DescribeExtractionDefinitionRequest = {
             "instance_id": instance_id,
             "extraction_definition_id": extraction_definition_id,
@@ -9233,7 +9579,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeHoursOfOperation")
+        )
         input_: capo_connect.types.describe_hours_of_operation_request.DescribeHoursOfOperationRequest = {
             "instance_id": instance_id,
             "hours_of_operation_id": hours_of_operation_id,
@@ -9286,7 +9634,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeHoursOfOperationOverride")
+        )
         input_: capo_connect.types.describe_hours_of_operation_override_request.DescribeHoursOfOperationOverrideRequest = {
             "instance_id": instance_id,
             "hours_of_operation_id": hours_of_operation_id,
@@ -9334,7 +9684,19 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_connect.types.describe_instance_response.DescribeInstanceResponse",
+        ) -> dict[str, Any]:
+            import capo_connect.types.describe_instance_response
+
+            return capo_connect.types.describe_instance_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeInstance", redact_output=_redact_output),
+        )
         input_: capo_connect.types.describe_instance_request.DescribeInstanceRequest = {
             "instance_id": instance_id
         }
@@ -9384,7 +9746,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInstanceAttribute")
+        )
         input_: capo_connect.types.describe_instance_attribute_request.DescribeInstanceAttributeRequest = {
             "instance_id": instance_id,
             "attribute_type": attribute_type,
@@ -9437,7 +9801,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInstanceStorageConfig")
+        )
         input_: capo_connect.types.describe_instance_storage_config_request.DescribeInstanceStorageConfigRequest = {
             "instance_id": instance_id,
             "association_id": association_id,
@@ -9490,7 +9856,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMetric")
+        )
         input_: capo_connect.types.describe_metric_request.DescribeMetricRequest = {
             "instance_id": instance_id,
             "metric_id": metric_id,
@@ -9544,7 +9912,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeNotification")
+        )
         input_: capo_connect.types.describe_notification_request.DescribeNotificationRequest = {
             "instance_id": instance_id,
             "notification_id": notification_id,
@@ -9595,7 +9965,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePhoneNumber")
+        )
         input_: capo_connect.types.describe_phone_number_request.DescribePhoneNumberRequest = {
             "phone_number_id": phone_number_id
         }
@@ -9645,7 +10017,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePredefinedAttribute")
+        )
         input_: capo_connect.types.describe_predefined_attribute_request.DescribePredefinedAttributeRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -9696,7 +10070,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePrompt")
+        )
         input_: capo_connect.types.describe_prompt_request.DescribePromptRequest = {
             "instance_id": instance_id,
             "prompt_id": prompt_id,
@@ -9747,7 +10123,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeQueue")
+        )
         input_: capo_connect.types.describe_queue_request.DescribeQueueRequest = {
             "instance_id": instance_id,
             "queue_id": queue_id,
@@ -9798,7 +10176,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeQuickConnect")
+        )
         input_: capo_connect.types.describe_quick_connect_request.DescribeQuickConnectRequest = {
             "instance_id": instance_id,
             "quick_connect_id": quick_connect_id,
@@ -9849,7 +10229,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRoutingProfile")
+        )
         input_: capo_connect.types.describe_routing_profile_request.DescribeRoutingProfileRequest = {
             "instance_id": instance_id,
             "routing_profile_id": routing_profile_id,
@@ -9900,7 +10282,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRule")
+        )
         input_: capo_connect.types.describe_rule_request.DescribeRuleRequest = {
             "instance_id": instance_id,
             "rule_id": rule_id,
@@ -9951,7 +10335,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSecurityProfile")
+        )
         input_: capo_connect.types.describe_security_profile_request.DescribeSecurityProfileRequest = {
             "security_profile_id": security_profile_id,
             "instance_id": instance_id,
@@ -10005,7 +10391,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTestCase")
+        )
         input_: capo_connect.types.describe_test_case_request.DescribeTestCaseRequest = {
             "instance_id": instance_id,
             "test_case_id": test_case_id,
@@ -10056,7 +10444,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTrafficDistributionGroup")
+        )
         input_: capo_connect.types.describe_traffic_distribution_group_request.DescribeTrafficDistributionGroupRequest = {
             "traffic_distribution_group_id": traffic_distribution_group_id
         }
@@ -10106,7 +10496,17 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_connect.types.describe_user_response.DescribeUserResponse",
+        ) -> dict[str, Any]:
+            import capo_connect.types.describe_user_response
+
+            return capo_connect.types.describe_user_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeUser", redact_output=_redact_output),
+        )
         input_: capo_connect.types.describe_user_request.DescribeUserRequest = {
             "user_id": user_id,
             "instance_id": instance_id,
@@ -10157,7 +10557,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeUserHierarchyGroup")
+        )
         input_: capo_connect.types.describe_user_hierarchy_group_request.DescribeUserHierarchyGroupRequest = {
             "hierarchy_group_id": hierarchy_group_id,
             "instance_id": instance_id,
@@ -10206,7 +10608,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeUserHierarchyStructure")
+        )
         input_: capo_connect.types.describe_user_hierarchy_structure_request.DescribeUserHierarchyStructureRequest = {
             "instance_id": instance_id
         }
@@ -10257,7 +10661,17 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_connect.types.describe_view_response.DescribeViewResponse",
+        ) -> dict[str, Any]:
+            import capo_connect.types.describe_view_response
+
+            return capo_connect.types.describe_view_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeView", redact_output=_redact_output),
+        )
         input_: capo_connect.types.describe_view_request.DescribeViewRequest = {
             "instance_id": instance_id,
             "view_id": view_id,
@@ -10308,7 +10722,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeVocabulary")
+        )
         input_: capo_connect.types.describe_vocabulary_request.DescribeVocabularyRequest = {
             "instance_id": instance_id,
             "vocabulary_id": vocabulary_id,
@@ -10360,7 +10776,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkspace")
+        )
         input_: capo_connect.types.describe_workspace_request.DescribeWorkspaceRequest = {
             "instance_id": instance_id,
             "workspace_id": workspace_id,
@@ -10413,7 +10831,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateAnalyticsDataSet")
+        )
         input_: capo_connect.types.disassociate_analytics_data_set_request.DisassociateAnalyticsDataSetRequest = {
             "instance_id": instance_id,
             "data_set_id": data_set_id,
@@ -10466,7 +10886,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateApprovedOrigin")
+        )
         input_: capo_connect.types.disassociate_approved_origin_request.DisassociateApprovedOriginRequest = {
             "instance_id": instance_id,
             "origin": origin,
@@ -10520,7 +10942,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateBot")
+        )
         input_: capo_connect.types.disassociate_bot_request.DisassociateBotRequest = {
             "instance_id": instance_id
         }
@@ -10583,7 +11007,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateEmailAddressAlias")
+        )
         input_: capo_connect.types.disassociate_email_address_alias_request.DisassociateEmailAddressAliasRequest = {
             "email_address_id": email_address_id,
             "instance_id": instance_id,
@@ -10641,7 +11067,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateFlow")
+        )
         input_: capo_connect.types.disassociate_flow_request.DisassociateFlowRequest = {
             "instance_id": instance_id,
             "resource_id": resource_id,
@@ -10694,7 +11122,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateHoursOfOperations")
+        )
         input_: capo_connect.types.disassociate_hours_of_operations_request.DisassociateHoursOfOperationsRequest = {
             "instance_id": instance_id,
             "hours_of_operation_id": hours_of_operation_id,
@@ -10748,7 +11178,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateInstanceStorageConfig")
+        )
         input_: capo_connect.types.disassociate_instance_storage_config_request.DisassociateInstanceStorageConfigRequest = {
             "instance_id": instance_id,
             "association_id": association_id,
@@ -10803,7 +11235,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateLambdaFunction")
+        )
         input_: capo_connect.types.disassociate_lambda_function_request.DisassociateLambdaFunctionRequest = {
             "instance_id": instance_id,
             "function_arn": function_arn,
@@ -10859,7 +11293,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateLexBot")
+        )
         input_: capo_connect.types.disassociate_lex_bot_request.DisassociateLexBotRequest = {
             "instance_id": instance_id,
             "bot_name": bot_name,
@@ -10912,7 +11348,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociatePhoneNumberContactFlow")
+        )
         input_: capo_connect.types.disassociate_phone_number_contact_flow_request.DisassociatePhoneNumberContactFlowRequest = {
             "phone_number_id": phone_number_id,
             "instance_id": instance_id,
@@ -10966,7 +11404,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateQueueEmailAddresses")
+        )
         input_: capo_connect.types.disassociate_queue_email_addresses_request.DisassociateQueueEmailAddressesRequest = {
             "instance_id": instance_id,
             "queue_id": queue_id,
@@ -11021,7 +11461,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateQueueQuickConnects")
+        )
         input_: capo_connect.types.disassociate_queue_quick_connects_request.DisassociateQueueQuickConnectsRequest = {
             "instance_id": instance_id,
             "queue_id": queue_id,
@@ -11079,7 +11521,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateRoutingProfileQueues")
+        )
         input_: capo_connect.types.disassociate_routing_profile_queues_request.DisassociateRoutingProfileQueuesRequest = {
             "instance_id": instance_id,
             "routing_profile_id": routing_profile_id,
@@ -11136,7 +11580,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateSecurityKey")
+        )
         input_: capo_connect.types.disassociate_security_key_request.DisassociateSecurityKeyRequest = {
             "instance_id": instance_id,
             "association_id": association_id,
@@ -11194,7 +11640,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateSecurityProfiles")
+        )
         input_: capo_connect.types.disassociate_security_profiles_request.DisassociateSecurityProfilesRequest = {
             "instance_id": instance_id,
             "security_profiles": security_profiles,
@@ -11250,7 +11698,10 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateTrafficDistributionGroupUser"),
+        )
         input_: capo_connect.types.disassociate_traffic_distribution_group_user_request.DisassociateTrafficDistributionGroupUserRequest = {
             "traffic_distribution_group_id": traffic_distribution_group_id,
             "user_id": user_id,
@@ -11302,7 +11753,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateUserProficiencies")
+        )
         input_: capo_connect.types.disassociate_user_proficiencies_request.DisassociateUserProficienciesRequest = {
             "instance_id": instance_id,
             "user_id": user_id,
@@ -11357,7 +11810,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateWorkspace")
+        )
         input_: capo_connect.types.disassociate_workspace_request.DisassociateWorkspaceRequest = {
             "instance_id": instance_id,
             "workspace_id": workspace_id,
@@ -11412,7 +11867,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DismissUserContact")
+        )
         input_: capo_connect.types.dismiss_user_contact_request.DismissUserContactRequest = {
             "user_id": user_id,
             "instance_id": instance_id,
@@ -11473,7 +11930,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EvaluateDataTableValues")
+        )
         input_: capo_connect.types.evaluate_data_table_values_request.EvaluateDataTableValuesRequest = {
             "instance_id": instance_id,
             "data_table_id": data_table_id,
@@ -11564,7 +12023,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAttachedFile")
+        )
         input_: capo_connect.types.get_attached_file_request.GetAttachedFileRequest = {
             "instance_id": instance_id,
             "file_id": file_id,
@@ -11616,7 +12077,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContactAttributes")
+        )
         input_: capo_connect.types.get_contact_attributes_request.GetContactAttributesRequest = {
             "instance_id": instance_id,
             "initial_contact_id": initial_contact_id,
@@ -11670,7 +12133,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContactMetrics")
+        )
         input_: capo_connect.types.get_contact_metrics_request.GetContactMetricsRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -11720,7 +12185,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCrossRegionRouting")
+        )
         input_: capo_connect.types.get_cross_region_routing_request.GetCrossRegionRoutingRequest = {
             "instance_id": instance_id
         }
@@ -11782,7 +12249,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCurrentMetricData")
+        )
         input_: capo_connect.types.get_current_metric_data_request.GetCurrentMetricDataRequest = {
             "instance_id": instance_id,
             "filters": filters,
@@ -11877,7 +12346,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCurrentUserData")
+        )
         input_: capo_connect.types.get_current_user_data_request.GetCurrentUserDataRequest = {
             "instance_id": instance_id,
             "filters": filters,
@@ -11959,7 +12430,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEffectiveHoursOfOperations")
+        )
         input_: capo_connect.types.get_effective_hours_of_operations_request.GetEffectiveHoursOfOperationsRequest = {
             "instance_id": instance_id,
             "hours_of_operation_id": hours_of_operation_id,
@@ -12015,7 +12488,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEvaluationFormValidation")
+        )
         input_: capo_connect.types.get_evaluation_form_validation_request.GetEvaluationFormValidationRequest = {
             "instance_id": instance_id,
             "evaluation_form_id": evaluation_form_id,
@@ -12068,7 +12543,19 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_connect.types.get_federation_token_response.GetFederationTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_connect.types.get_federation_token_response
+
+            return capo_connect.types.get_federation_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetFederationToken", redact_output=_redact_output),
+        )
         input_: capo_connect.types.get_federation_token_request.GetFederationTokenRequest = {
             "instance_id": instance_id
         }
@@ -12121,7 +12608,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFlowAssociation")
+        )
         input_: capo_connect.types.get_flow_association_request.GetFlowAssociationRequest = {
             "instance_id": instance_id,
             "resource_id": resource_id,
@@ -12185,7 +12674,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMetricData")
+        )
         input_: capo_connect.types.get_metric_data_request.GetMetricDataRequest = {
             "instance_id": instance_id,
             "start_time": start_time,
@@ -12292,7 +12783,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMetricDataV2")
+        )
         input_: capo_connect.types.get_metric_data_v2_request.GetMetricDataV2Request = {
             "resource_arn": resource_arn,
             "start_time": start_time,
@@ -12389,7 +12882,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPromptFile")
+        )
         input_: capo_connect.types.get_prompt_file_request.GetPromptFileRequest = {
             "instance_id": instance_id,
             "prompt_id": prompt_id,
@@ -12444,7 +12939,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTaskTemplate")
+        )
         input_: capo_connect.types.get_task_template_request.GetTaskTemplateRequest = {
             "instance_id": instance_id,
             "task_template_id": task_template_id,
@@ -12500,7 +12997,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTestCaseExecutionSummary")
+        )
         input_: capo_connect.types.get_test_case_execution_summary_request.GetTestCaseExecutionSummaryRequest = {
             "instance_id": instance_id,
             "test_case_id": test_case_id,
@@ -12550,7 +13049,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTrafficDistribution")
+        )
         input_: capo_connect.types.get_traffic_distribution_request.GetTrafficDistributionRequest = {
             "id": id
         }
@@ -12609,7 +13110,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportPhoneNumber")
+        )
         input_: capo_connect.types.import_phone_number_request.ImportPhoneNumberRequest = {
             "instance_id": instance_id,
             "source_phone_number_arn": source_phone_number_arn,
@@ -12671,7 +13174,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportWorkspaceMedia")
+        )
         input_: capo_connect.types.import_workspace_media_request.ImportWorkspaceMediaRequest = {
             "instance_id": instance_id,
             "workspace_id": workspace_id,
@@ -12730,7 +13235,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAgentStatuses")
+        )
         input_: capo_connect.types.list_agent_status_request.ListAgentStatusRequest = {
             "instance_id": instance_id
         }
@@ -12817,7 +13324,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAnalyticsDataAssociations")
+        )
         input_: capo_connect.types.list_analytics_data_associations_request.ListAnalyticsDataAssociationsRequest = {
             "instance_id": instance_id
         }
@@ -12875,7 +13384,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAnalyticsDataLakeDataSets")
+        )
         input_: capo_connect.types.list_analytics_data_lake_data_sets_request.ListAnalyticsDataLakeDataSetsRequest = {
             "instance_id": instance_id
         }
@@ -12933,7 +13444,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApprovedOrigins")
+        )
         input_: capo_connect.types.list_approved_origins_request.ListApprovedOriginsRequest = {
             "instance_id": instance_id
         }
@@ -13016,7 +13529,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssociatedContacts")
+        )
         input_: capo_connect.types.list_associated_contacts_request.ListAssociatedContactsRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -13073,7 +13588,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAttachedFilesConfigurations")
+        )
         input_: capo_connect.types.list_attached_files_configurations_request.ListAttachedFilesConfigurationsRequest = {
             "instance_id": instance_id
         }
@@ -13152,7 +13669,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAuthenticationProfiles")
+        )
         input_: capo_connect.types.list_authentication_profiles_request.ListAuthenticationProfilesRequest = {
             "instance_id": instance_id
         }
@@ -13232,7 +13751,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBots")
+        )
         input_: capo_connect.types.list_bots_request.ListBotsRequest = {
             "instance_id": instance_id,
             "lex_version": lex_version,
@@ -13316,7 +13837,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListChildHoursOfOperations")
+        )
         input_: capo_connect.types.list_child_hours_of_operations_request.ListChildHoursOfOperationsRequest = {
             "instance_id": instance_id,
             "hours_of_operation_id": hours_of_operation_id,
@@ -13399,7 +13922,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContactEvaluations")
+        )
         input_: capo_connect.types.list_contact_evaluations_request.ListContactEvaluationsRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -13480,7 +14005,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContactFlowModuleAliases")
+        )
         input_: capo_connect.types.list_contact_flow_module_aliases_request.ListContactFlowModuleAliasesRequest = {
             "instance_id": instance_id,
             "contact_flow_module_id": contact_flow_module_id,
@@ -13569,7 +14096,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContactFlowModules")
+        )
         input_: capo_connect.types.list_contact_flow_modules_request.ListContactFlowModulesRequest = {
             "instance_id": instance_id
         }
@@ -13657,7 +14186,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContactFlowModuleVersions")
+        )
         input_: capo_connect.types.list_contact_flow_module_versions_request.ListContactFlowModuleVersionsRequest = {
             "instance_id": instance_id,
             "contact_flow_module_id": contact_flow_module_id,
@@ -13745,7 +14276,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContactFlows")
+        )
         input_: capo_connect.types.list_contact_flows_request.ListContactFlowsRequest = {
             "instance_id": instance_id
         }
@@ -13833,7 +14366,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContactFlowVersions")
+        )
         input_: capo_connect.types.list_contact_flow_versions_request.ListContactFlowVersionsRequest = {
             "instance_id": instance_id,
             "contact_flow_id": contact_flow_id,
@@ -13917,7 +14452,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContactReferences")
+        )
         input_: capo_connect.types.list_contact_references_request.ListContactReferencesRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -14003,7 +14540,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataTableAttributes")
+        )
         input_: capo_connect.types.list_data_table_attributes_request.ListDataTableAttributesRequest = {
             "instance_id": instance_id,
             "data_table_id": data_table_id,
@@ -14098,7 +14637,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataTablePrimaryValues")
+        )
         input_: capo_connect.types.list_data_table_primary_values_request.ListDataTablePrimaryValuesRequest = {
             "instance_id": instance_id,
             "data_table_id": data_table_id,
@@ -14191,7 +14732,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataTables")
+        )
         input_: capo_connect.types.list_data_tables_request.ListDataTablesRequest = {
             "instance_id": instance_id
         }
@@ -14281,7 +14824,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataTableValues")
+        )
         input_: capo_connect.types.list_data_table_values_request.ListDataTableValuesRequest = {
             "instance_id": instance_id,
             "data_table_id": data_table_id,
@@ -14378,7 +14923,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDefaultVocabularies")
+        )
         input_: capo_connect.types.list_default_vocabularies_request.ListDefaultVocabulariesRequest = {
             "instance_id": instance_id
         }
@@ -14469,7 +15016,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEntitySecurityProfiles")
+        )
         input_: capo_connect.types.list_entity_security_profiles_request.ListEntitySecurityProfilesRequest = {
             "instance_id": instance_id,
             "entity_type": entity_type,
@@ -14555,7 +15104,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEvaluationFormAIVersions")
+        )
         input_: capo_connect.types.list_evaluation_form_ai_versions_request.ListEvaluationFormAIVersionsRequest = {
             "instance_id": instance_id,
             "contact_interaction_type": contact_interaction_type,
@@ -14638,7 +15189,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEvaluationForms")
+        )
         input_: capo_connect.types.list_evaluation_forms_request.ListEvaluationFormsRequest = {
             "instance_id": instance_id
         }
@@ -14718,7 +15271,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEvaluationFormVersions")
+        )
         input_: capo_connect.types.list_evaluation_form_versions_request.ListEvaluationFormVersionsRequest = {
             "instance_id": instance_id,
             "evaluation_form_id": evaluation_form_id,
@@ -14800,7 +15355,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExtractionDefinitions")
+        )
         input_: capo_connect.types.list_extraction_definitions_request.ListExtractionDefinitionsRequest = {
             "instance_id": instance_id
         }
@@ -14884,7 +15441,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFlowAssociations")
+        )
         input_: capo_connect.types.list_flow_associations_request.ListFlowAssociationsRequest = {
             "instance_id": instance_id
         }
@@ -14971,7 +15530,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHoursOfOperationOverrides")
+        )
         input_: capo_connect.types.list_hours_of_operation_overrides_request.ListHoursOfOperationOverridesRequest = {
             "instance_id": instance_id,
             "hours_of_operation_id": hours_of_operation_id,
@@ -15053,7 +15614,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHoursOfOperations")
+        )
         input_: capo_connect.types.list_hours_of_operations_request.ListHoursOfOperationsRequest = {
             "instance_id": instance_id
         }
@@ -15132,7 +15695,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInstanceAttributes")
+        )
         input_: capo_connect.types.list_instance_attributes_request.ListInstanceAttributesRequest = {
             "instance_id": instance_id
         }
@@ -15206,7 +15771,17 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_connect.types.list_instances_response.ListInstancesResponse",
+        ) -> dict[str, Any]:
+            import capo_connect.types.list_instances_response
+
+            return capo_connect.types.list_instances_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListInstances", redact_output=_redact_output),
+        )
         input_: capo_connect.types.list_instances_request.ListInstancesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -15283,7 +15858,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInstanceStorageConfigs")
+        )
         input_: capo_connect.types.list_instance_storage_configs_request.ListInstanceStorageConfigsRequest = {
             "instance_id": instance_id,
             "resource_type": resource_type,
@@ -15370,7 +15947,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIntegrationAssociations")
+        )
         input_: capo_connect.types.list_integration_associations_request.ListIntegrationAssociationsRequest = {
             "instance_id": instance_id
         }
@@ -15461,7 +16040,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLambdaFunctions")
+        )
         input_: capo_connect.types.list_lambda_functions_request.ListLambdaFunctionsRequest = {
             "instance_id": instance_id
         }
@@ -15540,7 +16121,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLexBots")
+        )
         input_: capo_connect.types.list_lex_bots_request.ListLexBotsRequest = {
             "instance_id": instance_id
         }
@@ -15622,7 +16205,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMetrics")
+        )
         input_: capo_connect.types.list_metrics_request.ListMetricsRequest = {
             "instance_id": instance_id
         }
@@ -15706,7 +16291,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNotifications")
+        )
         input_: capo_connect.types.list_notifications_request.ListNotificationsRequest = {
             "instance_id": instance_id
         }
@@ -15770,7 +16357,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPhoneNumbers")
+        )
         input_: capo_connect.types.list_phone_numbers_request.ListPhoneNumbersRequest = {
             "instance_id": instance_id
         }
@@ -15877,7 +16466,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPhoneNumbersV2")
+        )
         input_: capo_connect.types.list_phone_numbers_v2_request.ListPhoneNumbersV2Request = {}
         if target_arn is not None:
             input_["target_arn"] = target_arn
@@ -15980,7 +16571,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPredefinedAttributes")
+        )
         input_: capo_connect.types.list_predefined_attributes_request.ListPredefinedAttributesRequest = {
             "instance_id": instance_id
         }
@@ -16059,7 +16652,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPrompts")
+        )
         input_: capo_connect.types.list_prompts_request.ListPromptsRequest = {
             "instance_id": instance_id
         }
@@ -16141,7 +16736,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQueueEmailAddresses")
+        )
         input_: capo_connect.types.list_queue_email_addresses_request.ListQueueEmailAddressesRequest = {
             "instance_id": instance_id,
             "queue_id": queue_id,
@@ -16200,7 +16797,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQueueQuickConnects")
+        )
         input_: capo_connect.types.list_queue_quick_connects_request.ListQueueQuickConnectsRequest = {
             "instance_id": instance_id,
             "queue_id": queue_id,
@@ -16284,7 +16883,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQueues")
+        )
         input_: capo_connect.types.list_queues_request.ListQueuesRequest = {
             "instance_id": instance_id
         }
@@ -16371,7 +16972,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQuickConnects")
+        )
         input_: capo_connect.types.list_quick_connects_request.ListQuickConnectsRequest = {
             "instance_id": instance_id
         }
@@ -16465,7 +17068,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRealtimeContactAnalysisSegmentsV2")
+        )
         input_: capo_connect.types.list_realtime_contact_analysis_segments_v2_request.ListRealtimeContactAnalysisSegmentsV2Request = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -16555,7 +17160,10 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListRoutingProfileManualAssignmentQueues"),
+        )
         input_: capo_connect.types.list_routing_profile_manual_assignment_queues_request.ListRoutingProfileManualAssignmentQueuesRequest = {
             "instance_id": instance_id,
             "routing_profile_id": routing_profile_id,
@@ -16642,7 +17250,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRoutingProfileQueues")
+        )
         input_: capo_connect.types.list_routing_profile_queues_request.ListRoutingProfileQueuesRequest = {
             "instance_id": instance_id,
             "routing_profile_id": routing_profile_id,
@@ -16728,7 +17338,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRoutingProfiles")
+        )
         input_: capo_connect.types.list_routing_profiles_request.ListRoutingProfilesRequest = {
             "instance_id": instance_id
         }
@@ -16815,7 +17427,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRules")
+        )
         input_: capo_connect.types.list_rules_request.ListRulesRequest = {
             "instance_id": instance_id
         }
@@ -16906,7 +17520,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSecurityKeys")
+        )
         input_: capo_connect.types.list_security_keys_request.ListSecurityKeysRequest = {
             "instance_id": instance_id
         }
@@ -16987,7 +17603,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSecurityProfileAIAgents")
+        )
         input_: capo_connect.types.list_security_profile_ai_agents_request.ListSecurityProfileAIAgentsRequest = {
             "security_profile_id": security_profile_id,
             "instance_id": instance_id,
@@ -17071,7 +17689,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSecurityProfileApplications")
+        )
         input_: capo_connect.types.list_security_profile_applications_request.ListSecurityProfileApplicationsRequest = {
             "security_profile_id": security_profile_id,
             "instance_id": instance_id,
@@ -17155,7 +17775,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSecurityProfileFlowModules")
+        )
         input_: capo_connect.types.list_security_profile_flow_modules_request.ListSecurityProfileFlowModulesRequest = {
             "security_profile_id": security_profile_id,
             "instance_id": instance_id,
@@ -17239,7 +17861,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSecurityProfilePermissions")
+        )
         input_: capo_connect.types.list_security_profile_permissions_request.ListSecurityProfilePermissionsRequest = {
             "security_profile_id": security_profile_id,
             "instance_id": instance_id,
@@ -17321,7 +17945,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSecurityProfiles")
+        )
         input_: capo_connect.types.list_security_profiles_request.ListSecurityProfilesRequest = {
             "instance_id": instance_id
         }
@@ -17398,7 +18024,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_connect.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -17456,7 +18084,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTaskTemplates")
+        )
         input_: capo_connect.types.list_task_templates_request.ListTaskTemplatesRequest = {
             "instance_id": instance_id
         }
@@ -17556,7 +18186,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTestCaseExecutionRecords")
+        )
         input_: capo_connect.types.list_test_case_execution_records_request.ListTestCaseExecutionRecordsRequest = {
             "instance_id": instance_id,
             "test_case_id": test_case_id,
@@ -17635,7 +18267,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTestCaseExecutions")
+        )
         input_: capo_connect.types.list_test_case_executions_request.ListTestCaseExecutionsRequest = {
             "instance_id": instance_id
         }
@@ -17702,7 +18336,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTestCases")
+        )
         input_: capo_connect.types.list_test_cases_request.ListTestCasesRequest = {
             "instance_id": instance_id
         }
@@ -17782,7 +18418,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTrafficDistributionGroups")
+        )
         input_: capo_connect.types.list_traffic_distribution_groups_request.ListTrafficDistributionGroupsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -17865,7 +18503,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTrafficDistributionGroupUsers")
+        )
         input_: capo_connect.types.list_traffic_distribution_group_users_request.ListTrafficDistributionGroupUsersRequest = {
             "traffic_distribution_group_id": traffic_distribution_group_id
         }
@@ -17947,7 +18587,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUseCases")
+        )
         input_: capo_connect.types.list_use_cases_request.ListUseCasesRequest = {
             "instance_id": instance_id,
             "integration_association_id": integration_association_id,
@@ -18029,7 +18671,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUserHierarchyGroups")
+        )
         input_: capo_connect.types.list_user_hierarchy_groups_request.ListUserHierarchyGroupsRequest = {
             "instance_id": instance_id
         }
@@ -18111,7 +18755,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUserNotifications")
+        )
         input_: capo_connect.types.list_user_notifications_request.ListUserNotificationsRequest = {
             "instance_id": instance_id,
             "user_id": user_id,
@@ -18170,7 +18816,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUserProficiencies")
+        )
         input_: capo_connect.types.list_user_proficiencies_request.ListUserProficienciesRequest = {
             "instance_id": instance_id,
             "user_id": user_id,
@@ -18252,7 +18900,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUsers")
+        )
         input_: capo_connect.types.list_users_request.ListUsersRequest = {
             "instance_id": instance_id
         }
@@ -18336,7 +18986,17 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_connect.types.list_views_response.ListViewsResponse",
+        ) -> dict[str, Any]:
+            import capo_connect.types.list_views_response
+
+            return capo_connect.types.list_views_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListViews", redact_output=_redact_output),
+        )
         input_: capo_connect.types.list_views_request.ListViewsRequest = {
             "instance_id": instance_id
         }
@@ -18426,7 +19086,19 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_connect.types.list_view_versions_response.ListViewVersionsResponse",
+        ) -> dict[str, Any]:
+            import capo_connect.types.list_view_versions_response
+
+            return capo_connect.types.list_view_versions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListViewVersions", redact_output=_redact_output),
+        )
         input_: capo_connect.types.list_view_versions_request.ListViewVersionsRequest = {
             "instance_id": instance_id,
             "view_id": view_id,
@@ -18509,7 +19181,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkspaceMedia")
+        )
         input_: capo_connect.types.list_workspace_media_request.ListWorkspaceMediaRequest = {
             "instance_id": instance_id,
             "workspace_id": workspace_id,
@@ -18565,7 +19239,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkspacePages")
+        )
         input_: capo_connect.types.list_workspace_pages_request.ListWorkspacePagesRequest = {
             "instance_id": instance_id,
             "workspace_id": workspace_id,
@@ -18648,7 +19324,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkspaces")
+        )
         input_: capo_connect.types.list_workspaces_request.ListWorkspacesRequest = {
             "instance_id": instance_id
         }
@@ -18735,7 +19413,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("MonitorContact")
+        )
         input_: capo_connect.types.monitor_contact_request.MonitorContactRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -18799,7 +19479,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PauseContact")
+        )
         input_: capo_connect.types.pause_contact_request.PauseContactRequest = {
             "contact_id": contact_id,
             "instance_id": instance_id,
@@ -18855,7 +19537,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutUserStatus")
+        )
         input_: capo_connect.types.put_user_status_request.PutUserStatusRequest = {
             "user_id": user_id,
             "instance_id": instance_id,
@@ -18907,7 +19591,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReleasePhoneNumber")
+        )
         input_: capo_connect.types.release_phone_number_request.ReleasePhoneNumberRequest = {
             "phone_number_id": phone_number_id
         }
@@ -18969,7 +19655,19 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.replicate_instance_request.ReplicateInstanceRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.replicate_instance_request
+
+            return capo_connect.types.replicate_instance_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ReplicateInstance", redact_input=_redact_input),
+        )
         input_: capo_connect.types.replicate_instance_request.ReplicateInstanceRequest = {
             "instance_id": instance_id,
             "replica_region": replica_region,
@@ -19031,7 +19729,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResumeContact")
+        )
         input_: capo_connect.types.resume_contact_request.ResumeContactRequest = {
             "contact_id": contact_id,
             "instance_id": instance_id,
@@ -19089,7 +19789,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResumeContactRecording")
+        )
         input_: capo_connect.types.resume_contact_recording_request.ResumeContactRecordingRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -19155,7 +19857,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchAgentStatuses")
+        )
         input_: capo_connect.types.search_agent_statuses_request.SearchAgentStatusesRequest = {
             "instance_id": instance_id
         }
@@ -19257,7 +19961,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchAvailablePhoneNumbers")
+        )
         input_: capo_connect.types.search_available_phone_numbers_request.SearchAvailablePhoneNumbersRequest = {
             "phone_number_country_code": phone_number_country_code,
             "phone_number_type": phone_number_type,
@@ -19363,7 +20069,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchContactEvaluations")
+        )
         input_: capo_connect.types.search_contact_evaluations_request.SearchContactEvaluationsRequest = {
             "instance_id": instance_id
         }
@@ -19431,7 +20139,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchContactFlowModules")
+        )
         input_: capo_connect.types.search_contact_flow_modules_request.SearchContactFlowModulesRequest = {
             "instance_id": instance_id
         }
@@ -19530,7 +20240,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchContactFlows")
+        )
         input_: capo_connect.types.search_contact_flows_request.SearchContactFlowsRequest = {
             "instance_id": instance_id
         }
@@ -19631,7 +20343,28 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.search_contacts_request.SearchContactsRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.search_contacts_request
+
+            return capo_connect.types.search_contacts_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_connect.types.search_contacts_response.SearchContactsResponse",
+        ) -> dict[str, Any]:
+            import capo_connect.types.search_contacts_response
+
+            return capo_connect.types.search_contacts_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchContacts",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_connect.types.search_contacts_request.SearchContactsRequest = {
             "instance_id": instance_id,
             "time_range": time_range,
@@ -19735,7 +20468,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchDataTables")
+        )
         input_: capo_connect.types.search_data_tables_request.SearchDataTablesRequest = {
             "instance_id": instance_id
         }
@@ -19835,7 +20570,19 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_connect.types.search_email_addresses_response.SearchEmailAddressesResponse",
+        ) -> dict[str, Any]:
+            import capo_connect.types.search_email_addresses_response
+
+            return capo_connect.types.search_email_addresses_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SearchEmailAddresses", redact_output=_redact_output),
+        )
         input_: capo_connect.types.search_email_addresses_request.SearchEmailAddressesRequest = {
             "instance_id": instance_id
         }
@@ -19903,7 +20650,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchEvaluationForms")
+        )
         input_: capo_connect.types.search_evaluation_forms_request.SearchEvaluationFormsRequest = {
             "instance_id": instance_id
         }
@@ -19970,7 +20719,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchHoursOfOperationOverrides")
+        )
         input_: capo_connect.types.search_hours_of_operation_overrides_request.SearchHoursOfOperationOverridesRequest = {
             "instance_id": instance_id
         }
@@ -20069,7 +20820,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchHoursOfOperations")
+        )
         input_: capo_connect.types.search_hours_of_operations_request.SearchHoursOfOperationsRequest = {
             "instance_id": instance_id
         }
@@ -20169,7 +20922,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchMetrics")
+        )
         input_: capo_connect.types.search_metrics_request.SearchMetricsRequest = {
             "instance_id": instance_id
         }
@@ -20269,7 +21024,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchNotifications")
+        )
         input_: capo_connect.types.search_notifications_request.SearchNotificationsRequest = {
             "instance_id": instance_id
         }
@@ -20333,7 +21090,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchPredefinedAttributes")
+        )
         input_: capo_connect.types.search_predefined_attributes_request.SearchPredefinedAttributesRequest = {
             "instance_id": instance_id
         }
@@ -20426,7 +21185,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchPrompts")
+        )
         input_: capo_connect.types.search_prompts_request.SearchPromptsRequest = {
             "instance_id": instance_id
         }
@@ -20525,7 +21286,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchQueues")
+        )
         input_: capo_connect.types.search_queues_request.SearchQueuesRequest = {
             "instance_id": instance_id
         }
@@ -20626,7 +21389,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchQuickConnects")
+        )
         input_: capo_connect.types.search_quick_connects_request.SearchQuickConnectsRequest = {
             "instance_id": instance_id
         }
@@ -20726,7 +21491,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchResourceTags")
+        )
         input_: capo_connect.types.search_resource_tags_request.SearchResourceTagsRequest = {
             "instance_id": instance_id
         }
@@ -20825,7 +21592,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchRoutingProfiles")
+        )
         input_: capo_connect.types.search_routing_profiles_request.SearchRoutingProfilesRequest = {
             "instance_id": instance_id
         }
@@ -20931,7 +21700,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchRules")
+        )
         input_: capo_connect.types.search_rules_request.SearchRulesRequest = {
             "instance_id": instance_id
         }
@@ -21030,7 +21801,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchSecurityProfiles")
+        )
         input_: capo_connect.types.search_security_profiles_request.SearchSecurityProfilesRequest = {
             "instance_id": instance_id
         }
@@ -21130,7 +21903,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchTestCases")
+        )
         input_: capo_connect.types.search_test_cases_request.SearchTestCasesRequest = {
             "instance_id": instance_id
         }
@@ -21229,7 +22004,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchUserHierarchyGroups")
+        )
         input_: capo_connect.types.search_user_hierarchy_groups_request.SearchUserHierarchyGroupsRequest = {
             "instance_id": instance_id
         }
@@ -21327,7 +22104,17 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_connect.types.search_users_response.SearchUsersResponse",
+        ) -> dict[str, Any]:
+            import capo_connect.types.search_users_response
+
+            return capo_connect.types.search_users_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SearchUsers", redact_output=_redact_output),
+        )
         input_: capo_connect.types.search_users_request.SearchUsersRequest = {
             "instance_id": instance_id
         }
@@ -21427,7 +22214,17 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_connect.types.search_views_response.SearchViewsResponse",
+        ) -> dict[str, Any]:
+            import capo_connect.types.search_views_response
+
+            return capo_connect.types.search_views_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SearchViews", redact_output=_redact_output),
+        )
         input_: capo_connect.types.search_views_request.SearchViewsRequest = {
             "instance_id": instance_id
         }
@@ -21529,7 +22326,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchVocabularies")
+        )
         input_: capo_connect.types.search_vocabularies_request.SearchVocabulariesRequest = {
             "instance_id": instance_id
         }
@@ -21635,7 +22434,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchWorkspaceAssociations")
+        )
         input_: capo_connect.types.search_workspace_associations_request.SearchWorkspaceAssociationsRequest = {
             "instance_id": instance_id
         }
@@ -21735,7 +22536,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchWorkspaces")
+        )
         input_: capo_connect.types.search_workspaces_request.SearchWorkspacesRequest = {
             "instance_id": instance_id
         }
@@ -21832,7 +22635,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendChatIntegrationEvent")
+        )
         input_: capo_connect.types.send_chat_integration_event_request.SendChatIntegrationEventRequest = {
             "source_id": source_id,
             "destination_id": destination_id,
@@ -21906,7 +22711,19 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.send_outbound_email_request.SendOutboundEmailRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.send_outbound_email_request
+
+            return capo_connect.types.send_outbound_email_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SendOutboundEmail", redact_input=_redact_input),
+        )
         input_: capo_connect.types.send_outbound_email_request.SendOutboundEmailRequest = {
             "instance_id": instance_id,
             "from_email_address": from_email_address,
@@ -21979,7 +22796,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendOutboundWebNotification")
+        )
         input_: capo_connect.types.send_outbound_web_notification_request.SendOutboundWebNotificationRequest = {
             "instance_id": instance_id,
             "browser_id": browser_id,
@@ -22054,7 +22873,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAssistantContact")
+        )
         input_: capo_connect.types.start_assistant_contact_request.StartAssistantContactRequest = {
             "instance_id": instance_id,
             "ai_agent": ai_agent,
@@ -22134,7 +22955,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAttachedFileUpload")
+        )
         input_: capo_connect.types.start_attached_file_upload_request.StartAttachedFileUploadRequest = {
             "instance_id": instance_id,
             "file_name": file_name,
@@ -22243,7 +23066,19 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.start_chat_contact_request.StartChatContactRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.start_chat_contact_request
+
+            return capo_connect.types.start_chat_contact_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartChatContact", redact_input=_redact_input),
+        )
         input_: capo_connect.types.start_chat_contact_request.StartChatContactRequest = {
             "instance_id": instance_id,
             "contact_flow_id": contact_flow_id,
@@ -22331,7 +23166,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartContactConversationalAnalyticsJob")
+        )
         input_: capo_connect.types.start_contact_conversational_analytics_job_request.StartContactConversationalAnalyticsJobRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -22397,7 +23234,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartContactEvaluation")
+        )
         input_: capo_connect.types.start_contact_evaluation_request.StartContactEvaluationRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -22464,7 +23303,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartContactMediaProcessing")
+        )
         input_: capo_connect.types.start_contact_media_processing_request.StartContactMediaProcessingRequest = {}
         if instance_id is not None:
             input_["instance_id"] = instance_id
@@ -22524,7 +23365,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartContactRecording")
+        )
         input_: capo_connect.types.start_contact_recording_request.StartContactRecordingRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -22581,7 +23424,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartContactStreaming")
+        )
         input_: capo_connect.types.start_contact_streaming_request.StartContactStreamingRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -22670,7 +23515,19 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.start_email_contact_request.StartEmailContactRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.start_email_contact_request
+
+            return capo_connect.types.start_email_contact_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartEmailContact", redact_input=_redact_input),
+        )
         input_: capo_connect.types.start_email_contact_request.StartEmailContactRequest = {
             "instance_id": instance_id,
             "from_email_address": from_email_address,
@@ -22747,7 +23604,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartEvaluationFormValidation")
+        )
         input_: capo_connect.types.start_evaluation_form_validation_request.StartEvaluationFormValidationRequest = {
             "instance_id": instance_id,
             "evaluation_form_id": evaluation_form_id,
@@ -22828,7 +23687,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartOutboundChatContact")
+        )
         input_: capo_connect.types.start_outbound_chat_contact_request.StartOutboundChatContactRequest = {
             "source_endpoint": source_endpoint,
             "destination_endpoint": destination_endpoint,
@@ -22919,7 +23780,19 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.start_outbound_email_contact_request.StartOutboundEmailContactRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.start_outbound_email_contact_request
+
+            return capo_connect.types.start_outbound_email_contact_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartOutboundEmailContact", redact_input=_redact_input),
+        )
         input_: capo_connect.types.start_outbound_email_contact_request.StartOutboundEmailContactRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -23019,7 +23892,19 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.start_outbound_voice_contact_request.StartOutboundVoiceContactRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.start_outbound_voice_contact_request
+
+            return capo_connect.types.start_outbound_voice_contact_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartOutboundVoiceContact", redact_input=_redact_input),
+        )
         input_: capo_connect.types.start_outbound_voice_contact_request.StartOutboundVoiceContactRequest = {
             "destination_phone_number": destination_phone_number,
             "contact_flow_id": contact_flow_id,
@@ -23101,7 +23986,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartScreenSharing")
+        )
         input_: capo_connect.types.start_screen_sharing_request.StartScreenSharingRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -23192,7 +24079,19 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.start_task_contact_request.StartTaskContactRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.start_task_contact_request
+
+            return capo_connect.types.start_task_contact_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartTaskContact", redact_input=_redact_input),
+        )
         input_: capo_connect.types.start_task_contact_request.StartTaskContactRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -23272,7 +24171,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartTestCaseExecution")
+        )
         input_: capo_connect.types.start_test_case_execution_request.StartTestCaseExecutionRequest = {
             "instance_id": instance_id,
             "test_case_id": test_case_id,
@@ -23348,7 +24249,32 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.start_web_rtc_contact_request.StartWebRTCContactRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.start_web_rtc_contact_request
+
+            return capo_connect.types.start_web_rtc_contact_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_connect.types.start_web_rtc_contact_response.StartWebRTCContactResponse",
+        ) -> dict[str, Any]:
+            import capo_connect.types.start_web_rtc_contact_response
+
+            return capo_connect.types.start_web_rtc_contact_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartWebRTCContact",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_connect.types.start_web_rtc_contact_request.StartWebRTCContactRequest = {
             "contact_flow_id": contact_flow_id,
             "instance_id": instance_id,
@@ -23420,7 +24346,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopContact")
+        )
         input_: capo_connect.types.stop_contact_request.StopContactRequest = {
             "contact_id": contact_id,
             "instance_id": instance_id,
@@ -23474,7 +24402,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopContactMediaProcessing")
+        )
         input_: capo_connect.types.stop_contact_media_processing_request.StopContactMediaProcessingRequest = {}
         if instance_id is not None:
             input_["instance_id"] = instance_id
@@ -23531,7 +24461,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopContactRecording")
+        )
         input_: capo_connect.types.stop_contact_recording_request.StopContactRecordingRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -23586,7 +24518,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopContactStreaming")
+        )
         input_: capo_connect.types.stop_contact_streaming_request.StopContactStreamingRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -23643,7 +24577,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopTestCaseExecution")
+        )
         input_: capo_connect.types.stop_test_case_execution_request.StopTestCaseExecutionRequest = {
             "instance_id": instance_id,
             "test_case_execution_id": test_case_execution_id,
@@ -23710,7 +24646,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SubmitContactEvaluation")
+        )
         input_: capo_connect.types.submit_contact_evaluation_request.SubmitContactEvaluationRequest = {
             "instance_id": instance_id,
             "evaluation_id": evaluation_id,
@@ -23772,7 +24710,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SuspendContactRecording")
+        )
         input_: capo_connect.types.suspend_contact_recording_request.SuspendContactRecordingRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -23829,7 +24769,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagContact")
+        )
         input_: capo_connect.types.tag_contact_request.TagContactRequest = {
             "contact_id": contact_id,
             "instance_id": instance_id,
@@ -23879,7 +24821,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_connect.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -23942,7 +24886,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TransferContact")
+        )
         input_: capo_connect.types.transfer_contact_request.TransferContactRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -24004,7 +24950,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagContact")
+        )
         input_: capo_connect.types.untag_contact_request.UntagContactRequest = {
             "contact_id": contact_id,
             "instance_id": instance_id,
@@ -24054,7 +25002,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_connect.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -24121,7 +25071,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAgentStatus")
+        )
         input_: capo_connect.types.update_agent_status_request.UpdateAgentStatusRequest = {
             "instance_id": instance_id,
             "agent_status_id": agent_status_id,
@@ -24190,7 +25142,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAttachedFilesConfiguration")
+        )
         input_: capo_connect.types.update_attached_files_configuration_request.UpdateAttachedFilesConfigurationRequest = {
             "instance_id": instance_id,
             "attachment_scope": attachment_scope,
@@ -24267,7 +25221,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAuthenticationProfile")
+        )
         input_: capo_connect.types.update_authentication_profile_request.UpdateAuthenticationProfileRequest = {
             "authentication_profile_id": authentication_profile_id,
             "instance_id": instance_id,
@@ -24359,7 +25315,17 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.update_contact_request.UpdateContactRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.update_contact_request
+
+            return capo_connect.types.update_contact_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateContact", redact_input=_redact_input),
+        )
         input_: capo_connect.types.update_contact_request.UpdateContactRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -24428,7 +25394,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContactAttributes")
+        )
         input_: capo_connect.types.update_contact_attributes_request.UpdateContactAttributesRequest = {
             "initial_contact_id": initial_contact_id,
             "instance_id": instance_id,
@@ -24492,7 +25460,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContactEvaluation")
+        )
         input_: capo_connect.types.update_contact_evaluation_request.UpdateContactEvaluationRequest = {
             "instance_id": instance_id,
             "evaluation_id": evaluation_id,
@@ -24552,7 +25522,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContactFlowContent")
+        )
         input_: capo_connect.types.update_contact_flow_content_request.UpdateContactFlowContentRequest = {
             "instance_id": instance_id,
             "contact_flow_id": contact_flow_id,
@@ -24615,7 +25587,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContactFlowMetadata")
+        )
         input_: capo_connect.types.update_contact_flow_metadata_request.UpdateContactFlowMetadataRequest = {
             "instance_id": instance_id,
             "contact_flow_id": contact_flow_id,
@@ -24689,7 +25663,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContactFlowModuleAlias")
+        )
         input_: capo_connect.types.update_contact_flow_module_alias_request.UpdateContactFlowModuleAliasRequest = {
             "instance_id": instance_id,
             "contact_flow_module_id": contact_flow_module_id,
@@ -24756,7 +25732,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContactFlowModuleContent")
+        )
         input_: capo_connect.types.update_contact_flow_module_content_request.UpdateContactFlowModuleContentRequest = {
             "instance_id": instance_id,
             "contact_flow_module_id": contact_flow_module_id,
@@ -24825,7 +25803,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContactFlowModuleMetadata")
+        )
         input_: capo_connect.types.update_contact_flow_module_metadata_request.UpdateContactFlowModuleMetadataRequest = {
             "instance_id": instance_id,
             "contact_flow_module_id": contact_flow_module_id,
@@ -24889,7 +25869,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContactFlowName")
+        )
         input_: capo_connect.types.update_contact_flow_name_request.UpdateContactFlowNameRequest = {
             "instance_id": instance_id,
             "contact_flow_id": contact_flow_id,
@@ -24958,7 +25940,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContactRoutingData")
+        )
         input_: capo_connect.types.update_contact_routing_data_request.UpdateContactRoutingDataRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -25018,7 +26002,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContactSchedule")
+        )
         input_: capo_connect.types.update_contact_schedule_request.UpdateContactScheduleRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -25074,7 +26060,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContactTaskTemplate")
+        )
         input_: capo_connect.types.update_contact_task_template_request.UpdateContactTaskTemplateRequest = {
             "instance_id": instance_id,
             "task_template_id": task_template_id,
@@ -25127,7 +26115,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCrossRegionRouting")
+        )
         input_: capo_connect.types.update_cross_region_routing_request.UpdateCrossRegionRoutingRequest = {
             "instance_id": instance_id,
             "isolated_all": isolated_all,
@@ -25196,7 +26186,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataTableAttribute")
+        )
         input_: capo_connect.types.update_data_table_attribute_request.UpdateDataTableAttributeRequest = {
             "instance_id": instance_id,
             "data_table_id": data_table_id,
@@ -25269,7 +26261,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataTableMetadata")
+        )
         input_: capo_connect.types.update_data_table_metadata_request.UpdateDataTableMetadataRequest = {
             "instance_id": instance_id,
             "data_table_id": data_table_id,
@@ -25333,7 +26327,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataTablePrimaryValues")
+        )
         input_: capo_connect.types.update_data_table_primary_values_request.UpdateDataTablePrimaryValuesRequest = {
             "instance_id": instance_id,
             "data_table_id": data_table_id,
@@ -25397,7 +26393,19 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.update_email_address_metadata_request.UpdateEmailAddressMetadataRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.update_email_address_metadata_request
+
+            return capo_connect.types.update_email_address_metadata_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateEmailAddressMetadata", redact_input=_redact_input),
+        )
         input_: capo_connect.types.update_email_address_metadata_request.UpdateEmailAddressMetadataRequest = {
             "instance_id": instance_id,
             "email_address_id": email_address_id,
@@ -25497,7 +26505,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEvaluationForm")
+        )
         input_: capo_connect.types.update_evaluation_form_request.UpdateEvaluationFormRequest = {
             "instance_id": instance_id,
             "evaluation_form_id": evaluation_form_id,
@@ -25583,7 +26593,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateExtractionDefinition")
+        )
         input_: capo_connect.types.update_extraction_definition_request.UpdateExtractionDefinitionRequest = {
             "extraction_definition_id": extraction_definition_id,
             "instance_id": instance_id,
@@ -25654,7 +26666,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateHoursOfOperation")
+        )
         input_: capo_connect.types.update_hours_of_operation_request.UpdateHoursOfOperationRequest = {
             "instance_id": instance_id,
             "hours_of_operation_id": hours_of_operation_id,
@@ -25741,7 +26755,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateHoursOfOperationOverride")
+        )
         input_: capo_connect.types.update_hours_of_operation_override_request.UpdateHoursOfOperationOverrideRequest = {
             "instance_id": instance_id,
             "hours_of_operation_id": hours_of_operation_id,
@@ -25809,7 +26825,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateInstanceAttribute")
+        )
         input_: capo_connect.types.update_instance_attribute_request.UpdateInstanceAttributeRequest = {
             "instance_id": instance_id,
             "attribute_type": attribute_type,
@@ -25867,7 +26885,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateInstanceStorageConfig")
+        )
         input_: capo_connect.types.update_instance_storage_config_request.UpdateInstanceStorageConfigRequest = {
             "instance_id": instance_id,
             "association_id": association_id,
@@ -25936,7 +26956,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMetricContent")
+        )
         input_: capo_connect.types.update_metric_content_request.UpdateMetricContentRequest = {
             "instance_id": instance_id,
             "metric_id": metric_id,
@@ -26001,7 +27023,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMetricMetadata")
+        )
         input_: capo_connect.types.update_metric_metadata_request.UpdateMetricMetadataRequest = {
             "instance_id": instance_id,
             "metric_id": metric_id,
@@ -26059,7 +27083,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNotificationContent")
+        )
         input_: capo_connect.types.update_notification_content_request.UpdateNotificationContentRequest = {
             "instance_id": instance_id,
             "notification_id": notification_id,
@@ -26124,7 +27150,21 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.update_participant_authentication_request.UpdateParticipantAuthenticationRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.update_participant_authentication_request
+
+            return capo_connect.types.update_participant_authentication_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateParticipantAuthentication", redact_input=_redact_input
+            ),
+        )
         input_: capo_connect.types.update_participant_authentication_request.UpdateParticipantAuthenticationRequest = {
             "state": state,
             "instance_id": instance_id,
@@ -26184,7 +27224,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateParticipantRoleConfig")
+        )
         input_: capo_connect.types.update_participant_role_config_request.UpdateParticipantRoleConfigRequest = {
             "instance_id": instance_id,
             "contact_id": contact_id,
@@ -26242,7 +27284,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePhoneNumber")
+        )
         input_: capo_connect.types.update_phone_number_request.UpdatePhoneNumberRequest = {
             "phone_number_id": phone_number_id
         }
@@ -26304,7 +27348,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePhoneNumberMetadata")
+        )
         input_: capo_connect.types.update_phone_number_metadata_request.UpdatePhoneNumberMetadataRequest = {
             "phone_number_id": phone_number_id
         }
@@ -26369,7 +27415,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePredefinedAttribute")
+        )
         input_: capo_connect.types.update_predefined_attribute_request.UpdatePredefinedAttributeRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -26436,7 +27484,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePrompt")
+        )
         input_: capo_connect.types.update_prompt_request.UpdatePromptRequest = {
             "instance_id": instance_id,
             "prompt_id": prompt_id,
@@ -26493,7 +27543,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQueueHoursOfOperation")
+        )
         input_: capo_connect.types.update_queue_hours_of_operation_request.UpdateQueueHoursOfOperationRequest = {
             "instance_id": instance_id,
             "queue_id": queue_id,
@@ -26547,7 +27599,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQueueMaxContacts")
+        )
         input_: capo_connect.types.update_queue_max_contacts_request.UpdateQueueMaxContactsRequest = {
             "instance_id": instance_id,
             "queue_id": queue_id,
@@ -26607,7 +27661,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQueueName")
+        )
         input_: capo_connect.types.update_queue_name_request.UpdateQueueNameRequest = {
             "instance_id": instance_id,
             "queue_id": queue_id,
@@ -26662,7 +27718,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQueueOutboundCallerConfig")
+        )
         input_: capo_connect.types.update_queue_outbound_caller_config_request.UpdateQueueOutboundCallerConfigRequest = {
             "instance_id": instance_id,
             "queue_id": queue_id,
@@ -26716,7 +27774,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQueueOutboundEmailConfig")
+        )
         input_: capo_connect.types.update_queue_outbound_email_config_request.UpdateQueueOutboundEmailConfigRequest = {
             "instance_id": instance_id,
             "queue_id": queue_id,
@@ -26768,7 +27828,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQueueStatus")
+        )
         input_: capo_connect.types.update_queue_status_request.UpdateQueueStatusRequest = {
             "instance_id": instance_id,
             "queue_id": queue_id,
@@ -26820,7 +27882,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQuickConnectConfig")
+        )
         input_: capo_connect.types.update_quick_connect_config_request.UpdateQuickConnectConfigRequest = {
             "instance_id": instance_id,
             "quick_connect_id": quick_connect_id,
@@ -26876,7 +27940,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQuickConnectName")
+        )
         input_: capo_connect.types.update_quick_connect_name_request.UpdateQuickConnectNameRequest = {
             "instance_id": instance_id,
             "quick_connect_id": quick_connect_id,
@@ -26931,7 +27997,10 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateRoutingProfileAgentAvailabilityTimer"),
+        )
         input_: capo_connect.types.update_routing_profile_agent_availability_timer_request.UpdateRoutingProfileAgentAvailabilityTimerRequest = {
             "instance_id": instance_id,
             "routing_profile_id": routing_profile_id,
@@ -26983,7 +28052,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRoutingProfileConcurrency")
+        )
         input_: capo_connect.types.update_routing_profile_concurrency_request.UpdateRoutingProfileConcurrencyRequest = {
             "instance_id": instance_id,
             "routing_profile_id": routing_profile_id,
@@ -27035,7 +28106,10 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateRoutingProfileDefaultOutboundQueue"),
+        )
         input_: capo_connect.types.update_routing_profile_default_outbound_queue_request.UpdateRoutingProfileDefaultOutboundQueueRequest = {
             "instance_id": instance_id,
             "routing_profile_id": routing_profile_id,
@@ -27094,7 +28168,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRoutingProfileName")
+        )
         input_: capo_connect.types.update_routing_profile_name_request.UpdateRoutingProfileNameRequest = {
             "instance_id": instance_id,
             "routing_profile_id": routing_profile_id,
@@ -27149,7 +28225,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRoutingProfileQueues")
+        )
         input_: capo_connect.types.update_routing_profile_queues_request.UpdateRoutingProfileQueuesRequest = {
             "instance_id": instance_id,
             "routing_profile_id": routing_profile_id,
@@ -27212,7 +28290,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRule")
+        )
         input_: capo_connect.types.update_rule_request.UpdateRuleRequest = {
             "rule_id": rule_id,
             "instance_id": instance_id,
@@ -27305,7 +28385,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSecurityProfile")
+        )
         input_: capo_connect.types.update_security_profile_request.UpdateSecurityProfileRequest = {
             "security_profile_id": security_profile_id,
             "instance_id": instance_id,
@@ -27411,7 +28493,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTaskTemplate")
+        )
         input_: capo_connect.types.update_task_template_request.UpdateTaskTemplateRequest = {
             "task_template_id": task_template_id,
             "instance_id": instance_id,
@@ -27507,7 +28591,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTestCase")
+        )
         input_: capo_connect.types.update_test_case_request.UpdateTestCaseRequest = {
             "instance_id": instance_id,
             "test_case_id": test_case_id,
@@ -27583,7 +28669,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTrafficDistribution")
+        )
         input_: capo_connect.types.update_traffic_distribution_request.UpdateTrafficDistributionRequest = {
             "id": id
         }
@@ -27658,7 +28746,19 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.update_user_config_request.UpdateUserConfigRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.update_user_config_request
+
+            return capo_connect.types.update_user_config_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateUserConfig", redact_input=_redact_input),
+        )
         input_: capo_connect.types.update_user_config_request.UpdateUserConfigRequest = {
             "user_id": user_id,
             "instance_id": instance_id,
@@ -27721,7 +28821,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUserHierarchy")
+        )
         input_: capo_connect.types.update_user_hierarchy_request.UpdateUserHierarchyRequest = {
             "user_id": user_id,
             "instance_id": instance_id,
@@ -27775,7 +28877,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUserHierarchyGroupName")
+        )
         input_: capo_connect.types.update_user_hierarchy_group_name_request.UpdateUserHierarchyGroupNameRequest = {
             "name": name,
             "hierarchy_group_id": hierarchy_group_id,
@@ -27826,7 +28930,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUserHierarchyStructure")
+        )
         input_: capo_connect.types.update_user_hierarchy_structure_request.UpdateUserHierarchyStructureRequest = {
             "hierarchy_structure": hierarchy_structure,
             "instance_id": instance_id,
@@ -27877,7 +28983,21 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.update_user_identity_info_request.UpdateUserIdentityInfoRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.update_user_identity_info_request
+
+            return (
+                capo_connect.types.update_user_identity_info_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateUserIdentityInfo", redact_input=_redact_input),
+        )
         input_: capo_connect.types.update_user_identity_info_request.UpdateUserIdentityInfoRequest = {
             "identity_info": identity_info,
             "user_id": user_id,
@@ -27940,7 +29060,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUserNotificationStatus")
+        )
         input_: capo_connect.types.update_user_notification_status_request.UpdateUserNotificationStatusRequest = {
             "instance_id": instance_id,
             "notification_id": notification_id,
@@ -27997,7 +29119,19 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.update_user_phone_config_request.UpdateUserPhoneConfigRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.update_user_phone_config_request
+
+            return capo_connect.types.update_user_phone_config_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateUserPhoneConfig", redact_input=_redact_input),
+        )
         input_: capo_connect.types.update_user_phone_config_request.UpdateUserPhoneConfigRequest = {
             "phone_config": phone_config,
             "user_id": user_id,
@@ -28049,7 +29183,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUserProficiencies")
+        )
         input_: capo_connect.types.update_user_proficiencies_request.UpdateUserProficienciesRequest = {
             "instance_id": instance_id,
             "user_id": user_id,
@@ -28101,7 +29237,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUserRoutingProfile")
+        )
         input_: capo_connect.types.update_user_routing_profile_request.UpdateUserRoutingProfileRequest = {
             "routing_profile_id": routing_profile_id,
             "user_id": user_id,
@@ -28153,7 +29291,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUserSecurityProfiles")
+        )
         input_: capo_connect.types.update_user_security_profiles_request.UpdateUserSecurityProfilesRequest = {
             "security_profile_ids": security_profile_ids,
             "user_id": user_id,
@@ -28211,7 +29351,32 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.update_view_content_request.UpdateViewContentRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.update_view_content_request
+
+            return capo_connect.types.update_view_content_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_connect.types.update_view_content_response.UpdateViewContentResponse",
+        ) -> dict[str, Any]:
+            import capo_connect.types.update_view_content_response
+
+            return capo_connect.types.update_view_content_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateViewContent",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_connect.types.update_view_content_request.UpdateViewContentRequest = {
             "instance_id": instance_id,
             "view_id": view_id,
@@ -28273,7 +29438,19 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connect.types.update_view_metadata_request.UpdateViewMetadataRequest",
+        ) -> dict[str, Any]:
+            import capo_connect.types.update_view_metadata_request
+
+            return capo_connect.types.update_view_metadata_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateViewMetadata", redact_input=_redact_input),
+        )
         input_: capo_connect.types.update_view_metadata_request.UpdateViewMetadataRequest = {
             "instance_id": instance_id,
             "view_id": view_id,
@@ -28338,7 +29515,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkspaceMetadata")
+        )
         input_: capo_connect.types.update_workspace_metadata_request.UpdateWorkspaceMetadataRequest = {
             "instance_id": instance_id,
             "workspace_id": workspace_id,
@@ -28410,7 +29589,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkspacePage")
+        )
         input_: capo_connect.types.update_workspace_page_request.UpdateWorkspacePageRequest = {
             "instance_id": instance_id,
             "workspace_id": workspace_id,
@@ -28473,7 +29654,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkspaceTheme")
+        )
         input_: capo_connect.types.update_workspace_theme_request.UpdateWorkspaceThemeRequest = {
             "instance_id": instance_id,
             "workspace_id": workspace_id,
@@ -28529,7 +29712,9 @@ class AsyncConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkspaceVisibility")
+        )
         input_: capo_connect.types.update_workspace_visibility_request.UpdateWorkspaceVisibilityRequest = {
             "instance_id": instance_id,
             "workspace_id": workspace_id,

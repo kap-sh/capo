@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.grafana#CreateWorkspaceServiceAccountTokenResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -60,5 +60,20 @@ def deserialize_json(data: dict) -> CreateWorkspaceServiceAccountTokenResponse:
     else:
         raise DeserializationError(
             "CreateWorkspaceServiceAccountTokenResponse.workspace_id required"
+        )
+    return out
+
+
+def redact_sensitive(
+    value: CreateWorkspaceServiceAccountTokenResponse,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "service_account_token" in value:
+        import capo_grafana.types.service_account_token_summary_with_key
+
+        out["service_account_token"] = (
+            capo_grafana.types.service_account_token_summary_with_key.redact_sensitive(
+                value["service_account_token"]
+            )
         )
     return out

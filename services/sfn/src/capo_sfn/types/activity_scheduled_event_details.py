@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#ActivityScheduledEventDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -73,4 +73,11 @@ def deserialize_aws_json_1_0(data: dict) -> ActivityScheduledEventDetails:
         out["timeout_in_seconds"] = data["timeoutInSeconds"]
     if data.get("heartbeatInSeconds") is not None:
         out["heartbeat_in_seconds"] = data["heartbeatInSeconds"]
+    return out
+
+
+def redact_sensitive(value: ActivityScheduledEventDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input" in value:
+        out["input"] = "*** Sensitive Data Redacted ***"
     return out

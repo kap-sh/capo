@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_iotfleetwise._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -94,7 +95,9 @@ class SignalCatalogResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSignalCatalog")
+        )
         input_: capo_iotfleetwise.types.create_signal_catalog_request.CreateSignalCatalogRequest = {
             "name": name
         }
@@ -147,7 +150,9 @@ class SignalCatalogResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSignalCatalog")
+        )
         input_: capo_iotfleetwise.types.get_signal_catalog_request.GetSignalCatalogRequest = {
             "name": name
         }
@@ -208,7 +213,9 @@ class SignalCatalogResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSignalCatalog")
+        )
         input_: capo_iotfleetwise.types.update_signal_catalog_request.UpdateSignalCatalogRequest = {
             "name": name
         }
@@ -263,7 +270,9 @@ class SignalCatalogResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSignalCatalog")
+        )
         input_: capo_iotfleetwise.types.delete_signal_catalog_request.DeleteSignalCatalogRequest = {
             "name": name
         }
@@ -311,7 +320,9 @@ class SignalCatalogResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSignalCatalogs")
+        )
         input_: capo_iotfleetwise.types.list_signal_catalogs_request.ListSignalCatalogsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -369,7 +380,9 @@ class SignalCatalogResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ImportSignalCatalog")
+        )
         input_: capo_iotfleetwise.types.import_signal_catalog_request.ImportSignalCatalogRequest = {
             "name": name
         }
@@ -431,7 +444,9 @@ class SignalCatalogResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSignalCatalogNodes")
+        )
         input_: capo_iotfleetwise.types.list_signal_catalog_nodes_request.ListSignalCatalogNodesRequest = {
             "name": name
         }
@@ -499,7 +514,9 @@ class AsyncSignalCatalogResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSignalCatalog")
+        )
         input_: capo_iotfleetwise.types.create_signal_catalog_request.CreateSignalCatalogRequest = {
             "name": name
         }
@@ -553,7 +570,9 @@ class AsyncSignalCatalogResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSignalCatalog")
+        )
         input_: capo_iotfleetwise.types.get_signal_catalog_request.GetSignalCatalogRequest = {
             "name": name
         }
@@ -615,7 +634,9 @@ class AsyncSignalCatalogResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSignalCatalog")
+        )
         input_: capo_iotfleetwise.types.update_signal_catalog_request.UpdateSignalCatalogRequest = {
             "name": name
         }
@@ -671,7 +692,9 @@ class AsyncSignalCatalogResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSignalCatalog")
+        )
         input_: capo_iotfleetwise.types.delete_signal_catalog_request.DeleteSignalCatalogRequest = {
             "name": name
         }
@@ -720,7 +743,9 @@ class AsyncSignalCatalogResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSignalCatalogs")
+        )
         input_: capo_iotfleetwise.types.list_signal_catalogs_request.ListSignalCatalogsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -779,7 +804,9 @@ class AsyncSignalCatalogResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ImportSignalCatalog")
+        )
         input_: capo_iotfleetwise.types.import_signal_catalog_request.ImportSignalCatalogRequest = {
             "name": name
         }
@@ -842,7 +869,9 @@ class AsyncSignalCatalogResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSignalCatalogNodes")
+        )
         input_: capo_iotfleetwise.types.list_signal_catalog_nodes_request.ListSignalCatalogNodesRequest = {
             "name": name
         }

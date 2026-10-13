@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#StateCapabilities``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.state_capability
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> StateCapabilities:
             capo_iot_managed_integrations.types.state_capability.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: StateCapabilities) -> list[Any]:
+    import capo_iot_managed_integrations.types.state_capability
+
+    return [
+        capo_iot_managed_integrations.types.state_capability.redact_sensitive(item)
+        for item in value
+    ]

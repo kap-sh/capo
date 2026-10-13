@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#OptimizeWaypointsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -122,4 +122,45 @@ def deserialize_json(data: dict) -> OptimizeWaypointsResponse:
         )
     else:
         raise DeserializationError("OptimizeWaypointsResponse.time_breakdown required")
+    return out
+
+
+def redact_sensitive(value: OptimizeWaypointsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "connections" in value:
+        import capo_geo_routes.types.waypoint_optimization_connection_list
+
+        out["connections"] = (
+            capo_geo_routes.types.waypoint_optimization_connection_list.redact_sensitive(
+                value["connections"]
+            )
+        )
+    if "distance" in value:
+        out["distance"] = "*** Sensitive Data Redacted ***"
+    if "duration" in value:
+        out["duration"] = "*** Sensitive Data Redacted ***"
+    if "impeding_waypoints" in value:
+        import capo_geo_routes.types.waypoint_optimization_impeding_waypoint_list
+
+        out["impeding_waypoints"] = (
+            capo_geo_routes.types.waypoint_optimization_impeding_waypoint_list.redact_sensitive(
+                value["impeding_waypoints"]
+            )
+        )
+    if "optimized_waypoints" in value:
+        import capo_geo_routes.types.waypoint_optimization_optimized_waypoint_list
+
+        out["optimized_waypoints"] = (
+            capo_geo_routes.types.waypoint_optimization_optimized_waypoint_list.redact_sensitive(
+                value["optimized_waypoints"]
+            )
+        )
+    if "time_breakdown" in value:
+        import capo_geo_routes.types.waypoint_optimization_time_breakdown
+
+        out["time_breakdown"] = (
+            capo_geo_routes.types.waypoint_optimization_time_breakdown.redact_sensitive(
+                value["time_breakdown"]
+            )
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloud9#CreateEnvironmentEC2Request``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -122,4 +122,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEnvironmentEC2Request:
         )
     if data.get("dryRun") is not None:
         out["dry_run"] = data["dryRun"]
+    return out
+
+
+def redact_sensitive(value: CreateEnvironmentEC2Request) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
     return out

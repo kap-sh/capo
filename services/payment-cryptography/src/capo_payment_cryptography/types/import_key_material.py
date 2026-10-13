@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptography#ImportKeyMaterial``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -182,3 +182,48 @@ def deserialize_aws_json_1_0(data: dict) -> ImportKeyMaterial:
         }
     else:
         raise DeserializationError("ImportKeyMaterial: no recognized variant key")
+
+
+def redact_sensitive(value: ImportKeyMaterial) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "Tr31KeyBlock" in value:
+        import capo_payment_cryptography.types.import_tr31_key_block
+
+        out["Tr31KeyBlock"] = (
+            capo_payment_cryptography.types.import_tr31_key_block.redact_sensitive(
+                value["Tr31KeyBlock"]
+            )
+        )
+    if "Tr34KeyBlock" in value:
+        import capo_payment_cryptography.types.import_tr34_key_block
+
+        out["Tr34KeyBlock"] = (
+            capo_payment_cryptography.types.import_tr34_key_block.redact_sensitive(
+                value["Tr34KeyBlock"]
+            )
+        )
+    if "KeyCryptogram" in value:
+        import capo_payment_cryptography.types.import_key_cryptogram
+
+        out["KeyCryptogram"] = (
+            capo_payment_cryptography.types.import_key_cryptogram.redact_sensitive(
+                value["KeyCryptogram"]
+            )
+        )
+    if "DiffieHellmanTr31KeyBlock" in value:
+        import capo_payment_cryptography.types.import_diffie_hellman_tr31_key_block
+
+        out["DiffieHellmanTr31KeyBlock"] = (
+            capo_payment_cryptography.types.import_diffie_hellman_tr31_key_block.redact_sensitive(
+                value["DiffieHellmanTr31KeyBlock"]
+            )
+        )
+    if "As2805KeyCryptogram" in value:
+        import capo_payment_cryptography.types.import_as2805_key_cryptogram
+
+        out["As2805KeyCryptogram"] = (
+            capo_payment_cryptography.types.import_as2805_key_cryptogram.redact_sensitive(
+                value["As2805KeyCryptogram"]
+            )
+        )
+    return out

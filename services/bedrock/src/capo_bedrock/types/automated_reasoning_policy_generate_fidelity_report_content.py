@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyGenerateFidelityReportContent``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -54,3 +54,18 @@ def deserialize_json(
         raise DeserializationError(
             "AutomatedReasoningPolicyGenerateFidelityReportContent: no recognized variant key"
         )
+
+
+def redact_sensitive(
+    value: AutomatedReasoningPolicyGenerateFidelityReportContent,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "documents" in value:
+        import capo_bedrock.types.automated_reasoning_policy_generate_fidelity_report_document_list
+
+        out["documents"] = (
+            capo_bedrock.types.automated_reasoning_policy_generate_fidelity_report_document_list.redact_sensitive(
+                value["documents"]
+            )
+        )
+    return out

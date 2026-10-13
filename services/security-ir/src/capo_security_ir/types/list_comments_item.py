@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityir#ListCommentsItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -84,4 +84,11 @@ def deserialize_json(data: dict) -> ListCommentsItem:
         out["last_updated_by"] = data["lastUpdatedBy"]
     if data.get("body") is not None:
         out["body"] = data["body"]
+    return out
+
+
+def redact_sensitive(value: ListCommentsItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "body" in value:
+        out["body"] = "*** Sensitive Data Redacted ***"
     return out

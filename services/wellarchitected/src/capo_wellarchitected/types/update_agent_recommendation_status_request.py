@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wellarchitected#UpdateAgentRecommendationStatusRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -54,4 +54,11 @@ def deserialize_json(data: dict) -> UpdateAgentRecommendationStatusRequest:
         )
     if data.get("updateReason") is not None:
         out["update_reason"] = data["updateReason"]
+    return out
+
+
+def redact_sensitive(value: UpdateAgentRecommendationStatusRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "update_reason" in value:
+        out["update_reason"] = "*** Sensitive Data Redacted ***"
     return out

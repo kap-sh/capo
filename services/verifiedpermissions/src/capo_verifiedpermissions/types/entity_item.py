@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#EntityItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -100,5 +100,38 @@ def deserialize_aws_json_1_0(data: dict) -> EntityItem:
             capo_verifiedpermissions.types.entity_cedar_tags.deserialize_aws_json_1_0(
                 data["tags"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: EntityItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "identifier" in value:
+        import capo_verifiedpermissions.types.entity_identifier
+
+        out["identifier"] = (
+            capo_verifiedpermissions.types.entity_identifier.redact_sensitive(
+                value["identifier"]
+            )
+        )
+    if "attributes" in value:
+        import capo_verifiedpermissions.types.entity_attributes
+
+        out["attributes"] = (
+            capo_verifiedpermissions.types.entity_attributes.redact_sensitive(
+                value["attributes"]
+            )
+        )
+    if "parents" in value:
+        import capo_verifiedpermissions.types.parent_list
+
+        out["parents"] = capo_verifiedpermissions.types.parent_list.redact_sensitive(
+            value["parents"]
+        )
+    if "tags" in value:
+        import capo_verifiedpermissions.types.entity_cedar_tags
+
+        out["tags"] = capo_verifiedpermissions.types.entity_cedar_tags.redact_sensitive(
+            value["tags"]
         )
     return out

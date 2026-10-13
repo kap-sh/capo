@@ -22,10 +22,12 @@ from capo_glue._pagination import resolve_path as _resolve_path
 from capo_glue._services._aws_config import aws_config
 from capo_glue._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -1003,7 +1005,9 @@ class GlueClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[GlueClientConfig] = None
+        self,
+        config_overrides: Optional[GlueClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: GlueClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -1011,8 +1015,10 @@ class GlueClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -1078,7 +1084,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateGlossaryTerms")
+        )
         input_: capo_glue.types.associate_glossary_terms_request.AssociateGlossaryTermsRequest = {
             "asset_identifier": asset_identifier,
             "glossary_term_identifiers": glossary_term_identifiers,
@@ -1144,7 +1152,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchCreatePartition")
+        )
         input_: capo_glue.types.batch_create_partition_request.BatchCreatePartitionRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -1198,7 +1208,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteConnection")
+        )
         input_: capo_glue.types.batch_delete_connection_request.BatchDeleteConnectionRequest = {
             "connection_name_list": connection_name_list
         }
@@ -1255,7 +1267,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeletePartition")
+        )
         input_: capo_glue.types.batch_delete_partition_request.BatchDeletePartitionRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -1318,7 +1332,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteTable")
+        )
         input_: capo_glue.types.batch_delete_table_request.BatchDeleteTableRequest = {
             "database_name": database_name,
             "tables_to_delete": tables_to_delete,
@@ -1377,7 +1393,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteTableVersion")
+        )
         input_: capo_glue.types.batch_delete_table_version_request.BatchDeleteTableVersionRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -1434,7 +1452,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetBlueprints")
+        )
         input_: capo_glue.types.batch_get_blueprints_request.BatchGetBlueprintsRequest = {
             "names": names
         }
@@ -1482,7 +1502,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetCrawlers")
+        )
         input_: capo_glue.types.batch_get_crawlers_request.BatchGetCrawlersRequest = {
             "crawler_names": crawler_names
         }
@@ -1527,7 +1549,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetCustomEntityTypes")
+        )
         input_: capo_glue.types.batch_get_custom_entity_types_request.BatchGetCustomEntityTypesRequest = {
             "names": names
         }
@@ -1572,7 +1596,21 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_glue.types.batch_get_data_quality_result_response.BatchGetDataQualityResultResponse",
+        ) -> dict[str, Any]:
+            import capo_glue.types.batch_get_data_quality_result_response
+
+            return (
+                capo_glue.types.batch_get_data_quality_result_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetDataQualityResult", redact_output=_redact_output),
+        )
         input_: capo_glue.types.batch_get_data_quality_result_request.BatchGetDataQualityResultRequest = {
             "result_ids": result_ids
         }
@@ -1617,7 +1655,10 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetDataQualityRulesetEvaluationRun"),
+        )
         input_: capo_glue.types.batch_get_data_quality_ruleset_evaluation_run_request.BatchGetDataQualityRulesetEvaluationRunRequest = {
             "run_ids": run_ids
         }
@@ -1665,7 +1706,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetDevEndpoints")
+        )
         input_: capo_glue.types.batch_get_dev_endpoints_request.BatchGetDevEndpointsRequest = {
             "dev_endpoint_names": dev_endpoint_names
         }
@@ -1716,7 +1759,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetIterableForms")
+        )
         input_: capo_glue.types.batch_get_iterable_forms_request.BatchGetIterableFormsRequest = {
             "asset_identifier": asset_identifier,
             "iterable_form_name": iterable_form_name,
@@ -1763,7 +1808,17 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_glue.types.batch_get_jobs_response.BatchGetJobsResponse",
+        ) -> dict[str, Any]:
+            import capo_glue.types.batch_get_jobs_response
+
+            return capo_glue.types.batch_get_jobs_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetJobs", redact_output=_redact_output),
+        )
         input_: capo_glue.types.batch_get_jobs_request.BatchGetJobsRequest = {
             "job_names": job_names
         }
@@ -1825,7 +1880,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetPartition")
+        )
         input_: capo_glue.types.batch_get_partition_request.BatchGetPartitionRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -1880,7 +1937,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetTableOptimizer")
+        )
         input_: capo_glue.types.batch_get_table_optimizer_request.BatchGetTableOptimizerRequest = {
             "entries": entries
         }
@@ -1925,7 +1984,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetTriggers")
+        )
         input_: capo_glue.types.batch_get_triggers_request.BatchGetTriggersRequest = {
             "trigger_names": trigger_names
         }
@@ -1974,7 +2035,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetWorkflows")
+        )
         input_: capo_glue.types.batch_get_workflows_request.BatchGetWorkflowsRequest = {
             "names": names
         }
@@ -2024,7 +2087,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchPutDataQualityStatisticAnnotation")
+        )
         input_: capo_glue.types.batch_put_data_quality_statistic_annotation_request.BatchPutDataQualityStatisticAnnotationRequest = {
             "inclusion_annotations": inclusion_annotations
         }
@@ -2073,7 +2138,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchStopJobRun")
+        )
         input_: capo_glue.types.batch_stop_job_run_request.BatchStopJobRunRequest = {
             "job_name": job_name,
             "job_run_ids": job_run_ids,
@@ -2130,7 +2197,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchUpdatePartition")
+        )
         input_: capo_glue.types.batch_update_partition_request.BatchUpdatePartitionRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -2180,7 +2249,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelDataQualityRuleRecommendationRun")
+        )
         input_: capo_glue.types.cancel_data_quality_rule_recommendation_run_request.CancelDataQualityRuleRecommendationRunRequest = {
             "run_id": run_id
         }
@@ -2226,7 +2297,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelDataQualityRulesetEvaluationRun")
+        )
         input_: capo_glue.types.cancel_data_quality_ruleset_evaluation_run_request.CancelDataQualityRulesetEvaluationRunRequest = {
             "run_id": run_id
         }
@@ -2274,7 +2347,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelMLTaskRun")
+        )
         input_: capo_glue.types.cancel_ml_task_run_request.CancelMLTaskRunRequest = {
             "transform_id": transform_id,
             "task_run_id": task_run_id,
@@ -2329,7 +2404,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelStatement")
+        )
         input_: capo_glue.types.cancel_statement_request.CancelStatementRequest = {
             "session_id": session_id,
             "id": id,
@@ -2379,7 +2456,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CheckSchemaVersionValidity")
+        )
         input_: capo_glue.types.check_schema_version_validity_input.CheckSchemaVersionValidityInput = {
             "data_format": data_format,
             "schema_definition": schema_definition,
@@ -2435,7 +2514,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBlueprint")
+        )
         input_: capo_glue.types.create_blueprint_request.CreateBlueprintRequest = {
             "name": name,
             "blueprint_location": blueprint_location,
@@ -2497,7 +2578,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCatalog")
+        )
         input_: capo_glue.types.create_catalog_request.CreateCatalogRequest = {
             "name": name,
             "catalog_input": catalog_input,
@@ -2559,7 +2642,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateClassifier")
+        )
         input_: capo_glue.types.create_classifier_request.CreateClassifierRequest = {}
         if grok_classifier is not None:
             input_["grok_classifier"] = grok_classifier
@@ -2638,7 +2723,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateColumnStatisticsTaskSettings")
+        )
         input_: capo_glue.types.create_column_statistics_task_settings_request.CreateColumnStatisticsTaskSettingsRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -2705,7 +2792,17 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_glue.types.create_connection_request.CreateConnectionRequest",
+        ) -> dict[str, Any]:
+            import capo_glue.types.create_connection_request
+
+            return capo_glue.types.create_connection_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateConnection", redact_input=_redact_input),
+        )
         input_: capo_glue.types.create_connection_request.CreateConnectionRequest = {
             "connection_input": connection_input
         }
@@ -2801,7 +2898,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCrawler")
+        )
         input_: capo_glue.types.create_crawler_request.CreateCrawlerRequest = {
             "name": name,
             "role": role,
@@ -2884,7 +2983,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCustomEntityType")
+        )
         input_: capo_glue.types.create_custom_entity_type_request.CreateCustomEntityTypeRequest = {
             "name": name,
             "regex_string": regex_string,
@@ -2947,7 +3048,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDatabase")
+        )
         input_: capo_glue.types.create_database_request.CreateDatabaseRequest = {
             "database_input": database_input
         }
@@ -3016,7 +3119,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataQualityRuleset")
+        )
         input_: capo_glue.types.create_data_quality_ruleset_request.CreateDataQualityRulesetRequest = {
             "name": name,
             "ruleset": ruleset,
@@ -3117,7 +3222,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDevEndpoint")
+        )
         input_: capo_glue.types.create_dev_endpoint_request.CreateDevEndpointRequest = {
             "endpoint_name": endpoint_name,
             "role_arn": role_arn,
@@ -3198,7 +3305,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGlossary")
+        )
         input_: capo_glue.types.create_glossary_request.CreateGlossaryRequest = {
             "name": name
         }
@@ -3264,7 +3373,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGlossaryTerm")
+        )
         input_: capo_glue.types.create_glossary_term_request.CreateGlossaryTermRequest = {
             "glossary_identifier": glossary_identifier,
             "name": name,
@@ -3328,7 +3439,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGlueIdentityCenterConfiguration")
+        )
         input_: capo_glue.types.create_glue_identity_center_configuration_request.CreateGlueIdentityCenterConfigurationRequest = {
             "instance_arn": instance_arn
         }
@@ -3412,7 +3525,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIntegration")
+        )
         input_: capo_glue.types.create_integration_request.CreateIntegrationRequest = {
             "integration_name": integration_name,
             "source_arn": source_arn,
@@ -3488,7 +3603,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIntegrationResourceProperty")
+        )
         input_: capo_glue.types.create_integration_resource_property_request.CreateIntegrationResourcePropertyRequest = {
             "resource_arn": resource_arn
         }
@@ -3553,7 +3670,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIntegrationTableProperties")
+        )
         input_: capo_glue.types.create_integration_table_properties_request.CreateIntegrationTablePropertiesRequest = {
             "resource_arn": resource_arn,
             "table_name": table_name,
@@ -3681,7 +3800,16 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_glue.types.create_job_request.CreateJobRequest",
+        ) -> dict[str, Any]:
+            import capo_glue.types.create_job_request
+
+            return capo_glue.types.create_job_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateJob", redact_input=_redact_input)
+        )
         input_: capo_glue.types.create_job_request.CreateJobRequest = {
             "name": name,
             "role": role,
@@ -3810,7 +3938,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMLTransform")
+        )
         input_: capo_glue.types.create_ml_transform_request.CreateMLTransformRequest = {
             "name": name,
             "input_record_tables": input_record_tables,
@@ -3888,7 +4018,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePartition")
+        )
         input_: capo_glue.types.create_partition_request.CreatePartitionRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -3949,7 +4081,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePartitionIndex")
+        )
         input_: capo_glue.types.create_partition_index_request.CreatePartitionIndexRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -4007,7 +4141,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRegistry")
+        )
         input_: capo_glue.types.create_registry_input.CreateRegistryInput = {
             "registry_name": registry_name
         }
@@ -4076,7 +4212,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSchema")
+        )
         input_: capo_glue.types.create_schema_input.CreateSchemaInput = {
             "schema_name": schema_name,
             "data_format": data_format,
@@ -4136,7 +4274,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateScript")
+        )
         input_: capo_glue.types.create_script_request.CreateScriptRequest = {}
         if dag_nodes is not None:
             input_["dag_nodes"] = dag_nodes
@@ -4189,7 +4329,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSecurityConfiguration")
+        )
         input_: capo_glue.types.create_security_configuration_request.CreateSecurityConfigurationRequest = {
             "name": name,
             "encryption_configuration": encryption_configuration,
@@ -4285,7 +4427,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSession")
+        )
         input_: capo_glue.types.create_session_request.CreateSessionRequest = {
             "id": id,
             "role": role,
@@ -4386,7 +4530,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTable")
+        )
         input_: capo_glue.types.create_table_request.CreateTableRequest = {
             "database_name": database_name
         }
@@ -4455,7 +4601,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTableOptimizer")
+        )
         input_: capo_glue.types.create_table_optimizer_request.CreateTableOptimizerRequest = {
             "catalog_id": catalog_id,
             "database_name": database_name,
@@ -4533,7 +4681,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTrigger")
+        )
         input_: capo_glue.types.create_trigger_request.CreateTriggerRequest = {
             "name": name,
             "type": type,
@@ -4605,7 +4755,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUsageProfile")
+        )
         input_: capo_glue.types.create_usage_profile_request.CreateUsageProfileRequest = {
             "name": name,
             "configuration": configuration,
@@ -4665,7 +4817,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUserDefinedFunction")
+        )
         input_: capo_glue.types.create_user_defined_function_request.CreateUserDefinedFunctionRequest = {
             "database_name": database_name,
             "function_input": function_input,
@@ -4730,7 +4884,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkflow")
+        )
         input_: capo_glue.types.create_workflow_request.CreateWorkflowRequest = {
             "name": name
         }
@@ -4785,7 +4941,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAsset")
+        )
         input_: capo_glue.types.delete_asset_request.DeleteAssetRequest = {
             "identifier": identifier
         }
@@ -4832,7 +4990,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAssetType")
+        )
         input_: capo_glue.types.delete_asset_type_request.DeleteAssetTypeRequest = {
             "identifier": identifier
         }
@@ -4890,7 +5050,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAttachment")
+        )
         input_: capo_glue.types.delete_attachment_request.DeleteAttachmentRequest = {
             "asset_identifier": asset_identifier,
             "attachment_name": attachment_name,
@@ -4940,7 +5102,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBlueprint")
+        )
         input_: capo_glue.types.delete_blueprint_request.DeleteBlueprintRequest = {
             "name": name
         }
@@ -4990,7 +5154,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCatalog")
+        )
         input_: capo_glue.types.delete_catalog_request.DeleteCatalogRequest = {
             "catalog_id": catalog_id
         }
@@ -5034,7 +5200,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteClassifier")
+        )
         input_: capo_glue.types.delete_classifier_request.DeleteClassifierRequest = {
             "name": name
         }
@@ -5091,7 +5259,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteColumnStatisticsForPartition")
+        )
         input_: capo_glue.types.delete_column_statistics_for_partition_request.DeleteColumnStatisticsForPartitionRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -5151,7 +5321,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteColumnStatisticsForTable")
+        )
         input_: capo_glue.types.delete_column_statistics_for_table_request.DeleteColumnStatisticsForTableRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -5206,7 +5378,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteColumnStatisticsTaskSettings")
+        )
         input_: capo_glue.types.delete_column_statistics_task_settings_request.DeleteColumnStatisticsTaskSettingsRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -5257,7 +5431,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnection")
+        )
         input_: capo_glue.types.delete_connection_request.DeleteConnectionRequest = {
             "connection_name": connection_name
         }
@@ -5307,7 +5483,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnectionType")
+        )
         input_: capo_glue.types.delete_connection_type_request.DeleteConnectionTypeRequest = {
             "connection_type": connection_type
         }
@@ -5353,7 +5531,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCrawler")
+        )
         input_: capo_glue.types.delete_crawler_request.DeleteCrawlerRequest = {
             "name": name
         }
@@ -5400,7 +5580,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCustomEntityType")
+        )
         input_: capo_glue.types.delete_custom_entity_type_request.DeleteCustomEntityTypeRequest = {
             "name": name
         }
@@ -5453,7 +5635,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDatabase")
+        )
         input_: capo_glue.types.delete_database_request.DeleteDatabaseRequest = {
             "name": name
         }
@@ -5501,7 +5685,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataQualityRuleset")
+        )
         input_: capo_glue.types.delete_data_quality_ruleset_request.DeleteDataQualityRulesetRequest = {
             "name": name
         }
@@ -5547,7 +5733,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDevEndpoint")
+        )
         input_: capo_glue.types.delete_dev_endpoint_request.DeleteDevEndpointRequest = {
             "endpoint_name": endpoint_name
         }
@@ -5595,7 +5783,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFormType")
+        )
         input_: capo_glue.types.delete_form_type_request.DeleteFormTypeRequest = {
             "identifier": identifier
         }
@@ -5643,7 +5833,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGlossary")
+        )
         input_: capo_glue.types.delete_glossary_request.DeleteGlossaryRequest = {
             "identifier": identifier
         }
@@ -5690,7 +5882,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGlossaryTerm")
+        )
         input_: capo_glue.types.delete_glossary_term_request.DeleteGlossaryTermRequest = {
             "identifier": identifier
         }
@@ -5732,7 +5926,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGlueIdentityCenterConfiguration")
+        )
         input_: capo_glue.types.delete_glue_identity_center_configuration_request.DeleteGlueIdentityCenterConfigurationRequest = {}
 
         response = execute_pipeline(
@@ -5783,7 +5979,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIntegration")
+        )
         input_: capo_glue.types.delete_integration_request.DeleteIntegrationRequest = {
             "integration_identifier": integration_identifier
         }
@@ -5832,7 +6030,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIntegrationResourceProperty")
+        )
         input_: capo_glue.types.delete_integration_resource_property_request.DeleteIntegrationResourcePropertyRequest = {
             "resource_arn": resource_arn
         }
@@ -5883,7 +6083,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIntegrationTableProperties")
+        )
         input_: capo_glue.types.delete_integration_table_properties_request.DeleteIntegrationTablePropertiesRequest = {
             "resource_arn": resource_arn,
             "table_name": table_name,
@@ -5927,7 +6129,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteJob")
+        )
         input_: capo_glue.types.delete_job_request.DeleteJobRequest = {
             "job_name": job_name
         }
@@ -5973,7 +6177,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMLTransform")
+        )
         input_: capo_glue.types.delete_ml_transform_request.DeleteMLTransformRequest = {
             "transform_id": transform_id
         }
@@ -6027,7 +6233,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePartition")
+        )
         input_: capo_glue.types.delete_partition_request.DeletePartitionRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -6087,7 +6295,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePartitionIndex")
+        )
         input_: capo_glue.types.delete_partition_index_request.DeletePartitionIndexRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -6137,7 +6347,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRegistry")
+        )
         input_: capo_glue.types.delete_registry_input.DeleteRegistryInput = {
             "registry_id": registry_id
         }
@@ -6190,7 +6402,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_glue.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {}
         if policy_hash_condition is not None:
             input_["policy_hash_condition"] = policy_hash_condition
@@ -6238,7 +6452,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSchema")
+        )
         input_: capo_glue.types.delete_schema_input.DeleteSchemaInput = {
             "schema_id": schema_id
         }
@@ -6286,7 +6502,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSchemaVersions")
+        )
         input_: capo_glue.types.delete_schema_versions_input.DeleteSchemaVersionsInput = {
             "schema_id": schema_id,
             "versions": versions,
@@ -6333,7 +6551,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSecurityConfiguration")
+        )
         input_: capo_glue.types.delete_security_configuration_request.DeleteSecurityConfigurationRequest = {
             "name": name
         }
@@ -6385,7 +6605,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSession")
+        )
         input_: capo_glue.types.delete_session_request.DeleteSessionRequest = {"id": id}
         if request_origin is not None:
             input_["request_origin"] = request_origin
@@ -6445,7 +6667,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTable")
+        )
         input_: capo_glue.types.delete_table_request.DeleteTableRequest = {
             "database_name": database_name,
             "name": name,
@@ -6503,7 +6727,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTableOptimizer")
+        )
         input_: capo_glue.types.delete_table_optimizer_request.DeleteTableOptimizerRequest = {
             "catalog_id": catalog_id,
             "database_name": database_name,
@@ -6560,7 +6786,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTableVersion")
+        )
         input_: capo_glue.types.delete_table_version_request.DeleteTableVersionRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -6610,7 +6838,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTrigger")
+        )
         input_: capo_glue.types.delete_trigger_request.DeleteTriggerRequest = {
             "name": name
         }
@@ -6656,7 +6886,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUsageProfile")
+        )
         input_: capo_glue.types.delete_usage_profile_request.DeleteUsageProfileRequest = {
             "name": name
         }
@@ -6708,7 +6940,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUserDefinedFunction")
+        )
         input_: capo_glue.types.delete_user_defined_function_request.DeleteUserDefinedFunctionRequest = {
             "database_name": database_name,
             "function_name": function_name,
@@ -6757,7 +6991,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflow")
+        )
         input_: capo_glue.types.delete_workflow_request.DeleteWorkflowRequest = {
             "name": name
         }
@@ -6803,7 +7039,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConnectionType")
+        )
         input_: capo_glue.types.describe_connection_type_request.DescribeConnectionTypeRequest = {
             "connection_type": connection_type
         }
@@ -6864,7 +7102,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEntity")
+        )
         input_: capo_glue.types.describe_entity_request.DescribeEntityRequest = {
             "connection_name": connection_name,
             "entity_name": entity_name,
@@ -6961,7 +7201,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInboundIntegrations")
+        )
         input_: capo_glue.types.describe_inbound_integrations_request.DescribeInboundIntegrationsRequest = {}
         if integration_arn is not None:
             input_["integration_arn"] = integration_arn
@@ -7026,7 +7268,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeIntegrations")
+        )
         input_: capo_glue.types.describe_integrations_request.DescribeIntegrationsRequest = {}
         if integration_identifier is not None:
             input_["integration_identifier"] = integration_identifier
@@ -7092,7 +7336,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateGlossaryTerms")
+        )
         input_: capo_glue.types.disassociate_glossary_terms_request.DisassociateGlossaryTermsRequest = {
             "asset_identifier": asset_identifier,
             "glossary_term_identifiers": glossary_term_identifiers,
@@ -7143,7 +7389,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAsset")
+        )
         input_: capo_glue.types.get_asset_input.GetAssetInput = {
             "identifier": identifier
         }
@@ -7190,7 +7438,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAssetType")
+        )
         input_: capo_glue.types.get_asset_type_request.GetAssetTypeRequest = {
             "identifier": identifier
         }
@@ -7244,7 +7494,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBlueprint")
+        )
         input_: capo_glue.types.get_blueprint_request.GetBlueprintRequest = {
             "name": name
         }
@@ -7295,7 +7547,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBlueprintRun")
+        )
         input_: capo_glue.types.get_blueprint_run_request.GetBlueprintRunRequest = {
             "blueprint_name": blueprint_name,
             "run_id": run_id,
@@ -7346,7 +7600,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBlueprintRuns")
+        )
         input_: capo_glue.types.get_blueprint_runs_request.GetBlueprintRunsRequest = {
             "blueprint_name": blueprint_name
         }
@@ -7423,7 +7679,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCatalog")
+        )
         input_: capo_glue.types.get_catalog_request.GetCatalogRequest = {
             "catalog_id": catalog_id
         }
@@ -7469,7 +7727,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCatalogImportStatus")
+        )
         input_: capo_glue.types.get_catalog_import_status_request.GetCatalogImportStatusRequest = {}
         if catalog_id is not None:
             input_["catalog_id"] = catalog_id
@@ -7535,7 +7795,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCatalogs")
+        )
         input_: capo_glue.types.get_catalogs_request.GetCatalogsRequest = {}
         if parent_catalog_id is not None:
             input_["parent_catalog_id"] = parent_catalog_id
@@ -7589,7 +7851,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetClassifier")
+        )
         input_: capo_glue.types.get_classifier_request.GetClassifierRequest = {
             "name": name
         }
@@ -7634,7 +7898,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetClassifiers")
+        )
         input_: capo_glue.types.get_classifiers_request.GetClassifiersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -7712,7 +7978,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetColumnStatisticsForPartition")
+        )
         input_: capo_glue.types.get_column_statistics_for_partition_request.GetColumnStatisticsForPartitionRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -7772,7 +8040,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetColumnStatisticsForTable")
+        )
         input_: capo_glue.types.get_column_statistics_for_table_request.GetColumnStatisticsForTableRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -7821,7 +8091,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetColumnStatisticsTaskRun")
+        )
         input_: capo_glue.types.get_column_statistics_task_run_request.GetColumnStatisticsTaskRunRequest = {
             "column_statistics_task_run_id": column_statistics_task_run_id
         }
@@ -7874,7 +8146,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetColumnStatisticsTaskRuns")
+        )
         input_: capo_glue.types.get_column_statistics_task_runs_request.GetColumnStatisticsTaskRunsRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -7959,7 +8233,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetColumnStatisticsTaskSettings")
+        )
         input_: capo_glue.types.get_column_statistics_task_settings_request.GetColumnStatisticsTaskSettingsRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -8018,7 +8294,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnection")
+        )
         input_: capo_glue.types.get_connection_request.GetConnectionRequest = {
             "name": name
         }
@@ -8084,7 +8362,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnections")
+        )
         input_: capo_glue.types.get_connections_request.GetConnectionsRequest = {}
         if catalog_id is not None:
             input_["catalog_id"] = catalog_id
@@ -8165,7 +8445,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCrawler")
+        )
         input_: capo_glue.types.get_crawler_request.GetCrawlerRequest = {"name": name}
 
         response = execute_pipeline(
@@ -8212,7 +8494,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCrawlerMetrics")
+        )
         input_: capo_glue.types.get_crawler_metrics_request.GetCrawlerMetricsRequest = {}
         if crawler_name_list is not None:
             input_["crawler_name_list"] = crawler_name_list
@@ -8284,7 +8568,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCrawlers")
+        )
         input_: capo_glue.types.get_crawlers_request.GetCrawlersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -8352,7 +8638,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCustomEntityType")
+        )
         input_: capo_glue.types.get_custom_entity_type_request.GetCustomEntityTypeRequest = {
             "name": name
         }
@@ -8405,7 +8693,17 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_glue.types.get_dashboard_url_response.GetDashboardUrlResponse",
+        ) -> dict[str, Any]:
+            import capo_glue.types.get_dashboard_url_response
+
+            return capo_glue.types.get_dashboard_url_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDashboardUrl", redact_output=_redact_output),
+        )
         input_: capo_glue.types.get_dashboard_url_request.GetDashboardUrlRequest = {
             "resource_id": resource_id,
             "resource_type": resource_type,
@@ -8461,7 +8759,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDatabase")
+        )
         input_: capo_glue.types.get_database_request.GetDatabaseRequest = {"name": name}
         if catalog_id is not None:
             input_["catalog_id"] = catalog_id
@@ -8526,7 +8826,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDatabases")
+        )
         input_: capo_glue.types.get_databases_request.GetDatabasesRequest = {}
         if catalog_id is not None:
             input_["catalog_id"] = catalog_id
@@ -8614,7 +8916,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataCatalogEncryptionSettings")
+        )
         input_: capo_glue.types.get_data_catalog_encryption_settings_request.GetDataCatalogEncryptionSettingsRequest = {}
         if catalog_id is not None:
             input_["catalog_id"] = catalog_id
@@ -8654,7 +8958,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataCatalogExportConfiguration")
+        )
         input_: capo_glue.types.get_data_catalog_export_configuration_input.GetDataCatalogExportConfigurationInput = {}
 
         response = execute_pipeline(
@@ -8697,7 +9003,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataflowGraph")
+        )
         input_: capo_glue.types.get_dataflow_graph_request.GetDataflowGraphRequest = {}
         if python_script is not None:
             input_["python_script"] = python_script
@@ -8745,7 +9053,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataQualityModel")
+        )
         input_: capo_glue.types.get_data_quality_model_request.GetDataQualityModelRequest = {
             "profile_id": profile_id
         }
@@ -8795,7 +9105,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataQualityModelResult")
+        )
         input_: capo_glue.types.get_data_quality_model_result_request.GetDataQualityModelResultRequest = {
             "statistic_id": statistic_id,
             "profile_id": profile_id,
@@ -8844,7 +9156,19 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_glue.types.get_data_quality_result_response.GetDataQualityResultResponse",
+        ) -> dict[str, Any]:
+            import capo_glue.types.get_data_quality_result_response
+
+            return capo_glue.types.get_data_quality_result_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDataQualityResult", redact_output=_redact_output),
+        )
         input_: capo_glue.types.get_data_quality_result_request.GetDataQualityResultRequest = {
             "result_id": result_id
         }
@@ -8890,7 +9214,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataQualityRuleRecommendationRun")
+        )
         input_: capo_glue.types.get_data_quality_rule_recommendation_run_request.GetDataQualityRuleRecommendationRunRequest = {
             "run_id": run_id
         }
@@ -8936,7 +9262,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataQualityRuleset")
+        )
         input_: capo_glue.types.get_data_quality_ruleset_request.GetDataQualityRulesetRequest = {
             "name": name
         }
@@ -8982,7 +9310,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataQualityRulesetEvaluationRun")
+        )
         input_: capo_glue.types.get_data_quality_ruleset_evaluation_run_request.GetDataQualityRulesetEvaluationRunRequest = {
             "run_id": run_id
         }
@@ -9028,7 +9358,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDevEndpoint")
+        )
         input_: capo_glue.types.get_dev_endpoint_request.GetDevEndpointRequest = {
             "endpoint_name": endpoint_name
         }
@@ -9076,7 +9408,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDevEndpoints")
+        )
         input_: capo_glue.types.get_dev_endpoints_request.GetDevEndpointsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -9174,7 +9508,17 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_glue.types.get_entity_records_response.GetEntityRecordsResponse",
+        ) -> dict[str, Any]:
+            import capo_glue.types.get_entity_records_response
+
+            return capo_glue.types.get_entity_records_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetEntityRecords", redact_output=_redact_output),
+        )
         input_: capo_glue.types.get_entity_records_request.GetEntityRecordsRequest = {
             "entity_name": entity_name,
             "limit": limit,
@@ -9238,7 +9582,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFormType")
+        )
         input_: capo_glue.types.get_form_type_request.GetFormTypeRequest = {
             "identifier": identifier
         }
@@ -9284,7 +9630,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGlossary")
+        )
         input_: capo_glue.types.get_glossary_request.GetGlossaryRequest = {
             "identifier": identifier
         }
@@ -9330,7 +9678,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGlossaryTerm")
+        )
         input_: capo_glue.types.get_glossary_term_request.GetGlossaryTermRequest = {
             "identifier": identifier
         }
@@ -9372,7 +9722,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGlueIdentityCenterConfiguration")
+        )
         input_: capo_glue.types.get_glue_identity_center_configuration_request.GetGlueIdentityCenterConfigurationRequest = {}
 
         response = execute_pipeline(
@@ -9419,7 +9771,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIntegrationResourceProperty")
+        )
         input_: capo_glue.types.get_integration_resource_property_request.GetIntegrationResourcePropertyRequest = {
             "resource_arn": resource_arn
         }
@@ -9470,7 +9824,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIntegrationTableProperties")
+        )
         input_: capo_glue.types.get_integration_table_properties_request.GetIntegrationTablePropertiesRequest = {
             "resource_arn": resource_arn,
             "table_name": table_name,
@@ -9513,7 +9869,16 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_glue.types.get_job_response.GetJobResponse",
+        ) -> dict[str, Any]:
+            import capo_glue.types.get_job_response
+
+            return capo_glue.types.get_job_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJob", redact_output=_redact_output)
+        )
         input_: capo_glue.types.get_job_request.GetJobRequest = {"job_name": job_name}
 
         response = execute_pipeline(
@@ -9560,7 +9925,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJobBookmark")
+        )
         input_: capo_glue.types.get_job_bookmark_request.GetJobBookmarkRequest = {
             "job_name": job_name
         }
@@ -9614,7 +9981,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJobRun")
+        )
         input_: capo_glue.types.get_job_run_request.GetJobRunRequest = {
             "job_name": job_name,
             "run_id": run_id,
@@ -9669,7 +10038,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJobRuns")
+        )
         input_: capo_glue.types.get_job_runs_request.GetJobRunsRequest = {
             "job_name": job_name
         }
@@ -9742,7 +10113,16 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_glue.types.get_jobs_response.GetJobsResponse",
+        ) -> dict[str, Any]:
+            import capo_glue.types.get_jobs_response
+
+            return capo_glue.types.get_jobs_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJobs", redact_output=_redact_output)
+        )
         input_: capo_glue.types.get_jobs_request.GetJobsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -9815,7 +10195,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMapping")
+        )
         input_: capo_glue.types.get_mapping_request.GetMappingRequest = {
             "source": source
         }
@@ -9867,7 +10249,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMaterializedViewRefreshTaskRun")
+        )
         input_: capo_glue.types.get_materialized_view_refresh_task_run_request.GetMaterializedViewRefreshTaskRunRequest = {
             "catalog_id": catalog_id,
             "materialized_view_refresh_task_run_id": materialized_view_refresh_task_run_id,
@@ -9916,7 +10300,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMLTaskRun")
+        )
         input_: capo_glue.types.get_ml_task_run_request.GetMLTaskRunRequest = {
             "transform_id": transform_id,
             "task_run_id": task_run_id,
@@ -9975,7 +10361,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMLTaskRuns")
+        )
         input_: capo_glue.types.get_ml_task_runs_request.GetMLTaskRunsRequest = {
             "transform_id": transform_id
         }
@@ -10058,7 +10446,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMLTransform")
+        )
         input_: capo_glue.types.get_ml_transform_request.GetMLTransformRequest = {
             "transform_id": transform_id
         }
@@ -10114,7 +10504,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMLTransforms")
+        )
         input_: capo_glue.types.get_ml_transforms_request.GetMLTransformsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -10205,7 +10597,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPartition")
+        )
         input_: capo_glue.types.get_partition_request.GetPartitionRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -10266,7 +10660,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPartitionIndexes")
+        )
         input_: capo_glue.types.get_partition_indexes_request.GetPartitionIndexesRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -10376,7 +10772,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPartitions")
+        )
         input_: capo_glue.types.get_partitions_request.GetPartitionsRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -10491,7 +10889,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPlan")
+        )
         input_: capo_glue.types.get_plan_request.GetPlanRequest = {
             "mapping": mapping,
             "source": source,
@@ -10546,7 +10946,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRegistry")
+        )
         input_: capo_glue.types.get_registry_input.GetRegistryInput = {
             "registry_id": registry_id
         }
@@ -10594,7 +10996,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicies")
+        )
         input_: capo_glue.types.get_resource_policies_request.GetResourcePoliciesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -10665,7 +11069,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_glue.types.get_resource_policy_request.GetResourcePolicyRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -10709,7 +11115,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSchema")
+        )
         input_: capo_glue.types.get_schema_input.GetSchemaInput = {
             "schema_id": schema_id
         }
@@ -10757,7 +11165,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSchemaByDefinition")
+        )
         input_: capo_glue.types.get_schema_by_definition_input.GetSchemaByDefinitionInput = {
             "schema_id": schema_id,
             "schema_definition": schema_definition,
@@ -10812,7 +11222,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSchemaVersion")
+        )
         input_: capo_glue.types.get_schema_version_input.GetSchemaVersionInput = {}
         if schema_id is not None:
             input_["schema_id"] = schema_id
@@ -10868,7 +11280,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSchemaVersionsDiff")
+        )
         input_: capo_glue.types.get_schema_versions_diff_input.GetSchemaVersionsDiffInput = {
             "schema_id": schema_id,
             "first_schema_version_number": first_schema_version_number,
@@ -10917,7 +11331,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSecurityConfiguration")
+        )
         input_: capo_glue.types.get_security_configuration_request.GetSecurityConfigurationRequest = {
             "name": name
         }
@@ -10965,7 +11381,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSecurityConfigurations")
+        )
         input_: capo_glue.types.get_security_configurations_request.GetSecurityConfigurationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -11039,7 +11457,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSession")
+        )
         input_: capo_glue.types.get_session_request.GetSessionRequest = {"id": id}
         if request_origin is not None:
             input_["request_origin"] = request_origin
@@ -11088,7 +11508,19 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_glue.types.get_session_endpoint_response.GetSessionEndpointResponse",
+        ) -> dict[str, Any]:
+            import capo_glue.types.get_session_endpoint_response
+
+            return capo_glue.types.get_session_endpoint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSessionEndpoint", redact_output=_redact_output),
+        )
         input_: capo_glue.types.get_session_endpoint_request.GetSessionEndpointRequest = {
             "session_id": session_id
         }
@@ -11142,7 +11574,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStatement")
+        )
         input_: capo_glue.types.get_statement_request.GetStatementRequest = {
             "session_id": session_id,
             "id": id,
@@ -11194,7 +11628,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSystemLogsForJobRun")
+        )
         input_: capo_glue.types.get_system_logs_for_job_run_request.GetSystemLogsForJobRunRequest = {
             "job_name": job_name,
             "run_id": run_id,
@@ -11241,7 +11677,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSystemLogsForSession")
+        )
         input_: capo_glue.types.get_system_logs_for_session_request.GetSystemLogsForSessionRequest = {
             "id": id
         }
@@ -11309,7 +11747,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTable")
+        )
         input_: capo_glue.types.get_table_request.GetTableRequest = {
             "database_name": database_name,
             "name": name,
@@ -11375,7 +11815,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableOptimizer")
+        )
         input_: capo_glue.types.get_table_optimizer_request.GetTableOptimizerRequest = {
             "catalog_id": catalog_id,
             "database_name": database_name,
@@ -11457,7 +11899,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTables")
+        )
         input_: capo_glue.types.get_tables_request.GetTablesRequest = {
             "database_name": database_name
         }
@@ -11582,7 +12026,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableVersion")
+        )
         input_: capo_glue.types.get_table_version_request.GetTableVersionRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -11649,7 +12095,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableVersions")
+        )
         input_: capo_glue.types.get_table_versions_request.GetTableVersionsRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -11733,7 +12181,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTags")
+        )
         input_: capo_glue.types.get_tags_request.GetTagsRequest = {
             "resource_arn": resource_arn
         }
@@ -11779,7 +12229,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTrigger")
+        )
         input_: capo_glue.types.get_trigger_request.GetTriggerRequest = {"name": name}
 
         response = execute_pipeline(
@@ -11829,7 +12281,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTriggers")
+        )
         input_: capo_glue.types.get_triggers_request.GetTriggersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -11924,7 +12378,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUnfilteredPartitionMetadata")
+        )
         input_: capo_glue.types.get_unfiltered_partition_metadata_request.GetUnfilteredPartitionMetadataRequest = {
             "catalog_id": catalog_id,
             "database_name": database_name,
@@ -12006,7 +12462,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUnfilteredPartitionsMetadata")
+        )
         input_: capo_glue.types.get_unfiltered_partitions_metadata_request.GetUnfilteredPartitionsMetadataRequest = {
             "catalog_id": catalog_id,
             "database_name": database_name,
@@ -12136,7 +12594,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUnfilteredTableMetadata")
+        )
         input_: capo_glue.types.get_unfiltered_table_metadata_request.GetUnfilteredTableMetadataRequest = {
             "catalog_id": catalog_id,
             "database_name": database_name,
@@ -12200,7 +12660,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUsageProfile")
+        )
         input_: capo_glue.types.get_usage_profile_request.GetUsageProfileRequest = {
             "name": name
         }
@@ -12253,7 +12715,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUserDefinedFunction")
+        )
         input_: capo_glue.types.get_user_defined_function_request.GetUserDefinedFunctionRequest = {
             "database_name": database_name,
             "function_name": function_name,
@@ -12317,7 +12781,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUserDefinedFunctions")
+        )
         input_: capo_glue.types.get_user_defined_functions_request.GetUserDefinedFunctionsRequest = {
             "pattern": pattern
         }
@@ -12408,7 +12874,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkflow")
+        )
         input_: capo_glue.types.get_workflow_request.GetWorkflowRequest = {"name": name}
         if include_graph is not None:
             input_["include_graph"] = include_graph
@@ -12460,7 +12928,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkflowRun")
+        )
         input_: capo_glue.types.get_workflow_run_request.GetWorkflowRunRequest = {
             "name": name,
             "run_id": run_id,
@@ -12511,7 +12981,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkflowRunProperties")
+        )
         input_: capo_glue.types.get_workflow_run_properties_request.GetWorkflowRunPropertiesRequest = {
             "name": name,
             "run_id": run_id,
@@ -12566,7 +13038,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkflowRuns")
+        )
         input_: capo_glue.types.get_workflow_runs_request.GetWorkflowRunsRequest = {
             "name": name
         }
@@ -12645,7 +13119,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportCatalogToGlue")
+        )
         input_: capo_glue.types.import_catalog_to_glue_request.ImportCatalogToGlueRequest = {}
         if catalog_id is not None:
             input_["catalog_id"] = catalog_id
@@ -12693,7 +13169,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssetTypes")
+        )
         input_: capo_glue.types.list_asset_types_request.ListAssetTypesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -12767,7 +13245,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBlueprints")
+        )
         input_: capo_glue.types.list_blueprints_request.ListBlueprintsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -12841,7 +13321,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListColumnStatisticsTaskRuns")
+        )
         input_: capo_glue.types.list_column_statistics_task_runs_request.ListColumnStatisticsTaskRunsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -12908,7 +13390,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConnectionTypes")
+        )
         input_: capo_glue.types.list_connection_types_request.ListConnectionTypesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -12978,7 +13462,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCrawlers")
+        )
         input_: capo_glue.types.list_crawlers_request.ListCrawlersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -13054,7 +13540,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCrawls")
+        )
         input_: capo_glue.types.list_crawls_request.ListCrawlsRequest = {
             "crawler_name": crawler_name
         }
@@ -13109,7 +13597,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCustomEntityTypes")
+        )
         input_: capo_glue.types.list_custom_entity_types_request.ListCustomEntityTypesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -13185,7 +13675,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataQualityResults")
+        )
         input_: capo_glue.types.list_data_quality_results_request.ListDataQualityResultsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -13265,7 +13757,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataQualityRuleRecommendationRuns")
+        )
         input_: capo_glue.types.list_data_quality_rule_recommendation_runs_request.ListDataQualityRuleRecommendationRunsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -13347,7 +13841,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataQualityRulesetEvaluationRuns")
+        )
         input_: capo_glue.types.list_data_quality_ruleset_evaluation_runs_request.ListDataQualityRulesetEvaluationRunsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -13428,7 +13924,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataQualityRulesets")
+        )
         input_: capo_glue.types.list_data_quality_rulesets_request.ListDataQualityRulesetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -13513,7 +14011,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataQualityStatisticAnnotations")
+        )
         input_: capo_glue.types.list_data_quality_statistic_annotations_request.ListDataQualityStatisticAnnotationsRequest = {}
         if statistic_id is not None:
             input_["statistic_id"] = statistic_id
@@ -13576,7 +14076,21 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_glue.types.list_data_quality_statistics_response.ListDataQualityStatisticsResponse",
+        ) -> dict[str, Any]:
+            import capo_glue.types.list_data_quality_statistics_response
+
+            return (
+                capo_glue.types.list_data_quality_statistics_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListDataQualityStatistics", redact_output=_redact_output),
+        )
         input_: capo_glue.types.list_data_quality_statistics_request.ListDataQualityStatisticsRequest = {}
         if statistic_id is not None:
             input_["statistic_id"] = statistic_id
@@ -13634,7 +14148,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDevEndpoints")
+        )
         input_: capo_glue.types.list_dev_endpoints_request.ListDevEndpointsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -13722,7 +14238,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEntities")
+        )
         input_: capo_glue.types.list_entities_request.ListEntitiesRequest = {}
         if connection_name is not None:
             input_["connection_name"] = connection_name
@@ -13809,7 +14327,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFormTypes")
+        )
         input_: capo_glue.types.list_form_types_request.ListFormTypesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -13880,7 +14400,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGlossaries")
+        )
         input_: capo_glue.types.list_glossaries_request.ListGlossariesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -13953,7 +14475,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGlossaryTerms")
+        )
         input_: capo_glue.types.list_glossary_terms_request.ListGlossaryTermsRequest = {
             "glossary_identifier": glossary_identifier
         }
@@ -14037,7 +14561,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIntegrationResourceProperties")
+        )
         input_: capo_glue.types.list_integration_resource_properties_request.ListIntegrationResourcePropertiesRequest = {}
         if marker is not None:
             input_["marker"] = marker
@@ -14098,7 +14624,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIntegrationTableProperties")
+        )
         input_: capo_glue.types.list_integration_table_properties_request.ListIntegrationTablePropertiesRequest = {}
         if marker is not None:
             input_["marker"] = marker
@@ -14155,7 +14683,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIterableForms")
+        )
         input_: capo_glue.types.list_iterable_forms_request.ListIterableFormsRequest = {
             "asset_identifier": asset_identifier,
             "iterable_form_name": iterable_form_name,
@@ -14231,7 +14761,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobs")
+        )
         input_: capo_glue.types.list_jobs_request.ListJobsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -14311,7 +14843,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMaterializedViewRefreshTaskRuns")
+        )
         input_: capo_glue.types.list_materialized_view_refresh_task_runs_request.ListMaterializedViewRefreshTaskRunsRequest = {
             "catalog_id": catalog_id
         }
@@ -14404,7 +14938,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMLTransforms")
+        )
         input_: capo_glue.types.list_ml_transforms_request.ListMLTransformsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -14494,7 +15030,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRegistries")
+        )
         input_: capo_glue.types.list_registries_input.ListRegistriesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -14575,7 +15113,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSchemas")
+        )
         input_: capo_glue.types.list_schemas_input.ListSchemasInput = {}
         if registry_id is not None:
             input_["registry_id"] = registry_id
@@ -14660,7 +15200,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSchemaVersions")
+        )
         input_: capo_glue.types.list_schema_versions_input.ListSchemaVersionsInput = {
             "schema_id": schema_id
         }
@@ -14747,7 +15289,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSessions")
+        )
         input_: capo_glue.types.list_sessions_request.ListSessionsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -14836,7 +15380,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStatements")
+        )
         input_: capo_glue.types.list_statements_request.ListStatementsRequest = {
             "session_id": session_id
         }
@@ -14902,7 +15448,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTableOptimizerRuns")
+        )
         input_: capo_glue.types.list_table_optimizer_runs_request.ListTableOptimizerRunsRequest = {
             "catalog_id": catalog_id,
             "database_name": database_name,
@@ -14996,7 +15544,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTriggers")
+        )
         input_: capo_glue.types.list_triggers_request.ListTriggersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -15081,7 +15631,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUsageProfiles")
+        )
         input_: capo_glue.types.list_usage_profiles_request.ListUsageProfilesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -15157,7 +15709,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkflows")
+        )
         input_: capo_glue.types.list_workflows_request.ListWorkflowsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -15247,7 +15801,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyIntegration")
+        )
         input_: capo_glue.types.modify_integration_request.ModifyIntegrationRequest = {
             "integration_identifier": integration_identifier
         }
@@ -15311,7 +15867,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAsset")
+        )
         input_: capo_glue.types.put_asset_request.PutAssetRequest = {
             "asset_type_id": asset_type_id,
             "identifier": identifier,
@@ -15371,7 +15929,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAssetType")
+        )
         input_: capo_glue.types.put_asset_type_request.PutAssetTypeRequest = {
             "name": name,
             "forms": forms,
@@ -15439,7 +15999,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAttachment")
+        )
         input_: capo_glue.types.put_attachment_request.PutAttachmentRequest = {
             "asset_identifier": asset_identifier,
             "attachment_name": attachment_name,
@@ -15498,7 +16060,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDataCatalogEncryptionSettings")
+        )
         input_: capo_glue.types.put_data_catalog_encryption_settings_request.PutDataCatalogEncryptionSettingsRequest = {
             "data_catalog_encryption_settings": data_catalog_encryption_settings
         }
@@ -15553,7 +16117,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDataCatalogExportConfiguration")
+        )
         input_: capo_glue.types.put_data_catalog_export_configuration_input.PutDataCatalogExportConfigurationInput = {
             "export_setting": export_setting
         }
@@ -15605,7 +16171,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDataQualityProfileAnnotation")
+        )
         input_: capo_glue.types.put_data_quality_profile_annotation_request.PutDataQualityProfileAnnotationRequest = {
             "profile_id": profile_id,
             "inclusion_annotation": inclusion_annotation,
@@ -15657,7 +16225,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutFormType")
+        )
         input_: capo_glue.types.put_form_type_request.PutFormTypeRequest = {
             "name": name,
             "schema": schema,
@@ -15724,7 +16294,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_glue.types.put_resource_policy_request.PutResourcePolicyRequest = {
             "policy_in_json": policy_in_json
         }
@@ -15789,7 +16361,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutSchemaVersionMetadata")
+        )
         input_: capo_glue.types.put_schema_version_metadata_input.PutSchemaVersionMetadataInput = {
             "metadata_key_value": metadata_key_value
         }
@@ -15848,7 +16422,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutWorkflowRunProperties")
+        )
         input_: capo_glue.types.put_workflow_run_properties_request.PutWorkflowRunPropertiesRequest = {
             "name": name,
             "run_id": run_id,
@@ -15913,7 +16489,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("QuerySchemaVersionMetadata")
+        )
         input_: capo_glue.types.query_schema_version_metadata_input.QuerySchemaVersionMetadataInput = {}
         if schema_id is not None:
             input_["schema_id"] = schema_id
@@ -15983,7 +16561,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterConnectionType")
+        )
         input_: capo_glue.types.register_connection_type_request.RegisterConnectionTypeRequest = {
             "connection_type": connection_type,
             "integration_type": integration_type,
@@ -16043,7 +16623,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterSchemaVersion")
+        )
         input_: capo_glue.types.register_schema_version_input.RegisterSchemaVersionInput = {
             "schema_id": schema_id,
             "schema_definition": schema_definition,
@@ -16099,7 +16681,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveSchemaVersionMetadata")
+        )
         input_: capo_glue.types.remove_schema_version_metadata_input.RemoveSchemaVersionMetadataInput = {
             "metadata_key_value": metadata_key_value
         }
@@ -16153,7 +16737,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetJobBookmark")
+        )
         input_: capo_glue.types.reset_job_bookmark_request.ResetJobBookmarkRequest = {
             "job_name": job_name
         }
@@ -16207,7 +16793,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResumeWorkflowRun")
+        )
         input_: capo_glue.types.resume_workflow_run_request.ResumeWorkflowRunRequest = {
             "name": name,
             "run_id": run_id,
@@ -16267,7 +16855,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RunStatement")
+        )
         input_: capo_glue.types.run_statement_request.RunStatementRequest = {
             "session_id": session_id,
             "code": code,
@@ -16330,7 +16920,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchAssets")
+        )
         input_: capo_glue.types.search_assets_input.SearchAssetsInput = {}
         if search_text is not None:
             input_["search_text"] = search_text
@@ -16438,7 +17030,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchTables")
+        )
         input_: capo_glue.types.search_tables_request.SearchTablesRequest = {}
         if catalog_id is not None:
             input_["catalog_id"] = catalog_id
@@ -16545,7 +17139,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartBlueprintRun")
+        )
         input_: capo_glue.types.start_blueprint_run_request.StartBlueprintRunRequest = {
             "blueprint_name": blueprint_name,
             "role_arn": role_arn,
@@ -16616,7 +17212,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartColumnStatisticsTaskRun")
+        )
         input_: capo_glue.types.start_column_statistics_task_run_request.StartColumnStatisticsTaskRunRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -16678,7 +17276,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartColumnStatisticsTaskRunSchedule")
+        )
         input_: capo_glue.types.start_column_statistics_task_run_schedule_request.StartColumnStatisticsTaskRunScheduleRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -16726,7 +17326,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCrawler")
+        )
         input_: capo_glue.types.start_crawler_request.StartCrawlerRequest = {
             "name": name
         }
@@ -16773,7 +17375,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCrawlerSchedule")
+        )
         input_: capo_glue.types.start_crawler_schedule_request.StartCrawlerScheduleRequest = {
             "crawler_name": crawler_name
         }
@@ -16843,7 +17447,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDataQualityRuleRecommendationRun")
+        )
         input_: capo_glue.types.start_data_quality_rule_recommendation_run_request.StartDataQualityRuleRecommendationRunRequest = {
             "data_source": data_source,
             "role": role,
@@ -16927,7 +17533,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDataQualityRulesetEvaluationRun")
+        )
         input_: capo_glue.types.start_data_quality_ruleset_evaluation_run_request.StartDataQualityRulesetEvaluationRunRequest = {
             "data_source": data_source,
             "role": role,
@@ -16987,7 +17595,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartExportLabelsTaskRun")
+        )
         input_: capo_glue.types.start_export_labels_task_run_request.StartExportLabelsTaskRunRequest = {
             "transform_id": transform_id,
             "output_s3_path": output_s3_path,
@@ -17041,7 +17651,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartImportLabelsTaskRun")
+        )
         input_: capo_glue.types.start_import_labels_task_run_request.StartImportLabelsTaskRunRequest = {
             "transform_id": transform_id,
             "input_s3_path": input_s3_path,
@@ -17130,7 +17742,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartJobRun")
+        )
         input_: capo_glue.types.start_job_run_request.StartJobRunRequest = {
             "job_name": job_name
         }
@@ -17210,7 +17824,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMaterializedViewRefreshTaskRun")
+        )
         input_: capo_glue.types.start_materialized_view_refresh_task_run_request.StartMaterializedViewRefreshTaskRunRequest = {
             "catalog_id": catalog_id,
             "database_name": database_name,
@@ -17262,7 +17878,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMLEvaluationTaskRun")
+        )
         input_: capo_glue.types.start_ml_evaluation_task_run_request.StartMLEvaluationTaskRunRequest = {
             "transform_id": transform_id
         }
@@ -17311,7 +17929,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMLLabelingSetGenerationTaskRun")
+        )
         input_: capo_glue.types.start_ml_labeling_set_generation_task_run_request.StartMLLabelingSetGenerationTaskRunRequest = {
             "transform_id": transform_id,
             "output_s3_path": output_s3_path,
@@ -17360,7 +17980,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartTrigger")
+        )
         input_: capo_glue.types.start_trigger_request.StartTriggerRequest = {
             "name": name
         }
@@ -17412,7 +18034,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartWorkflowRun")
+        )
         input_: capo_glue.types.start_workflow_run_request.StartWorkflowRunRequest = {
             "name": name
         }
@@ -17466,7 +18090,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopColumnStatisticsTaskRun")
+        )
         input_: capo_glue.types.stop_column_statistics_task_run_request.StopColumnStatisticsTaskRunRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -17520,7 +18146,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopColumnStatisticsTaskRunSchedule")
+        )
         input_: capo_glue.types.stop_column_statistics_task_run_schedule_request.StopColumnStatisticsTaskRunScheduleRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -17569,7 +18197,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopCrawler")
+        )
         input_: capo_glue.types.stop_crawler_request.StopCrawlerRequest = {"name": name}
 
         response = execute_pipeline(
@@ -17613,7 +18243,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopCrawlerSchedule")
+        )
         input_: capo_glue.types.stop_crawler_schedule_request.StopCrawlerScheduleRequest = {
             "crawler_name": crawler_name
         }
@@ -17664,7 +18296,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopMaterializedViewRefreshTaskRun")
+        )
         input_: capo_glue.types.stop_materialized_view_refresh_task_run_request.StopMaterializedViewRefreshTaskRunRequest = {
             "catalog_id": catalog_id,
             "database_name": database_name,
@@ -17718,7 +18352,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopSession")
+        )
         input_: capo_glue.types.stop_session_request.StopSessionRequest = {"id": id}
         if request_origin is not None:
             input_["request_origin"] = request_origin
@@ -17765,7 +18401,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopTrigger")
+        )
         input_: capo_glue.types.stop_trigger_request.StopTriggerRequest = {"name": name}
 
         response = execute_pipeline(
@@ -17812,7 +18450,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopWorkflowRun")
+        )
         input_: capo_glue.types.stop_workflow_run_request.StopWorkflowRunRequest = {
             "name": name,
             "run_id": run_id,
@@ -17861,7 +18501,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_glue.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags_to_add": tags_to_add,
@@ -17921,7 +18563,17 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_glue.types.test_connection_request.TestConnectionRequest",
+        ) -> dict[str, Any]:
+            import capo_glue.types.test_connection_request
+
+            return capo_glue.types.test_connection_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TestConnection", redact_input=_redact_input),
+        )
         input_: capo_glue.types.test_connection_request.TestConnectionRequest = {}
         if connection_name is not None:
             input_["connection_name"] = connection_name
@@ -17973,7 +18625,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_glue.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tags_to_remove": tags_to_remove,
@@ -18030,7 +18684,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAsset")
+        )
         input_: capo_glue.types.update_asset_request.UpdateAssetRequest = {
             "identifier": identifier
         }
@@ -18091,7 +18747,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBlueprint")
+        )
         input_: capo_glue.types.update_blueprint_request.UpdateBlueprintRequest = {
             "name": name,
             "blueprint_location": blueprint_location,
@@ -18146,7 +18804,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCatalog")
+        )
         input_: capo_glue.types.update_catalog_request.UpdateCatalogRequest = {
             "catalog_id": catalog_id,
             "catalog_input": catalog_input,
@@ -18207,7 +18867,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateClassifier")
+        )
         input_: capo_glue.types.update_classifier_request.UpdateClassifierRequest = {}
         if grok_classifier is not None:
             input_["grok_classifier"] = grok_classifier
@@ -18270,7 +18932,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateColumnStatisticsForPartition")
+        )
         input_: capo_glue.types.update_column_statistics_for_partition_request.UpdateColumnStatisticsForPartitionRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -18330,7 +18994,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateColumnStatisticsForTable")
+        )
         input_: capo_glue.types.update_column_statistics_for_table_request.UpdateColumnStatisticsForTableRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -18403,7 +19069,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateColumnStatisticsTaskSettings")
+        )
         input_: capo_glue.types.update_column_statistics_task_settings_request.UpdateColumnStatisticsTaskSettingsRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -18468,7 +19136,17 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_glue.types.update_connection_request.UpdateConnectionRequest",
+        ) -> dict[str, Any]:
+            import capo_glue.types.update_connection_request
+
+            return capo_glue.types.update_connection_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateConnection", redact_input=_redact_input),
+        )
         input_: capo_glue.types.update_connection_request.UpdateConnectionRequest = {
             "name": name,
             "connection_input": connection_input,
@@ -18562,7 +19240,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCrawler")
+        )
         input_: capo_glue.types.update_crawler_request.UpdateCrawlerRequest = {
             "name": name
         }
@@ -18641,7 +19321,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCrawlerSchedule")
+        )
         input_: capo_glue.types.update_crawler_schedule_request.UpdateCrawlerScheduleRequest = {
             "crawler_name": crawler_name
         }
@@ -18700,7 +19382,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDatabase")
+        )
         input_: capo_glue.types.update_database_request.UpdateDatabaseRequest = {
             "name": name,
             "database_input": database_input,
@@ -18760,7 +19444,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataQualityRuleset")
+        )
         input_: capo_glue.types.update_data_quality_ruleset_request.UpdateDataQualityRulesetRequest = {
             "name": name
         }
@@ -18833,7 +19519,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDevEndpoint")
+        )
         input_: capo_glue.types.update_dev_endpoint_request.UpdateDevEndpointRequest = {
             "endpoint_name": endpoint_name
         }
@@ -18904,7 +19592,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGlossary")
+        )
         input_: capo_glue.types.update_glossary_request.UpdateGlossaryRequest = {
             "identifier": identifier
         }
@@ -18972,7 +19662,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGlossaryTerm")
+        )
         input_: capo_glue.types.update_glossary_term_request.UpdateGlossaryTermRequest = {
             "identifier": identifier
         }
@@ -19035,7 +19727,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGlueIdentityCenterConfiguration")
+        )
         input_: capo_glue.types.update_glue_identity_center_configuration_request.UpdateGlueIdentityCenterConfigurationRequest = {}
         if scopes is not None:
             input_["scopes"] = scopes
@@ -19096,7 +19790,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIntegrationResourceProperty")
+        )
         input_: capo_glue.types.update_integration_resource_property_request.UpdateIntegrationResourcePropertyRequest = {
             "resource_arn": resource_arn
         }
@@ -19159,7 +19855,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIntegrationTableProperties")
+        )
         input_: capo_glue.types.update_integration_table_properties_request.UpdateIntegrationTablePropertiesRequest = {
             "resource_arn": resource_arn,
             "table_name": table_name,
@@ -19211,7 +19909,16 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_glue.types.update_job_request.UpdateJobRequest",
+        ) -> dict[str, Any]:
+            import capo_glue.types.update_job_request
+
+            return capo_glue.types.update_job_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateJob", redact_input=_redact_input)
+        )
         input_: capo_glue.types.update_job_request.UpdateJobRequest = {
             "job_name": job_name,
             "job_update": job_update,
@@ -19283,7 +19990,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateJobFromSourceControl")
+        )
         input_: capo_glue.types.update_job_from_source_control_request.UpdateJobFromSourceControlRequest = {}
         if job_name is not None:
             input_["job_name"] = job_name
@@ -19376,7 +20085,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMLTransform")
+        )
         input_: capo_glue.types.update_ml_transform_request.UpdateMLTransformRequest = {
             "transform_id": transform_id
         }
@@ -19453,7 +20164,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePartition")
+        )
         input_: capo_glue.types.update_partition_request.UpdatePartitionRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -19507,7 +20220,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRegistry")
+        )
         input_: capo_glue.types.update_registry_input.UpdateRegistryInput = {
             "registry_id": registry_id,
             "description": description,
@@ -19565,7 +20280,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSchema")
+        )
         input_: capo_glue.types.update_schema_input.UpdateSchemaInput = {
             "schema_id": schema_id
         }
@@ -19642,7 +20359,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSourceControlFromJob")
+        )
         input_: capo_glue.types.update_source_control_from_job_request.UpdateSourceControlFromJobRequest = {}
         if job_name is not None:
             input_["job_name"] = job_name
@@ -19739,7 +20458,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTable")
+        )
         input_: capo_glue.types.update_table_request.UpdateTableRequest = {
             "database_name": database_name
         }
@@ -19814,7 +20535,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTableOptimizer")
+        )
         input_: capo_glue.types.update_table_optimizer_request.UpdateTableOptimizerRequest = {
             "catalog_id": catalog_id,
             "database_name": database_name,
@@ -19867,7 +20590,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTrigger")
+        )
         input_: capo_glue.types.update_trigger_request.UpdateTriggerRequest = {
             "name": name,
             "trigger_update": trigger_update,
@@ -19922,7 +20647,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUsageProfile")
+        )
         input_: capo_glue.types.update_usage_profile_request.UpdateUsageProfileRequest = {
             "name": name,
             "configuration": configuration,
@@ -19980,7 +20707,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUserDefinedFunction")
+        )
         input_: capo_glue.types.update_user_defined_function_request.UpdateUserDefinedFunctionRequest = {
             "database_name": database_name,
             "function_name": function_name,
@@ -20043,7 +20772,9 @@ class GlueClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkflow")
+        )
         input_: capo_glue.types.update_workflow_request.UpdateWorkflowRequest = {
             "name": name
         }

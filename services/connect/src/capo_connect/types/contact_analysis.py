@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#ContactAnalysis``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_json(data: dict) -> ContactAnalysis:
 
         out["transcript"] = capo_connect.types.transcript.deserialize_json(
             data["Transcript"]
+        )
+    return out
+
+
+def redact_sensitive(value: ContactAnalysis) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "transcript" in value:
+        import capo_connect.types.transcript
+
+        out["transcript"] = capo_connect.types.transcript.redact_sensitive(
+            value["transcript"]
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#CreateMessageTemplateAttachmentRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -63,4 +63,13 @@ def deserialize_json(data: dict) -> CreateMessageTemplateAttachmentRequest:
         )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
+    return out
+
+
+def redact_sensitive(value: CreateMessageTemplateAttachmentRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "body" in value:
+        out["body"] = "*** Sensitive Data Redacted ***"
     return out

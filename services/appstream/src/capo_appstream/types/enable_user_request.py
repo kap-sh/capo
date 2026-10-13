@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appstream#EnableUserRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,11 @@ def deserialize_aws_json_1_1(data: dict) -> EnableUserRequest:
                 data["AuthenticationType"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: EnableUserRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_name" in value:
+        out["user_name"] = "*** Sensitive Data Redacted ***"
     return out

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from collections.abc import AsyncGenerator, AsyncIterator, Generator, Iterator
 from contextlib import asynccontextmanager, contextmanager
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_lambda._auth._signers
 import capo_lambda._auth._sigv4
@@ -11,6 +11,7 @@ from capo_lambda._iter import ensure_async_iterator, ensure_sync_iterator
 from capo_lambda._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -266,7 +267,28 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.create_function_request.CreateFunctionRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.create_function_request
+
+            return capo_lambda.types.create_function_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_lambda.types.function_configuration.FunctionConfiguration",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.function_configuration
+
+            return capo_lambda.types.function_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateFunction",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_lambda.types.create_function_request.CreateFunctionRequest = {
             "function_name": function_name,
             "role": role,
@@ -377,7 +399,17 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.list_functions_response.ListFunctionsResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.list_functions_response
+
+            return capo_lambda.types.list_functions_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListFunctions", redact_output=_redact_output),
+        )
         input_: capo_lambda.types.list_functions_request.ListFunctionsRequest = {}
         if master_region is not None:
             input_["master_region"] = master_region
@@ -434,7 +466,9 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFunctionConcurrency")
+        )
         input_: capo_lambda.types.delete_function_concurrency_request.DeleteFunctionConcurrencyRequest = {
             "function_name": function_name
         }
@@ -486,7 +520,9 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFunctionConcurrency")
+        )
         input_: capo_lambda.types.get_function_concurrency_request.GetFunctionConcurrencyRequest = {
             "function_name": function_name
         }
@@ -544,7 +580,9 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListProvisionedConcurrencyConfigs")
+        )
         input_: capo_lambda.types.list_provisioned_concurrency_configs_request.ListProvisionedConcurrencyConfigsRequest = {
             "function_name": function_name
         }
@@ -601,7 +639,9 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutFunctionConcurrency")
+        )
         input_: capo_lambda.types.put_function_concurrency_request.PutFunctionConcurrencyRequest = {
             "function_name": function_name,
             "reserved_concurrent_executions": reserved_concurrent_executions,
@@ -692,7 +732,30 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.update_function_code_request.UpdateFunctionCodeRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.update_function_code_request
+
+            return capo_lambda.types.update_function_code_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_lambda.types.function_configuration.FunctionConfiguration",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.function_configuration
+
+            return capo_lambda.types.function_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateFunctionCode",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_lambda.types.update_function_code_request.UpdateFunctionCodeRequest = {
             "function_name": function_name
         }
@@ -827,7 +890,30 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.update_function_configuration_request.UpdateFunctionConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.update_function_configuration_request
+
+            return capo_lambda.types.update_function_configuration_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_lambda.types.function_configuration.FunctionConfiguration",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.function_configuration
+
+            return capo_lambda.types.function_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateFunctionConfiguration",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_lambda.types.update_function_configuration_request.UpdateFunctionConfigurationRequest = {
             "function_name": function_name
         }
@@ -924,7 +1010,9 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateFunctionUrlConfig")
+        )
         input_: capo_lambda.types.create_function_url_config_request.CreateFunctionUrlConfigRequest = {
             "function_name": function_name,
             "auth_type": auth_type,
@@ -977,7 +1065,9 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFunctionCodeSigningConfig")
+        )
         input_: capo_lambda.types.delete_function_code_signing_config_request.DeleteFunctionCodeSigningConfigRequest = {
             "function_name": function_name
         }
@@ -1026,7 +1116,9 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFunctionUrlConfig")
+        )
         input_: capo_lambda.types.delete_function_url_config_request.DeleteFunctionUrlConfigRequest = {
             "function_name": function_name
         }
@@ -1084,7 +1176,17 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.get_function_response.GetFunctionResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.get_function_response
+
+            return capo_lambda.types.get_function_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetFunction", redact_output=_redact_output),
+        )
         input_: capo_lambda.types.get_function_request.GetFunctionRequest = {
             "function_name": function_name
         }
@@ -1133,7 +1235,9 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFunctionCodeSigningConfig")
+        )
         input_: capo_lambda.types.get_function_code_signing_config_request.GetFunctionCodeSigningConfigRequest = {
             "function_name": function_name
         }
@@ -1189,7 +1293,17 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.function_configuration.FunctionConfiguration",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.function_configuration
+
+            return capo_lambda.types.function_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetFunctionConfiguration", redact_output=_redact_output),
+        )
         input_: capo_lambda.types.get_function_configuration_request.GetFunctionConfigurationRequest = {
             "function_name": function_name
         }
@@ -1237,7 +1351,9 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFunctionRecursionConfig")
+        )
         input_: capo_lambda.types.get_function_recursion_config_request.GetFunctionRecursionConfigRequest = {
             "function_name": function_name
         }
@@ -1285,7 +1401,9 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFunctionScalingConfig")
+        )
         input_: capo_lambda.types.get_function_scaling_config_request.GetFunctionScalingConfigRequest = {
             "function_name": function_name,
             "qualifier": qualifier,
@@ -1336,7 +1454,9 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFunctionUrlConfig")
+        )
         input_: capo_lambda.types.get_function_url_config_request.GetFunctionUrlConfigRequest = {
             "function_name": function_name
         }
@@ -1394,7 +1514,9 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPolicy")
+        )
         input_: capo_lambda.types.get_policy_request.GetPolicyRequest = {
             "function_name": function_name
         }
@@ -1446,7 +1568,9 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRuntimeManagementConfig")
+        )
         input_: capo_lambda.types.get_runtime_management_config_request.GetRuntimeManagementConfigRequest = {
             "function_name": function_name
         }
@@ -1563,7 +1687,26 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.invocation_request.InvocationRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.invocation_request
+
+            return capo_lambda.types.invocation_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_lambda.types.invocation_response.InvocationResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.invocation_response
+
+            return capo_lambda.types.invocation_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "Invoke", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_lambda.types.invocation_request.InvocationRequest = {
             "function_name": function_name
         }
@@ -1656,7 +1799,17 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.invoke_async_request.InvokeAsyncRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.invoke_async_request
+
+            return capo_lambda.types.invoke_async_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("InvokeAsync", redact_input=_redact_input),
+        )
         input_: capo_lambda.types.invoke_async_request.InvokeAsyncRequest = {
             "function_name": function_name,
             "invoke_args": ensure_sync_iterator(invoke_args),
@@ -1757,7 +1910,36 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.invoke_with_response_stream_request.InvokeWithResponseStreamRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.invoke_with_response_stream_request
+
+            return (
+                capo_lambda.types.invoke_with_response_stream_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_lambda.types.invoke_with_response_stream_response.InvokeWithResponseStreamResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.invoke_with_response_stream_response
+
+            return (
+                capo_lambda.types.invoke_with_response_stream_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeWithResponseStream",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_lambda.types.invoke_with_response_stream_request.InvokeWithResponseStreamRequest = {
             "function_name": function_name
         }
@@ -1843,7 +2025,9 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDurableExecutionsByFunction")
+        )
         input_: capo_lambda.types.list_durable_executions_by_function_request.ListDurableExecutionsByFunctionRequest = {
             "function_name": function_name
         }
@@ -1909,7 +2093,9 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFunctionUrlConfigs")
+        )
         input_: capo_lambda.types.list_function_url_configs_request.ListFunctionUrlConfigsRequest = {
             "function_name": function_name
         }
@@ -1963,7 +2149,9 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutFunctionCodeSigningConfig")
+        )
         input_: capo_lambda.types.put_function_code_signing_config_request.PutFunctionCodeSigningConfigRequest = {
             "code_signing_config_arn": code_signing_config_arn,
             "function_name": function_name,
@@ -2013,7 +2201,9 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutFunctionRecursionConfig")
+        )
         input_: capo_lambda.types.put_function_recursion_config_request.PutFunctionRecursionConfigRequest = {
             "function_name": function_name,
             "recursive_loop": recursive_loop,
@@ -2067,7 +2257,9 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutFunctionScalingConfig")
+        )
         input_: capo_lambda.types.put_function_scaling_config_request.PutFunctionScalingConfigRequest = {
             "function_name": function_name,
             "qualifier": qualifier,
@@ -2127,7 +2319,9 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutRuntimeManagementConfig")
+        )
         input_: capo_lambda.types.put_runtime_management_config_request.PutRuntimeManagementConfigRequest = {
             "function_name": function_name,
             "update_runtime_on": update_runtime_on,
@@ -2191,7 +2385,9 @@ class Function:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFunctionUrlConfig")
+        )
         input_: capo_lambda.types.update_function_url_config_request.UpdateFunctionUrlConfigRequest = {
             "function_name": function_name
         }
@@ -2339,7 +2535,28 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.create_function_request.CreateFunctionRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.create_function_request
+
+            return capo_lambda.types.create_function_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_lambda.types.function_configuration.FunctionConfiguration",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.function_configuration
+
+            return capo_lambda.types.function_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateFunction",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_lambda.types.create_function_request.CreateFunctionRequest = {
             "function_name": function_name,
             "role": role,
@@ -2451,7 +2668,17 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.list_functions_response.ListFunctionsResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.list_functions_response
+
+            return capo_lambda.types.list_functions_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListFunctions", redact_output=_redact_output),
+        )
         input_: capo_lambda.types.list_functions_request.ListFunctionsRequest = {}
         if master_region is not None:
             input_["master_region"] = master_region
@@ -2509,7 +2736,9 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFunctionConcurrency")
+        )
         input_: capo_lambda.types.delete_function_concurrency_request.DeleteFunctionConcurrencyRequest = {
             "function_name": function_name
         }
@@ -2562,7 +2791,9 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFunctionConcurrency")
+        )
         input_: capo_lambda.types.get_function_concurrency_request.GetFunctionConcurrencyRequest = {
             "function_name": function_name
         }
@@ -2621,7 +2852,9 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListProvisionedConcurrencyConfigs")
+        )
         input_: capo_lambda.types.list_provisioned_concurrency_configs_request.ListProvisionedConcurrencyConfigsRequest = {
             "function_name": function_name
         }
@@ -2679,7 +2912,9 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutFunctionConcurrency")
+        )
         input_: capo_lambda.types.put_function_concurrency_request.PutFunctionConcurrencyRequest = {
             "function_name": function_name,
             "reserved_concurrent_executions": reserved_concurrent_executions,
@@ -2771,7 +3006,30 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.update_function_code_request.UpdateFunctionCodeRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.update_function_code_request
+
+            return capo_lambda.types.update_function_code_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_lambda.types.function_configuration.FunctionConfiguration",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.function_configuration
+
+            return capo_lambda.types.function_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateFunctionCode",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_lambda.types.update_function_code_request.UpdateFunctionCodeRequest = {
             "function_name": function_name
         }
@@ -2907,7 +3165,30 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.update_function_configuration_request.UpdateFunctionConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.update_function_configuration_request
+
+            return capo_lambda.types.update_function_configuration_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_lambda.types.function_configuration.FunctionConfiguration",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.function_configuration
+
+            return capo_lambda.types.function_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateFunctionConfiguration",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_lambda.types.update_function_configuration_request.UpdateFunctionConfigurationRequest = {
             "function_name": function_name
         }
@@ -3005,7 +3286,9 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateFunctionUrlConfig")
+        )
         input_: capo_lambda.types.create_function_url_config_request.CreateFunctionUrlConfigRequest = {
             "function_name": function_name,
             "auth_type": auth_type,
@@ -3059,7 +3342,9 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFunctionCodeSigningConfig")
+        )
         input_: capo_lambda.types.delete_function_code_signing_config_request.DeleteFunctionCodeSigningConfigRequest = {
             "function_name": function_name
         }
@@ -3109,7 +3394,9 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFunctionUrlConfig")
+        )
         input_: capo_lambda.types.delete_function_url_config_request.DeleteFunctionUrlConfigRequest = {
             "function_name": function_name
         }
@@ -3168,7 +3455,17 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.get_function_response.GetFunctionResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.get_function_response
+
+            return capo_lambda.types.get_function_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetFunction", redact_output=_redact_output),
+        )
         input_: capo_lambda.types.get_function_request.GetFunctionRequest = {
             "function_name": function_name
         }
@@ -3218,7 +3515,9 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFunctionCodeSigningConfig")
+        )
         input_: capo_lambda.types.get_function_code_signing_config_request.GetFunctionCodeSigningConfigRequest = {
             "function_name": function_name
         }
@@ -3275,7 +3574,17 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.function_configuration.FunctionConfiguration",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.function_configuration
+
+            return capo_lambda.types.function_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetFunctionConfiguration", redact_output=_redact_output),
+        )
         input_: capo_lambda.types.get_function_configuration_request.GetFunctionConfigurationRequest = {
             "function_name": function_name
         }
@@ -3324,7 +3633,9 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFunctionRecursionConfig")
+        )
         input_: capo_lambda.types.get_function_recursion_config_request.GetFunctionRecursionConfigRequest = {
             "function_name": function_name
         }
@@ -3373,7 +3684,9 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFunctionScalingConfig")
+        )
         input_: capo_lambda.types.get_function_scaling_config_request.GetFunctionScalingConfigRequest = {
             "function_name": function_name,
             "qualifier": qualifier,
@@ -3425,7 +3738,9 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFunctionUrlConfig")
+        )
         input_: capo_lambda.types.get_function_url_config_request.GetFunctionUrlConfigRequest = {
             "function_name": function_name
         }
@@ -3484,7 +3799,9 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPolicy")
+        )
         input_: capo_lambda.types.get_policy_request.GetPolicyRequest = {
             "function_name": function_name
         }
@@ -3537,7 +3854,9 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRuntimeManagementConfig")
+        )
         input_: capo_lambda.types.get_runtime_management_config_request.GetRuntimeManagementConfigRequest = {
             "function_name": function_name
         }
@@ -3655,7 +3974,26 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.invocation_request.InvocationRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.invocation_request
+
+            return capo_lambda.types.invocation_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_lambda.types.invocation_response.InvocationResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.invocation_response
+
+            return capo_lambda.types.invocation_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "Invoke", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_lambda.types.invocation_request.InvocationRequest = {
             "function_name": function_name
         }
@@ -3749,7 +4087,17 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.invoke_async_request.InvokeAsyncRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.invoke_async_request
+
+            return capo_lambda.types.invoke_async_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("InvokeAsync", redact_input=_redact_input),
+        )
         input_: capo_lambda.types.invoke_async_request.InvokeAsyncRequest = {
             "function_name": function_name,
             "invoke_args": ensure_async_iterator(invoke_args),
@@ -3851,7 +4199,36 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.invoke_with_response_stream_request.InvokeWithResponseStreamRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.invoke_with_response_stream_request
+
+            return (
+                capo_lambda.types.invoke_with_response_stream_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_lambda.types.invoke_with_response_stream_response.InvokeWithResponseStreamResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.invoke_with_response_stream_response
+
+            return (
+                capo_lambda.types.invoke_with_response_stream_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeWithResponseStream",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_lambda.types.invoke_with_response_stream_request.InvokeWithResponseStreamRequest = {
             "function_name": function_name
         }
@@ -3938,7 +4315,9 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDurableExecutionsByFunction")
+        )
         input_: capo_lambda.types.list_durable_executions_by_function_request.ListDurableExecutionsByFunctionRequest = {
             "function_name": function_name
         }
@@ -4005,7 +4384,9 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFunctionUrlConfigs")
+        )
         input_: capo_lambda.types.list_function_url_configs_request.ListFunctionUrlConfigsRequest = {
             "function_name": function_name
         }
@@ -4060,7 +4441,9 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutFunctionCodeSigningConfig")
+        )
         input_: capo_lambda.types.put_function_code_signing_config_request.PutFunctionCodeSigningConfigRequest = {
             "code_signing_config_arn": code_signing_config_arn,
             "function_name": function_name,
@@ -4111,7 +4494,9 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutFunctionRecursionConfig")
+        )
         input_: capo_lambda.types.put_function_recursion_config_request.PutFunctionRecursionConfigRequest = {
             "function_name": function_name,
             "recursive_loop": recursive_loop,
@@ -4166,7 +4551,9 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutFunctionScalingConfig")
+        )
         input_: capo_lambda.types.put_function_scaling_config_request.PutFunctionScalingConfigRequest = {
             "function_name": function_name,
             "qualifier": qualifier,
@@ -4227,7 +4614,9 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutRuntimeManagementConfig")
+        )
         input_: capo_lambda.types.put_runtime_management_config_request.PutRuntimeManagementConfigRequest = {
             "function_name": function_name,
             "update_runtime_on": update_runtime_on,
@@ -4292,7 +4681,9 @@ class AsyncFunction:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFunctionUrlConfig")
+        )
         input_: capo_lambda.types.update_function_url_config_request.UpdateFunctionUrlConfigRequest = {
             "function_name": function_name
         }

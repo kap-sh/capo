@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SharedColumnSemanticMetadata``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,5 +58,18 @@ def deserialize_json(data: dict) -> SharedColumnSemanticMetadata:
     else:
         raise DeserializationError(
             "SharedColumnSemanticMetadata.column_properties required"
+        )
+    return out
+
+
+def redact_sensitive(value: SharedColumnSemanticMetadata) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "column_properties" in value:
+        import capo_quicksight.types.column_semantic_property_list
+
+        out["column_properties"] = (
+            capo_quicksight.types.column_semantic_property_list.redact_sensitive(
+                value["column_properties"]
+            )
         )
     return out

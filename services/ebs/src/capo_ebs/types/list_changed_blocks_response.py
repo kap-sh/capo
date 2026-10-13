@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ebs#ListChangedBlocksResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -69,4 +69,15 @@ def deserialize_json(data: dict) -> ListChangedBlocksResponse:
         out["block_size"] = data["BlockSize"]
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListChangedBlocksResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "changed_blocks" in value:
+        import capo_ebs.types.changed_blocks
+
+        out["changed_blocks"] = capo_ebs.types.changed_blocks.redact_sensitive(
+            value["changed_blocks"]
+        )
     return out

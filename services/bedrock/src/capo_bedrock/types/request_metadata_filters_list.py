@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#RequestMetadataFiltersList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock.types.request_metadata_base_filters
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> RequestMetadataFiltersList:
             capo_bedrock.types.request_metadata_base_filters.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: RequestMetadataFiltersList) -> list[Any]:
+    import capo_bedrock.types.request_metadata_base_filters
+
+    return [
+        capo_bedrock.types.request_metadata_base_filters.redact_sensitive(item)
+        for item in value
+    ]

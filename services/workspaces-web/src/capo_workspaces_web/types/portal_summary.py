@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#PortalSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -162,4 +162,11 @@ def deserialize_json(data: dict) -> PortalSummary:
         out["max_concurrent_sessions"] = data["maxConcurrentSessions"]
     if data.get("portalCustomDomain") is not None:
         out["portal_custom_domain"] = data["portalCustomDomain"]
+    return out
+
+
+def redact_sensitive(value: PortalSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "display_name" in value:
+        out["display_name"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#HarnessToolResultContentBlocks``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.harness_tool_result_content_block
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> HarnessToolResultContentBlocks:
             )
         )
     return out
+
+
+def redact_sensitive(value: HarnessToolResultContentBlocks) -> list[Any]:
+    import capo_bedrock_agentcore.types.harness_tool_result_content_block
+
+    return [
+        capo_bedrock_agentcore.types.harness_tool_result_content_block.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

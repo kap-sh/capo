@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#ReturnControlResults``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -43,6 +43,19 @@ def deserialize_json(data: dict) -> ReturnControlResults:
         out["return_control_invocation_results"] = (
             capo_bedrock_agent_runtime.types.return_control_invocation_results.deserialize_json(
                 data["returnControlInvocationResults"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ReturnControlResults) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "return_control_invocation_results" in value:
+        import capo_bedrock_agent_runtime.types.return_control_invocation_results
+
+        out["return_control_invocation_results"] = (
+            capo_bedrock_agent_runtime.types.return_control_invocation_results.redact_sensitive(
+                value["return_control_invocation_results"]
             )
         )
     return out

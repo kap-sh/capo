@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#SearchCriteria``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -65,4 +65,11 @@ def deserialize_json(data: dict) -> SearchCriteria:
                 data["metadataFilters"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: SearchCriteria) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "search_query" in value:
+        out["search_query"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#ReEncryptDataInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -122,6 +122,45 @@ def deserialize_json(data: dict) -> ReEncryptDataInput:
         out["outgoing_wrapped_key"] = (
             capo_payment_cryptography_data.types.wrapped_key.deserialize_json(
                 data["OutgoingWrappedKey"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ReEncryptDataInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "cipher_text" in value:
+        out["cipher_text"] = "*** Sensitive Data Redacted ***"
+    if "incoming_encryption_attributes" in value:
+        import capo_payment_cryptography_data.types.re_encryption_attributes
+
+        out["incoming_encryption_attributes"] = (
+            capo_payment_cryptography_data.types.re_encryption_attributes.redact_sensitive(
+                value["incoming_encryption_attributes"]
+            )
+        )
+    if "outgoing_encryption_attributes" in value:
+        import capo_payment_cryptography_data.types.re_encryption_attributes
+
+        out["outgoing_encryption_attributes"] = (
+            capo_payment_cryptography_data.types.re_encryption_attributes.redact_sensitive(
+                value["outgoing_encryption_attributes"]
+            )
+        )
+    if "incoming_wrapped_key" in value:
+        import capo_payment_cryptography_data.types.wrapped_key
+
+        out["incoming_wrapped_key"] = (
+            capo_payment_cryptography_data.types.wrapped_key.redact_sensitive(
+                value["incoming_wrapped_key"]
+            )
+        )
+    if "outgoing_wrapped_key" in value:
+        import capo_payment_cryptography_data.types.wrapped_key
+
+        out["outgoing_wrapped_key"] = (
+            capo_payment_cryptography_data.types.wrapped_key.redact_sensitive(
+                value["outgoing_wrapped_key"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sesv2#PutAccountDetailsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -94,4 +94,15 @@ def deserialize_json(data: dict) -> PutAccountDetailsRequest:
         )
     if data.get("ProductionAccessEnabled") is not None:
         out["production_access_enabled"] = data["ProductionAccessEnabled"]
+    return out
+
+
+def redact_sensitive(value: PutAccountDetailsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "website_url" in value:
+        out["website_url"] = "*** Sensitive Data Redacted ***"
+    if "use_case_description" in value:
+        out["use_case_description"] = "*** Sensitive Data Redacted ***"
+    if "additional_contact_email_addresses" in value:
+        out["additional_contact_email_addresses"] = "*** Sensitive Data Redacted ***"
     return out

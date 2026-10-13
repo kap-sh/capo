@@ -7,6 +7,7 @@ import capo_medical_imaging._auth._sigv4
 from capo_medical_imaging._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -100,7 +101,9 @@ class DatastoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDatastore")
+        )
         input_: capo_medical_imaging.types.create_datastore_request.CreateDatastoreRequest = {
             "client_token": client_token
         }
@@ -157,7 +160,9 @@ class DatastoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDatastore")
+        )
         input_: capo_medical_imaging.types.get_datastore_request.GetDatastoreRequest = {
             "datastore_id": datastore_id
         }
@@ -205,7 +210,9 @@ class DatastoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDatastore")
+        )
         input_: capo_medical_imaging.types.delete_datastore_request.DeleteDatastoreRequest = {
             "datastore_id": datastore_id
         }
@@ -257,7 +264,9 @@ class DatastoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDatastores")
+        )
         input_: capo_medical_imaging.types.list_datastores_request.ListDatastoresRequest = {}
         if datastore_status is not None:
             input_["datastore_status"] = datastore_status
@@ -334,7 +343,9 @@ class AsyncDatastoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDatastore")
+        )
         input_: capo_medical_imaging.types.create_datastore_request.CreateDatastoreRequest = {
             "client_token": client_token
         }
@@ -392,7 +403,9 @@ class AsyncDatastoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDatastore")
+        )
         input_: capo_medical_imaging.types.get_datastore_request.GetDatastoreRequest = {
             "datastore_id": datastore_id
         }
@@ -441,7 +454,9 @@ class AsyncDatastoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDatastore")
+        )
         input_: capo_medical_imaging.types.delete_datastore_request.DeleteDatastoreRequest = {
             "datastore_id": datastore_id
         }
@@ -494,7 +509,9 @@ class AsyncDatastoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDatastores")
+        )
         input_: capo_medical_imaging.types.list_datastores_request.ListDatastoresRequest = {}
         if datastore_status is not None:
             input_["datastore_status"] = datastore_status

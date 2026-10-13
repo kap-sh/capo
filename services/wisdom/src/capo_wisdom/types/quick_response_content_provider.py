@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wisdom#QuickResponseContentProvider``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -32,3 +32,10 @@ def deserialize_json(data: dict) -> QuickResponseContentProvider:
         raise DeserializationError(
             "QuickResponseContentProvider: no recognized variant key"
         )
+
+
+def redact_sensitive(value: QuickResponseContentProvider) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        out["content"] = "*** Sensitive Data Redacted ***"
+    return out

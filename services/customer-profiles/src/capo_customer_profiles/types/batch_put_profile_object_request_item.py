@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#BatchPutProfileObjectRequestItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,11 @@ def deserialize_json(data: dict) -> BatchPutProfileObjectRequestItem:
         out["object"] = data["Object"]
     else:
         raise DeserializationError("BatchPutProfileObjectRequestItem.object required")
+    return out
+
+
+def redact_sensitive(value: BatchPutProfileObjectRequestItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "object" in value:
+        out["object"] = "*** Sensitive Data Redacted ***"
     return out

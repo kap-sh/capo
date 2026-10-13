@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mailmanager#SavedAddresses``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_mailmanager.types.saved_address
@@ -27,3 +27,11 @@ def deserialize_aws_json_1_0(data: list) -> SavedAddresses:
             continue
         out.append(capo_mailmanager.types.saved_address.deserialize_aws_json_1_0(item))
     return out
+
+
+def redact_sensitive(value: SavedAddresses) -> list[Any]:
+    import capo_mailmanager.types.saved_address
+
+    return [
+        capo_mailmanager.types.saved_address.redact_sensitive(item) for item in value
+    ]

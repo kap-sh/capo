@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#GetDocumentContentResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,4 +41,11 @@ def deserialize_json(data: dict) -> GetDocumentContentResponse:
         raise DeserializationError("GetDocumentContentResponse.presigned_url required")
     if data.get("documentContentLength") is not None:
         out["document_content_length"] = data["documentContentLength"]
+    return out
+
+
+def redact_sensitive(value: GetDocumentContentResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "presigned_url" in value:
+        out["presigned_url"] = "*** Sensitive Data Redacted ***"
     return out

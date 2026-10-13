@@ -22,7 +22,9 @@ from capo_eks_auth._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -102,7 +104,9 @@ class AsyncEKSAuthClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncEKSAuthClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncEKSAuthClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncEKSAuthClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -110,8 +114,10 @@ class AsyncEKSAuthClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -174,7 +180,32 @@ class AsyncEKSAuthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_eks_auth.types.assume_role_for_pod_identity_request.AssumeRoleForPodIdentityRequest",
+        ) -> dict[str, Any]:
+            import capo_eks_auth.types.assume_role_for_pod_identity_request
+
+            return capo_eks_auth.types.assume_role_for_pod_identity_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_eks_auth.types.assume_role_for_pod_identity_response.AssumeRoleForPodIdentityResponse",
+        ) -> dict[str, Any]:
+            import capo_eks_auth.types.assume_role_for_pod_identity_response
+
+            return capo_eks_auth.types.assume_role_for_pod_identity_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AssumeRoleForPodIdentity",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_eks_auth.types.assume_role_for_pod_identity_request.AssumeRoleForPodIdentityRequest = {
             "cluster_name": cluster_name,
             "token": token,

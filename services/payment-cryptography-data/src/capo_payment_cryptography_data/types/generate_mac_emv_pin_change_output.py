@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#GenerateMacEmvPinChangeOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -139,4 +139,13 @@ def deserialize_json(data: dict) -> GenerateMacEmvPinChangeOutput:
                 data["VisaAmexDerivationOutputs"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: GenerateMacEmvPinChangeOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "mac" in value:
+        out["mac"] = "*** Sensitive Data Redacted ***"
+    if "encrypted_pin_block" in value:
+        out["encrypted_pin_block"] = "*** Sensitive Data Redacted ***"
     return out

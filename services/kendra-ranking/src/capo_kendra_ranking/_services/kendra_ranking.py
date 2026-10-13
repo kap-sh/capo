@@ -22,10 +22,12 @@ from capo_kendra_ranking._pagination import resolve_path as _resolve_path
 from capo_kendra_ranking._services._aws_config import aws_config
 from capo_kendra_ranking._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -129,7 +131,9 @@ class KendraRankingClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[KendraRankingClientConfig] = None
+        self,
+        config_overrides: Optional[KendraRankingClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: KendraRankingClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -137,8 +141,10 @@ class KendraRankingClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -203,7 +209,9 @@ class KendraRankingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRescoreExecutionPlan")
+        )
         input_: capo_kendra_ranking.types.create_rescore_execution_plan_request.CreateRescoreExecutionPlanRequest = {
             "name": name
         }
@@ -258,7 +266,9 @@ class KendraRankingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRescoreExecutionPlan")
+        )
         input_: capo_kendra_ranking.types.delete_rescore_execution_plan_request.DeleteRescoreExecutionPlanRequest = {
             "id": id
         }
@@ -305,7 +315,9 @@ class KendraRankingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRescoreExecutionPlan")
+        )
         input_: capo_kendra_ranking.types.describe_rescore_execution_plan_request.DescribeRescoreExecutionPlanRequest = {
             "id": id
         }
@@ -355,7 +367,9 @@ class KendraRankingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRescoreExecutionPlans")
+        )
         input_: capo_kendra_ranking.types.list_rescore_execution_plans_request.ListRescoreExecutionPlansRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -425,7 +439,9 @@ class KendraRankingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_kendra_ranking.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -477,7 +493,9 @@ class KendraRankingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Rescore")
+        )
         input_: capo_kendra_ranking.types.rescore_request.RescoreRequest = {
             "rescore_execution_plan_id": rescore_execution_plan_id,
             "search_query": search_query,
@@ -528,7 +546,9 @@ class KendraRankingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_kendra_ranking.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -578,7 +598,9 @@ class KendraRankingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_kendra_ranking.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -638,7 +660,9 @@ class KendraRankingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRescoreExecutionPlan")
+        )
         input_: capo_kendra_ranking.types.update_rescore_execution_plan_request.UpdateRescoreExecutionPlanRequest = {
             "id": id
         }

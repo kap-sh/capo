@@ -22,7 +22,9 @@ from capo_cognito_sync._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -150,7 +152,9 @@ class AsyncCognitoSyncClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncCognitoSyncClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncCognitoSyncClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncCognitoSyncClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -158,8 +162,10 @@ class AsyncCognitoSyncClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -214,7 +220,9 @@ class AsyncCognitoSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BulkPublish")
+        )
         input_: capo_cognito_sync.types.bulk_publish_request.BulkPublishRequest = {
             "identity_pool_id": identity_pool_id
         }
@@ -267,7 +275,9 @@ class AsyncCognitoSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataset")
+        )
         input_: capo_cognito_sync.types.delete_dataset_request.DeleteDatasetRequest = {
             "identity_pool_id": identity_pool_id,
             "identity_id": identity_id,
@@ -321,7 +331,9 @@ class AsyncCognitoSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataset")
+        )
         input_: capo_cognito_sync.types.describe_dataset_request.DescribeDatasetRequest = {
             "identity_pool_id": identity_pool_id,
             "identity_id": identity_id,
@@ -371,7 +383,9 @@ class AsyncCognitoSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeIdentityPoolUsage")
+        )
         input_: capo_cognito_sync.types.describe_identity_pool_usage_request.DescribeIdentityPoolUsageRequest = {
             "identity_pool_id": identity_pool_id
         }
@@ -421,7 +435,9 @@ class AsyncCognitoSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeIdentityUsage")
+        )
         input_: capo_cognito_sync.types.describe_identity_usage_request.DescribeIdentityUsageRequest = {
             "identity_pool_id": identity_pool_id,
             "identity_id": identity_id,
@@ -469,7 +485,9 @@ class AsyncCognitoSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBulkPublishDetails")
+        )
         input_: capo_cognito_sync.types.get_bulk_publish_details_request.GetBulkPublishDetailsRequest = {
             "identity_pool_id": identity_pool_id
         }
@@ -517,7 +535,9 @@ class AsyncCognitoSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCognitoEvents")
+        )
         input_: capo_cognito_sync.types.get_cognito_events_request.GetCognitoEventsRequest = {
             "identity_pool_id": identity_pool_id
         }
@@ -565,7 +585,9 @@ class AsyncCognitoSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIdentityPoolConfiguration")
+        )
         input_: capo_cognito_sync.types.get_identity_pool_configuration_request.GetIdentityPoolConfigurationRequest = {
             "identity_pool_id": identity_pool_id
         }
@@ -620,7 +642,9 @@ class AsyncCognitoSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatasets")
+        )
         input_: capo_cognito_sync.types.list_datasets_request.ListDatasetsRequest = {
             "identity_pool_id": identity_pool_id,
             "identity_id": identity_id,
@@ -676,7 +700,9 @@ class AsyncCognitoSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIdentityPoolUsage")
+        )
         input_: capo_cognito_sync.types.list_identity_pool_usage_request.ListIdentityPoolUsageRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -741,7 +767,9 @@ class AsyncCognitoSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecords")
+        )
         input_: capo_cognito_sync.types.list_records_request.ListRecordsRequest = {
             "identity_pool_id": identity_pool_id,
             "identity_id": identity_id,
@@ -806,7 +834,9 @@ class AsyncCognitoSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterDevice")
+        )
         input_: capo_cognito_sync.types.register_device_request.RegisterDeviceRequest = {
             "identity_pool_id": identity_pool_id,
             "identity_id": identity_id,
@@ -857,7 +887,9 @@ class AsyncCognitoSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetCognitoEvents")
+        )
         input_: capo_cognito_sync.types.set_cognito_events_request.SetCognitoEventsRequest = {
             "identity_pool_id": identity_pool_id,
             "events": events,
@@ -913,7 +945,9 @@ class AsyncCognitoSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetIdentityPoolConfiguration")
+        )
         input_: capo_cognito_sync.types.set_identity_pool_configuration_request.SetIdentityPoolConfigurationRequest = {
             "identity_pool_id": identity_pool_id
         }
@@ -972,7 +1006,9 @@ class AsyncCognitoSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SubscribeToDataset")
+        )
         input_: capo_cognito_sync.types.subscribe_to_dataset_request.SubscribeToDatasetRequest = {
             "identity_pool_id": identity_pool_id,
             "identity_id": identity_id,
@@ -1030,7 +1066,9 @@ class AsyncCognitoSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UnsubscribeFromDataset")
+        )
         input_: capo_cognito_sync.types.unsubscribe_from_dataset_request.UnsubscribeFromDatasetRequest = {
             "identity_pool_id": identity_pool_id,
             "identity_id": identity_id,
@@ -1101,7 +1139,9 @@ class AsyncCognitoSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRecords")
+        )
         input_: capo_cognito_sync.types.update_records_request.UpdateRecordsRequest = {
             "identity_pool_id": identity_pool_id,
             "identity_id": identity_id,

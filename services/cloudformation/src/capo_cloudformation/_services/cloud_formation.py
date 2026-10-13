@@ -24,10 +24,12 @@ from capo_cloudformation._pagination import resolve_path as _resolve_path
 from capo_cloudformation._services._aws_config import aws_config
 from capo_cloudformation._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 from capo_cloudformation.errors import (
@@ -437,7 +439,9 @@ class CloudFormationClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[CloudFormationClientConfig] = None
+        self,
+        config_overrides: Optional[CloudFormationClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: CloudFormationClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -445,8 +449,10 @@ class CloudFormationClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -490,7 +496,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ActivateOrganizationsAccess")
+        )
         input_: capo_cloudformation.types.activate_organizations_access_input.ActivateOrganizationsAccessInput = {}
 
         response = execute_pipeline(
@@ -568,7 +576,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ActivateType")
+        )
         input_: capo_cloudformation.types.activate_type_input.ActivateTypeInput = {}
         if type is not None:
             input_["type"] = type
@@ -632,7 +642,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDescribeTypeConfigurations")
+        )
         input_: capo_cloudformation.types.batch_describe_type_configurations_input.BatchDescribeTypeConfigurationsInput = {}
         if type_configuration_identifiers is not None:
             input_["type_configuration_identifiers"] = type_configuration_identifiers
@@ -677,7 +689,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelUpdateStack")
+        )
         input_: capo_cloudformation.types.cancel_update_stack_input.CancelUpdateStackInput = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -738,7 +752,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ContinueUpdateRollback")
+        )
         input_: capo_cloudformation.types.continue_update_rollback_input.ContinueUpdateRollbackInput = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -871,7 +887,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateChangeSet")
+        )
         input_: capo_cloudformation.types.create_change_set_input.CreateChangeSetInput = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -976,7 +994,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGeneratedTemplate")
+        )
         input_: capo_cloudformation.types.create_generated_template_input.CreateGeneratedTemplateInput = {}
         if resources is not None:
             input_["resources"] = resources
@@ -1096,7 +1116,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStack")
+        )
         input_: capo_cloudformation.types.create_stack_input.CreateStackInput = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -1206,7 +1228,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStackInstances")
+        )
         input_: capo_cloudformation.types.create_stack_instances_input.CreateStackInstancesInput = {}
         if stack_set_name is not None:
             input_["stack_set_name"] = stack_set_name
@@ -1277,7 +1301,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStackRefactor")
+        )
         input_: capo_cloudformation.types.create_stack_refactor_input.CreateStackRefactorInput = {}
         if description is not None:
             input_["description"] = description
@@ -1378,7 +1404,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStackSet")
+        )
         input_: capo_cloudformation.types.create_stack_set_input.CreateStackSetInput = {}
         if stack_set_name is not None:
             input_["stack_set_name"] = stack_set_name
@@ -1445,7 +1473,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeactivateOrganizationsAccess")
+        )
         input_: capo_cloudformation.types.deactivate_organizations_access_input.DeactivateOrganizationsAccessInput = {}
 
         response = execute_pipeline(
@@ -1495,7 +1525,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeactivateType")
+        )
         input_: capo_cloudformation.types.deactivate_type_input.DeactivateTypeInput = {}
         if type_name is not None:
             input_["type_name"] = type_name
@@ -1548,7 +1580,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChangeSet")
+        )
         input_: capo_cloudformation.types.delete_change_set_input.DeleteChangeSetInput = {}
         if change_set_name is not None:
             input_["change_set_name"] = change_set_name
@@ -1600,7 +1634,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGeneratedTemplate")
+        )
         input_: capo_cloudformation.types.delete_generated_template_input.DeleteGeneratedTemplateInput = {}
         if generated_template_name is not None:
             input_["generated_template_name"] = generated_template_name
@@ -1659,7 +1695,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStack")
+        )
         input_: capo_cloudformation.types.delete_stack_input.DeleteStackInput = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -1740,7 +1778,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStackInstances")
+        )
         input_: capo_cloudformation.types.delete_stack_instances_input.DeleteStackInstancesInput = {}
         if stack_set_name is not None:
             input_["stack_set_name"] = stack_set_name
@@ -1803,7 +1843,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStackSet")
+        )
         input_: capo_cloudformation.types.delete_stack_set_input.DeleteStackSetInput = {}
         if stack_set_name is not None:
             input_["stack_set_name"] = stack_set_name
@@ -1859,7 +1901,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterType")
+        )
         input_: capo_cloudformation.types.deregister_type_input.DeregisterTypeInput = {}
         if arn is not None:
             input_["arn"] = arn
@@ -1907,7 +1951,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountLimits")
+        )
         input_: capo_cloudformation.types.describe_account_limits_input.DescribeAccountLimitsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1981,7 +2027,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeChangeSet")
+        )
         input_: capo_cloudformation.types.describe_change_set_input.DescribeChangeSetInput = {}
         if change_set_name is not None:
             input_["change_set_name"] = change_set_name
@@ -2073,7 +2121,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeChangeSetHooks")
+        )
         input_: capo_cloudformation.types.describe_change_set_hooks_input.DescribeChangeSetHooksInput = {}
         if change_set_name is not None:
             input_["change_set_name"] = change_set_name
@@ -2135,7 +2185,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEvents")
+        )
         input_: capo_cloudformation.types.describe_events_input.DescribeEventsInput = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -2221,7 +2273,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeGeneratedTemplate")
+        )
         input_: capo_cloudformation.types.describe_generated_template_input.DescribeGeneratedTemplateInput = {}
         if generated_template_name is not None:
             input_["generated_template_name"] = generated_template_name
@@ -2265,7 +2319,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOrganizationsAccess")
+        )
         input_: capo_cloudformation.types.describe_organizations_access_input.DescribeOrganizationsAccessInput = {}
         if call_as is not None:
             input_["call_as"] = call_as
@@ -2310,7 +2366,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePublisher")
+        )
         input_: capo_cloudformation.types.describe_publisher_input.DescribePublisherInput = {}
         if publisher_id is not None:
             input_["publisher_id"] = publisher_id
@@ -2355,7 +2413,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeResourceScan")
+        )
         input_: capo_cloudformation.types.describe_resource_scan_input.DescribeResourceScanInput = {}
         if resource_scan_id is not None:
             input_["resource_scan_id"] = resource_scan_id
@@ -2399,7 +2459,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStackDriftDetectionStatus")
+        )
         input_: capo_cloudformation.types.describe_stack_drift_detection_status_input.DescribeStackDriftDetectionStatusInput = {}
         if stack_drift_detection_id is not None:
             input_["stack_drift_detection_id"] = stack_drift_detection_id
@@ -2443,7 +2505,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStackEvents")
+        )
         input_: capo_cloudformation.types.describe_stack_events_input.DescribeStackEventsInput = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -2522,7 +2586,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStackInstance")
+        )
         input_: capo_cloudformation.types.describe_stack_instance_input.DescribeStackInstanceInput = {}
         if stack_set_name is not None:
             input_["stack_set_name"] = stack_set_name
@@ -2573,7 +2639,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStackRefactor")
+        )
         input_: capo_cloudformation.types.describe_stack_refactor_input.DescribeStackRefactorInput = {}
         if stack_refactor_id is not None:
             input_["stack_refactor_id"] = stack_refactor_id
@@ -2619,7 +2687,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStackResource")
+        )
         input_: capo_cloudformation.types.describe_stack_resource_input.DescribeStackResourceInput = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -2675,7 +2745,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStackResourceDrifts")
+        )
         input_: capo_cloudformation.types.describe_stack_resource_drifts_input.DescribeStackResourceDriftsInput = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -2762,7 +2834,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStackResources")
+        )
         input_: capo_cloudformation.types.describe_stack_resources_input.DescribeStackResourcesInput = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -2810,7 +2884,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStacks")
+        )
         input_: capo_cloudformation.types.describe_stacks_input.DescribeStacksInput = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -2929,7 +3005,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStackSet")
+        )
         input_: capo_cloudformation.types.describe_stack_set_input.DescribeStackSetInput = {}
         if stack_set_name is not None:
             input_["stack_set_name"] = stack_set_name
@@ -2983,7 +3061,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStackSetOperation")
+        )
         input_: capo_cloudformation.types.describe_stack_set_operation_input.DescribeStackSetOperationInput = {}
         if stack_set_name is not None:
             input_["stack_set_name"] = stack_set_name
@@ -3047,7 +3127,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeType")
+        )
         input_: capo_cloudformation.types.describe_type_input.DescribeTypeInput = {}
         if type is not None:
             input_["type"] = type
@@ -3102,7 +3184,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTypeRegistration")
+        )
         input_: capo_cloudformation.types.describe_type_registration_input.DescribeTypeRegistrationInput = {}
         if registration_token is not None:
             input_["registration_token"] = registration_token
@@ -3150,7 +3234,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetectStackDrift")
+        )
         input_: capo_cloudformation.types.detect_stack_drift_input.DetectStackDriftInput = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -3200,7 +3286,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetectStackResourceDrift")
+        )
         input_: capo_cloudformation.types.detect_stack_resource_drift_input.DetectStackResourceDriftInput = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -3259,7 +3347,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetectStackSetDrift")
+        )
         input_: capo_cloudformation.types.detect_stack_set_drift_input.DetectStackSetDriftInput = {}
         if stack_set_name is not None:
             input_["stack_set_name"] = stack_set_name
@@ -3316,7 +3406,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EstimateTemplateCost")
+        )
         input_: capo_cloudformation.types.estimate_template_cost_input.EstimateTemplateCostInput = {}
         if template_body is not None:
             input_["template_body"] = template_body
@@ -3384,7 +3476,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExecuteChangeSet")
+        )
         input_: capo_cloudformation.types.execute_change_set_input.ExecuteChangeSetInput = {}
         if change_set_name is not None:
             input_["change_set_name"] = change_set_name
@@ -3434,7 +3528,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExecuteStackRefactor")
+        )
         input_: capo_cloudformation.types.execute_stack_refactor_input.ExecuteStackRefactorInput = {}
         if stack_refactor_id is not None:
             input_["stack_refactor_id"] = stack_refactor_id
@@ -3493,7 +3589,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGeneratedTemplate")
+        )
         input_: capo_cloudformation.types.get_generated_template_input.GetGeneratedTemplateInput = {}
         if format is not None:
             input_["format"] = format
@@ -3540,7 +3638,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetHookResult")
+        )
         input_: capo_cloudformation.types.get_hook_result_input.GetHookResultInput = {}
         if hook_result_id is not None:
             input_["hook_result_id"] = hook_result_id
@@ -3582,7 +3682,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStackPolicy")
+        )
         input_: capo_cloudformation.types.get_stack_policy_input.GetStackPolicyInput = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -3633,7 +3735,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTemplate")
+        )
         input_: capo_cloudformation.types.get_template_input.GetTemplateInput = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -3702,7 +3806,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTemplateSummary")
+        )
         input_: capo_cloudformation.types.get_template_summary_input.GetTemplateSummaryInput = {}
         if template_body is not None:
             input_["template_body"] = template_body
@@ -3785,7 +3891,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportStacksToStackSet")
+        )
         input_: capo_cloudformation.types.import_stacks_to_stack_set_input.ImportStacksToStackSetInput = {}
         if stack_set_name is not None:
             input_["stack_set_name"] = stack_set_name
@@ -3844,7 +3952,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListChangeSets")
+        )
         input_: capo_cloudformation.types.list_change_sets_input.ListChangeSetsInput = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -3911,7 +4021,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExports")
+        )
         input_: capo_cloudformation.types.list_exports_input.ListExportsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3976,7 +4088,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGeneratedTemplates")
+        )
         input_: capo_cloudformation.types.list_generated_templates_input.ListGeneratedTemplatesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4058,7 +4172,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHookResults")
+        )
         input_: capo_cloudformation.types.list_hook_results_input.ListHookResultsInput = {}
         if target_type is not None:
             input_["target_type"] = target_type
@@ -4112,7 +4228,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImports")
+        )
         input_: capo_cloudformation.types.list_imports_input.ListImportsInput = {}
         if export_name is not None:
             input_["export_name"] = export_name
@@ -4199,7 +4317,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceScanRelatedResources")
+        )
         input_: capo_cloudformation.types.list_resource_scan_related_resources_input.ListResourceScanRelatedResourcesInput = {}
         if resource_scan_id is not None:
             input_["resource_scan_id"] = resource_scan_id
@@ -4310,7 +4430,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceScanResources")
+        )
         input_: capo_cloudformation.types.list_resource_scan_resources_input.ListResourceScanResourcesInput = {}
         if resource_scan_id is not None:
             input_["resource_scan_id"] = resource_scan_id
@@ -4411,7 +4533,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceScans")
+        )
         input_: capo_cloudformation.types.list_resource_scans_input.ListResourceScansInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4515,7 +4639,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStackInstanceResourceDrifts")
+        )
         input_: capo_cloudformation.types.list_stack_instance_resource_drifts_input.ListStackInstanceResourceDriftsInput = {}
         if stack_set_name is not None:
             input_["stack_set_name"] = stack_set_name
@@ -4598,7 +4724,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStackInstances")
+        )
         input_: capo_cloudformation.types.list_stack_instances_input.ListStackInstancesInput = {}
         if stack_set_name is not None:
             input_["stack_set_name"] = stack_set_name
@@ -4701,7 +4829,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStackRefactorActions")
+        )
         input_: capo_cloudformation.types.list_stack_refactor_actions_input.ListStackRefactorActionsInput = {}
         if stack_refactor_id is not None:
             input_["stack_refactor_id"] = stack_refactor_id
@@ -4786,7 +4916,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStackRefactors")
+        )
         input_: capo_cloudformation.types.list_stack_refactors_input.ListStackRefactorsInput = {}
         if execution_status_filter is not None:
             input_["execution_status_filter"] = execution_status_filter
@@ -4863,7 +4995,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStackResources")
+        )
         input_: capo_cloudformation.types.list_stack_resources_input.ListStackResourcesInput = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -4932,7 +5066,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStacks")
+        )
         input_: capo_cloudformation.types.list_stacks_input.ListStacksInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -5010,7 +5146,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStackSetAutoDeploymentTargets")
+        )
         input_: capo_cloudformation.types.list_stack_set_auto_deployment_targets_input.ListStackSetAutoDeploymentTargetsInput = {}
         if stack_set_name is not None:
             input_["stack_set_name"] = stack_set_name
@@ -5078,7 +5216,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStackSetOperationResults")
+        )
         input_: capo_cloudformation.types.list_stack_set_operation_results_input.ListStackSetOperationResultsInput = {}
         if stack_set_name is not None:
             input_["stack_set_name"] = stack_set_name
@@ -5178,7 +5318,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStackSetOperations")
+        )
         input_: capo_cloudformation.types.list_stack_set_operations_input.ListStackSetOperationsInput = {}
         if stack_set_name is not None:
             input_["stack_set_name"] = stack_set_name
@@ -5265,7 +5407,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStackSets")
+        )
         input_: capo_cloudformation.types.list_stack_sets_input.ListStackSetsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -5357,7 +5501,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTypeRegistrations")
+        )
         input_: capo_cloudformation.types.list_type_registrations_input.ListTypeRegistrationsInput = {}
         if type is not None:
             input_["type"] = type
@@ -5459,7 +5605,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTypes")
+        )
         input_: capo_cloudformation.types.list_types_input.ListTypesInput = {}
         if visibility is not None:
             input_["visibility"] = visibility
@@ -5569,7 +5717,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTypeVersions")
+        )
         input_: capo_cloudformation.types.list_type_versions_input.ListTypeVersionsInput = {}
         if type is not None:
             input_["type"] = type
@@ -5672,7 +5822,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PublishType")
+        )
         input_: capo_cloudformation.types.publish_type_input.PublishTypeInput = {}
         if type is not None:
             input_["type"] = type
@@ -5748,7 +5900,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RecordHandlerProgress")
+        )
         input_: capo_cloudformation.types.record_handler_progress_input.RecordHandlerProgressInput = {}
         if bearer_token is not None:
             input_["bearer_token"] = bearer_token
@@ -5809,7 +5963,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterPublisher")
+        )
         input_: capo_cloudformation.types.register_publisher_input.RegisterPublisherInput = {}
         if accept_terms_and_conditions is not None:
             input_["accept_terms_and_conditions"] = accept_terms_and_conditions
@@ -5872,7 +6028,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterType")
+        )
         input_: capo_cloudformation.types.register_type_input.RegisterTypeInput = {}
         if type is not None:
             input_["type"] = type
@@ -5941,7 +6099,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RollbackStack")
+        )
         input_: capo_cloudformation.types.rollback_stack_input.RollbackStackInput = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -5997,7 +6157,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetStackPolicy")
+        )
         input_: capo_cloudformation.types.set_stack_policy_input.SetStackPolicyInput = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -6059,7 +6221,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetTypeConfiguration")
+        )
         input_: capo_cloudformation.types.set_type_configuration_input.SetTypeConfigurationInput = {}
         if type_arn is not None:
             input_["type_arn"] = type_arn
@@ -6121,7 +6285,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetTypeDefaultVersion")
+        )
         input_: capo_cloudformation.types.set_type_default_version_input.SetTypeDefaultVersionInput = {}
         if arn is not None:
             input_["arn"] = arn
@@ -6181,7 +6347,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SignalResource")
+        )
         input_: capo_cloudformation.types.signal_resource_input.SignalResourceInput = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -6243,7 +6411,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartResourceScan")
+        )
         input_: capo_cloudformation.types.start_resource_scan_input.StartResourceScanInput = {}
         if client_request_token is not None:
             input_["client_request_token"] = client_request_token
@@ -6298,7 +6468,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopStackSetOperation")
+        )
         input_: capo_cloudformation.types.stop_stack_set_operation_input.StopStackSetOperationInput = {}
         if stack_set_name is not None:
             input_["stack_set_name"] = stack_set_name
@@ -6360,7 +6532,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestType")
+        )
         input_: capo_cloudformation.types.test_type_input.TestTypeInput = {}
         if arn is not None:
             input_["arn"] = arn
@@ -6449,7 +6623,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGeneratedTemplate")
+        )
         input_: capo_cloudformation.types.update_generated_template_input.UpdateGeneratedTemplateInput = {}
         if generated_template_name is not None:
             input_["generated_template_name"] = generated_template_name
@@ -6573,7 +6749,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateStack")
+        )
         input_: capo_cloudformation.types.update_stack_input.UpdateStackInput = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -6683,7 +6861,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateStackInstances")
+        )
         input_: capo_cloudformation.types.update_stack_instances_input.UpdateStackInstancesInput = {}
         if stack_set_name is not None:
             input_["stack_set_name"] = stack_set_name
@@ -6810,7 +6990,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateStackSet")
+        )
         input_: capo_cloudformation.types.update_stack_set_input.UpdateStackSetInput = {}
         if stack_set_name is not None:
             input_["stack_set_name"] = stack_set_name
@@ -6895,7 +7077,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTerminationProtection")
+        )
         input_: capo_cloudformation.types.update_termination_protection_input.UpdateTerminationProtectionInput = {}
         if enable_termination_protection is not None:
             input_["enable_termination_protection"] = enable_termination_protection
@@ -6945,7 +7129,9 @@ class CloudFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ValidateTemplate")
+        )
         input_: capo_cloudformation.types.validate_template_input.ValidateTemplateInput = {}
         if template_body is not None:
             input_["template_body"] = template_body

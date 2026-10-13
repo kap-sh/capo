@@ -27,7 +27,9 @@ from capo_amp._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -223,7 +225,9 @@ class AsyncampClient:
         self.workspace = AsyncWorkspace(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncampClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncampClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncampClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -231,8 +235,10 @@ class AsyncampClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -283,7 +289,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDefaultScraperConfiguration")
+        )
         input_: capo_amp.types.get_default_scraper_configuration_request.GetDefaultScraperConfigurationRequest = {}
 
         response = await aexecute_pipeline(
@@ -329,7 +337,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_amp.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -379,7 +389,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_amp.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -430,7 +442,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_amp.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -507,7 +521,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateScraper")
+        )
         input_: capo_amp.types.create_scraper_request.CreateScraperRequest = {
             "scrape_configuration": scrape_configuration,
             "source": source,
@@ -573,7 +589,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeScraper")
+        )
         input_: capo_amp.types.describe_scraper_request.DescribeScraperRequest = {
             "scraper_id": scraper_id
         }
@@ -646,7 +664,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateScraper")
+        )
         input_: capo_amp.types.update_scraper_request.UpdateScraperRequest = {
             "scraper_id": scraper_id
         }
@@ -717,7 +737,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteScraper")
+        )
         input_: capo_amp.types.delete_scraper_request.DeleteScraperRequest = {
             "scraper_id": scraper_id
         }
@@ -779,7 +801,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListScrapers")
+        )
         input_: capo_amp.types.list_scrapers_request.ListScrapersRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -860,7 +884,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateScraperLoggingConfiguration")
+        )
         input_: capo_amp.types.update_scraper_logging_configuration_request.UpdateScraperLoggingConfigurationRequest = {
             "scraper_id": scraper_id,
             "logging_destination": logging_destination,
@@ -910,7 +936,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeScraperLoggingConfiguration")
+        )
         input_: capo_amp.types.describe_scraper_logging_configuration_request.DescribeScraperLoggingConfigurationRequest = {
             "scraper_id": scraper_id
         }
@@ -960,7 +988,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteScraperLoggingConfiguration")
+        )
         input_: capo_amp.types.delete_scraper_logging_configuration_request.DeleteScraperLoggingConfigurationRequest = {
             "scraper_id": scraper_id
         }
@@ -1020,7 +1050,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkspace")
+        )
         input_: capo_amp.types.create_workspace_request.CreateWorkspaceRequest = {}
         if alias is not None:
             input_["alias"] = alias
@@ -1075,7 +1107,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkspace")
+        )
         input_: capo_amp.types.describe_workspace_request.DescribeWorkspaceRequest = {
             "workspace_id": workspace_id
         }
@@ -1129,7 +1163,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkspaceAlias")
+        )
         input_: capo_amp.types.update_workspace_alias_request.UpdateWorkspaceAliasRequest = {
             "workspace_id": workspace_id
         }
@@ -1185,7 +1221,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkspace")
+        )
         input_: capo_amp.types.delete_workspace_request.DeleteWorkspaceRequest = {
             "workspace_id": workspace_id
         }
@@ -1239,7 +1277,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkspaces")
+        )
         input_: capo_amp.types.list_workspaces_request.ListWorkspacesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1322,7 +1362,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAlertManagerDefinition")
+        )
         input_: capo_amp.types.create_alert_manager_definition_request.CreateAlertManagerDefinitionRequest = {
             "workspace_id": workspace_id,
             "data": data,
@@ -1374,7 +1416,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAlertManagerDefinition")
+        )
         input_: capo_amp.types.describe_alert_manager_definition_request.DescribeAlertManagerDefinitionRequest = {
             "workspace_id": workspace_id
         }
@@ -1430,7 +1474,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAlertManagerDefinition")
+        )
         input_: capo_amp.types.put_alert_manager_definition_request.PutAlertManagerDefinitionRequest = {
             "workspace_id": workspace_id,
             "data": data,
@@ -1485,7 +1531,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAlertManagerDefinition")
+        )
         input_: capo_amp.types.delete_alert_manager_definition_request.DeleteAlertManagerDefinitionRequest = {
             "workspace_id": workspace_id
         }
@@ -1561,7 +1609,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAnomalyDetector")
+        )
         input_: capo_amp.types.create_anomaly_detector_request.CreateAnomalyDetectorRequest = {
             "workspace_id": workspace_id,
             "alias": alias,
@@ -1643,7 +1693,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAnomalyDetector")
+        )
         input_: capo_amp.types.put_anomaly_detector_request.PutAnomalyDetectorRequest = {
             "workspace_id": workspace_id,
             "anomaly_detector_id": anomaly_detector_id,
@@ -1704,7 +1756,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAnomalyDetector")
+        )
         input_: capo_amp.types.describe_anomaly_detector_request.DescribeAnomalyDetectorRequest = {
             "workspace_id": workspace_id,
             "anomaly_detector_id": anomaly_detector_id,
@@ -1758,7 +1812,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAnomalyDetector")
+        )
         input_: capo_amp.types.delete_anomaly_detector_request.DeleteAnomalyDetectorRequest = {
             "workspace_id": workspace_id,
             "anomaly_detector_id": anomaly_detector_id,
@@ -1818,7 +1874,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAnomalyDetectors")
+        )
         input_: capo_amp.types.list_anomaly_detectors_request.ListAnomalyDetectorsRequest = {
             "workspace_id": workspace_id
         }
@@ -1906,7 +1964,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLoggingConfiguration")
+        )
         input_: capo_amp.types.create_logging_configuration_request.CreateLoggingConfigurationRequest = {
             "workspace_id": workspace_id,
             "log_group_arn": log_group_arn,
@@ -1957,7 +2017,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLoggingConfiguration")
+        )
         input_: capo_amp.types.describe_logging_configuration_request.DescribeLoggingConfigurationRequest = {
             "workspace_id": workspace_id
         }
@@ -2011,7 +2073,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLoggingConfiguration")
+        )
         input_: capo_amp.types.update_logging_configuration_request.UpdateLoggingConfigurationRequest = {
             "workspace_id": workspace_id,
             "log_group_arn": log_group_arn,
@@ -2065,7 +2129,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLoggingConfiguration")
+        )
         input_: capo_amp.types.delete_logging_configuration_request.DeleteLoggingConfigurationRequest = {
             "workspace_id": workspace_id
         }
@@ -2121,7 +2187,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateQueryLoggingConfiguration")
+        )
         input_: capo_amp.types.create_query_logging_configuration_request.CreateQueryLoggingConfigurationRequest = {
             "workspace_id": workspace_id,
             "destinations": destinations,
@@ -2172,7 +2240,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeQueryLoggingConfiguration")
+        )
         input_: capo_amp.types.describe_query_logging_configuration_request.DescribeQueryLoggingConfigurationRequest = {
             "workspace_id": workspace_id
         }
@@ -2226,7 +2296,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQueryLoggingConfiguration")
+        )
         input_: capo_amp.types.update_query_logging_configuration_request.UpdateQueryLoggingConfigurationRequest = {
             "workspace_id": workspace_id,
             "destinations": destinations,
@@ -2280,7 +2352,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQueryLoggingConfiguration")
+        )
         input_: capo_amp.types.delete_query_logging_configuration_request.DeleteQueryLoggingConfigurationRequest = {
             "workspace_id": workspace_id
         }
@@ -2343,7 +2417,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRuleGroupsNamespace")
+        )
         input_: capo_amp.types.create_rule_groups_namespace_request.CreateRuleGroupsNamespaceRequest = {
             "workspace_id": workspace_id,
             "name": name,
@@ -2400,7 +2476,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRuleGroupsNamespace")
+        )
         input_: capo_amp.types.describe_rule_groups_namespace_request.DescribeRuleGroupsNamespaceRequest = {
             "workspace_id": workspace_id,
             "name": name,
@@ -2459,7 +2537,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRuleGroupsNamespace")
+        )
         input_: capo_amp.types.put_rule_groups_namespace_request.PutRuleGroupsNamespaceRequest = {
             "workspace_id": workspace_id,
             "name": name,
@@ -2517,7 +2597,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRuleGroupsNamespace")
+        )
         input_: capo_amp.types.delete_rule_groups_namespace_request.DeleteRuleGroupsNamespaceRequest = {
             "workspace_id": workspace_id,
             "name": name,
@@ -2577,7 +2659,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRuleGroupsNamespaces")
+        )
         input_: capo_amp.types.list_rule_groups_namespaces_request.ListRuleGroupsNamespacesRequest = {
             "workspace_id": workspace_id
         }
@@ -2658,7 +2742,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkspaceConfiguration")
+        )
         input_: capo_amp.types.describe_workspace_configuration_request.DescribeWorkspaceConfigurationRequest = {
             "workspace_id": workspace_id
         }
@@ -2722,7 +2808,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkspaceConfiguration")
+        )
         input_: capo_amp.types.update_workspace_configuration_request.UpdateWorkspaceConfigurationRequest = {
             "workspace_id": workspace_id
         }
@@ -2792,7 +2880,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_amp.types.put_resource_policy_request.PutResourcePolicyRequest = {
             "workspace_id": workspace_id,
             "policy_document": policy_document,
@@ -2846,7 +2936,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeResourcePolicy")
+        )
         input_: capo_amp.types.describe_resource_policy_request.DescribeResourcePolicyRequest = {
             "workspace_id": workspace_id
         }
@@ -2899,7 +2991,9 @@ class AsyncampClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_amp.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {
             "workspace_id": workspace_id
         }

@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_location._auth._signers
 import capo_location._auth._sigv4
 from capo_location._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -108,7 +109,19 @@ class PlaceIndexResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.create_place_index_response.CreatePlaceIndexResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_place_index_response
+
+            return capo_location.types.create_place_index_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreatePlaceIndex", redact_output=_redact_output),
+        )
         input_: capo_location.types.create_place_index_request.CreatePlaceIndexRequest = {
             "index_name": index_name,
             "data_source": data_source,
@@ -164,7 +177,19 @@ class PlaceIndexResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.describe_place_index_response.DescribePlaceIndexResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.describe_place_index_response
+
+            return capo_location.types.describe_place_index_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribePlaceIndex", redact_output=_redact_output),
+        )
         input_: capo_location.types.describe_place_index_request.DescribePlaceIndexRequest = {
             "index_name": index_name
         }
@@ -221,7 +246,19 @@ class PlaceIndexResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.update_place_index_response.UpdatePlaceIndexResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_place_index_response
+
+            return capo_location.types.update_place_index_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdatePlaceIndex", redact_output=_redact_output),
+        )
         input_: capo_location.types.update_place_index_request.UpdatePlaceIndexRequest = {
             "index_name": index_name
         }
@@ -274,7 +311,9 @@ class PlaceIndexResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePlaceIndex")
+        )
         input_: capo_location.types.delete_place_index_request.DeletePlaceIndexRequest = {
             "index_name": index_name
         }
@@ -322,7 +361,19 @@ class PlaceIndexResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_place_indexes_response.ListPlaceIndexesResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_place_indexes_response
+
+            return capo_location.types.list_place_indexes_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListPlaceIndexes", redact_output=_redact_output),
+        )
         input_: capo_location.types.list_place_indexes_request.ListPlaceIndexesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -377,7 +428,26 @@ class PlaceIndexResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.get_place_request.GetPlaceRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_place_request
+
+            return capo_location.types.get_place_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_location.types.get_place_response.GetPlaceResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_place_response
+
+            return capo_location.types.get_place_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetPlace", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_location.types.get_place_request.GetPlaceRequest = {
             "index_name": index_name,
             "place_id": place_id,
@@ -439,7 +509,32 @@ class PlaceIndexResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.search_place_index_for_position_request.SearchPlaceIndexForPositionRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.search_place_index_for_position_request
+
+            return capo_location.types.search_place_index_for_position_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.search_place_index_for_position_response.SearchPlaceIndexForPositionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.search_place_index_for_position_response
+
+            return capo_location.types.search_place_index_for_position_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchPlaceIndexForPosition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.search_place_index_for_position_request.SearchPlaceIndexForPositionRequest = {
             "index_name": index_name,
             "position": position,
@@ -513,7 +608,32 @@ class PlaceIndexResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.search_place_index_for_suggestions_request.SearchPlaceIndexForSuggestionsRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.search_place_index_for_suggestions_request
+
+            return capo_location.types.search_place_index_for_suggestions_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.search_place_index_for_suggestions_response.SearchPlaceIndexForSuggestionsResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.search_place_index_for_suggestions_response
+
+            return capo_location.types.search_place_index_for_suggestions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchPlaceIndexForSuggestions",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.search_place_index_for_suggestions_request.SearchPlaceIndexForSuggestionsRequest = {
             "index_name": index_name,
             "text": text,
@@ -597,7 +717,32 @@ class PlaceIndexResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.search_place_index_for_text_request.SearchPlaceIndexForTextRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.search_place_index_for_text_request
+
+            return capo_location.types.search_place_index_for_text_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.search_place_index_for_text_response.SearchPlaceIndexForTextResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.search_place_index_for_text_response
+
+            return capo_location.types.search_place_index_for_text_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchPlaceIndexForText",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.search_place_index_for_text_request.SearchPlaceIndexForTextRequest = {
             "index_name": index_name,
             "text": text,
@@ -680,7 +825,19 @@ class AsyncPlaceIndexResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.create_place_index_response.CreatePlaceIndexResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_place_index_response
+
+            return capo_location.types.create_place_index_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreatePlaceIndex", redact_output=_redact_output),
+        )
         input_: capo_location.types.create_place_index_request.CreatePlaceIndexRequest = {
             "index_name": index_name,
             "data_source": data_source,
@@ -737,7 +894,19 @@ class AsyncPlaceIndexResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.describe_place_index_response.DescribePlaceIndexResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.describe_place_index_response
+
+            return capo_location.types.describe_place_index_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribePlaceIndex", redact_output=_redact_output),
+        )
         input_: capo_location.types.describe_place_index_request.DescribePlaceIndexRequest = {
             "index_name": index_name
         }
@@ -795,7 +964,19 @@ class AsyncPlaceIndexResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.update_place_index_response.UpdatePlaceIndexResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_place_index_response
+
+            return capo_location.types.update_place_index_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdatePlaceIndex", redact_output=_redact_output),
+        )
         input_: capo_location.types.update_place_index_request.UpdatePlaceIndexRequest = {
             "index_name": index_name
         }
@@ -849,7 +1030,9 @@ class AsyncPlaceIndexResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePlaceIndex")
+        )
         input_: capo_location.types.delete_place_index_request.DeletePlaceIndexRequest = {
             "index_name": index_name
         }
@@ -898,7 +1081,19 @@ class AsyncPlaceIndexResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_place_indexes_response.ListPlaceIndexesResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_place_indexes_response
+
+            return capo_location.types.list_place_indexes_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListPlaceIndexes", redact_output=_redact_output),
+        )
         input_: capo_location.types.list_place_indexes_request.ListPlaceIndexesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -954,7 +1149,26 @@ class AsyncPlaceIndexResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.get_place_request.GetPlaceRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_place_request
+
+            return capo_location.types.get_place_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_location.types.get_place_response.GetPlaceResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_place_response
+
+            return capo_location.types.get_place_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetPlace", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_location.types.get_place_request.GetPlaceRequest = {
             "index_name": index_name,
             "place_id": place_id,
@@ -1017,7 +1231,32 @@ class AsyncPlaceIndexResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.search_place_index_for_position_request.SearchPlaceIndexForPositionRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.search_place_index_for_position_request
+
+            return capo_location.types.search_place_index_for_position_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.search_place_index_for_position_response.SearchPlaceIndexForPositionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.search_place_index_for_position_response
+
+            return capo_location.types.search_place_index_for_position_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchPlaceIndexForPosition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.search_place_index_for_position_request.SearchPlaceIndexForPositionRequest = {
             "index_name": index_name,
             "position": position,
@@ -1092,7 +1331,32 @@ class AsyncPlaceIndexResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.search_place_index_for_suggestions_request.SearchPlaceIndexForSuggestionsRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.search_place_index_for_suggestions_request
+
+            return capo_location.types.search_place_index_for_suggestions_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.search_place_index_for_suggestions_response.SearchPlaceIndexForSuggestionsResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.search_place_index_for_suggestions_response
+
+            return capo_location.types.search_place_index_for_suggestions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchPlaceIndexForSuggestions",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.search_place_index_for_suggestions_request.SearchPlaceIndexForSuggestionsRequest = {
             "index_name": index_name,
             "text": text,
@@ -1177,7 +1441,32 @@ class AsyncPlaceIndexResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.search_place_index_for_text_request.SearchPlaceIndexForTextRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.search_place_index_for_text_request
+
+            return capo_location.types.search_place_index_for_text_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.search_place_index_for_text_response.SearchPlaceIndexForTextResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.search_place_index_for_text_response
+
+            return capo_location.types.search_place_index_for_text_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchPlaceIndexForText",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.search_place_index_for_text_request.SearchPlaceIndexForTextRequest = {
             "index_name": index_name,
             "text": text,

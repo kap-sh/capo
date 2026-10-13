@@ -7,6 +7,7 @@ import capo_rtbfabric._auth._sigv4
 from capo_rtbfabric._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -92,7 +93,9 @@ class RequesterGateway:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRequesterGateway")
+        )
         input_: capo_rtbfabric.types.create_requester_gateway_request.CreateRequesterGatewayRequest = {
             "vpc_id": vpc_id,
             "subnet_ids": subnet_ids,
@@ -152,7 +155,9 @@ class RequesterGateway:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRequesterGateway")
+        )
         input_: capo_rtbfabric.types.get_requester_gateway_request.GetRequesterGatewayRequest = {
             "gateway_id": gateway_id
         }
@@ -206,7 +211,9 @@ class RequesterGateway:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRequesterGateway")
+        )
         input_: capo_rtbfabric.types.delete_requester_gateway_request.DeleteRequesterGatewayRequest = {
             "gateway_id": gateway_id
         }
@@ -264,7 +271,9 @@ class RequesterGateway:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateRequesterGateway")
+        )
         input_: capo_rtbfabric.types.update_requester_gateway_request.UpdateRequesterGatewayRequest = {
             "client_token": client_token,
             "gateway_id": gateway_id,
@@ -337,7 +346,9 @@ class AsyncRequesterGateway:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRequesterGateway")
+        )
         input_: capo_rtbfabric.types.create_requester_gateway_request.CreateRequesterGatewayRequest = {
             "vpc_id": vpc_id,
             "subnet_ids": subnet_ids,
@@ -398,7 +409,9 @@ class AsyncRequesterGateway:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRequesterGateway")
+        )
         input_: capo_rtbfabric.types.get_requester_gateway_request.GetRequesterGatewayRequest = {
             "gateway_id": gateway_id
         }
@@ -453,7 +466,9 @@ class AsyncRequesterGateway:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRequesterGateway")
+        )
         input_: capo_rtbfabric.types.delete_requester_gateway_request.DeleteRequesterGatewayRequest = {
             "gateway_id": gateway_id
         }
@@ -512,7 +527,9 @@ class AsyncRequesterGateway:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateRequesterGateway")
+        )
         input_: capo_rtbfabric.types.update_requester_gateway_request.UpdateRequesterGatewayRequest = {
             "client_token": client_token,
             "gateway_id": gateway_id,

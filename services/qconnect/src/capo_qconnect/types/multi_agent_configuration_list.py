@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#MultiAgentConfigurationList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_qconnect.types.multi_agent_configuration
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> MultiAgentConfigurationList:
             continue
         out.append(capo_qconnect.types.multi_agent_configuration.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: MultiAgentConfigurationList) -> list[Any]:
+    import capo_qconnect.types.multi_agent_configuration
+
+    return [
+        capo_qconnect.types.multi_agent_configuration.redact_sensitive(item)
+        for item in value
+    ]

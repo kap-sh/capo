@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectparticipant#ViewActions``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_connectparticipant.types.view_action
@@ -15,3 +15,7 @@ def serialize_json(value: ViewActions) -> list:
 
 def deserialize_json(data: list) -> ViewActions:
     return [item for item in data if item is not None]
+
+
+def redact_sensitive(value: ViewActions) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

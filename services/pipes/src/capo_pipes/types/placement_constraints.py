@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#PlacementConstraints``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_pipes.types.placement_constraint
@@ -29,3 +29,11 @@ def deserialize_json(data: list) -> PlacementConstraints:
             continue
         out.append(capo_pipes.types.placement_constraint.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: PlacementConstraints) -> list[Any]:
+    import capo_pipes.types.placement_constraint
+
+    return [
+        capo_pipes.types.placement_constraint.redact_sensitive(item) for item in value
+    ]

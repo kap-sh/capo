@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_sagemaker_geospatial._auth._signers
 import capo_sagemaker_geospatial._auth._sigv4
 from capo_sagemaker_geospatial._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -99,7 +100,9 @@ class VectorEnrichmentJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartVectorEnrichmentJob")
+        )
         input_: capo_sagemaker_geospatial.types.start_vector_enrichment_job_input.StartVectorEnrichmentJobInput = {
             "name": name,
             "input_config": input_config,
@@ -156,7 +159,9 @@ class VectorEnrichmentJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetVectorEnrichmentJob")
+        )
         input_: capo_sagemaker_geospatial.types.get_vector_enrichment_job_input.GetVectorEnrichmentJobInput = {
             "arn": arn
         }
@@ -204,7 +209,9 @@ class VectorEnrichmentJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteVectorEnrichmentJob")
+        )
         input_: capo_sagemaker_geospatial.types.delete_vector_enrichment_job_input.DeleteVectorEnrichmentJobInput = {
             "arn": arn
         }
@@ -263,7 +270,32 @@ class VectorEnrichmentJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker_geospatial.types.list_vector_enrichment_job_input.ListVectorEnrichmentJobInput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.list_vector_enrichment_job_input
+
+            return capo_sagemaker_geospatial.types.list_vector_enrichment_job_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemaker_geospatial.types.list_vector_enrichment_job_output.ListVectorEnrichmentJobOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.list_vector_enrichment_job_output
+
+            return capo_sagemaker_geospatial.types.list_vector_enrichment_job_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListVectorEnrichmentJobs",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sagemaker_geospatial.types.list_vector_enrichment_job_input.ListVectorEnrichmentJobInput = {}
         if status_equals is not None:
             input_["status_equals"] = status_equals
@@ -326,7 +358,9 @@ class VectorEnrichmentJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ExportVectorEnrichmentJob")
+        )
         input_: capo_sagemaker_geospatial.types.export_vector_enrichment_job_input.ExportVectorEnrichmentJobInput = {
             "arn": arn,
             "execution_role_arn": execution_role_arn,
@@ -379,7 +413,9 @@ class VectorEnrichmentJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopVectorEnrichmentJob")
+        )
         input_: capo_sagemaker_geospatial.types.stop_vector_enrichment_job_input.StopVectorEnrichmentJobInput = {
             "arn": arn
         }
@@ -446,7 +482,9 @@ class AsyncVectorEnrichmentJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartVectorEnrichmentJob")
+        )
         input_: capo_sagemaker_geospatial.types.start_vector_enrichment_job_input.StartVectorEnrichmentJobInput = {
             "name": name,
             "input_config": input_config,
@@ -504,7 +542,9 @@ class AsyncVectorEnrichmentJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetVectorEnrichmentJob")
+        )
         input_: capo_sagemaker_geospatial.types.get_vector_enrichment_job_input.GetVectorEnrichmentJobInput = {
             "arn": arn
         }
@@ -553,7 +593,9 @@ class AsyncVectorEnrichmentJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteVectorEnrichmentJob")
+        )
         input_: capo_sagemaker_geospatial.types.delete_vector_enrichment_job_input.DeleteVectorEnrichmentJobInput = {
             "arn": arn
         }
@@ -613,7 +655,32 @@ class AsyncVectorEnrichmentJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker_geospatial.types.list_vector_enrichment_job_input.ListVectorEnrichmentJobInput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.list_vector_enrichment_job_input
+
+            return capo_sagemaker_geospatial.types.list_vector_enrichment_job_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemaker_geospatial.types.list_vector_enrichment_job_output.ListVectorEnrichmentJobOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.list_vector_enrichment_job_output
+
+            return capo_sagemaker_geospatial.types.list_vector_enrichment_job_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListVectorEnrichmentJobs",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sagemaker_geospatial.types.list_vector_enrichment_job_input.ListVectorEnrichmentJobInput = {}
         if status_equals is not None:
             input_["status_equals"] = status_equals
@@ -677,7 +744,9 @@ class AsyncVectorEnrichmentJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ExportVectorEnrichmentJob")
+        )
         input_: capo_sagemaker_geospatial.types.export_vector_enrichment_job_input.ExportVectorEnrichmentJobInput = {
             "arn": arn,
             "execution_role_arn": execution_role_arn,
@@ -731,7 +800,9 @@ class AsyncVectorEnrichmentJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopVectorEnrichmentJob")
+        )
         input_: capo_sagemaker_geospatial.types.stop_vector_enrichment_job_input.StopVectorEnrichmentJobInput = {
             "arn": arn
         }

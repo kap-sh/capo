@@ -22,10 +22,12 @@ from capo_batch._pagination import resolve_path as _resolve_path
 from capo_batch._services._aws_config import aws_config
 from capo_batch._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -266,7 +268,9 @@ class BatchClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[BatchClientConfig] = None
+        self,
+        config_overrides: Optional[BatchClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: BatchClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -274,8 +278,10 @@ class BatchClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -333,7 +339,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelJob")
+        )
         input_: capo_batch.types.cancel_job_request.CancelJobRequest = {}
         if job_id is not None:
             input_["job_id"] = job_id
@@ -387,7 +395,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelJobs")
+        )
         input_: capo_batch.types.cancel_jobs_request.CancelJobsRequest = {}
         if jobs is not None:
             input_["jobs"] = jobs
@@ -477,7 +487,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateComputeEnvironment")
+        )
         input_: capo_batch.types.create_compute_environment_request.CreateComputeEnvironmentRequest = {}
         if compute_environment_name is not None:
             input_["compute_environment_name"] = compute_environment_name
@@ -551,7 +563,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConsumableResource")
+        )
         input_: capo_batch.types.create_consumable_resource_request.CreateConsumableResourceRequest = {}
         if consumable_resource_name is not None:
             input_["consumable_resource_name"] = consumable_resource_name
@@ -641,7 +655,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateJobQueue")
+        )
         input_: capo_batch.types.create_job_queue_request.CreateJobQueueRequest = {}
         if job_queue_name is not None:
             input_["job_queue_name"] = job_queue_name
@@ -719,7 +735,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateQuotaShare")
+        )
         input_: capo_batch.types.create_quota_share_request.CreateQuotaShareRequest = {}
         if quota_share_name is not None:
             input_["quota_share_name"] = quota_share_name
@@ -785,7 +803,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSchedulingPolicy")
+        )
         input_: capo_batch.types.create_scheduling_policy_request.CreateSchedulingPolicyRequest = {}
         if name is not None:
             input_["name"] = name
@@ -849,7 +869,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateServiceEnvironment")
+        )
         input_: capo_batch.types.create_service_environment_request.CreateServiceEnvironmentRequest = {}
         if service_environment_name is not None:
             input_["service_environment_name"] = service_environment_name
@@ -907,7 +929,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteComputeEnvironment")
+        )
         input_: capo_batch.types.delete_compute_environment_request.DeleteComputeEnvironmentRequest = {}
         if compute_environment is not None:
             input_["compute_environment"] = compute_environment
@@ -957,7 +981,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConsumableResource")
+        )
         input_: capo_batch.types.delete_consumable_resource_request.DeleteConsumableResourceRequest = {}
         if consumable_resource is not None:
             input_["consumable_resource"] = consumable_resource
@@ -1007,7 +1033,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteJobQueue")
+        )
         input_: capo_batch.types.delete_job_queue_request.DeleteJobQueueRequest = {}
         if job_queue is not None:
             input_["job_queue"] = job_queue
@@ -1051,7 +1079,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQuotaShare")
+        )
         input_: capo_batch.types.delete_quota_share_request.DeleteQuotaShareRequest = {}
         if quota_share_arn is not None:
             input_["quota_share_arn"] = quota_share_arn
@@ -1095,7 +1125,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSchedulingPolicy")
+        )
         input_: capo_batch.types.delete_scheduling_policy_request.DeleteSchedulingPolicyRequest = {}
         if arn is not None:
             input_["arn"] = arn
@@ -1139,7 +1171,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteServiceEnvironment")
+        )
         input_: capo_batch.types.delete_service_environment_request.DeleteServiceEnvironmentRequest = {}
         if service_environment is not None:
             input_["service_environment"] = service_environment
@@ -1189,7 +1223,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterJobDefinition")
+        )
         input_: capo_batch.types.deregister_job_definition_request.DeregisterJobDefinitionRequest = {}
         if job_definition is not None:
             input_["job_definition"] = job_definition
@@ -1245,7 +1281,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeComputeEnvironments")
+        )
         input_: capo_batch.types.describe_compute_environments_request.DescribeComputeEnvironmentsRequest = {}
         if compute_environments is not None:
             input_["compute_environments"] = compute_environments
@@ -1326,7 +1364,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConsumableResource")
+        )
         input_: capo_batch.types.describe_consumable_resource_request.DescribeConsumableResourceRequest = {}
         if consumable_resource is not None:
             input_["consumable_resource"] = consumable_resource
@@ -1384,7 +1424,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeJobDefinitions")
+        )
         input_: capo_batch.types.describe_job_definitions_request.DescribeJobDefinitionsRequest = {}
         if job_definitions is not None:
             input_["job_definitions"] = job_definitions
@@ -1473,7 +1515,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeJobQueues")
+        )
         input_: capo_batch.types.describe_job_queues_request.DescribeJobQueuesRequest = {}
         if job_queues is not None:
             input_["job_queues"] = job_queues
@@ -1550,7 +1594,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeJobs")
+        )
         input_: capo_batch.types.describe_jobs_request.DescribeJobsRequest = {}
         if jobs is not None:
             input_["jobs"] = jobs
@@ -1594,7 +1640,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeQuotaShare")
+        )
         input_: capo_batch.types.describe_quota_share_request.DescribeQuotaShareRequest = {}
         if quota_share_arn is not None:
             input_["quota_share_arn"] = quota_share_arn
@@ -1638,7 +1686,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSchedulingPolicies")
+        )
         input_: capo_batch.types.describe_scheduling_policies_request.DescribeSchedulingPoliciesRequest = {}
         if arns is not None:
             input_["arns"] = arns
@@ -1688,7 +1738,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeServiceEnvironments")
+        )
         input_: capo_batch.types.describe_service_environments_request.DescribeServiceEnvironmentsRequest = {}
         if service_environments is not None:
             input_["service_environments"] = service_environments
@@ -1763,7 +1815,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeServiceJob")
+        )
         input_: capo_batch.types.describe_service_job_request.DescribeServiceJobRequest = {}
         if job_id is not None:
             input_["job_id"] = job_id
@@ -1807,7 +1861,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJobQueueSnapshot")
+        )
         input_: capo_batch.types.get_job_queue_snapshot_request.GetJobQueueSnapshotRequest = {}
         if job_queue is not None:
             input_["job_queue"] = job_queue
@@ -1863,7 +1919,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConsumableResources")
+        )
         input_: capo_batch.types.list_consumable_resources_request.ListConsumableResourcesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1958,7 +2016,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobs")
+        )
         input_: capo_batch.types.list_jobs_request.ListJobsRequest = {}
         if job_queue is not None:
             input_["job_queue"] = job_queue
@@ -2061,7 +2121,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobsByConsumableResource")
+        )
         input_: capo_batch.types.list_jobs_by_consumable_resource_request.ListJobsByConsumableResourceRequest = {}
         if consumable_resource is not None:
             input_["consumable_resource"] = consumable_resource
@@ -2142,7 +2204,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQuotaShares")
+        )
         input_: capo_batch.types.list_quota_shares_request.ListQuotaSharesRequest = {}
         if job_queue is not None:
             input_["job_queue"] = job_queue
@@ -2215,7 +2279,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSchedulingPolicies")
+        )
         input_: capo_batch.types.list_scheduling_policies_request.ListSchedulingPoliciesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2294,7 +2360,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceJobs")
+        )
         input_: capo_batch.types.list_service_jobs_request.ListServiceJobsRequest = {}
         if job_queue is not None:
             input_["job_queue"] = job_queue
@@ -2383,7 +2451,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_batch.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2489,7 +2559,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterJobDefinition")
+        )
         input_: capo_batch.types.register_job_definition_request.RegisterJobDefinitionRequest = {}
         if job_definition_name is not None:
             input_["job_definition_name"] = job_definition_name
@@ -2615,7 +2687,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SubmitJob")
+        )
         input_: capo_batch.types.submit_job_request.SubmitJobRequest = {}
         if job_name is not None:
             input_["job_name"] = job_name
@@ -2725,7 +2799,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SubmitServiceJob")
+        )
         input_: capo_batch.types.submit_service_job_request.SubmitServiceJobRequest = {}
         if job_name is not None:
             input_["job_name"] = job_name
@@ -2800,7 +2876,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_batch.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2854,7 +2932,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TerminateJob")
+        )
         input_: capo_batch.types.terminate_job_request.TerminateJobRequest = {}
         if job_id is not None:
             input_["job_id"] = job_id
@@ -2908,7 +2988,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TerminateJobs")
+        )
         input_: capo_batch.types.terminate_jobs_request.TerminateJobsRequest = {}
         if jobs is not None:
             input_["jobs"] = jobs
@@ -2956,7 +3038,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TerminateServiceJob")
+        )
         input_: capo_batch.types.terminate_service_job_request.TerminateServiceJobRequest = {}
         if job_id is not None:
             input_["job_id"] = job_id
@@ -3012,7 +3096,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TerminateServiceJobs")
+        )
         input_: capo_batch.types.terminate_service_jobs_request.TerminateServiceJobsRequest = {}
         if jobs is not None:
             input_["jobs"] = jobs
@@ -3066,7 +3152,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_batch.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3138,7 +3226,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateComputeEnvironment")
+        )
         input_: capo_batch.types.update_compute_environment_request.UpdateComputeEnvironmentRequest = {}
         if compute_environment is not None:
             input_["compute_environment"] = compute_environment
@@ -3212,7 +3302,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConsumableResource")
+        )
         input_: capo_batch.types.update_consumable_resource_request.UpdateConsumableResourceRequest = {}
         if consumable_resource is not None:
             input_["consumable_resource"] = consumable_resource
@@ -3287,7 +3379,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateJobQueue")
+        )
         input_: capo_batch.types.update_job_queue_request.UpdateJobQueueRequest = {}
         if job_queue is not None:
             input_["job_queue"] = job_queue
@@ -3357,7 +3451,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQuotaShare")
+        )
         input_: capo_batch.types.update_quota_share_request.UpdateQuotaShareRequest = {}
         if quota_share_arn is not None:
             input_["quota_share_arn"] = quota_share_arn
@@ -3417,7 +3513,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSchedulingPolicy")
+        )
         input_: capo_batch.types.update_scheduling_policy_request.UpdateSchedulingPolicyRequest = {}
         if arn is not None:
             input_["arn"] = arn
@@ -3473,7 +3571,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateServiceEnvironment")
+        )
         input_: capo_batch.types.update_service_environment_request.UpdateServiceEnvironmentRequest = {}
         if service_environment is not None:
             input_["service_environment"] = service_environment
@@ -3523,7 +3623,9 @@ class BatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateServiceJob")
+        )
         input_: capo_batch.types.update_service_job_request.UpdateServiceJobRequest = {}
         if job_id is not None:
             input_["job_id"] = job_id

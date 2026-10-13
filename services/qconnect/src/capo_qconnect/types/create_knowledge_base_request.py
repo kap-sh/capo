@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#CreateKnowledgeBaseRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -147,4 +147,17 @@ def deserialize_json(data: dict) -> CreateKnowledgeBaseRequest:
         import capo_qconnect.types.tags
 
         out["tags"] = capo_qconnect.types.tags.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: CreateKnowledgeBaseRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "source_configuration" in value:
+        import capo_qconnect.types.source_configuration
+
+        out["source_configuration"] = (
+            capo_qconnect.types.source_configuration.redact_sensitive(
+                value["source_configuration"]
+            )
+        )
     return out

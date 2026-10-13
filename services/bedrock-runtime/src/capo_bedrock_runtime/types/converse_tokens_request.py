@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#ConverseTokensRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,4 +79,23 @@ def deserialize_json(data: dict) -> ConverseTokensRequest:
         )
     if data.get("additionalModelRequestFields") is not None:
         out["additional_model_request_fields"] = data["additionalModelRequestFields"]
+    return out
+
+
+def redact_sensitive(value: ConverseTokensRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "messages" in value:
+        import capo_bedrock_runtime.types.messages
+
+        out["messages"] = capo_bedrock_runtime.types.messages.redact_sensitive(
+            value["messages"]
+        )
+    if "system" in value:
+        import capo_bedrock_runtime.types.system_content_blocks
+
+        out["system"] = (
+            capo_bedrock_runtime.types.system_content_blocks.redact_sensitive(
+                value["system"]
+            )
+        )
     return out

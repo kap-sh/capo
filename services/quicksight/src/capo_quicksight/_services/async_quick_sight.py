@@ -26,7 +26,9 @@ from capo_quicksight._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -987,7 +989,9 @@ class AsyncQuickSightClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncQuickSightClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncQuickSightClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncQuickSightClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -995,8 +999,10 @@ class AsyncQuickSightClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -1054,7 +1060,21 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.batch_create_topic_reviewed_answer_request.BatchCreateTopicReviewedAnswerRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.batch_create_topic_reviewed_answer_request
+
+            return capo_quicksight.types.batch_create_topic_reviewed_answer_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchCreateTopicReviewedAnswer", redact_input=_redact_input
+            ),
+        )
         input_: capo_quicksight.types.batch_create_topic_reviewed_answer_request.BatchCreateTopicReviewedAnswerRequest = {
             "aws_account_id": aws_account_id,
             "topic_id": topic_id,
@@ -1108,7 +1128,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteKnowledgeBase")
+        )
         input_: capo_quicksight.types.batch_delete_knowledge_base_request.BatchDeleteKnowledgeBaseRequest = {
             "aws_account_id": aws_account_id,
             "knowledge_base_ids": knowledge_base_ids,
@@ -1162,7 +1184,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteTopicReviewedAnswer")
+        )
         input_: capo_quicksight.types.batch_delete_topic_reviewed_answer_request.BatchDeleteTopicReviewedAnswerRequest = {
             "aws_account_id": aws_account_id,
             "topic_id": topic_id,
@@ -1220,7 +1244,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDescribeUserLimits")
+        )
         input_: capo_quicksight.types.batch_describe_user_limits_request.BatchDescribeUserLimitsRequest = {
             "account_id": account_id
         }
@@ -1277,7 +1303,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelIngestion")
+        )
         input_: capo_quicksight.types.cancel_ingestion_request.CancelIngestionRequest = {
             "aws_account_id": aws_account_id,
             "data_set_id": data_set_id,
@@ -1336,7 +1364,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccountCustomization")
+        )
         input_: capo_quicksight.types.create_account_customization_request.CreateAccountCustomizationRequest = {
             "aws_account_id": aws_account_id,
             "account_customization": account_customization,
@@ -1437,7 +1467,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccountSubscription")
+        )
         input_: capo_quicksight.types.create_account_subscription_request.CreateAccountSubscriptionRequest = {
             "authentication_method": authentication_method,
             "aws_account_id": aws_account_id,
@@ -1541,7 +1573,21 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.create_action_connector_request.CreateActionConnectorRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.create_action_connector_request
+
+            return (
+                capo_quicksight.types.create_action_connector_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateActionConnector", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.create_action_connector_request.CreateActionConnectorRequest = {
             "aws_account_id": aws_account_id,
             "action_connector_id": action_connector_id,
@@ -1638,7 +1684,17 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.create_agent_request.CreateAgentRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.create_agent_request
+
+            return capo_quicksight.types.create_agent_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateAgent", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.create_agent_request.CreateAgentRequest = {
             "aws_account_id": aws_account_id,
             "agent_id": agent_id,
@@ -1737,7 +1793,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.create_analysis_request.CreateAnalysisRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.create_analysis_request
+
+            return capo_quicksight.types.create_analysis_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateAnalysis", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.create_analysis_request.CreateAnalysisRequest = {
             "aws_account_id": aws_account_id,
             "analysis_id": analysis_id,
@@ -1819,7 +1887,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApprovalPolicy")
+        )
         input_: capo_quicksight.types.create_approval_policy_request.CreateApprovalPolicyRequest = {
             "policy_id": policy_id,
             "name": name,
@@ -1883,7 +1953,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBrand")
+        )
         input_: capo_quicksight.types.create_brand_request.CreateBrandRequest = {
             "aws_account_id": aws_account_id,
             "brand_id": brand_id,
@@ -1951,7 +2023,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCustomPermissions")
+        )
         input_: capo_quicksight.types.create_custom_permissions_request.CreateCustomPermissionsRequest = {
             "aws_account_id": aws_account_id,
             "custom_permissions_name": custom_permissions_name,
@@ -2055,7 +2129,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.create_dashboard_request.CreateDashboardRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.create_dashboard_request
+
+            return capo_quicksight.types.create_dashboard_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDashboard", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.create_dashboard_request.CreateDashboardRequest = {
             "aws_account_id": aws_account_id,
             "dashboard_id": dashboard_id,
@@ -2197,7 +2283,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.create_data_set_request.CreateDataSetRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.create_data_set_request
+
+            return capo_quicksight.types.create_data_set_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDataSet", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.create_data_set_request.CreateDataSetRequest = {
             "aws_account_id": aws_account_id,
             "data_set_id": data_set_id,
@@ -2317,7 +2415,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.create_data_source_request.CreateDataSourceRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.create_data_source_request
+
+            return capo_quicksight.types.create_data_source_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDataSource", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.create_data_source_request.CreateDataSourceRequest = {
             "aws_account_id": aws_account_id,
             "data_source_id": data_source_id,
@@ -2398,7 +2508,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDlpSetting")
+        )
         input_: capo_quicksight.types.create_dlp_setting_request.CreateDlpSettingRequest = {
             "aws_account_id": aws_account_id,
             "dlp_setting_id": dlp_setting_id,
@@ -2473,7 +2585,16 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.create_flow_request.CreateFlowRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.create_flow_request
+
+            return capo_quicksight.types.create_flow_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFlow", redact_input=_redact_input)
+        )
         input_: capo_quicksight.types.create_flow_request.CreateFlowRequest = {
             "aws_account_id": aws_account_id,
             "name": name,
@@ -2552,7 +2673,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFolder")
+        )
         input_: capo_quicksight.types.create_folder_request.CreateFolderRequest = {
             "aws_account_id": aws_account_id,
             "folder_id": folder_id,
@@ -2622,7 +2745,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFolderMembership")
+        )
         input_: capo_quicksight.types.create_folder_membership_request.CreateFolderMembershipRequest = {
             "aws_account_id": aws_account_id,
             "folder_id": folder_id,
@@ -2685,7 +2810,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGroup")
+        )
         input_: capo_quicksight.types.create_group_request.CreateGroupRequest = {
             "group_name": group_name,
             "aws_account_id": aws_account_id,
@@ -2745,7 +2872,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGroupMembership")
+        )
         input_: capo_quicksight.types.create_group_membership_request.CreateGroupMembershipRequest = {
             "member_name": member_name,
             "group_name": group_name,
@@ -2808,7 +2937,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIAMPolicyAssignment")
+        )
         input_: capo_quicksight.types.create_iam_policy_assignment_request.CreateIAMPolicyAssignmentRequest = {
             "aws_account_id": aws_account_id,
             "assignment_name": assignment_name,
@@ -2873,7 +3004,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIngestion")
+        )
         input_: capo_quicksight.types.create_ingestion_request.CreateIngestionRequest = {
             "data_set_id": data_set_id,
             "ingestion_id": ingestion_id,
@@ -2955,7 +3088,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.create_knowledge_base_request.CreateKnowledgeBaseRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.create_knowledge_base_request
+
+            return capo_quicksight.types.create_knowledge_base_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateKnowledgeBase", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.create_knowledge_base_request.CreateKnowledgeBaseRequest = {
             "aws_account_id": aws_account_id,
             "knowledge_base_id": knowledge_base_id,
@@ -3030,7 +3175,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLimitsProfile")
+        )
         input_: capo_quicksight.types.create_limits_profile_request.CreateLimitsProfileRequest = {
             "account_id": account_id,
             "profile_name": profile_name,
@@ -3094,7 +3241,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateNamespace")
+        )
         input_: capo_quicksight.types.create_namespace_request.CreateNamespaceRequest = {
             "aws_account_id": aws_account_id,
             "namespace": namespace,
@@ -3178,7 +3327,21 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.create_o_auth_client_application_request.CreateOAuthClientApplicationRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.create_o_auth_client_application_request
+
+            return capo_quicksight.types.create_o_auth_client_application_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateOAuthClientApplication", redact_input=_redact_input
+            ),
+        )
         input_: capo_quicksight.types.create_o_auth_client_application_request.CreateOAuthClientApplicationRequest = {
             "aws_account_id": aws_account_id,
             "o_auth_client_application_id": o_auth_client_application_id,
@@ -3253,7 +3416,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRefreshSchedule")
+        )
         input_: capo_quicksight.types.create_refresh_schedule_request.CreateRefreshScheduleRequest = {
             "data_set_id": data_set_id,
             "aws_account_id": aws_account_id,
@@ -3311,7 +3476,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRoleMembership")
+        )
         input_: capo_quicksight.types.create_role_membership_request.CreateRoleMembershipRequest = {
             "member_name": member_name,
             "aws_account_id": aws_account_id,
@@ -3372,7 +3539,17 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.create_space_request.CreateSpaceRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.create_space_request
+
+            return capo_quicksight.types.create_space_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateSpace", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.create_space_request.CreateSpaceRequest = {
             "aws_account_id": aws_account_id,
             "space_id": space_id,
@@ -3454,7 +3631,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.create_template_request.CreateTemplateRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.create_template_request
+
+            return capo_quicksight.types.create_template_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateTemplate", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.create_template_request.CreateTemplateRequest = {
             "aws_account_id": aws_account_id,
             "template_id": template_id,
@@ -3525,7 +3714,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTemplateAlias")
+        )
         input_: capo_quicksight.types.create_template_alias_request.CreateTemplateAliasRequest = {
             "aws_account_id": aws_account_id,
             "template_id": template_id,
@@ -3597,7 +3788,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTheme")
+        )
         input_: capo_quicksight.types.create_theme_request.CreateThemeRequest = {
             "aws_account_id": aws_account_id,
             "theme_id": theme_id,
@@ -3664,7 +3857,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateThemeAlias")
+        )
         input_: capo_quicksight.types.create_theme_alias_request.CreateThemeAliasRequest = {
             "aws_account_id": aws_account_id,
             "theme_id": theme_id,
@@ -3732,7 +3927,17 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.create_topic_request.CreateTopicRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.create_topic_request
+
+            return capo_quicksight.types.create_topic_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateTopic", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.create_topic_request.CreateTopicRequest = {
             "aws_account_id": aws_account_id,
             "topic_id": topic_id,
@@ -3799,7 +4004,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTopicRefreshSchedule")
+        )
         input_: capo_quicksight.types.create_topic_refresh_schedule_request.CreateTopicRefreshScheduleRequest = {
             "aws_account_id": aws_account_id,
             "topic_id": topic_id,
@@ -3868,7 +4075,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.create_topic_v2_request.CreateTopicV2Request",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.create_topic_v2_request
+
+            return capo_quicksight.types.create_topic_v2_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateTopicV2", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.create_topic_v2_request.CreateTopicV2Request = {
             "aws_account_id": aws_account_id,
             "topic_id": topic_id,
@@ -3943,7 +4162,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVPCConnection")
+        )
         input_: capo_quicksight.types.create_vpc_connection_request.CreateVPCConnectionRequest = {
             "aws_account_id": aws_account_id,
             "vpc_connection_id": vpc_connection_id,
@@ -4006,7 +4227,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccountCustomization")
+        )
         input_: capo_quicksight.types.delete_account_customization_request.DeleteAccountCustomizationRequest = {
             "aws_account_id": aws_account_id
         }
@@ -4056,7 +4279,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccountCustomPermission")
+        )
         input_: capo_quicksight.types.delete_account_custom_permission_request.DeleteAccountCustomPermissionRequest = {
             "aws_account_id": aws_account_id
         }
@@ -4106,7 +4331,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccountSubscription")
+        )
         input_: capo_quicksight.types.delete_account_subscription_request.DeleteAccountSubscriptionRequest = {
             "aws_account_id": aws_account_id
         }
@@ -4156,7 +4383,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteActionConnector")
+        )
         input_: capo_quicksight.types.delete_action_connector_request.DeleteActionConnectorRequest = {
             "aws_account_id": aws_account_id,
             "action_connector_id": action_connector_id,
@@ -4208,7 +4437,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAgent")
+        )
         input_: capo_quicksight.types.delete_agent_request.DeleteAgentRequest = {
             "agent_id": agent_id,
             "aws_account_id": aws_account_id,
@@ -4268,7 +4499,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAnalysis")
+        )
         input_: capo_quicksight.types.delete_analysis_request.DeleteAnalysisRequest = {
             "aws_account_id": aws_account_id,
             "analysis_id": analysis_id,
@@ -4323,7 +4556,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApp")
+        )
         input_: capo_quicksight.types.delete_app_request.DeleteAppRequest = {
             "aws_account_id": aws_account_id,
             "app_id": app_id,
@@ -4372,7 +4607,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApprovalPolicy")
+        )
         input_: capo_quicksight.types.delete_approval_policy_request.DeleteApprovalPolicyRequest = {
             "policy_id": policy_id
         }
@@ -4423,7 +4660,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBrand")
+        )
         input_: capo_quicksight.types.delete_brand_request.DeleteBrandRequest = {
             "aws_account_id": aws_account_id,
             "brand_id": brand_id,
@@ -4473,7 +4712,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBrandAssignment")
+        )
         input_: capo_quicksight.types.delete_brand_assignment_request.DeleteBrandAssignmentRequest = {
             "aws_account_id": aws_account_id
         }
@@ -4527,7 +4768,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCustomPermissions")
+        )
         input_: capo_quicksight.types.delete_custom_permissions_request.DeleteCustomPermissionsRequest = {
             "aws_account_id": aws_account_id,
             "custom_permissions_name": custom_permissions_name,
@@ -4583,7 +4826,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDashboard")
+        )
         input_: capo_quicksight.types.delete_dashboard_request.DeleteDashboardRequest = {
             "aws_account_id": aws_account_id,
             "dashboard_id": dashboard_id,
@@ -4636,7 +4881,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataSet")
+        )
         input_: capo_quicksight.types.delete_data_set_request.DeleteDataSetRequest = {
             "aws_account_id": aws_account_id,
             "data_set_id": data_set_id,
@@ -4689,7 +4936,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataSetRefreshProperties")
+        )
         input_: capo_quicksight.types.delete_data_set_refresh_properties_request.DeleteDataSetRefreshPropertiesRequest = {
             "aws_account_id": aws_account_id,
             "data_set_id": data_set_id,
@@ -4740,7 +4989,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataSource")
+        )
         input_: capo_quicksight.types.delete_data_source_request.DeleteDataSourceRequest = {
             "aws_account_id": aws_account_id,
             "data_source_id": data_source_id,
@@ -4791,7 +5042,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDefaultQBusinessApplication")
+        )
         input_: capo_quicksight.types.delete_default_q_business_application_request.DeleteDefaultQBusinessApplicationRequest = {
             "aws_account_id": aws_account_id
         }
@@ -4843,7 +5096,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDlpSetting")
+        )
         input_: capo_quicksight.types.delete_dlp_setting_request.DeleteDlpSettingRequest = {
             "aws_account_id": aws_account_id,
             "dlp_setting_id": dlp_setting_id,
@@ -4895,7 +5150,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFlow")
+        )
         input_: capo_quicksight.types.delete_flow_request.DeleteFlowRequest = {
             "aws_account_id": aws_account_id,
             "flow_id": flow_id,
@@ -4949,7 +5206,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFolder")
+        )
         input_: capo_quicksight.types.delete_folder_request.DeleteFolderRequest = {
             "aws_account_id": aws_account_id,
             "folder_id": folder_id,
@@ -5005,7 +5264,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFolderMembership")
+        )
         input_: capo_quicksight.types.delete_folder_membership_request.DeleteFolderMembershipRequest = {
             "aws_account_id": aws_account_id,
             "folder_id": folder_id,
@@ -5062,7 +5323,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGroup")
+        )
         input_: capo_quicksight.types.delete_group_request.DeleteGroupRequest = {
             "group_name": group_name,
             "aws_account_id": aws_account_id,
@@ -5120,7 +5383,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGroupMembership")
+        )
         input_: capo_quicksight.types.delete_group_membership_request.DeleteGroupMembershipRequest = {
             "member_name": member_name,
             "group_name": group_name,
@@ -5177,7 +5442,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIAMPolicyAssignment")
+        )
         input_: capo_quicksight.types.delete_iam_policy_assignment_request.DeleteIAMPolicyAssignmentRequest = {
             "aws_account_id": aws_account_id,
             "assignment_name": assignment_name,
@@ -5229,7 +5496,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIdentityPropagationConfig")
+        )
         input_: capo_quicksight.types.delete_identity_propagation_config_request.DeleteIdentityPropagationConfigRequest = {
             "aws_account_id": aws_account_id,
             "service": service,
@@ -5284,7 +5553,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteKnowledgeBase")
+        )
         input_: capo_quicksight.types.delete_knowledge_base_request.DeleteKnowledgeBaseRequest = {
             "aws_account_id": aws_account_id,
             "knowledge_base_id": knowledge_base_id,
@@ -5336,7 +5607,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLimitsProfile")
+        )
         input_: capo_quicksight.types.delete_limits_profile_request.DeleteLimitsProfileRequest = {
             "profile_id": profile_id,
             "account_id": account_id,
@@ -5389,7 +5662,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNamespace")
+        )
         input_: capo_quicksight.types.delete_namespace_request.DeleteNamespaceRequest = {
             "aws_account_id": aws_account_id,
             "namespace": namespace,
@@ -5441,7 +5716,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOAuthClientApplication")
+        )
         input_: capo_quicksight.types.delete_o_auth_client_application_request.DeleteOAuthClientApplicationRequest = {
             "aws_account_id": aws_account_id,
             "o_auth_client_application_id": o_auth_client_application_id,
@@ -5495,7 +5772,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRefreshSchedule")
+        )
         input_: capo_quicksight.types.delete_refresh_schedule_request.DeleteRefreshScheduleRequest = {
             "data_set_id": data_set_id,
             "aws_account_id": aws_account_id,
@@ -5551,7 +5830,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRoleCustomPermission")
+        )
         input_: capo_quicksight.types.delete_role_custom_permission_request.DeleteRoleCustomPermissionRequest = {
             "role": role,
             "aws_account_id": aws_account_id,
@@ -5609,7 +5890,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRoleMembership")
+        )
         input_: capo_quicksight.types.delete_role_membership_request.DeleteRoleMembershipRequest = {
             "member_name": member_name,
             "role": role,
@@ -5662,7 +5945,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSpace")
+        )
         input_: capo_quicksight.types.delete_space_request.DeleteSpaceRequest = {
             "aws_account_id": aws_account_id,
             "space_id": space_id,
@@ -5719,7 +6004,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTemplate")
+        )
         input_: capo_quicksight.types.delete_template_request.DeleteTemplateRequest = {
             "aws_account_id": aws_account_id,
             "template_id": template_id,
@@ -5774,7 +6061,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTemplateAlias")
+        )
         input_: capo_quicksight.types.delete_template_alias_request.DeleteTemplateAliasRequest = {
             "aws_account_id": aws_account_id,
             "template_id": template_id,
@@ -5832,7 +6121,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTheme")
+        )
         input_: capo_quicksight.types.delete_theme_request.DeleteThemeRequest = {
             "aws_account_id": aws_account_id,
             "theme_id": theme_id,
@@ -5888,7 +6179,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteThemeAlias")
+        )
         input_: capo_quicksight.types.delete_theme_alias_request.DeleteThemeAliasRequest = {
             "aws_account_id": aws_account_id,
             "theme_id": theme_id,
@@ -5941,7 +6234,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTopic")
+        )
         input_: capo_quicksight.types.delete_topic_request.DeleteTopicRequest = {
             "aws_account_id": aws_account_id,
             "topic_id": topic_id,
@@ -5997,7 +6292,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTopicRefreshSchedule")
+        )
         input_: capo_quicksight.types.delete_topic_refresh_schedule_request.DeleteTopicRefreshScheduleRequest = {
             "aws_account_id": aws_account_id,
             "topic_id": topic_id,
@@ -6050,7 +6347,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTopicV2")
+        )
         input_: capo_quicksight.types.delete_topic_v2_request.DeleteTopicV2Request = {
             "aws_account_id": aws_account_id,
             "topic_id": topic_id,
@@ -6105,7 +6404,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUser")
+        )
         input_: capo_quicksight.types.delete_user_request.DeleteUserRequest = {
             "user_name": user_name,
             "aws_account_id": aws_account_id,
@@ -6161,7 +6462,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUserByPrincipalId")
+        )
         input_: capo_quicksight.types.delete_user_by_principal_id_request.DeleteUserByPrincipalIdRequest = {
             "principal_id": principal_id,
             "aws_account_id": aws_account_id,
@@ -6218,7 +6521,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUserCustomPermission")
+        )
         input_: capo_quicksight.types.delete_user_custom_permission_request.DeleteUserCustomPermissionRequest = {
             "user_name": user_name,
             "aws_account_id": aws_account_id,
@@ -6272,7 +6577,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVPCConnection")
+        )
         input_: capo_quicksight.types.delete_vpc_connection_request.DeleteVPCConnectionRequest = {
             "aws_account_id": aws_account_id,
             "vpc_connection_id": vpc_connection_id,
@@ -6326,7 +6633,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountCustomization")
+        )
         input_: capo_quicksight.types.describe_account_customization_request.DescribeAccountCustomizationRequest = {
             "aws_account_id": aws_account_id
         }
@@ -6378,7 +6687,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountCustomPermission")
+        )
         input_: capo_quicksight.types.describe_account_custom_permission_request.DescribeAccountCustomPermissionRequest = {
             "aws_account_id": aws_account_id
         }
@@ -6427,7 +6738,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountSettings")
+        )
         input_: capo_quicksight.types.describe_account_settings_request.DescribeAccountSettingsRequest = {
             "aws_account_id": aws_account_id
         }
@@ -6476,7 +6789,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountSubscription")
+        )
         input_: capo_quicksight.types.describe_account_subscription_request.DescribeAccountSubscriptionRequest = {
             "aws_account_id": aws_account_id
         }
@@ -6526,7 +6841,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.describe_action_connector_response.DescribeActionConnectorResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.describe_action_connector_response
+
+            return capo_quicksight.types.describe_action_connector_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeActionConnector", redact_output=_redact_output),
+        )
         input_: capo_quicksight.types.describe_action_connector_request.DescribeActionConnectorRequest = {
             "aws_account_id": aws_account_id,
             "action_connector_id": action_connector_id,
@@ -6577,7 +6904,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeActionConnectorPermissions")
+        )
         input_: capo_quicksight.types.describe_action_connector_permissions_request.DescribeActionConnectorPermissionsRequest = {
             "aws_account_id": aws_account_id,
             "action_connector_id": action_connector_id,
@@ -6629,7 +6958,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.describe_agent_response.DescribeAgentResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.describe_agent_response
+
+            return capo_quicksight.types.describe_agent_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeAgent", redact_output=_redact_output),
+        )
         input_: capo_quicksight.types.describe_agent_request.DescribeAgentRequest = {
             "agent_id": agent_id,
             "aws_account_id": aws_account_id,
@@ -6681,7 +7022,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAgentPermissions")
+        )
         input_: capo_quicksight.types.describe_agent_permissions_request.DescribeAgentPermissionsRequest = {
             "agent_id": agent_id,
             "aws_account_id": aws_account_id,
@@ -6733,7 +7076,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.describe_analysis_response.DescribeAnalysisResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.describe_analysis_response
+
+            return capo_quicksight.types.describe_analysis_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeAnalysis", redact_output=_redact_output),
+        )
         input_: capo_quicksight.types.describe_analysis_request.DescribeAnalysisRequest = {
             "aws_account_id": aws_account_id,
             "analysis_id": analysis_id,
@@ -6787,7 +7142,21 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.describe_analysis_definition_response.DescribeAnalysisDefinitionResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.describe_analysis_definition_response
+
+            return capo_quicksight.types.describe_analysis_definition_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeAnalysisDefinition", redact_output=_redact_output
+            ),
+        )
         input_: capo_quicksight.types.describe_analysis_definition_request.DescribeAnalysisDefinitionRequest = {
             "aws_account_id": aws_account_id,
             "analysis_id": analysis_id,
@@ -6838,7 +7207,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAnalysisPermissions")
+        )
         input_: capo_quicksight.types.describe_analysis_permissions_request.DescribeAnalysisPermissionsRequest = {
             "aws_account_id": aws_account_id,
             "analysis_id": analysis_id,
@@ -6889,7 +7260,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeApp")
+        )
         input_: capo_quicksight.types.describe_app_request.DescribeAppRequest = {
             "aws_account_id": aws_account_id,
             "app_id": app_id,
@@ -6940,7 +7313,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAppPermissions")
+        )
         input_: capo_quicksight.types.describe_app_permissions_request.DescribeAppPermissionsRequest = {
             "aws_account_id": aws_account_id,
             "app_id": app_id,
@@ -6989,7 +7364,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeApprovalPolicy")
+        )
         input_: capo_quicksight.types.describe_approval_policy_request.DescribeApprovalPolicyRequest = {
             "policy_id": policy_id
         }
@@ -7037,7 +7414,21 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.describe_asset_bundle_export_job_response.DescribeAssetBundleExportJobResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.describe_asset_bundle_export_job_response
+
+            return capo_quicksight.types.describe_asset_bundle_export_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeAssetBundleExportJob", redact_output=_redact_output
+            ),
+        )
         input_: capo_quicksight.types.describe_asset_bundle_export_job_request.DescribeAssetBundleExportJobRequest = {
             "aws_account_id": aws_account_id,
             "asset_bundle_export_job_id": asset_bundle_export_job_id,
@@ -7086,7 +7477,21 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.describe_asset_bundle_import_job_response.DescribeAssetBundleImportJobResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.describe_asset_bundle_import_job_response
+
+            return capo_quicksight.types.describe_asset_bundle_import_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeAssetBundleImportJob", redact_output=_redact_output
+            ),
+        )
         input_: capo_quicksight.types.describe_asset_bundle_import_job_request.DescribeAssetBundleImportJobRequest = {
             "aws_account_id": aws_account_id,
             "asset_bundle_import_job_id": asset_bundle_import_job_id,
@@ -7147,7 +7552,21 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.describe_automation_job_response.DescribeAutomationJobResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.describe_automation_job_response
+
+            return (
+                capo_quicksight.types.describe_automation_job_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeAutomationJob", redact_output=_redact_output),
+        )
         input_: capo_quicksight.types.describe_automation_job_request.DescribeAutomationJobRequest = {
             "aws_account_id": aws_account_id,
             "automation_group_id": automation_group_id,
@@ -7209,7 +7628,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBrand")
+        )
         input_: capo_quicksight.types.describe_brand_request.DescribeBrandRequest = {
             "aws_account_id": aws_account_id,
             "brand_id": brand_id,
@@ -7261,7 +7682,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBrandAssignment")
+        )
         input_: capo_quicksight.types.describe_brand_assignment_request.DescribeBrandAssignmentRequest = {
             "aws_account_id": aws_account_id
         }
@@ -7312,7 +7735,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBrandPublishedVersion")
+        )
         input_: capo_quicksight.types.describe_brand_published_version_request.DescribeBrandPublishedVersionRequest = {
             "aws_account_id": aws_account_id,
             "brand_id": brand_id,
@@ -7365,7 +7790,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCustomPermissions")
+        )
         input_: capo_quicksight.types.describe_custom_permissions_request.DescribeCustomPermissionsRequest = {
             "aws_account_id": aws_account_id,
             "custom_permissions_name": custom_permissions_name,
@@ -7423,7 +7850,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.describe_dashboard_response.DescribeDashboardResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.describe_dashboard_response
+
+            return capo_quicksight.types.describe_dashboard_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeDashboard", redact_output=_redact_output),
+        )
         input_: capo_quicksight.types.describe_dashboard_request.DescribeDashboardRequest = {
             "aws_account_id": aws_account_id,
             "dashboard_id": dashboard_id,
@@ -7487,7 +7926,21 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.describe_dashboard_definition_response.DescribeDashboardDefinitionResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.describe_dashboard_definition_response
+
+            return capo_quicksight.types.describe_dashboard_definition_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeDashboardDefinition", redact_output=_redact_output
+            ),
+        )
         input_: capo_quicksight.types.describe_dashboard_definition_request.DescribeDashboardDefinitionRequest = {
             "aws_account_id": aws_account_id,
             "dashboard_id": dashboard_id,
@@ -7542,7 +7995,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDashboardPermissions")
+        )
         input_: capo_quicksight.types.describe_dashboard_permissions_request.DescribeDashboardPermissionsRequest = {
             "aws_account_id": aws_account_id,
             "dashboard_id": dashboard_id,
@@ -7595,7 +8050,21 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.describe_dashboard_snapshot_job_response.DescribeDashboardSnapshotJobResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.describe_dashboard_snapshot_job_response
+
+            return capo_quicksight.types.describe_dashboard_snapshot_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeDashboardSnapshotJob", redact_output=_redact_output
+            ),
+        )
         input_: capo_quicksight.types.describe_dashboard_snapshot_job_request.DescribeDashboardSnapshotJobRequest = {
             "aws_account_id": aws_account_id,
             "dashboard_id": dashboard_id,
@@ -7651,7 +8120,21 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.describe_dashboard_snapshot_job_result_response.DescribeDashboardSnapshotJobResultResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.describe_dashboard_snapshot_job_result_response
+
+            return capo_quicksight.types.describe_dashboard_snapshot_job_result_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeDashboardSnapshotJobResult", redact_output=_redact_output
+            ),
+        )
         input_: capo_quicksight.types.describe_dashboard_snapshot_job_result_request.DescribeDashboardSnapshotJobResultRequest = {
             "aws_account_id": aws_account_id,
             "dashboard_id": dashboard_id,
@@ -7702,7 +8185,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDashboardsQAConfiguration")
+        )
         input_: capo_quicksight.types.describe_dashboards_qa_configuration_request.DescribeDashboardsQAConfigurationRequest = {
             "aws_account_id": aws_account_id
         }
@@ -7752,7 +8237,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.describe_data_set_response.DescribeDataSetResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.describe_data_set_response
+
+            return capo_quicksight.types.describe_data_set_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeDataSet", redact_output=_redact_output),
+        )
         input_: capo_quicksight.types.describe_data_set_request.DescribeDataSetRequest = {
             "aws_account_id": aws_account_id,
             "data_set_id": data_set_id,
@@ -7803,7 +8300,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataSetPermissions")
+        )
         input_: capo_quicksight.types.describe_data_set_permissions_request.DescribeDataSetPermissionsRequest = {
             "aws_account_id": aws_account_id,
             "data_set_id": data_set_id,
@@ -7856,7 +8355,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataSetRefreshProperties")
+        )
         input_: capo_quicksight.types.describe_data_set_refresh_properties_request.DescribeDataSetRefreshPropertiesRequest = {
             "aws_account_id": aws_account_id,
             "data_set_id": data_set_id,
@@ -7909,7 +8410,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataSource")
+        )
         input_: capo_quicksight.types.describe_data_source_request.DescribeDataSourceRequest = {
             "aws_account_id": aws_account_id,
             "data_source_id": data_source_id,
@@ -7960,7 +8463,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataSourcePermissions")
+        )
         input_: capo_quicksight.types.describe_data_source_permissions_request.DescribeDataSourcePermissionsRequest = {
             "aws_account_id": aws_account_id,
             "data_source_id": data_source_id,
@@ -8011,7 +8516,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDefaultQBusinessApplication")
+        )
         input_: capo_quicksight.types.describe_default_q_business_application_request.DescribeDefaultQBusinessApplicationRequest = {
             "aws_account_id": aws_account_id
         }
@@ -8065,7 +8572,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDlpSetting")
+        )
         input_: capo_quicksight.types.describe_dlp_setting_request.DescribeDlpSettingRequest = {
             "aws_account_id": aws_account_id,
             "dlp_setting_id": dlp_setting_id,
@@ -8118,7 +8627,17 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.describe_flow_response.DescribeFlowResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.describe_flow_response
+
+            return capo_quicksight.types.describe_flow_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeFlow", redact_output=_redact_output),
+        )
         input_: capo_quicksight.types.describe_flow_request.DescribeFlowRequest = {
             "aws_account_id": aws_account_id,
             "flow_id": flow_id,
@@ -8171,7 +8690,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFolder")
+        )
         input_: capo_quicksight.types.describe_folder_request.DescribeFolderRequest = {
             "aws_account_id": aws_account_id,
             "folder_id": folder_id,
@@ -8230,7 +8751,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFolderPermissions")
+        )
         input_: capo_quicksight.types.describe_folder_permissions_request.DescribeFolderPermissionsRequest = {
             "aws_account_id": aws_account_id,
             "folder_id": folder_id,
@@ -8322,7 +8845,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFolderResolvedPermissions")
+        )
         input_: capo_quicksight.types.describe_folder_resolved_permissions_request.DescribeFolderResolvedPermissionsRequest = {
             "aws_account_id": aws_account_id,
             "folder_id": folder_id,
@@ -8410,7 +8935,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeGroup")
+        )
         input_: capo_quicksight.types.describe_group_request.DescribeGroupRequest = {
             "group_name": group_name,
             "aws_account_id": aws_account_id,
@@ -8468,7 +8995,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeGroupMembership")
+        )
         input_: capo_quicksight.types.describe_group_membership_request.DescribeGroupMembershipRequest = {
             "member_name": member_name,
             "group_name": group_name,
@@ -8524,7 +9053,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeIAMPolicyAssignment")
+        )
         input_: capo_quicksight.types.describe_iam_policy_assignment_request.DescribeIAMPolicyAssignmentRequest = {
             "aws_account_id": aws_account_id,
             "assignment_name": assignment_name,
@@ -8579,7 +9110,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeIngestion")
+        )
         input_: capo_quicksight.types.describe_ingestion_request.DescribeIngestionRequest = {
             "aws_account_id": aws_account_id,
             "data_set_id": data_set_id,
@@ -8629,7 +9162,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeIpRestriction")
+        )
         input_: capo_quicksight.types.describe_ip_restriction_request.DescribeIpRestrictionRequest = {
             "aws_account_id": aws_account_id
         }
@@ -8678,7 +9213,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeKeyRegistration")
+        )
         input_: capo_quicksight.types.describe_key_registration_request.DescribeKeyRegistrationRequest = {
             "aws_account_id": aws_account_id
         }
@@ -8733,7 +9270,21 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.describe_knowledge_base_response.DescribeKnowledgeBaseResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.describe_knowledge_base_response
+
+            return (
+                capo_quicksight.types.describe_knowledge_base_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeKnowledgeBase", redact_output=_redact_output),
+        )
         input_: capo_quicksight.types.describe_knowledge_base_request.DescribeKnowledgeBaseRequest = {
             "aws_account_id": aws_account_id,
             "knowledge_base_id": knowledge_base_id,
@@ -8787,7 +9338,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeKnowledgeBasePermissions")
+        )
         input_: capo_quicksight.types.describe_knowledge_base_permissions_request.DescribeKnowledgeBasePermissionsRequest = {
             "aws_account_id": aws_account_id,
             "knowledge_base_id": knowledge_base_id,
@@ -8838,7 +9391,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLimitsProfile")
+        )
         input_: capo_quicksight.types.describe_limits_profile_request.DescribeLimitsProfileRequest = {
             "profile_id": profile_id,
             "account_id": account_id,
@@ -8890,7 +9445,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeNamespace")
+        )
         input_: capo_quicksight.types.describe_namespace_request.DescribeNamespaceRequest = {
             "aws_account_id": aws_account_id,
             "namespace": namespace,
@@ -8941,7 +9498,21 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.describe_o_auth_client_application_response.DescribeOAuthClientApplicationResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.describe_o_auth_client_application_response
+
+            return capo_quicksight.types.describe_o_auth_client_application_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeOAuthClientApplication", redact_output=_redact_output
+            ),
+        )
         input_: capo_quicksight.types.describe_o_auth_client_application_request.DescribeOAuthClientApplicationRequest = {
             "aws_account_id": aws_account_id,
             "o_auth_client_application_id": o_auth_client_application_id,
@@ -8991,7 +9562,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeQPersonalizationConfiguration")
+        )
         input_: capo_quicksight.types.describe_q_personalization_configuration_request.DescribeQPersonalizationConfigurationRequest = {
             "aws_account_id": aws_account_id
         }
@@ -9040,7 +9613,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeQuickSightQSearchConfiguration")
+        )
         input_: capo_quicksight.types.describe_quick_sight_q_search_configuration_request.DescribeQuickSightQSearchConfigurationRequest = {
             "aws_account_id": aws_account_id
         }
@@ -9093,7 +9668,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRefreshSchedule")
+        )
         input_: capo_quicksight.types.describe_refresh_schedule_request.DescribeRefreshScheduleRequest = {
             "aws_account_id": aws_account_id,
             "data_set_id": data_set_id,
@@ -9149,7 +9726,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRoleCustomPermission")
+        )
         input_: capo_quicksight.types.describe_role_custom_permission_request.DescribeRoleCustomPermissionRequest = {
             "role": role,
             "aws_account_id": aws_account_id,
@@ -9204,7 +9783,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSelfUpgradeConfiguration")
+        )
         input_: capo_quicksight.types.describe_self_upgrade_configuration_request.DescribeSelfUpgradeConfigurationRequest = {
             "aws_account_id": aws_account_id,
             "namespace": namespace,
@@ -9259,7 +9840,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.describe_space_response.DescribeSpaceResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.describe_space_response
+
+            return capo_quicksight.types.describe_space_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeSpace", redact_output=_redact_output),
+        )
         input_: capo_quicksight.types.describe_space_request.DescribeSpaceRequest = {
             "aws_account_id": aws_account_id,
             "space_id": space_id,
@@ -9312,7 +9905,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSpacePermissions")
+        )
         input_: capo_quicksight.types.describe_space_permissions_request.DescribeSpacePermissionsRequest = {
             "aws_account_id": aws_account_id,
             "space_id": space_id,
@@ -9372,7 +9967,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.describe_template_response.DescribeTemplateResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.describe_template_response
+
+            return capo_quicksight.types.describe_template_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeTemplate", redact_output=_redact_output),
+        )
         input_: capo_quicksight.types.describe_template_request.DescribeTemplateRequest = {
             "aws_account_id": aws_account_id,
             "template_id": template_id,
@@ -9428,7 +10035,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTemplateAlias")
+        )
         input_: capo_quicksight.types.describe_template_alias_request.DescribeTemplateAliasRequest = {
             "aws_account_id": aws_account_id,
             "template_id": template_id,
@@ -9489,7 +10098,21 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.describe_template_definition_response.DescribeTemplateDefinitionResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.describe_template_definition_response
+
+            return capo_quicksight.types.describe_template_definition_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeTemplateDefinition", redact_output=_redact_output
+            ),
+        )
         input_: capo_quicksight.types.describe_template_definition_request.DescribeTemplateDefinitionRequest = {
             "aws_account_id": aws_account_id,
             "template_id": template_id,
@@ -9545,7 +10168,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTemplatePermissions")
+        )
         input_: capo_quicksight.types.describe_template_permissions_request.DescribeTemplatePermissionsRequest = {
             "aws_account_id": aws_account_id,
             "template_id": template_id,
@@ -9604,7 +10229,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTheme")
+        )
         input_: capo_quicksight.types.describe_theme_request.DescribeThemeRequest = {
             "aws_account_id": aws_account_id,
             "theme_id": theme_id,
@@ -9664,7 +10291,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeThemeAlias")
+        )
         input_: capo_quicksight.types.describe_theme_alias_request.DescribeThemeAliasRequest = {
             "aws_account_id": aws_account_id,
             "theme_id": theme_id,
@@ -9717,7 +10346,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeThemePermissions")
+        )
         input_: capo_quicksight.types.describe_theme_permissions_request.DescribeThemePermissionsRequest = {
             "aws_account_id": aws_account_id,
             "theme_id": theme_id,
@@ -9768,7 +10399,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.describe_topic_response.DescribeTopicResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.describe_topic_response
+
+            return capo_quicksight.types.describe_topic_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeTopic", redact_output=_redact_output),
+        )
         input_: capo_quicksight.types.describe_topic_request.DescribeTopicRequest = {
             "aws_account_id": aws_account_id,
             "topic_id": topic_id,
@@ -9819,7 +10462,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTopicPermissions")
+        )
         input_: capo_quicksight.types.describe_topic_permissions_request.DescribeTopicPermissionsRequest = {
             "aws_account_id": aws_account_id,
             "topic_id": topic_id,
@@ -9870,7 +10515,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTopicPermissionsV2")
+        )
         input_: capo_quicksight.types.describe_topic_permissions_v2_request.DescribeTopicPermissionsV2Request = {
             "aws_account_id": aws_account_id,
             "topic_id": topic_id,
@@ -9923,7 +10570,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTopicRefresh")
+        )
         input_: capo_quicksight.types.describe_topic_refresh_request.DescribeTopicRefreshRequest = {
             "aws_account_id": aws_account_id,
             "topic_id": topic_id,
@@ -9980,7 +10629,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTopicRefreshSchedule")
+        )
         input_: capo_quicksight.types.describe_topic_refresh_schedule_request.DescribeTopicRefreshScheduleRequest = {
             "aws_account_id": aws_account_id,
             "topic_id": topic_id,
@@ -10032,7 +10683,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.describe_topic_v2_response.DescribeTopicV2Response",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.describe_topic_v2_response
+
+            return capo_quicksight.types.describe_topic_v2_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeTopicV2", redact_output=_redact_output),
+        )
         input_: capo_quicksight.types.describe_topic_v2_request.DescribeTopicV2Request = {
             "aws_account_id": aws_account_id,
             "topic_id": topic_id,
@@ -10087,7 +10750,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeUser")
+        )
         input_: capo_quicksight.types.describe_user_request.DescribeUserRequest = {
             "user_name": user_name,
             "aws_account_id": aws_account_id,
@@ -10140,7 +10805,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeVPCConnection")
+        )
         input_: capo_quicksight.types.describe_vpc_connection_request.DescribeVPCConnectionRequest = {
             "aws_account_id": aws_account_id,
             "vpc_connection_id": vpc_connection_id,
@@ -10210,7 +10877,32 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.generate_embed_url_for_anonymous_user_request.GenerateEmbedUrlForAnonymousUserRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.generate_embed_url_for_anonymous_user_request
+
+            return capo_quicksight.types.generate_embed_url_for_anonymous_user_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_quicksight.types.generate_embed_url_for_anonymous_user_response.GenerateEmbedUrlForAnonymousUserResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.generate_embed_url_for_anonymous_user_response
+
+            return capo_quicksight.types.generate_embed_url_for_anonymous_user_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GenerateEmbedUrlForAnonymousUser",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_quicksight.types.generate_embed_url_for_anonymous_user_request.GenerateEmbedUrlForAnonymousUserRequest = {
             "aws_account_id": aws_account_id,
             "namespace": namespace,
@@ -10283,7 +10975,21 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.generate_embed_url_for_registered_user_response.GenerateEmbedUrlForRegisteredUserResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.generate_embed_url_for_registered_user_response
+
+            return capo_quicksight.types.generate_embed_url_for_registered_user_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GenerateEmbedUrlForRegisteredUser", redact_output=_redact_output
+            ),
+        )
         input_: capo_quicksight.types.generate_embed_url_for_registered_user_request.GenerateEmbedUrlForRegisteredUserRequest = {
             "aws_account_id": aws_account_id,
             "user_arn": user_arn,
@@ -10350,7 +11056,22 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.generate_embed_url_for_registered_user_with_identity_response.GenerateEmbedUrlForRegisteredUserWithIdentityResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.generate_embed_url_for_registered_user_with_identity_response
+
+            return capo_quicksight.types.generate_embed_url_for_registered_user_with_identity_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GenerateEmbedUrlForRegisteredUserWithIdentity",
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_quicksight.types.generate_embed_url_for_registered_user_with_identity_request.GenerateEmbedUrlForRegisteredUserWithIdentityRequest = {
             "aws_account_id": aws_account_id,
             "experience_configuration": experience_configuration,
@@ -10434,7 +11155,21 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.get_dashboard_embed_url_response.GetDashboardEmbedUrlResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.get_dashboard_embed_url_response
+
+            return (
+                capo_quicksight.types.get_dashboard_embed_url_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDashboardEmbedUrl", redact_output=_redact_output),
+        )
         input_: capo_quicksight.types.get_dashboard_embed_url_request.GetDashboardEmbedUrlRequest = {
             "aws_account_id": aws_account_id,
             "dashboard_id": dashboard_id,
@@ -10499,7 +11234,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFlowMetadata")
+        )
         input_: capo_quicksight.types.get_flow_metadata_input.GetFlowMetadataInput = {
             "aws_account_id": aws_account_id,
             "flow_id": flow_id,
@@ -10549,7 +11286,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFlowPermissions")
+        )
         input_: capo_quicksight.types.get_flow_permissions_input.GetFlowPermissionsInput = {
             "aws_account_id": aws_account_id,
             "flow_id": flow_id,
@@ -10609,7 +11348,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.get_identity_context_request.GetIdentityContextRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.get_identity_context_request
+
+            return capo_quicksight.types.get_identity_context_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetIdentityContext", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.get_identity_context_request.GetIdentityContextRequest = {
             "aws_account_id": aws_account_id,
             "user_identifier": user_identifier,
@@ -10676,7 +11427,21 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.get_session_embed_url_response.GetSessionEmbedUrlResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.get_session_embed_url_response
+
+            return (
+                capo_quicksight.types.get_session_embed_url_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSessionEmbedUrl", redact_output=_redact_output),
+        )
         input_: capo_quicksight.types.get_session_embed_url_request.GetSessionEmbedUrlRequest = {
             "aws_account_id": aws_account_id
         }
@@ -10734,7 +11499,21 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.list_action_connectors_response.ListActionConnectorsResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.list_action_connectors_response
+
+            return (
+                capo_quicksight.types.list_action_connectors_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListActionConnectors", redact_output=_redact_output),
+        )
         input_: capo_quicksight.types.list_action_connectors_request.ListActionConnectorsRequest = {
             "aws_account_id": aws_account_id
         }
@@ -10817,7 +11596,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAgents")
+        )
         input_: capo_quicksight.types.list_agents_request.ListAgentsRequest = {
             "aws_account_id": aws_account_id
         }
@@ -10872,7 +11653,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAnalyses")
+        )
         input_: capo_quicksight.types.list_analyses_request.ListAnalysesRequest = {
             "aws_account_id": aws_account_id
         }
@@ -10951,7 +11734,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApprovalPolicies")
+        )
         input_: capo_quicksight.types.list_approval_policies_request.ListApprovalPoliciesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -11027,7 +11812,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApps")
+        )
         input_: capo_quicksight.types.list_apps_request.ListAppsRequest = {
             "aws_account_id": aws_account_id
         }
@@ -11106,7 +11893,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssetBundleExportJobs")
+        )
         input_: capo_quicksight.types.list_asset_bundle_export_jobs_request.ListAssetBundleExportJobsRequest = {
             "aws_account_id": aws_account_id
         }
@@ -11185,7 +11974,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssetBundleImportJobs")
+        )
         input_: capo_quicksight.types.list_asset_bundle_import_jobs_request.ListAssetBundleImportJobsRequest = {
             "aws_account_id": aws_account_id
         }
@@ -11263,7 +12054,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBrands")
+        )
         input_: capo_quicksight.types.list_brands_request.ListBrandsRequest = {
             "aws_account_id": aws_account_id
         }
@@ -11344,7 +12137,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCustomPermissions")
+        )
         input_: capo_quicksight.types.list_custom_permissions_request.ListCustomPermissionsRequest = {
             "aws_account_id": aws_account_id
         }
@@ -11422,7 +12217,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDashboards")
+        )
         input_: capo_quicksight.types.list_dashboards_request.ListDashboardsRequest = {
             "aws_account_id": aws_account_id
         }
@@ -11504,7 +12301,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDashboardVersions")
+        )
         input_: capo_quicksight.types.list_dashboard_versions_request.ListDashboardVersionsRequest = {
             "aws_account_id": aws_account_id,
             "dashboard_id": dashboard_id,
@@ -11586,7 +12385,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataSets")
+        )
         input_: capo_quicksight.types.list_data_sets_request.ListDataSetsRequest = {
             "aws_account_id": aws_account_id
         }
@@ -11665,7 +12466,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataSources")
+        )
         input_: capo_quicksight.types.list_data_sources_request.ListDataSourcesRequest = {
             "aws_account_id": aws_account_id
         }
@@ -11745,7 +12548,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDlpSettings")
+        )
         input_: capo_quicksight.types.list_dlp_settings_request.ListDlpSettingsRequest = {
             "aws_account_id": aws_account_id
         }
@@ -11827,7 +12632,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFlows")
+        )
         input_: capo_quicksight.types.list_flows_input.ListFlowsInput = {
             "aws_account_id": aws_account_id
         }
@@ -11912,7 +12719,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFolderMembers")
+        )
         input_: capo_quicksight.types.list_folder_members_request.ListFolderMembersRequest = {
             "aws_account_id": aws_account_id,
             "folder_id": folder_id,
@@ -11996,7 +12805,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFolders")
+        )
         input_: capo_quicksight.types.list_folders_request.ListFoldersRequest = {
             "aws_account_id": aws_account_id
         }
@@ -12079,7 +12890,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFoldersForResource")
+        )
         input_: capo_quicksight.types.list_folders_for_resource_request.ListFoldersForResourceRequest = {
             "aws_account_id": aws_account_id,
             "resource_arn": resource_arn,
@@ -12168,7 +12981,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroupMemberships")
+        )
         input_: capo_quicksight.types.list_group_memberships_request.ListGroupMembershipsRequest = {
             "group_name": group_name,
             "aws_account_id": aws_account_id,
@@ -12258,7 +13073,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroups")
+        )
         input_: capo_quicksight.types.list_groups_request.ListGroupsRequest = {
             "aws_account_id": aws_account_id,
             "namespace": namespace,
@@ -12347,7 +13164,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIAMPolicyAssignments")
+        )
         input_: capo_quicksight.types.list_iam_policy_assignments_request.ListIAMPolicyAssignmentsRequest = {
             "aws_account_id": aws_account_id,
             "namespace": namespace,
@@ -12441,7 +13260,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIAMPolicyAssignmentsForUser")
+        )
         input_: capo_quicksight.types.list_iam_policy_assignments_for_user_request.ListIAMPolicyAssignmentsForUserRequest = {
             "aws_account_id": aws_account_id,
             "user_name": user_name,
@@ -12528,7 +13349,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIdentityPropagationConfigs")
+        )
         input_: capo_quicksight.types.list_identity_propagation_configs_request.ListIdentityPropagationConfigsRequest = {
             "aws_account_id": aws_account_id
         }
@@ -12590,7 +13413,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIngestions")
+        )
         input_: capo_quicksight.types.list_ingestions_request.ListIngestionsRequest = {
             "data_set_id": data_set_id,
             "aws_account_id": aws_account_id,
@@ -12677,7 +13502,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.list_knowledge_bases_response.ListKnowledgeBasesResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.list_knowledge_bases_response
+
+            return capo_quicksight.types.list_knowledge_bases_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListKnowledgeBases", redact_output=_redact_output),
+        )
         input_: capo_quicksight.types.list_knowledge_bases_request.ListKnowledgeBasesRequest = {
             "aws_account_id": aws_account_id
         }
@@ -12763,7 +13600,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLimitsProfiles")
+        )
         input_: capo_quicksight.types.list_limits_profiles_request.ListLimitsProfilesRequest = {
             "account_id": account_id
         }
@@ -12853,7 +13692,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNamespaces")
+        )
         input_: capo_quicksight.types.list_namespaces_request.ListNamespacesRequest = {
             "aws_account_id": aws_account_id
         }
@@ -12933,7 +13774,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOAuthClientApplications")
+        )
         input_: capo_quicksight.types.list_o_auth_client_applications_request.ListOAuthClientApplicationsRequest = {
             "aws_account_id": aws_account_id
         }
@@ -13011,7 +13854,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRefreshSchedules")
+        )
         input_: capo_quicksight.types.list_refresh_schedules_request.ListRefreshSchedulesRequest = {
             "aws_account_id": aws_account_id,
             "data_set_id": data_set_id,
@@ -13072,7 +13917,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRoleMemberships")
+        )
         input_: capo_quicksight.types.list_role_memberships_request.ListRoleMembershipsRequest = {
             "role": role,
             "aws_account_id": aws_account_id,
@@ -13163,7 +14010,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSelfUpgrades")
+        )
         input_: capo_quicksight.types.list_self_upgrades_request.ListSelfUpgradesRequest = {
             "aws_account_id": aws_account_id,
             "namespace": namespace,
@@ -13220,7 +14069,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSpaceResources")
+        )
         input_: capo_quicksight.types.list_space_resources_request.ListSpaceResourcesRequest = {
             "aws_account_id": aws_account_id,
             "space_id": space_id,
@@ -13275,7 +14126,17 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.list_spaces_response.ListSpacesResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.list_spaces_response
+
+            return capo_quicksight.types.list_spaces_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListSpaces", redact_output=_redact_output),
+        )
         input_: capo_quicksight.types.list_spaces_request.ListSpacesRequest = {
             "aws_account_id": aws_account_id
         }
@@ -13327,7 +14188,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_quicksight.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -13381,7 +14244,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTemplateAliases")
+        )
         input_: capo_quicksight.types.list_template_aliases_request.ListTemplateAliasesRequest = {
             "aws_account_id": aws_account_id,
             "template_id": template_id,
@@ -13464,7 +14329,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTemplates")
+        )
         input_: capo_quicksight.types.list_templates_request.ListTemplatesRequest = {
             "aws_account_id": aws_account_id
         }
@@ -13546,7 +14413,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTemplateVersions")
+        )
         input_: capo_quicksight.types.list_template_versions_request.ListTemplateVersionsRequest = {
             "aws_account_id": aws_account_id,
             "template_id": template_id,
@@ -13632,7 +14501,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThemeAliases")
+        )
         input_: capo_quicksight.types.list_theme_aliases_request.ListThemeAliasesRequest = {
             "aws_account_id": aws_account_id,
             "theme_id": theme_id,
@@ -13693,7 +14564,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThemes")
+        )
         input_: capo_quicksight.types.list_themes_request.ListThemesRequest = {
             "aws_account_id": aws_account_id
         }
@@ -13780,7 +14653,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThemeVersions")
+        )
         input_: capo_quicksight.types.list_theme_versions_request.ListThemeVersionsRequest = {
             "aws_account_id": aws_account_id,
             "theme_id": theme_id,
@@ -13865,7 +14740,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTopicRefreshSchedules")
+        )
         input_: capo_quicksight.types.list_topic_refresh_schedules_request.ListTopicRefreshSchedulesRequest = {
             "aws_account_id": aws_account_id,
             "topic_id": topic_id,
@@ -13916,7 +14793,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.list_topic_reviewed_answers_response.ListTopicReviewedAnswersResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.list_topic_reviewed_answers_response
+
+            return capo_quicksight.types.list_topic_reviewed_answers_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTopicReviewedAnswers", redact_output=_redact_output),
+        )
         input_: capo_quicksight.types.list_topic_reviewed_answers_request.ListTopicReviewedAnswersRequest = {
             "aws_account_id": aws_account_id,
             "topic_id": topic_id,
@@ -13969,7 +14858,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTopics")
+        )
         input_: capo_quicksight.types.list_topics_request.ListTopicsRequest = {
             "aws_account_id": aws_account_id
         }
@@ -14046,7 +14937,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTopicsV2")
+        )
         input_: capo_quicksight.types.list_topics_v2_request.ListTopicsV2Request = {
             "aws_account_id": aws_account_id
         }
@@ -14131,7 +15024,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUserGroups")
+        )
         input_: capo_quicksight.types.list_user_groups_request.ListUserGroupsRequest = {
             "user_name": user_name,
             "aws_account_id": aws_account_id,
@@ -14221,7 +15116,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUsers")
+        )
         input_: capo_quicksight.types.list_users_request.ListUsersRequest = {
             "aws_account_id": aws_account_id,
             "namespace": namespace,
@@ -14320,7 +15217,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUsersIndexCapacity")
+        )
         input_: capo_quicksight.types.list_users_index_capacity_request.ListUsersIndexCapacityRequest = {
             "aws_account_id": aws_account_id
         }
@@ -14387,7 +15286,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVPCConnections")
+        )
         input_: capo_quicksight.types.list_vpc_connections_request.ListVPCConnectionsRequest = {
             "aws_account_id": aws_account_id
         }
@@ -14473,7 +15374,32 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.predict_qa_results_request.PredictQAResultsRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.predict_qa_results_request
+
+            return capo_quicksight.types.predict_qa_results_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_quicksight.types.predict_qa_results_response.PredictQAResultsResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.predict_qa_results_response
+
+            return capo_quicksight.types.predict_qa_results_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PredictQAResults",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_quicksight.types.predict_qa_results_request.PredictQAResultsRequest = {
             "aws_account_id": aws_account_id,
             "query_text": query_text,
@@ -14535,7 +15461,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDataSetRefreshProperties")
+        )
         input_: capo_quicksight.types.put_data_set_refresh_properties_request.PutDataSetRefreshPropertiesRequest = {
             "aws_account_id": aws_account_id,
             "data_set_id": data_set_id,
@@ -14621,7 +15549,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterUser")
+        )
         input_: capo_quicksight.types.register_user_request.RegisterUserRequest = {
             "identity_type": identity_type,
             "email": email,
@@ -14698,7 +15628,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreAnalysis")
+        )
         input_: capo_quicksight.types.restore_analysis_request.RestoreAnalysisRequest = {
             "aws_account_id": aws_account_id,
             "analysis_id": analysis_id,
@@ -14756,7 +15688,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.search_action_connectors_response.SearchActionConnectorsResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.search_action_connectors_response
+
+            return capo_quicksight.types.search_action_connectors_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SearchActionConnectors", redact_output=_redact_output),
+        )
         input_: capo_quicksight.types.search_action_connectors_request.SearchActionConnectorsRequest = {
             "aws_account_id": aws_account_id,
             "filters": filters,
@@ -14845,7 +15789,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchAgents")
+        )
         input_: capo_quicksight.types.search_agents_request.SearchAgentsRequest = {
             "aws_account_id": aws_account_id,
             "filters": filters,
@@ -14905,7 +15851,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchAnalyses")
+        )
         input_: capo_quicksight.types.search_analyses_request.SearchAnalysesRequest = {
             "aws_account_id": aws_account_id,
             "filters": filters,
@@ -14988,7 +15936,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchApps")
+        )
         input_: capo_quicksight.types.search_apps_request.SearchAppsRequest = {
             "aws_account_id": aws_account_id,
             "filters": filters,
@@ -15073,7 +16023,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchDashboards")
+        )
         input_: capo_quicksight.types.search_dashboards_request.SearchDashboardsRequest = {
             "aws_account_id": aws_account_id,
             "filters": filters,
@@ -15158,7 +16110,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchDataSets")
+        )
         input_: capo_quicksight.types.search_data_sets_request.SearchDataSetsRequest = {
             "aws_account_id": aws_account_id,
             "filters": filters,
@@ -15243,7 +16197,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchDataSources")
+        )
         input_: capo_quicksight.types.search_data_sources_request.SearchDataSourcesRequest = {
             "aws_account_id": aws_account_id,
             "filters": filters,
@@ -15328,7 +16284,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchFlows")
+        )
         input_: capo_quicksight.types.search_flows_input.SearchFlowsInput = {
             "aws_account_id": aws_account_id,
             "filters": filters,
@@ -15417,7 +16375,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchFolders")
+        )
         input_: capo_quicksight.types.search_folders_request.SearchFoldersRequest = {
             "aws_account_id": aws_account_id,
             "filters": filters,
@@ -15506,7 +16466,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchGroups")
+        )
         input_: capo_quicksight.types.search_groups_request.SearchGroupsRequest = {
             "aws_account_id": aws_account_id,
             "namespace": namespace,
@@ -15601,7 +16563,21 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.search_knowledge_bases_response.SearchKnowledgeBasesResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.search_knowledge_bases_response
+
+            return (
+                capo_quicksight.types.search_knowledge_bases_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SearchKnowledgeBases", redact_output=_redact_output),
+        )
         input_: capo_quicksight.types.search_knowledge_bases_request.SearchKnowledgeBasesRequest = {
             "aws_account_id": aws_account_id
         }
@@ -15696,7 +16672,17 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_quicksight.types.search_spaces_response.SearchSpacesResponse",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.search_spaces_response
+
+            return capo_quicksight.types.search_spaces_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SearchSpaces", redact_output=_redact_output),
+        )
         input_: capo_quicksight.types.search_spaces_request.SearchSpacesRequest = {
             "aws_account_id": aws_account_id,
             "filters": filters,
@@ -15757,7 +16743,17 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.search_topics_request.SearchTopicsRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.search_topics_request
+
+            return capo_quicksight.types.search_topics_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SearchTopics", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.search_topics_request.SearchTopicsRequest = {
             "aws_account_id": aws_account_id,
             "filters": filters,
@@ -15842,7 +16838,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.search_topics_v2_request.SearchTopicsV2Request",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.search_topics_v2_request
+
+            return capo_quicksight.types.search_topics_v2_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SearchTopicsV2", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.search_topics_v2_request.SearchTopicsV2Request = {
             "aws_account_id": aws_account_id,
             "filters": filters,
@@ -15952,7 +16960,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAssetBundleExportJob")
+        )
         input_: capo_quicksight.types.start_asset_bundle_export_job_request.StartAssetBundleExportJobRequest = {
             "aws_account_id": aws_account_id,
             "asset_bundle_export_job_id": asset_bundle_export_job_id,
@@ -16045,7 +17055,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.start_asset_bundle_import_job_request.StartAssetBundleImportJobRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.start_asset_bundle_import_job_request
+
+            return capo_quicksight.types.start_asset_bundle_import_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartAssetBundleImportJob", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.start_asset_bundle_import_job_request.StartAssetBundleImportJobRequest = {
             "aws_account_id": aws_account_id,
             "asset_bundle_import_job_id": asset_bundle_import_job_id,
@@ -16116,7 +17138,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.start_automation_job_request.StartAutomationJobRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.start_automation_job_request
+
+            return capo_quicksight.types.start_automation_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartAutomationJob", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.start_automation_job_request.StartAutomationJobRequest = {
             "aws_account_id": aws_account_id,
             "automation_group_id": automation_group_id,
@@ -16182,7 +17216,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.start_dashboard_snapshot_job_request.StartDashboardSnapshotJobRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.start_dashboard_snapshot_job_request
+
+            return capo_quicksight.types.start_dashboard_snapshot_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartDashboardSnapshotJob", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.start_dashboard_snapshot_job_request.StartDashboardSnapshotJobRequest = {
             "aws_account_id": aws_account_id,
             "dashboard_id": dashboard_id,
@@ -16241,7 +17287,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDashboardSnapshotJobSchedule")
+        )
         input_: capo_quicksight.types.start_dashboard_snapshot_job_schedule_request.StartDashboardSnapshotJobScheduleRequest = {
             "aws_account_id": aws_account_id,
             "dashboard_id": dashboard_id,
@@ -16294,7 +17342,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_quicksight.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -16345,7 +17395,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_quicksight.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -16400,7 +17452,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccountCustomization")
+        )
         input_: capo_quicksight.types.update_account_customization_request.UpdateAccountCustomizationRequest = {
             "aws_account_id": aws_account_id,
             "account_customization": account_customization,
@@ -16453,7 +17507,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccountCustomPermission")
+        )
         input_: capo_quicksight.types.update_account_custom_permission_request.UpdateAccountCustomPermissionRequest = {
             "custom_permissions_name": custom_permissions_name,
             "aws_account_id": aws_account_id,
@@ -16511,7 +17567,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccountSettings")
+        )
         input_: capo_quicksight.types.update_account_settings_request.UpdateAccountSettingsRequest = {
             "aws_account_id": aws_account_id,
             "default_namespace": default_namespace,
@@ -16577,7 +17635,21 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.update_action_connector_request.UpdateActionConnectorRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.update_action_connector_request
+
+            return (
+                capo_quicksight.types.update_action_connector_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateActionConnector", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.update_action_connector_request.UpdateActionConnectorRequest = {
             "aws_account_id": aws_account_id,
             "action_connector_id": action_connector_id,
@@ -16645,7 +17717,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateActionConnectorPermissions")
+        )
         input_: capo_quicksight.types.update_action_connector_permissions_request.UpdateActionConnectorPermissionsRequest = {
             "aws_account_id": aws_account_id,
             "action_connector_id": action_connector_id,
@@ -16739,7 +17813,17 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.update_agent_request.UpdateAgentRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.update_agent_request
+
+            return capo_quicksight.types.update_agent_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAgent", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.update_agent_request.UpdateAgentRequest = {
             "agent_id": agent_id,
             "aws_account_id": aws_account_id,
@@ -16821,7 +17905,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAgentPermissions")
+        )
         input_: capo_quicksight.types.update_agent_permissions_request.UpdateAgentPermissionsRequest = {
             "agent_id": agent_id,
             "aws_account_id": aws_account_id,
@@ -16896,7 +17982,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.update_analysis_request.UpdateAnalysisRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.update_analysis_request
+
+            return capo_quicksight.types.update_analysis_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAnalysis", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.update_analysis_request.UpdateAnalysisRequest = {
             "aws_account_id": aws_account_id,
             "analysis_id": analysis_id,
@@ -16968,7 +18066,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAnalysisPermissions")
+        )
         input_: capo_quicksight.types.update_analysis_permissions_request.UpdateAnalysisPermissionsRequest = {
             "aws_account_id": aws_account_id,
             "analysis_id": analysis_id,
@@ -17025,7 +18125,10 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateApplicationWithTokenExchangeGrant"),
+        )
         input_: capo_quicksight.types.update_application_with_token_exchange_grant_request.UpdateApplicationWithTokenExchangeGrantRequest = {
             "aws_account_id": aws_account_id,
             "namespace": namespace,
@@ -17089,7 +18192,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAppPermissions")
+        )
         input_: capo_quicksight.types.update_app_permissions_request.UpdateAppPermissionsRequest = {
             "aws_account_id": aws_account_id,
             "app_id": app_id,
@@ -17167,7 +18272,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApprovalPolicy")
+        )
         input_: capo_quicksight.types.update_approval_policy_request.UpdateApprovalPolicyRequest = {
             "policy_id": policy_id
         }
@@ -17234,7 +18341,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBrand")
+        )
         input_: capo_quicksight.types.update_brand_request.UpdateBrandRequest = {
             "aws_account_id": aws_account_id,
             "brand_id": brand_id,
@@ -17288,7 +18397,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBrandAssignment")
+        )
         input_: capo_quicksight.types.update_brand_assignment_request.UpdateBrandAssignmentRequest = {
             "aws_account_id": aws_account_id,
             "brand_arn": brand_arn,
@@ -17342,7 +18453,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBrandPublishedVersion")
+        )
         input_: capo_quicksight.types.update_brand_published_version_request.UpdateBrandPublishedVersionRequest = {
             "aws_account_id": aws_account_id,
             "brand_id": brand_id,
@@ -17403,7 +18516,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCustomPermissions")
+        )
         input_: capo_quicksight.types.update_custom_permissions_request.UpdateCustomPermissionsRequest = {
             "aws_account_id": aws_account_id,
             "custom_permissions_name": custom_permissions_name,
@@ -17486,7 +18601,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.update_dashboard_request.UpdateDashboardRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.update_dashboard_request
+
+            return capo_quicksight.types.update_dashboard_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateDashboard", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.update_dashboard_request.UpdateDashboardRequest = {
             "aws_account_id": aws_account_id,
             "dashboard_id": dashboard_id,
@@ -17556,7 +18683,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDashboardLinks")
+        )
         input_: capo_quicksight.types.update_dashboard_links_request.UpdateDashboardLinksRequest = {
             "aws_account_id": aws_account_id,
             "dashboard_id": dashboard_id,
@@ -17626,7 +18755,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDashboardPermissions")
+        )
         input_: capo_quicksight.types.update_dashboard_permissions_request.UpdateDashboardPermissionsRequest = {
             "aws_account_id": aws_account_id,
             "dashboard_id": dashboard_id,
@@ -17688,7 +18819,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDashboardPublishedVersion")
+        )
         input_: capo_quicksight.types.update_dashboard_published_version_request.UpdateDashboardPublishedVersionRequest = {
             "aws_account_id": aws_account_id,
             "dashboard_id": dashboard_id,
@@ -17741,7 +18874,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDashboardsQAConfiguration")
+        )
         input_: capo_quicksight.types.update_dashboards_qa_configuration_request.UpdateDashboardsQAConfigurationRequest = {
             "aws_account_id": aws_account_id,
             "dashboards_qa_status": dashboards_qa_status,
@@ -17845,7 +18980,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.update_data_set_request.UpdateDataSetRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.update_data_set_request
+
+            return capo_quicksight.types.update_data_set_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateDataSet", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.update_data_set_request.UpdateDataSetRequest = {
             "aws_account_id": aws_account_id,
             "data_set_id": data_set_id,
@@ -17932,7 +19079,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataSetPermissions")
+        )
         input_: capo_quicksight.types.update_data_set_permissions_request.UpdateDataSetPermissionsRequest = {
             "aws_account_id": aws_account_id,
             "data_set_id": data_set_id,
@@ -18007,7 +19156,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.update_data_source_request.UpdateDataSourceRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.update_data_source_request
+
+            return capo_quicksight.types.update_data_source_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateDataSource", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.update_data_source_request.UpdateDataSourceRequest = {
             "aws_account_id": aws_account_id,
             "data_source_id": data_source_id,
@@ -18076,7 +19237,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataSourcePermissions")
+        )
         input_: capo_quicksight.types.update_data_source_permissions_request.UpdateDataSourcePermissionsRequest = {
             "aws_account_id": aws_account_id,
             "data_source_id": data_source_id,
@@ -18134,7 +19297,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDefaultQBusinessApplication")
+        )
         input_: capo_quicksight.types.update_default_q_business_application_request.UpdateDefaultQBusinessApplicationRequest = {
             "aws_account_id": aws_account_id,
             "application_id": application_id,
@@ -18204,7 +19369,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDlpSetting")
+        )
         input_: capo_quicksight.types.update_dlp_setting_request.UpdateDlpSettingRequest = {
             "aws_account_id": aws_account_id,
             "dlp_setting_id": dlp_setting_id,
@@ -18281,7 +19448,16 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.update_flow_request.UpdateFlowRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.update_flow_request
+
+            return capo_quicksight.types.update_flow_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFlow", redact_input=_redact_input)
+        )
         input_: capo_quicksight.types.update_flow_request.UpdateFlowRequest = {
             "aws_account_id": aws_account_id,
             "flow_id": flow_id,
@@ -18348,7 +19524,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFlowPermissions")
+        )
         input_: capo_quicksight.types.update_flow_permissions_input.UpdateFlowPermissionsInput = {
             "aws_account_id": aws_account_id,
             "flow_id": flow_id,
@@ -18408,7 +19586,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFolder")
+        )
         input_: capo_quicksight.types.update_folder_request.UpdateFolderRequest = {
             "aws_account_id": aws_account_id,
             "folder_id": folder_id,
@@ -18470,7 +19650,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFolderPermissions")
+        )
         input_: capo_quicksight.types.update_folder_permissions_request.UpdateFolderPermissionsRequest = {
             "aws_account_id": aws_account_id,
             "folder_id": folder_id,
@@ -18533,7 +19715,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGroup")
+        )
         input_: capo_quicksight.types.update_group_request.UpdateGroupRequest = {
             "group_name": group_name,
             "aws_account_id": aws_account_id,
@@ -18599,7 +19783,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIAMPolicyAssignment")
+        )
         input_: capo_quicksight.types.update_iam_policy_assignment_request.UpdateIAMPolicyAssignmentRequest = {
             "aws_account_id": aws_account_id,
             "assignment_name": assignment_name,
@@ -18661,7 +19847,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIdentityPropagationConfig")
+        )
         input_: capo_quicksight.types.update_identity_propagation_config_request.UpdateIdentityPropagationConfigRequest = {
             "aws_account_id": aws_account_id,
             "service": service,
@@ -18729,7 +19917,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIpRestriction")
+        )
         input_: capo_quicksight.types.update_ip_restriction_request.UpdateIpRestrictionRequest = {
             "aws_account_id": aws_account_id
         }
@@ -18788,7 +19978,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateKeyRegistration")
+        )
         input_: capo_quicksight.types.update_key_registration_request.UpdateKeyRegistrationRequest = {
             "aws_account_id": aws_account_id,
             "key_registration": key_registration,
@@ -18865,7 +20057,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.update_knowledge_base_request.UpdateKnowledgeBaseRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.update_knowledge_base_request
+
+            return capo_quicksight.types.update_knowledge_base_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateKnowledgeBase", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.update_knowledge_base_request.UpdateKnowledgeBaseRequest = {
             "aws_account_id": aws_account_id,
             "knowledge_base_id": knowledge_base_id,
@@ -18942,7 +20146,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateKnowledgeBasePermissions")
+        )
         input_: capo_quicksight.types.update_knowledge_base_permissions_request.UpdateKnowledgeBasePermissionsRequest = {
             "aws_account_id": aws_account_id,
             "knowledge_base_id": knowledge_base_id,
@@ -19008,7 +20214,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLimitsProfile")
+        )
         input_: capo_quicksight.types.update_limits_profile_request.UpdateLimitsProfileRequest = {
             "profile_id": profile_id,
             "account_id": account_id,
@@ -19096,7 +20304,21 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.update_o_auth_client_application_request.UpdateOAuthClientApplicationRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.update_o_auth_client_application_request
+
+            return capo_quicksight.types.update_o_auth_client_application_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateOAuthClientApplication", redact_input=_redact_input
+            ),
+        )
         input_: capo_quicksight.types.update_o_auth_client_application_request.UpdateOAuthClientApplicationRequest = {
             "aws_account_id": aws_account_id,
             "o_auth_client_application_id": o_auth_client_application_id,
@@ -19169,7 +20391,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePublicSharingSettings")
+        )
         input_: capo_quicksight.types.update_public_sharing_settings_request.UpdatePublicSharingSettingsRequest = {
             "aws_account_id": aws_account_id
         }
@@ -19223,7 +20447,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQPersonalizationConfiguration")
+        )
         input_: capo_quicksight.types.update_q_personalization_configuration_request.UpdateQPersonalizationConfigurationRequest = {
             "aws_account_id": aws_account_id,
             "personalization_mode": personalization_mode,
@@ -19275,7 +20501,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQuickSightQSearchConfiguration")
+        )
         input_: capo_quicksight.types.update_quick_sight_q_search_configuration_request.UpdateQuickSightQSearchConfigurationRequest = {
             "aws_account_id": aws_account_id,
             "q_search_status": q_search_status,
@@ -19330,7 +20558,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRefreshSchedule")
+        )
         input_: capo_quicksight.types.update_refresh_schedule_request.UpdateRefreshScheduleRequest = {
             "data_set_id": data_set_id,
             "aws_account_id": aws_account_id,
@@ -19388,7 +20618,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRoleCustomPermission")
+        )
         input_: capo_quicksight.types.update_role_custom_permission_request.UpdateRoleCustomPermissionRequest = {
             "custom_permissions_name": custom_permissions_name,
             "role": role,
@@ -19449,7 +20681,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSelfUpgrade")
+        )
         input_: capo_quicksight.types.update_self_upgrade_request.UpdateSelfUpgradeRequest = {
             "aws_account_id": aws_account_id,
             "namespace": namespace,
@@ -19507,7 +20741,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSelfUpgradeConfiguration")
+        )
         input_: capo_quicksight.types.update_self_upgrade_configuration_request.UpdateSelfUpgradeConfigurationRequest = {
             "aws_account_id": aws_account_id,
             "namespace": namespace,
@@ -19566,7 +20802,17 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.update_space_request.UpdateSpaceRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.update_space_request
+
+            return capo_quicksight.types.update_space_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateSpace", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.update_space_request.UpdateSpaceRequest = {
             "aws_account_id": aws_account_id,
             "space_id": space_id,
@@ -19632,7 +20878,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSpacePermissions")
+        )
         input_: capo_quicksight.types.update_space_permissions_request.UpdateSpacePermissionsRequest = {
             "aws_account_id": aws_account_id,
             "space_id": space_id,
@@ -19698,7 +20946,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSpaceResources")
+        )
         input_: capo_quicksight.types.update_space_resources_request.UpdateSpaceResourcesRequest = {
             "aws_account_id": aws_account_id,
             "space_id": space_id,
@@ -19753,7 +21003,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSPICECapacityConfiguration")
+        )
         input_: capo_quicksight.types.update_spice_capacity_configuration_request.UpdateSPICECapacityConfigurationRequest = {
             "aws_account_id": aws_account_id,
             "purchase_mode": purchase_mode,
@@ -19825,7 +21077,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.update_template_request.UpdateTemplateRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.update_template_request
+
+            return capo_quicksight.types.update_template_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateTemplate", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.update_template_request.UpdateTemplateRequest = {
             "aws_account_id": aws_account_id,
             "template_id": template_id,
@@ -19890,7 +21154,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTemplateAlias")
+        )
         input_: capo_quicksight.types.update_template_alias_request.UpdateTemplateAliasRequest = {
             "aws_account_id": aws_account_id,
             "template_id": template_id,
@@ -19953,7 +21219,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTemplatePermissions")
+        )
         input_: capo_quicksight.types.update_template_permissions_request.UpdateTemplatePermissionsRequest = {
             "aws_account_id": aws_account_id,
             "template_id": template_id,
@@ -20023,7 +21291,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTheme")
+        )
         input_: capo_quicksight.types.update_theme_request.UpdateThemeRequest = {
             "aws_account_id": aws_account_id,
             "theme_id": theme_id,
@@ -20087,7 +21357,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateThemeAlias")
+        )
         input_: capo_quicksight.types.update_theme_alias_request.UpdateThemeAliasRequest = {
             "aws_account_id": aws_account_id,
             "theme_id": theme_id,
@@ -20150,7 +21422,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateThemePermissions")
+        )
         input_: capo_quicksight.types.update_theme_permissions_request.UpdateThemePermissionsRequest = {
             "aws_account_id": aws_account_id,
             "theme_id": theme_id,
@@ -20214,7 +21488,17 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.update_topic_request.UpdateTopicRequest",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.update_topic_request
+
+            return capo_quicksight.types.update_topic_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateTopic", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.update_topic_request.UpdateTopicRequest = {
             "aws_account_id": aws_account_id,
             "topic_id": topic_id,
@@ -20279,7 +21563,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTopicPermissions")
+        )
         input_: capo_quicksight.types.update_topic_permissions_request.UpdateTopicPermissionsRequest = {
             "aws_account_id": aws_account_id,
             "topic_id": topic_id,
@@ -20345,7 +21631,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTopicPermissionsV2")
+        )
         input_: capo_quicksight.types.update_topic_permissions_v2_request.UpdateTopicPermissionsV2Request = {
             "aws_account_id": aws_account_id,
             "topic_id": topic_id,
@@ -20407,7 +21695,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTopicRefreshSchedule")
+        )
         input_: capo_quicksight.types.update_topic_refresh_schedule_request.UpdateTopicRefreshScheduleRequest = {
             "aws_account_id": aws_account_id,
             "topic_id": topic_id,
@@ -20472,7 +21762,19 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_quicksight.types.update_topic_v2_request.UpdateTopicV2Request",
+        ) -> dict[str, Any]:
+            import capo_quicksight.types.update_topic_v2_request
+
+            return capo_quicksight.types.update_topic_v2_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateTopicV2", redact_input=_redact_input),
+        )
         input_: capo_quicksight.types.update_topic_v2_request.UpdateTopicV2Request = {
             "aws_account_id": aws_account_id,
             "topic_id": topic_id,
@@ -20554,7 +21856,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUser")
+        )
         input_: capo_quicksight.types.update_user_request.UpdateUserRequest = {
             "user_name": user_name,
             "aws_account_id": aws_account_id,
@@ -20627,7 +21931,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUserCustomPermission")
+        )
         input_: capo_quicksight.types.update_user_custom_permission_request.UpdateUserCustomPermissionRequest = {
             "user_name": user_name,
             "aws_account_id": aws_account_id,
@@ -20695,7 +22001,9 @@ class AsyncQuickSightClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateVPCConnection")
+        )
         input_: capo_quicksight.types.update_vpc_connection_request.UpdateVPCConnectionRequest = {
             "aws_account_id": aws_account_id,
             "vpc_connection_id": vpc_connection_id,

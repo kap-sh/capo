@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TopicNamedEntities``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.topic_named_entity
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> TopicNamedEntities:
             continue
         out.append(capo_quicksight.types.topic_named_entity.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: TopicNamedEntities) -> list[Any]:
+    import capo_quicksight.types.topic_named_entity
+
+    return [
+        capo_quicksight.types.topic_named_entity.redact_sensitive(item)
+        for item in value
+    ]

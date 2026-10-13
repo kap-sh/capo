@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#SystemAttributes``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -66,6 +66,29 @@ def deserialize_json(data: dict) -> SystemAttributes:
         out["system_endpoint"] = (
             capo_qconnect.types.system_endpoint_attributes.deserialize_json(
                 data["systemEndpoint"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SystemAttributes) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "customer_endpoint" in value:
+        import capo_qconnect.types.system_endpoint_attributes
+
+        out["customer_endpoint"] = (
+            capo_qconnect.types.system_endpoint_attributes.redact_sensitive(
+                value["customer_endpoint"]
+            )
+        )
+    if "system_endpoint" in value:
+        import capo_qconnect.types.system_endpoint_attributes
+
+        out["system_endpoint"] = (
+            capo_qconnect.types.system_endpoint_attributes.redact_sensitive(
+                value["system_endpoint"]
             )
         )
     return out

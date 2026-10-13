@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_datazone._auth._signers
 import capo_datazone._auth._sigv4
 from capo_datazone._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -85,7 +86,28 @@ class FormType:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_form_type_input.CreateFormTypeInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_form_type_input
+
+            return capo_datazone.types.create_form_type_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_form_type_output.CreateFormTypeOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_form_type_output
+
+            return capo_datazone.types.create_form_type_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateFormType",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_form_type_input.CreateFormTypeInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -143,7 +165,9 @@ class FormType:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFormType")
+        )
         input_: capo_datazone.types.delete_form_type_input.DeleteFormTypeInput = {
             "domain_identifier": domain_identifier,
             "form_type_identifier": form_type_identifier,
@@ -196,7 +220,17 @@ class FormType:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_form_type_output.GetFormTypeOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_form_type_output
+
+            return capo_datazone.types.get_form_type_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetFormType", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_form_type_input.GetFormTypeInput = {
             "domain_identifier": domain_identifier,
             "form_type_identifier": form_type_identifier,
@@ -264,7 +298,28 @@ class AsyncFormType:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_form_type_input.CreateFormTypeInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_form_type_input
+
+            return capo_datazone.types.create_form_type_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_form_type_output.CreateFormTypeOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_form_type_output
+
+            return capo_datazone.types.create_form_type_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateFormType",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_form_type_input.CreateFormTypeInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -323,7 +378,9 @@ class AsyncFormType:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFormType")
+        )
         input_: capo_datazone.types.delete_form_type_input.DeleteFormTypeInput = {
             "domain_identifier": domain_identifier,
             "form_type_identifier": form_type_identifier,
@@ -377,7 +434,17 @@ class AsyncFormType:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_form_type_output.GetFormTypeOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_form_type_output
+
+            return capo_datazone.types.get_form_type_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetFormType", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_form_type_input.GetFormTypeInput = {
             "domain_identifier": domain_identifier,
             "form_type_identifier": form_type_identifier,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectcases#AuditEventPerformedBy``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -38,4 +38,13 @@ def deserialize_json(data: dict) -> AuditEventPerformedBy:
         out["iam_principal_arn"] = data["iamPrincipalArn"]
     else:
         raise DeserializationError("AuditEventPerformedBy.iam_principal_arn required")
+    return out
+
+
+def redact_sensitive(value: AuditEventPerformedBy) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user" in value:
+        import capo_connectcases.types.user_union
+
+        out["user"] = capo_connectcases.types.user_union.redact_sensitive(value["user"])
     return out

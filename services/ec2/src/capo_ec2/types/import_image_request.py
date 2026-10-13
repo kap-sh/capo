@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#ImportImageRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -194,5 +194,18 @@ def deserialize_ec2_query(el: Element) -> ImportImageRequest:
 
         out["boot_mode"] = capo_ec2.types.boot_mode_values.deserialize_ec2_query(
             child_boot_mode
+        )
+    return out
+
+
+def redact_sensitive(value: ImportImageRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "disk_containers" in value:
+        import capo_ec2.types.image_disk_container_list
+
+        out["disk_containers"] = (
+            capo_ec2.types.image_disk_container_list.redact_sensitive(
+                value["disk_containers"]
+            )
         )
     return out

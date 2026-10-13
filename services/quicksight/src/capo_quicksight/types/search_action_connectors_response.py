@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SearchActionConnectorsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -52,6 +52,19 @@ def deserialize_json(data: dict) -> SearchActionConnectorsResponse:
         out["action_connector_summaries"] = (
             capo_quicksight.types.action_connector_summary_list.deserialize_json(
                 data["ActionConnectorSummaries"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SearchActionConnectorsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "action_connector_summaries" in value:
+        import capo_quicksight.types.action_connector_summary_list
+
+        out["action_connector_summaries"] = (
+            capo_quicksight.types.action_connector_summary_list.redact_sensitive(
+                value["action_connector_summaries"]
             )
         )
     return out

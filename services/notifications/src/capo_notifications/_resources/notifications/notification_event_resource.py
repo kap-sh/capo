@@ -8,6 +8,7 @@ import capo_notifications._auth._sigv4
 from capo_notifications._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -75,7 +76,9 @@ class NotificationEventResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetNotificationEvent")
+        )
         input_: capo_notifications.types.get_notification_event_request.GetNotificationEventRequest = {
             "arn": arn
         }
@@ -143,7 +146,9 @@ class NotificationEventResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNotificationEvents")
+        )
         input_: capo_notifications.types.list_notification_events_request.ListNotificationEventsRequest = {}
         if start_time is not None:
             input_["start_time"] = start_time
@@ -216,7 +221,9 @@ class AsyncNotificationEventResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetNotificationEvent")
+        )
         input_: capo_notifications.types.get_notification_event_request.GetNotificationEventRequest = {
             "arn": arn
         }
@@ -285,7 +292,9 @@ class AsyncNotificationEventResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNotificationEvents")
+        )
         input_: capo_notifications.types.list_notification_events_request.ListNotificationEventsRequest = {}
         if start_time is not None:
             input_["start_time"] = start_time

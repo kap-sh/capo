@@ -26,7 +26,9 @@ from capo_marketplace_entitlement_service._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -118,6 +120,7 @@ class AsyncMarketplaceEntitlementServiceClient:
         config_overrides: Optional[
             AsyncMarketplaceEntitlementServiceClientConfig
         ] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncMarketplaceEntitlementServiceClientConfig = (
             config_overrides or {}
@@ -127,8 +130,10 @@ class AsyncMarketplaceEntitlementServiceClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -194,7 +199,9 @@ class AsyncMarketplaceEntitlementServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEntitlements")
+        )
         input_: capo_marketplace_entitlement_service.types.get_entitlements_request.GetEntitlementsRequest = {
             "product_code": product_code
         }

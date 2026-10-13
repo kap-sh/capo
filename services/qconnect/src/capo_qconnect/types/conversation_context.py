@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#ConversationContext``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -41,5 +41,18 @@ def deserialize_json(data: dict) -> ConversationContext:
     else:
         raise DeserializationError(
             "ConversationContext.self_service_conversation_history required"
+        )
+    return out
+
+
+def redact_sensitive(value: ConversationContext) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "self_service_conversation_history" in value:
+        import capo_qconnect.types.self_service_conversation_history_list
+
+        out["self_service_conversation_history"] = (
+            capo_qconnect.types.self_service_conversation_history_list.redact_sensitive(
+                value["self_service_conversation_history"]
+            )
         )
     return out

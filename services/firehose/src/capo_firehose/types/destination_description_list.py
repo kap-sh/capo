@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.firehose#DestinationDescriptionList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_firehose.types.destination_description
@@ -33,3 +33,12 @@ def deserialize_aws_json_1_1(data: list) -> DestinationDescriptionList:
             capo_firehose.types.destination_description.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+def redact_sensitive(value: DestinationDescriptionList) -> list[Any]:
+    import capo_firehose.types.destination_description
+
+    return [
+        capo_firehose.types.destination_description.redact_sensitive(item)
+        for item in value
+    ]

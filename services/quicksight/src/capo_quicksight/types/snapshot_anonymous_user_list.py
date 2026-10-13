@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SnapshotAnonymousUserList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.snapshot_anonymous_user
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> SnapshotAnonymousUserList:
             continue
         out.append(capo_quicksight.types.snapshot_anonymous_user.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: SnapshotAnonymousUserList) -> list[Any]:
+    import capo_quicksight.types.snapshot_anonymous_user
+
+    return [
+        capo_quicksight.types.snapshot_anonymous_user.redact_sensitive(item)
+        for item in value
+    ]

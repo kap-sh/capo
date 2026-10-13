@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#DescribeInstanceResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,5 +49,16 @@ def deserialize_json(data: dict) -> DescribeInstanceResponse:
             capo_connect.types.replication_configuration.deserialize_json(
                 data["ReplicationConfiguration"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeInstanceResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "instance" in value:
+        import capo_connect.types.instance
+
+        out["instance"] = capo_connect.types.instance.redact_sensitive(
+            value["instance"]
         )
     return out

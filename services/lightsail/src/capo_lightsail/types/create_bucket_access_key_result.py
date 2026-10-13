@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lightsail#CreateBucketAccessKeyResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,5 +49,16 @@ def deserialize_aws_json_1_1(data: dict) -> CreateBucketAccessKeyResult:
             capo_lightsail.types.operation_list.deserialize_aws_json_1_1(
                 data["operations"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateBucketAccessKeyResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "access_key" in value:
+        import capo_lightsail.types.access_key
+
+        out["access_key"] = capo_lightsail.types.access_key.redact_sensitive(
+            value["access_key"]
         )
     return out

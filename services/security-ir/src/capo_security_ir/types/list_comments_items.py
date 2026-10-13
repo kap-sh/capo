@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityir#ListCommentsItems``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_security_ir.types.list_comments_item
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> ListCommentsItems:
             continue
         out.append(capo_security_ir.types.list_comments_item.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ListCommentsItems) -> list[Any]:
+    import capo_security_ir.types.list_comments_item
+
+    return [
+        capo_security_ir.types.list_comments_item.redact_sensitive(item)
+        for item in value
+    ]

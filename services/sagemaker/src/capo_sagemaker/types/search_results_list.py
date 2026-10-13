@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemaker#SearchResultsList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_sagemaker.types.search_record
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> SearchResultsList:
             continue
         out.append(capo_sagemaker.types.search_record.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: SearchResultsList) -> list[Any]:
+    import capo_sagemaker.types.search_record
+
+    return [capo_sagemaker.types.search_record.redact_sensitive(item) for item in value]

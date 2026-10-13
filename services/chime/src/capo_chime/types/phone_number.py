@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chime#PhoneNumber``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -199,4 +199,13 @@ def deserialize_json(data: dict) -> PhoneNumber:
         out["deletion_timestamp"] = capo_chime.types.iso8601_timestamp.deserialize_json(
             data["DeletionTimestamp"]
         )
+    return out
+
+
+def redact_sensitive(value: PhoneNumber) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "e164_phone_number" in value:
+        out["e164_phone_number"] = "*** Sensitive Data Redacted ***"
+    if "calling_name" in value:
+        out["calling_name"] = "*** Sensitive Data Redacted ***"
     return out

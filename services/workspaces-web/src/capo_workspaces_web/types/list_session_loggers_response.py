@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#ListSessionLoggersResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -48,4 +48,17 @@ def deserialize_json(data: dict) -> ListSessionLoggersResponse:
         )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListSessionLoggersResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "session_loggers" in value:
+        import capo_workspaces_web.types.session_logger_list
+
+        out["session_loggers"] = (
+            capo_workspaces_web.types.session_logger_list.redact_sensitive(
+                value["session_loggers"]
+            )
+        )
     return out

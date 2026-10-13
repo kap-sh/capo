@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#LlmExtractionConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,4 +58,13 @@ def deserialize_json(data: dict) -> LlmExtractionConfig:
                 data["validation"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: LlmExtractionConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "llm_extraction_instruction" in value:
+        out["llm_extraction_instruction"] = "*** Sensitive Data Redacted ***"
+    if "definition" in value:
+        out["definition"] = "*** Sensitive Data Redacted ***"
     return out

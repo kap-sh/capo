@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#UpdateServiceInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,4 +42,13 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateServiceInput:
         out["description"] = data["description"]
     if data.get("spec") is not None:
         out["spec"] = data["spec"]
+    return out
+
+
+def redact_sensitive(value: UpdateServiceInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "spec" in value:
+        out["spec"] = "*** Sensitive Data Redacted ***"
     return out

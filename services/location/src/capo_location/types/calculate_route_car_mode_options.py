@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#CalculateRouteCarModeOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -31,4 +31,13 @@ def deserialize_json(data: dict) -> CalculateRouteCarModeOptions:
         out["avoid_ferries"] = data["AvoidFerries"]
     if data.get("AvoidTolls") is not None:
         out["avoid_tolls"] = data["AvoidTolls"]
+    return out
+
+
+def redact_sensitive(value: CalculateRouteCarModeOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "avoid_ferries" in value:
+        out["avoid_ferries"] = "*** Sensitive Data Redacted ***"
+    if "avoid_tolls" in value:
+        out["avoid_tolls"] = "*** Sensitive Data Redacted ***"
     return out

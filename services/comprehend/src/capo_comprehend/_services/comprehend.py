@@ -22,10 +22,12 @@ from capo_comprehend._pagination import resolve_path as _resolve_path
 from capo_comprehend._services._aws_config import aws_config
 from capo_comprehend._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -343,7 +345,9 @@ class ComprehendClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ComprehendClientConfig] = None
+        self,
+        config_overrides: Optional[ComprehendClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ComprehendClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -351,8 +355,10 @@ class ComprehendClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -404,7 +410,19 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_comprehend.types.batch_detect_dominant_language_request.BatchDetectDominantLanguageRequest",
+        ) -> dict[str, Any]:
+            import capo_comprehend.types.batch_detect_dominant_language_request
+
+            return capo_comprehend.types.batch_detect_dominant_language_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchDetectDominantLanguage", redact_input=_redact_input),
+        )
         input_: capo_comprehend.types.batch_detect_dominant_language_request.BatchDetectDominantLanguageRequest = {
             "text_list": text_list
         }
@@ -453,7 +471,19 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_comprehend.types.batch_detect_entities_request.BatchDetectEntitiesRequest",
+        ) -> dict[str, Any]:
+            import capo_comprehend.types.batch_detect_entities_request
+
+            return capo_comprehend.types.batch_detect_entities_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchDetectEntities", redact_input=_redact_input),
+        )
         input_: capo_comprehend.types.batch_detect_entities_request.BatchDetectEntitiesRequest = {
             "text_list": text_list,
             "language_code": language_code,
@@ -503,7 +533,21 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_comprehend.types.batch_detect_key_phrases_request.BatchDetectKeyPhrasesRequest",
+        ) -> dict[str, Any]:
+            import capo_comprehend.types.batch_detect_key_phrases_request
+
+            return (
+                capo_comprehend.types.batch_detect_key_phrases_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchDetectKeyPhrases", redact_input=_redact_input),
+        )
         input_: capo_comprehend.types.batch_detect_key_phrases_request.BatchDetectKeyPhrasesRequest = {
             "text_list": text_list,
             "language_code": language_code,
@@ -553,7 +597,21 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_comprehend.types.batch_detect_sentiment_request.BatchDetectSentimentRequest",
+        ) -> dict[str, Any]:
+            import capo_comprehend.types.batch_detect_sentiment_request
+
+            return (
+                capo_comprehend.types.batch_detect_sentiment_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchDetectSentiment", redact_input=_redact_input),
+        )
         input_: capo_comprehend.types.batch_detect_sentiment_request.BatchDetectSentimentRequest = {
             "text_list": text_list,
             "language_code": language_code,
@@ -603,7 +661,19 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_comprehend.types.batch_detect_syntax_request.BatchDetectSyntaxRequest",
+        ) -> dict[str, Any]:
+            import capo_comprehend.types.batch_detect_syntax_request
+
+            return capo_comprehend.types.batch_detect_syntax_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchDetectSyntax", redact_input=_redact_input),
+        )
         input_: capo_comprehend.types.batch_detect_syntax_request.BatchDetectSyntaxRequest = {
             "text_list": text_list,
             "language_code": language_code,
@@ -653,7 +723,21 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_comprehend.types.batch_detect_targeted_sentiment_request.BatchDetectTargetedSentimentRequest",
+        ) -> dict[str, Any]:
+            import capo_comprehend.types.batch_detect_targeted_sentiment_request
+
+            return capo_comprehend.types.batch_detect_targeted_sentiment_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchDetectTargetedSentiment", redact_input=_redact_input
+            ),
+        )
         input_: capo_comprehend.types.batch_detect_targeted_sentiment_request.BatchDetectTargetedSentimentRequest = {
             "text_list": text_list,
             "language_code": language_code,
@@ -712,7 +796,19 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_comprehend.types.classify_document_request.ClassifyDocumentRequest",
+        ) -> dict[str, Any]:
+            import capo_comprehend.types.classify_document_request
+
+            return capo_comprehend.types.classify_document_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ClassifyDocument", redact_input=_redact_input),
+        )
         input_: capo_comprehend.types.classify_document_request.ClassifyDocumentRequest = {
             "endpoint_arn": endpoint_arn
         }
@@ -766,7 +862,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ContainsPiiEntities")
+        )
         input_: capo_comprehend.types.contains_pii_entities_request.ContainsPiiEntitiesRequest = {
             "text": text,
             "language_code": language_code,
@@ -830,7 +928,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataset")
+        )
         input_: capo_comprehend.types.create_dataset_request.CreateDatasetRequest = {
             "flywheel_arn": flywheel_arn,
             "dataset_name": dataset_name,
@@ -921,7 +1021,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDocumentClassifier")
+        )
         input_: capo_comprehend.types.create_document_classifier_request.CreateDocumentClassifierRequest = {
             "document_classifier_name": document_classifier_name,
             "data_access_role_arn": data_access_role_arn,
@@ -1013,7 +1115,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEndpoint")
+        )
         input_: capo_comprehend.types.create_endpoint_request.CreateEndpointRequest = {
             "endpoint_name": endpoint_name,
             "desired_inference_units": desired_inference_units,
@@ -1097,7 +1201,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEntityRecognizer")
+        )
         input_: capo_comprehend.types.create_entity_recognizer_request.CreateEntityRecognizerRequest = {
             "recognizer_name": recognizer_name,
             "data_access_role_arn": data_access_role_arn,
@@ -1189,7 +1295,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFlywheel")
+        )
         input_: capo_comprehend.types.create_flywheel_request.CreateFlywheelRequest = {
             "flywheel_name": flywheel_name,
             "data_access_role_arn": data_access_role_arn,
@@ -1252,7 +1360,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDocumentClassifier")
+        )
         input_: capo_comprehend.types.delete_document_classifier_request.DeleteDocumentClassifierRequest = {
             "document_classifier_arn": document_classifier_arn
         }
@@ -1299,7 +1409,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEndpoint")
+        )
         input_: capo_comprehend.types.delete_endpoint_request.DeleteEndpointRequest = {
             "endpoint_arn": endpoint_arn
         }
@@ -1347,7 +1459,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEntityRecognizer")
+        )
         input_: capo_comprehend.types.delete_entity_recognizer_request.DeleteEntityRecognizerRequest = {
             "entity_recognizer_arn": entity_recognizer_arn
         }
@@ -1395,7 +1509,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFlywheel")
+        )
         input_: capo_comprehend.types.delete_flywheel_request.DeleteFlywheelRequest = {
             "flywheel_arn": flywheel_arn
         }
@@ -1444,7 +1560,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_comprehend.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -1492,7 +1610,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataset")
+        )
         input_: capo_comprehend.types.describe_dataset_request.DescribeDatasetRequest = {
             "dataset_arn": dataset_arn
         }
@@ -1538,7 +1658,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDocumentClassificationJob")
+        )
         input_: capo_comprehend.types.describe_document_classification_job_request.DescribeDocumentClassificationJobRequest = {
             "job_id": job_id
         }
@@ -1584,7 +1706,21 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_comprehend.types.describe_document_classifier_response.DescribeDocumentClassifierResponse",
+        ) -> dict[str, Any]:
+            import capo_comprehend.types.describe_document_classifier_response
+
+            return capo_comprehend.types.describe_document_classifier_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeDocumentClassifier", redact_output=_redact_output
+            ),
+        )
         input_: capo_comprehend.types.describe_document_classifier_request.DescribeDocumentClassifierRequest = {
             "document_classifier_arn": document_classifier_arn
         }
@@ -1630,7 +1766,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDominantLanguageDetectionJob")
+        )
         input_: capo_comprehend.types.describe_dominant_language_detection_job_request.DescribeDominantLanguageDetectionJobRequest = {
             "job_id": job_id
         }
@@ -1676,7 +1814,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEndpoint")
+        )
         input_: capo_comprehend.types.describe_endpoint_request.DescribeEndpointRequest = {
             "endpoint_arn": endpoint_arn
         }
@@ -1722,7 +1862,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEntitiesDetectionJob")
+        )
         input_: capo_comprehend.types.describe_entities_detection_job_request.DescribeEntitiesDetectionJobRequest = {
             "job_id": job_id
         }
@@ -1768,7 +1910,19 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_comprehend.types.describe_entity_recognizer_response.DescribeEntityRecognizerResponse",
+        ) -> dict[str, Any]:
+            import capo_comprehend.types.describe_entity_recognizer_response
+
+            return capo_comprehend.types.describe_entity_recognizer_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeEntityRecognizer", redact_output=_redact_output),
+        )
         input_: capo_comprehend.types.describe_entity_recognizer_request.DescribeEntityRecognizerRequest = {
             "entity_recognizer_arn": entity_recognizer_arn
         }
@@ -1814,7 +1968,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEventsDetectionJob")
+        )
         input_: capo_comprehend.types.describe_events_detection_job_request.DescribeEventsDetectionJobRequest = {
             "job_id": job_id
         }
@@ -1860,7 +2016,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFlywheel")
+        )
         input_: capo_comprehend.types.describe_flywheel_request.DescribeFlywheelRequest = {
             "flywheel_arn": flywheel_arn
         }
@@ -1908,7 +2066,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFlywheelIteration")
+        )
         input_: capo_comprehend.types.describe_flywheel_iteration_request.DescribeFlywheelIterationRequest = {
             "flywheel_arn": flywheel_arn,
             "flywheel_iteration_id": flywheel_iteration_id,
@@ -1955,7 +2115,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeKeyPhrasesDetectionJob")
+        )
         input_: capo_comprehend.types.describe_key_phrases_detection_job_request.DescribeKeyPhrasesDetectionJobRequest = {
             "job_id": job_id
         }
@@ -2001,7 +2163,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePiiEntitiesDetectionJob")
+        )
         input_: capo_comprehend.types.describe_pii_entities_detection_job_request.DescribePiiEntitiesDetectionJobRequest = {
             "job_id": job_id
         }
@@ -2046,7 +2210,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeResourcePolicy")
+        )
         input_: capo_comprehend.types.describe_resource_policy_request.DescribeResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -2092,7 +2258,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSentimentDetectionJob")
+        )
         input_: capo_comprehend.types.describe_sentiment_detection_job_request.DescribeSentimentDetectionJobRequest = {
             "job_id": job_id
         }
@@ -2138,7 +2306,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTargetedSentimentDetectionJob")
+        )
         input_: capo_comprehend.types.describe_targeted_sentiment_detection_job_request.DescribeTargetedSentimentDetectionJobRequest = {
             "job_id": job_id
         }
@@ -2184,7 +2354,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTopicsDetectionJob")
+        )
         input_: capo_comprehend.types.describe_topics_detection_job_request.DescribeTopicsDetectionJobRequest = {
             "job_id": job_id
         }
@@ -2229,7 +2401,21 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_comprehend.types.detect_dominant_language_request.DetectDominantLanguageRequest",
+        ) -> dict[str, Any]:
+            import capo_comprehend.types.detect_dominant_language_request
+
+            return (
+                capo_comprehend.types.detect_dominant_language_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DetectDominantLanguage", redact_input=_redact_input),
+        )
         input_: capo_comprehend.types.detect_dominant_language_request.DetectDominantLanguageRequest = {
             "text": text
         }
@@ -2294,7 +2480,19 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_comprehend.types.detect_entities_request.DetectEntitiesRequest",
+        ) -> dict[str, Any]:
+            import capo_comprehend.types.detect_entities_request
+
+            return capo_comprehend.types.detect_entities_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DetectEntities", redact_input=_redact_input),
+        )
         input_: capo_comprehend.types.detect_entities_request.DetectEntitiesRequest = {}
         if text is not None:
             input_["text"] = text
@@ -2350,7 +2548,19 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_comprehend.types.detect_key_phrases_request.DetectKeyPhrasesRequest",
+        ) -> dict[str, Any]:
+            import capo_comprehend.types.detect_key_phrases_request
+
+            return capo_comprehend.types.detect_key_phrases_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DetectKeyPhrases", redact_input=_redact_input),
+        )
         input_: capo_comprehend.types.detect_key_phrases_request.DetectKeyPhrasesRequest = {
             "text": text,
             "language_code": language_code,
@@ -2399,7 +2609,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetectPiiEntities")
+        )
         input_: capo_comprehend.types.detect_pii_entities_request.DetectPiiEntitiesRequest = {
             "text": text,
             "language_code": language_code,
@@ -2448,7 +2660,19 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_comprehend.types.detect_sentiment_request.DetectSentimentRequest",
+        ) -> dict[str, Any]:
+            import capo_comprehend.types.detect_sentiment_request
+
+            return capo_comprehend.types.detect_sentiment_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DetectSentiment", redact_input=_redact_input),
+        )
         input_: capo_comprehend.types.detect_sentiment_request.DetectSentimentRequest = {
             "text": text,
             "language_code": language_code,
@@ -2497,7 +2721,17 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_comprehend.types.detect_syntax_request.DetectSyntaxRequest",
+        ) -> dict[str, Any]:
+            import capo_comprehend.types.detect_syntax_request
+
+            return capo_comprehend.types.detect_syntax_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DetectSyntax", redact_input=_redact_input),
+        )
         input_: capo_comprehend.types.detect_syntax_request.DetectSyntaxRequest = {
             "text": text,
             "language_code": language_code,
@@ -2546,7 +2780,19 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_comprehend.types.detect_targeted_sentiment_request.DetectTargetedSentimentRequest",
+        ) -> dict[str, Any]:
+            import capo_comprehend.types.detect_targeted_sentiment_request
+
+            return capo_comprehend.types.detect_targeted_sentiment_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DetectTargetedSentiment", redact_input=_redact_input),
+        )
         input_: capo_comprehend.types.detect_targeted_sentiment_request.DetectTargetedSentimentRequest = {
             "text": text,
             "language_code": language_code,
@@ -2597,7 +2843,19 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_comprehend.types.detect_toxic_content_request.DetectToxicContentRequest",
+        ) -> dict[str, Any]:
+            import capo_comprehend.types.detect_toxic_content_request
+
+            return capo_comprehend.types.detect_toxic_content_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DetectToxicContent", redact_input=_redact_input),
+        )
         input_: capo_comprehend.types.detect_toxic_content_request.DetectToxicContentRequest = {
             "text_segments": text_segments,
             "language_code": language_code,
@@ -2663,7 +2921,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportModel")
+        )
         input_: capo_comprehend.types.import_model_request.ImportModelRequest = {
             "source_model_arn": source_model_arn
         }
@@ -2730,7 +2990,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatasets")
+        )
         input_: capo_comprehend.types.list_datasets_request.ListDatasetsRequest = {}
         if flywheel_arn is not None:
             input_["flywheel_arn"] = flywheel_arn
@@ -2817,7 +3079,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDocumentClassificationJobs")
+        )
         input_: capo_comprehend.types.list_document_classification_jobs_request.ListDocumentClassificationJobsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -2900,7 +3164,19 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_comprehend.types.list_document_classifiers_response.ListDocumentClassifiersResponse",
+        ) -> dict[str, Any]:
+            import capo_comprehend.types.list_document_classifiers_response
+
+            return capo_comprehend.types.list_document_classifiers_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListDocumentClassifiers", redact_output=_redact_output),
+        )
         input_: capo_comprehend.types.list_document_classifiers_request.ListDocumentClassifiersRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -2978,7 +3254,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDocumentClassifierSummaries")
+        )
         input_: capo_comprehend.types.list_document_classifier_summaries_request.ListDocumentClassifierSummariesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3055,7 +3333,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDominantLanguageDetectionJobs")
+        )
         input_: capo_comprehend.types.list_dominant_language_detection_jobs_request.ListDominantLanguageDetectionJobsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -3135,7 +3415,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEndpoints")
+        )
         input_: capo_comprehend.types.list_endpoints_request.ListEndpointsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -3218,7 +3500,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEntitiesDetectionJobs")
+        )
         input_: capo_comprehend.types.list_entities_detection_jobs_request.ListEntitiesDetectionJobsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -3301,7 +3585,21 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_comprehend.types.list_entity_recognizers_response.ListEntityRecognizersResponse",
+        ) -> dict[str, Any]:
+            import capo_comprehend.types.list_entity_recognizers_response
+
+            return (
+                capo_comprehend.types.list_entity_recognizers_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListEntityRecognizers", redact_output=_redact_output),
+        )
         input_: capo_comprehend.types.list_entity_recognizers_request.ListEntityRecognizersRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -3379,7 +3677,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEntityRecognizerSummaries")
+        )
         input_: capo_comprehend.types.list_entity_recognizer_summaries_request.ListEntityRecognizerSummariesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3456,7 +3756,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEventsDetectionJobs")
+        )
         input_: capo_comprehend.types.list_events_detection_jobs_request.ListEventsDetectionJobsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -3542,7 +3844,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFlywheelIterationHistory")
+        )
         input_: capo_comprehend.types.list_flywheel_iteration_history_request.ListFlywheelIterationHistoryRequest = {
             "flywheel_arn": flywheel_arn
         }
@@ -3627,7 +3931,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFlywheels")
+        )
         input_: capo_comprehend.types.list_flywheels_request.ListFlywheelsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -3710,7 +4016,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListKeyPhrasesDetectionJobs")
+        )
         input_: capo_comprehend.types.list_key_phrases_detection_jobs_request.ListKeyPhrasesDetectionJobsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -3793,7 +4101,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPiiEntitiesDetectionJobs")
+        )
         input_: capo_comprehend.types.list_pii_entities_detection_jobs_request.ListPiiEntitiesDetectionJobsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -3880,7 +4190,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSentimentDetectionJobs")
+        )
         input_: capo_comprehend.types.list_sentiment_detection_jobs_request.ListSentimentDetectionJobsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -3954,7 +4266,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_comprehend.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -4008,7 +4322,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTargetedSentimentDetectionJobs")
+        )
         input_: capo_comprehend.types.list_targeted_sentiment_detection_jobs_request.ListTargetedSentimentDetectionJobsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -4091,7 +4407,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTopicsDetectionJobs")
+        )
         input_: capo_comprehend.types.list_topics_detection_jobs_request.ListTopicsDetectionJobsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -4171,7 +4489,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_comprehend.types.put_resource_policy_request.PutResourcePolicyRequest = {
             "resource_arn": resource_arn,
             "resource_policy": resource_policy,
@@ -4248,7 +4568,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDocumentClassificationJob")
+        )
         input_: capo_comprehend.types.start_document_classification_job_request.StartDocumentClassificationJobRequest = {
             "input_data_config": input_data_config,
             "output_data_config": output_data_config,
@@ -4329,7 +4651,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDominantLanguageDetectionJob")
+        )
         input_: capo_comprehend.types.start_dominant_language_detection_job_request.StartDominantLanguageDetectionJobRequest = {
             "input_data_config": input_data_config,
             "output_data_config": output_data_config,
@@ -4418,7 +4742,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartEntitiesDetectionJob")
+        )
         input_: capo_comprehend.types.start_entities_detection_job_request.StartEntitiesDetectionJobRequest = {
             "input_data_config": input_data_config,
             "output_data_config": output_data_config,
@@ -4500,7 +4826,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartEventsDetectionJob")
+        )
         input_: capo_comprehend.types.start_events_detection_job_request.StartEventsDetectionJobRequest = {
             "input_data_config": input_data_config,
             "output_data_config": output_data_config,
@@ -4562,7 +4890,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartFlywheelIteration")
+        )
         input_: capo_comprehend.types.start_flywheel_iteration_request.StartFlywheelIterationRequest = {
             "flywheel_arn": flywheel_arn
         }
@@ -4630,7 +4960,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartKeyPhrasesDetectionJob")
+        )
         input_: capo_comprehend.types.start_key_phrases_detection_job_request.StartKeyPhrasesDetectionJobRequest = {
             "input_data_config": input_data_config,
             "output_data_config": output_data_config,
@@ -4712,7 +5044,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartPiiEntitiesDetectionJob")
+        )
         input_: capo_comprehend.types.start_pii_entities_detection_job_request.StartPiiEntitiesDetectionJobRequest = {
             "input_data_config": input_data_config,
             "output_data_config": output_data_config,
@@ -4791,7 +5125,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartSentimentDetectionJob")
+        )
         input_: capo_comprehend.types.start_sentiment_detection_job_request.StartSentimentDetectionJobRequest = {
             "input_data_config": input_data_config,
             "output_data_config": output_data_config,
@@ -4869,7 +5205,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartTargetedSentimentDetectionJob")
+        )
         input_: capo_comprehend.types.start_targeted_sentiment_detection_job_request.StartTargetedSentimentDetectionJobRequest = {
             "input_data_config": input_data_config,
             "output_data_config": output_data_config,
@@ -4951,7 +5289,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartTopicsDetectionJob")
+        )
         input_: capo_comprehend.types.start_topics_detection_job_request.StartTopicsDetectionJobRequest = {
             "input_data_config": input_data_config,
             "output_data_config": output_data_config,
@@ -5011,7 +5351,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopDominantLanguageDetectionJob")
+        )
         input_: capo_comprehend.types.stop_dominant_language_detection_job_request.StopDominantLanguageDetectionJobRequest = {
             "job_id": job_id
         }
@@ -5056,7 +5398,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopEntitiesDetectionJob")
+        )
         input_: capo_comprehend.types.stop_entities_detection_job_request.StopEntitiesDetectionJobRequest = {
             "job_id": job_id
         }
@@ -5101,7 +5445,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopEventsDetectionJob")
+        )
         input_: capo_comprehend.types.stop_events_detection_job_request.StopEventsDetectionJobRequest = {
             "job_id": job_id
         }
@@ -5146,7 +5492,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopKeyPhrasesDetectionJob")
+        )
         input_: capo_comprehend.types.stop_key_phrases_detection_job_request.StopKeyPhrasesDetectionJobRequest = {
             "job_id": job_id
         }
@@ -5191,7 +5539,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopPiiEntitiesDetectionJob")
+        )
         input_: capo_comprehend.types.stop_pii_entities_detection_job_request.StopPiiEntitiesDetectionJobRequest = {
             "job_id": job_id
         }
@@ -5236,7 +5586,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopSentimentDetectionJob")
+        )
         input_: capo_comprehend.types.stop_sentiment_detection_job_request.StopSentimentDetectionJobRequest = {
             "job_id": job_id
         }
@@ -5281,7 +5633,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopTargetedSentimentDetectionJob")
+        )
         input_: capo_comprehend.types.stop_targeted_sentiment_detection_job_request.StopTargetedSentimentDetectionJobRequest = {
             "job_id": job_id
         }
@@ -5327,7 +5681,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopTrainingDocumentClassifier")
+        )
         input_: capo_comprehend.types.stop_training_document_classifier_request.StopTrainingDocumentClassifierRequest = {
             "document_classifier_arn": document_classifier_arn
         }
@@ -5373,7 +5729,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopTrainingEntityRecognizer")
+        )
         input_: capo_comprehend.types.stop_training_entity_recognizer_request.StopTrainingEntityRecognizerRequest = {
             "entity_recognizer_arn": entity_recognizer_arn
         }
@@ -5422,7 +5780,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_comprehend.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -5472,7 +5832,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_comprehend.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -5538,7 +5900,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEndpoint")
+        )
         input_: capo_comprehend.types.update_endpoint_request.UpdateEndpointRequest = {
             "endpoint_arn": endpoint_arn
         }
@@ -5605,7 +5969,9 @@ class ComprehendClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFlywheel")
+        )
         input_: capo_comprehend.types.update_flywheel_request.UpdateFlywheelRequest = {
             "flywheel_arn": flywheel_arn
         }

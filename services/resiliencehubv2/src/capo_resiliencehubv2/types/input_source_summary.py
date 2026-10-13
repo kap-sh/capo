@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.resiliencehubv2#InputSourceSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -109,5 +109,16 @@ def deserialize_json(data: dict) -> InputSourceSummary:
             capo_resiliencehubv2.types._prelude.timestamp.deserialize_json(
                 data["createdAt"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: InputSourceSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "eks" in value:
+        import capo_resiliencehubv2.types.eks_source
+
+        out["eks"] = capo_resiliencehubv2.types.eks_source.redact_sensitive(
+            value["eks"]
         )
     return out

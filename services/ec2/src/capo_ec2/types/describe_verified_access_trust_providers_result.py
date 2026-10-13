@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#DescribeVerifiedAccessTrustProvidersResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,4 +53,19 @@ def deserialize_ec2_query(el: Element) -> DescribeVerifiedAccessTrustProvidersRe
     child_next_token = el.find("nextToken")
     if child_next_token is not None:
         out["next_token"] = str(child_next_token.text or "")
+    return out
+
+
+def redact_sensitive(
+    value: DescribeVerifiedAccessTrustProvidersResult,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "verified_access_trust_providers" in value:
+        import capo_ec2.types.verified_access_trust_provider_list
+
+        out["verified_access_trust_providers"] = (
+            capo_ec2.types.verified_access_trust_provider_list.redact_sensitive(
+                value["verified_access_trust_providers"]
+            )
+        )
     return out

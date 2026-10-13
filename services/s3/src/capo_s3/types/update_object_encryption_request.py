@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#UpdateObjectEncryptionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -62,5 +62,16 @@ def deserialize_xml(el: Element) -> UpdateObjectEncryptionRequest:
     else:
         raise DeserializationError(
             "UpdateObjectEncryptionRequest.object_encryption required"
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateObjectEncryptionRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "object_encryption" in value:
+        import capo_s3.types.object_encryption
+
+        out["object_encryption"] = capo_s3.types.object_encryption.redact_sensitive(
+            value["object_encryption"]
         )
     return out

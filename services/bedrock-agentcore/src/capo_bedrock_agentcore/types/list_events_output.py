@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#ListEventsOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,15 @@ def deserialize_json(data: dict) -> ListEventsOutput:
         raise DeserializationError("ListEventsOutput.events required")
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListEventsOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "events" in value:
+        import capo_bedrock_agentcore.types.event_list
+
+        out["events"] = capo_bedrock_agentcore.types.event_list.redact_sensitive(
+            value["events"]
+        )
     return out

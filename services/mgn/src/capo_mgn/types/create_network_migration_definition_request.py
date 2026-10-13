@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mgn#CreateNetworkMigrationDefinitionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -159,4 +159,13 @@ def deserialize_json(data: dict) -> CreateNetworkMigrationDefinitionRequest:
         out["scope_tags"] = capo_mgn.types.scope_tags_map.deserialize_json(
             data["scopeTags"]
         )
+    return out
+
+
+def redact_sensitive(value: CreateNetworkMigrationDefinitionRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
+    if "scope_tags" in value:
+        out["scope_tags"] = "*** Sensitive Data Redacted ***"
     return out

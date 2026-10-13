@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#EnvironmentTemplateSummaryList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_proton.types.environment_template_summary
@@ -35,3 +35,12 @@ def deserialize_aws_json_1_0(data: list) -> EnvironmentTemplateSummaryList:
             )
         )
     return out
+
+
+def redact_sensitive(value: EnvironmentTemplateSummaryList) -> list[Any]:
+    import capo_proton.types.environment_template_summary
+
+    return [
+        capo_proton.types.environment_template_summary.redact_sensitive(item)
+        for item in value
+    ]

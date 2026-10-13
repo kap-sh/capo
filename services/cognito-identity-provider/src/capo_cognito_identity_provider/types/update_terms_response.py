@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#UpdateTermsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -36,5 +36,16 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateTermsResponse:
             capo_cognito_identity_provider.types.terms_type.deserialize_aws_json_1_1(
                 data["Terms"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateTermsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "terms" in value:
+        import capo_cognito_identity_provider.types.terms_type
+
+        out["terms"] = capo_cognito_identity_provider.types.terms_type.redact_sensitive(
+            value["terms"]
         )
     return out

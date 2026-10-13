@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_partnercentral_selling._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -91,7 +92,9 @@ class ResourceSnapshot:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateResourceSnapshot")
+        )
         input_: capo_partnercentral_selling.types.create_resource_snapshot_request.CreateResourceSnapshotRequest = {
             "catalog": catalog,
             "engagement_identifier": engagement_identifier,
@@ -155,7 +158,19 @@ class ResourceSnapshot:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.get_resource_snapshot_response.GetResourceSnapshotResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.get_resource_snapshot_response
+
+            return capo_partnercentral_selling.types.get_resource_snapshot_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetResourceSnapshot", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_selling.types.get_resource_snapshot_request.GetResourceSnapshotRequest = {
             "catalog": catalog,
             "engagement_identifier": engagement_identifier,
@@ -230,7 +245,32 @@ class ResourceSnapshot:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.list_engagement_resource_associations_request.ListEngagementResourceAssociationsRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_engagement_resource_associations_request
+
+            return capo_partnercentral_selling.types.list_engagement_resource_associations_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.list_engagement_resource_associations_response.ListEngagementResourceAssociationsResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_engagement_resource_associations_response
+
+            return capo_partnercentral_selling.types.list_engagement_resource_associations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListEngagementResourceAssociations",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_partnercentral_selling.types.list_engagement_resource_associations_request.ListEngagementResourceAssociationsRequest = {
             "catalog": catalog
         }
@@ -313,7 +353,32 @@ class ResourceSnapshot:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.list_resource_snapshots_request.ListResourceSnapshotsRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_resource_snapshots_request
+
+            return capo_partnercentral_selling.types.list_resource_snapshots_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.list_resource_snapshots_response.ListResourceSnapshotsResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_resource_snapshots_response
+
+            return capo_partnercentral_selling.types.list_resource_snapshots_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListResourceSnapshots",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_partnercentral_selling.types.list_resource_snapshots_request.ListResourceSnapshotsRequest = {
             "catalog": catalog,
             "engagement_identifier": engagement_identifier,
@@ -393,7 +458,9 @@ class AsyncResourceSnapshot:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateResourceSnapshot")
+        )
         input_: capo_partnercentral_selling.types.create_resource_snapshot_request.CreateResourceSnapshotRequest = {
             "catalog": catalog,
             "engagement_identifier": engagement_identifier,
@@ -458,7 +525,19 @@ class AsyncResourceSnapshot:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.get_resource_snapshot_response.GetResourceSnapshotResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.get_resource_snapshot_response
+
+            return capo_partnercentral_selling.types.get_resource_snapshot_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetResourceSnapshot", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_selling.types.get_resource_snapshot_request.GetResourceSnapshotRequest = {
             "catalog": catalog,
             "engagement_identifier": engagement_identifier,
@@ -534,7 +613,32 @@ class AsyncResourceSnapshot:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.list_engagement_resource_associations_request.ListEngagementResourceAssociationsRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_engagement_resource_associations_request
+
+            return capo_partnercentral_selling.types.list_engagement_resource_associations_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.list_engagement_resource_associations_response.ListEngagementResourceAssociationsResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_engagement_resource_associations_response
+
+            return capo_partnercentral_selling.types.list_engagement_resource_associations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListEngagementResourceAssociations",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_partnercentral_selling.types.list_engagement_resource_associations_request.ListEngagementResourceAssociationsRequest = {
             "catalog": catalog
         }
@@ -618,7 +722,32 @@ class AsyncResourceSnapshot:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.list_resource_snapshots_request.ListResourceSnapshotsRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_resource_snapshots_request
+
+            return capo_partnercentral_selling.types.list_resource_snapshots_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.list_resource_snapshots_response.ListResourceSnapshotsResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_resource_snapshots_response
+
+            return capo_partnercentral_selling.types.list_resource_snapshots_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListResourceSnapshots",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_partnercentral_selling.types.list_resource_snapshots_request.ListResourceSnapshotsRequest = {
             "catalog": catalog,
             "engagement_identifier": engagement_identifier,

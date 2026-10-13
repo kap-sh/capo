@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#Intersection``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -104,5 +104,34 @@ def deserialize_json(data: dict) -> Intersection:
 
         out["access_points"] = capo_geo_places.types.access_point_list.deserialize_json(
             data["AccessPoints"]
+        )
+    return out
+
+
+def redact_sensitive(value: Intersection) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "place_id" in value:
+        out["place_id"] = "*** Sensitive Data Redacted ***"
+    if "title" in value:
+        out["title"] = "*** Sensitive Data Redacted ***"
+    if "address" in value:
+        import capo_geo_places.types.address
+
+        out["address"] = capo_geo_places.types.address.redact_sensitive(
+            value["address"]
+        )
+    if "position" in value:
+        out["position"] = "*** Sensitive Data Redacted ***"
+    if "distance" in value:
+        out["distance"] = "*** Sensitive Data Redacted ***"
+    if "route_distance" in value:
+        out["route_distance"] = "*** Sensitive Data Redacted ***"
+    if "map_view" in value:
+        out["map_view"] = "*** Sensitive Data Redacted ***"
+    if "access_points" in value:
+        import capo_geo_places.types.access_point_list
+
+        out["access_points"] = capo_geo_places.types.access_point_list.redact_sensitive(
+            value["access_points"]
         )
     return out

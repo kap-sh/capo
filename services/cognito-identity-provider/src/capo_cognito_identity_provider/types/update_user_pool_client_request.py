@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#UpdateUserPoolClientRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -377,4 +377,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateUserPoolClientRequest:
                 data["RefreshTokenRotation"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: UpdateUserPoolClientRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_id" in value:
+        out["client_id"] = "*** Sensitive Data Redacted ***"
     return out

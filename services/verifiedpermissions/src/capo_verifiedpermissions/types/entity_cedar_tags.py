@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#EntityCedarTags``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.cedar_tag_value
@@ -35,3 +35,12 @@ def deserialize_aws_json_1_0(data: dict) -> EntityCedarTags:
             )
         )
     return out
+
+
+def redact_sensitive(value: EntityCedarTags) -> dict[str, Any]:
+    import capo_verifiedpermissions.types.cedar_tag_value
+
+    return {
+        key: capo_verifiedpermissions.types.cedar_tag_value.redact_sensitive(item)
+        for key, item in value.items()
+    }

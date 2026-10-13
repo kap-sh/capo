@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#MaintenanceWindowIdentityList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_ssm.types.maintenance_window_identity
@@ -33,3 +33,12 @@ def deserialize_aws_json_1_1(data: list) -> MaintenanceWindowIdentityList:
             capo_ssm.types.maintenance_window_identity.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+def redact_sensitive(value: MaintenanceWindowIdentityList) -> list[Any]:
+    import capo_ssm.types.maintenance_window_identity
+
+    return [
+        capo_ssm.types.maintenance_window_identity.redact_sensitive(item)
+        for item in value
+    ]

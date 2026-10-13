@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#OutputColumnList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.output_column
@@ -27,3 +27,11 @@ def deserialize_json(data: list) -> OutputColumnList:
             continue
         out.append(capo_quicksight.types.output_column.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: OutputColumnList) -> list[Any]:
+    import capo_quicksight.types.output_column
+
+    return [
+        capo_quicksight.types.output_column.redact_sensitive(item) for item in value
+    ]

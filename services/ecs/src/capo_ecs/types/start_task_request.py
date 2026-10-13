@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ecs#StartTaskRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -167,5 +167,16 @@ def deserialize_aws_json_1_1(data: dict) -> StartTaskRequest:
             capo_ecs.types.task_volume_configurations.deserialize_aws_json_1_1(
                 data["volumeConfigurations"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: StartTaskRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "overrides" in value:
+        import capo_ecs.types.task_override
+
+        out["overrides"] = capo_ecs.types.task_override.redact_sensitive(
+            value["overrides"]
         )
     return out

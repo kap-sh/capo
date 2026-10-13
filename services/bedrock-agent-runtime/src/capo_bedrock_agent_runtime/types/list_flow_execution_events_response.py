@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#ListFlowExecutionEventsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -51,4 +51,17 @@ def deserialize_json(data: dict) -> ListFlowExecutionEventsResponse:
         )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListFlowExecutionEventsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "flow_execution_events" in value:
+        import capo_bedrock_agent_runtime.types.flow_execution_events
+
+        out["flow_execution_events"] = (
+            capo_bedrock_agent_runtime.types.flow_execution_events.redact_sensitive(
+                value["flow_execution_events"]
+            )
+        )
     return out

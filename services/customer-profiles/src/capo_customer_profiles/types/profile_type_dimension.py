@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#ProfileTypeDimension``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -58,4 +58,17 @@ def deserialize_json(data: dict) -> ProfileTypeDimension:
         )
     else:
         raise DeserializationError("ProfileTypeDimension.values required")
+    return out
+
+
+def redact_sensitive(value: ProfileTypeDimension) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "values" in value:
+        import capo_customer_profiles.types.profile_type_values
+
+        out["values"] = (
+            capo_customer_profiles.types.profile_type_values.redact_sensitive(
+                value["values"]
+            )
+        )
     return out

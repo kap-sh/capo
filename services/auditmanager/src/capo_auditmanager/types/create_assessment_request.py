@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#CreateAssessmentRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -101,4 +101,19 @@ def deserialize_json(data: dict) -> CreateAssessmentRequest:
         import capo_auditmanager.types.tag_map
 
         out["tags"] = capo_auditmanager.types.tag_map.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: CreateAssessmentRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "assessment_reports_destination" in value:
+        out["assessment_reports_destination"] = "*** Sensitive Data Redacted ***"
+    if "scope" in value:
+        out["scope"] = "*** Sensitive Data Redacted ***"
+    if "roles" in value:
+        out["roles"] = "*** Sensitive Data Redacted ***"
     return out

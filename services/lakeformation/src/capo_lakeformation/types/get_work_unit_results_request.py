@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lakeformation#GetWorkUnitResultsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -44,4 +44,11 @@ def deserialize_json(data: dict) -> GetWorkUnitResultsRequest:
         out["work_unit_token"] = data["WorkUnitToken"]
     else:
         raise DeserializationError("GetWorkUnitResultsRequest.work_unit_token required")
+    return out
+
+
+def redact_sensitive(value: GetWorkUnitResultsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "work_unit_token" in value:
+        out["work_unit_token"] = "*** Sensitive Data Redacted ***"
     return out

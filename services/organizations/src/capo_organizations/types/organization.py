@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.organizations#Organization``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -95,4 +95,11 @@ def deserialize_aws_json_1_1(data: dict) -> Organization:
                 data["AvailablePolicyTypes"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: Organization) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "master_account_email" in value:
+        out["master_account_email"] = "*** Sensitive Data Redacted ***"
     return out

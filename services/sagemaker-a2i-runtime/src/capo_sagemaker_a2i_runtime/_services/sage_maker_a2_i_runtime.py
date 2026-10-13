@@ -21,10 +21,12 @@ from capo_sagemaker_a2i_runtime._pagination import resolve_path as _resolve_path
 from capo_sagemaker_a2i_runtime._services._aws_config import aws_config
 from capo_sagemaker_a2i_runtime._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -123,7 +125,9 @@ class SageMakerA2IRuntimeClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[SageMakerA2IRuntimeClientConfig] = None
+        self,
+        config_overrides: Optional[SageMakerA2IRuntimeClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: SageMakerA2IRuntimeClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -131,8 +135,10 @@ class SageMakerA2IRuntimeClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -184,7 +190,9 @@ class SageMakerA2IRuntimeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteHumanLoop")
+        )
         input_: capo_sagemaker_a2i_runtime.types.delete_human_loop_request.DeleteHumanLoopRequest = {
             "human_loop_name": human_loop_name
         }
@@ -230,7 +238,9 @@ class SageMakerA2IRuntimeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeHumanLoop")
+        )
         input_: capo_sagemaker_a2i_runtime.types.describe_human_loop_request.DescribeHumanLoopRequest = {
             "human_loop_name": human_loop_name
         }
@@ -298,7 +308,9 @@ class SageMakerA2IRuntimeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHumanLoops")
+        )
         input_: capo_sagemaker_a2i_runtime.types.list_human_loops_request.ListHumanLoopsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -412,7 +424,9 @@ class SageMakerA2IRuntimeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartHumanLoop")
+        )
         input_: capo_sagemaker_a2i_runtime.types.start_human_loop_request.StartHumanLoopRequest = {}
         if human_loop_name is not None:
             input_["human_loop_name"] = human_loop_name
@@ -466,7 +480,9 @@ class SageMakerA2IRuntimeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopHumanLoop")
+        )
         input_: capo_sagemaker_a2i_runtime.types.stop_human_loop_request.StopHumanLoopRequest = {}
         if human_loop_name is not None:
             input_["human_loop_name"] = human_loop_name

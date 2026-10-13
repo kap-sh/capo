@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_verifiedpermissions._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -85,7 +86,9 @@ class PolicyStoreAlias:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePolicyStoreAlias")
+        )
         input_: capo_verifiedpermissions.types.create_policy_store_alias_input.CreatePolicyStoreAliasInput = {
             "alias_name": alias_name,
             "policy_store_id": policy_store_id,
@@ -139,7 +142,9 @@ class PolicyStoreAlias:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPolicyStoreAlias")
+        )
         input_: capo_verifiedpermissions.types.get_policy_store_alias_input.GetPolicyStoreAliasInput = {
             "alias_name": alias_name
         }
@@ -200,7 +205,9 @@ class PolicyStoreAlias:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePolicyStoreAlias")
+        )
         input_: capo_verifiedpermissions.types.delete_policy_store_alias_input.DeletePolicyStoreAliasInput = {
             "alias_name": alias_name
         }
@@ -268,7 +275,9 @@ class PolicyStoreAlias:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPolicyStoreAliases")
+        )
         input_: capo_verifiedpermissions.types.list_policy_store_aliases_input.ListPolicyStoreAliasesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -335,7 +344,9 @@ class AsyncPolicyStoreAlias:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePolicyStoreAlias")
+        )
         input_: capo_verifiedpermissions.types.create_policy_store_alias_input.CreatePolicyStoreAliasInput = {
             "alias_name": alias_name,
             "policy_store_id": policy_store_id,
@@ -390,7 +401,9 @@ class AsyncPolicyStoreAlias:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPolicyStoreAlias")
+        )
         input_: capo_verifiedpermissions.types.get_policy_store_alias_input.GetPolicyStoreAliasInput = {
             "alias_name": alias_name
         }
@@ -452,7 +465,9 @@ class AsyncPolicyStoreAlias:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePolicyStoreAlias")
+        )
         input_: capo_verifiedpermissions.types.delete_policy_store_alias_input.DeletePolicyStoreAliasInput = {
             "alias_name": alias_name
         }
@@ -521,7 +536,9 @@ class AsyncPolicyStoreAlias:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPolicyStoreAliases")
+        )
         input_: capo_verifiedpermissions.types.list_policy_store_aliases_input.ListPolicyStoreAliasesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token

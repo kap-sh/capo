@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DescribeAgentResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -38,4 +38,13 @@ def deserialize_json(data: dict) -> DescribeAgentResponse:
         raise DeserializationError("DescribeAgentResponse.agent required")
     if data.get("RequestId") is not None:
         out["request_id"] = data["RequestId"]
+    return out
+
+
+def redact_sensitive(value: DescribeAgentResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "agent" in value:
+        import capo_quicksight.types.agent
+
+        out["agent"] = capo_quicksight.types.agent.redact_sensitive(value["agent"])
     return out

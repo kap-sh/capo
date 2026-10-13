@@ -26,7 +26,9 @@ from capo_codeguru_security._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -148,7 +150,9 @@ class AsyncCodeGuruSecurityClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncCodeGuruSecurityClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncCodeGuruSecurityClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncCodeGuruSecurityClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -156,8 +160,10 @@ class AsyncCodeGuruSecurityClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -210,7 +216,9 @@ class AsyncCodeGuruSecurityClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetFindings")
+        )
         input_: capo_codeguru_security.types.batch_get_findings_request.BatchGetFindingsRequest = {
             "finding_identifiers": finding_identifiers
         }
@@ -273,7 +281,9 @@ class AsyncCodeGuruSecurityClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateScan")
+        )
         input_: capo_codeguru_security.types.create_scan_request.CreateScanRequest = {
             "resource_id": resource_id,
             "scan_name": scan_name,
@@ -330,7 +340,19 @@ class AsyncCodeGuruSecurityClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_codeguru_security.types.create_upload_url_response.CreateUploadUrlResponse",
+        ) -> dict[str, Any]:
+            import capo_codeguru_security.types.create_upload_url_response
+
+            return capo_codeguru_security.types.create_upload_url_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateUploadUrl", redact_output=_redact_output),
+        )
         input_: capo_codeguru_security.types.create_upload_url_request.CreateUploadUrlRequest = {
             "scan_name": scan_name
         }
@@ -371,7 +393,9 @@ class AsyncCodeGuruSecurityClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountConfiguration")
+        )
         input_: capo_codeguru_security.types.get_account_configuration_request.GetAccountConfigurationRequest = {}
 
         response = await aexecute_pipeline(
@@ -426,7 +450,9 @@ class AsyncCodeGuruSecurityClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFindings")
+        )
         input_: capo_codeguru_security.types.get_findings_request.GetFindingsRequest = {
             "scan_name": scan_name
         }
@@ -506,7 +532,9 @@ class AsyncCodeGuruSecurityClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMetricsSummary")
+        )
         input_: capo_codeguru_security.types.get_metrics_summary_request.GetMetricsSummaryRequest = {
             "date": date
         }
@@ -556,7 +584,9 @@ class AsyncCodeGuruSecurityClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetScan")
+        )
         input_: capo_codeguru_security.types.get_scan_request.GetScanRequest = {
             "scan_name": scan_name
         }
@@ -613,7 +643,9 @@ class AsyncCodeGuruSecurityClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFindingsMetrics")
+        )
         input_: capo_codeguru_security.types.list_findings_metrics_request.ListFindingsMetricsRequest = {
             "start_date": start_date,
             "end_date": end_date,
@@ -696,7 +728,9 @@ class AsyncCodeGuruSecurityClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListScans")
+        )
         input_: capo_codeguru_security.types.list_scans_request.ListScansRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -770,7 +804,9 @@ class AsyncCodeGuruSecurityClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_codeguru_security.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -821,7 +857,9 @@ class AsyncCodeGuruSecurityClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_codeguru_security.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -873,7 +911,9 @@ class AsyncCodeGuruSecurityClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_codeguru_security.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -922,7 +962,9 @@ class AsyncCodeGuruSecurityClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccountConfiguration")
+        )
         input_: capo_codeguru_security.types.update_account_configuration_request.UpdateAccountConfigurationRequest = {
             "encryption_config": encryption_config
         }

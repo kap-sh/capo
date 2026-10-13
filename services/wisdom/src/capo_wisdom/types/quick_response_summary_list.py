@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wisdom#QuickResponseSummaryList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_wisdom.types.quick_response_summary
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> QuickResponseSummaryList:
             continue
         out.append(capo_wisdom.types.quick_response_summary.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: QuickResponseSummaryList) -> list[Any]:
+    import capo_wisdom.types.quick_response_summary
+
+    return [
+        capo_wisdom.types.quick_response_summary.redact_sensitive(item)
+        for item in value
+    ]

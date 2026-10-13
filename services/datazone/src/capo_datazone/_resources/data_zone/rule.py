@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_datazone._auth._signers
 import capo_datazone._auth._sigv4
 from capo_datazone._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -103,7 +104,26 @@ class Rule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_rule_input.CreateRuleInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_rule_input
+
+            return capo_datazone.types.create_rule_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_rule_output.CreateRuleOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_rule_output
+
+            return capo_datazone.types.create_rule_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateRule", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_datazone.types.create_rule_input.CreateRuleInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -163,7 +183,16 @@ class Rule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_rule_output.GetRuleOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_rule_output
+
+            return capo_datazone.types.get_rule_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRule", redact_output=_redact_output)
+        )
         input_: capo_datazone.types.get_rule_input.GetRuleInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -228,7 +257,26 @@ class Rule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_rule_input.UpdateRuleInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_rule_input
+
+            return capo_datazone.types.update_rule_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.update_rule_output.UpdateRuleOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_rule_output
+
+            return capo_datazone.types.update_rule_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateRule", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_datazone.types.update_rule_input.UpdateRuleInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -290,7 +338,9 @@ class Rule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRule")
+        )
         input_: capo_datazone.types.delete_rule_input.DeleteRuleInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -361,7 +411,17 @@ class Rule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.list_rules_output.ListRulesOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_rules_output
+
+            return capo_datazone.types.list_rules_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListRules", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.list_rules_input.ListRulesInput = {
             "domain_identifier": domain_identifier,
             "target_type": target_type,
@@ -449,7 +509,26 @@ class AsyncRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_rule_input.CreateRuleInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_rule_input
+
+            return capo_datazone.types.create_rule_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_rule_output.CreateRuleOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_rule_output
+
+            return capo_datazone.types.create_rule_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateRule", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_datazone.types.create_rule_input.CreateRuleInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -512,7 +591,16 @@ class AsyncRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_rule_output.GetRuleOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_rule_output
+
+            return capo_datazone.types.get_rule_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRule", redact_output=_redact_output)
+        )
         input_: capo_datazone.types.get_rule_input.GetRuleInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -578,7 +666,26 @@ class AsyncRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_rule_input.UpdateRuleInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_rule_input
+
+            return capo_datazone.types.update_rule_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.update_rule_output.UpdateRuleOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_rule_output
+
+            return capo_datazone.types.update_rule_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateRule", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_datazone.types.update_rule_input.UpdateRuleInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -641,7 +748,9 @@ class AsyncRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRule")
+        )
         input_: capo_datazone.types.delete_rule_input.DeleteRuleInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -715,7 +824,17 @@ class AsyncRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.list_rules_output.ListRulesOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_rules_output
+
+            return capo_datazone.types.list_rules_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListRules", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.list_rules_input.ListRulesInput = {
             "domain_identifier": domain_identifier,
             "target_type": target_type,

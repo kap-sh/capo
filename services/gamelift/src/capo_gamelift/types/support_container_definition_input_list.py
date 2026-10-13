@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#SupportContainerDefinitionInputList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_gamelift.types.support_container_definition_input
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_1(data: list) -> SupportContainerDefinitionInputList:
             )
         )
     return out
+
+
+def redact_sensitive(value: SupportContainerDefinitionInputList) -> list[Any]:
+    import capo_gamelift.types.support_container_definition_input
+
+    return [
+        capo_gamelift.types.support_container_definition_input.redact_sensitive(item)
+        for item in value
+    ]

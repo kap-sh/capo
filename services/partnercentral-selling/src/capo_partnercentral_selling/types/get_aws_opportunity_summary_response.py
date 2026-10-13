@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#GetAwsOpportunitySummaryResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -272,4 +272,57 @@ def deserialize_aws_json_1_0(data: dict) -> GetAwsOpportunitySummaryResponse:
         out["catalog"] = data["Catalog"]
     else:
         raise DeserializationError("GetAwsOpportunitySummaryResponse.catalog required")
+    return out
+
+
+def redact_sensitive(value: GetAwsOpportunitySummaryResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "life_cycle" in value:
+        import capo_partnercentral_selling.types.aws_opportunity_life_cycle
+
+        out["life_cycle"] = (
+            capo_partnercentral_selling.types.aws_opportunity_life_cycle.redact_sensitive(
+                value["life_cycle"]
+            )
+        )
+    if "opportunity_team" in value:
+        import capo_partnercentral_selling.types.aws_opportunity_team_members_list
+
+        out["opportunity_team"] = (
+            capo_partnercentral_selling.types.aws_opportunity_team_members_list.redact_sensitive(
+                value["opportunity_team"]
+            )
+        )
+    if "insights" in value:
+        import capo_partnercentral_selling.types.aws_opportunity_insights
+
+        out["insights"] = (
+            capo_partnercentral_selling.types.aws_opportunity_insights.redact_sensitive(
+                value["insights"]
+            )
+        )
+    if "customer" in value:
+        import capo_partnercentral_selling.types.aws_opportunity_customer
+
+        out["customer"] = (
+            capo_partnercentral_selling.types.aws_opportunity_customer.redact_sensitive(
+                value["customer"]
+            )
+        )
+    if "project" in value:
+        import capo_partnercentral_selling.types.aws_opportunity_project
+
+        out["project"] = (
+            capo_partnercentral_selling.types.aws_opportunity_project.redact_sensitive(
+                value["project"]
+            )
+        )
+    if "software_revenue" in value:
+        import capo_partnercentral_selling.types.aws_software_revenue
+
+        out["software_revenue"] = (
+            capo_partnercentral_selling.types.aws_software_revenue.redact_sensitive(
+                value["software_revenue"]
+            )
+        )
     return out

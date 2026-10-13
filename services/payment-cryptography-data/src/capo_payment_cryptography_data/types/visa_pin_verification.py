@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#VisaPinVerification``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -38,4 +38,11 @@ def deserialize_json(data: dict) -> VisaPinVerification:
         out["verification_value"] = data["VerificationValue"]
     else:
         raise DeserializationError("VisaPinVerification.verification_value required")
+    return out
+
+
+def redact_sensitive(value: VisaPinVerification) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "verification_value" in value:
+        out["verification_value"] = "*** Sensitive Data Redacted ***"
     return out

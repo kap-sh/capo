@@ -21,10 +21,12 @@ from capo_fms._pagination import resolve_path as _resolve_path
 from capo_fms._services._aws_config import aws_config
 from capo_fms._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -207,7 +209,9 @@ class FMSClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[FMSClientConfig] = None
+        self,
+        config_overrides: Optional[FMSClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: FMSClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -215,8 +219,10 @@ class FMSClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -267,7 +273,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateAdminAccount")
+        )
         input_: capo_fms.types.associate_admin_account_request.AssociateAdminAccountRequest = {
             "admin_account": admin_account
         }
@@ -313,7 +321,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateThirdPartyFirewall")
+        )
         input_: capo_fms.types.associate_third_party_firewall_request.AssociateThirdPartyFirewallRequest = {
             "third_party_firewall": third_party_firewall
         }
@@ -362,7 +372,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchAssociateResource")
+        )
         input_: capo_fms.types.batch_associate_resource_request.BatchAssociateResourceRequest = {
             "resource_set_identifier": resource_set_identifier,
             "items": items,
@@ -411,7 +423,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDisassociateResource")
+        )
         input_: capo_fms.types.batch_disassociate_resource_request.BatchDisassociateResourceRequest = {
             "resource_set_identifier": resource_set_identifier,
             "items": items,
@@ -455,7 +469,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAppsList")
+        )
         input_: capo_fms.types.delete_apps_list_request.DeleteAppsListRequest = {
             "list_id": list_id
         }
@@ -492,7 +508,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNotificationChannel")
+        )
         input_: capo_fms.types.delete_notification_channel_request.DeleteNotificationChannelRequest = {}
 
         response = execute_pipeline(
@@ -537,7 +555,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePolicy")
+        )
         input_: capo_fms.types.delete_policy_request.DeletePolicyRequest = {
             "policy_id": policy_id
         }
@@ -582,7 +602,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProtocolsList")
+        )
         input_: capo_fms.types.delete_protocols_list_request.DeleteProtocolsListRequest = {
             "list_id": list_id
         }
@@ -626,7 +648,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourceSet")
+        )
         input_: capo_fms.types.delete_resource_set_request.DeleteResourceSetRequest = {
             "identifier": identifier
         }
@@ -663,7 +687,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateAdminAccount")
+        )
         input_: capo_fms.types.disassociate_admin_account_request.DisassociateAdminAccountRequest = {}
 
         response = execute_pipeline(
@@ -707,7 +733,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateThirdPartyFirewall")
+        )
         input_: capo_fms.types.disassociate_third_party_firewall_request.DisassociateThirdPartyFirewallRequest = {
             "third_party_firewall": third_party_firewall
         }
@@ -746,7 +774,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAdminAccount")
+        )
         input_: capo_fms.types.get_admin_account_request.GetAdminAccountRequest = {}
 
         response = execute_pipeline(
@@ -791,7 +821,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAdminScope")
+        )
         input_: capo_fms.types.get_admin_scope_request.GetAdminScopeRequest = {
             "admin_account": admin_account
         }
@@ -838,7 +870,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAppsList")
+        )
         input_: capo_fms.types.get_apps_list_request.GetAppsListRequest = {
             "list_id": list_id
         }
@@ -888,7 +922,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetComplianceDetail")
+        )
         input_: capo_fms.types.get_compliance_detail_request.GetComplianceDetailRequest = {
             "policy_id": policy_id,
             "member_account": member_account,
@@ -928,7 +964,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNotificationChannel")
+        )
         input_: capo_fms.types.get_notification_channel_request.GetNotificationChannelRequest = {}
 
         response = execute_pipeline(
@@ -970,7 +1008,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPolicy")
+        )
         input_: capo_fms.types.get_policy_request.GetPolicyRequest = {
             "policy_id": policy_id
         }
@@ -1029,7 +1069,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProtectionStatus")
+        )
         input_: capo_fms.types.get_protection_status_request.GetProtectionStatusRequest = {
             "policy_id": policy_id
         }
@@ -1086,7 +1128,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProtocolsList")
+        )
         input_: capo_fms.types.get_protocols_list_request.GetProtocolsListRequest = {
             "list_id": list_id
         }
@@ -1134,7 +1178,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourceSet")
+        )
         input_: capo_fms.types.get_resource_set_request.GetResourceSetRequest = {
             "identifier": identifier
         }
@@ -1180,7 +1226,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetThirdPartyFirewallAssociationStatus")
+        )
         input_: capo_fms.types.get_third_party_firewall_association_status_request.GetThirdPartyFirewallAssociationStatusRequest = {
             "third_party_firewall": third_party_firewall
         }
@@ -1231,7 +1279,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetViolationDetails")
+        )
         input_: capo_fms.types.get_violation_details_request.GetViolationDetailsRequest = {
             "policy_id": policy_id,
             "member_account": member_account,
@@ -1284,7 +1334,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAdminAccountsForOrganization")
+        )
         input_: capo_fms.types.list_admin_accounts_for_organization_request.ListAdminAccountsForOrganizationRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1358,7 +1410,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAdminsManagingAccount")
+        )
         input_: capo_fms.types.list_admins_managing_account_request.ListAdminsManagingAccountRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1433,7 +1487,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAppsLists")
+        )
         input_: capo_fms.types.list_apps_lists_request.ListAppsListsRequest = {
             "max_results": max_results
         }
@@ -1510,7 +1566,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListComplianceStatus")
+        )
         input_: capo_fms.types.list_compliance_status_request.ListComplianceStatusRequest = {
             "policy_id": policy_id
         }
@@ -1592,7 +1650,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDiscoveredResources")
+        )
         input_: capo_fms.types.list_discovered_resources_request.ListDiscoveredResourcesRequest = {
             "member_account_ids": member_account_ids,
             "resource_type": resource_type,
@@ -1645,7 +1705,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMemberAccounts")
+        )
         input_: capo_fms.types.list_member_accounts_request.ListMemberAccountsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1720,7 +1782,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPolicies")
+        )
         input_: capo_fms.types.list_policies_request.ListPoliciesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1794,7 +1858,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProtocolsLists")
+        )
         input_: capo_fms.types.list_protocols_lists_request.ListProtocolsListsRequest = {
             "max_results": max_results
         }
@@ -1875,7 +1941,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceSetResources")
+        )
         input_: capo_fms.types.list_resource_set_resources_request.ListResourceSetResourcesRequest = {
             "identifier": identifier
         }
@@ -1928,7 +1996,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceSets")
+        )
         input_: capo_fms.types.list_resource_sets_request.ListResourceSetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1976,7 +2046,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_fms.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2026,7 +2098,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThirdPartyFirewallFirewallPolicies")
+        )
         input_: capo_fms.types.list_third_party_firewall_firewall_policies_request.ListThirdPartyFirewallFirewallPoliciesRequest = {
             "third_party_firewall": third_party_firewall,
             "max_results": max_results,
@@ -2100,7 +2174,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAdminAccount")
+        )
         input_: capo_fms.types.put_admin_account_request.PutAdminAccountRequest = {
             "admin_account": admin_account
         }
@@ -2151,7 +2227,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAppsList")
+        )
         input_: capo_fms.types.put_apps_list_request.PutAppsListRequest = {
             "apps_list": apps_list
         }
@@ -2198,7 +2276,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutNotificationChannel")
+        )
         input_: capo_fms.types.put_notification_channel_request.PutNotificationChannelRequest = {
             "sns_topic_arn": sns_topic_arn,
             "sns_role_name": sns_role_name,
@@ -2247,7 +2327,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutPolicy")
+        )
         input_: capo_fms.types.put_policy_request.PutPolicyRequest = {"policy": policy}
         if tag_list is not None:
             input_["tag_list"] = tag_list
@@ -2296,7 +2378,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutProtocolsList")
+        )
         input_: capo_fms.types.put_protocols_list_request.PutProtocolsListRequest = {
             "protocols_list": protocols_list
         }
@@ -2346,7 +2430,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourceSet")
+        )
         input_: capo_fms.types.put_resource_set_request.PutResourceSetRequest = {
             "resource_set": resource_set
         }
@@ -2397,7 +2483,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_fms.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_list": tag_list,
@@ -2446,7 +2534,9 @@ class FMSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_fms.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,

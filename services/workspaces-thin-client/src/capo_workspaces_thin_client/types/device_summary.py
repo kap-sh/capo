@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesthinclient#DeviceSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -203,4 +203,13 @@ def deserialize_json(data: dict) -> DeviceSummary:
         out["arn"] = data["arn"]
     if data.get("lastUserId") is not None:
         out["last_user_id"] = data["lastUserId"]
+    return out
+
+
+def redact_sensitive(value: DeviceSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "last_user_id" in value:
+        out["last_user_id"] = "*** Sensitive Data Redacted ***"
     return out

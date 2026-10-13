@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.codebuild#ImportSourceCredentialsInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -74,4 +74,11 @@ def deserialize_aws_json_1_1(data: dict) -> ImportSourceCredentialsInput:
         raise DeserializationError("ImportSourceCredentialsInput.auth_type required")
     if data.get("shouldOverwrite") is not None:
         out["should_overwrite"] = data["shouldOverwrite"]
+    return out
+
+
+def redact_sensitive(value: ImportSourceCredentialsInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "token" in value:
+        out["token"] = "*** Sensitive Data Redacted ***"
     return out

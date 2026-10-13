@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ebs#GetSnapshotBlockResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -22,3 +22,10 @@ class GetSnapshotBlockResponse(TypedDict, closed=True):
         "capo_ebs.types.checksum_algorithm.ChecksumAlgorithm"
     ]
     """<p>The algorithm used to generate the checksum for the block, such as SHA256.</p>"""
+
+
+def redact_sensitive(value: GetSnapshotBlockResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "block_data" in value:
+        out["block_data"] = "*** Sensitive Data Redacted ***"
+    return out

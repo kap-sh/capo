@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.odb#ListCloudVmClustersOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,5 +47,18 @@ def deserialize_aws_json_1_0(data: dict) -> ListCloudVmClustersOutput:
     else:
         raise DeserializationError(
             "ListCloudVmClustersOutput.cloud_vm_clusters required"
+        )
+    return out
+
+
+def redact_sensitive(value: ListCloudVmClustersOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "cloud_vm_clusters" in value:
+        import capo_odb.types.cloud_vm_cluster_list
+
+        out["cloud_vm_clusters"] = (
+            capo_odb.types.cloud_vm_cluster_list.redact_sensitive(
+                value["cloud_vm_clusters"]
+            )
         )
     return out

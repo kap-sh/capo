@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#PositionalAccuracy``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,11 @@ def deserialize_json(data: dict) -> PositionalAccuracy:
         out["horizontal"] = float(data["Horizontal"])
     else:
         raise DeserializationError("PositionalAccuracy.horizontal required")
+    return out
+
+
+def redact_sensitive(value: PositionalAccuracy) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "horizontal" in value:
+        out["horizontal"] = "*** Sensitive Data Redacted ***"
     return out

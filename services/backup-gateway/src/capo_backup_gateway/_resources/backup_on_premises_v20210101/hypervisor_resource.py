@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_backup_gateway._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -92,7 +93,21 @@ class HypervisorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup_gateway.types.import_hypervisor_configuration_input.ImportHypervisorConfigurationInput",
+        ) -> dict[str, Any]:
+            import capo_backup_gateway.types.import_hypervisor_configuration_input
+
+            return capo_backup_gateway.types.import_hypervisor_configuration_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ImportHypervisorConfiguration", redact_input=_redact_input
+            ),
+        )
         input_: capo_backup_gateway.types.import_hypervisor_configuration_input.ImportHypervisorConfigurationInput = {
             "name": name,
             "host": host,
@@ -147,7 +162,9 @@ class HypervisorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetHypervisor")
+        )
         input_: capo_backup_gateway.types.get_hypervisor_input.GetHypervisorInput = {
             "hypervisor_arn": hypervisor_arn
         }
@@ -207,7 +224,19 @@ class HypervisorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup_gateway.types.update_hypervisor_input.UpdateHypervisorInput",
+        ) -> dict[str, Any]:
+            import capo_backup_gateway.types.update_hypervisor_input
+
+            return capo_backup_gateway.types.update_hypervisor_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateHypervisor", redact_input=_redact_input),
+        )
         input_: capo_backup_gateway.types.update_hypervisor_input.UpdateHypervisorInput = {
             "hypervisor_arn": hypervisor_arn
         }
@@ -265,7 +294,9 @@ class HypervisorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteHypervisor")
+        )
         input_: capo_backup_gateway.types.delete_hypervisor_input.DeleteHypervisorInput = {
             "hypervisor_arn": hypervisor_arn
         }
@@ -314,7 +345,9 @@ class HypervisorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListHypervisors")
+        )
         input_: capo_backup_gateway.types.list_hypervisors_input.ListHypervisorsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -363,7 +396,9 @@ class HypervisorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartVirtualMachinesMetadataSync")
+        )
         input_: capo_backup_gateway.types.start_virtual_machines_metadata_sync_input.StartVirtualMachinesMetadataSyncInput = {
             "hypervisor_arn": hypervisor_arn
         }
@@ -426,7 +461,21 @@ class AsyncHypervisorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup_gateway.types.import_hypervisor_configuration_input.ImportHypervisorConfigurationInput",
+        ) -> dict[str, Any]:
+            import capo_backup_gateway.types.import_hypervisor_configuration_input
+
+            return capo_backup_gateway.types.import_hypervisor_configuration_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ImportHypervisorConfiguration", redact_input=_redact_input
+            ),
+        )
         input_: capo_backup_gateway.types.import_hypervisor_configuration_input.ImportHypervisorConfigurationInput = {
             "name": name,
             "host": host,
@@ -482,7 +531,9 @@ class AsyncHypervisorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetHypervisor")
+        )
         input_: capo_backup_gateway.types.get_hypervisor_input.GetHypervisorInput = {
             "hypervisor_arn": hypervisor_arn
         }
@@ -543,7 +594,19 @@ class AsyncHypervisorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup_gateway.types.update_hypervisor_input.UpdateHypervisorInput",
+        ) -> dict[str, Any]:
+            import capo_backup_gateway.types.update_hypervisor_input
+
+            return capo_backup_gateway.types.update_hypervisor_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateHypervisor", redact_input=_redact_input),
+        )
         input_: capo_backup_gateway.types.update_hypervisor_input.UpdateHypervisorInput = {
             "hypervisor_arn": hypervisor_arn
         }
@@ -602,7 +665,9 @@ class AsyncHypervisorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteHypervisor")
+        )
         input_: capo_backup_gateway.types.delete_hypervisor_input.DeleteHypervisorInput = {
             "hypervisor_arn": hypervisor_arn
         }
@@ -652,7 +717,9 @@ class AsyncHypervisorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListHypervisors")
+        )
         input_: capo_backup_gateway.types.list_hypervisors_input.ListHypervisorsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -702,7 +769,9 @@ class AsyncHypervisorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartVirtualMachinesMetadataSync")
+        )
         input_: capo_backup_gateway.types.start_virtual_machines_metadata_sync_input.StartVirtualMachinesMetadataSyncInput = {
             "hypervisor_arn": hypervisor_arn
         }

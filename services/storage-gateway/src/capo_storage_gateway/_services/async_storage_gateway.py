@@ -24,7 +24,9 @@ from capo_storage_gateway._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -402,7 +404,9 @@ class AsyncStorageGatewayClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncStorageGatewayClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncStorageGatewayClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncStorageGatewayClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -410,8 +414,10 @@ class AsyncStorageGatewayClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -488,7 +494,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ActivateGateway")
+        )
         input_: capo_storage_gateway.types.activate_gateway_input.ActivateGatewayInput = {
             "activation_key": activation_key,
             "gateway_name": gateway_name,
@@ -551,7 +559,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddCache")
+        )
         input_: capo_storage_gateway.types.add_cache_input.AddCacheInput = {
             "gateway_arn": gateway_arn,
             "disk_ids": disk_ids,
@@ -607,7 +617,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTagsToResource")
+        )
         input_: capo_storage_gateway.types.add_tags_to_resource_input.AddTagsToResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -660,7 +672,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddUploadBuffer")
+        )
         input_: capo_storage_gateway.types.add_upload_buffer_input.AddUploadBufferInput = {
             "gateway_arn": gateway_arn,
             "disk_ids": disk_ids,
@@ -715,7 +729,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddWorkingStorage")
+        )
         input_: capo_storage_gateway.types.add_working_storage_input.AddWorkingStorageInput = {
             "gateway_arn": gateway_arn,
             "disk_ids": disk_ids,
@@ -767,7 +783,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssignTapePool")
+        )
         input_: capo_storage_gateway.types.assign_tape_pool_input.AssignTapePoolInput = {
             "tape_arn": tape_arn,
             "pool_id": pool_id,
@@ -835,7 +853,21 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_storage_gateway.types.associate_file_system_input.AssociateFileSystemInput",
+        ) -> dict[str, Any]:
+            import capo_storage_gateway.types.associate_file_system_input
+
+            return (
+                capo_storage_gateway.types.associate_file_system_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AssociateFileSystem", redact_input=_redact_input),
+        )
         input_: capo_storage_gateway.types.associate_file_system_input.AssociateFileSystemInput = {
             "user_name": user_name,
             "password": password,
@@ -902,7 +934,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachVolume")
+        )
         input_: capo_storage_gateway.types.attach_volume_input.AttachVolumeInput = {
             "gateway_arn": gateway_arn,
             "volume_arn": volume_arn,
@@ -960,7 +994,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelArchival")
+        )
         input_: capo_storage_gateway.types.cancel_archival_input.CancelArchivalInput = {
             "gateway_arn": gateway_arn,
             "tape_arn": tape_arn,
@@ -1008,7 +1044,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelCacheReport")
+        )
         input_: capo_storage_gateway.types.cancel_cache_report_input.CancelCacheReportInput = {
             "cache_report_arn": cache_report_arn
         }
@@ -1060,7 +1098,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelRetrieval")
+        )
         input_: capo_storage_gateway.types.cancel_retrieval_input.CancelRetrievalInput = {
             "gateway_arn": gateway_arn,
             "tape_arn": tape_arn,
@@ -1133,7 +1173,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCachediSCSIVolume")
+        )
         input_: capo_storage_gateway.types.create_cachedi_scsi_volume_input.CreateCachediSCSIVolumeInput = {
             "gateway_arn": gateway_arn,
             "volume_size_in_bytes": volume_size_in_bytes,
@@ -1254,7 +1296,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateNFSFileShare")
+        )
         input_: capo_storage_gateway.types.create_nfs_file_share_input.CreateNFSFileShareInput = {
             "client_token": client_token,
             "gateway_arn": gateway_arn,
@@ -1418,7 +1462,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSMBFileShare")
+        )
         input_: capo_storage_gateway.types.create_smb_file_share_input.CreateSMBFileShareInput = {
             "client_token": client_token,
             "gateway_arn": gateway_arn,
@@ -1523,7 +1569,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSnapshot")
+        )
         input_: capo_storage_gateway.types.create_snapshot_input.CreateSnapshotInput = {
             "volume_arn": volume_arn,
             "snapshot_description": snapshot_description,
@@ -1582,7 +1630,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSnapshotFromVolumeRecoveryPoint")
+        )
         input_: capo_storage_gateway.types.create_snapshot_from_volume_recovery_point_input.CreateSnapshotFromVolumeRecoveryPointInput = {
             "volume_arn": volume_arn,
             "snapshot_description": snapshot_description,
@@ -1653,7 +1703,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStorediSCSIVolume")
+        )
         input_: capo_storage_gateway.types.create_storedi_scsi_volume_input.CreateStorediSCSIVolumeInput = {
             "gateway_arn": gateway_arn,
             "disk_id": disk_id,
@@ -1722,7 +1774,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTapePool")
+        )
         input_: capo_storage_gateway.types.create_tape_pool_input.CreateTapePoolInput = {
             "pool_name": pool_name,
             "storage_class": storage_class,
@@ -1798,7 +1852,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTapes")
+        )
         input_: capo_storage_gateway.types.create_tapes_input.CreateTapesInput = {
             "gateway_arn": gateway_arn,
             "tape_size_in_bytes": tape_size_in_bytes,
@@ -1877,7 +1933,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTapeWithBarcode")
+        )
         input_: capo_storage_gateway.types.create_tape_with_barcode_input.CreateTapeWithBarcodeInput = {
             "gateway_arn": gateway_arn,
             "tape_size_in_bytes": tape_size_in_bytes,
@@ -1931,7 +1989,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAutomaticTapeCreationPolicy")
+        )
         input_: capo_storage_gateway.types.delete_automatic_tape_creation_policy_input.DeleteAutomaticTapeCreationPolicyInput = {
             "gateway_arn": gateway_arn
         }
@@ -1983,7 +2043,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBandwidthRateLimit")
+        )
         input_: capo_storage_gateway.types.delete_bandwidth_rate_limit_input.DeleteBandwidthRateLimitInput = {
             "gateway_arn": gateway_arn,
             "bandwidth_type": bandwidth_type,
@@ -2031,7 +2093,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCacheReport")
+        )
         input_: capo_storage_gateway.types.delete_cache_report_input.DeleteCacheReportInput = {
             "cache_report_arn": cache_report_arn
         }
@@ -2084,7 +2148,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChapCredentials")
+        )
         input_: capo_storage_gateway.types.delete_chap_credentials_input.DeleteChapCredentialsInput = {
             "target_arn": target_arn,
             "initiator_name": initiator_name,
@@ -2132,7 +2198,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFileShare")
+        )
         input_: capo_storage_gateway.types.delete_file_share_input.DeleteFileShareInput = {
             "file_share_arn": file_share_arn
         }
@@ -2182,7 +2250,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGateway")
+        )
         input_: capo_storage_gateway.types.delete_gateway_input.DeleteGatewayInput = {
             "gateway_arn": gateway_arn
         }
@@ -2233,7 +2303,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSnapshotSchedule")
+        )
         input_: capo_storage_gateway.types.delete_snapshot_schedule_input.DeleteSnapshotScheduleInput = {
             "volume_arn": volume_arn
         }
@@ -2290,7 +2362,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTape")
+        )
         input_: capo_storage_gateway.types.delete_tape_input.DeleteTapeInput = {
             "gateway_arn": gateway_arn,
             "tape_arn": tape_arn,
@@ -2350,7 +2424,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTapeArchive")
+        )
         input_: capo_storage_gateway.types.delete_tape_archive_input.DeleteTapeArchiveInput = {
             "tape_arn": tape_arn
         }
@@ -2397,7 +2473,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTapePool")
+        )
         input_: capo_storage_gateway.types.delete_tape_pool_input.DeleteTapePoolInput = {
             "pool_arn": pool_arn
         }
@@ -2448,7 +2526,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVolume")
+        )
         input_: capo_storage_gateway.types.delete_volume_input.DeleteVolumeInput = {
             "volume_arn": volume_arn
         }
@@ -2490,7 +2570,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAvailabilityMonitorTest")
+        )
         input_: capo_storage_gateway.types.describe_availability_monitor_test_input.DescribeAvailabilityMonitorTestInput = {
             "gateway_arn": gateway_arn
         }
@@ -2538,7 +2620,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBandwidthRateLimit")
+        )
         input_: capo_storage_gateway.types.describe_bandwidth_rate_limit_input.DescribeBandwidthRateLimitInput = {
             "gateway_arn": gateway_arn
         }
@@ -2580,7 +2664,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBandwidthRateLimitSchedule")
+        )
         input_: capo_storage_gateway.types.describe_bandwidth_rate_limit_schedule_input.DescribeBandwidthRateLimitScheduleInput = {
             "gateway_arn": gateway_arn
         }
@@ -2628,7 +2714,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCache")
+        )
         input_: capo_storage_gateway.types.describe_cache_input.DescribeCacheInput = {
             "gateway_arn": gateway_arn
         }
@@ -2679,7 +2767,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCachediSCSIVolumes")
+        )
         input_: capo_storage_gateway.types.describe_cachedi_scsi_volumes_input.DescribeCachediSCSIVolumesInput = {
             "volume_ar_ns": volume_ar_ns
         }
@@ -2724,7 +2814,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCacheReport")
+        )
         input_: capo_storage_gateway.types.describe_cache_report_input.DescribeCacheReportInput = {
             "cache_report_arn": cache_report_arn
         }
@@ -2775,7 +2867,19 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_storage_gateway.types.describe_chap_credentials_output.DescribeChapCredentialsOutput",
+        ) -> dict[str, Any]:
+            import capo_storage_gateway.types.describe_chap_credentials_output
+
+            return capo_storage_gateway.types.describe_chap_credentials_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeChapCredentials", redact_output=_redact_output),
+        )
         input_: capo_storage_gateway.types.describe_chap_credentials_input.DescribeChapCredentialsInput = {
             "target_arn": target_arn
         }
@@ -2820,7 +2924,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFileSystemAssociations")
+        )
         input_: capo_storage_gateway.types.describe_file_system_associations_input.DescribeFileSystemAssociationsInput = {
             "file_system_association_arn_list": file_system_association_arn_list
         }
@@ -2868,7 +2974,21 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_storage_gateway.types.describe_gateway_information_output.DescribeGatewayInformationOutput",
+        ) -> dict[str, Any]:
+            import capo_storage_gateway.types.describe_gateway_information_output
+
+            return capo_storage_gateway.types.describe_gateway_information_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeGatewayInformation", redact_output=_redact_output
+            ),
+        )
         input_: capo_storage_gateway.types.describe_gateway_information_input.DescribeGatewayInformationInput = {
             "gateway_arn": gateway_arn
         }
@@ -2916,7 +3036,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMaintenanceStartTime")
+        )
         input_: capo_storage_gateway.types.describe_maintenance_start_time_input.DescribeMaintenanceStartTimeInput = {
             "gateway_arn": gateway_arn
         }
@@ -2961,7 +3083,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeNFSFileShares")
+        )
         input_: capo_storage_gateway.types.describe_nfs_file_shares_input.DescribeNFSFileSharesInput = {
             "file_share_arn_list": file_share_arn_list
         }
@@ -3006,7 +3130,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSMBFileShares")
+        )
         input_: capo_storage_gateway.types.describe_smb_file_shares_input.DescribeSMBFileSharesInput = {
             "file_share_arn_list": file_share_arn_list
         }
@@ -3048,7 +3174,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSMBSettings")
+        )
         input_: capo_storage_gateway.types.describe_smb_settings_input.DescribeSMBSettingsInput = {
             "gateway_arn": gateway_arn
         }
@@ -3099,7 +3227,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSnapshotSchedule")
+        )
         input_: capo_storage_gateway.types.describe_snapshot_schedule_input.DescribeSnapshotScheduleInput = {
             "volume_arn": volume_arn
         }
@@ -3150,7 +3280,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStorediSCSIVolumes")
+        )
         input_: capo_storage_gateway.types.describe_storedi_scsi_volumes_input.DescribeStorediSCSIVolumesInput = {
             "volume_ar_ns": volume_ar_ns
         }
@@ -3201,7 +3333,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTapeArchives")
+        )
         input_: capo_storage_gateway.types.describe_tape_archives_input.DescribeTapeArchivesInput = {}
         if tape_ar_ns is not None:
             input_["tape_ar_ns"] = tape_ar_ns
@@ -3280,7 +3414,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTapeRecoveryPoints")
+        )
         input_: capo_storage_gateway.types.describe_tape_recovery_points_input.DescribeTapeRecoveryPointsInput = {
             "gateway_arn": gateway_arn
         }
@@ -3367,7 +3503,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTapes")
+        )
         input_: capo_storage_gateway.types.describe_tapes_input.DescribeTapesInput = {
             "gateway_arn": gateway_arn
         }
@@ -3452,7 +3590,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeUploadBuffer")
+        )
         input_: capo_storage_gateway.types.describe_upload_buffer_input.DescribeUploadBufferInput = {
             "gateway_arn": gateway_arn
         }
@@ -3512,7 +3652,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeVTLDevices")
+        )
         input_: capo_storage_gateway.types.describe_vtl_devices_input.DescribeVTLDevicesInput = {
             "gateway_arn": gateway_arn
         }
@@ -3595,7 +3737,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkingStorage")
+        )
         input_: capo_storage_gateway.types.describe_working_storage_input.DescribeWorkingStorageInput = {
             "gateway_arn": gateway_arn
         }
@@ -3642,7 +3786,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachVolume")
+        )
         input_: capo_storage_gateway.types.detach_volume_input.DetachVolumeInput = {
             "volume_arn": volume_arn
         }
@@ -3692,7 +3838,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableGateway")
+        )
         input_: capo_storage_gateway.types.disable_gateway_input.DisableGatewayInput = {
             "gateway_arn": gateway_arn
         }
@@ -3739,7 +3887,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateFileSystem")
+        )
         input_: capo_storage_gateway.types.disassociate_file_system_input.DisassociateFileSystemInput = {
             "file_system_association_arn": file_system_association_arn
         }
@@ -3788,7 +3938,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EvictFilesFailingUpload")
+        )
         input_: capo_storage_gateway.types.evict_files_failing_upload_input.EvictFilesFailingUploadInput = {
             "file_share_arn": file_share_arn
         }
@@ -3851,7 +4003,16 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_storage_gateway.types.join_domain_input.JoinDomainInput",
+        ) -> dict[str, Any]:
+            import capo_storage_gateway.types.join_domain_input
+
+            return capo_storage_gateway.types.join_domain_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("JoinDomain", redact_input=_redact_input)
+        )
         input_: capo_storage_gateway.types.join_domain_input.JoinDomainInput = {
             "gateway_arn": gateway_arn,
             "domain_name": domain_name,
@@ -3904,7 +4065,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAutomaticTapeCreationPolicies")
+        )
         input_: capo_storage_gateway.types.list_automatic_tape_creation_policies_input.ListAutomaticTapeCreationPoliciesInput = {}
         if gateway_arn is not None:
             input_["gateway_arn"] = gateway_arn
@@ -3949,7 +4112,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCacheReports")
+        )
         input_: capo_storage_gateway.types.list_cache_reports_input.ListCacheReportsInput = {}
         if marker is not None:
             input_["marker"] = marker
@@ -4021,7 +4186,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFileShares")
+        )
         input_: capo_storage_gateway.types.list_file_shares_input.ListFileSharesInput = {}
         if gateway_arn is not None:
             input_["gateway_arn"] = gateway_arn
@@ -4104,7 +4271,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFileSystemAssociations")
+        )
         input_: capo_storage_gateway.types.list_file_system_associations_input.ListFileSystemAssociationsInput = {}
         if gateway_arn is not None:
             input_["gateway_arn"] = gateway_arn
@@ -4190,7 +4359,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGateways")
+        )
         input_: capo_storage_gateway.types.list_gateways_input.ListGatewaysInput = {}
         if marker is not None:
             input_["marker"] = marker
@@ -4263,7 +4434,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLocalDisks")
+        )
         input_: capo_storage_gateway.types.list_local_disks_input.ListLocalDisksInput = {
             "gateway_arn": gateway_arn
         }
@@ -4320,7 +4493,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_storage_gateway.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -4400,7 +4575,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTapePools")
+        )
         input_: capo_storage_gateway.types.list_tape_pools_input.ListTapePoolsInput = {}
         if pool_ar_ns is not None:
             input_["pool_ar_ns"] = pool_ar_ns
@@ -4479,7 +4656,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTapes")
+        )
         input_: capo_storage_gateway.types.list_tapes_input.ListTapesInput = {}
         if tape_ar_ns is not None:
             input_["tape_ar_ns"] = tape_ar_ns
@@ -4553,7 +4732,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVolumeInitiators")
+        )
         input_: capo_storage_gateway.types.list_volume_initiators_input.ListVolumeInitiatorsInput = {
             "volume_arn": volume_arn
         }
@@ -4601,7 +4782,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVolumeRecoveryPoints")
+        )
         input_: capo_storage_gateway.types.list_volume_recovery_points_input.ListVolumeRecoveryPointsInput = {
             "gateway_arn": gateway_arn
         }
@@ -4659,7 +4842,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVolumes")
+        )
         input_: capo_storage_gateway.types.list_volumes_input.ListVolumesInput = {}
         if gateway_arn is not None:
             input_["gateway_arn"] = gateway_arn
@@ -4732,7 +4917,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("NotifyWhenUploaded")
+        )
         input_: capo_storage_gateway.types.notify_when_uploaded_input.NotifyWhenUploadedInput = {
             "file_share_arn": file_share_arn
         }
@@ -4783,7 +4970,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RefreshCache")
+        )
         input_: capo_storage_gateway.types.refresh_cache_input.RefreshCacheInput = {
             "file_share_arn": file_share_arn
         }
@@ -4840,7 +5029,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTagsFromResource")
+        )
         input_: capo_storage_gateway.types.remove_tags_from_resource_input.RemoveTagsFromResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -4889,7 +5080,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetCache")
+        )
         input_: capo_storage_gateway.types.reset_cache_input.ResetCacheInput = {
             "gateway_arn": gateway_arn
         }
@@ -4942,7 +5135,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RetrieveTapeArchive")
+        )
         input_: capo_storage_gateway.types.retrieve_tape_archive_input.RetrieveTapeArchiveInput = {
             "tape_arn": tape_arn,
             "gateway_arn": gateway_arn,
@@ -4995,7 +5190,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RetrieveTapeRecoveryPoint")
+        )
         input_: capo_storage_gateway.types.retrieve_tape_recovery_point_input.RetrieveTapeRecoveryPointInput = {
             "tape_arn": tape_arn,
             "gateway_arn": gateway_arn,
@@ -5048,7 +5245,19 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_storage_gateway.types.set_local_console_password_input.SetLocalConsolePasswordInput",
+        ) -> dict[str, Any]:
+            import capo_storage_gateway.types.set_local_console_password_input
+
+            return capo_storage_gateway.types.set_local_console_password_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SetLocalConsolePassword", redact_input=_redact_input),
+        )
         input_: capo_storage_gateway.types.set_local_console_password_input.SetLocalConsolePasswordInput = {
             "gateway_arn": gateway_arn,
             "local_console_password": local_console_password,
@@ -5096,7 +5305,19 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_storage_gateway.types.set_smb_guest_password_input.SetSMBGuestPasswordInput",
+        ) -> dict[str, Any]:
+            import capo_storage_gateway.types.set_smb_guest_password_input
+
+            return capo_storage_gateway.types.set_smb_guest_password_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SetSMBGuestPassword", redact_input=_redact_input),
+        )
         input_: capo_storage_gateway.types.set_smb_guest_password_input.SetSMBGuestPasswordInput = {
             "gateway_arn": gateway_arn,
             "password": password,
@@ -5145,7 +5366,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ShutdownGateway")
+        )
         input_: capo_storage_gateway.types.shutdown_gateway_input.ShutdownGatewayInput = {
             "gateway_arn": gateway_arn
         }
@@ -5187,7 +5410,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAvailabilityMonitorTest")
+        )
         input_: capo_storage_gateway.types.start_availability_monitor_test_input.StartAvailabilityMonitorTestInput = {
             "gateway_arn": gateway_arn
         }
@@ -5253,7 +5478,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCacheReport")
+        )
         input_: capo_storage_gateway.types.start_cache_report_input.StartCacheReportInput = {
             "file_share_arn": file_share_arn,
             "role": role,
@@ -5313,7 +5540,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartGateway")
+        )
         input_: capo_storage_gateway.types.start_gateway_input.StartGatewayInput = {
             "gateway_arn": gateway_arn
         }
@@ -5359,7 +5588,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAutomaticTapeCreationPolicy")
+        )
         input_: capo_storage_gateway.types.update_automatic_tape_creation_policy_input.UpdateAutomaticTapeCreationPolicyInput = {
             "automatic_tape_creation_rules": automatic_tape_creation_rules,
             "gateway_arn": gateway_arn,
@@ -5418,7 +5649,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBandwidthRateLimit")
+        )
         input_: capo_storage_gateway.types.update_bandwidth_rate_limit_input.UpdateBandwidthRateLimitInput = {
             "gateway_arn": gateway_arn
         }
@@ -5472,7 +5705,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBandwidthRateLimitSchedule")
+        )
         input_: capo_storage_gateway.types.update_bandwidth_rate_limit_schedule_input.UpdateBandwidthRateLimitScheduleInput = {
             "gateway_arn": gateway_arn,
             "bandwidth_rate_limit_intervals": bandwidth_rate_limit_intervals,
@@ -5532,7 +5767,19 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_storage_gateway.types.update_chap_credentials_input.UpdateChapCredentialsInput",
+        ) -> dict[str, Any]:
+            import capo_storage_gateway.types.update_chap_credentials_input
+
+            return capo_storage_gateway.types.update_chap_credentials_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateChapCredentials", redact_input=_redact_input),
+        )
         input_: capo_storage_gateway.types.update_chap_credentials_input.UpdateChapCredentialsInput = {
             "target_arn": target_arn,
             "secret_to_authenticate_initiator": secret_to_authenticate_initiator,
@@ -5596,7 +5843,19 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_storage_gateway.types.update_file_system_association_input.UpdateFileSystemAssociationInput",
+        ) -> dict[str, Any]:
+            import capo_storage_gateway.types.update_file_system_association_input
+
+            return capo_storage_gateway.types.update_file_system_association_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateFileSystemAssociation", redact_input=_redact_input),
+        )
         input_: capo_storage_gateway.types.update_file_system_association_input.UpdateFileSystemAssociationInput = {
             "file_system_association_arn": file_system_association_arn
         }
@@ -5669,7 +5928,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGatewayInformation")
+        )
         input_: capo_storage_gateway.types.update_gateway_information_input.UpdateGatewayInformationInput = {
             "gateway_arn": gateway_arn
         }
@@ -5725,7 +5986,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGatewaySoftwareNow")
+        )
         input_: capo_storage_gateway.types.update_gateway_software_now_input.UpdateGatewaySoftwareNowInput = {
             "gateway_arn": gateway_arn
         }
@@ -5795,7 +6058,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMaintenanceStartTime")
+        )
         input_: capo_storage_gateway.types.update_maintenance_start_time_input.UpdateMaintenanceStartTimeInput = {
             "gateway_arn": gateway_arn
         }
@@ -5898,7 +6163,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNFSFileShare")
+        )
         input_: capo_storage_gateway.types.update_nfs_file_share_input.UpdateNFSFileShareInput = {
             "file_share_arn": file_share_arn
         }
@@ -6035,7 +6302,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSMBFileShare")
+        )
         input_: capo_storage_gateway.types.update_smb_file_share_input.UpdateSMBFileShareInput = {
             "file_share_arn": file_share_arn
         }
@@ -6119,7 +6388,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSMBFileShareVisibility")
+        )
         input_: capo_storage_gateway.types.update_smb_file_share_visibility_input.UpdateSMBFileShareVisibilityInput = {
             "gateway_arn": gateway_arn,
             "file_shares_visible": file_shares_visible,
@@ -6166,7 +6437,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSMBLocalGroups")
+        )
         input_: capo_storage_gateway.types.update_smb_local_groups_input.UpdateSMBLocalGroupsInput = {
             "gateway_arn": gateway_arn,
             "smb_local_groups": smb_local_groups,
@@ -6213,7 +6486,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSMBSecurityStrategy")
+        )
         input_: capo_storage_gateway.types.update_smb_security_strategy_input.UpdateSMBSecurityStrategyInput = {
             "gateway_arn": gateway_arn,
             "smb_security_strategy": smb_security_strategy,
@@ -6275,7 +6550,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSnapshotSchedule")
+        )
         input_: capo_storage_gateway.types.update_snapshot_schedule_input.UpdateSnapshotScheduleInput = {
             "volume_arn": volume_arn,
             "start_at": start_at,
@@ -6334,7 +6611,9 @@ class AsyncStorageGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateVTLDeviceType")
+        )
         input_: capo_storage_gateway.types.update_vtl_device_type_input.UpdateVTLDeviceTypeInput = {
             "vtl_device_arn": vtl_device_arn,
             "device_type": device_type,

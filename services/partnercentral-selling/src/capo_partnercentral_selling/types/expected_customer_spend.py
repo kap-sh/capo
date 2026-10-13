@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#ExpectedCustomerSpend``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -84,4 +84,13 @@ def deserialize_aws_json_1_0(data: dict) -> ExpectedCustomerSpend:
         raise DeserializationError("ExpectedCustomerSpend.target_company required")
     if data.get("EstimationUrl") is not None:
         out["estimation_url"] = data["EstimationUrl"]
+    return out
+
+
+def redact_sensitive(value: ExpectedCustomerSpend) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "amount" in value:
+        out["amount"] = "*** Sensitive Data Redacted ***"
+    if "currency_code" in value:
+        out["currency_code"] = "*** Sensitive Data Redacted ***"
     return out

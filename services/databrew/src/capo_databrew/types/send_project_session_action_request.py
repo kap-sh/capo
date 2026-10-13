@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.databrew#SendProjectSessionActionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -73,4 +73,11 @@ def deserialize_json(data: dict) -> SendProjectSessionActionRequest:
         out["view_frame"] = capo_databrew.types.view_frame.deserialize_json(
             data["ViewFrame"]
         )
+    return out
+
+
+def redact_sensitive(value: SendProjectSessionActionRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_session_id" in value:
+        out["client_session_id"] = "*** Sensitive Data Redacted ***"
     return out

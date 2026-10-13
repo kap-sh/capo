@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_datazone._auth._signers
 import capo_datazone._auth._sigv4
 from capo_datazone._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -101,7 +102,32 @@ class GlossaryTerm:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_glossary_term_input.CreateGlossaryTermInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_glossary_term_input
+
+            return capo_datazone.types.create_glossary_term_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.create_glossary_term_output.CreateGlossaryTermOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_glossary_term_output
+
+            return capo_datazone.types.create_glossary_term_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateGlossaryTerm",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_glossary_term_input.CreateGlossaryTermInput = {
             "domain_identifier": domain_identifier,
             "glossary_identifier": glossary_identifier,
@@ -164,7 +190,17 @@ class GlossaryTerm:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_glossary_term_output.GetGlossaryTermOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_glossary_term_output
+
+            return capo_datazone.types.get_glossary_term_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetGlossaryTerm", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_glossary_term_input.GetGlossaryTermInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -240,7 +276,32 @@ class GlossaryTerm:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_glossary_term_input.UpdateGlossaryTermInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_glossary_term_input
+
+            return capo_datazone.types.update_glossary_term_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.update_glossary_term_output.UpdateGlossaryTermOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_glossary_term_output
+
+            return capo_datazone.types.update_glossary_term_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateGlossaryTerm",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_glossary_term_input.UpdateGlossaryTermInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -304,7 +365,9 @@ class GlossaryTerm:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGlossaryTerm")
+        )
         input_: capo_datazone.types.delete_glossary_term_input.DeleteGlossaryTermInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -383,7 +446,32 @@ class AsyncGlossaryTerm:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_glossary_term_input.CreateGlossaryTermInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_glossary_term_input
+
+            return capo_datazone.types.create_glossary_term_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.create_glossary_term_output.CreateGlossaryTermOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_glossary_term_output
+
+            return capo_datazone.types.create_glossary_term_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateGlossaryTerm",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_glossary_term_input.CreateGlossaryTermInput = {
             "domain_identifier": domain_identifier,
             "glossary_identifier": glossary_identifier,
@@ -447,7 +535,17 @@ class AsyncGlossaryTerm:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_glossary_term_output.GetGlossaryTermOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_glossary_term_output
+
+            return capo_datazone.types.get_glossary_term_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetGlossaryTerm", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_glossary_term_input.GetGlossaryTermInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -524,7 +622,32 @@ class AsyncGlossaryTerm:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_glossary_term_input.UpdateGlossaryTermInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_glossary_term_input
+
+            return capo_datazone.types.update_glossary_term_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.update_glossary_term_output.UpdateGlossaryTermOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_glossary_term_output
+
+            return capo_datazone.types.update_glossary_term_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateGlossaryTerm",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_glossary_term_input.UpdateGlossaryTermInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -589,7 +712,9 @@ class AsyncGlossaryTerm:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGlossaryTerm")
+        )
         input_: capo_datazone.types.delete_glossary_term_input.DeleteGlossaryTermInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,

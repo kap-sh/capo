@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wellarchitected#RemediationStep``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -34,4 +34,13 @@ def deserialize_json(data: dict) -> RemediationStep:
         out["content"] = data["content"]
     else:
         raise DeserializationError("RemediationStep.content required")
+    return out
+
+
+def redact_sensitive(value: RemediationStep) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "title" in value:
+        out["title"] = "*** Sensitive Data Redacted ***"
+    if "content" in value:
+        out["content"] = "*** Sensitive Data Redacted ***"
     return out

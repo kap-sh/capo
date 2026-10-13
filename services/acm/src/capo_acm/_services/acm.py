@@ -22,10 +22,12 @@ from capo_acm._pagination import resolve_path as _resolve_path
 from capo_acm._services._aws_config import aws_config
 from capo_acm._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -219,7 +221,9 @@ class ACMClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ACMClientConfig] = None
+        self,
+        config_overrides: Optional[ACMClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ACMClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -227,8 +231,10 @@ class ACMClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -287,7 +293,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTagsToCertificate")
+        )
         input_: capo_acm.types.add_tags_to_certificate_request.AddTagsToCertificateRequest = {
             "certificate_arn": certificate_arn,
             "tags": tags,
@@ -345,7 +353,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAcmeDomainValidation")
+        )
         input_: capo_acm.types.create_acme_domain_validation_request.CreateAcmeDomainValidationRequest = {
             "acme_endpoint_arn": acme_endpoint_arn,
             "domain_name": domain_name,
@@ -410,7 +420,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAcmeEndpoint")
+        )
         input_: capo_acm.types.create_acme_endpoint_request.CreateAcmeEndpointRequest = {
             "authorization_behavior": authorization_behavior,
             "certificate_authority": certificate_authority,
@@ -477,7 +489,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAcmeExternalAccountBinding")
+        )
         input_: capo_acm.types.create_acme_external_account_binding_request.CreateAcmeExternalAccountBindingRequest = {
             "acme_endpoint_arn": acme_endpoint_arn,
             "role_arn": role_arn,
@@ -530,7 +544,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAcmeDomainValidation")
+        )
         input_: capo_acm.types.delete_acme_domain_validation_request.DeleteAcmeDomainValidationRequest = {
             "acme_domain_validation_arn": acme_domain_validation_arn
         }
@@ -575,7 +591,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAcmeEndpoint")
+        )
         input_: capo_acm.types.delete_acme_endpoint_request.DeleteAcmeEndpointRequest = {
             "acme_endpoint_arn": acme_endpoint_arn
         }
@@ -619,7 +637,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAcmeExternalAccountBinding")
+        )
         input_: capo_acm.types.delete_acme_external_account_binding_request.DeleteAcmeExternalAccountBindingRequest = {
             "acme_external_account_binding_arn": acme_external_account_binding_arn
         }
@@ -666,7 +686,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCertificate")
+        )
         input_: capo_acm.types.delete_certificate_request.DeleteCertificateRequest = {
             "certificate_arn": certificate_arn
         }
@@ -715,7 +737,19 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_acm.types.describe_acme_account_response.DescribeAcmeAccountResponse",
+        ) -> dict[str, Any]:
+            import capo_acm.types.describe_acme_account_response
+
+            return capo_acm.types.describe_acme_account_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeAcmeAccount", redact_output=_redact_output),
+        )
         input_: capo_acm.types.describe_acme_account_request.DescribeAcmeAccountRequest = {
             "acme_endpoint_arn": acme_endpoint_arn,
             "account_url": account_url,
@@ -763,7 +797,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAcmeDomainValidation")
+        )
         input_: capo_acm.types.describe_acme_domain_validation_request.DescribeAcmeDomainValidationRequest = {
             "acme_domain_validation_arn": acme_domain_validation_arn
         }
@@ -810,7 +846,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAcmeEndpoint")
+        )
         input_: capo_acm.types.describe_acme_endpoint_request.DescribeAcmeEndpointRequest = {
             "acme_endpoint_arn": acme_endpoint_arn
         }
@@ -857,7 +895,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAcmeExternalAccountBinding")
+        )
         input_: capo_acm.types.describe_acme_external_account_binding_request.DescribeAcmeExternalAccountBindingRequest = {
             "acme_external_account_binding_arn": acme_external_account_binding_arn
         }
@@ -902,7 +942,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCertificate")
+        )
         input_: capo_acm.types.describe_certificate_request.DescribeCertificateRequest = {
             "certificate_arn": certificate_arn
         }
@@ -951,7 +993,28 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_acm.types.export_certificate_request.ExportCertificateRequest",
+        ) -> dict[str, Any]:
+            import capo_acm.types.export_certificate_request
+
+            return capo_acm.types.export_certificate_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_acm.types.export_certificate_response.ExportCertificateResponse",
+        ) -> dict[str, Any]:
+            import capo_acm.types.export_certificate_response
+
+            return capo_acm.types.export_certificate_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ExportCertificate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_acm.types.export_certificate_request.ExportCertificateRequest = {
             "certificate_arn": certificate_arn,
             "passphrase": passphrase,
@@ -990,7 +1053,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountConfiguration")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -1034,7 +1099,21 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_acm.types.get_acme_external_account_binding_credentials_response.GetAcmeExternalAccountBindingCredentialsResponse",
+        ) -> dict[str, Any]:
+            import capo_acm.types.get_acme_external_account_binding_credentials_response
+
+            return capo_acm.types.get_acme_external_account_binding_credentials_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAcmeExternalAccountBindingCredentials", redact_output=_redact_output
+            ),
+        )
         input_: capo_acm.types.get_acme_external_account_binding_credentials_request.GetAcmeExternalAccountBindingCredentialsRequest = {
             "acme_external_account_binding_arn": acme_external_account_binding_arn
         }
@@ -1080,7 +1159,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCertificate")
+        )
         input_: capo_acm.types.get_certificate_request.GetCertificateRequest = {
             "certificate_arn": certificate_arn
         }
@@ -1141,7 +1222,17 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_acm.types.import_certificate_request.ImportCertificateRequest",
+        ) -> dict[str, Any]:
+            import capo_acm.types.import_certificate_request
+
+            return capo_acm.types.import_certificate_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ImportCertificate", redact_input=_redact_input),
+        )
         input_: capo_acm.types.import_certificate_request.ImportCertificateRequest = {
             "certificate": certificate,
             "private_key": private_key,
@@ -1199,7 +1290,17 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_acm.types.list_acme_accounts_response.ListAcmeAccountsResponse",
+        ) -> dict[str, Any]:
+            import capo_acm.types.list_acme_accounts_response
+
+            return capo_acm.types.list_acme_accounts_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAcmeAccounts", redact_output=_redact_output),
+        )
         input_: capo_acm.types.list_acme_accounts_request.ListAcmeAccountsRequest = {
             "acme_endpoint_arn": acme_endpoint_arn
         }
@@ -1277,7 +1378,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAcmeDomainValidations")
+        )
         input_: capo_acm.types.list_acme_domain_validations_request.ListAcmeDomainValidationsRequest = {
             "acme_endpoint_arn": acme_endpoint_arn
         }
@@ -1352,7 +1455,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAcmeEndpoints")
+        )
         input_: capo_acm.types.list_acme_endpoints_request.ListAcmeEndpointsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1426,7 +1531,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAcmeExternalAccountBindings")
+        )
         input_: capo_acm.types.list_acme_external_account_bindings_request.ListAcmeExternalAccountBindingsRequest = {
             "acme_endpoint_arn": acme_endpoint_arn
         }
@@ -1503,7 +1610,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCertificateDomainValidations")
+        )
         input_: capo_acm.types.list_certificate_domain_validations_request.ListCertificateDomainValidationsRequest = {
             "certificate_arn": certificate_arn
         }
@@ -1590,7 +1699,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCertificates")
+        )
         input_: capo_acm.types.list_certificates_request.ListCertificatesRequest = {}
         if certificate_statuses is not None:
             input_["certificate_statuses"] = certificate_statuses
@@ -1682,7 +1793,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForCertificate")
+        )
         input_: capo_acm.types.list_tags_for_certificate_request.ListTagsForCertificateRequest = {
             "certificate_arn": certificate_arn
         }
@@ -1726,7 +1839,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_acm.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1774,7 +1889,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccountConfiguration")
+        )
         input_: capo_acm.types.put_account_configuration_request.PutAccountConfigurationRequest = {
             "idempotency_token": idempotency_token
         }
@@ -1825,7 +1942,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTagsFromCertificate")
+        )
         input_: capo_acm.types.remove_tags_from_certificate_request.RemoveTagsFromCertificateRequest = {
             "certificate_arn": certificate_arn,
             "tags": tags,
@@ -1870,7 +1989,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RenewCertificate")
+        )
         input_: capo_acm.types.renew_certificate_request.RenewCertificateRequest = {
             "certificate_arn": certificate_arn
         }
@@ -1949,7 +2070,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RequestCertificate")
+        )
         input_: capo_acm.types.request_certificate_request.RequestCertificateRequest = {
             "domain_name": domain_name
         }
@@ -2016,7 +2139,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResendValidationEmail")
+        )
         input_: capo_acm.types.resend_validation_email_request.ResendValidationEmailRequest = {
             "certificate_arn": certificate_arn,
             "domain": domain,
@@ -2066,7 +2191,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokeAcmeAccount")
+        )
         input_: capo_acm.types.revoke_acme_account_request.RevokeAcmeAccountRequest = {
             "acme_endpoint_arn": acme_endpoint_arn,
             "account_url": account_url,
@@ -2113,7 +2240,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokeAcmeExternalAccountBinding")
+        )
         input_: capo_acm.types.revoke_acme_external_account_binding_request.RevokeAcmeExternalAccountBindingRequest = {
             "acme_external_account_binding_arn": acme_external_account_binding_arn
         }
@@ -2164,7 +2293,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokeCertificate")
+        )
         input_: capo_acm.types.revoke_certificate_request.RevokeCertificateRequest = {
             "certificate_arn": certificate_arn,
             "revocation_reason": revocation_reason,
@@ -2226,7 +2357,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchCertificates")
+        )
         input_: capo_acm.types.search_certificates_request.SearchCertificatesRequest = {}
         if filter_statement is not None:
             input_["filter_statement"] = filter_statement
@@ -2314,7 +2447,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_acm.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2359,7 +2494,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_acm.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2410,7 +2547,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAcmeDomainValidation")
+        )
         input_: capo_acm.types.update_acme_domain_validation_request.UpdateAcmeDomainValidationRequest = {
             "acme_domain_validation_arn": acme_domain_validation_arn
         }
@@ -2468,7 +2607,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAcmeEndpoint")
+        )
         input_: capo_acm.types.update_acme_endpoint_request.UpdateAcmeEndpointRequest = {
             "acme_endpoint_arn": acme_endpoint_arn
         }
@@ -2522,7 +2663,9 @@ class ACMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCertificateOptions")
+        )
         input_: capo_acm.types.update_certificate_options_request.UpdateCertificateOptionsRequest = {
             "certificate_arn": certificate_arn,
             "options": options,

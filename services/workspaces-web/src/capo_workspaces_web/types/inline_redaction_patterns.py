@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#InlineRedactionPatterns``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_workspaces_web.types.inline_redaction_pattern
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> InlineRedactionPatterns:
             capo_workspaces_web.types.inline_redaction_pattern.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: InlineRedactionPatterns) -> list[Any]:
+    import capo_workspaces_web.types.inline_redaction_pattern
+
+    return [
+        capo_workspaces_web.types.inline_redaction_pattern.redact_sensitive(item)
+        for item in value
+    ]

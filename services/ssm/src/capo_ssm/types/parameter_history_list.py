@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#ParameterHistoryList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_ssm.types.parameter_history
@@ -29,3 +29,9 @@ def deserialize_aws_json_1_1(data: list) -> ParameterHistoryList:
             continue
         out.append(capo_ssm.types.parameter_history.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: ParameterHistoryList) -> list[Any]:
+    import capo_ssm.types.parameter_history
+
+    return [capo_ssm.types.parameter_history.redact_sensitive(item) for item in value]

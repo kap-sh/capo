@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudwatchevents#CreateConnectionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,4 +79,17 @@ def deserialize_aws_json_1_1(data: dict) -> CreateConnectionRequest:
         )
     else:
         raise DeserializationError("CreateConnectionRequest.auth_parameters required")
+    return out
+
+
+def redact_sensitive(value: CreateConnectionRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "auth_parameters" in value:
+        import capo_cloudwatch_events.types.create_connection_auth_request_parameters
+
+        out["auth_parameters"] = (
+            capo_cloudwatch_events.types.create_connection_auth_request_parameters.redact_sensitive(
+                value["auth_parameters"]
+            )
+        )
     return out

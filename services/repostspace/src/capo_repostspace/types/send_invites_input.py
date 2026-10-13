@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.repostspace#SendInvitesInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -55,4 +55,13 @@ def deserialize_json(data: dict) -> SendInvitesInput:
         out["body"] = data["body"]
     else:
         raise DeserializationError("SendInvitesInput.body required")
+    return out
+
+
+def redact_sensitive(value: SendInvitesInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "title" in value:
+        out["title"] = "*** Sensitive Data Redacted ***"
+    if "body" in value:
+        out["body"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.directoryservice#ShareDirectoryRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -75,4 +75,11 @@ def deserialize_aws_json_1_1(data: dict) -> ShareDirectoryRequest:
         )
     else:
         raise DeserializationError("ShareDirectoryRequest.share_method required")
+    return out
+
+
+def redact_sensitive(value: ShareDirectoryRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "share_notes" in value:
+        out["share_notes"] = "*** Sensitive Data Redacted ***"
     return out

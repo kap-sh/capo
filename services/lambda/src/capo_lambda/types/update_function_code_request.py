@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#UpdateFunctionCodeRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -147,4 +147,11 @@ def deserialize_json(data: dict) -> UpdateFunctionCodeRequest:
         out["revision_id"] = data["RevisionId"]
     if data.get("SourceKMSKeyArn") is not None:
         out["source_kms_key_arn"] = data["SourceKMSKeyArn"]
+    return out
+
+
+def redact_sensitive(value: UpdateFunctionCodeRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "zip_file" in value:
+        out["zip_file"] = "*** Sensitive Data Redacted ***"
     return out

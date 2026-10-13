@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#MetadataAttributes``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.metadata_attribute
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> MetadataAttributes:
             continue
         out.append(capo_bedrock_agent.types.metadata_attribute.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: MetadataAttributes) -> list[Any]:
+    import capo_bedrock_agent.types.metadata_attribute
+
+    return [
+        capo_bedrock_agent.types.metadata_attribute.redact_sensitive(item)
+        for item in value
+    ]

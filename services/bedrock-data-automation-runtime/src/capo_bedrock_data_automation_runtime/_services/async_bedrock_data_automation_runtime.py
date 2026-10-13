@@ -26,7 +26,9 @@ from capo_bedrock_data_automation_runtime._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -140,6 +142,7 @@ class AsyncBedrockDataAutomationRuntimeClient:
         config_overrides: Optional[
             AsyncBedrockDataAutomationRuntimeClientConfig
         ] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncBedrockDataAutomationRuntimeClientConfig = (
             config_overrides or {}
@@ -149,8 +152,10 @@ class AsyncBedrockDataAutomationRuntimeClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -224,7 +229,9 @@ class AsyncBedrockDataAutomationRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InvokeDataAutomation")
+        )
         input_: capo_bedrock_data_automation_runtime.types.invoke_data_automation_request.InvokeDataAutomationRequest = {
             "input_configuration": input_configuration,
             "data_automation_profile_arn": data_automation_profile_arn,
@@ -280,7 +287,9 @@ class AsyncBedrockDataAutomationRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_bedrock_data_automation_runtime.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -329,7 +338,9 @@ class AsyncBedrockDataAutomationRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_bedrock_data_automation_runtime.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -378,7 +389,9 @@ class AsyncBedrockDataAutomationRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_bedrock_data_automation_runtime.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -457,7 +470,9 @@ class AsyncBedrockDataAutomationRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InvokeDataAutomationAsync")
+        )
         input_: capo_bedrock_data_automation_runtime.types.invoke_data_automation_async_request.InvokeDataAutomationAsyncRequest = {
             "input_configuration": input_configuration,
             "output_configuration": output_configuration,
@@ -522,7 +537,9 @@ class AsyncBedrockDataAutomationRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataAutomationStatus")
+        )
         input_: capo_bedrock_data_automation_runtime.types.get_data_automation_status_request.GetDataAutomationStatusRequest = {
             "invocation_arn": invocation_arn
         }

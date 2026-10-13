@@ -25,7 +25,9 @@ from capo_rum._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -180,7 +182,9 @@ class AsyncRUMClient:
         self.app_monitor_resource = AsyncAppMonitorResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncRUMClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncRUMClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncRUMClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -188,8 +192,10 @@ class AsyncRUMClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -241,7 +247,9 @@ class AsyncRUMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_rum.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -299,7 +307,9 @@ class AsyncRUMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRumEvents")
+        )
         input_: capo_rum.types.put_rum_events_request.PutRumEventsRequest = {
             "id": id,
             "batch_id": batch_id,
@@ -353,7 +363,9 @@ class AsyncRUMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_rum.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -402,7 +414,9 @@ class AsyncRUMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_rum.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -451,7 +465,9 @@ class AsyncRUMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAppMonitor")
+        )
         input_: capo_rum.types.get_app_monitor_request.GetAppMonitorRequest = {
             "name": name
         }
@@ -518,7 +534,9 @@ class AsyncRUMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAppMonitor")
+        )
         input_: capo_rum.types.update_app_monitor_request.UpdateAppMonitorRequest = {
             "name": name
         }
@@ -579,7 +597,9 @@ class AsyncRUMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAppMonitor")
+        )
         input_: capo_rum.types.delete_app_monitor_request.DeleteAppMonitorRequest = {
             "name": name
         }
@@ -630,7 +650,9 @@ class AsyncRUMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAppMonitors")
+        )
         input_: capo_rum.types.list_app_monitors_request.ListAppMonitorsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -713,7 +735,9 @@ class AsyncRUMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchCreateRumMetricDefinitions")
+        )
         input_: capo_rum.types.batch_create_rum_metric_definitions_request.BatchCreateRumMetricDefinitionsRequest = {
             "app_monitor_name": app_monitor_name,
             "destination": destination,
@@ -774,7 +798,9 @@ class AsyncRUMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteRumMetricDefinitions")
+        )
         input_: capo_rum.types.batch_delete_rum_metric_definitions_request.BatchDeleteRumMetricDefinitionsRequest = {
             "app_monitor_name": app_monitor_name,
             "destination": destination,
@@ -837,7 +863,9 @@ class AsyncRUMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetRumMetricDefinitions")
+        )
         input_: capo_rum.types.batch_get_rum_metric_definitions_request.BatchGetRumMetricDefinitionsRequest = {
             "app_monitor_name": app_monitor_name,
             "destination": destination,
@@ -949,7 +977,9 @@ class AsyncRUMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAppMonitor")
+        )
         input_: capo_rum.types.create_app_monitor_request.CreateAppMonitorRequest = {
             "name": name
         }
@@ -1020,7 +1050,9 @@ class AsyncRUMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_rum.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {
             "name": name
         }
@@ -1077,7 +1109,9 @@ class AsyncRUMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRumMetricsDestination")
+        )
         input_: capo_rum.types.delete_rum_metrics_destination_request.DeleteRumMetricsDestinationRequest = {
             "app_monitor_name": app_monitor_name,
             "destination": destination,
@@ -1138,7 +1172,9 @@ class AsyncRUMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAppMonitorData")
+        )
         input_: capo_rum.types.get_app_monitor_data_request.GetAppMonitorDataRequest = {
             "name": name,
             "time_range": time_range,
@@ -1224,7 +1260,9 @@ class AsyncRUMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_rum.types.get_resource_policy_request.GetResourcePolicyRequest = {
             "name": name
         }
@@ -1277,7 +1315,9 @@ class AsyncRUMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRumMetricsDestinations")
+        )
         input_: capo_rum.types.list_rum_metrics_destinations_request.ListRumMetricsDestinationsRequest = {
             "app_monitor_name": app_monitor_name
         }
@@ -1364,7 +1404,9 @@ class AsyncRUMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_rum.types.put_resource_policy_request.PutResourcePolicyRequest = {
             "name": name,
             "policy_document": policy_document,
@@ -1424,7 +1466,9 @@ class AsyncRUMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRumMetricsDestination")
+        )
         input_: capo_rum.types.put_rum_metrics_destination_request.PutRumMetricsDestinationRequest = {
             "app_monitor_name": app_monitor_name,
             "destination": destination,
@@ -1489,7 +1533,9 @@ class AsyncRUMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRumMetricDefinition")
+        )
         input_: capo_rum.types.update_rum_metric_definition_request.UpdateRumMetricDefinitionRequest = {
             "app_monitor_name": app_monitor_name,
             "destination": destination,

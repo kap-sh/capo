@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkidentity#ListAppInstanceUsersResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,4 +53,19 @@ def deserialize_json(data: dict) -> ListAppInstanceUsersResponse:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListAppInstanceUsersResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "app_instance_users" in value:
+        import capo_chime_sdk_identity.types.app_instance_user_list
+
+        out["app_instance_users"] = (
+            capo_chime_sdk_identity.types.app_instance_user_list.redact_sensitive(
+                value["app_instance_users"]
+            )
+        )
+    if "next_token" in value:
+        out["next_token"] = "*** Sensitive Data Redacted ***"
     return out

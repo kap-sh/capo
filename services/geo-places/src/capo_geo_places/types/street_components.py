@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#StreetComponents``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -78,4 +78,19 @@ def deserialize_json(data: dict) -> StreetComponents:
         out["direction"] = data["Direction"]
     if data.get("Language") is not None:
         out["language"] = data["Language"]
+    return out
+
+
+def redact_sensitive(value: StreetComponents) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "base_name" in value:
+        out["base_name"] = "*** Sensitive Data Redacted ***"
+    if "type" in value:
+        out["type"] = "*** Sensitive Data Redacted ***"
+    if "prefix" in value:
+        out["prefix"] = "*** Sensitive Data Redacted ***"
+    if "suffix" in value:
+        out["suffix"] = "*** Sensitive Data Redacted ***"
+    if "direction" in value:
+        out["direction"] = "*** Sensitive Data Redacted ***"
     return out

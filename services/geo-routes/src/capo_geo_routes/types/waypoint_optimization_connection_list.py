@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#WaypointOptimizationConnectionList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_routes.types.waypoint_optimization_connection
@@ -35,3 +35,12 @@ def deserialize_json(data: list) -> WaypointOptimizationConnectionList:
             )
         )
     return out
+
+
+def redact_sensitive(value: WaypointOptimizationConnectionList) -> list[Any]:
+    import capo_geo_routes.types.waypoint_optimization_connection
+
+    return [
+        capo_geo_routes.types.waypoint_optimization_connection.redact_sensitive(item)
+        for item in value
+    ]

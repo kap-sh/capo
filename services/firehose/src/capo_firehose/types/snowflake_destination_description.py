@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.firehose#SnowflakeDestinationDescription``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -285,6 +285,41 @@ def deserialize_aws_json_1_1(data: dict) -> SnowflakeDestinationDescription:
         out["buffering_hints"] = (
             capo_firehose.types.snowflake_buffering_hints.deserialize_aws_json_1_1(
                 data["BufferingHints"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SnowflakeDestinationDescription) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "account_url" in value:
+        out["account_url"] = "*** Sensitive Data Redacted ***"
+    if "user" in value:
+        out["user"] = "*** Sensitive Data Redacted ***"
+    if "database" in value:
+        out["database"] = "*** Sensitive Data Redacted ***"
+    if "schema" in value:
+        out["schema"] = "*** Sensitive Data Redacted ***"
+    if "table" in value:
+        out["table"] = "*** Sensitive Data Redacted ***"
+    if "snowflake_role_configuration" in value:
+        import capo_firehose.types.snowflake_role_configuration
+
+        out["snowflake_role_configuration"] = (
+            capo_firehose.types.snowflake_role_configuration.redact_sensitive(
+                value["snowflake_role_configuration"]
+            )
+        )
+    if "meta_data_column_name" in value:
+        out["meta_data_column_name"] = "*** Sensitive Data Redacted ***"
+    if "content_column_name" in value:
+        out["content_column_name"] = "*** Sensitive Data Redacted ***"
+    if "snowflake_vpc_configuration" in value:
+        import capo_firehose.types.snowflake_vpc_configuration
+
+        out["snowflake_vpc_configuration"] = (
+            capo_firehose.types.snowflake_vpc_configuration.redact_sensitive(
+                value["snowflake_vpc_configuration"]
             )
         )
     return out

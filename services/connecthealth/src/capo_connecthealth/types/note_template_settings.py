@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connecthealth#NoteTemplateSettings``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -65,3 +65,16 @@ def deserialize_json(data: dict) -> NoteTemplateSettings:
         }
     else:
         raise DeserializationError("NoteTemplateSettings: no recognized variant key")
+
+
+def redact_sensitive(value: NoteTemplateSettings) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "customTemplate" in value:
+        import capo_connecthealth.types.custom_template
+
+        out["customTemplate"] = (
+            capo_connecthealth.types.custom_template.redact_sensitive(
+                value["customTemplate"]
+            )
+        )
+    return out

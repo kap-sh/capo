@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_iotfleetwise._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -101,7 +102,9 @@ class StateTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateStateTemplate")
+        )
         input_: capo_iotfleetwise.types.create_state_template_request.CreateStateTemplateRequest = {
             "name": name,
             "signal_catalog_arn": signal_catalog_arn,
@@ -158,7 +161,9 @@ class StateTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetStateTemplate")
+        )
         input_: capo_iotfleetwise.types.get_state_template_request.GetStateTemplateRequest = {
             "identifier": identifier
         }
@@ -225,7 +230,9 @@ class StateTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateStateTemplate")
+        )
         input_: capo_iotfleetwise.types.update_state_template_request.UpdateStateTemplateRequest = {
             "identifier": identifier
         }
@@ -285,7 +292,9 @@ class StateTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteStateTemplate")
+        )
         input_: capo_iotfleetwise.types.delete_state_template_request.DeleteStateTemplateRequest = {
             "identifier": identifier
         }
@@ -337,7 +346,9 @@ class StateTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListStateTemplates")
+        )
         input_: capo_iotfleetwise.types.list_state_templates_request.ListStateTemplatesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -413,7 +424,9 @@ class AsyncStateTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateStateTemplate")
+        )
         input_: capo_iotfleetwise.types.create_state_template_request.CreateStateTemplateRequest = {
             "name": name,
             "signal_catalog_arn": signal_catalog_arn,
@@ -471,7 +484,9 @@ class AsyncStateTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetStateTemplate")
+        )
         input_: capo_iotfleetwise.types.get_state_template_request.GetStateTemplateRequest = {
             "identifier": identifier
         }
@@ -539,7 +554,9 @@ class AsyncStateTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateStateTemplate")
+        )
         input_: capo_iotfleetwise.types.update_state_template_request.UpdateStateTemplateRequest = {
             "identifier": identifier
         }
@@ -600,7 +617,9 @@ class AsyncStateTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteStateTemplate")
+        )
         input_: capo_iotfleetwise.types.delete_state_template_request.DeleteStateTemplateRequest = {
             "identifier": identifier
         }
@@ -653,7 +672,9 @@ class AsyncStateTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListStateTemplates")
+        )
         input_: capo_iotfleetwise.types.list_state_templates_request.ListStateTemplatesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesthinclient#UpdateEnvironmentResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> UpdateEnvironmentResponse:
         out["environment"] = (
             capo_workspaces_thin_client.types.environment_summary.deserialize_json(
                 data["environment"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateEnvironmentResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "environment" in value:
+        import capo_workspaces_thin_client.types.environment_summary
+
+        out["environment"] = (
+            capo_workspaces_thin_client.types.environment_summary.redact_sensitive(
+                value["environment"]
             )
         )
     return out

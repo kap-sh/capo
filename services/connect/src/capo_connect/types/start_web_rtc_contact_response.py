@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#StartWebRTCContactResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,4 +56,15 @@ def deserialize_json(data: dict) -> StartWebRTCContactResponse:
         out["participant_id"] = data["ParticipantId"]
     if data.get("ParticipantToken") is not None:
         out["participant_token"] = data["ParticipantToken"]
+    return out
+
+
+def redact_sensitive(value: StartWebRTCContactResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "connection_data" in value:
+        import capo_connect.types.connection_data
+
+        out["connection_data"] = capo_connect.types.connection_data.redact_sensitive(
+            value["connection_data"]
+        )
     return out

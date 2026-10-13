@@ -26,10 +26,12 @@ from capo_networkmonitor._resources.network_monitor.probe_resource import ProbeR
 from capo_networkmonitor._services._aws_config import aws_config
 from capo_networkmonitor._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -153,7 +155,9 @@ class NetworkMonitorClient:
         self.probe_resource = ProbeResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[NetworkMonitorClientConfig] = None
+        self,
+        config_overrides: Optional[NetworkMonitorClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: NetworkMonitorClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -161,8 +165,10 @@ class NetworkMonitorClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -216,7 +222,9 @@ class NetworkMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_networkmonitor.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -266,7 +274,9 @@ class NetworkMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_networkmonitor.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -317,7 +327,9 @@ class NetworkMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_networkmonitor.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -378,7 +390,9 @@ class NetworkMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMonitor")
+        )
         input_: capo_networkmonitor.types.create_monitor_input.CreateMonitorInput = {
             "monitor_name": monitor_name
         }
@@ -434,7 +448,9 @@ class NetworkMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMonitor")
+        )
         input_: capo_networkmonitor.types.get_monitor_input.GetMonitorInput = {
             "monitor_name": monitor_name
         }
@@ -484,7 +500,9 @@ class NetworkMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMonitor")
+        )
         input_: capo_networkmonitor.types.update_monitor_input.UpdateMonitorInput = {
             "monitor_name": monitor_name,
             "aggregation_period": aggregation_period,
@@ -532,7 +550,9 @@ class NetworkMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMonitor")
+        )
         input_: capo_networkmonitor.types.delete_monitor_input.DeleteMonitorInput = {
             "monitor_name": monitor_name
         }
@@ -586,7 +606,9 @@ class NetworkMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMonitors")
+        )
         input_: capo_networkmonitor.types.list_monitors_input.ListMonitorsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -671,7 +693,9 @@ class NetworkMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProbe")
+        )
         input_: capo_networkmonitor.types.create_probe_input.CreateProbeInput = {
             "monitor_name": monitor_name,
             "probe": probe,
@@ -726,7 +750,9 @@ class NetworkMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProbe")
+        )
         input_: capo_networkmonitor.types.get_probe_input.GetProbeInput = {
             "monitor_name": monitor_name,
             "probe_id": probe_id,
@@ -791,7 +817,9 @@ class NetworkMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProbe")
+        )
         input_: capo_networkmonitor.types.update_probe_input.UpdateProbeInput = {
             "monitor_name": monitor_name,
             "probe_id": probe_id,
@@ -852,7 +880,9 @@ class NetworkMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProbe")
+        )
         input_: capo_networkmonitor.types.delete_probe_input.DeleteProbeInput = {
             "monitor_name": monitor_name,
             "probe_id": probe_id,

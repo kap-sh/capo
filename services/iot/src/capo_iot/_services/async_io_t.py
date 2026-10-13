@@ -25,7 +25,9 @@ from capo_iot._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -952,7 +954,9 @@ class AsyncIoTClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncIoTClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncIoTClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncIoTClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -960,8 +964,10 @@ class AsyncIoTClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -1017,7 +1023,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptCertificateTransfer")
+        )
         input_: capo_iot.types.accept_certificate_transfer_request.AcceptCertificateTransferRequest = {
             "certificate_id": certificate_id
         }
@@ -1076,7 +1084,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddThingToBillingGroup")
+        )
         input_: capo_iot.types.add_thing_to_billing_group_request.AddThingToBillingGroupRequest = {}
         if billing_group_name is not None:
             input_["billing_group_name"] = billing_group_name
@@ -1145,7 +1155,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddThingToThingGroup")
+        )
         input_: capo_iot.types.add_thing_to_thing_group_request.AddThingToThingGroupRequest = {}
         if thing_group_name is not None:
             input_["thing_group_name"] = thing_group_name
@@ -1207,7 +1219,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateSbomWithPackageVersion")
+        )
         input_: capo_iot.types.associate_sbom_with_package_version_request.AssociateSbomWithPackageVersionRequest = {
             "package_name": package_name,
             "version_name": version_name,
@@ -1266,7 +1280,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateTargetsWithJob")
+        )
         input_: capo_iot.types.associate_targets_with_job_request.AssociateTargetsWithJobRequest = {
             "targets": targets,
             "job_id": job_id,
@@ -1321,7 +1337,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachPolicy")
+        )
         input_: capo_iot.types.attach_policy_request.AttachPolicyRequest = {
             "policy_name": policy_name,
             "target": target,
@@ -1372,7 +1390,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachPrincipalPolicy")
+        )
         input_: capo_iot.types.attach_principal_policy_request.AttachPrincipalPolicyRequest = {
             "policy_name": policy_name,
             "principal": principal,
@@ -1426,7 +1446,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachSecurityProfile")
+        )
         input_: capo_iot.types.attach_security_profile_request.AttachSecurityProfileRequest = {
             "security_profile_name": security_profile_name,
             "security_profile_target_arn": security_profile_target_arn,
@@ -1482,7 +1504,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachThingPrincipal")
+        )
         input_: capo_iot.types.attach_thing_principal_request.AttachThingPrincipalRequest = {
             "thing_name": thing_name,
             "principal": principal,
@@ -1532,7 +1556,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelAuditMitigationActionsTask")
+        )
         input_: capo_iot.types.cancel_audit_mitigation_actions_task_request.CancelAuditMitigationActionsTaskRequest = {
             "task_id": task_id
         }
@@ -1579,7 +1605,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelAuditTask")
+        )
         input_: capo_iot.types.cancel_audit_task_request.CancelAuditTaskRequest = {
             "task_id": task_id
         }
@@ -1627,7 +1655,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelCertificateTransfer")
+        )
         input_: capo_iot.types.cancel_certificate_transfer_request.CancelCertificateTransferRequest = {
             "certificate_id": certificate_id
         }
@@ -1674,7 +1704,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelDetectMitigationActionsTask")
+        )
         input_: capo_iot.types.cancel_detect_mitigation_actions_task_request.CancelDetectMitigationActionsTaskRequest = {
             "task_id": task_id
         }
@@ -1728,7 +1760,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelJob")
+        )
         input_: capo_iot.types.cancel_job_request.CancelJobRequest = {"job_id": job_id}
         if reason_code is not None:
             input_["reason_code"] = reason_code
@@ -1789,7 +1823,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelJobExecution")
+        )
         input_: capo_iot.types.cancel_job_execution_request.CancelJobExecutionRequest = {
             "job_id": job_id,
             "thing_name": thing_name,
@@ -1839,7 +1875,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ClearDefaultAuthorizer")
+        )
         input_: capo_iot.types.clear_default_authorizer_request.ClearDefaultAuthorizerRequest = {}
 
         response = await aexecute_pipeline(
@@ -1885,7 +1923,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ConfirmTopicRuleDestination")
+        )
         input_: capo_iot.types.confirm_topic_rule_destination_request.ConfirmTopicRuleDestinationRequest = {
             "confirmation_token": confirmation_token
         }
@@ -1945,7 +1985,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAuditSuppression")
+        )
         input_: capo_iot.types.create_audit_suppression_request.CreateAuditSuppressionRequest = {
             "check_name": check_name,
             "resource_identifier": resource_identifier,
@@ -2021,7 +2063,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAuthorizer")
+        )
         input_: capo_iot.types.create_authorizer_request.CreateAuthorizerRequest = {
             "authorizer_name": authorizer_name,
             "authorizer_function_arn": authorizer_function_arn,
@@ -2087,7 +2131,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBillingGroup")
+        )
         input_: capo_iot.types.create_billing_group_request.CreateBillingGroupRequest = {
             "billing_group_name": billing_group_name
         }
@@ -2141,7 +2187,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCertificateFromCsr")
+        )
         input_: capo_iot.types.create_certificate_from_csr_request.CreateCertificateFromCsrRequest = {
             "certificate_signing_request": certificate_signing_request
         }
@@ -2201,7 +2249,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCertificateProvider")
+        )
         input_: capo_iot.types.create_certificate_provider_request.CreateCertificateProviderRequest = {
             "certificate_provider_name": certificate_provider_name,
             "lambda_function_arn": lambda_function_arn,
@@ -2282,7 +2332,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCommand")
+        )
         input_: capo_iot.types.create_command_request.CreateCommandRequest = {
             "command_id": command_id
         }
@@ -2358,7 +2410,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCustomMetric")
+        )
         input_: capo_iot.types.create_custom_metric_request.CreateCustomMetricRequest = {
             "metric_name": metric_name,
             "metric_type": metric_type,
@@ -2420,7 +2474,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDimension")
+        )
         input_: capo_iot.types.create_dimension_request.CreateDimensionRequest = {
             "name": name,
             "type": type,
@@ -2512,7 +2568,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDomainConfiguration")
+        )
         input_: capo_iot.types.create_domain_configuration_request.CreateDomainConfigurationRequest = {
             "domain_configuration_name": domain_configuration_name
         }
@@ -2596,7 +2654,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDynamicThingGroup")
+        )
         input_: capo_iot.types.create_dynamic_thing_group_request.CreateDynamicThingGroupRequest = {
             "thing_group_name": thing_group_name,
             "query_string": query_string,
@@ -2679,7 +2739,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFleetMetric")
+        )
         input_: capo_iot.types.create_fleet_metric_request.CreateFleetMetricRequest = {
             "metric_name": metric_name,
             "query_string": query_string,
@@ -2792,7 +2854,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateJob")
+        )
         input_: capo_iot.types.create_job_request.CreateJobRequest = {
             "job_id": job_id,
             "targets": targets,
@@ -2904,7 +2968,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateJobTemplate")
+        )
         input_: capo_iot.types.create_job_template_request.CreateJobTemplateRequest = {
             "job_template_id": job_template_id,
             "description": description,
@@ -2975,7 +3041,19 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot.types.create_keys_and_certificate_response.CreateKeysAndCertificateResponse",
+        ) -> dict[str, Any]:
+            import capo_iot.types.create_keys_and_certificate_response
+
+            return capo_iot.types.create_keys_and_certificate_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateKeysAndCertificate", redact_output=_redact_output),
+        )
         input_: capo_iot.types.create_keys_and_certificate_request.CreateKeysAndCertificateRequest = {}
         if set_as_active is not None:
             input_["set_as_active"] = set_as_active
@@ -3029,7 +3107,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMitigationAction")
+        )
         input_: capo_iot.types.create_mitigation_action_request.CreateMitigationActionRequest = {
             "action_name": action_name,
             "role_arn": role_arn,
@@ -3122,7 +3202,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateOTAUpdate")
+        )
         input_: capo_iot.types.create_ota_update_request.CreateOTAUpdateRequest = {
             "ota_update_id": ota_update_id,
             "targets": targets,
@@ -3201,7 +3283,28 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot.types.create_package_request.CreatePackageRequest",
+        ) -> dict[str, Any]:
+            import capo_iot.types.create_package_request
+
+            return capo_iot.types.create_package_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_iot.types.create_package_response.CreatePackageResponse",
+        ) -> dict[str, Any]:
+            import capo_iot.types.create_package_response
+
+            return capo_iot.types.create_package_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreatePackage",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_iot.types.create_package_request.CreatePackageRequest = {
             "package_name": package_name
         }
@@ -3278,7 +3381,32 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot.types.create_package_version_request.CreatePackageVersionRequest",
+        ) -> dict[str, Any]:
+            import capo_iot.types.create_package_version_request
+
+            return capo_iot.types.create_package_version_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_iot.types.create_package_version_response.CreatePackageVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_iot.types.create_package_version_response
+
+            return capo_iot.types.create_package_version_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreatePackageVersion",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_iot.types.create_package_version_request.CreatePackageVersionRequest = {
             "package_name": package_name,
             "version_name": version_name,
@@ -3346,7 +3474,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePolicy")
+        )
         input_: capo_iot.types.create_policy_request.CreatePolicyRequest = {
             "policy_name": policy_name,
             "policy_document": policy_document,
@@ -3404,7 +3534,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePolicyVersion")
+        )
         input_: capo_iot.types.create_policy_version_request.CreatePolicyVersionRequest = {
             "policy_name": policy_name,
             "policy_document": policy_document,
@@ -3456,7 +3588,19 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot.types.create_provisioning_claim_response.CreateProvisioningClaimResponse",
+        ) -> dict[str, Any]:
+            import capo_iot.types.create_provisioning_claim_response
+
+            return capo_iot.types.create_provisioning_claim_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateProvisioningClaim", redact_output=_redact_output),
+        )
         input_: capo_iot.types.create_provisioning_claim_request.CreateProvisioningClaimRequest = {
             "template_name": template_name
         }
@@ -3523,7 +3667,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProvisioningTemplate")
+        )
         input_: capo_iot.types.create_provisioning_template_request.CreateProvisioningTemplateRequest = {
             "template_name": template_name,
             "template_body": template_body,
@@ -3589,7 +3735,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProvisioningTemplateVersion")
+        )
         input_: capo_iot.types.create_provisioning_template_version_request.CreateProvisioningTemplateVersionRequest = {
             "template_name": template_name,
             "template_body": template_body,
@@ -3650,7 +3798,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRoleAlias")
+        )
         input_: capo_iot.types.create_role_alias_request.CreateRoleAliasRequest = {
             "role_alias": role_alias,
             "role_arn": role_arn,
@@ -3713,7 +3863,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateScheduledAudit")
+        )
         input_: capo_iot.types.create_scheduled_audit_request.CreateScheduledAuditRequest = {
             "frequency": frequency,
             "target_check_names": target_check_names,
@@ -3792,7 +3944,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSecurityProfile")
+        )
         input_: capo_iot.types.create_security_profile_request.CreateSecurityProfileRequest = {
             "security_profile_name": security_profile_name
         }
@@ -3867,7 +4021,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStream")
+        )
         input_: capo_iot.types.create_stream_request.CreateStreamRequest = {
             "stream_id": stream_id,
             "files": files,
@@ -3935,7 +4091,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateThing")
+        )
         input_: capo_iot.types.create_thing_request.CreateThingRequest = {
             "thing_name": thing_name
         }
@@ -3998,7 +4156,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateThingGroup")
+        )
         input_: capo_iot.types.create_thing_group_request.CreateThingGroupRequest = {
             "thing_group_name": thing_group_name
         }
@@ -4059,7 +4219,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateThingType")
+        )
         input_: capo_iot.types.create_thing_type_request.CreateThingTypeRequest = {
             "thing_type_name": thing_type_name
         }
@@ -4115,7 +4277,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTopicRule")
+        )
         input_: capo_iot.types.create_topic_rule_request.CreateTopicRuleRequest = {
             "rule_name": rule_name,
             "topic_rule_payload": topic_rule_payload,
@@ -4167,7 +4331,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTopicRuleDestination")
+        )
         input_: capo_iot.types.create_topic_rule_destination_request.CreateTopicRuleDestinationRequest = {
             "destination_configuration": destination_configuration
         }
@@ -4216,7 +4382,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccountAuditConfiguration")
+        )
         input_: capo_iot.types.delete_account_audit_configuration_request.DeleteAccountAuditConfigurationRequest = {}
         if delete_scheduled_audits is not None:
             input_["delete_scheduled_audits"] = delete_scheduled_audits
@@ -4260,7 +4428,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAuditSuppression")
+        )
         input_: capo_iot.types.delete_audit_suppression_request.DeleteAuditSuppressionRequest = {
             "check_name": check_name,
             "resource_identifier": resource_identifier,
@@ -4311,7 +4481,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAuthorizer")
+        )
         input_: capo_iot.types.delete_authorizer_request.DeleteAuthorizerRequest = {
             "authorizer_name": authorizer_name
         }
@@ -4362,7 +4534,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBillingGroup")
+        )
         input_: capo_iot.types.delete_billing_group_request.DeleteBillingGroupRequest = {
             "billing_group_name": billing_group_name
         }
@@ -4414,7 +4588,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCACertificate")
+        )
         input_: capo_iot.types.delete_ca_certificate_request.DeleteCACertificateRequest = {
             "certificate_id": certificate_id
         }
@@ -4465,7 +4641,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCertificate")
+        )
         input_: capo_iot.types.delete_certificate_request.DeleteCertificateRequest = {
             "certificate_id": certificate_id
         }
@@ -4517,7 +4695,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCertificateProvider")
+        )
         input_: capo_iot.types.delete_certificate_provider_request.DeleteCertificateProviderRequest = {
             "certificate_provider_name": certificate_provider_name
         }
@@ -4564,7 +4744,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCommand")
+        )
         input_: capo_iot.types.delete_command_request.DeleteCommandRequest = {
             "command_id": command_id
         }
@@ -4613,7 +4795,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCommandExecution")
+        )
         input_: capo_iot.types.delete_command_execution_request.DeleteCommandExecutionRequest = {
             "execution_id": execution_id,
             "target_arn": target_arn,
@@ -4660,7 +4844,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCustomMetric")
+        )
         input_: capo_iot.types.delete_custom_metric_request.DeleteCustomMetricRequest = {
             "metric_name": metric_name
         }
@@ -4706,7 +4892,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDimension")
+        )
         input_: capo_iot.types.delete_dimension_request.DeleteDimensionRequest = {
             "name": name
         }
@@ -4755,7 +4943,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomainConfiguration")
+        )
         input_: capo_iot.types.delete_domain_configuration_request.DeleteDomainConfigurationRequest = {
             "domain_configuration_name": domain_configuration_name
         }
@@ -4806,7 +4996,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDynamicThingGroup")
+        )
         input_: capo_iot.types.delete_dynamic_thing_group_request.DeleteDynamicThingGroupRequest = {
             "thing_group_name": thing_group_name
         }
@@ -4859,7 +5051,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFleetMetric")
+        )
         input_: capo_iot.types.delete_fleet_metric_request.DeleteFleetMetricRequest = {
             "metric_name": metric_name
         }
@@ -4912,7 +5106,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteJob")
+        )
         input_: capo_iot.types.delete_job_request.DeleteJobRequest = {"job_id": job_id}
         if force is not None:
             input_["force"] = force
@@ -4968,7 +5164,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteJobExecution")
+        )
         input_: capo_iot.types.delete_job_execution_request.DeleteJobExecutionRequest = {
             "job_id": job_id,
             "thing_name": thing_name,
@@ -5019,7 +5217,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteJobTemplate")
+        )
         input_: capo_iot.types.delete_job_template_request.DeleteJobTemplateRequest = {
             "job_template_id": job_template_id
         }
@@ -5065,7 +5265,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMitigationAction")
+        )
         input_: capo_iot.types.delete_mitigation_action_request.DeleteMitigationActionRequest = {
             "action_name": action_name
         }
@@ -5121,7 +5323,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOTAUpdate")
+        )
         input_: capo_iot.types.delete_ota_update_request.DeleteOTAUpdateRequest = {
             "ota_update_id": ota_update_id
         }
@@ -5173,7 +5377,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePackage")
+        )
         input_: capo_iot.types.delete_package_request.DeletePackageRequest = {
             "package_name": package_name
         }
@@ -5226,7 +5432,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePackageVersion")
+        )
         input_: capo_iot.types.delete_package_version_request.DeletePackageVersionRequest = {
             "package_name": package_name,
             "version_name": version_name,
@@ -5278,7 +5486,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePolicy")
+        )
         input_: capo_iot.types.delete_policy_request.DeletePolicyRequest = {
             "policy_name": policy_name
         }
@@ -5328,7 +5538,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePolicyVersion")
+        )
         input_: capo_iot.types.delete_policy_version_request.DeletePolicyVersionRequest = {
             "policy_name": policy_name,
             "policy_version_id": policy_version_id,
@@ -5379,7 +5591,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProvisioningTemplate")
+        )
         input_: capo_iot.types.delete_provisioning_template_request.DeleteProvisioningTemplateRequest = {
             "template_name": template_name
         }
@@ -5431,7 +5645,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProvisioningTemplateVersion")
+        )
         input_: capo_iot.types.delete_provisioning_template_version_request.DeleteProvisioningTemplateVersionRequest = {
             "template_name": template_name,
             "version_id": version_id,
@@ -5474,7 +5690,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRegistrationCode")
+        )
         input_: capo_iot.types.delete_registration_code_request.DeleteRegistrationCodeRequest = {}
 
         response = await aexecute_pipeline(
@@ -5522,7 +5740,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRoleAlias")
+        )
         input_: capo_iot.types.delete_role_alias_request.DeleteRoleAliasRequest = {
             "role_alias": role_alias
         }
@@ -5569,7 +5789,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteScheduledAudit")
+        )
         input_: capo_iot.types.delete_scheduled_audit_request.DeleteScheduledAuditRequest = {
             "scheduled_audit_name": scheduled_audit_name
         }
@@ -5622,7 +5844,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSecurityProfile")
+        )
         input_: capo_iot.types.delete_security_profile_request.DeleteSecurityProfileRequest = {
             "security_profile_name": security_profile_name
         }
@@ -5674,7 +5898,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStream")
+        )
         input_: capo_iot.types.delete_stream_request.DeleteStreamRequest = {
             "stream_id": stream_id
         }
@@ -5728,7 +5954,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteThing")
+        )
         input_: capo_iot.types.delete_thing_request.DeleteThingRequest = {
             "thing_name": thing_name
         }
@@ -5781,7 +6009,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteThingGroup")
+        )
         input_: capo_iot.types.delete_thing_group_request.DeleteThingGroupRequest = {
             "thing_group_name": thing_group_name
         }
@@ -5832,7 +6062,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteThingType")
+        )
         input_: capo_iot.types.delete_thing_type_request.DeleteThingTypeRequest = {
             "thing_type_name": thing_type_name
         }
@@ -5878,7 +6110,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTopicRule")
+        )
         input_: capo_iot.types.delete_topic_rule_request.DeleteTopicRuleRequest = {
             "rule_name": rule_name
         }
@@ -5926,7 +6160,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTopicRuleDestination")
+        )
         input_: capo_iot.types.delete_topic_rule_destination_request.DeleteTopicRuleDestinationRequest = {
             "arn": arn
         }
@@ -5972,7 +6208,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteV2LoggingLevel")
+        )
         input_: capo_iot.types.delete_v2_logging_level_request.DeleteV2LoggingLevelRequest = {
             "target_type": target_type,
             "target_name": target_name,
@@ -6024,7 +6262,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeprecateThingType")
+        )
         input_: capo_iot.types.deprecate_thing_type_request.DeprecateThingTypeRequest = {
             "thing_type_name": thing_type_name
         }
@@ -6065,7 +6305,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountAuditConfiguration")
+        )
         input_: capo_iot.types.describe_account_audit_configuration_request.DescribeAccountAuditConfigurationRequest = {}
 
         response = await aexecute_pipeline(
@@ -6110,7 +6352,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAuditFinding")
+        )
         input_: capo_iot.types.describe_audit_finding_request.DescribeAuditFindingRequest = {
             "finding_id": finding_id
         }
@@ -6157,7 +6401,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAuditMitigationActionsTask")
+        )
         input_: capo_iot.types.describe_audit_mitigation_actions_task_request.DescribeAuditMitigationActionsTaskRequest = {
             "task_id": task_id
         }
@@ -6202,7 +6448,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAuditSuppression")
+        )
         input_: capo_iot.types.describe_audit_suppression_request.DescribeAuditSuppressionRequest = {
             "check_name": check_name,
             "resource_identifier": resource_identifier,
@@ -6250,7 +6498,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAuditTask")
+        )
         input_: capo_iot.types.describe_audit_task_request.DescribeAuditTaskRequest = {
             "task_id": task_id
         }
@@ -6299,7 +6549,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAuthorizer")
+        )
         input_: capo_iot.types.describe_authorizer_request.DescribeAuthorizerRequest = {
             "authorizer_name": authorizer_name
         }
@@ -6346,7 +6598,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBillingGroup")
+        )
         input_: capo_iot.types.describe_billing_group_request.DescribeBillingGroupRequest = {
             "billing_group_name": billing_group_name
         }
@@ -6397,7 +6651,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCACertificate")
+        )
         input_: capo_iot.types.describe_ca_certificate_request.DescribeCACertificateRequest = {
             "certificate_id": certificate_id
         }
@@ -6446,7 +6702,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCertificate")
+        )
         input_: capo_iot.types.describe_certificate_request.DescribeCertificateRequest = {
             "certificate_id": certificate_id
         }
@@ -6495,7 +6753,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCertificateProvider")
+        )
         input_: capo_iot.types.describe_certificate_provider_request.DescribeCertificateProviderRequest = {
             "certificate_provider_name": certificate_provider_name
         }
@@ -6542,7 +6802,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCustomMetric")
+        )
         input_: capo_iot.types.describe_custom_metric_request.DescribeCustomMetricRequest = {
             "metric_name": metric_name
         }
@@ -6585,7 +6847,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDefaultAuthorizer")
+        )
         input_: capo_iot.types.describe_default_authorizer_request.DescribeDefaultAuthorizerRequest = {}
 
         response = await aexecute_pipeline(
@@ -6630,7 +6894,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDetectMitigationActionsTask")
+        )
         input_: capo_iot.types.describe_detect_mitigation_actions_task_request.DescribeDetectMitigationActionsTaskRequest = {
             "task_id": task_id
         }
@@ -6677,7 +6943,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDimension")
+        )
         input_: capo_iot.types.describe_dimension_request.DescribeDimensionRequest = {
             "name": name
         }
@@ -6726,7 +6994,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDomainConfiguration")
+        )
         input_: capo_iot.types.describe_domain_configuration_request.DescribeDomainConfigurationRequest = {
             "domain_configuration_name": domain_configuration_name
         }
@@ -6768,7 +7038,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEncryptionConfiguration")
+        )
         input_: capo_iot.types.describe_encryption_configuration_request.DescribeEncryptionConfigurationRequest = {}
 
         response = await aexecute_pipeline(
@@ -6813,7 +7085,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEndpoint")
+        )
         input_: capo_iot.types.describe_endpoint_request.DescribeEndpointRequest = {}
         if endpoint_type is not None:
             input_["endpoint_type"] = endpoint_type
@@ -6852,7 +7126,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEventConfigurations")
+        )
         input_: capo_iot.types.describe_event_configurations_request.DescribeEventConfigurationsRequest = {}
 
         response = await aexecute_pipeline(
@@ -6899,7 +7175,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFleetMetric")
+        )
         input_: capo_iot.types.describe_fleet_metric_request.DescribeFleetMetricRequest = {
             "metric_name": metric_name
         }
@@ -6948,7 +7226,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeIndex")
+        )
         input_: capo_iot.types.describe_index_request.DescribeIndexRequest = {
             "index_name": index_name
         }
@@ -6999,7 +7279,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeJob")
+        )
         input_: capo_iot.types.describe_job_request.DescribeJobRequest = {
             "job_id": job_id
         }
@@ -7054,7 +7336,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeJobExecution")
+        )
         input_: capo_iot.types.describe_job_execution_request.DescribeJobExecutionRequest = {
             "job_id": job_id,
             "thing_name": thing_name,
@@ -7104,7 +7388,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeJobTemplate")
+        )
         input_: capo_iot.types.describe_job_template_request.DescribeJobTemplateRequest = {
             "job_template_id": job_template_id
         }
@@ -7155,7 +7441,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeManagedJobTemplate")
+        )
         input_: capo_iot.types.describe_managed_job_template_request.DescribeManagedJobTemplateRequest = {
             "template_name": template_name
         }
@@ -7204,7 +7492,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMitigationAction")
+        )
         input_: capo_iot.types.describe_mitigation_action_request.DescribeMitigationActionRequest = {
             "action_name": action_name
         }
@@ -7252,7 +7542,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProvisioningTemplate")
+        )
         input_: capo_iot.types.describe_provisioning_template_request.DescribeProvisioningTemplateRequest = {
             "template_name": template_name
         }
@@ -7302,7 +7594,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProvisioningTemplateVersion")
+        )
         input_: capo_iot.types.describe_provisioning_template_version_request.DescribeProvisioningTemplateVersionRequest = {
             "template_name": template_name,
             "version_id": version_id,
@@ -7352,7 +7646,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRoleAlias")
+        )
         input_: capo_iot.types.describe_role_alias_request.DescribeRoleAliasRequest = {
             "role_alias": role_alias
         }
@@ -7399,7 +7695,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeScheduledAudit")
+        )
         input_: capo_iot.types.describe_scheduled_audit_request.DescribeScheduledAuditRequest = {
             "scheduled_audit_name": scheduled_audit_name
         }
@@ -7446,7 +7744,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSecurityProfile")
+        )
         input_: capo_iot.types.describe_security_profile_request.DescribeSecurityProfileRequest = {
             "security_profile_name": security_profile_name
         }
@@ -7495,7 +7795,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStream")
+        )
         input_: capo_iot.types.describe_stream_request.DescribeStreamRequest = {
             "stream_id": stream_id
         }
@@ -7544,7 +7846,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeThing")
+        )
         input_: capo_iot.types.describe_thing_request.DescribeThingRequest = {
             "thing_name": thing_name
         }
@@ -7591,7 +7895,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeThingGroup")
+        )
         input_: capo_iot.types.describe_thing_group_request.DescribeThingGroupRequest = {
             "thing_group_name": thing_group_name
         }
@@ -7639,7 +7945,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeThingRegistrationTask")
+        )
         input_: capo_iot.types.describe_thing_registration_task_request.DescribeThingRegistrationTaskRequest = {
             "task_id": task_id
         }
@@ -7688,7 +7996,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeThingType")
+        )
         input_: capo_iot.types.describe_thing_type_request.DescribeThingTypeRequest = {
             "thing_type_name": thing_type_name
         }
@@ -7737,7 +8047,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachPolicy")
+        )
         input_: capo_iot.types.detach_policy_request.DetachPolicyRequest = {
             "policy_name": policy_name,
             "target": target,
@@ -7787,7 +8099,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachPrincipalPolicy")
+        )
         input_: capo_iot.types.detach_principal_policy_request.DetachPrincipalPolicyRequest = {
             "policy_name": policy_name,
             "principal": principal,
@@ -7839,7 +8153,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachSecurityProfile")
+        )
         input_: capo_iot.types.detach_security_profile_request.DetachSecurityProfileRequest = {
             "security_profile_name": security_profile_name,
             "security_profile_target_arn": security_profile_target_arn,
@@ -7891,7 +8207,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachThingPrincipal")
+        )
         input_: capo_iot.types.detach_thing_principal_request.DetachThingPrincipalRequest = {
             "thing_name": thing_name,
             "principal": principal,
@@ -7938,7 +8256,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableTopicRule")
+        )
         input_: capo_iot.types.disable_topic_rule_request.DisableTopicRuleRequest = {
             "rule_name": rule_name
         }
@@ -7990,7 +8310,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateSbomFromPackageVersion")
+        )
         input_: capo_iot.types.disassociate_sbom_from_package_version_request.DisassociateSbomFromPackageVersionRequest = {
             "package_name": package_name,
             "version_name": version_name,
@@ -8040,7 +8362,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableTopicRule")
+        )
         input_: capo_iot.types.enable_topic_rule_request.EnableTopicRuleRequest = {
             "rule_name": rule_name
         }
@@ -8093,7 +8417,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBehaviorModelTrainingSummaries")
+        )
         input_: capo_iot.types.get_behavior_model_training_summaries_request.GetBehaviorModelTrainingSummariesRequest = {}
         if security_profile_name is not None:
             input_["security_profile_name"] = security_profile_name
@@ -8184,7 +8510,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketsAggregation")
+        )
         input_: capo_iot.types.get_buckets_aggregation_request.GetBucketsAggregationRequest = {
             "query_string": query_string,
             "aggregation_field": aggregation_field,
@@ -8250,7 +8578,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCardinality")
+        )
         input_: capo_iot.types.get_cardinality_request.GetCardinalityRequest = {
             "query_string": query_string
         }
@@ -8303,7 +8633,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCommand")
+        )
         input_: capo_iot.types.get_command_request.GetCommandRequest = {
             "command_id": command_id
         }
@@ -8356,7 +8688,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCommandExecution")
+        )
         input_: capo_iot.types.get_command_execution_request.GetCommandExecutionRequest = {
             "execution_id": execution_id,
             "target_arn": target_arn,
@@ -8415,7 +8749,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEffectivePolicies")
+        )
         input_: capo_iot.types.get_effective_policies_request.GetEffectivePoliciesRequest = {}
         if principal is not None:
             input_["principal"] = principal
@@ -8461,7 +8797,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIndexingConfiguration")
+        )
         input_: capo_iot.types.get_indexing_configuration_request.GetIndexingConfigurationRequest = {}
 
         response = await aexecute_pipeline(
@@ -8510,7 +8848,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJobDocument")
+        )
         input_: capo_iot.types.get_job_document_request.GetJobDocumentRequest = {
             "job_id": job_id
         }
@@ -8552,7 +8892,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLoggingOptions")
+        )
         input_: capo_iot.types.get_logging_options_request.GetLoggingOptionsRequest = {}
 
         response = await aexecute_pipeline(
@@ -8599,7 +8941,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOTAUpdate")
+        )
         input_: capo_iot.types.get_ota_update_request.GetOTAUpdateRequest = {
             "ota_update_id": ota_update_id
         }
@@ -8646,7 +8990,17 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot.types.get_package_response.GetPackageResponse",
+        ) -> dict[str, Any]:
+            import capo_iot.types.get_package_response
+
+            return capo_iot.types.get_package_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetPackage", redact_output=_redact_output),
+        )
         input_: capo_iot.types.get_package_request.GetPackageRequest = {
             "package_name": package_name
         }
@@ -8685,7 +9039,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPackageConfiguration")
+        )
         input_: capo_iot.types.get_package_configuration_request.GetPackageConfigurationRequest = {}
 
         response = await aexecute_pipeline(
@@ -8732,7 +9088,17 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot.types.get_package_version_response.GetPackageVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_iot.types.get_package_version_response
+
+            return capo_iot.types.get_package_version_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetPackageVersion", redact_output=_redact_output),
+        )
         input_: capo_iot.types.get_package_version_request.GetPackageVersionRequest = {
             "package_name": package_name,
             "version_name": version_name,
@@ -8795,7 +9161,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPercentiles")
+        )
         input_: capo_iot.types.get_percentiles_request.GetPercentilesRequest = {
             "query_string": query_string
         }
@@ -8852,7 +9220,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPolicy")
+        )
         input_: capo_iot.types.get_policy_request.GetPolicyRequest = {
             "policy_name": policy_name
         }
@@ -8903,7 +9273,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPolicyVersion")
+        )
         input_: capo_iot.types.get_policy_version_request.GetPolicyVersionRequest = {
             "policy_name": policy_name,
             "policy_version_id": policy_version_id,
@@ -8946,7 +9318,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRegistrationCode")
+        )
         input_: capo_iot.types.get_registration_code_request.GetRegistrationCodeRequest = {}
 
         response = await aexecute_pipeline(
@@ -9004,7 +9378,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStatistics")
+        )
         input_: capo_iot.types.get_statistics_request.GetStatisticsRequest = {
             "query_string": query_string
         }
@@ -9062,7 +9438,32 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot.types.get_thing_connectivity_data_request.GetThingConnectivityDataRequest",
+        ) -> dict[str, Any]:
+            import capo_iot.types.get_thing_connectivity_data_request
+
+            return capo_iot.types.get_thing_connectivity_data_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_iot.types.get_thing_connectivity_data_response.GetThingConnectivityDataResponse",
+        ) -> dict[str, Any]:
+            import capo_iot.types.get_thing_connectivity_data_response
+
+            return capo_iot.types.get_thing_connectivity_data_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetThingConnectivityData",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_iot.types.get_thing_connectivity_data_request.GetThingConnectivityDataRequest = {
             "thing_name": thing_name
         }
@@ -9111,7 +9512,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTopicRule")
+        )
         input_: capo_iot.types.get_topic_rule_request.GetTopicRuleRequest = {
             "rule_name": rule_name
         }
@@ -9158,7 +9561,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTopicRuleDestination")
+        )
         input_: capo_iot.types.get_topic_rule_destination_request.GetTopicRuleDestinationRequest = {
             "arn": arn
         }
@@ -9204,7 +9609,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetV2LoggingOptions")
+        )
         input_: capo_iot.types.get_v2_logging_options_request.GetV2LoggingOptionsRequest = {}
         if verbose is not None:
             input_["verbose"] = verbose
@@ -9273,7 +9680,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListActiveViolations")
+        )
         input_: capo_iot.types.list_active_violations_request.ListActiveViolationsRequest = {}
         if thing_name is not None:
             input_["thing_name"] = thing_name
@@ -9382,7 +9791,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAttachedPolicies")
+        )
         input_: capo_iot.types.list_attached_policies_request.ListAttachedPoliciesRequest = {
             "target": target
         }
@@ -9477,7 +9888,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAuditFindings")
+        )
         input_: capo_iot.types.list_audit_findings_request.ListAuditFindingsRequest = {}
         if task_id is not None:
             input_["task_id"] = task_id
@@ -9584,7 +9997,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAuditMitigationActionsExecutions")
+        )
         input_: capo_iot.types.list_audit_mitigation_actions_executions_request.ListAuditMitigationActionsExecutionsRequest = {
             "task_id": task_id,
             "finding_id": finding_id,
@@ -9680,7 +10095,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAuditMitigationActionsTasks")
+        )
         input_: capo_iot.types.list_audit_mitigation_actions_tasks_request.ListAuditMitigationActionsTasksRequest = {
             "start_time": start_time,
             "end_time": end_time,
@@ -9782,7 +10199,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAuditSuppressions")
+        )
         input_: capo_iot.types.list_audit_suppressions_request.ListAuditSuppressionsRequest = {}
         if check_name is not None:
             input_["check_name"] = check_name
@@ -9879,7 +10298,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAuditTasks")
+        )
         input_: capo_iot.types.list_audit_tasks_request.ListAuditTasksRequest = {
             "start_time": start_time,
             "end_time": end_time,
@@ -9975,7 +10396,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAuthorizers")
+        )
         input_: capo_iot.types.list_authorizers_request.ListAuthorizersRequest = {}
         if page_size is not None:
             input_["page_size"] = page_size
@@ -10063,7 +10486,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBillingGroups")
+        )
         input_: capo_iot.types.list_billing_groups_request.ListBillingGroupsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -10150,7 +10575,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCACertificates")
+        )
         input_: capo_iot.types.list_ca_certificates_request.ListCACertificatesRequest = {}
         if page_size is not None:
             input_["page_size"] = page_size
@@ -10235,7 +10662,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCertificateProviders")
+        )
         input_: capo_iot.types.list_certificate_providers_request.ListCertificateProvidersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -10291,7 +10720,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCertificates")
+        )
         input_: capo_iot.types.list_certificates_request.ListCertificatesRequest = {}
         if page_size is not None:
             input_["page_size"] = page_size
@@ -10376,7 +10807,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCertificatesByCA")
+        )
         input_: capo_iot.types.list_certificates_by_ca_request.ListCertificatesByCARequest = {
             "ca_certificate_id": ca_certificate_id
         }
@@ -10478,7 +10911,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCommandExecutions")
+        )
         input_: capo_iot.types.list_command_executions_request.ListCommandExecutionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -10591,7 +11026,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCommands")
+        )
         input_: capo_iot.types.list_commands_request.ListCommandsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -10678,7 +11115,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCustomMetrics")
+        )
         input_: capo_iot.types.list_custom_metrics_request.ListCustomMetricsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -10763,7 +11202,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDetectMitigationActionsExecutions")
+        )
         input_: capo_iot.types.list_detect_mitigation_actions_executions_request.ListDetectMitigationActionsExecutionsRequest = {}
         if task_id is not None:
             input_["task_id"] = task_id
@@ -10862,7 +11303,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDetectMitigationActionsTasks")
+        )
         input_: capo_iot.types.list_detect_mitigation_actions_tasks_request.ListDetectMitigationActionsTasksRequest = {
             "start_time": start_time,
             "end_time": end_time,
@@ -10940,7 +11383,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDimensions")
+        )
         input_: capo_iot.types.list_dimensions_request.ListDimensionsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -11015,7 +11460,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomainConfigurations")
+        )
         input_: capo_iot.types.list_domain_configurations_request.ListDomainConfigurationsRequest = {}
         if marker is not None:
             input_["marker"] = marker
@@ -11092,7 +11539,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFleetMetrics")
+        )
         input_: capo_iot.types.list_fleet_metrics_request.ListFleetMetricsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -11169,7 +11618,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIndices")
+        )
         input_: capo_iot.types.list_indices_request.ListIndicesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -11251,7 +11702,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobExecutionsForJob")
+        )
         input_: capo_iot.types.list_job_executions_for_job_request.ListJobExecutionsForJobRequest = {
             "job_id": job_id
         }
@@ -11347,7 +11800,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobExecutionsForThing")
+        )
         input_: capo_iot.types.list_job_executions_for_thing_request.ListJobExecutionsForThingRequest = {
             "thing_name": thing_name
         }
@@ -11455,7 +11910,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobs")
+        )
         input_: capo_iot.types.list_jobs_request.ListJobsRequest = {}
         if status is not None:
             input_["status"] = status
@@ -11554,7 +12011,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobTemplates")
+        )
         input_: capo_iot.types.list_job_templates_request.ListJobTemplatesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -11634,7 +12093,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListManagedJobTemplates")
+        )
         input_: capo_iot.types.list_managed_job_templates_request.ListManagedJobTemplatesRequest = {}
         if template_name is not None:
             input_["template_name"] = template_name
@@ -11728,7 +12189,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMetricValues")
+        )
         input_: capo_iot.types.list_metric_values_request.ListMetricValuesRequest = {
             "thing_name": thing_name,
             "metric_name": metric_name,
@@ -11828,7 +12291,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMitigationActions")
+        )
         input_: capo_iot.types.list_mitigation_actions_request.ListMitigationActionsRequest = {}
         if action_type is not None:
             input_["action_type"] = action_type
@@ -11911,7 +12376,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOTAUpdates")
+        )
         input_: capo_iot.types.list_ota_updates_request.ListOTAUpdatesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -11994,7 +12461,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOutgoingCertificates")
+        )
         input_: capo_iot.types.list_outgoing_certificates_request.ListOutgoingCertificatesRequest = {}
         if page_size is not None:
             input_["page_size"] = page_size
@@ -12073,7 +12542,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPackages")
+        )
         input_: capo_iot.types.list_packages_request.ListPackagesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -12154,7 +12625,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPackageVersions")
+        )
         input_: capo_iot.types.list_package_versions_request.ListPackageVersionsRequest = {
             "package_name": package_name
         }
@@ -12243,7 +12716,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPolicies")
+        )
         input_: capo_iot.types.list_policies_request.ListPoliciesRequest = {}
         if marker is not None:
             input_["marker"] = marker
@@ -12329,7 +12804,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPolicyPrincipals")
+        )
         input_: capo_iot.types.list_policy_principals_request.ListPolicyPrincipalsRequest = {
             "policy_name": policy_name
         }
@@ -12411,7 +12888,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPolicyVersions")
+        )
         input_: capo_iot.types.list_policy_versions_request.ListPolicyVersionsRequest = {
             "policy_name": policy_name
         }
@@ -12470,7 +12949,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPrincipalPolicies")
+        )
         input_: capo_iot.types.list_principal_policies_request.ListPrincipalPoliciesRequest = {
             "principal": principal
         }
@@ -12558,7 +13039,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPrincipalThings")
+        )
         input_: capo_iot.types.list_principal_things_request.ListPrincipalThingsRequest = {
             "principal": principal
         }
@@ -12648,7 +13131,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPrincipalThingsV2")
+        )
         input_: capo_iot.types.list_principal_things_v2_request.ListPrincipalThingsV2Request = {
             "principal": principal
         }
@@ -12732,7 +13217,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProvisioningTemplates")
+        )
         input_: capo_iot.types.list_provisioning_templates_request.ListProvisioningTemplatesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -12807,7 +13294,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProvisioningTemplateVersions")
+        )
         input_: capo_iot.types.list_provisioning_template_versions_request.ListProvisioningTemplateVersionsRequest = {
             "template_name": template_name
         }
@@ -12885,7 +13374,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRelatedResourcesForAuditFinding")
+        )
         input_: capo_iot.types.list_related_resources_for_audit_finding_request.ListRelatedResourcesForAuditFindingRequest = {
             "finding_id": finding_id
         }
@@ -12966,7 +13457,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRoleAliases")
+        )
         input_: capo_iot.types.list_role_aliases_request.ListRoleAliasesRequest = {}
         if page_size is not None:
             input_["page_size"] = page_size
@@ -13054,7 +13547,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSbomValidationResults")
+        )
         input_: capo_iot.types.list_sbom_validation_results_request.ListSbomValidationResultsRequest = {
             "package_name": package_name,
             "version_name": version_name,
@@ -13140,7 +13635,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListScheduledAudits")
+        )
         input_: capo_iot.types.list_scheduled_audits_request.ListScheduledAuditsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -13218,7 +13715,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSecurityProfiles")
+        )
         input_: capo_iot.types.list_security_profiles_request.ListSecurityProfilesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -13302,7 +13801,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSecurityProfilesForTarget")
+        )
         input_: capo_iot.types.list_security_profiles_for_target_request.ListSecurityProfilesForTargetRequest = {
             "security_profile_target_arn": security_profile_target_arn
         }
@@ -13387,7 +13888,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStreams")
+        )
         input_: capo_iot.types.list_streams_request.ListStreamsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -13465,7 +13968,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_iot.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -13542,7 +14047,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTargetsForPolicy")
+        )
         input_: capo_iot.types.list_targets_for_policy_request.ListTargetsForPolicyRequest = {
             "policy_name": policy_name
         }
@@ -13620,7 +14127,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTargetsForSecurityProfile")
+        )
         input_: capo_iot.types.list_targets_for_security_profile_request.ListTargetsForSecurityProfileRequest = {
             "security_profile_name": security_profile_name
         }
@@ -13708,7 +14217,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThingGroups")
+        )
         input_: capo_iot.types.list_thing_groups_request.ListThingGroupsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -13802,7 +14313,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThingGroupsForThing")
+        )
         input_: capo_iot.types.list_thing_groups_for_thing_request.ListThingGroupsForThingRequest = {
             "thing_name": thing_name
         }
@@ -13886,7 +14399,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThingPrincipals")
+        )
         input_: capo_iot.types.list_thing_principals_request.ListThingPrincipalsRequest = {
             "thing_name": thing_name
         }
@@ -13976,7 +14491,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThingPrincipalsV2")
+        )
         input_: capo_iot.types.list_thing_principals_v2_request.ListThingPrincipalsV2Request = {
             "thing_name": thing_name
         }
@@ -14066,7 +14583,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThingRegistrationTaskReports")
+        )
         input_: capo_iot.types.list_thing_registration_task_reports_request.ListThingRegistrationTaskReportsRequest = {
             "task_id": task_id,
             "report_type": report_type,
@@ -14151,7 +14670,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThingRegistrationTasks")
+        )
         input_: capo_iot.types.list_thing_registration_tasks_request.ListThingRegistrationTasksRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -14246,7 +14767,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThings")
+        )
         input_: capo_iot.types.list_things_request.ListThingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -14346,7 +14869,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThingsInBillingGroup")
+        )
         input_: capo_iot.types.list_things_in_billing_group_request.ListThingsInBillingGroupRequest = {
             "billing_group_name": billing_group_name
         }
@@ -14430,7 +14955,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThingsInThingGroup")
+        )
         input_: capo_iot.types.list_things_in_thing_group_request.ListThingsInThingGroupRequest = {
             "thing_group_name": thing_group_name
         }
@@ -14519,7 +15046,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThingTypes")
+        )
         input_: capo_iot.types.list_thing_types_request.ListThingTypesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -14601,7 +15130,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTopicRuleDestinations")
+        )
         input_: capo_iot.types.list_topic_rule_destinations_request.ListTopicRuleDestinationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -14681,7 +15212,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTopicRules")
+        )
         input_: capo_iot.types.list_topic_rules_request.ListTopicRulesRequest = {}
         if topic is not None:
             input_["topic"] = topic
@@ -14767,7 +15300,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListV2LoggingLevels")
+        )
         input_: capo_iot.types.list_v2_logging_levels_request.ListV2LoggingLevelsRequest = {}
         if target_type is not None:
             input_["target_type"] = target_type
@@ -14870,7 +15405,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListViolationEvents")
+        )
         input_: capo_iot.types.list_violation_events_request.ListViolationEventsRequest = {
             "start_time": start_time,
             "end_time": end_time,
@@ -14982,7 +15519,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutVerificationStateOnViolation")
+        )
         input_: capo_iot.types.put_verification_state_on_violation_request.PutVerificationStateOnViolationRequest = {
             "violation_id": violation_id,
             "verification_state": verification_state,
@@ -15060,7 +15599,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterCACertificate")
+        )
         input_: capo_iot.types.register_ca_certificate_request.RegisterCACertificateRequest = {
             "ca_certificate": ca_certificate
         }
@@ -15134,7 +15675,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterCertificate")
+        )
         input_: capo_iot.types.register_certificate_request.RegisterCertificateRequest = {
             "certificate_pem": certificate_pem
         }
@@ -15193,7 +15736,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterCertificateWithoutCA")
+        )
         input_: capo_iot.types.register_certificate_without_ca_request.RegisterCertificateWithoutCARequest = {
             "certificate_pem": certificate_pem
         }
@@ -15247,7 +15792,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterThing")
+        )
         input_: capo_iot.types.register_thing_request.RegisterThingRequest = {
             "template_body": template_body
         }
@@ -15299,7 +15846,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectCertificateTransfer")
+        )
         input_: capo_iot.types.reject_certificate_transfer_request.RejectCertificateTransferRequest = {
             "certificate_id": certificate_id
         }
@@ -15358,7 +15907,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveThingFromBillingGroup")
+        )
         input_: capo_iot.types.remove_thing_from_billing_group_request.RemoveThingFromBillingGroupRequest = {}
         if billing_group_name is not None:
             input_["billing_group_name"] = billing_group_name
@@ -15421,7 +15972,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveThingFromThingGroup")
+        )
         input_: capo_iot.types.remove_thing_from_thing_group_request.RemoveThingFromThingGroupRequest = {}
         if thing_group_name is not None:
             input_["thing_group_name"] = thing_group_name
@@ -15476,7 +16029,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReplaceTopicRule")
+        )
         input_: capo_iot.types.replace_topic_rule_request.ReplaceTopicRuleRequest = {
             "rule_name": rule_name,
             "topic_rule_payload": topic_rule_payload,
@@ -15538,7 +16093,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchIndex")
+        )
         input_: capo_iot.types.search_index_request.SearchIndexRequest = {
             "query_string": query_string
         }
@@ -15596,7 +16153,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetDefaultAuthorizer")
+        )
         input_: capo_iot.types.set_default_authorizer_request.SetDefaultAuthorizerRequest = {
             "authorizer_name": authorizer_name
         }
@@ -15645,7 +16204,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetDefaultPolicyVersion")
+        )
         input_: capo_iot.types.set_default_policy_version_request.SetDefaultPolicyVersionRequest = {
             "policy_name": policy_name,
             "policy_version_id": policy_version_id,
@@ -15690,7 +16251,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetLoggingOptions")
+        )
         input_: capo_iot.types.set_logging_options_request.SetLoggingOptionsRequest = {
             "logging_options_payload": logging_options_payload
         }
@@ -15738,7 +16301,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetV2LoggingLevel")
+        )
         input_: capo_iot.types.set_v2_logging_level_request.SetV2LoggingLevelRequest = {
             "log_target": log_target,
             "log_level": log_level,
@@ -15793,7 +16358,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetV2LoggingOptions")
+        )
         input_: capo_iot.types.set_v2_logging_options_request.SetV2LoggingOptionsRequest = {}
         if role_arn is not None:
             input_["role_arn"] = role_arn
@@ -15853,7 +16420,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAuditMitigationActionsTask")
+        )
         input_: capo_iot.types.start_audit_mitigation_actions_task_request.StartAuditMitigationActionsTaskRequest = {
             "task_id": task_id,
             "target": target,
@@ -15922,7 +16491,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDetectMitigationActionsTask")
+        )
         input_: capo_iot.types.start_detect_mitigation_actions_task_request.StartDetectMitigationActionsTaskRequest = {
             "task_id": task_id,
             "target": target,
@@ -15980,7 +16551,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartOnDemandAuditTask")
+        )
         input_: capo_iot.types.start_on_demand_audit_task_request.StartOnDemandAuditTaskRequest = {
             "target_check_names": target_check_names
         }
@@ -16033,7 +16606,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartThingRegistrationTask")
+        )
         input_: capo_iot.types.start_thing_registration_task_request.StartThingRegistrationTaskRequest = {
             "template_body": template_body,
             "input_file_bucket": input_file_bucket,
@@ -16084,7 +16659,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopThingRegistrationTask")
+        )
         input_: capo_iot.types.stop_thing_registration_task_request.StopThingRegistrationTaskRequest = {
             "task_id": task_id
         }
@@ -16134,7 +16711,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_iot.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -16199,7 +16778,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestAuthorization")
+        )
         input_: capo_iot.types.test_authorization_request.TestAuthorizationRequest = {
             "auth_infos": auth_infos
         }
@@ -16271,7 +16852,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestInvokeAuthorizer")
+        )
         input_: capo_iot.types.test_invoke_authorizer_request.TestInvokeAuthorizerRequest = {
             "authorizer_name": authorizer_name
         }
@@ -16336,7 +16919,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TransferCertificate")
+        )
         input_: capo_iot.types.transfer_certificate_request.TransferCertificateRequest = {
             "certificate_id": certificate_id,
             "target_aws_account": target_aws_account,
@@ -16388,7 +16973,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_iot.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -16443,7 +17030,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccountAuditConfiguration")
+        )
         input_: capo_iot.types.update_account_audit_configuration_request.UpdateAccountAuditConfigurationRequest = {}
         if role_arn is not None:
             input_["role_arn"] = role_arn
@@ -16506,7 +17095,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAuditSuppression")
+        )
         input_: capo_iot.types.update_audit_suppression_request.UpdateAuditSuppressionRequest = {
             "check_name": check_name,
             "resource_identifier": resource_identifier,
@@ -16579,7 +17170,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAuthorizer")
+        )
         input_: capo_iot.types.update_authorizer_request.UpdateAuthorizerRequest = {
             "authorizer_name": authorizer_name
         }
@@ -16643,7 +17236,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBillingGroup")
+        )
         input_: capo_iot.types.update_billing_group_request.UpdateBillingGroupRequest = {
             "billing_group_name": billing_group_name,
             "billing_group_properties": billing_group_properties,
@@ -16709,7 +17304,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCACertificate")
+        )
         input_: capo_iot.types.update_ca_certificate_request.UpdateCACertificateRequest = {
             "certificate_id": certificate_id
         }
@@ -16767,7 +17364,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCertificate")
+        )
         input_: capo_iot.types.update_certificate_request.UpdateCertificateRequest = {
             "certificate_id": certificate_id,
             "new_status": new_status,
@@ -16825,7 +17424,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCertificateProvider")
+        )
         input_: capo_iot.types.update_certificate_provider_request.UpdateCertificateProviderRequest = {
             "certificate_provider_name": certificate_provider_name
         }
@@ -16885,7 +17486,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCommand")
+        )
         input_: capo_iot.types.update_command_request.UpdateCommandRequest = {
             "command_id": command_id
         }
@@ -16940,7 +17543,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCustomMetric")
+        )
         input_: capo_iot.types.update_custom_metric_request.UpdateCustomMetricRequest = {
             "metric_name": metric_name,
             "display_name": display_name,
@@ -16990,7 +17595,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDimension")
+        )
         input_: capo_iot.types.update_dimension_request.UpdateDimensionRequest = {
             "name": name,
             "string_values": string_values,
@@ -17071,7 +17678,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDomainConfiguration")
+        )
         input_: capo_iot.types.update_domain_configuration_request.UpdateDomainConfigurationRequest = {
             "domain_configuration_name": domain_configuration_name
         }
@@ -17148,7 +17757,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDynamicThingGroup")
+        )
         input_: capo_iot.types.update_dynamic_thing_group_request.UpdateDynamicThingGroupRequest = {
             "thing_group_name": thing_group_name,
             "thing_group_properties": thing_group_properties,
@@ -17217,7 +17828,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEncryptionConfiguration")
+        )
         input_: capo_iot.types.update_encryption_configuration_request.UpdateEncryptionConfigurationRequest = {
             "encryption_type": encryption_type
         }
@@ -17269,7 +17882,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEventConfigurations")
+        )
         input_: capo_iot.types.update_event_configurations_request.UpdateEventConfigurationsRequest = {}
         if event_configurations is not None:
             input_["event_configurations"] = event_configurations
@@ -17346,7 +17961,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFleetMetric")
+        )
         input_: capo_iot.types.update_fleet_metric_request.UpdateFleetMetricRequest = {
             "metric_name": metric_name,
             "index_name": index_name,
@@ -17417,7 +18034,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIndexingConfiguration")
+        )
         input_: capo_iot.types.update_indexing_configuration_request.UpdateIndexingConfigurationRequest = {}
         if thing_indexing_configuration is not None:
             input_["thing_indexing_configuration"] = thing_indexing_configuration
@@ -17486,7 +18105,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateJob")
+        )
         input_: capo_iot.types.update_job_request.UpdateJobRequest = {"job_id": job_id}
         if description is not None:
             input_["description"] = description
@@ -17551,7 +18172,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMitigationAction")
+        )
         input_: capo_iot.types.update_mitigation_action_request.UpdateMitigationActionRequest = {
             "action_name": action_name
         }
@@ -17617,7 +18240,17 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot.types.update_package_request.UpdatePackageRequest",
+        ) -> dict[str, Any]:
+            import capo_iot.types.update_package_request
+
+            return capo_iot.types.update_package_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdatePackage", redact_input=_redact_input),
+        )
         input_: capo_iot.types.update_package_request.UpdatePackageRequest = {
             "package_name": package_name
         }
@@ -17677,7 +18310,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePackageConfiguration")
+        )
         input_: capo_iot.types.update_package_configuration_request.UpdatePackageConfigurationRequest = {}
         if version_update_by_jobs_config is not None:
             input_["version_update_by_jobs_config"] = version_update_by_jobs_config
@@ -17752,7 +18387,19 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot.types.update_package_version_request.UpdatePackageVersionRequest",
+        ) -> dict[str, Any]:
+            import capo_iot.types.update_package_version_request
+
+            return capo_iot.types.update_package_version_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdatePackageVersion", redact_input=_redact_input),
+        )
         input_: capo_iot.types.update_package_version_request.UpdatePackageVersionRequest = {
             "package_name": package_name,
             "version_name": version_name,
@@ -17834,7 +18481,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProvisioningTemplate")
+        )
         input_: capo_iot.types.update_provisioning_template_request.UpdateProvisioningTemplateRequest = {
             "template_name": template_name
         }
@@ -17901,7 +18550,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRoleAlias")
+        )
         input_: capo_iot.types.update_role_alias_request.UpdateRoleAliasRequest = {
             "role_alias": role_alias
         }
@@ -17962,7 +18613,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateScheduledAudit")
+        )
         input_: capo_iot.types.update_scheduled_audit_request.UpdateScheduledAuditRequest = {
             "scheduled_audit_name": scheduled_audit_name
         }
@@ -18060,7 +18713,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSecurityProfile")
+        )
         input_: capo_iot.types.update_security_profile_request.UpdateSecurityProfileRequest = {
             "security_profile_name": security_profile_name
         }
@@ -18142,7 +18797,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateStream")
+        )
         input_: capo_iot.types.update_stream_request.UpdateStreamRequest = {
             "stream_id": stream_id
         }
@@ -18214,7 +18871,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateThing")
+        )
         input_: capo_iot.types.update_thing_request.UpdateThingRequest = {
             "thing_name": thing_name
         }
@@ -18276,7 +18935,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateThingGroup")
+        )
         input_: capo_iot.types.update_thing_group_request.UpdateThingGroupRequest = {
             "thing_group_name": thing_group_name,
             "thing_group_properties": thing_group_properties,
@@ -18338,7 +18999,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateThingGroupsForThing")
+        )
         input_: capo_iot.types.update_thing_groups_for_thing_request.UpdateThingGroupsForThingRequest = {}
         if thing_name is not None:
             input_["thing_name"] = thing_name
@@ -18396,7 +19059,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateThingType")
+        )
         input_: capo_iot.types.update_thing_type_request.UpdateThingTypeRequest = {
             "thing_type_name": thing_type_name
         }
@@ -18448,7 +19113,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTopicRuleDestination")
+        )
         input_: capo_iot.types.update_topic_rule_destination_request.UpdateTopicRuleDestinationRequest = {
             "arn": arn,
             "status": status,
@@ -18495,7 +19162,9 @@ class AsyncIoTClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ValidateSecurityProfileBehaviors")
+        )
         input_: capo_iot.types.validate_security_profile_behaviors_request.ValidateSecurityProfileBehaviorsRequest = {
             "behaviors": behaviors
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#InputImage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -58,4 +58,11 @@ def deserialize_json(data: dict) -> InputImage:
         )
     else:
         raise DeserializationError("InputImage.inline_content required")
+    return out
+
+
+def redact_sensitive(value: InputImage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inline_content" in value:
+        out["inline_content"] = "*** Sensitive Data Redacted ***"
     return out

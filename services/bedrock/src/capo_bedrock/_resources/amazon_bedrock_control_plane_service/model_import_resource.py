@@ -7,6 +7,7 @@ import capo_bedrock._auth._sigv4
 from capo_bedrock._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -113,7 +114,9 @@ class ModelImportResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateModelImportJob")
+        )
         input_: capo_bedrock.types.create_model_import_job_request.CreateModelImportJobRequest = {
             "job_name": job_name,
             "imported_model_name": imported_model_name,
@@ -176,7 +179,9 @@ class ModelImportResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteImportedModel")
+        )
         input_: capo_bedrock.types.delete_imported_model_request.DeleteImportedModelRequest = {
             "model_identifier": model_identifier
         }
@@ -223,7 +228,9 @@ class ModelImportResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetImportedModel")
+        )
         input_: capo_bedrock.types.get_imported_model_request.GetImportedModelRequest = {
             "model_identifier": model_identifier
         }
@@ -270,7 +277,9 @@ class ModelImportResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetModelImportJob")
+        )
         input_: capo_bedrock.types.get_model_import_job_request.GetModelImportJobRequest = {
             "job_identifier": job_identifier
         }
@@ -332,7 +341,9 @@ class ModelImportResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListImportedModels")
+        )
         input_: capo_bedrock.types.list_imported_models_request.ListImportedModelsRequest = {}
         if creation_time_before is not None:
             input_["creation_time_before"] = creation_time_before
@@ -410,7 +421,9 @@ class ModelImportResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListModelImportJobs")
+        )
         input_: capo_bedrock.types.list_model_import_jobs_request.ListModelImportJobsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -500,7 +513,9 @@ class AsyncModelImportResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateModelImportJob")
+        )
         input_: capo_bedrock.types.create_model_import_job_request.CreateModelImportJobRequest = {
             "job_name": job_name,
             "imported_model_name": imported_model_name,
@@ -564,7 +579,9 @@ class AsyncModelImportResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteImportedModel")
+        )
         input_: capo_bedrock.types.delete_imported_model_request.DeleteImportedModelRequest = {
             "model_identifier": model_identifier
         }
@@ -612,7 +629,9 @@ class AsyncModelImportResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetImportedModel")
+        )
         input_: capo_bedrock.types.get_imported_model_request.GetImportedModelRequest = {
             "model_identifier": model_identifier
         }
@@ -660,7 +679,9 @@ class AsyncModelImportResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetModelImportJob")
+        )
         input_: capo_bedrock.types.get_model_import_job_request.GetModelImportJobRequest = {
             "job_identifier": job_identifier
         }
@@ -723,7 +744,9 @@ class AsyncModelImportResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListImportedModels")
+        )
         input_: capo_bedrock.types.list_imported_models_request.ListImportedModelsRequest = {}
         if creation_time_before is not None:
             input_["creation_time_before"] = creation_time_before
@@ -802,7 +825,9 @@ class AsyncModelImportResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListModelImportJobs")
+        )
         input_: capo_bedrock.types.list_model_import_jobs_request.ListModelImportJobsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after

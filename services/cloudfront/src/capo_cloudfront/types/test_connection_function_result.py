@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudfront#TestConnectionFunctionResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,6 +39,19 @@ def deserialize_xml(el: Element) -> TestConnectionFunctionResult:
         out["connection_function_test_result"] = (
             capo_cloudfront.types.connection_function_test_result.deserialize_xml(
                 child_connection_function_test_result
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: TestConnectionFunctionResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "connection_function_test_result" in value:
+        import capo_cloudfront.types.connection_function_test_result
+
+        out["connection_function_test_result"] = (
+            capo_cloudfront.types.connection_function_test_result.redact_sensitive(
+                value["connection_function_test_result"]
             )
         )
     return out

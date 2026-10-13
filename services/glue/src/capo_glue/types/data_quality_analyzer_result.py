@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glue#DataQualityAnalyzerResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -84,4 +84,17 @@ def deserialize_aws_json_1_1(data: dict) -> DataQualityAnalyzerResult:
                 data["EvaluatedDistributions"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: DataQualityAnalyzerResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "evaluation_message" in value:
+        out["evaluation_message"] = "*** Sensitive Data Redacted ***"
+    if "evaluated_metrics" in value:
+        out["evaluated_metrics"] = "*** Sensitive Data Redacted ***"
+    if "evaluated_distributions" in value:
+        out["evaluated_distributions"] = "*** Sensitive Data Redacted ***"
     return out

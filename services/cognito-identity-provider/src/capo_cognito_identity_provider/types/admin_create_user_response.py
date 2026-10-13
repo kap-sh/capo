@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#AdminCreateUserResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -36,5 +36,16 @@ def deserialize_aws_json_1_1(data: dict) -> AdminCreateUserResponse:
             capo_cognito_identity_provider.types.user_type.deserialize_aws_json_1_1(
                 data["User"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: AdminCreateUserResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user" in value:
+        import capo_cognito_identity_provider.types.user_type
+
+        out["user"] = capo_cognito_identity_provider.types.user_type.redact_sensitive(
+            value["user"]
         )
     return out

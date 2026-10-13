@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#ToolDescriptionSource``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -66,3 +66,16 @@ def deserialize_json(data: dict) -> ToolDescriptionSource:
         }
     else:
         raise DeserializationError("ToolDescriptionSource: no recognized variant key")
+
+
+def redact_sensitive(value: ToolDescriptionSource) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "toolDescriptionText" in value:
+        import capo_bedrock_agentcore.types.tool_description_text_input
+
+        out["toolDescriptionText"] = (
+            capo_bedrock_agentcore.types.tool_description_text_input.redact_sensitive(
+                value["toolDescriptionText"]
+            )
+        )
+    return out

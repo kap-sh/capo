@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#GeocodeRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -199,4 +199,31 @@ def deserialize_json(data: dict) -> GeocodeRequest:
                 data["AddressNamesMode"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: GeocodeRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "query_text" in value:
+        out["query_text"] = "*** Sensitive Data Redacted ***"
+    if "query_components" in value:
+        import capo_geo_places.types.geocode_query_components
+
+        out["query_components"] = (
+            capo_geo_places.types.geocode_query_components.redact_sensitive(
+                value["query_components"]
+            )
+        )
+    if "bias_position" in value:
+        out["bias_position"] = "*** Sensitive Data Redacted ***"
+    if "filter" in value:
+        import capo_geo_places.types.geocode_filter
+
+        out["filter"] = capo_geo_places.types.geocode_filter.redact_sensitive(
+            value["filter"]
+        )
+    if "political_view" in value:
+        out["political_view"] = "*** Sensitive Data Redacted ***"
+    if "key" in value:
+        out["key"] = "*** Sensitive Data Redacted ***"
     return out

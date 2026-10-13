@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.personalizeruntime#GetRecommendationsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,4 +42,15 @@ def deserialize_json(data: dict) -> GetRecommendationsResponse:
         )
     if data.get("recommendationId") is not None:
         out["recommendation_id"] = data["recommendationId"]
+    return out
+
+
+def redact_sensitive(value: GetRecommendationsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "item_list" in value:
+        import capo_personalize_runtime.types.item_list
+
+        out["item_list"] = capo_personalize_runtime.types.item_list.redact_sensitive(
+            value["item_list"]
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.taxsettings#InternalServerException``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -58,3 +58,10 @@ class InternalServerException(ServiceError):
         cls, data: dict, message: str | None = None
     ) -> "InternalServerException":
         return cls(deserialize_json(data), message)
+
+
+def redact_sensitive(value: InternalServerException_) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "message" in value:
+        out["message"] = "*** Sensitive Data Redacted ***"
+    return out

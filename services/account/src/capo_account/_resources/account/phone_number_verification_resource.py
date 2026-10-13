@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_account._auth._signers
 import capo_account._auth._sigv4
 from capo_account._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -66,7 +67,9 @@ class PhoneNumberVerificationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SendPhoneNumberVerification")
+        )
         input_: capo_account.types.send_phone_number_verification_request.SendPhoneNumberVerificationRequest = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -116,7 +119,19 @@ class PhoneNumberVerificationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_account.types.verify_phone_number_request.VerifyPhoneNumberRequest",
+        ) -> dict[str, Any]:
+            import capo_account.types.verify_phone_number_request
+
+            return capo_account.types.verify_phone_number_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("VerifyPhoneNumber", redact_input=_redact_input),
+        )
         input_: capo_account.types.verify_phone_number_request.VerifyPhoneNumberRequest = {
             "otp": otp
         }
@@ -172,7 +187,9 @@ class AsyncPhoneNumberVerificationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SendPhoneNumberVerification")
+        )
         input_: capo_account.types.send_phone_number_verification_request.SendPhoneNumberVerificationRequest = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -223,7 +240,19 @@ class AsyncPhoneNumberVerificationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_account.types.verify_phone_number_request.VerifyPhoneNumberRequest",
+        ) -> dict[str, Any]:
+            import capo_account.types.verify_phone_number_request
+
+            return capo_account.types.verify_phone_number_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("VerifyPhoneNumber", redact_input=_redact_input),
+        )
         input_: capo_account.types.verify_phone_number_request.VerifyPhoneNumberRequest = {
             "otp": otp
         }

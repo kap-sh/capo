@@ -8,6 +8,7 @@ import capo_bedrock_agentcore._auth._sigv4
 from capo_bedrock_agentcore._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -93,7 +94,9 @@ class BrowserSessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetBrowserSession")
+        )
         input_: capo_bedrock_agentcore.types.get_browser_session_request.GetBrowserSessionRequest = {
             "browser_identifier": browser_identifier,
             "session_id": session_id,
@@ -146,7 +149,9 @@ class BrowserSessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("InvokeBrowser")
+        )
         input_: capo_bedrock_agentcore.types.invoke_browser_request.InvokeBrowserRequest = {
             "browser_identifier": browser_identifier,
             "session_id": session_id,
@@ -207,7 +212,9 @@ class BrowserSessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListBrowserSessions")
+        )
         input_: capo_bedrock_agentcore.types.list_browser_sessions_request.ListBrowserSessionsRequest = {
             "browser_identifier": browser_identifier
         }
@@ -302,7 +309,9 @@ class BrowserSessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartBrowserSession")
+        )
         input_: capo_bedrock_agentcore.types.start_browser_session_request.StartBrowserSessionRequest = {
             "browser_identifier": browser_identifier
         }
@@ -386,7 +395,9 @@ class BrowserSessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopBrowserSession")
+        )
         input_: capo_bedrock_agentcore.types.stop_browser_session_request.StopBrowserSessionRequest = {
             "browser_identifier": browser_identifier,
             "session_id": session_id,
@@ -451,7 +462,9 @@ class BrowserSessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateBrowserStream")
+        )
         input_: capo_bedrock_agentcore.types.update_browser_stream_request.UpdateBrowserStreamRequest = {
             "browser_identifier": browser_identifier,
             "session_id": session_id,
@@ -511,7 +524,9 @@ class AsyncBrowserSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetBrowserSession")
+        )
         input_: capo_bedrock_agentcore.types.get_browser_session_request.GetBrowserSessionRequest = {
             "browser_identifier": browser_identifier,
             "session_id": session_id,
@@ -565,7 +580,9 @@ class AsyncBrowserSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("InvokeBrowser")
+        )
         input_: capo_bedrock_agentcore.types.invoke_browser_request.InvokeBrowserRequest = {
             "browser_identifier": browser_identifier,
             "session_id": session_id,
@@ -627,7 +644,9 @@ class AsyncBrowserSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListBrowserSessions")
+        )
         input_: capo_bedrock_agentcore.types.list_browser_sessions_request.ListBrowserSessionsRequest = {
             "browser_identifier": browser_identifier
         }
@@ -723,7 +742,9 @@ class AsyncBrowserSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartBrowserSession")
+        )
         input_: capo_bedrock_agentcore.types.start_browser_session_request.StartBrowserSessionRequest = {
             "browser_identifier": browser_identifier
         }
@@ -808,7 +829,9 @@ class AsyncBrowserSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopBrowserSession")
+        )
         input_: capo_bedrock_agentcore.types.stop_browser_session_request.StopBrowserSessionRequest = {
             "browser_identifier": browser_identifier,
             "session_id": session_id,
@@ -874,7 +897,9 @@ class AsyncBrowserSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateBrowserStream")
+        )
         input_: capo_bedrock_agentcore.types.update_browser_stream_request.UpdateBrowserStreamRequest = {
             "browser_identifier": browser_identifier,
             "session_id": session_id,

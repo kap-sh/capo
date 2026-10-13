@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#CreateEngagementContextRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -87,4 +87,17 @@ def deserialize_aws_json_1_0(data: dict) -> CreateEngagementContextRequest:
         )
     else:
         raise DeserializationError("CreateEngagementContextRequest.payload required")
+    return out
+
+
+def redact_sensitive(value: CreateEngagementContextRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "payload" in value:
+        import capo_partnercentral_selling.types.engagement_context_payload
+
+        out["payload"] = (
+            capo_partnercentral_selling.types.engagement_context_payload.redact_sensitive(
+                value["payload"]
+            )
+        )
     return out

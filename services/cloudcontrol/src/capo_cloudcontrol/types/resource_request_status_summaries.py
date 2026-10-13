@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudcontrol#ResourceRequestStatusSummaries``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_cloudcontrol.types.progress_event
@@ -31,3 +31,11 @@ def deserialize_aws_json_1_0(data: list) -> ResourceRequestStatusSummaries:
             capo_cloudcontrol.types.progress_event.deserialize_aws_json_1_0(item)
         )
     return out
+
+
+def redact_sensitive(value: ResourceRequestStatusSummaries) -> list[Any]:
+    import capo_cloudcontrol.types.progress_event
+
+    return [
+        capo_cloudcontrol.types.progress_event.redact_sensitive(item) for item in value
+    ]

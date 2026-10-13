@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.acm#DescribeAcmeAccountResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAcmeAccountResponse:
 
         out["acme_account"] = capo_acm.types.acme_account.deserialize_aws_json_1_1(
             data["AcmeAccount"]
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeAcmeAccountResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "acme_account" in value:
+        import capo_acm.types.acme_account
+
+        out["acme_account"] = capo_acm.types.acme_account.redact_sensitive(
+            value["acme_account"]
         )
     return out

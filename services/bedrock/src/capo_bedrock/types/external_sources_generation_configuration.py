@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#ExternalSourcesGenerationConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -95,5 +95,16 @@ def deserialize_json(data: dict) -> ExternalSourcesGenerationConfiguration:
             capo_bedrock.types.additional_model_request_fields.deserialize_json(
                 data["additionalModelRequestFields"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: ExternalSourcesGenerationConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "prompt_template" in value:
+        import capo_bedrock.types.prompt_template
+
+        out["prompt_template"] = capo_bedrock.types.prompt_template.redact_sensitive(
+            value["prompt_template"]
         )
     return out

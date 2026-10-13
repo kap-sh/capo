@@ -22,10 +22,12 @@ from capo_pricing_plan_manager._pagination import resolve_path as _resolve_path
 from capo_pricing_plan_manager._services._aws_config import aws_config
 from capo_pricing_plan_manager._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -120,7 +122,9 @@ class PricingPlanManagerClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[PricingPlanManagerClientConfig] = None
+        self,
+        config_overrides: Optional[PricingPlanManagerClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: PricingPlanManagerClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -128,8 +132,10 @@ class PricingPlanManagerClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -190,7 +196,9 @@ class PricingPlanManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ApprovePaidSubscription")
+        )
         input_: capo_pricing_plan_manager.types.approve_paid_subscription_input.ApprovePaidSubscriptionInput = {
             "arn": arn,
             "if_match": if_match,
@@ -255,7 +263,9 @@ class PricingPlanManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateResourcesToSubscription")
+        )
         input_: capo_pricing_plan_manager.types.associate_resources_to_subscription_input.AssociateResourcesToSubscriptionInput = {
             "arn": arn,
             "resource_arns": resource_arns,
@@ -319,7 +329,9 @@ class PricingPlanManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelSubscription")
+        )
         input_: capo_pricing_plan_manager.types.cancel_subscription_input.CancelSubscriptionInput = {
             "arn": arn,
             "if_match": if_match,
@@ -382,7 +394,9 @@ class PricingPlanManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelSubscriptionChange")
+        )
         input_: capo_pricing_plan_manager.types.cancel_subscription_change_input.CancelSubscriptionChangeInput = {
             "arn": arn,
             "if_match": if_match,
@@ -457,7 +471,9 @@ class PricingPlanManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSubscription")
+        )
         input_: capo_pricing_plan_manager.types.create_subscription_input.CreateSubscriptionInput = {
             "plan_family": plan_family,
             "plan_tier": plan_tier,
@@ -527,7 +543,9 @@ class PricingPlanManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateResourcesFromSubscription")
+        )
         input_: capo_pricing_plan_manager.types.disassociate_resources_from_subscription_input.DisassociateResourcesFromSubscriptionInput = {
             "arn": arn,
             "resource_arns": resource_arns,
@@ -586,7 +604,9 @@ class PricingPlanManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSubscription")
+        )
         input_: capo_pricing_plan_manager.types.get_subscription_input.GetSubscriptionInput = {
             "arn": arn
         }
@@ -638,7 +658,9 @@ class PricingPlanManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSubscriptions")
+        )
         input_: capo_pricing_plan_manager.types.list_subscriptions_input.ListSubscriptionsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -721,7 +743,9 @@ class PricingPlanManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSubscription")
+        )
         input_: capo_pricing_plan_manager.types.update_subscription_input.UpdateSubscriptionInput = {
             "arn": arn,
             "plan_tier": plan_tier,

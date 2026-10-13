@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mgn#CreateReplicationConfigurationTemplateRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -202,4 +202,15 @@ def deserialize_json(data: dict) -> CreateReplicationConfigurationTemplateReques
                 data["storageConfiguration"]
             )
         )
+    return out
+
+
+def redact_sensitive(
+    value: CreateReplicationConfigurationTemplateRequest,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "staging_area_tags" in value:
+        out["staging_area_tags"] = "*** Sensitive Data Redacted ***"
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#RecommendationTriggerList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_qconnect.types.recommendation_trigger
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> RecommendationTriggerList:
             continue
         out.append(capo_qconnect.types.recommendation_trigger.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: RecommendationTriggerList) -> list[Any]:
+    import capo_qconnect.types.recommendation_trigger
+
+    return [
+        capo_qconnect.types.recommendation_trigger.redact_sensitive(item)
+        for item in value
+    ]

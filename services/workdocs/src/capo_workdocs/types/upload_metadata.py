@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#UploadMetadata``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,11 @@ def deserialize_json(data: dict) -> UploadMetadata:
         out["signed_headers"] = capo_workdocs.types.signed_header_map.deserialize_json(
             data["SignedHeaders"]
         )
+    return out
+
+
+def redact_sensitive(value: UploadMetadata) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "upload_url" in value:
+        out["upload_url"] = "*** Sensitive Data Redacted ***"
     return out

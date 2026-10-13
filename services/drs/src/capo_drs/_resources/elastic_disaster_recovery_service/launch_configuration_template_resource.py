@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_drs._auth._signers
 import capo_drs._auth._sigv4
 from capo_drs._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -98,7 +99,32 @@ class LaunchConfigurationTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.create_launch_configuration_template_request.CreateLaunchConfigurationTemplateRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.create_launch_configuration_template_request
+
+            return capo_drs.types.create_launch_configuration_template_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_drs.types.create_launch_configuration_template_response.CreateLaunchConfigurationTemplateResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.create_launch_configuration_template_response
+
+            return capo_drs.types.create_launch_configuration_template_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateLaunchConfigurationTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.create_launch_configuration_template_request.CreateLaunchConfigurationTemplateRequest = {}
         if tags is not None:
             input_["tags"] = tags
@@ -188,7 +214,21 @@ class LaunchConfigurationTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.update_launch_configuration_template_response.UpdateLaunchConfigurationTemplateResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.update_launch_configuration_template_response
+
+            return capo_drs.types.update_launch_configuration_template_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateLaunchConfigurationTemplate", redact_output=_redact_output
+            ),
+        )
         input_: capo_drs.types.update_launch_configuration_template_request.UpdateLaunchConfigurationTemplateRequest = {
             "launch_configuration_template_id": launch_configuration_template_id
         }
@@ -255,7 +295,9 @@ class LaunchConfigurationTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteLaunchConfigurationTemplate")
+        )
         input_: capo_drs.types.delete_launch_configuration_template_request.DeleteLaunchConfigurationTemplateRequest = {
             "launch_configuration_template_id": launch_configuration_template_id
         }
@@ -308,7 +350,21 @@ class LaunchConfigurationTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.describe_launch_configuration_templates_response.DescribeLaunchConfigurationTemplatesResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.describe_launch_configuration_templates_response
+
+            return capo_drs.types.describe_launch_configuration_templates_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeLaunchConfigurationTemplates", redact_output=_redact_output
+            ),
+        )
         input_: capo_drs.types.describe_launch_configuration_templates_request.DescribeLaunchConfigurationTemplatesRequest = {}
         if launch_configuration_template_i_ds is not None:
             input_["launch_configuration_template_i_ds"] = (
@@ -390,7 +446,32 @@ class AsyncLaunchConfigurationTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.create_launch_configuration_template_request.CreateLaunchConfigurationTemplateRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.create_launch_configuration_template_request
+
+            return capo_drs.types.create_launch_configuration_template_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_drs.types.create_launch_configuration_template_response.CreateLaunchConfigurationTemplateResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.create_launch_configuration_template_response
+
+            return capo_drs.types.create_launch_configuration_template_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateLaunchConfigurationTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.create_launch_configuration_template_request.CreateLaunchConfigurationTemplateRequest = {}
         if tags is not None:
             input_["tags"] = tags
@@ -481,7 +562,21 @@ class AsyncLaunchConfigurationTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.update_launch_configuration_template_response.UpdateLaunchConfigurationTemplateResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.update_launch_configuration_template_response
+
+            return capo_drs.types.update_launch_configuration_template_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateLaunchConfigurationTemplate", redact_output=_redact_output
+            ),
+        )
         input_: capo_drs.types.update_launch_configuration_template_request.UpdateLaunchConfigurationTemplateRequest = {
             "launch_configuration_template_id": launch_configuration_template_id
         }
@@ -549,7 +644,9 @@ class AsyncLaunchConfigurationTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteLaunchConfigurationTemplate")
+        )
         input_: capo_drs.types.delete_launch_configuration_template_request.DeleteLaunchConfigurationTemplateRequest = {
             "launch_configuration_template_id": launch_configuration_template_id
         }
@@ -603,7 +700,21 @@ class AsyncLaunchConfigurationTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.describe_launch_configuration_templates_response.DescribeLaunchConfigurationTemplatesResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.describe_launch_configuration_templates_response
+
+            return capo_drs.types.describe_launch_configuration_templates_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeLaunchConfigurationTemplates", redact_output=_redact_output
+            ),
+        )
         input_: capo_drs.types.describe_launch_configuration_templates_request.DescribeLaunchConfigurationTemplatesRequest = {}
         if launch_configuration_template_i_ds is not None:
             input_["launch_configuration_template_i_ds"] = (

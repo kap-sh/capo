@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#QueryInputData``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -90,3 +90,16 @@ def deserialize_json(data: dict) -> QueryInputData:
         }
     else:
         raise DeserializationError("QueryInputData: no recognized variant key")
+
+
+def redact_sensitive(value: QueryInputData) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "queryTextInputData" in value:
+        import capo_qconnect.types.query_text_input_data
+
+        out["queryTextInputData"] = (
+            capo_qconnect.types.query_text_input_data.redact_sensitive(
+                value["queryTextInputData"]
+            )
+        )
+    return out

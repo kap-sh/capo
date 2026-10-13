@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DataSetStringComparisonFilterCondition``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -61,6 +61,19 @@ def deserialize_json(data: dict) -> DataSetStringComparisonFilterCondition:
         out["value"] = (
             capo_quicksight.types.data_set_string_filter_value.deserialize_json(
                 data["Value"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DataSetStringComparisonFilterCondition) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        import capo_quicksight.types.data_set_string_filter_value
+
+        out["value"] = (
+            capo_quicksight.types.data_set_string_filter_value.redact_sensitive(
+                value["value"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#InventoryConfigurationList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from capo_s3._protocol.xml import Element, SubElement
 
@@ -47,3 +47,11 @@ def deserialize_xml_flat(parent: Element, tag: str) -> InventoryConfigurationLis
     for child in parent.findall(tag):
         out.append(capo_s3.types.inventory_configuration.deserialize_xml(child))
     return out
+
+
+def redact_sensitive(value: InventoryConfigurationList) -> list[Any]:
+    import capo_s3.types.inventory_configuration
+
+    return [
+        capo_s3.types.inventory_configuration.redact_sensitive(item) for item in value
+    ]

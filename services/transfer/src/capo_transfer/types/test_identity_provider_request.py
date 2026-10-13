@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.transfer#TestIdentityProviderRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -65,4 +65,11 @@ def deserialize_aws_json_1_1(data: dict) -> TestIdentityProviderRequest:
         raise DeserializationError("TestIdentityProviderRequest.user_name required")
     if data.get("UserPassword") is not None:
         out["user_password"] = data["UserPassword"]
+    return out
+
+
+def redact_sensitive(value: TestIdentityProviderRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_password" in value:
+        out["user_password"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#ServerSideEncryptionByDefault``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,11 @@ def deserialize_xml(el: Element) -> ServerSideEncryptionByDefault:
     child_kms_master_key_id = el.find("KMSMasterKeyID")
     if child_kms_master_key_id is not None:
         out["kms_master_key_id"] = str(child_kms_master_key_id.text or "")
+    return out
+
+
+def redact_sensitive(value: ServerSideEncryptionByDefault) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "kms_master_key_id" in value:
+        out["kms_master_key_id"] = "*** Sensitive Data Redacted ***"
     return out

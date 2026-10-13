@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralaccount#GetConnectionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -96,4 +96,17 @@ def deserialize_aws_json_1_0(data: dict) -> GetConnectionResponse:
         )
     else:
         raise DeserializationError("GetConnectionResponse.connection_types required")
+    return out
+
+
+def redact_sensitive(value: GetConnectionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "connection_types" in value:
+        import capo_partnercentral_account.types.connection_type_detail_map
+
+        out["connection_types"] = (
+            capo_partnercentral_account.types.connection_type_detail_map.redact_sensitive(
+                value["connection_types"]
+            )
+        )
     return out

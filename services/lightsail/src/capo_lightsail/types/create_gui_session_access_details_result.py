@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lightsail#CreateGUISessionAccessDetailsResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -68,5 +68,16 @@ def deserialize_aws_json_1_1(data: dict) -> CreateGUISessionAccessDetailsResult:
 
         out["sessions"] = capo_lightsail.types.sessions.deserialize_aws_json_1_1(
             data["sessions"]
+        )
+    return out
+
+
+def redact_sensitive(value: CreateGUISessionAccessDetailsResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sessions" in value:
+        import capo_lightsail.types.sessions
+
+        out["sessions"] = capo_lightsail.types.sessions.redact_sensitive(
+            value["sessions"]
         )
     return out

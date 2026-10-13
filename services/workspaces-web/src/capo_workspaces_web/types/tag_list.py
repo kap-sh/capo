@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#TagList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_workspaces_web.types.tag
@@ -27,3 +27,7 @@ def deserialize_json(data: list) -> TagList:
             continue
         out.append(capo_workspaces_web.types.tag.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: TagList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

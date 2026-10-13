@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#AccountSource``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -67,3 +67,14 @@ def deserialize_json(data: dict) -> AccountSource:
         }
     else:
         raise DeserializationError("AccountSource: no recognized variant key")
+
+
+def redact_sensitive(value: AccountSource) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "accounts" in value:
+        import capo_datazone.types.account_info_list
+
+        out["accounts"] = capo_datazone.types.account_info_list.redact_sensitive(
+            value["accounts"]
+        )
+    return out

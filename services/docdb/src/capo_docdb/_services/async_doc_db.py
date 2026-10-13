@@ -24,7 +24,9 @@ from capo_docdb._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -243,7 +245,9 @@ class AsyncDocDBClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncDocDBClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncDocDBClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncDocDBClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -251,8 +255,10 @@ class AsyncDocDBClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -305,7 +311,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddSourceIdentifierToSubscription")
+        )
         input_: capo_docdb.types.add_source_identifier_to_subscription_message.AddSourceIdentifierToSubscriptionMessage = {}
         if subscription_name is not None:
             input_["subscription_name"] = subscription_name
@@ -353,7 +361,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTagsToResource")
+        )
         input_: capo_docdb.types.add_tags_to_resource_message.AddTagsToResourceMessage = {}
         if resource_name is not None:
             input_["resource_name"] = resource_name
@@ -405,7 +415,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ApplyPendingMaintenanceAction")
+        )
         input_: capo_docdb.types.apply_pending_maintenance_action_message.ApplyPendingMaintenanceActionMessage = {}
         if resource_identifier is not None:
             input_["resource_identifier"] = resource_identifier
@@ -467,7 +479,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CopyDBClusterParameterGroup")
+        )
         input_: capo_docdb.types.copy_db_cluster_parameter_group_message.CopyDBClusterParameterGroupMessage = {}
         if source_db_cluster_parameter_group_identifier is not None:
             input_["source_db_cluster_parameter_group_identifier"] = (
@@ -542,7 +556,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CopyDBClusterSnapshot")
+        )
         input_: capo_docdb.types.copy_db_cluster_snapshot_message.CopyDBClusterSnapshotMessage = {}
         if source_db_cluster_snapshot_identifier is not None:
             input_["source_db_cluster_snapshot_identifier"] = (
@@ -691,7 +707,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDBCluster")
+        )
         input_: capo_docdb.types.create_db_cluster_message.CreateDBClusterMessage = {}
         if availability_zones is not None:
             input_["availability_zones"] = availability_zones
@@ -796,7 +814,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDBClusterParameterGroup")
+        )
         input_: capo_docdb.types.create_db_cluster_parameter_group_message.CreateDBClusterParameterGroupMessage = {}
         if db_cluster_parameter_group_name is not None:
             input_["db_cluster_parameter_group_name"] = db_cluster_parameter_group_name
@@ -856,7 +876,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDBClusterSnapshot")
+        )
         input_: capo_docdb.types.create_db_cluster_snapshot_message.CreateDBClusterSnapshotMessage = {}
         if db_cluster_snapshot_identifier is not None:
             input_["db_cluster_snapshot_identifier"] = db_cluster_snapshot_identifier
@@ -952,7 +974,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDBInstance")
+        )
         input_: capo_docdb.types.create_db_instance_message.CreateDBInstanceMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -1032,7 +1056,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDBSubnetGroup")
+        )
         input_: capo_docdb.types.create_db_subnet_group_message.CreateDBSubnetGroupMessage = {}
         if db_subnet_group_name is not None:
             input_["db_subnet_group_name"] = db_subnet_group_name
@@ -1102,7 +1128,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEventSubscription")
+        )
         input_: capo_docdb.types.create_event_subscription_message.CreateEventSubscriptionMessage = {}
         if subscription_name is not None:
             input_["subscription_name"] = subscription_name
@@ -1179,7 +1207,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGlobalCluster")
+        )
         input_: capo_docdb.types.create_global_cluster_message.CreateGlobalClusterMessage = {}
         if global_cluster_identifier is not None:
             input_["global_cluster_identifier"] = global_cluster_identifier
@@ -1243,7 +1273,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDBCluster")
+        )
         input_: capo_docdb.types.delete_db_cluster_message.DeleteDBClusterMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -1292,7 +1324,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDBClusterParameterGroup")
+        )
         input_: capo_docdb.types.delete_db_cluster_parameter_group_message.DeleteDBClusterParameterGroupMessage = {}
         if db_cluster_parameter_group_name is not None:
             input_["db_cluster_parameter_group_name"] = db_cluster_parameter_group_name
@@ -1339,7 +1373,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDBClusterSnapshot")
+        )
         input_: capo_docdb.types.delete_db_cluster_snapshot_message.DeleteDBClusterSnapshotMessage = {}
         if db_cluster_snapshot_identifier is not None:
             input_["db_cluster_snapshot_identifier"] = db_cluster_snapshot_identifier
@@ -1387,7 +1423,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDBInstance")
+        )
         input_: capo_docdb.types.delete_db_instance_message.DeleteDBInstanceMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -1431,7 +1469,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDBSubnetGroup")
+        )
         input_: capo_docdb.types.delete_db_subnet_group_message.DeleteDBSubnetGroupMessage = {}
         if db_subnet_group_name is not None:
             input_["db_subnet_group_name"] = db_subnet_group_name
@@ -1476,7 +1516,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEventSubscription")
+        )
         input_: capo_docdb.types.delete_event_subscription_message.DeleteEventSubscriptionMessage = {}
         if subscription_name is not None:
             input_["subscription_name"] = subscription_name
@@ -1523,7 +1565,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGlobalCluster")
+        )
         input_: capo_docdb.types.delete_global_cluster_message.DeleteGlobalClusterMessage = {}
         if global_cluster_identifier is not None:
             input_["global_cluster_identifier"] = global_cluster_identifier
@@ -1575,7 +1619,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCertificates")
+        )
         input_: capo_docdb.types.describe_certificates_message.DescribeCertificatesMessage = {}
         if certificate_identifier is not None:
             input_["certificate_identifier"] = certificate_identifier
@@ -1662,7 +1708,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBClusterParameterGroups")
+        )
         input_: capo_docdb.types.describe_db_cluster_parameter_groups_message.DescribeDBClusterParameterGroupsMessage = {}
         if db_cluster_parameter_group_name is not None:
             input_["db_cluster_parameter_group_name"] = db_cluster_parameter_group_name
@@ -1753,7 +1801,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBClusterParameters")
+        )
         input_: capo_docdb.types.describe_db_cluster_parameters_message.DescribeDBClusterParametersMessage = {}
         if db_cluster_parameter_group_name is not None:
             input_["db_cluster_parameter_group_name"] = db_cluster_parameter_group_name
@@ -1844,7 +1894,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBClusters")
+        )
         input_: capo_docdb.types.describe_db_clusters_message.DescribeDBClustersMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -1923,7 +1975,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBClusterSnapshotAttributes")
+        )
         input_: capo_docdb.types.describe_db_cluster_snapshot_attributes_message.DescribeDBClusterSnapshotAttributesMessage = {}
         if db_cluster_snapshot_identifier is not None:
             input_["db_cluster_snapshot_identifier"] = db_cluster_snapshot_identifier
@@ -1985,7 +2039,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBClusterSnapshots")
+        )
         input_: capo_docdb.types.describe_db_cluster_snapshots_message.DescribeDBClusterSnapshotsMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -2101,7 +2157,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBEngineVersions")
+        )
         input_: capo_docdb.types.describe_db_engine_versions_message.DescribeDBEngineVersionsMessage = {}
         if engine is not None:
             input_["engine"] = engine
@@ -2210,7 +2268,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBInstances")
+        )
         input_: capo_docdb.types.describe_db_instances_message.DescribeDBInstancesMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -2295,7 +2355,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBSubnetGroups")
+        )
         input_: capo_docdb.types.describe_db_subnet_groups_message.DescribeDBSubnetGroupsMessage = {}
         if db_subnet_group_name is not None:
             input_["db_subnet_group_name"] = db_subnet_group_name
@@ -2379,7 +2441,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEngineDefaultClusterParameters")
+        )
         input_: capo_docdb.types.describe_engine_default_cluster_parameters_message.DescribeEngineDefaultClusterParametersMessage = {}
         if db_parameter_group_family is not None:
             input_["db_parameter_group_family"] = db_parameter_group_family
@@ -2430,7 +2494,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEventCategories")
+        )
         input_: capo_docdb.types.describe_event_categories_message.DescribeEventCategoriesMessage = {}
         if source_type is not None:
             input_["source_type"] = source_type
@@ -2493,7 +2559,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEvents")
+        )
         input_: capo_docdb.types.describe_events_message.DescribeEventsMessage = {}
         if source_identifier is not None:
             input_["source_identifier"] = source_identifier
@@ -2600,7 +2668,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEventSubscriptions")
+        )
         input_: capo_docdb.types.describe_event_subscriptions_message.DescribeEventSubscriptionsMessage = {}
         if subscription_name is not None:
             input_["subscription_name"] = subscription_name
@@ -2687,7 +2757,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeGlobalClusters")
+        )
         input_: capo_docdb.types.describe_global_clusters_message.DescribeGlobalClustersMessage = {}
         if global_cluster_identifier is not None:
             input_["global_cluster_identifier"] = global_cluster_identifier
@@ -2781,7 +2853,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOrderableDBInstanceOptions")
+        )
         input_: capo_docdb.types.describe_orderable_db_instance_options_message.DescribeOrderableDBInstanceOptionsMessage = {}
         if engine is not None:
             input_["engine"] = engine
@@ -2882,7 +2956,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePendingMaintenanceActions")
+        )
         input_: capo_docdb.types.describe_pending_maintenance_actions_message.DescribePendingMaintenanceActionsMessage = {}
         if resource_identifier is not None:
             input_["resource_identifier"] = resource_identifier
@@ -2965,7 +3041,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("FailoverDBCluster")
+        )
         input_: capo_docdb.types.failover_db_cluster_message.FailoverDBClusterMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -3028,7 +3106,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("FailoverGlobalCluster")
+        )
         input_: capo_docdb.types.failover_global_cluster_message.FailoverGlobalClusterMessage = {}
         if global_cluster_identifier is not None:
             input_["global_cluster_identifier"] = global_cluster_identifier
@@ -3080,7 +3160,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_docdb.types.list_tags_for_resource_message.ListTagsForResourceMessage = {}
         if resource_name is not None:
             input_["resource_name"] = resource_name
@@ -3199,7 +3281,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyDBCluster")
+        )
         input_: capo_docdb.types.modify_db_cluster_message.ModifyDBClusterMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -3292,7 +3376,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyDBClusterParameterGroup")
+        )
         input_: capo_docdb.types.modify_db_cluster_parameter_group_message.ModifyDBClusterParameterGroupMessage = {}
         if db_cluster_parameter_group_name is not None:
             input_["db_cluster_parameter_group_name"] = db_cluster_parameter_group_name
@@ -3352,7 +3438,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyDBClusterSnapshotAttribute")
+        )
         input_: capo_docdb.types.modify_db_cluster_snapshot_attribute_message.ModifyDBClusterSnapshotAttributeMessage = {}
         if db_cluster_snapshot_identifier is not None:
             input_["db_cluster_snapshot_identifier"] = db_cluster_snapshot_identifier
@@ -3448,7 +3536,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyDBInstance")
+        )
         input_: capo_docdb.types.modify_db_instance_message.ModifyDBInstanceMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -3524,7 +3614,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyDBSubnetGroup")
+        )
         input_: capo_docdb.types.modify_db_subnet_group_message.ModifyDBSubnetGroupMessage = {}
         if db_subnet_group_name is not None:
             input_["db_subnet_group_name"] = db_subnet_group_name
@@ -3587,7 +3679,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyEventSubscription")
+        )
         input_: capo_docdb.types.modify_event_subscription_message.ModifyEventSubscriptionMessage = {}
         if subscription_name is not None:
             input_["subscription_name"] = subscription_name
@@ -3650,7 +3744,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyGlobalCluster")
+        )
         input_: capo_docdb.types.modify_global_cluster_message.ModifyGlobalClusterMessage = {}
         if global_cluster_identifier is not None:
             input_["global_cluster_identifier"] = global_cluster_identifier
@@ -3703,7 +3799,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RebootDBInstance")
+        )
         input_: capo_docdb.types.reboot_db_instance_message.RebootDBInstanceMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -3755,7 +3853,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveFromGlobalCluster")
+        )
         input_: capo_docdb.types.remove_from_global_cluster_message.RemoveFromGlobalClusterMessage = {}
         if global_cluster_identifier is not None:
             input_["global_cluster_identifier"] = global_cluster_identifier
@@ -3804,7 +3904,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveSourceIdentifierFromSubscription")
+        )
         input_: capo_docdb.types.remove_source_identifier_from_subscription_message.RemoveSourceIdentifierFromSubscriptionMessage = {}
         if subscription_name is not None:
             input_["subscription_name"] = subscription_name
@@ -3852,7 +3954,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTagsFromResource")
+        )
         input_: capo_docdb.types.remove_tags_from_resource_message.RemoveTagsFromResourceMessage = {}
         if resource_name is not None:
             input_["resource_name"] = resource_name
@@ -3905,7 +4009,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetDBClusterParameterGroup")
+        )
         input_: capo_docdb.types.reset_db_cluster_parameter_group_message.ResetDBClusterParameterGroupMessage = {}
         if db_cluster_parameter_group_name is not None:
             input_["db_cluster_parameter_group_name"] = db_cluster_parameter_group_name
@@ -4013,7 +4119,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreDBClusterFromSnapshot")
+        )
         input_: capo_docdb.types.restore_db_cluster_from_snapshot_message.RestoreDBClusterFromSnapshotMessage = {}
         if availability_zones is not None:
             input_["availability_zones"] = availability_zones
@@ -4146,7 +4254,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreDBClusterToPointInTime")
+        )
         input_: capo_docdb.types.restore_db_cluster_to_point_in_time_message.RestoreDBClusterToPointInTimeMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -4224,7 +4334,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDBCluster")
+        )
         input_: capo_docdb.types.start_db_cluster_message.StartDBClusterMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -4270,7 +4382,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopDBCluster")
+        )
         input_: capo_docdb.types.stop_db_cluster_message.StopDBClusterMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -4323,7 +4437,9 @@ class AsyncDocDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SwitchoverGlobalCluster")
+        )
         input_: capo_docdb.types.switchover_global_cluster_message.SwitchoverGlobalClusterMessage = {}
         if global_cluster_identifier is not None:
             input_["global_cluster_identifier"] = global_cluster_identifier

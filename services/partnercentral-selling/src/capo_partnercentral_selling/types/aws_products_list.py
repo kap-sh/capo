@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#AwsProductsList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.aws_product_details
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_0(data: list) -> AwsProductsList:
             )
         )
     return out
+
+
+def redact_sensitive(value: AwsProductsList) -> list[Any]:
+    import capo_partnercentral_selling.types.aws_product_details
+
+    return [
+        capo_partnercentral_selling.types.aws_product_details.redact_sensitive(item)
+        for item in value
+    ]

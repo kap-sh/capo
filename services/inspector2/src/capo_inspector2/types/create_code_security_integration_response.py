@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.inspector2#CreateCodeSecurityIntegrationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -59,4 +59,11 @@ def deserialize_json(data: dict) -> CreateCodeSecurityIntegrationResponse:
         )
     if data.get("authorizationUrl") is not None:
         out["authorization_url"] = data["authorizationUrl"]
+    return out
+
+
+def redact_sensitive(value: CreateCodeSecurityIntegrationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "authorization_url" in value:
+        out["authorization_url"] = "*** Sensitive Data Redacted ***"
     return out

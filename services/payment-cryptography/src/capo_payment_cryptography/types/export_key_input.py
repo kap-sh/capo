@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptography#ExportKeyInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -71,6 +71,19 @@ def deserialize_aws_json_1_0(data: dict) -> ExportKeyInput:
         out["export_attributes"] = (
             capo_payment_cryptography.types.export_attributes.deserialize_aws_json_1_0(
                 data["ExportAttributes"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ExportKeyInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "key_material" in value:
+        import capo_payment_cryptography.types.export_key_material
+
+        out["key_material"] = (
+            capo_payment_cryptography.types.export_key_material.redact_sensitive(
+                value["key_material"]
             )
         )
     return out

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_partnercentral_selling._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -95,7 +96,9 @@ class ResourceSnapshotJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateResourceSnapshotJob")
+        )
         input_: capo_partnercentral_selling.types.create_resource_snapshot_job_request.CreateResourceSnapshotJobRequest = {
             "catalog": catalog,
             "client_token": client_token,
@@ -151,7 +154,9 @@ class ResourceSnapshotJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetResourceSnapshotJob")
+        )
         input_: capo_partnercentral_selling.types.get_resource_snapshot_job_request.GetResourceSnapshotJobRequest = {
             "catalog": catalog,
             "resource_snapshot_job_identifier": resource_snapshot_job_identifier,
@@ -200,7 +205,9 @@ class ResourceSnapshotJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteResourceSnapshotJob")
+        )
         input_: capo_partnercentral_selling.types.delete_resource_snapshot_job_request.DeleteResourceSnapshotJobRequest = {
             "catalog": catalog,
             "resource_snapshot_job_identifier": resource_snapshot_job_identifier,
@@ -266,7 +273,9 @@ class ResourceSnapshotJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListResourceSnapshotJobs")
+        )
         input_: capo_partnercentral_selling.types.list_resource_snapshot_jobs_request.ListResourceSnapshotJobsRequest = {
             "catalog": catalog
         }
@@ -323,7 +332,9 @@ class ResourceSnapshotJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartResourceSnapshotJob")
+        )
         input_: capo_partnercentral_selling.types.start_resource_snapshot_job_request.StartResourceSnapshotJobRequest = {
             "catalog": catalog,
             "resource_snapshot_job_identifier": resource_snapshot_job_identifier,
@@ -371,7 +382,9 @@ class ResourceSnapshotJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopResourceSnapshotJob")
+        )
         input_: capo_partnercentral_selling.types.stop_resource_snapshot_job_request.StopResourceSnapshotJobRequest = {
             "catalog": catalog,
             "resource_snapshot_job_identifier": resource_snapshot_job_identifier,
@@ -439,7 +452,9 @@ class AsyncResourceSnapshotJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateResourceSnapshotJob")
+        )
         input_: capo_partnercentral_selling.types.create_resource_snapshot_job_request.CreateResourceSnapshotJobRequest = {
             "catalog": catalog,
             "client_token": client_token,
@@ -496,7 +511,9 @@ class AsyncResourceSnapshotJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetResourceSnapshotJob")
+        )
         input_: capo_partnercentral_selling.types.get_resource_snapshot_job_request.GetResourceSnapshotJobRequest = {
             "catalog": catalog,
             "resource_snapshot_job_identifier": resource_snapshot_job_identifier,
@@ -546,7 +563,9 @@ class AsyncResourceSnapshotJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteResourceSnapshotJob")
+        )
         input_: capo_partnercentral_selling.types.delete_resource_snapshot_job_request.DeleteResourceSnapshotJobRequest = {
             "catalog": catalog,
             "resource_snapshot_job_identifier": resource_snapshot_job_identifier,
@@ -613,7 +632,9 @@ class AsyncResourceSnapshotJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListResourceSnapshotJobs")
+        )
         input_: capo_partnercentral_selling.types.list_resource_snapshot_jobs_request.ListResourceSnapshotJobsRequest = {
             "catalog": catalog
         }
@@ -671,7 +692,9 @@ class AsyncResourceSnapshotJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartResourceSnapshotJob")
+        )
         input_: capo_partnercentral_selling.types.start_resource_snapshot_job_request.StartResourceSnapshotJobRequest = {
             "catalog": catalog,
             "resource_snapshot_job_identifier": resource_snapshot_job_identifier,
@@ -720,7 +743,9 @@ class AsyncResourceSnapshotJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopResourceSnapshotJob")
+        )
         input_: capo_partnercentral_selling.types.stop_resource_snapshot_job_request.StopResourceSnapshotJobRequest = {
             "catalog": catalog,
             "resource_snapshot_job_identifier": resource_snapshot_job_identifier,

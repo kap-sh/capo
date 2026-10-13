@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.agentregistry#Descriptors``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -125,5 +125,40 @@ def deserialize_json(data: dict) -> Descriptors:
 
         out["agui"] = capo_agent_registry.types.ag_ui_descriptor.deserialize_json(
             data["agui"]
+        )
+    return out
+
+
+def redact_sensitive(value: Descriptors) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "mcp_server" in value:
+        import capo_agent_registry.types.mcp_server_descriptor
+
+        out["mcp_server"] = (
+            capo_agent_registry.types.mcp_server_descriptor.redact_sensitive(
+                value["mcp_server"]
+            )
+        )
+    if "a2a_agent_card" in value:
+        import capo_agent_registry.types.a2a_agent_card_descriptor
+
+        out["a2a_agent_card"] = (
+            capo_agent_registry.types.a2a_agent_card_descriptor.redact_sensitive(
+                value["a2a_agent_card"]
+            )
+        )
+    if "agent_skills_definition" in value:
+        import capo_agent_registry.types.agent_skills_definition_descriptor
+
+        out["agent_skills_definition"] = (
+            capo_agent_registry.types.agent_skills_definition_descriptor.redact_sensitive(
+                value["agent_skills_definition"]
+            )
+        )
+    if "custom" in value:
+        import capo_agent_registry.types.custom_descriptor
+
+        out["custom"] = capo_agent_registry.types.custom_descriptor.redact_sensitive(
+            value["custom"]
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesinstances#InstanceIpv6Address``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -33,4 +33,11 @@ def deserialize_aws_json_1_0(data: dict) -> InstanceIpv6Address:
         out["ipv6_address"] = data["Ipv6Address"]
     if data.get("IsPrimaryIpv6") is not None:
         out["is_primary_ipv6"] = data["IsPrimaryIpv6"]
+    return out
+
+
+def redact_sensitive(value: InstanceIpv6Address) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ipv6_address" in value:
+        out["ipv6_address"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_mpa._auth._signers
 import capo_mpa._auth._sigv4
 from capo_mpa._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -74,7 +75,19 @@ class IdentitySource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mpa.types.create_identity_source_request.CreateIdentitySourceRequest",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.create_identity_source_request
+
+            return capo_mpa.types.create_identity_source_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateIdentitySource", redact_input=_redact_input),
+        )
         input_: capo_mpa.types.create_identity_source_request.CreateIdentitySourceRequest = {
             "identity_source_parameters": identity_source_parameters
         }
@@ -126,7 +139,9 @@ class IdentitySource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetIdentitySource")
+        )
         input_: capo_mpa.types.get_identity_source_request.GetIdentitySourceRequest = {
             "identity_source_arn": identity_source_arn
         }
@@ -171,7 +186,9 @@ class IdentitySource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteIdentitySource")
+        )
         input_: capo_mpa.types.delete_identity_source_request.DeleteIdentitySourceRequest = {
             "identity_source_arn": identity_source_arn
         }
@@ -219,7 +236,9 @@ class IdentitySource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListIdentitySources")
+        )
         input_: capo_mpa.types.list_identity_sources_request.ListIdentitySourcesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -278,7 +297,19 @@ class AsyncIdentitySource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mpa.types.create_identity_source_request.CreateIdentitySourceRequest",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.create_identity_source_request
+
+            return capo_mpa.types.create_identity_source_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateIdentitySource", redact_input=_redact_input),
+        )
         input_: capo_mpa.types.create_identity_source_request.CreateIdentitySourceRequest = {
             "identity_source_parameters": identity_source_parameters
         }
@@ -331,7 +362,9 @@ class AsyncIdentitySource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetIdentitySource")
+        )
         input_: capo_mpa.types.get_identity_source_request.GetIdentitySourceRequest = {
             "identity_source_arn": identity_source_arn
         }
@@ -377,7 +410,9 @@ class AsyncIdentitySource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteIdentitySource")
+        )
         input_: capo_mpa.types.delete_identity_source_request.DeleteIdentitySourceRequest = {
             "identity_source_arn": identity_source_arn
         }
@@ -426,7 +461,9 @@ class AsyncIdentitySource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListIdentitySources")
+        )
         input_: capo_mpa.types.list_identity_sources_request.ListIdentitySourcesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

@@ -25,7 +25,9 @@ from capo_inspector2._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -397,7 +399,9 @@ class AsyncInspector2Client:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncInspector2ClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncInspector2ClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncInspector2ClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -405,8 +409,10 @@ class AsyncInspector2Client:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -460,7 +466,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateMember")
+        )
         input_: capo_inspector2.types.associate_member_request.AssociateMemberRequest = {
             "account_id": account_id
         }
@@ -509,7 +517,10 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchAssociateCodeSecurityScanConfiguration"),
+        )
         input_: capo_inspector2.types.batch_associate_code_security_scan_configuration_request.BatchAssociateCodeSecurityScanConfigurationRequest = {
             "associate_configuration_requests": associate_configuration_requests
         }
@@ -558,7 +569,10 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchDisassociateCodeSecurityScanConfiguration"),
+        )
         input_: capo_inspector2.types.batch_disassociate_code_security_scan_configuration_request.BatchDisassociateCodeSecurityScanConfigurationRequest = {
             "disassociate_configuration_requests": disassociate_configuration_requests
         }
@@ -608,7 +622,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetAccountStatus")
+        )
         input_: capo_inspector2.types.batch_get_account_status_request.BatchGetAccountStatusRequest = {}
         if account_ids is not None:
             input_["account_ids"] = account_ids
@@ -655,7 +671,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetCodeSnippet")
+        )
         input_: capo_inspector2.types.batch_get_code_snippet_request.BatchGetCodeSnippetRequest = {
             "finding_arns": finding_arns
         }
@@ -707,7 +725,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetFindingDetails")
+        )
         input_: capo_inspector2.types.batch_get_finding_details_request.BatchGetFindingDetailsRequest = {
             "finding_arns": finding_arns
         }
@@ -754,7 +774,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetFreeTrialInfo")
+        )
         input_: capo_inspector2.types.batch_get_free_trial_info_request.BatchGetFreeTrialInfoRequest = {
             "account_ids": account_ids
         }
@@ -803,7 +825,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetMemberEc2DeepInspectionStatus")
+        )
         input_: capo_inspector2.types.batch_get_member_ec2_deep_inspection_status_request.BatchGetMemberEc2DeepInspectionStatusRequest = {}
         if account_ids is not None:
             input_["account_ids"] = account_ids
@@ -850,7 +874,10 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchUpdateMemberEc2DeepInspectionStatus"),
+        )
         input_: capo_inspector2.types.batch_update_member_ec2_deep_inspection_status_request.BatchUpdateMemberEc2DeepInspectionStatusRequest = {
             "account_ids": account_ids
         }
@@ -898,7 +925,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelFindingsReport")
+        )
         input_: capo_inspector2.types.cancel_findings_report_request.CancelFindingsReportRequest = {
             "report_id": report_id
         }
@@ -946,7 +975,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelSbomExport")
+        )
         input_: capo_inspector2.types.cancel_sbom_export_request.CancelSbomExportRequest = {
             "report_id": report_id
         }
@@ -1006,7 +1037,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCisScanConfiguration")
+        )
         input_: capo_inspector2.types.create_cis_scan_configuration_request.CreateCisScanConfigurationRequest = {
             "scan_name": scan_name,
             "security_level": security_level,
@@ -1068,7 +1101,32 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_inspector2.types.create_code_security_integration_request.CreateCodeSecurityIntegrationRequest",
+        ) -> dict[str, Any]:
+            import capo_inspector2.types.create_code_security_integration_request
+
+            return capo_inspector2.types.create_code_security_integration_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_inspector2.types.create_code_security_integration_response.CreateCodeSecurityIntegrationResponse",
+        ) -> dict[str, Any]:
+            import capo_inspector2.types.create_code_security_integration_response
+
+            return capo_inspector2.types.create_code_security_integration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateCodeSecurityIntegration",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_inspector2.types.create_code_security_integration_request.CreateCodeSecurityIntegrationRequest = {
             "name": name,
             "type": type,
@@ -1132,7 +1190,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCodeSecurityScanConfiguration")
+        )
         input_: capo_inspector2.types.create_code_security_scan_configuration_request.CreateCodeSecurityScanConfigurationRequest = {
             "name": name,
             "level": level,
@@ -1206,7 +1266,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConnector")
+        )
         input_: capo_inspector2.types.create_connector_request.CreateConnectorRequest = {
             "name": name,
             "provider": provider,
@@ -1276,7 +1338,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFilter")
+        )
         input_: capo_inspector2.types.create_filter_request.CreateFilterRequest = {
             "action": action,
             "filter_criteria": filter_criteria,
@@ -1338,7 +1402,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFindingsReport")
+        )
         input_: capo_inspector2.types.create_findings_report_request.CreateFindingsReportRequest = {
             "report_format": report_format,
             "s3_destination": s3_destination,
@@ -1395,7 +1461,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSbomExport")
+        )
         input_: capo_inspector2.types.create_sbom_export_request.CreateSbomExportRequest = {
             "report_format": report_format,
             "s3_destination": s3_destination,
@@ -1451,7 +1519,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCisScanConfiguration")
+        )
         input_: capo_inspector2.types.delete_cis_scan_configuration_request.DeleteCisScanConfigurationRequest = {
             "scan_configuration_arn": scan_configuration_arn
         }
@@ -1499,7 +1569,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCodeSecurityIntegration")
+        )
         input_: capo_inspector2.types.delete_code_security_integration_request.DeleteCodeSecurityIntegrationRequest = {
             "integration_arn": integration_arn
         }
@@ -1547,7 +1619,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCodeSecurityScanConfiguration")
+        )
         input_: capo_inspector2.types.delete_code_security_scan_configuration_request.DeleteCodeSecurityScanConfigurationRequest = {
             "scan_configuration_arn": scan_configuration_arn
         }
@@ -1601,7 +1675,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnector")
+        )
         input_: capo_inspector2.types.delete_connector_request.DeleteConnectorRequest = {
             "connector_arn": connector_arn
         }
@@ -1649,7 +1725,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFilter")
+        )
         input_: capo_inspector2.types.delete_filter_request.DeleteFilterRequest = {
             "arn": arn
         }
@@ -1690,7 +1768,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOrganizationConfiguration")
+        )
         input_: capo_inspector2.types.describe_organization_configuration_request.DescribeOrganizationConfigurationRequest = {}
 
         response = await aexecute_pipeline(
@@ -1742,7 +1822,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Disable")
+        )
         input_: capo_inspector2.types.disable_request.DisableRequest = {}
         if account_ids is not None:
             input_["account_ids"] = account_ids
@@ -1793,7 +1875,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableDelegatedAdminAccount")
+        )
         input_: capo_inspector2.types.disable_delegated_admin_account_request.DisableDelegatedAdminAccountRequest = {
             "delegated_admin_account_id": delegated_admin_account_id
         }
@@ -1842,7 +1926,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateMember")
+        )
         input_: capo_inspector2.types.disassociate_member_request.DisassociateMemberRequest = {
             "account_id": account_id
         }
@@ -1896,7 +1982,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Enable")
+        )
         input_: capo_inspector2.types.enable_request.EnableRequest = {
             "resource_types": resource_types
         }
@@ -1952,7 +2040,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableDelegatedAdminAccount")
+        )
         input_: capo_inspector2.types.enable_delegated_admin_account_request.EnableDelegatedAdminAccountRequest = {
             "delegated_admin_account_id": delegated_admin_account_id
         }
@@ -2016,7 +2106,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCisScanReport")
+        )
         input_: capo_inspector2.types.get_cis_scan_report_request.GetCisScanReportRequest = {
             "scan_arn": scan_arn
         }
@@ -2094,7 +2186,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCisScanResultDetails")
+        )
         input_: capo_inspector2.types.get_cis_scan_result_details_request.GetCisScanResultDetailsRequest = {
             "scan_arn": scan_arn,
             "target_resource_id": target_resource_id,
@@ -2200,7 +2294,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetClustersForImage")
+        )
         input_: capo_inspector2.types.get_clusters_for_image_request.GetClustersForImageRequest = {
             "filter": filter
         }
@@ -2279,7 +2375,21 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_inspector2.types.get_code_security_integration_response.GetCodeSecurityIntegrationResponse",
+        ) -> dict[str, Any]:
+            import capo_inspector2.types.get_code_security_integration_response
+
+            return capo_inspector2.types.get_code_security_integration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetCodeSecurityIntegration", redact_output=_redact_output
+            ),
+        )
         input_: capo_inspector2.types.get_code_security_integration_request.GetCodeSecurityIntegrationRequest = {
             "integration_arn": integration_arn
         }
@@ -2332,7 +2442,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCodeSecurityScan")
+        )
         input_: capo_inspector2.types.get_code_security_scan_request.GetCodeSecurityScanRequest = {
             "resource": resource,
             "scan_id": scan_id,
@@ -2381,7 +2493,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCodeSecurityScanConfiguration")
+        )
         input_: capo_inspector2.types.get_code_security_scan_configuration_request.GetCodeSecurityScanConfigurationRequest = {
             "scan_configuration_arn": scan_configuration_arn
         }
@@ -2429,7 +2543,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConfiguration")
+        )
         input_: capo_inspector2.types.get_configuration_request.GetConfigurationRequest = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -2471,7 +2587,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDelegatedAdminAccount")
+        )
         input_: capo_inspector2.types.get_delegated_admin_account_request.GetDelegatedAdminAccountRequest = {}
 
         response = await aexecute_pipeline(
@@ -2510,7 +2628,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEc2DeepInspectionConfiguration")
+        )
         input_: capo_inspector2.types.get_ec2_deep_inspection_configuration_request.GetEc2DeepInspectionConfigurationRequest = {}
 
         response = await aexecute_pipeline(
@@ -2558,7 +2678,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEncryptionKey")
+        )
         input_: capo_inspector2.types.get_encryption_key_request.GetEncryptionKeyRequest = {
             "scan_type": scan_type,
             "resource_type": resource_type,
@@ -2607,7 +2729,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFindingsReportStatus")
+        )
         input_: capo_inspector2.types.get_findings_report_status_request.GetFindingsReportStatusRequest = {}
         if report_id is not None:
             input_["report_id"] = report_id
@@ -2655,7 +2779,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMember")
+        )
         input_: capo_inspector2.types.get_member_request.GetMemberRequest = {
             "account_id": account_id
         }
@@ -2703,7 +2829,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSbomExport")
+        )
         input_: capo_inspector2.types.get_sbom_export_request.GetSbomExportRequest = {
             "report_id": report_id
         }
@@ -2756,7 +2884,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccountPermissions")
+        )
         input_: capo_inspector2.types.list_account_permissions_request.ListAccountPermissionsRequest = {}
         if service is not None:
             input_["service"] = service
@@ -2853,7 +2983,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCisScanConfigurations")
+        )
         input_: capo_inspector2.types.list_cis_scan_configurations_request.ListCisScanConfigurationsRequest = {}
         if filter_criteria is not None:
             input_["filter_criteria"] = filter_criteria
@@ -2966,7 +3098,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCisScanResultsAggregatedByChecks")
+        )
         input_: capo_inspector2.types.list_cis_scan_results_aggregated_by_checks_request.ListCisScanResultsAggregatedByChecksRequest = {
             "scan_arn": scan_arn
         }
@@ -3085,7 +3219,10 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListCisScanResultsAggregatedByTargetResource"),
+        )
         input_: capo_inspector2.types.list_cis_scan_results_aggregated_by_target_resource_request.ListCisScanResultsAggregatedByTargetResourceRequest = {
             "scan_arn": scan_arn
         }
@@ -3204,7 +3341,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCisScans")
+        )
         input_: capo_inspector2.types.list_cis_scans_request.ListCisScansRequest = {}
         if filter_criteria is not None:
             input_["filter_criteria"] = filter_criteria
@@ -3302,7 +3441,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCodeSecurityIntegrations")
+        )
         input_: capo_inspector2.types.list_code_security_integrations_request.ListCodeSecurityIntegrationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3356,7 +3497,10 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListCodeSecurityScanConfigurationAssociations"),
+        )
         input_: capo_inspector2.types.list_code_security_scan_configuration_associations_request.ListCodeSecurityScanConfigurationAssociationsRequest = {
             "scan_configuration_arn": scan_configuration_arn
         }
@@ -3410,7 +3554,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCodeSecurityScanConfigurations")
+        )
         input_: capo_inspector2.types.list_code_security_scan_configurations_request.ListCodeSecurityScanConfigurationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3472,7 +3618,32 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_inspector2.types.list_connectors_request.ListConnectorsRequest",
+        ) -> dict[str, Any]:
+            import capo_inspector2.types.list_connectors_request
+
+            return capo_inspector2.types.list_connectors_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_inspector2.types.list_connectors_response.ListConnectorsResponse",
+        ) -> dict[str, Any]:
+            import capo_inspector2.types.list_connectors_response
+
+            return capo_inspector2.types.list_connectors_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListConnectors",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_inspector2.types.list_connectors_request.ListConnectorsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3565,7 +3736,32 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_inspector2.types.list_connector_scan_configurations_request.ListConnectorScanConfigurationsRequest",
+        ) -> dict[str, Any]:
+            import capo_inspector2.types.list_connector_scan_configurations_request
+
+            return capo_inspector2.types.list_connector_scan_configurations_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_inspector2.types.list_connector_scan_configurations_response.ListConnectorScanConfigurationsResponse",
+        ) -> dict[str, Any]:
+            import capo_inspector2.types.list_connector_scan_configurations_response
+
+            return capo_inspector2.types.list_connector_scan_configurations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListConnectorScanConfigurations",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_inspector2.types.list_connector_scan_configurations_request.ListConnectorScanConfigurationsRequest = {}
         if aws_config_connector_arns is not None:
             input_["aws_config_connector_arns"] = aws_config_connector_arns
@@ -3652,7 +3848,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCoverage")
+        )
         input_: capo_inspector2.types.list_coverage_request.ListCoverageRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3735,7 +3933,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCoverageStatistics")
+        )
         input_: capo_inspector2.types.list_coverage_statistics_request.ListCoverageStatisticsRequest = {}
         if filter_criteria is not None:
             input_["filter_criteria"] = filter_criteria
@@ -3815,7 +4015,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDelegatedAdminAccounts")
+        )
         input_: capo_inspector2.types.list_delegated_admin_accounts_request.ListDelegatedAdminAccountsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3895,7 +4097,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFilters")
+        )
         input_: capo_inspector2.types.list_filters_request.ListFiltersRequest = {}
         if arns is not None:
             input_["arns"] = arns
@@ -3988,7 +4192,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFindingAggregations")
+        )
         input_: capo_inspector2.types.list_finding_aggregations_request.ListFindingAggregationsRequest = {
             "aggregation_type": aggregation_type
         }
@@ -4089,7 +4295,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFindings")
+        )
         input_: capo_inspector2.types.list_findings_request.ListFindingsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4179,7 +4387,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMembers")
+        )
         input_: capo_inspector2.types.list_members_request.ListMembersRequest = {}
         if only_associated is not None:
             input_["only_associated"] = only_associated
@@ -4255,7 +4465,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_inspector2.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -4312,7 +4524,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUsageTotals")
+        )
         input_: capo_inspector2.types.list_usage_totals_request.ListUsageTotalsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4397,7 +4611,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetEncryptionKey")
+        )
         input_: capo_inspector2.types.reset_encryption_key_request.ResetEncryptionKeyRequest = {
             "scan_type": scan_type,
             "resource_type": resource_type,
@@ -4447,7 +4663,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchVulnerabilities")
+        )
         input_: capo_inspector2.types.search_vulnerabilities_request.SearchVulnerabilitiesRequest = {
             "filter_criteria": filter_criteria
         }
@@ -4525,7 +4743,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendCisSessionHealth")
+        )
         input_: capo_inspector2.types.send_cis_session_health_request.SendCisSessionHealthRequest = {
             "scan_job_id": scan_job_id,
             "session_token": session_token,
@@ -4583,7 +4803,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendCisSessionTelemetry")
+        )
         input_: capo_inspector2.types.send_cis_session_telemetry_request.SendCisSessionTelemetryRequest = {
             "scan_job_id": scan_job_id,
             "session_token": session_token,
@@ -4640,7 +4862,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCisSession")
+        )
         input_: capo_inspector2.types.start_cis_session_request.StartCisSessionRequest = {
             "scan_job_id": scan_job_id,
             "message": message,
@@ -4694,7 +4918,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCodeSecurityScan")
+        )
         input_: capo_inspector2.types.start_code_security_scan_request.StartCodeSecurityScanRequest = {
             "resource": resource
         }
@@ -4754,7 +4980,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopCisSession")
+        )
         input_: capo_inspector2.types.stop_cis_session_request.StopCisSessionRequest = {
             "scan_job_id": scan_job_id,
             "session_token": session_token,
@@ -4806,7 +5034,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_inspector2.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -4856,7 +5086,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_inspector2.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -4922,7 +5154,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCisScanConfiguration")
+        )
         input_: capo_inspector2.types.update_cis_scan_configuration_request.UpdateCisScanConfigurationRequest = {
             "scan_configuration_arn": scan_configuration_arn
         }
@@ -4981,7 +5215,21 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_inspector2.types.update_code_security_integration_request.UpdateCodeSecurityIntegrationRequest",
+        ) -> dict[str, Any]:
+            import capo_inspector2.types.update_code_security_integration_request
+
+            return capo_inspector2.types.update_code_security_integration_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateCodeSecurityIntegration", redact_input=_redact_input
+            ),
+        )
         input_: capo_inspector2.types.update_code_security_integration_request.UpdateCodeSecurityIntegrationRequest = {
             "integration_arn": integration_arn,
             "details": details,
@@ -5033,7 +5281,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCodeSecurityScanConfiguration")
+        )
         input_: capo_inspector2.types.update_code_security_scan_configuration_request.UpdateCodeSecurityScanConfigurationRequest = {
             "scan_configuration_arn": scan_configuration_arn,
             "configuration": configuration,
@@ -5093,7 +5343,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConfiguration")
+        )
         input_: capo_inspector2.types.update_configuration_request.UpdateConfigurationRequest = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -5163,7 +5415,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConnector")
+        )
         input_: capo_inspector2.types.update_connector_request.UpdateConnectorRequest = {
             "connector_arn": connector_arn
         }
@@ -5223,7 +5477,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConnectorScanConfiguration")
+        )
         input_: capo_inspector2.types.update_connector_scan_configuration_request.UpdateConnectorScanConfigurationRequest = {
             "aws_config_connector_arn": aws_config_connector_arn,
             "scan_configuration": scan_configuration,
@@ -5273,7 +5529,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEc2DeepInspectionConfiguration")
+        )
         input_: capo_inspector2.types.update_ec2_deep_inspection_configuration_request.UpdateEc2DeepInspectionConfigurationRequest = {}
         if activate_deep_inspection is not None:
             input_["activate_deep_inspection"] = activate_deep_inspection
@@ -5327,7 +5585,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEncryptionKey")
+        )
         input_: capo_inspector2.types.update_encryption_key_request.UpdateEncryptionKeyRequest = {
             "kms_key_id": kms_key_id,
             "scan_type": scan_type,
@@ -5391,7 +5651,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFilter")
+        )
         input_: capo_inspector2.types.update_filter_request.UpdateFilterRequest = {
             "filter_arn": filter_arn
         }
@@ -5448,7 +5710,9 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateOrganizationConfiguration")
+        )
         input_: capo_inspector2.types.update_organization_configuration_request.UpdateOrganizationConfigurationRequest = {
             "auto_enable": auto_enable
         }
@@ -5495,7 +5759,10 @@ class AsyncInspector2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateOrgEc2DeepInspectionConfiguration"),
+        )
         input_: capo_inspector2.types.update_org_ec2_deep_inspection_configuration_request.UpdateOrgEc2DeepInspectionConfigurationRequest = {
             "org_package_paths": org_package_paths
         }

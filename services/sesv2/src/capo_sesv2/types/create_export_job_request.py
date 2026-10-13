@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sesv2#CreateExportJobRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -56,4 +56,17 @@ def deserialize_json(data: dict) -> CreateExportJobRequest:
         )
     else:
         raise DeserializationError("CreateExportJobRequest.export_destination required")
+    return out
+
+
+def redact_sensitive(value: CreateExportJobRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "export_data_source" in value:
+        import capo_sesv2.types.export_data_source
+
+        out["export_data_source"] = (
+            capo_sesv2.types.export_data_source.redact_sensitive(
+                value["export_data_source"]
+            )
+        )
     return out

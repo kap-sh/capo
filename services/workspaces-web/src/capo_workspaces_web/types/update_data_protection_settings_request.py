@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#UpdateDataProtectionSettingsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -67,4 +67,21 @@ def deserialize_json(data: dict) -> UpdateDataProtectionSettingsRequest:
         out["description"] = data["description"]
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
+    return out
+
+
+def redact_sensitive(value: UpdateDataProtectionSettingsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inline_redaction_configuration" in value:
+        import capo_workspaces_web.types.inline_redaction_configuration
+
+        out["inline_redaction_configuration"] = (
+            capo_workspaces_web.types.inline_redaction_configuration.redact_sensitive(
+                value["inline_redaction_configuration"]
+            )
+        )
+    if "display_name" in value:
+        out["display_name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

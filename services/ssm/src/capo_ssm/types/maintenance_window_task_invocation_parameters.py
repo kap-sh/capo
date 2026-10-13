@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#MaintenanceWindowTaskInvocationParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -100,6 +100,37 @@ def deserialize_aws_json_1_1(data: dict) -> MaintenanceWindowTaskInvocationParam
         out["lambda"] = (
             capo_ssm.types.maintenance_window_lambda_parameters.deserialize_aws_json_1_1(
                 data["Lambda"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(
+    value: MaintenanceWindowTaskInvocationParameters,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "run_command" in value:
+        import capo_ssm.types.maintenance_window_run_command_parameters
+
+        out["run_command"] = (
+            capo_ssm.types.maintenance_window_run_command_parameters.redact_sensitive(
+                value["run_command"]
+            )
+        )
+    if "step_functions" in value:
+        import capo_ssm.types.maintenance_window_step_functions_parameters
+
+        out["step_functions"] = (
+            capo_ssm.types.maintenance_window_step_functions_parameters.redact_sensitive(
+                value["step_functions"]
+            )
+        )
+    if "lambda" in value:
+        import capo_ssm.types.maintenance_window_lambda_parameters
+
+        out["lambda"] = (
+            capo_ssm.types.maintenance_window_lambda_parameters.redact_sensitive(
+                value["lambda"]
             )
         )
     return out

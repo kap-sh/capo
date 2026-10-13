@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyBuildStepContext``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -70,3 +70,16 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildStepContext:
         raise DeserializationError(
             "AutomatedReasoningPolicyBuildStepContext: no recognized variant key"
         )
+
+
+def redact_sensitive(value: AutomatedReasoningPolicyBuildStepContext) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "mutation" in value:
+        import capo_bedrock.types.automated_reasoning_policy_mutation
+
+        out["mutation"] = (
+            capo_bedrock.types.automated_reasoning_policy_mutation.redact_sensitive(
+                value["mutation"]
+            )
+        )
+    return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.amplify#App``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -386,5 +386,22 @@ def deserialize_json(data: dict) -> App:
 
         out["job_config"] = capo_amplify.types.job_config.deserialize_json(
             data["jobConfig"]
+        )
+    return out
+
+
+def redact_sensitive(value: App) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "basic_auth_credentials" in value:
+        out["basic_auth_credentials"] = "*** Sensitive Data Redacted ***"
+    if "build_spec" in value:
+        out["build_spec"] = "*** Sensitive Data Redacted ***"
+    if "auto_branch_creation_config" in value:
+        import capo_amplify.types.auto_branch_creation_config
+
+        out["auto_branch_creation_config"] = (
+            capo_amplify.types.auto_branch_creation_config.redact_sensitive(
+                value["auto_branch_creation_config"]
+            )
         )
     return out

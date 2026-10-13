@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#GetObjectOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -171,3 +171,12 @@ class GetObjectOutput(TypedDict, closed=True):
         "capo_s3.types.object_lock_event_hold_duration_years.ObjectLockEventHoldDurationYears"
     ]
     """<p>The event hold duration in years for this object. Only returned when the event hold is enabled.</p> <note> <p>This functionality is not supported for directory buckets.</p> </note>"""
+
+
+def redact_sensitive(value: GetObjectOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "body" in value:
+        out["body"] = "*** Streaming Data Redacted ***"
+    if "ssekms_key_id" in value:
+        out["ssekms_key_id"] = "*** Sensitive Data Redacted ***"
+    return out

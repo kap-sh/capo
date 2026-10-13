@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kinesisvideo#ListEdgeAgentConfigurationsEdgeConfigList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_kinesis_video.types.list_edge_agent_configurations_edge_config
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> ListEdgeAgentConfigurationsEdgeConfigList:
             )
         )
     return out
+
+
+def redact_sensitive(value: ListEdgeAgentConfigurationsEdgeConfigList) -> list[Any]:
+    import capo_kinesis_video.types.list_edge_agent_configurations_edge_config
+
+    return [
+        capo_kinesis_video.types.list_edge_agent_configurations_edge_config.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

@@ -39,10 +39,12 @@ from capo_ssm_guiconnect._resources.ssm_gui_connect.recording_preferences import
 from capo_ssm_guiconnect._services._aws_config import aws_config
 from capo_ssm_guiconnect._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -138,7 +140,9 @@ class SSMGuiConnectClient:
         self.recording_preferences = RecordingPreferences(self)
 
     def operation_options(
-        self, config_overrides: Optional[SSMGuiConnectClientConfig] = None
+        self,
+        config_overrides: Optional[SSMGuiConnectClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: SSMGuiConnectClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -146,8 +150,10 @@ class SSMGuiConnectClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -201,7 +207,9 @@ class SSMGuiConnectClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnectionRecordingPreferences")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -254,7 +262,9 @@ class SSMGuiConnectClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnectionRecordingPreferences")
+        )
         input_: capo_ssm_guiconnect.types.delete_connection_recording_preferences_request.DeleteConnectionRecordingPreferencesRequest = {}
         if client_token is None:
             client_token = str(uuid.uuid4())
@@ -313,7 +323,9 @@ class SSMGuiConnectClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConnectionRecordingPreferences")
+        )
         input_: capo_ssm_guiconnect.types.update_connection_recording_preferences_request.UpdateConnectionRecordingPreferencesRequest = {
             "connection_recording_preferences": connection_recording_preferences
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#InstancePatchState``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -256,4 +256,11 @@ def deserialize_aws_json_1_1(data: dict) -> InstancePatchState:
         out["security_non_compliant_count"] = data["SecurityNonCompliantCount"]
     if data.get("OtherNonCompliantCount") is not None:
         out["other_non_compliant_count"] = data["OtherNonCompliantCount"]
+    return out
+
+
+def redact_sensitive(value: InstancePatchState) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "owner_information" in value:
+        out["owner_information"] = "*** Sensitive Data Redacted ***"
     return out

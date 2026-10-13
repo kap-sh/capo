@@ -7,6 +7,7 @@ import capo_omics._auth._sigv4
 from capo_omics._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -157,7 +158,9 @@ class RunResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartRun")
+        )
         input_: capo_omics.types.start_run_request.StartRunRequest = {
             "role_arn": role_arn,
             "output_uri": output_uri,
@@ -249,7 +252,9 @@ class RunResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRun")
+        )
         input_: capo_omics.types.get_run_request.GetRunRequest = {"id": id}
         if export is not None:
             input_["export"] = export
@@ -295,7 +300,9 @@ class RunResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRun")
+        )
         input_: capo_omics.types.delete_run_request.DeleteRunRequest = {"id": id}
 
         response = execute_pipeline(
@@ -349,7 +356,9 @@ class RunResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRuns")
+        )
         input_: capo_omics.types.list_runs_request.ListRunsRequest = {}
         if name is not None:
             input_["name"] = name
@@ -405,7 +414,9 @@ class RunResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelRun")
+        )
         input_: capo_omics.types.cancel_run_request.CancelRunRequest = {"id": id}
 
         response = execute_pipeline(
@@ -523,7 +534,9 @@ class AsyncRunResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartRun")
+        )
         input_: capo_omics.types.start_run_request.StartRunRequest = {
             "role_arn": role_arn,
             "output_uri": output_uri,
@@ -618,7 +631,9 @@ class AsyncRunResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRun")
+        )
         input_: capo_omics.types.get_run_request.GetRunRequest = {"id": id}
         if export is not None:
             input_["export"] = export
@@ -667,7 +682,9 @@ class AsyncRunResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRun")
+        )
         input_: capo_omics.types.delete_run_request.DeleteRunRequest = {"id": id}
 
         response = await aexecute_pipeline(
@@ -726,7 +743,9 @@ class AsyncRunResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRuns")
+        )
         input_: capo_omics.types.list_runs_request.ListRunsRequest = {}
         if name is not None:
             input_["name"] = name
@@ -785,7 +804,9 @@ class AsyncRunResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelRun")
+        )
         input_: capo_omics.types.cancel_run_request.CancelRunRequest = {"id": id}
 
         response = await aexecute_pipeline(

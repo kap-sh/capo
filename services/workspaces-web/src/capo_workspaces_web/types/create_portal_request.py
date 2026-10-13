@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#CreatePortalRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -105,4 +105,15 @@ def deserialize_json(data: dict) -> CreatePortalRequest:
         out["max_concurrent_sessions"] = data["maxConcurrentSessions"]
     if data.get("portalCustomDomain") is not None:
         out["portal_custom_domain"] = data["portalCustomDomain"]
+    return out
+
+
+def redact_sensitive(value: CreatePortalRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "display_name" in value:
+        out["display_name"] = "*** Sensitive Data Redacted ***"
+    if "tags" in value:
+        import capo_workspaces_web.types.tag_list
+
+        out["tags"] = capo_workspaces_web.types.tag_list.redact_sensitive(value["tags"])
     return out

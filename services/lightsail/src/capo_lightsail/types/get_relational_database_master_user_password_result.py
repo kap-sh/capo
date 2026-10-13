@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lightsail#GetRelationalDatabaseMasterUserPasswordResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,13 @@ def deserialize_aws_json_1_1(
         out["created_at"] = capo_lightsail.types.iso_date.deserialize_aws_json_1_1(
             data["createdAt"]
         )
+    return out
+
+
+def redact_sensitive(
+    value: GetRelationalDatabaseMasterUserPasswordResult,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "master_user_password" in value:
+        out["master_user_password"] = "*** Sensitive Data Redacted ***"
     return out

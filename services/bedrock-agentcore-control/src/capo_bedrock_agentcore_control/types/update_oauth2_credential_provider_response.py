@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#UpdateOauth2CredentialProviderResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -198,5 +198,18 @@ def deserialize_json(data: dict) -> UpdateOauth2CredentialProviderResponse:
 
         out["status"] = capo_bedrock_agentcore_control.types.status.deserialize_json(
             data["status"]
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateOauth2CredentialProviderResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "oauth2_provider_config_output" in value:
+        import capo_bedrock_agentcore_control.types.oauth2_provider_config_output
+
+        out["oauth2_provider_config_output"] = (
+            capo_bedrock_agentcore_control.types.oauth2_provider_config_output.redact_sensitive(
+                value["oauth2_provider_config_output"]
+            )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chime#User``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -174,4 +174,23 @@ def deserialize_json(data: dict) -> User:
         )
     if data.get("PersonalPIN") is not None:
         out["personal_pin"] = data["PersonalPIN"]
+    return out
+
+
+def redact_sensitive(value: User) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "primary_email" in value:
+        out["primary_email"] = "*** Sensitive Data Redacted ***"
+    if "primary_provisioned_number" in value:
+        out["primary_provisioned_number"] = "*** Sensitive Data Redacted ***"
+    if "display_name" in value:
+        out["display_name"] = "*** Sensitive Data Redacted ***"
+    if "alexa_for_business_metadata" in value:
+        import capo_chime.types.alexa_for_business_metadata
+
+        out["alexa_for_business_metadata"] = (
+            capo_chime.types.alexa_for_business_metadata.redact_sensitive(
+                value["alexa_for_business_metadata"]
+            )
+        )
     return out

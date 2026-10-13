@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_evs._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -157,7 +158,28 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_evs.types.create_environment_request.CreateEnvironmentRequest",
+        ) -> dict[str, Any]:
+            import capo_evs.types.create_environment_request
+
+            return capo_evs.types.create_environment_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_evs.types.create_environment_response.CreateEnvironmentResponse",
+        ) -> dict[str, Any]:
+            import capo_evs.types.create_environment_response
+
+            return capo_evs.types.create_environment_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateEnvironment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_evs.types.create_environment_request.CreateEnvironmentRequest = {
             "vpc_id": vpc_id,
             "service_access_subnet_id": service_access_subnet_id,
@@ -226,7 +248,17 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_evs.types.get_environment_response.GetEnvironmentResponse",
+        ) -> dict[str, Any]:
+            import capo_evs.types.get_environment_response
+
+            return capo_evs.types.get_environment_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetEnvironment", redact_output=_redact_output),
+        )
         input_: capo_evs.types.get_environment_request.GetEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -272,7 +304,17 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_evs.types.delete_environment_response.DeleteEnvironmentResponse",
+        ) -> dict[str, Any]:
+            import capo_evs.types.delete_environment_response
+
+            return capo_evs.types.delete_environment_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteEnvironment", redact_output=_redact_output),
+        )
         input_: capo_evs.types.delete_environment_request.DeleteEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -324,7 +366,9 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnvironments")
+        )
         input_: capo_evs.types.list_environments_request.ListEnvironmentsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -379,7 +423,9 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateEipToVlan")
+        )
         input_: capo_evs.types.associate_eip_to_vlan_request.AssociateEipToVlanRequest = {
             "environment_id": environment_id,
             "vlan_name": vlan_name,
@@ -437,7 +483,9 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEntitlement")
+        )
         input_: capo_evs.types.create_entitlement_request.CreateEntitlementRequest = {
             "environment_id": environment_id,
             "connector_id": connector_id,
@@ -496,7 +544,9 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEnvironmentConnector")
+        )
         input_: capo_evs.types.create_environment_connector_request.CreateEnvironmentConnectorRequest = {
             "environment_id": environment_id,
             "type": type,
@@ -554,7 +604,9 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEnvironmentHost")
+        )
         input_: capo_evs.types.create_environment_host_request.CreateEnvironmentHostRequest = {
             "environment_id": environment_id,
             "host": host,
@@ -613,7 +665,9 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEntitlement")
+        )
         input_: capo_evs.types.delete_entitlement_request.DeleteEntitlementRequest = {
             "environment_id": environment_id,
             "connector_id": connector_id,
@@ -668,7 +722,9 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironmentConnector")
+        )
         input_: capo_evs.types.delete_environment_connector_request.DeleteEnvironmentConnectorRequest = {
             "environment_id": environment_id,
             "connector_id": connector_id,
@@ -722,7 +778,9 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironmentHost")
+        )
         input_: capo_evs.types.delete_environment_host_request.DeleteEnvironmentHostRequest = {
             "environment_id": environment_id,
             "host_name": host_name,
@@ -777,7 +835,9 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateEipFromVlan")
+        )
         input_: capo_evs.types.disassociate_eip_from_vlan_request.DisassociateEipFromVlanRequest = {
             "environment_id": environment_id,
             "vlan_name": vlan_name,
@@ -829,7 +889,9 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDepotUrl")
+        )
         input_: capo_evs.types.get_depot_url_request.GetDepotUrlRequest = {
             "environment_id": environment_id
         }
@@ -879,7 +941,9 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnvironmentConnectors")
+        )
         input_: capo_evs.types.list_environment_connectors_request.ListEnvironmentConnectorsRequest = {
             "environment_id": environment_id
         }
@@ -931,7 +995,9 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnvironmentHosts")
+        )
         input_: capo_evs.types.list_environment_hosts_request.ListEnvironmentHostsRequest = {
             "environment_id": environment_id
         }
@@ -983,7 +1049,9 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnvironmentVlans")
+        )
         input_: capo_evs.types.list_environment_vlans_request.ListEnvironmentVlansRequest = {
             "environment_id": environment_id
         }
@@ -1039,7 +1107,9 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListVmEntitlements")
+        )
         input_: capo_evs.types.list_vm_entitlements_request.ListVmEntitlementsRequest = {
             "environment_id": environment_id,
             "connector_id": connector_id,
@@ -1100,7 +1170,9 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateEnvironmentConnector")
+        )
         input_: capo_evs.types.update_environment_connector_request.UpdateEnvironmentConnectorRequest = {
             "environment_id": environment_id,
             "connector_id": connector_id,
@@ -1195,7 +1267,28 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_evs.types.create_environment_request.CreateEnvironmentRequest",
+        ) -> dict[str, Any]:
+            import capo_evs.types.create_environment_request
+
+            return capo_evs.types.create_environment_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_evs.types.create_environment_response.CreateEnvironmentResponse",
+        ) -> dict[str, Any]:
+            import capo_evs.types.create_environment_response
+
+            return capo_evs.types.create_environment_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateEnvironment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_evs.types.create_environment_request.CreateEnvironmentRequest = {
             "vpc_id": vpc_id,
             "service_access_subnet_id": service_access_subnet_id,
@@ -1265,7 +1358,17 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_evs.types.get_environment_response.GetEnvironmentResponse",
+        ) -> dict[str, Any]:
+            import capo_evs.types.get_environment_response
+
+            return capo_evs.types.get_environment_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetEnvironment", redact_output=_redact_output),
+        )
         input_: capo_evs.types.get_environment_request.GetEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -1312,7 +1415,17 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_evs.types.delete_environment_response.DeleteEnvironmentResponse",
+        ) -> dict[str, Any]:
+            import capo_evs.types.delete_environment_response
+
+            return capo_evs.types.delete_environment_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteEnvironment", redact_output=_redact_output),
+        )
         input_: capo_evs.types.delete_environment_request.DeleteEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -1365,7 +1478,9 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnvironments")
+        )
         input_: capo_evs.types.list_environments_request.ListEnvironmentsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1421,7 +1536,9 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateEipToVlan")
+        )
         input_: capo_evs.types.associate_eip_to_vlan_request.AssociateEipToVlanRequest = {
             "environment_id": environment_id,
             "vlan_name": vlan_name,
@@ -1480,7 +1597,9 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEntitlement")
+        )
         input_: capo_evs.types.create_entitlement_request.CreateEntitlementRequest = {
             "environment_id": environment_id,
             "connector_id": connector_id,
@@ -1540,7 +1659,9 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEnvironmentConnector")
+        )
         input_: capo_evs.types.create_environment_connector_request.CreateEnvironmentConnectorRequest = {
             "environment_id": environment_id,
             "type": type,
@@ -1599,7 +1720,9 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEnvironmentHost")
+        )
         input_: capo_evs.types.create_environment_host_request.CreateEnvironmentHostRequest = {
             "environment_id": environment_id,
             "host": host,
@@ -1659,7 +1782,9 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEntitlement")
+        )
         input_: capo_evs.types.delete_entitlement_request.DeleteEntitlementRequest = {
             "environment_id": environment_id,
             "connector_id": connector_id,
@@ -1715,7 +1840,9 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironmentConnector")
+        )
         input_: capo_evs.types.delete_environment_connector_request.DeleteEnvironmentConnectorRequest = {
             "environment_id": environment_id,
             "connector_id": connector_id,
@@ -1770,7 +1897,9 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironmentHost")
+        )
         input_: capo_evs.types.delete_environment_host_request.DeleteEnvironmentHostRequest = {
             "environment_id": environment_id,
             "host_name": host_name,
@@ -1826,7 +1955,9 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateEipFromVlan")
+        )
         input_: capo_evs.types.disassociate_eip_from_vlan_request.DisassociateEipFromVlanRequest = {
             "environment_id": environment_id,
             "vlan_name": vlan_name,
@@ -1879,7 +2010,9 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDepotUrl")
+        )
         input_: capo_evs.types.get_depot_url_request.GetDepotUrlRequest = {
             "environment_id": environment_id
         }
@@ -1930,7 +2063,9 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnvironmentConnectors")
+        )
         input_: capo_evs.types.list_environment_connectors_request.ListEnvironmentConnectorsRequest = {
             "environment_id": environment_id
         }
@@ -1983,7 +2118,9 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnvironmentHosts")
+        )
         input_: capo_evs.types.list_environment_hosts_request.ListEnvironmentHostsRequest = {
             "environment_id": environment_id
         }
@@ -2036,7 +2173,9 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnvironmentVlans")
+        )
         input_: capo_evs.types.list_environment_vlans_request.ListEnvironmentVlansRequest = {
             "environment_id": environment_id
         }
@@ -2093,7 +2232,9 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListVmEntitlements")
+        )
         input_: capo_evs.types.list_vm_entitlements_request.ListVmEntitlementsRequest = {
             "environment_id": environment_id,
             "connector_id": connector_id,
@@ -2155,7 +2296,9 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateEnvironmentConnector")
+        )
         input_: capo_evs.types.update_environment_connector_request.UpdateEnvironmentConnectorRequest = {
             "environment_id": environment_id,
             "connector_id": connector_id,

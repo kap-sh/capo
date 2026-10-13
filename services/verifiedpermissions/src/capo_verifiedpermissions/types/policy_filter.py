@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#PolicyFilter``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -87,4 +87,25 @@ def deserialize_aws_json_1_0(data: dict) -> PolicyFilter:
         )
     if data.get("policyTemplateId") is not None:
         out["policy_template_id"] = data["policyTemplateId"]
+    return out
+
+
+def redact_sensitive(value: PolicyFilter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "principal" in value:
+        import capo_verifiedpermissions.types.entity_reference
+
+        out["principal"] = (
+            capo_verifiedpermissions.types.entity_reference.redact_sensitive(
+                value["principal"]
+            )
+        )
+    if "resource" in value:
+        import capo_verifiedpermissions.types.entity_reference
+
+        out["resource"] = (
+            capo_verifiedpermissions.types.entity_reference.redact_sensitive(
+                value["resource"]
+            )
+        )
     return out

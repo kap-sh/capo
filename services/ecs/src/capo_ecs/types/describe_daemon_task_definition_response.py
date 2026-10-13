@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ecs#DescribeDaemonTaskDefinitionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeDaemonTaskDefinitionResponse
         out["daemon_task_definition"] = (
             capo_ecs.types.daemon_task_definition.deserialize_aws_json_1_1(
                 data["daemonTaskDefinition"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeDaemonTaskDefinitionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "daemon_task_definition" in value:
+        import capo_ecs.types.daemon_task_definition
+
+        out["daemon_task_definition"] = (
+            capo_ecs.types.daemon_task_definition.redact_sensitive(
+                value["daemon_task_definition"]
             )
         )
     return out

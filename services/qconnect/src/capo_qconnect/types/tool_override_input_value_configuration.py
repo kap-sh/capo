@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#ToolOverrideInputValueConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -48,3 +48,16 @@ def deserialize_json(data: dict) -> ToolOverrideInputValueConfiguration:
         raise DeserializationError(
             "ToolOverrideInputValueConfiguration: no recognized variant key"
         )
+
+
+def redact_sensitive(value: ToolOverrideInputValueConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "constant" in value:
+        import capo_qconnect.types.tool_override_constant_input_value
+
+        out["constant"] = (
+            capo_qconnect.types.tool_override_constant_input_value.redact_sensitive(
+                value["constant"]
+            )
+        )
+    return out

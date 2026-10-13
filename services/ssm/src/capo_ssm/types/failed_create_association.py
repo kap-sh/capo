@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#FailedCreateAssociation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -57,4 +57,17 @@ def deserialize_aws_json_1_1(data: dict) -> FailedCreateAssociation:
         import capo_ssm.types.fault
 
         out["fault"] = capo_ssm.types.fault.deserialize_aws_json_1_1(data["Fault"])
+    return out
+
+
+def redact_sensitive(value: FailedCreateAssociation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "entry" in value:
+        import capo_ssm.types.create_association_batch_request_entry
+
+        out["entry"] = (
+            capo_ssm.types.create_association_batch_request_entry.redact_sensitive(
+                value["entry"]
+            )
+        )
     return out

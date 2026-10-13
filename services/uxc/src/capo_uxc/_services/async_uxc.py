@@ -24,7 +24,9 @@ from capo_uxc._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -112,7 +114,9 @@ class AsyncuxcClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncuxcClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncuxcClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncuxcClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -120,8 +124,10 @@ class AsyncuxcClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -171,7 +177,9 @@ class AsyncuxcClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountCustomizations")
+        )
         input_: capo_uxc.types.get_account_customizations_input.GetAccountCustomizationsInput = {}
 
         response = await aexecute_pipeline(
@@ -224,7 +232,9 @@ class AsyncuxcClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServices")
+        )
         input_: capo_uxc.types.list_services_input.ListServicesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -304,7 +314,9 @@ class AsyncuxcClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccountCustomizations")
+        )
         input_: capo_uxc.types.update_account_customizations_input.UpdateAccountCustomizationsInput = {}
         if account_color is not None:
             input_["account_color"] = account_color

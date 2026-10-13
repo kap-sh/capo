@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#OperationUpdate``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -171,4 +171,15 @@ def deserialize_json(data: dict) -> OperationUpdate:
                 data["ChainedInvokeOptions"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: OperationUpdate) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "payload" in value:
+        out["payload"] = "*** Sensitive Data Redacted ***"
+    if "error" in value:
+        import capo_lambda.types.error_object
+
+        out["error"] = capo_lambda.types.error_object.redact_sensitive(value["error"])
     return out

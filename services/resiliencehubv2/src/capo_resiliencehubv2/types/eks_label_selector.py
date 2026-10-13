@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.resiliencehubv2#EksLabelSelector``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -54,4 +54,13 @@ def deserialize_json(data: dict) -> EksLabelSelector:
                 data["matchExpressions"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: EksLabelSelector) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "match_labels" in value:
+        out["match_labels"] = "*** Sensitive Data Redacted ***"
+    if "match_expressions" in value:
+        out["match_expressions"] = "*** Sensitive Data Redacted ***"
     return out

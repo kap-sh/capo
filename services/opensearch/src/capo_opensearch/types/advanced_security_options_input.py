@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.opensearch#AdvancedSecurityOptionsInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -111,4 +111,23 @@ def deserialize_json(data: dict) -> AdvancedSecurityOptionsInput:
         )
     if data.get("AnonymousAuthEnabled") is not None:
         out["anonymous_auth_enabled"] = data["AnonymousAuthEnabled"]
+    return out
+
+
+def redact_sensitive(value: AdvancedSecurityOptionsInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "master_user_options" in value:
+        import capo_opensearch.types.master_user_options
+
+        out["master_user_options"] = (
+            capo_opensearch.types.master_user_options.redact_sensitive(
+                value["master_user_options"]
+            )
+        )
+    if "saml_options" in value:
+        import capo_opensearch.types.saml_options_input
+
+        out["saml_options"] = capo_opensearch.types.saml_options_input.redact_sensitive(
+            value["saml_options"]
+        )
     return out

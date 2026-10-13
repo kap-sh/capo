@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_emr_serverless._auth._signers
 import capo_emr_serverless._auth._sigv4
 from capo_emr_serverless._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -173,7 +174,21 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_emr_serverless.types.create_application_request.CreateApplicationRequest",
+        ) -> dict[str, Any]:
+            import capo_emr_serverless.types.create_application_request
+
+            return (
+                capo_emr_serverless.types.create_application_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateApplication", redact_input=_redact_input),
+        )
         input_: capo_emr_serverless.types.create_application_request.CreateApplicationRequest = {
             "release_label": release_label,
             "type": type,
@@ -256,7 +271,19 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_emr_serverless.types.get_application_response.GetApplicationResponse",
+        ) -> dict[str, Any]:
+            import capo_emr_serverless.types.get_application_response
+
+            return capo_emr_serverless.types.get_application_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetApplication", redact_output=_redact_output),
+        )
         input_: capo_emr_serverless.types.get_application_request.GetApplicationRequest = {
             "application_id": application_id
         }
@@ -366,7 +393,36 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_emr_serverless.types.update_application_request.UpdateApplicationRequest",
+        ) -> dict[str, Any]:
+            import capo_emr_serverless.types.update_application_request
+
+            return (
+                capo_emr_serverless.types.update_application_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_emr_serverless.types.update_application_response.UpdateApplicationResponse",
+        ) -> dict[str, Any]:
+            import capo_emr_serverless.types.update_application_response
+
+            return (
+                capo_emr_serverless.types.update_application_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateApplication",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_emr_serverless.types.update_application_request.UpdateApplicationRequest = {
             "application_id": application_id,
             "client_token": client_token,
@@ -446,7 +502,9 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_emr_serverless.types.delete_application_request.DeleteApplicationRequest = {
             "application_id": application_id
         }
@@ -498,7 +556,9 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_emr_serverless.types.list_applications_request.ListApplicationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -553,7 +613,9 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetResourceDashboard")
+        )
         input_: capo_emr_serverless.types.get_resource_dashboard_request.GetResourceDashboardRequest = {
             "application_id": application_id,
             "resource_id": resource_id,
@@ -605,7 +667,9 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartApplication")
+        )
         input_: capo_emr_serverless.types.start_application_request.StartApplicationRequest = {
             "application_id": application_id
         }
@@ -650,7 +714,9 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopApplication")
+        )
         input_: capo_emr_serverless.types.stop_application_request.StopApplicationRequest = {
             "application_id": application_id
         }
@@ -772,7 +838,21 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_emr_serverless.types.create_application_request.CreateApplicationRequest",
+        ) -> dict[str, Any]:
+            import capo_emr_serverless.types.create_application_request
+
+            return (
+                capo_emr_serverless.types.create_application_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateApplication", redact_input=_redact_input),
+        )
         input_: capo_emr_serverless.types.create_application_request.CreateApplicationRequest = {
             "release_label": release_label,
             "type": type,
@@ -856,7 +936,19 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_emr_serverless.types.get_application_response.GetApplicationResponse",
+        ) -> dict[str, Any]:
+            import capo_emr_serverless.types.get_application_response
+
+            return capo_emr_serverless.types.get_application_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetApplication", redact_output=_redact_output),
+        )
         input_: capo_emr_serverless.types.get_application_request.GetApplicationRequest = {
             "application_id": application_id
         }
@@ -967,7 +1059,36 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_emr_serverless.types.update_application_request.UpdateApplicationRequest",
+        ) -> dict[str, Any]:
+            import capo_emr_serverless.types.update_application_request
+
+            return (
+                capo_emr_serverless.types.update_application_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_emr_serverless.types.update_application_response.UpdateApplicationResponse",
+        ) -> dict[str, Any]:
+            import capo_emr_serverless.types.update_application_response
+
+            return (
+                capo_emr_serverless.types.update_application_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateApplication",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_emr_serverless.types.update_application_request.UpdateApplicationRequest = {
             "application_id": application_id,
             "client_token": client_token,
@@ -1048,7 +1169,9 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_emr_serverless.types.delete_application_request.DeleteApplicationRequest = {
             "application_id": application_id
         }
@@ -1101,7 +1224,9 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_emr_serverless.types.list_applications_request.ListApplicationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1157,7 +1282,9 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetResourceDashboard")
+        )
         input_: capo_emr_serverless.types.get_resource_dashboard_request.GetResourceDashboardRequest = {
             "application_id": application_id,
             "resource_id": resource_id,
@@ -1210,7 +1337,9 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartApplication")
+        )
         input_: capo_emr_serverless.types.start_application_request.StartApplicationRequest = {
             "application_id": application_id
         }
@@ -1256,7 +1385,9 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopApplication")
+        )
         input_: capo_emr_serverless.types.stop_application_request.StopApplicationRequest = {
             "application_id": application_id
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appconfig#CreateHostedConfigurationVersionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -52,4 +52,11 @@ def deserialize_json(data: dict) -> CreateHostedConfigurationVersionRequest:
         raise DeserializationError(
             "CreateHostedConfigurationVersionRequest.content required"
         )
+    return out
+
+
+def redact_sensitive(value: CreateHostedConfigurationVersionRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        out["content"] = "*** Sensitive Data Redacted ***"
     return out

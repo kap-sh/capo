@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mgn#ConnectorsList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_mgn.types.connector
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> ConnectorsList:
             continue
         out.append(capo_mgn.types.connector.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ConnectorsList) -> list[Any]:
+    import capo_mgn.types.connector
+
+    return [capo_mgn.types.connector.redact_sensitive(item) for item in value]

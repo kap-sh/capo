@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RoadSnapSnappedTracePoint``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -71,4 +71,15 @@ def deserialize_json(data: dict) -> RoadSnapSnappedTracePoint:
         raise DeserializationError(
             "RoadSnapSnappedTracePoint.snapped_position required"
         )
+    return out
+
+
+def redact_sensitive(value: RoadSnapSnappedTracePoint) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "confidence" in value:
+        out["confidence"] = "*** Sensitive Data Redacted ***"
+    if "original_position" in value:
+        out["original_position"] = "*** Sensitive Data Redacted ***"
+    if "snapped_position" in value:
+        out["snapped_position"] = "*** Sensitive Data Redacted ***"
     return out

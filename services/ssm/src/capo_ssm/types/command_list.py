@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#CommandList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_ssm.types.command
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> CommandList:
             continue
         out.append(capo_ssm.types.command.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: CommandList) -> list[Any]:
+    import capo_ssm.types.command
+
+    return [capo_ssm.types.command.redact_sensitive(item) for item in value]

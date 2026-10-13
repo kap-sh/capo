@@ -22,7 +22,9 @@ from capo_cloudtrail_data._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -107,7 +109,9 @@ class AsyncCloudTrailDataClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncCloudTrailDataClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncCloudTrailDataClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncCloudTrailDataClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -115,8 +119,10 @@ class AsyncCloudTrailDataClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -177,7 +183,9 @@ class AsyncCloudTrailDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAuditEvents")
+        )
         input_: capo_cloudtrail_data.types.put_audit_events_request.PutAuditEventsRequest = {
             "audit_events": audit_events,
             "channel_arn": channel_arn,

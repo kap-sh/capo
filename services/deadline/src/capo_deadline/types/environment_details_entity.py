@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#EnvironmentDetailsEntity``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -82,4 +82,11 @@ def deserialize_json(data: dict) -> EnvironmentDetailsEntity:
         )
     if data.get("resolvedSymbolTable") is not None:
         out["resolved_symbol_table"] = data["resolvedSymbolTable"]
+    return out
+
+
+def redact_sensitive(value: EnvironmentDetailsEntity) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "template" in value:
+        out["template"] = "*** Sensitive Data Redacted ***"
     return out

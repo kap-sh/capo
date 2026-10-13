@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chime#PutEventsConfigurationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,13 @@ def deserialize_json(data: dict) -> PutEventsConfigurationRequest:
         out["outbound_events_https_endpoint"] = data["OutboundEventsHTTPSEndpoint"]
     if data.get("LambdaFunctionArn") is not None:
         out["lambda_function_arn"] = data["LambdaFunctionArn"]
+    return out
+
+
+def redact_sensitive(value: PutEventsConfigurationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "outbound_events_https_endpoint" in value:
+        out["outbound_events_https_endpoint"] = "*** Sensitive Data Redacted ***"
+    if "lambda_function_arn" in value:
+        out["lambda_function_arn"] = "*** Sensitive Data Redacted ***"
     return out

@@ -22,7 +22,9 @@ from capo_forecastquery._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -111,7 +113,9 @@ class AsyncforecastqueryClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncforecastqueryClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncforecastqueryClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncforecastqueryClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -119,8 +123,10 @@ class AsyncforecastqueryClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -182,7 +188,9 @@ class AsyncforecastqueryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("QueryForecast")
+        )
         input_: capo_forecastquery.types.query_forecast_request.QueryForecastRequest = {
             "forecast_arn": forecast_arn,
             "filters": filters,
@@ -245,7 +253,9 @@ class AsyncforecastqueryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("QueryWhatIfForecast")
+        )
         input_: capo_forecastquery.types.query_what_if_forecast_request.QueryWhatIfForecastRequest = {
             "what_if_forecast_arn": what_if_forecast_arn,
             "filters": filters,

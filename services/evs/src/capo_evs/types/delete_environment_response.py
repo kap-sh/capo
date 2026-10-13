@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.evs#DeleteEnvironmentResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteEnvironmentResponse:
 
         out["environment"] = capo_evs.types.environment.deserialize_aws_json_1_0(
             data["environment"]
+        )
+    return out
+
+
+def redact_sensitive(value: DeleteEnvironmentResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "environment" in value:
+        import capo_evs.types.environment
+
+        out["environment"] = capo_evs.types.environment.redact_sensitive(
+            value["environment"]
         )
     return out

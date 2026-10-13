@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.personalizeruntime#PredictedItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -77,4 +77,11 @@ def deserialize_json(data: dict) -> PredictedItem:
         out["reason"] = capo_personalize_runtime.types.reason_list.deserialize_json(
             data["reason"]
         )
+    return out
+
+
+def redact_sensitive(value: PredictedItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "metadata" in value:
+        out["metadata"] = "*** Sensitive Data Redacted ***"
     return out

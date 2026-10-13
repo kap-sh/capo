@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#ConcatenationSink``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -61,5 +61,18 @@ def deserialize_json(data: dict) -> ConcatenationSink:
     else:
         raise DeserializationError(
             "ConcatenationSink.s3_bucket_sink_configuration required"
+        )
+    return out
+
+
+def redact_sensitive(value: ConcatenationSink) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "s3_bucket_sink_configuration" in value:
+        import capo_chime_sdk_media_pipelines.types.s3_bucket_sink_configuration
+
+        out["s3_bucket_sink_configuration"] = (
+            capo_chime_sdk_media_pipelines.types.s3_bucket_sink_configuration.redact_sensitive(
+                value["s3_bucket_sink_configuration"]
+            )
         )
     return out

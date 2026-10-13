@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#OidcOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -76,4 +76,11 @@ def deserialize_ec2_query(el: Element) -> OidcOptions:
     child_scope = el.find("scope")
     if child_scope is not None:
         out["scope"] = str(child_scope.text or "")
+    return out
+
+
+def redact_sensitive(value: OidcOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_secret" in value:
+        out["client_secret"] = "*** Sensitive Data Redacted ***"
     return out

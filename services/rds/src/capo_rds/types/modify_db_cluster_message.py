@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#ModifyDBClusterMessage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -672,4 +672,11 @@ def deserialize_query(el: Element) -> ModifyDBClusterMessage:
     child_engine_lifecycle_support = el.find("EngineLifecycleSupport")
     if child_engine_lifecycle_support is not None:
         out["engine_lifecycle_support"] = str(child_engine_lifecycle_support.text or "")
+    return out
+
+
+def redact_sensitive(value: ModifyDBClusterMessage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "master_user_password" in value:
+        out["master_user_password"] = "*** Sensitive Data Redacted ***"
     return out

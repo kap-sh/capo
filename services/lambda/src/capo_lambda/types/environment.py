@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#Environment``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -35,4 +35,11 @@ def deserialize_json(data: dict) -> Environment:
         out["variables"] = capo_lambda.types.environment_variables.deserialize_json(
             data["Variables"]
         )
+    return out
+
+
+def redact_sensitive(value: Environment) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "variables" in value:
+        out["variables"] = "*** Sensitive Data Redacted ***"
     return out

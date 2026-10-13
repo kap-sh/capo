@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connecthealth#UserContext``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -59,4 +59,11 @@ def deserialize_json(data: dict) -> UserContext:
         out["specialty"] = capo_connecthealth.types.specialty.deserialize_json(
             data["specialty"]
         )
+    return out
+
+
+def redact_sensitive(value: UserContext) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_id" in value:
+        out["user_id"] = "*** Sensitive Data Redacted ***"
     return out

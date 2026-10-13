@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#GoogleOauth2ProviderConfigInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -78,4 +78,11 @@ def deserialize_json(data: dict) -> GoogleOauth2ProviderConfigInput:
                 data["clientSecretSource"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: GoogleOauth2ProviderConfigInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_secret" in value:
+        out["client_secret"] = "*** Sensitive Data Redacted ***"
     return out

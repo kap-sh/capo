@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesinstances#PrivateIpAddressSpecification``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -33,4 +33,11 @@ def deserialize_aws_json_1_0(data: dict) -> PrivateIpAddressSpecification:
         out["primary"] = data["Primary"]
     if data.get("PrivateIpAddress") is not None:
         out["private_ip_address"] = data["PrivateIpAddress"]
+    return out
+
+
+def redact_sensitive(value: PrivateIpAddressSpecification) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "private_ip_address" in value:
+        out["private_ip_address"] = "*** Sensitive Data Redacted ***"
     return out

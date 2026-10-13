@@ -26,7 +26,9 @@ from capo_compute_optimizer_automation._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -184,6 +186,7 @@ class AsyncComputeOptimizerAutomationClient:
     def operation_options(
         self,
         config_overrides: Optional[AsyncComputeOptimizerAutomationClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncComputeOptimizerAutomationClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -191,8 +194,10 @@ class AsyncComputeOptimizerAutomationClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -255,7 +260,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateAccounts")
+        )
         input_: capo_compute_optimizer_automation.types.associate_accounts_request.AssociateAccountsRequest = {
             "account_ids": account_ids
         }
@@ -342,7 +349,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAutomationRule")
+        )
         input_: capo_compute_optimizer_automation.types.create_automation_rule_request.CreateAutomationRuleRequest = {
             "name": name,
             "rule_type": rule_type,
@@ -418,7 +427,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAutomationRule")
+        )
         input_: capo_compute_optimizer_automation.types.delete_automation_rule_request.DeleteAutomationRuleRequest = {
             "rule_arn": rule_arn,
             "rule_revision": rule_revision,
@@ -479,7 +490,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateAccounts")
+        )
         input_: capo_compute_optimizer_automation.types.disassociate_accounts_request.DisassociateAccountsRequest = {
             "account_ids": account_ids
         }
@@ -533,7 +546,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAutomationEvent")
+        )
         input_: capo_compute_optimizer_automation.types.get_automation_event_request.GetAutomationEventRequest = {
             "event_id": event_id
         }
@@ -584,7 +599,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAutomationRule")
+        )
         input_: capo_compute_optimizer_automation.types.get_automation_rule_request.GetAutomationRuleRequest = {
             "rule_arn": rule_arn
         }
@@ -631,7 +648,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEnrollmentConfiguration")
+        )
         input_: capo_compute_optimizer_automation.types.get_enrollment_configuration_request.GetEnrollmentConfigurationRequest = {}
 
         response = await aexecute_pipeline(
@@ -684,7 +703,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccounts")
+        )
         input_: capo_compute_optimizer_automation.types.list_accounts_request.ListAccountsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -771,7 +792,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAutomationEvents")
+        )
         input_: capo_compute_optimizer_automation.types.list_automation_events_request.ListAutomationEventsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -867,7 +890,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAutomationEventSteps")
+        )
         input_: capo_compute_optimizer_automation.types.list_automation_event_steps_request.ListAutomationEventStepsRequest = {
             "event_id": event_id
         }
@@ -958,7 +983,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAutomationEventSummaries")
+        )
         input_: capo_compute_optimizer_automation.types.list_automation_event_summaries_request.ListAutomationEventSummariesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1063,7 +1090,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAutomationRulePreview")
+        )
         input_: capo_compute_optimizer_automation.types.list_automation_rule_preview_request.ListAutomationRulePreviewRequest = {
             "rule_type": rule_type,
             "recommended_action_types": recommended_action_types,
@@ -1172,7 +1201,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAutomationRulePreviewSummaries")
+        )
         input_: capo_compute_optimizer_automation.types.list_automation_rule_preview_summaries_request.ListAutomationRulePreviewSummariesRequest = {
             "rule_type": rule_type,
             "recommended_action_types": recommended_action_types,
@@ -1274,7 +1305,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAutomationRules")
+        )
         input_: capo_compute_optimizer_automation.types.list_automation_rules_request.ListAutomationRulesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1363,7 +1396,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecommendedActions")
+        )
         input_: capo_compute_optimizer_automation.types.list_recommended_actions_request.ListRecommendedActionsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1452,7 +1487,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecommendedActionSummaries")
+        )
         input_: capo_compute_optimizer_automation.types.list_recommended_action_summaries_request.ListRecommendedActionSummariesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1534,7 +1571,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_compute_optimizer_automation.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1591,7 +1630,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RollbackAutomationEvent")
+        )
         input_: capo_compute_optimizer_automation.types.rollback_automation_event_request.RollbackAutomationEventRequest = {
             "event_id": event_id
         }
@@ -1652,7 +1693,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAutomationEvent")
+        )
         input_: capo_compute_optimizer_automation.types.start_automation_event_request.StartAutomationEventRequest = {
             "recommended_action_id": recommended_action_id
         }
@@ -1716,7 +1759,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_compute_optimizer_automation.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "rule_revision": rule_revision,
@@ -1782,7 +1827,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_compute_optimizer_automation.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "rule_revision": rule_revision,
@@ -1879,7 +1926,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAutomationRule")
+        )
         input_: capo_compute_optimizer_automation.types.update_automation_rule_request.UpdateAutomationRuleRequest = {
             "rule_arn": rule_arn,
             "rule_revision": rule_revision,
@@ -1959,7 +2008,9 @@ class AsyncComputeOptimizerAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEnrollmentConfiguration")
+        )
         input_: capo_compute_optimizer_automation.types.update_enrollment_configuration_request.UpdateEnrollmentConfigurationRequest = {
             "status": status
         }

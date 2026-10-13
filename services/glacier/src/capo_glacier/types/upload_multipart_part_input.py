@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glacier#UploadMultipartPartInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -22,3 +22,10 @@ class UploadMultipartPartInput(TypedDict, closed=True):
     """<p>Identifies the range of bytes in the assembled archive that will be uploaded in this part. Amazon Glacier uses this information to assemble the archive in the proper sequence. The format of this header follows RFC 2616. An example header is Content-Range:bytes 0-4194303/*.</p>"""
     body: "capo_glacier.types.stream.Stream"
     """<p>The data to upload.</p>"""
+
+
+def redact_sensitive(value: UploadMultipartPartInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "body" in value:
+        out["body"] = "*** Streaming Data Redacted ***"
+    return out

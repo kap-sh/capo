@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudfront#OriginCustomHeadersList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from capo_cloudfront._protocol.xml import Element, SubElement
 
@@ -49,3 +49,12 @@ def deserialize_xml_flat(parent: Element, tag: str) -> OriginCustomHeadersList:
     for child in parent.findall(tag):
         out.append(capo_cloudfront.types.origin_custom_header.deserialize_xml(child))
     return out
+
+
+def redact_sensitive(value: OriginCustomHeadersList) -> list[Any]:
+    import capo_cloudfront.types.origin_custom_header
+
+    return [
+        capo_cloudfront.types.origin_custom_header.redact_sensitive(item)
+        for item in value
+    ]

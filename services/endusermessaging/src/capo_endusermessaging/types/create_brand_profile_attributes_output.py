@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.endusermessaging#CreateBrandProfileAttributesOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -41,5 +41,18 @@ def deserialize_json(data: dict) -> CreateBrandProfileAttributesOutput:
     else:
         raise DeserializationError(
             "CreateBrandProfileAttributesOutput.attributes required"
+        )
+    return out
+
+
+def redact_sensitive(value: CreateBrandProfileAttributesOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "attributes" in value:
+        import capo_endusermessaging.types.brand_profile_attribute_output_list
+
+        out["attributes"] = (
+            capo_endusermessaging.types.brand_profile_attribute_output_list.redact_sensitive(
+                value["attributes"]
+            )
         )
     return out

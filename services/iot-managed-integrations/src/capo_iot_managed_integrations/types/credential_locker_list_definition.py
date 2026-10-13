@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#CredentialLockerListDefinition``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.credential_locker_summary
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> CredentialLockerListDefinition:
             )
         )
     return out
+
+
+def redact_sensitive(value: CredentialLockerListDefinition) -> list[Any]:
+    import capo_iot_managed_integrations.types.credential_locker_summary
+
+    return [
+        capo_iot_managed_integrations.types.credential_locker_summary.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

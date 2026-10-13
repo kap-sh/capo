@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#GeocodeFilter``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,6 +58,27 @@ def deserialize_json(data: dict) -> GeocodeFilter:
         out["include_place_types"] = (
             capo_geo_places.types.geocode_filter_place_type_list.deserialize_json(
                 data["IncludePlaceTypes"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GeocodeFilter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "include_countries" in value:
+        import capo_geo_places.types.country_code_list
+
+        out["include_countries"] = (
+            capo_geo_places.types.country_code_list.redact_sensitive(
+                value["include_countries"]
+            )
+        )
+    if "include_place_types" in value:
+        import capo_geo_places.types.geocode_filter_place_type_list
+
+        out["include_place_types"] = (
+            capo_geo_places.types.geocode_filter_place_type_list.redact_sensitive(
+                value["include_place_types"]
             )
         )
     return out

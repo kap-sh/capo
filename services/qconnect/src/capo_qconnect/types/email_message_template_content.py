@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#EmailMessageTemplateContent``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -62,5 +62,26 @@ def deserialize_json(data: dict) -> EmailMessageTemplateContent:
 
         out["headers"] = capo_qconnect.types.email_headers.deserialize_json(
             data["headers"]
+        )
+    return out
+
+
+def redact_sensitive(value: EmailMessageTemplateContent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "subject" in value:
+        out["subject"] = "*** Sensitive Data Redacted ***"
+    if "body" in value:
+        import capo_qconnect.types.email_message_template_content_body
+
+        out["body"] = (
+            capo_qconnect.types.email_message_template_content_body.redact_sensitive(
+                value["body"]
+            )
+        )
+    if "headers" in value:
+        import capo_qconnect.types.email_headers
+
+        out["headers"] = capo_qconnect.types.email_headers.redact_sensitive(
+            value["headers"]
         )
     return out

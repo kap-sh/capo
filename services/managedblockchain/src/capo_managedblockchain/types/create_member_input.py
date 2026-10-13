@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.managedblockchain#CreateMemberInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -60,4 +60,17 @@ def deserialize_json(data: dict) -> CreateMemberInput:
         )
     else:
         raise DeserializationError("CreateMemberInput.member_configuration required")
+    return out
+
+
+def redact_sensitive(value: CreateMemberInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "member_configuration" in value:
+        import capo_managedblockchain.types.member_configuration
+
+        out["member_configuration"] = (
+            capo_managedblockchain.types.member_configuration.redact_sensitive(
+                value["member_configuration"]
+            )
+        )
     return out

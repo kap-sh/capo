@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_mgn._auth._signers
 import capo_mgn._auth._sigv4
 from capo_mgn._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -73,7 +74,28 @@ class ConnectorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.create_connector_request.CreateConnectorRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.create_connector_request
+
+            return capo_mgn.types.create_connector_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_mgn.types.connector.Connector",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.connector
+
+            return capo_mgn.types.connector.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateConnector",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.create_connector_request.CreateConnectorRequest = {
             "name": name,
             "ssm_instance_id": ssm_instance_id,
@@ -127,7 +149,17 @@ class ConnectorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.connector.Connector",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.connector
+
+            return capo_mgn.types.connector.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateConnector", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.update_connector_request.UpdateConnectorRequest = {
             "connector_id": connector_id
         }
@@ -174,7 +206,9 @@ class ConnectorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConnector")
+        )
         input_: capo_mgn.types.delete_connector_request.DeleteConnectorRequest = {
             "connector_id": connector_id
         }
@@ -224,7 +258,17 @@ class ConnectorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_connectors_response.ListConnectorsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_connectors_response
+
+            return capo_mgn.types.list_connectors_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListConnectors", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.list_connectors_request.ListConnectorsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -284,7 +328,28 @@ class AsyncConnectorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.create_connector_request.CreateConnectorRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.create_connector_request
+
+            return capo_mgn.types.create_connector_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_mgn.types.connector.Connector",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.connector
+
+            return capo_mgn.types.connector.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateConnector",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.create_connector_request.CreateConnectorRequest = {
             "name": name,
             "ssm_instance_id": ssm_instance_id,
@@ -339,7 +404,17 @@ class AsyncConnectorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.connector.Connector",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.connector
+
+            return capo_mgn.types.connector.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateConnector", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.update_connector_request.UpdateConnectorRequest = {
             "connector_id": connector_id
         }
@@ -387,7 +462,9 @@ class AsyncConnectorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConnector")
+        )
         input_: capo_mgn.types.delete_connector_request.DeleteConnectorRequest = {
             "connector_id": connector_id
         }
@@ -438,7 +515,17 @@ class AsyncConnectorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_connectors_response.ListConnectorsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_connectors_response
+
+            return capo_mgn.types.list_connectors_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListConnectors", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.list_connectors_request.ListConnectorsRequest = {}
         if filters is not None:
             input_["filters"] = filters

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_transfer._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -87,7 +88,9 @@ class WorkflowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWorkflow")
+        )
         input_: capo_transfer.types.create_workflow_request.CreateWorkflowRequest = {
             "steps": steps
         }
@@ -141,7 +144,9 @@ class WorkflowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeWorkflow")
+        )
         input_: capo_transfer.types.describe_workflow_request.DescribeWorkflowRequest = {
             "workflow_id": workflow_id
         }
@@ -186,7 +191,9 @@ class WorkflowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflow")
+        )
         input_: capo_transfer.types.delete_workflow_request.DeleteWorkflowRequest = {
             "workflow_id": workflow_id
         }
@@ -234,7 +241,9 @@ class WorkflowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkflows")
+        )
         input_: capo_transfer.types.list_workflows_request.ListWorkflowsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -304,7 +313,9 @@ class AsyncWorkflowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWorkflow")
+        )
         input_: capo_transfer.types.create_workflow_request.CreateWorkflowRequest = {
             "steps": steps
         }
@@ -359,7 +370,9 @@ class AsyncWorkflowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeWorkflow")
+        )
         input_: capo_transfer.types.describe_workflow_request.DescribeWorkflowRequest = {
             "workflow_id": workflow_id
         }
@@ -405,7 +418,9 @@ class AsyncWorkflowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflow")
+        )
         input_: capo_transfer.types.delete_workflow_request.DeleteWorkflowRequest = {
             "workflow_id": workflow_id
         }
@@ -454,7 +469,9 @@ class AsyncWorkflowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkflows")
+        )
         input_: capo_transfer.types.list_workflows_request.ListWorkflowsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

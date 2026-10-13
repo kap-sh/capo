@@ -22,10 +22,12 @@ from capo_workspaces_thin_client._pagination import resolve_path as _resolve_pat
 from capo_workspaces_thin_client._services._aws_config import aws_config
 from capo_workspaces_thin_client._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -160,7 +162,9 @@ class WorkSpacesThinClientClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[WorkSpacesThinClientClientConfig] = None
+        self,
+        config_overrides: Optional[WorkSpacesThinClientClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: WorkSpacesThinClientClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -168,8 +172,10 @@ class WorkSpacesThinClientClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -262,7 +268,32 @@ class WorkSpacesThinClientClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_thin_client.types.create_environment_request.CreateEnvironmentRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_thin_client.types.create_environment_request
+
+            return capo_workspaces_thin_client.types.create_environment_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_thin_client.types.create_environment_response.CreateEnvironmentResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_thin_client.types.create_environment_response
+
+            return capo_workspaces_thin_client.types.create_environment_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateEnvironment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workspaces_thin_client.types.create_environment_request.CreateEnvironmentRequest = {
             "desktop_arn": desktop_arn
         }
@@ -337,7 +368,9 @@ class WorkSpacesThinClientClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDevice")
+        )
         input_: capo_workspaces_thin_client.types.delete_device_request.DeleteDeviceRequest = {
             "id": id
         }
@@ -392,7 +425,9 @@ class WorkSpacesThinClientClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironment")
+        )
         input_: capo_workspaces_thin_client.types.delete_environment_request.DeleteEnvironmentRequest = {
             "id": id
         }
@@ -451,7 +486,9 @@ class WorkSpacesThinClientClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterDevice")
+        )
         input_: capo_workspaces_thin_client.types.deregister_device_request.DeregisterDeviceRequest = {
             "id": id
         }
@@ -503,7 +540,21 @@ class WorkSpacesThinClientClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_thin_client.types.get_device_response.GetDeviceResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_thin_client.types.get_device_response
+
+            return (
+                capo_workspaces_thin_client.types.get_device_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDevice", redact_output=_redact_output),
+        )
         input_: capo_workspaces_thin_client.types.get_device_request.GetDeviceRequest = {
             "id": id
         }
@@ -550,7 +601,19 @@ class WorkSpacesThinClientClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_thin_client.types.get_environment_response.GetEnvironmentResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_thin_client.types.get_environment_response
+
+            return capo_workspaces_thin_client.types.get_environment_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetEnvironment", redact_output=_redact_output),
+        )
         input_: capo_workspaces_thin_client.types.get_environment_request.GetEnvironmentRequest = {
             "id": id
         }
@@ -597,7 +660,9 @@ class WorkSpacesThinClientClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSoftwareSet")
+        )
         input_: capo_workspaces_thin_client.types.get_software_set_request.GetSoftwareSetRequest = {
             "id": id
         }
@@ -649,7 +714,19 @@ class WorkSpacesThinClientClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_thin_client.types.list_devices_response.ListDevicesResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_thin_client.types.list_devices_response
+
+            return capo_workspaces_thin_client.types.list_devices_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListDevices", redact_output=_redact_output),
+        )
         input_: capo_workspaces_thin_client.types.list_devices_request.ListDevicesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -728,7 +805,19 @@ class WorkSpacesThinClientClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_thin_client.types.list_environments_response.ListEnvironmentsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_thin_client.types.list_environments_response
+
+            return capo_workspaces_thin_client.types.list_environments_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListEnvironments", redact_output=_redact_output),
+        )
         input_: capo_workspaces_thin_client.types.list_environments_request.ListEnvironmentsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -807,7 +896,9 @@ class WorkSpacesThinClientClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSoftwareSets")
+        )
         input_: capo_workspaces_thin_client.types.list_software_sets_request.ListSoftwareSetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -881,7 +972,19 @@ class WorkSpacesThinClientClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_thin_client.types.list_tags_for_resource_response.ListTagsForResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_thin_client.types.list_tags_for_resource_response
+
+            return capo_workspaces_thin_client.types.list_tags_for_resource_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_workspaces_thin_client.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -931,7 +1034,21 @@ class WorkSpacesThinClientClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_thin_client.types.tag_resource_request.TagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_thin_client.types.tag_resource_request
+
+            return (
+                capo_workspaces_thin_client.types.tag_resource_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_workspaces_thin_client.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -982,7 +1099,19 @@ class WorkSpacesThinClientClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_thin_client.types.untag_resource_request.UntagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_thin_client.types.untag_resource_request
+
+            return capo_workspaces_thin_client.types.untag_resource_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UntagResource", redact_input=_redact_input),
+        )
         input_: capo_workspaces_thin_client.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1044,7 +1173,30 @@ class WorkSpacesThinClientClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_thin_client.types.update_device_request.UpdateDeviceRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_thin_client.types.update_device_request
+
+            return capo_workspaces_thin_client.types.update_device_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_thin_client.types.update_device_response.UpdateDeviceResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_thin_client.types.update_device_response
+
+            return capo_workspaces_thin_client.types.update_device_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDevice", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_workspaces_thin_client.types.update_device_request.UpdateDeviceRequest = {
             "id": id
         }
@@ -1128,7 +1280,32 @@ class WorkSpacesThinClientClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_thin_client.types.update_environment_request.UpdateEnvironmentRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_thin_client.types.update_environment_request
+
+            return capo_workspaces_thin_client.types.update_environment_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_thin_client.types.update_environment_response.UpdateEnvironmentResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_thin_client.types.update_environment_response
+
+            return capo_workspaces_thin_client.types.update_environment_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateEnvironment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workspaces_thin_client.types.update_environment_request.UpdateEnvironmentRequest = {
             "id": id
         }
@@ -1193,7 +1370,9 @@ class WorkSpacesThinClientClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSoftwareSet")
+        )
         input_: capo_workspaces_thin_client.types.update_software_set_request.UpdateSoftwareSetRequest = {
             "id": id,
             "validation_status": validation_status,

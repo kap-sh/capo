@@ -21,10 +21,12 @@ from capo_mturk._pagination import resolve_path as _resolve_path
 from capo_mturk._services._aws_config import aws_config
 from capo_mturk._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -204,7 +206,9 @@ class MTurkClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[MTurkClientConfig] = None
+        self,
+        config_overrides: Optional[MTurkClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MTurkClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -212,8 +216,10 @@ class MTurkClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -265,7 +271,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptQualificationRequest")
+        )
         input_: capo_mturk.types.accept_qualification_request_request.AcceptQualificationRequestRequest = {
             "qualification_request_id": qualification_request_id
         }
@@ -315,7 +323,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ApproveAssignment")
+        )
         input_: capo_mturk.types.approve_assignment_request.ApproveAssignmentRequest = {
             "assignment_id": assignment_id
         }
@@ -369,7 +379,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateQualificationWithWorker")
+        )
         input_: capo_mturk.types.associate_qualification_with_worker_request.AssociateQualificationWithWorkerRequest = {
             "qualification_type_id": qualification_type_id,
             "worker_id": worker_id,
@@ -424,7 +436,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAdditionalAssignmentsForHIT")
+        )
         input_: capo_mturk.types.create_additional_assignments_for_hit_request.CreateAdditionalAssignmentsForHITRequest = {
             "hit_id": hit_id,
             "number_of_additional_assignments": number_of_additional_assignments,
@@ -511,7 +525,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHIT")
+        )
         input_: capo_mturk.types.create_hit_request.CreateHITRequest = {
             "lifetime_in_seconds": lifetime_in_seconds,
             "assignment_duration_in_seconds": assignment_duration_in_seconds,
@@ -595,7 +611,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHITType")
+        )
         input_: capo_mturk.types.create_hit_type_request.CreateHITTypeRequest = {
             "assignment_duration_in_seconds": assignment_duration_in_seconds,
             "reward": reward,
@@ -674,7 +692,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHITWithHITType")
+        )
         input_: capo_mturk.types.create_hit_with_hit_type_request.CreateHITWithHITTypeRequest = {
             "hit_type_id": hit_type_id,
             "lifetime_in_seconds": lifetime_in_seconds,
@@ -753,7 +773,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateQualificationType")
+        )
         input_: capo_mturk.types.create_qualification_type_request.CreateQualificationTypeRequest = {
             "name": name,
             "description": description,
@@ -815,7 +837,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkerBlock")
+        )
         input_: capo_mturk.types.create_worker_block_request.CreateWorkerBlockRequest = {
             "worker_id": worker_id,
             "reason": reason,
@@ -860,7 +884,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteHIT")
+        )
         input_: capo_mturk.types.delete_hit_request.DeleteHITRequest = {
             "hit_id": hit_id
         }
@@ -904,7 +930,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQualificationType")
+        )
         input_: capo_mturk.types.delete_qualification_type_request.DeleteQualificationTypeRequest = {
             "qualification_type_id": qualification_type_id
         }
@@ -950,7 +978,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkerBlock")
+        )
         input_: capo_mturk.types.delete_worker_block_request.DeleteWorkerBlockRequest = {
             "worker_id": worker_id
         }
@@ -1000,7 +1030,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateQualificationFromWorker")
+        )
         input_: capo_mturk.types.disassociate_qualification_from_worker_request.DisassociateQualificationFromWorkerRequest = {
             "worker_id": worker_id,
             "qualification_type_id": qualification_type_id,
@@ -1041,7 +1073,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountBalance")
+        )
         input_: capo_mturk.types.get_account_balance_request.GetAccountBalanceRequest = {}
 
         response = execute_pipeline(
@@ -1083,7 +1117,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAssignment")
+        )
         input_: capo_mturk.types.get_assignment_request.GetAssignmentRequest = {
             "assignment_id": assignment_id
         }
@@ -1129,7 +1165,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFileUploadURL")
+        )
         input_: capo_mturk.types.get_file_upload_url_request.GetFileUploadURLRequest = {
             "assignment_id": assignment_id,
             "question_identifier": question_identifier,
@@ -1172,7 +1210,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetHIT")
+        )
         input_: capo_mturk.types.get_hit_request.GetHITRequest = {"hit_id": hit_id}
 
         response = execute_pipeline(
@@ -1216,7 +1256,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQualificationScore")
+        )
         input_: capo_mturk.types.get_qualification_score_request.GetQualificationScoreRequest = {
             "qualification_type_id": qualification_type_id,
             "worker_id": worker_id,
@@ -1263,7 +1305,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQualificationType")
+        )
         input_: capo_mturk.types.get_qualification_type_request.GetQualificationTypeRequest = {
             "qualification_type_id": qualification_type_id
         }
@@ -1316,7 +1360,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssignmentsForHIT")
+        )
         input_: capo_mturk.types.list_assignments_for_hit_request.ListAssignmentsForHITRequest = {
             "hit_id": hit_id
         }
@@ -1400,7 +1446,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBonusPayments")
+        )
         input_: capo_mturk.types.list_bonus_payments_request.ListBonusPaymentsRequest = {}
         if hit_id is not None:
             input_["hit_id"] = hit_id
@@ -1476,7 +1524,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHITs")
+        )
         input_: capo_mturk.types.list_hi_ts_request.ListHITsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1549,7 +1599,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHITsForQualificationType")
+        )
         input_: capo_mturk.types.list_hi_ts_for_qualification_type_request.ListHITsForQualificationTypeRequest = {
             "qualification_type_id": qualification_type_id
         }
@@ -1625,7 +1677,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQualificationRequests")
+        )
         input_: capo_mturk.types.list_qualification_requests_request.ListQualificationRequestsRequest = {}
         if qualification_type_id is not None:
             input_["qualification_type_id"] = qualification_type_id
@@ -1705,7 +1759,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQualificationTypes")
+        )
         input_: capo_mturk.types.list_qualification_types_request.ListQualificationTypesRequest = {
             "must_be_requestable": must_be_requestable
         }
@@ -1794,7 +1850,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReviewableHITs")
+        )
         input_: capo_mturk.types.list_reviewable_hi_ts_request.ListReviewableHITsRequest = {}
         if hit_type_id is not None:
             input_["hit_type_id"] = hit_type_id
@@ -1885,7 +1943,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReviewPolicyResultsForHIT")
+        )
         input_: capo_mturk.types.list_review_policy_results_for_hit_request.ListReviewPolicyResultsForHITRequest = {
             "hit_id": hit_id
         }
@@ -1973,7 +2033,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkerBlocks")
+        )
         input_: capo_mturk.types.list_worker_blocks_request.ListWorkerBlocksRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2050,7 +2112,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkersWithQualificationType")
+        )
         input_: capo_mturk.types.list_workers_with_qualification_type_request.ListWorkersWithQualificationTypeRequest = {
             "qualification_type_id": qualification_type_id
         }
@@ -2131,7 +2195,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("NotifyWorkers")
+        )
         input_: capo_mturk.types.notify_workers_request.NotifyWorkersRequest = {
             "subject": subject,
             "message_text": message_text,
@@ -2179,7 +2245,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectAssignment")
+        )
         input_: capo_mturk.types.reject_assignment_request.RejectAssignmentRequest = {
             "assignment_id": assignment_id,
             "requester_feedback": requester_feedback,
@@ -2226,7 +2294,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectQualificationRequest")
+        )
         input_: capo_mturk.types.reject_qualification_request_request.RejectQualificationRequestRequest = {
             "qualification_request_id": qualification_request_id
         }
@@ -2282,7 +2352,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendBonus")
+        )
         input_: capo_mturk.types.send_bonus_request.SendBonusRequest = {
             "worker_id": worker_id,
             "bonus_amount": bonus_amount,
@@ -2333,7 +2405,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendTestEventNotification")
+        )
         input_: capo_mturk.types.send_test_event_notification_request.SendTestEventNotificationRequest = {
             "notification": notification,
             "test_event_type": test_event_type,
@@ -2380,7 +2454,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateExpirationForHIT")
+        )
         input_: capo_mturk.types.update_expiration_for_hit_request.UpdateExpirationForHITRequest = {
             "hit_id": hit_id,
             "expire_at": expire_at,
@@ -2427,7 +2503,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateHITReviewStatus")
+        )
         input_: capo_mturk.types.update_hit_review_status_request.UpdateHITReviewStatusRequest = {
             "hit_id": hit_id
         }
@@ -2475,7 +2553,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateHITTypeOfHIT")
+        )
         input_: capo_mturk.types.update_hit_type_of_hit_request.UpdateHITTypeOfHITRequest = {
             "hit_id": hit_id,
             "hit_type_id": hit_type_id,
@@ -2526,7 +2606,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNotificationSettings")
+        )
         input_: capo_mturk.types.update_notification_settings_request.UpdateNotificationSettingsRequest = {
             "hit_type_id": hit_type_id
         }
@@ -2592,7 +2674,9 @@ class MTurkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQualificationType")
+        )
         input_: capo_mturk.types.update_qualification_type_request.UpdateQualificationTypeRequest = {
             "qualification_type_id": qualification_type_id
         }

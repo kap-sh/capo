@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteViolatedConstraints``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -244,4 +244,55 @@ def deserialize_json(data: dict) -> RouteViolatedConstraints:
         )
     if data.get("TunnelRestrictionCode") is not None:
         out["tunnel_restriction_code"] = data["TunnelRestrictionCode"]
+    return out
+
+
+def redact_sensitive(value: RouteViolatedConstraints) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "all_hazards_restricted" in value:
+        out["all_hazards_restricted"] = "*** Sensitive Data Redacted ***"
+    if "hazardous_cargos" in value:
+        import capo_geo_routes.types.route_hazardous_cargo_type_list
+
+        out["hazardous_cargos"] = (
+            capo_geo_routes.types.route_hazardous_cargo_type_list.redact_sensitive(
+                value["hazardous_cargos"]
+            )
+        )
+    if "max_height" in value:
+        out["max_height"] = "*** Sensitive Data Redacted ***"
+    if "max_kpra_length" in value:
+        out["max_kpra_length"] = "*** Sensitive Data Redacted ***"
+    if "max_length" in value:
+        out["max_length"] = "*** Sensitive Data Redacted ***"
+    if "max_payload_capacity" in value:
+        out["max_payload_capacity"] = "*** Sensitive Data Redacted ***"
+    if "max_weight" in value:
+        import capo_geo_routes.types.route_weight_constraint
+
+        out["max_weight"] = (
+            capo_geo_routes.types.route_weight_constraint.redact_sensitive(
+                value["max_weight"]
+            )
+        )
+    if "max_weight_per_axle" in value:
+        out["max_weight_per_axle"] = "*** Sensitive Data Redacted ***"
+    if "max_weight_per_axle_group" in value:
+        import capo_geo_routes.types.weight_per_axle_group
+
+        out["max_weight_per_axle_group"] = (
+            capo_geo_routes.types.weight_per_axle_group.redact_sensitive(
+                value["max_weight_per_axle_group"]
+            )
+        )
+    if "max_width" in value:
+        out["max_width"] = "*** Sensitive Data Redacted ***"
+    if "time_dependent" in value:
+        out["time_dependent"] = "*** Sensitive Data Redacted ***"
+    if "travel_mode" in value:
+        out["travel_mode"] = "*** Sensitive Data Redacted ***"
+    if "truck_type" in value:
+        out["truck_type"] = "*** Sensitive Data Redacted ***"
+    if "tunnel_restriction_code" in value:
+        out["tunnel_restriction_code"] = "*** Sensitive Data Redacted ***"
     return out

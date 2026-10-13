@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#IsolineGranularityOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,4 +32,11 @@ def deserialize_json(data: dict) -> IsolineGranularityOptions:
         out["max_resolution"] = data["MaxResolution"]
     else:
         out["max_resolution"] = 0
+    return out
+
+
+def redact_sensitive(value: IsolineGranularityOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "max_resolution" in value:
+        out["max_resolution"] = "*** Sensitive Data Redacted ***"
     return out

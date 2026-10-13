@@ -46,10 +46,12 @@ from capo_s3tables._resources.s3_table_buckets.table_resource import TableResour
 from capo_s3tables._services._aws_config import aws_config
 from capo_s3tables._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -251,7 +253,9 @@ class S3TablesClient:
         self.table_resource = TableResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[S3TablesClientConfig] = None
+        self,
+        config_overrides: Optional[S3TablesClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: S3TablesClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -259,8 +263,10 @@ class S3TablesClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -314,7 +320,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_s3tables.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -364,7 +372,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_s3tables.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -415,7 +425,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_s3tables.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -466,7 +478,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateNamespace")
+        )
         input_: capo_s3tables.types.create_namespace_request.CreateNamespaceRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -515,7 +529,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNamespace")
+        )
         input_: capo_s3tables.types.delete_namespace_request.DeleteNamespaceRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -567,7 +583,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNamespace")
+        )
         input_: capo_s3tables.types.get_namespace_request.GetNamespaceRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -625,7 +643,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNamespaces")
+        )
         input_: capo_s3tables.types.list_namespaces_request.ListNamespacesRequest = {
             "table_bucket_arn": table_bucket_arn
         }
@@ -704,7 +724,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTableBucketEncryption")
+        )
         input_: capo_s3tables.types.delete_table_bucket_encryption_request.DeleteTableBucketEncryptionRequest = {
             "table_bucket_arn": table_bucket_arn
         }
@@ -752,7 +774,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableBucketEncryption")
+        )
         input_: capo_s3tables.types.get_table_bucket_encryption_request.GetTableBucketEncryptionRequest = {
             "table_bucket_arn": table_bucket_arn
         }
@@ -800,7 +824,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutTableBucketEncryption")
+        )
         input_: capo_s3tables.types.put_table_bucket_encryption_request.PutTableBucketEncryptionRequest = {
             "table_bucket_arn": table_bucket_arn,
             "encryption_configuration": encryption_configuration,
@@ -847,7 +873,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTableBucketPolicy")
+        )
         input_: capo_s3tables.types.delete_table_bucket_policy_request.DeleteTableBucketPolicyRequest = {
             "table_bucket_arn": table_bucket_arn
         }
@@ -895,7 +923,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableBucketPolicy")
+        )
         input_: capo_s3tables.types.get_table_bucket_policy_request.GetTableBucketPolicyRequest = {
             "table_bucket_arn": table_bucket_arn
         }
@@ -943,7 +973,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutTableBucketPolicy")
+        )
         input_: capo_s3tables.types.put_table_bucket_policy_request.PutTableBucketPolicyRequest = {
             "table_bucket_arn": table_bucket_arn,
             "resource_policy": resource_policy,
@@ -995,7 +1027,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTableBucketReplication")
+        )
         input_: capo_s3tables.types.delete_table_bucket_replication_request.DeleteTableBucketReplicationRequest = {
             "table_bucket_arn": table_bucket_arn
         }
@@ -1046,7 +1080,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableBucketReplication")
+        )
         input_: capo_s3tables.types.get_table_bucket_replication_request.GetTableBucketReplicationRequest = {
             "table_bucket_arn": table_bucket_arn
         }
@@ -1101,7 +1137,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutTableBucketReplication")
+        )
         input_: capo_s3tables.types.put_table_bucket_replication_request.PutTableBucketReplicationRequest = {
             "table_bucket_arn": table_bucket_arn,
             "configuration": configuration,
@@ -1162,7 +1200,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTableBucket")
+        )
         input_: capo_s3tables.types.create_table_bucket_request.CreateTableBucketRequest = {
             "name": name
         }
@@ -1214,7 +1254,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTableBucket")
+        )
         input_: capo_s3tables.types.delete_table_bucket_request.DeleteTableBucketRequest = {
             "table_bucket_arn": table_bucket_arn
         }
@@ -1260,7 +1302,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTableBucketMetricsConfiguration")
+        )
         input_: capo_s3tables.types.delete_table_bucket_metrics_configuration_request.DeleteTableBucketMetricsConfigurationRequest = {
             "table_bucket_arn": table_bucket_arn
         }
@@ -1309,7 +1353,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableBucket")
+        )
         input_: capo_s3tables.types.get_table_bucket_request.GetTableBucketRequest = {
             "table_bucket_arn": table_bucket_arn
         }
@@ -1357,7 +1403,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableBucketMaintenanceConfiguration")
+        )
         input_: capo_s3tables.types.get_table_bucket_maintenance_configuration_request.GetTableBucketMaintenanceConfigurationRequest = {
             "table_bucket_arn": table_bucket_arn
         }
@@ -1405,7 +1453,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableBucketMetricsConfiguration")
+        )
         input_: capo_s3tables.types.get_table_bucket_metrics_configuration_request.GetTableBucketMetricsConfigurationRequest = {
             "table_bucket_arn": table_bucket_arn
         }
@@ -1453,7 +1503,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableBucketStorageClass")
+        )
         input_: capo_s3tables.types.get_table_bucket_storage_class_request.GetTableBucketStorageClassRequest = {
             "table_bucket_arn": table_bucket_arn
         }
@@ -1510,7 +1562,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTableBuckets")
+        )
         input_: capo_s3tables.types.list_table_buckets_request.ListTableBucketsRequest = {}
         if prefix is not None:
             input_["prefix"] = prefix
@@ -1593,7 +1647,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutTableBucketMaintenanceConfiguration")
+        )
         input_: capo_s3tables.types.put_table_bucket_maintenance_configuration_request.PutTableBucketMaintenanceConfigurationRequest = {
             "table_bucket_arn": table_bucket_arn,
             "type": type,
@@ -1641,7 +1697,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutTableBucketMetricsConfiguration")
+        )
         input_: capo_s3tables.types.put_table_bucket_metrics_configuration_request.PutTableBucketMetricsConfigurationRequest = {
             "table_bucket_arn": table_bucket_arn
         }
@@ -1689,7 +1747,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutTableBucketStorageClass")
+        )
         input_: capo_s3tables.types.put_table_bucket_storage_class_request.PutTableBucketStorageClassRequest = {
             "table_bucket_arn": table_bucket_arn,
             "storage_class_configuration": storage_class_configuration,
@@ -1742,7 +1802,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableEncryption")
+        )
         input_: capo_s3tables.types.get_table_encryption_request.GetTableEncryptionRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -1794,7 +1856,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTablePolicy")
+        )
         input_: capo_s3tables.types.delete_table_policy_request.DeleteTablePolicyRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -1848,7 +1912,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTablePolicy")
+        )
         input_: capo_s3tables.types.get_table_policy_request.GetTablePolicyRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -1902,7 +1968,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutTablePolicy")
+        )
         input_: capo_s3tables.types.put_table_policy_request.PutTablePolicyRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -1954,7 +2022,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTableReplication")
+        )
         input_: capo_s3tables.types.delete_table_replication_request.DeleteTableReplicationRequest = {
             "table_arn": table_arn,
             "version_token": version_token,
@@ -2006,7 +2076,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableReplication")
+        )
         input_: capo_s3tables.types.get_table_replication_request.GetTableReplicationRequest = {
             "table_arn": table_arn
         }
@@ -2054,7 +2126,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableReplicationStatus")
+        )
         input_: capo_s3tables.types.get_table_replication_status_request.GetTableReplicationStatusRequest = {
             "table_arn": table_arn
         }
@@ -2109,7 +2183,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutTableReplication")
+        )
         input_: capo_s3tables.types.put_table_replication_request.PutTableReplicationRequest = {
             "table_arn": table_arn,
             "configuration": configuration,
@@ -2178,7 +2254,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTable")
+        )
         input_: capo_s3tables.types.create_table_request.CreateTableRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -2243,7 +2321,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTable")
+        )
         input_: capo_s3tables.types.delete_table_request.DeleteTableRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -2304,7 +2384,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTable")
+        )
         input_: capo_s3tables.types.get_table_request.GetTableRequest = {}
         if table_bucket_arn is not None:
             input_["table_bucket_arn"] = table_bucket_arn
@@ -2362,7 +2444,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableMaintenanceConfiguration")
+        )
         input_: capo_s3tables.types.get_table_maintenance_configuration_request.GetTableMaintenanceConfigurationRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -2416,7 +2500,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableMaintenanceJobStatus")
+        )
         input_: capo_s3tables.types.get_table_maintenance_job_status_request.GetTableMaintenanceJobStatusRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -2470,7 +2556,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableMetadataLocation")
+        )
         input_: capo_s3tables.types.get_table_metadata_location_request.GetTableMetadataLocationRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -2520,7 +2608,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableRecordExpirationConfiguration")
+        )
         input_: capo_s3tables.types.get_table_record_expiration_configuration_request.GetTableRecordExpirationConfigurationRequest = {
             "table_arn": table_arn
         }
@@ -2568,7 +2658,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableRecordExpirationJobStatus")
+        )
         input_: capo_s3tables.types.get_table_record_expiration_job_status_request.GetTableRecordExpirationJobStatusRequest = {
             "table_arn": table_arn
         }
@@ -2620,7 +2712,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableStorageClass")
+        )
         input_: capo_s3tables.types.get_table_storage_class_request.GetTableStorageClassRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -2680,7 +2774,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTables")
+        )
         input_: capo_s3tables.types.list_tables_request.ListTablesRequest = {
             "table_bucket_arn": table_bucket_arn
         }
@@ -2771,7 +2867,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutTableMaintenanceConfiguration")
+        )
         input_: capo_s3tables.types.put_table_maintenance_configuration_request.PutTableMaintenanceConfigurationRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -2823,7 +2921,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutTableRecordExpirationConfiguration")
+        )
         input_: capo_s3tables.types.put_table_record_expiration_configuration_request.PutTableRecordExpirationConfigurationRequest = {
             "table_arn": table_arn,
             "value": value,
@@ -2884,7 +2984,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RenameTable")
+        )
         input_: capo_s3tables.types.rename_table_request.RenameTableRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -2948,7 +3050,9 @@ class S3TablesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTableMetadataLocation")
+        )
         input_: capo_s3tables.types.update_table_metadata_location_request.UpdateTableMetadataLocationRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,

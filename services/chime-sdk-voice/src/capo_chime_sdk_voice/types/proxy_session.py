@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#ProxySession``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -228,5 +228,16 @@ def deserialize_json(data: dict) -> ProxySession:
             capo_chime_sdk_voice.types.geo_match_params.deserialize_json(
                 data["GeoMatchParams"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: ProxySession) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "participants" in value:
+        import capo_chime_sdk_voice.types.participants
+
+        out["participants"] = capo_chime_sdk_voice.types.participants.redact_sensitive(
+            value["participants"]
         )
     return out

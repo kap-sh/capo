@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#VpnConnectionList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from capo_ec2._protocol.xml import Element
 
@@ -38,3 +38,9 @@ def deserialize_ec2_query_flat(parent: Element, tag: str) -> VpnConnectionList:
     for child in parent.findall(tag):
         out.append(capo_ec2.types.vpn_connection.deserialize_ec2_query(child))
     return out
+
+
+def redact_sensitive(value: VpnConnectionList) -> list[Any]:
+    import capo_ec2.types.vpn_connection
+
+    return [capo_ec2.types.vpn_connection.redact_sensitive(item) for item in value]

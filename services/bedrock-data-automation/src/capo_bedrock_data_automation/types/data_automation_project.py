@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockdataautomation#DataAutomationProject``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -246,4 +246,13 @@ def deserialize_json(data: dict) -> DataAutomationProject:
                 data["kmsEncryptionContext"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: DataAutomationProject) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "project_name" in value:
+        out["project_name"] = "*** Sensitive Data Redacted ***"
+    if "project_description" in value:
+        out["project_description"] = "*** Sensitive Data Redacted ***"
     return out

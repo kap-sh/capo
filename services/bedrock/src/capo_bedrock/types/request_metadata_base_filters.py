@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#RequestMetadataBaseFilters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,13 @@ def deserialize_json(data: dict) -> RequestMetadataBaseFilters:
         out["not_equals"] = capo_bedrock.types.request_metadata_map.deserialize_json(
             data["notEquals"]
         )
+    return out
+
+
+def redact_sensitive(value: RequestMetadataBaseFilters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "equals" in value:
+        out["equals"] = "*** Sensitive Data Redacted ***"
+    if "not_equals" in value:
+        out["not_equals"] = "*** Sensitive Data Redacted ***"
     return out

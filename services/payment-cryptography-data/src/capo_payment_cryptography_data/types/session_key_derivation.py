@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#SessionKeyDerivation``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -161,3 +161,56 @@ def deserialize_json(data: dict) -> SessionKeyDerivation:
         }
     else:
         raise DeserializationError("SessionKeyDerivation: no recognized variant key")
+
+
+def redact_sensitive(value: SessionKeyDerivation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "EmvCommon" in value:
+        import capo_payment_cryptography_data.types.session_key_emv_common
+
+        out["EmvCommon"] = (
+            capo_payment_cryptography_data.types.session_key_emv_common.redact_sensitive(
+                value["EmvCommon"]
+            )
+        )
+    if "Mastercard" in value:
+        import capo_payment_cryptography_data.types.session_key_mastercard
+
+        out["Mastercard"] = (
+            capo_payment_cryptography_data.types.session_key_mastercard.redact_sensitive(
+                value["Mastercard"]
+            )
+        )
+    if "Emv2000" in value:
+        import capo_payment_cryptography_data.types.session_key_emv2000
+
+        out["Emv2000"] = (
+            capo_payment_cryptography_data.types.session_key_emv2000.redact_sensitive(
+                value["Emv2000"]
+            )
+        )
+    if "Amex" in value:
+        import capo_payment_cryptography_data.types.session_key_amex
+
+        out["Amex"] = (
+            capo_payment_cryptography_data.types.session_key_amex.redact_sensitive(
+                value["Amex"]
+            )
+        )
+    if "Visa" in value:
+        import capo_payment_cryptography_data.types.session_key_visa
+
+        out["Visa"] = (
+            capo_payment_cryptography_data.types.session_key_visa.redact_sensitive(
+                value["Visa"]
+            )
+        )
+    if "UnionPay" in value:
+        import capo_payment_cryptography_data.types.session_key_union_pay
+
+        out["UnionPay"] = (
+            capo_payment_cryptography_data.types.session_key_union_pay.redact_sensitive(
+                value["UnionPay"]
+            )
+        )
+    return out

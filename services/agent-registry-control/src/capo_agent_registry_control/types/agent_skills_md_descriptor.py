@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.agentregistrycontrol#AgentSkillsMdDescriptor``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -57,4 +57,11 @@ def deserialize_json(data: dict) -> AgentSkillsMdDescriptor:
                 data["source"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: AgentSkillsMdDescriptor) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "data" in value:
+        out["data"] = "*** Sensitive Data Redacted ***"
     return out

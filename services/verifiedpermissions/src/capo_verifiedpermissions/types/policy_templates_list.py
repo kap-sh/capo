@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#PolicyTemplatesList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.policy_template_item
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_0(data: list) -> PolicyTemplatesList:
             )
         )
     return out
+
+
+def redact_sensitive(value: PolicyTemplatesList) -> list[Any]:
+    import capo_verifiedpermissions.types.policy_template_item
+
+    return [
+        capo_verifiedpermissions.types.policy_template_item.redact_sensitive(item)
+        for item in value
+    ]

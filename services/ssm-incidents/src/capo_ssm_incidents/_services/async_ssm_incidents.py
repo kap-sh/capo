@@ -26,7 +26,9 @@ from capo_ssm_incidents._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -209,7 +211,9 @@ class AsyncSSMIncidentsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncSSMIncidentsClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncSSMIncidentsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSSMIncidentsClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -217,8 +221,10 @@ class AsyncSSMIncidentsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -274,7 +280,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetIncidentFindings")
+        )
         input_: capo_ssm_incidents.types.batch_get_incident_findings_input.BatchGetIncidentFindingsInput = {
             "incident_record_arn": incident_record_arn,
             "finding_ids": finding_ids,
@@ -330,7 +338,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateReplicationSet")
+        )
         input_: capo_ssm_incidents.types.create_replication_set_input.CreateReplicationSetInput = {
             "regions": regions
         }
@@ -412,7 +422,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateResponsePlan")
+        )
         input_: capo_ssm_incidents.types.create_response_plan_input.CreateResponsePlanInput = {
             "name": name,
             "incident_template": incident_template,
@@ -491,7 +503,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTimelineEvent")
+        )
         input_: capo_ssm_incidents.types.create_timeline_event_input.CreateTimelineEventInput = {
             "incident_record_arn": incident_record_arn,
             "event_time": event_time,
@@ -546,7 +560,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIncidentRecord")
+        )
         input_: capo_ssm_incidents.types.delete_incident_record_input.DeleteIncidentRecordInput = {
             "arn": arn
         }
@@ -594,7 +610,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReplicationSet")
+        )
         input_: capo_ssm_incidents.types.delete_replication_set_input.DeleteReplicationSetInput = {
             "arn": arn
         }
@@ -644,7 +662,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_ssm_incidents.types.delete_resource_policy_input.DeleteResourcePolicyInput = {
             "resource_arn": resource_arn,
             "policy_id": policy_id,
@@ -694,7 +714,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResponsePlan")
+        )
         input_: capo_ssm_incidents.types.delete_response_plan_input.DeleteResponsePlanInput = {
             "arn": arn
         }
@@ -743,7 +765,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTimelineEvent")
+        )
         input_: capo_ssm_incidents.types.delete_timeline_event_input.DeleteTimelineEventInput = {
             "incident_record_arn": incident_record_arn,
             "event_id": event_id,
@@ -792,7 +816,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIncidentRecord")
+        )
         input_: capo_ssm_incidents.types.get_incident_record_input.GetIncidentRecordInput = {
             "arn": arn
         }
@@ -840,7 +866,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReplicationSet")
+        )
         input_: capo_ssm_incidents.types.get_replication_set_input.GetReplicationSetInput = {
             "arn": arn
         }
@@ -892,7 +920,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicies")
+        )
         input_: capo_ssm_incidents.types.get_resource_policies_input.GetResourcePoliciesInput = {
             "resource_arn": resource_arn
         }
@@ -967,7 +997,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResponsePlan")
+        )
         input_: capo_ssm_incidents.types.get_response_plan_input.GetResponsePlanInput = {
             "arn": arn
         }
@@ -1017,7 +1049,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTimelineEvent")
+        )
         input_: capo_ssm_incidents.types.get_timeline_event_input.GetTimelineEventInput = {
             "incident_record_arn": incident_record_arn,
             "event_id": event_id,
@@ -1070,7 +1104,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIncidentFindings")
+        )
         input_: capo_ssm_incidents.types.list_incident_findings_input.ListIncidentFindingsInput = {
             "incident_record_arn": incident_record_arn
         }
@@ -1148,7 +1184,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIncidentRecords")
+        )
         input_: capo_ssm_incidents.types.list_incident_records_input.ListIncidentRecordsInput = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1226,7 +1264,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRelatedItems")
+        )
         input_: capo_ssm_incidents.types.list_related_items_input.ListRelatedItemsInput = {
             "incident_record_arn": incident_record_arn
         }
@@ -1302,7 +1342,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReplicationSets")
+        )
         input_: capo_ssm_incidents.types.list_replication_sets_input.ListReplicationSetsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1374,7 +1416,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResponsePlans")
+        )
         input_: capo_ssm_incidents.types.list_response_plans_input.ListResponsePlansInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1445,7 +1489,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_ssm_incidents.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1506,7 +1552,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTimelineEvents")
+        )
         input_: capo_ssm_incidents.types.list_timeline_events_input.ListTimelineEventsInput = {
             "incident_record_arn": incident_record_arn
         }
@@ -1597,7 +1645,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_ssm_incidents.types.put_resource_policy_input.PutResourcePolicyInput = {
             "resource_arn": resource_arn,
             "policy": policy,
@@ -1663,7 +1713,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartIncident")
+        )
         input_: capo_ssm_incidents.types.start_incident_input.StartIncidentInput = {
             "response_plan_arn": response_plan_arn
         }
@@ -1726,7 +1778,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_ssm_incidents.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1778,7 +1832,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_ssm_incidents.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1833,7 +1889,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDeletionProtection")
+        )
         input_: capo_ssm_incidents.types.update_deletion_protection_input.UpdateDeletionProtectionInput = {
             "arn": arn,
             "deletion_protected": deletion_protected,
@@ -1910,7 +1968,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIncidentRecord")
+        )
         input_: capo_ssm_incidents.types.update_incident_record_input.UpdateIncidentRecordInput = {
             "arn": arn
         }
@@ -1982,7 +2042,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRelatedItems")
+        )
         input_: capo_ssm_incidents.types.update_related_items_input.UpdateRelatedItemsInput = {
             "incident_record_arn": incident_record_arn,
             "related_items_update": related_items_update,
@@ -2041,7 +2103,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateReplicationSet")
+        )
         input_: capo_ssm_incidents.types.update_replication_set_input.UpdateReplicationSetInput = {
             "arn": arn,
             "actions": actions,
@@ -2142,7 +2206,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateResponsePlan")
+        )
         input_: capo_ssm_incidents.types.update_response_plan_input.UpdateResponsePlanInput = {
             "arn": arn
         }
@@ -2236,7 +2302,9 @@ class AsyncSSMIncidentsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTimelineEvent")
+        )
         input_: capo_ssm_incidents.types.update_timeline_event_input.UpdateTimelineEventInput = {
             "incident_record_arn": incident_record_arn,
             "event_id": event_id,

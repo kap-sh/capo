@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mwaa#Environment``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -327,4 +327,11 @@ def deserialize_json(data: dict) -> Environment:
         out["min_webservers"] = data["MinWebservers"]
     if data.get("MaxWebservers") is not None:
         out["max_webservers"] = data["MaxWebservers"]
+    return out
+
+
+def redact_sensitive(value: Environment) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "airflow_configuration_options" in value:
+        out["airflow_configuration_options"] = "*** Sensitive Data Redacted ***"
     return out

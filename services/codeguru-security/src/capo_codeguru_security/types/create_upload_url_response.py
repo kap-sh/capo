@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.codegurusecurity#CreateUploadUrlResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -56,4 +56,13 @@ def deserialize_json(data: dict) -> CreateUploadUrlResponse:
         out["code_artifact_id"] = data["codeArtifactId"]
     else:
         raise DeserializationError("CreateUploadUrlResponse.code_artifact_id required")
+    return out
+
+
+def redact_sensitive(value: CreateUploadUrlResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "s3_url" in value:
+        out["s3_url"] = "*** Sensitive Data Redacted ***"
+    if "request_headers" in value:
+        out["request_headers"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#CustomSql``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -59,4 +59,11 @@ def deserialize_json(data: dict) -> CustomSql:
         out["columns"] = capo_quicksight.types.input_column_list.deserialize_json(
             data["Columns"]
         )
+    return out
+
+
+def redact_sensitive(value: CustomSql) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sql_query" in value:
+        out["sql_query"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#SetRiskConfigurationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -41,5 +41,18 @@ def deserialize_aws_json_1_1(data: dict) -> SetRiskConfigurationResponse:
     else:
         raise DeserializationError(
             "SetRiskConfigurationResponse.risk_configuration required"
+        )
+    return out
+
+
+def redact_sensitive(value: SetRiskConfigurationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "risk_configuration" in value:
+        import capo_cognito_identity_provider.types.risk_configuration_type
+
+        out["risk_configuration"] = (
+            capo_cognito_identity_provider.types.risk_configuration_type.redact_sensitive(
+                value["risk_configuration"]
+            )
         )
     return out

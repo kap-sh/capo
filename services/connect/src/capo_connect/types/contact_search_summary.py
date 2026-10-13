@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#ContactSearchSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -256,4 +256,13 @@ def deserialize_json(data: dict) -> ContactSearchSummary:
                 data["AiAgentInfo"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: ContactSearchSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "segment_attributes" in value:
+        out["segment_attributes"] = "*** Sensitive Data Redacted ***"
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
     return out

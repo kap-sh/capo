@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#CustomInstructionList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.custom_instruction
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> CustomInstructionList:
             continue
         out.append(capo_quicksight.types.custom_instruction.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: CustomInstructionList) -> list[Any]:
+    import capo_quicksight.types.custom_instruction
+
+    return [
+        capo_quicksight.types.custom_instruction.redact_sensitive(item)
+        for item in value
+    ]

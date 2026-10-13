@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteHazardousCargoTypeList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_routes.types.route_hazardous_cargo_type
@@ -33,3 +33,7 @@ def deserialize_json(data: list) -> RouteHazardousCargoTypeList:
             capo_geo_routes.types.route_hazardous_cargo_type.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: RouteHazardousCargoTypeList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

@@ -21,10 +21,12 @@ from capo_sesv2._pagination import resolve_path as _resolve_path
 from capo_sesv2._services._aws_config import aws_config
 from capo_sesv2._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -446,7 +448,9 @@ class SESv2Client:
         )
 
     def operation_options(
-        self, config_overrides: Optional[SESv2ClientConfig] = None
+        self,
+        config_overrides: Optional[SESv2ClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: SESv2ClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -454,8 +458,10 @@ class SESv2Client:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -511,7 +517,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateEmailIdentityCertificate")
+        )
         input_: capo_sesv2.types.associate_email_identity_certificate_request.AssociateEmailIdentityCertificateRequest = {
             "email_identity": email_identity,
             "certificate_arn": certificate_arn,
@@ -560,7 +568,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetMetricData")
+        )
         input_: capo_sesv2.types.batch_get_metric_data_request.BatchGetMetricDataRequest = {
             "queries": queries
         }
@@ -611,7 +621,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelExportJob")
+        )
         input_: capo_sesv2.types.cancel_export_job_request.CancelExportJobRequest = {
             "job_id": job_id
         }
@@ -691,7 +703,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfigurationSet")
+        )
         input_: capo_sesv2.types.create_configuration_set_request.CreateConfigurationSetRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -760,7 +774,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfigurationSetEventDestination")
+        )
         input_: capo_sesv2.types.create_configuration_set_event_destination_request.CreateConfigurationSetEventDestinationRequest = {
             "configuration_set_name": configuration_set_name,
             "event_destination_name": event_destination_name,
@@ -822,7 +838,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateContact")
+        )
         input_: capo_sesv2.types.create_contact_request.CreateContactRequest = {
             "contact_list_name": contact_list_name,
             "email_address": email_address,
@@ -881,7 +899,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateContactList")
+        )
         input_: capo_sesv2.types.create_contact_list_request.CreateContactListRequest = {
             "contact_list_name": contact_list_name
         }
@@ -946,7 +966,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCustomVerificationEmailTemplate")
+        )
         input_: capo_sesv2.types.create_custom_verification_email_template_request.CreateCustomVerificationEmailTemplateRequest = {
             "template_name": template_name,
             "from_email_address": from_email_address,
@@ -1004,7 +1026,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDedicatedIpPool")
+        )
         input_: capo_sesv2.types.create_dedicated_ip_pool_request.CreateDedicatedIpPoolRequest = {
             "pool_name": pool_name
         }
@@ -1065,7 +1089,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDeliverabilityTestReport")
+        )
         input_: capo_sesv2.types.create_deliverability_test_report_request.CreateDeliverabilityTestReportRequest = {
             "from_email_address": from_email_address,
             "content": content,
@@ -1128,7 +1154,19 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sesv2.types.create_email_identity_request.CreateEmailIdentityRequest",
+        ) -> dict[str, Any]:
+            import capo_sesv2.types.create_email_identity_request
+
+            return capo_sesv2.types.create_email_identity_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateEmailIdentity", redact_input=_redact_input),
+        )
         input_: capo_sesv2.types.create_email_identity_request.CreateEmailIdentityRequest = {
             "email_identity": email_identity
         }
@@ -1185,7 +1223,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEmailIdentityPolicy")
+        )
         input_: capo_sesv2.types.create_email_identity_policy_request.CreateEmailIdentityPolicyRequest = {
             "email_identity": email_identity,
             "policy_name": policy_name,
@@ -1237,7 +1277,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEmailTemplate")
+        )
         input_: capo_sesv2.types.create_email_template_request.CreateEmailTemplateRequest = {
             "template_name": template_name,
             "template_content": template_content,
@@ -1288,7 +1330,17 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sesv2.types.create_export_job_request.CreateExportJobRequest",
+        ) -> dict[str, Any]:
+            import capo_sesv2.types.create_export_job_request
+
+            return capo_sesv2.types.create_export_job_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateExportJob", redact_input=_redact_input),
+        )
         input_: capo_sesv2.types.create_export_job_request.CreateExportJobRequest = {
             "export_data_source": export_data_source,
             "export_destination": export_destination,
@@ -1336,7 +1388,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateImportJob")
+        )
         input_: capo_sesv2.types.create_import_job_request.CreateImportJobRequest = {
             "import_destination": import_destination,
             "import_data_source": import_data_source,
@@ -1387,7 +1441,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMultiRegionEndpoint")
+        )
         input_: capo_sesv2.types.create_multi_region_endpoint_request.CreateMultiRegionEndpointRequest = {
             "endpoint_name": endpoint_name,
             "details": details,
@@ -1442,7 +1498,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTenant")
+        )
         input_: capo_sesv2.types.create_tenant_request.CreateTenantRequest = {
             "tenant_name": tenant_name
         }
@@ -1494,7 +1552,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTenantResourceAssociation")
+        )
         input_: capo_sesv2.types.create_tenant_resource_association_request.CreateTenantResourceAssociationRequest = {
             "tenant_name": tenant_name,
             "resource_arn": resource_arn,
@@ -1541,7 +1601,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfigurationSet")
+        )
         input_: capo_sesv2.types.delete_configuration_set_request.DeleteConfigurationSetRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -1588,7 +1650,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfigurationSetEventDestination")
+        )
         input_: capo_sesv2.types.delete_configuration_set_event_destination_request.DeleteConfigurationSetEventDestinationRequest = {
             "configuration_set_name": configuration_set_name,
             "event_destination_name": event_destination_name,
@@ -1636,7 +1700,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContact")
+        )
         input_: capo_sesv2.types.delete_contact_request.DeleteContactRequest = {
             "contact_list_name": contact_list_name,
             "email_address": email_address,
@@ -1683,7 +1749,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContactList")
+        )
         input_: capo_sesv2.types.delete_contact_list_request.DeleteContactListRequest = {
             "contact_list_name": contact_list_name
         }
@@ -1728,7 +1796,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCustomVerificationEmailTemplate")
+        )
         input_: capo_sesv2.types.delete_custom_verification_email_template_request.DeleteCustomVerificationEmailTemplateRequest = {
             "template_name": template_name
         }
@@ -1774,7 +1844,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDedicatedIpPool")
+        )
         input_: capo_sesv2.types.delete_dedicated_ip_pool_request.DeleteDedicatedIpPoolRequest = {
             "pool_name": pool_name
         }
@@ -1820,7 +1892,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEmailIdentity")
+        )
         input_: capo_sesv2.types.delete_email_identity_request.DeleteEmailIdentityRequest = {
             "email_identity": email_identity
         }
@@ -1867,7 +1941,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEmailIdentityPolicy")
+        )
         input_: capo_sesv2.types.delete_email_identity_policy_request.DeleteEmailIdentityPolicyRequest = {
             "email_identity": email_identity,
             "policy_name": policy_name,
@@ -1913,7 +1989,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEmailTemplate")
+        )
         input_: capo_sesv2.types.delete_email_template_request.DeleteEmailTemplateRequest = {
             "template_name": template_name
         }
@@ -1959,7 +2037,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMultiRegionEndpoint")
+        )
         input_: capo_sesv2.types.delete_multi_region_endpoint_request.DeleteMultiRegionEndpointRequest = {
             "endpoint_name": endpoint_name
         }
@@ -2006,7 +2086,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSuppressedDestination")
+        )
         input_: capo_sesv2.types.delete_suppressed_destination_request.DeleteSuppressedDestinationRequest = {
             "email_address": email_address
         }
@@ -2053,7 +2135,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTenant")
+        )
         input_: capo_sesv2.types.delete_tenant_request.DeleteTenantRequest = {
             "tenant_name": tenant_name
         }
@@ -2100,7 +2184,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTenantResourceAssociation")
+        )
         input_: capo_sesv2.types.delete_tenant_resource_association_request.DeleteTenantResourceAssociationRequest = {
             "tenant_name": tenant_name,
             "resource_arn": resource_arn,
@@ -2148,7 +2234,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateEmailIdentityCertificate")
+        )
         input_: capo_sesv2.types.disassociate_email_identity_certificate_request.DisassociateEmailIdentityCertificateRequest = {
             "email_identity": email_identity
         }
@@ -2188,7 +2276,17 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sesv2.types.get_account_response.GetAccountResponse",
+        ) -> dict[str, Any]:
+            import capo_sesv2.types.get_account_response
+
+            return capo_sesv2.types.get_account_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAccount", redact_output=_redact_output),
+        )
         input_: capo_sesv2.types.get_account_request.GetAccountRequest = {}
 
         response = execute_pipeline(
@@ -2231,7 +2329,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBlacklistReports")
+        )
         input_: capo_sesv2.types.get_blacklist_reports_request.GetBlacklistReportsRequest = {
             "blacklist_item_names": blacklist_item_names
         }
@@ -2276,7 +2376,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConfigurationSet")
+        )
         input_: capo_sesv2.types.get_configuration_set_request.GetConfigurationSetRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -2321,7 +2423,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConfigurationSetEventDestinations")
+        )
         input_: capo_sesv2.types.get_configuration_set_event_destinations_request.GetConfigurationSetEventDestinationsRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -2368,7 +2472,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContact")
+        )
         input_: capo_sesv2.types.get_contact_request.GetContactRequest = {
             "contact_list_name": contact_list_name,
             "email_address": email_address,
@@ -2414,7 +2520,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContactList")
+        )
         input_: capo_sesv2.types.get_contact_list_request.GetContactListRequest = {
             "contact_list_name": contact_list_name
         }
@@ -2459,7 +2567,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCustomVerificationEmailTemplate")
+        )
         input_: capo_sesv2.types.get_custom_verification_email_template_request.GetCustomVerificationEmailTemplateRequest = {
             "template_name": template_name
         }
@@ -2504,7 +2614,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDedicatedIp")
+        )
         input_: capo_sesv2.types.get_dedicated_ip_request.GetDedicatedIpRequest = {
             "ip": ip
         }
@@ -2549,7 +2661,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDedicatedIpPool")
+        )
         input_: capo_sesv2.types.get_dedicated_ip_pool_request.GetDedicatedIpPoolRequest = {
             "pool_name": pool_name
         }
@@ -2598,7 +2712,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDedicatedIps")
+        )
         input_: capo_sesv2.types.get_dedicated_ips_request.GetDedicatedIpsRequest = {}
         if pool_name is not None:
             input_["pool_name"] = pool_name
@@ -2664,7 +2780,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeliverabilityDashboardOptions")
+        )
         input_: capo_sesv2.types.get_deliverability_dashboard_options_request.GetDeliverabilityDashboardOptionsRequest = {}
 
         response = execute_pipeline(
@@ -2707,7 +2825,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeliverabilityTestReport")
+        )
         input_: capo_sesv2.types.get_deliverability_test_report_request.GetDeliverabilityTestReportRequest = {
             "report_id": report_id
         }
@@ -2752,7 +2872,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomainDeliverabilityCampaign")
+        )
         input_: capo_sesv2.types.get_domain_deliverability_campaign_request.GetDomainDeliverabilityCampaignRequest = {
             "campaign_id": campaign_id
         }
@@ -2801,7 +2923,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomainStatisticsReport")
+        )
         input_: capo_sesv2.types.get_domain_statistics_report_request.GetDomainStatisticsReportRequest = {
             "domain": domain,
             "start_date": start_date,
@@ -2853,7 +2977,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEmailAddressInsights")
+        )
         input_: capo_sesv2.types.get_email_address_insights_request.GetEmailAddressInsightsRequest = {
             "email_address": email_address
         }
@@ -2898,7 +3024,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEmailIdentity")
+        )
         input_: capo_sesv2.types.get_email_identity_request.GetEmailIdentityRequest = {
             "email_identity": email_identity
         }
@@ -2943,7 +3071,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEmailIdentityPolicies")
+        )
         input_: capo_sesv2.types.get_email_identity_policies_request.GetEmailIdentityPoliciesRequest = {
             "email_identity": email_identity
         }
@@ -2988,7 +3118,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEmailTemplate")
+        )
         input_: capo_sesv2.types.get_email_template_request.GetEmailTemplateRequest = {
             "template_name": template_name
         }
@@ -3033,7 +3165,17 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sesv2.types.get_export_job_response.GetExportJobResponse",
+        ) -> dict[str, Any]:
+            import capo_sesv2.types.get_export_job_response
+
+            return capo_sesv2.types.get_export_job_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetExportJob", redact_output=_redact_output),
+        )
         input_: capo_sesv2.types.get_export_job_request.GetExportJobRequest = {
             "job_id": job_id
         }
@@ -3078,7 +3220,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetImportJob")
+        )
         input_: capo_sesv2.types.get_import_job_request.GetImportJobRequest = {
             "job_id": job_id
         }
@@ -3123,7 +3267,19 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sesv2.types.get_message_insights_response.GetMessageInsightsResponse",
+        ) -> dict[str, Any]:
+            import capo_sesv2.types.get_message_insights_response
+
+            return capo_sesv2.types.get_message_insights_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetMessageInsights", redact_output=_redact_output),
+        )
         input_: capo_sesv2.types.get_message_insights_request.GetMessageInsightsRequest = {
             "message_id": message_id
         }
@@ -3168,7 +3324,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMultiRegionEndpoint")
+        )
         input_: capo_sesv2.types.get_multi_region_endpoint_request.GetMultiRegionEndpointRequest = {
             "endpoint_name": endpoint_name
         }
@@ -3215,7 +3373,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReputationEntity")
+        )
         input_: capo_sesv2.types.get_reputation_entity_request.GetReputationEntityRequest = {
             "reputation_entity_reference": reputation_entity_reference,
             "reputation_entity_type": reputation_entity_type,
@@ -3263,7 +3423,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSuppressedDestination")
+        )
         input_: capo_sesv2.types.get_suppressed_destination_request.GetSuppressedDestinationRequest = {
             "email_address": email_address
         }
@@ -3310,7 +3472,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTenant")
+        )
         input_: capo_sesv2.types.get_tenant_request.GetTenantRequest = {
             "tenant_name": tenant_name
         }
@@ -3360,7 +3524,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfigurationSets")
+        )
         input_: capo_sesv2.types.list_configuration_sets_request.ListConfigurationSetsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -3433,7 +3599,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContactLists")
+        )
         input_: capo_sesv2.types.list_contact_lists_request.ListContactListsRequest = {}
         if page_size is not None:
             input_["page_size"] = page_size
@@ -3507,7 +3675,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContacts")
+        )
         input_: capo_sesv2.types.list_contacts_request.ListContactsRequest = {
             "contact_list_name": contact_list_name
         }
@@ -3584,7 +3754,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCustomVerificationEmailTemplates")
+        )
         input_: capo_sesv2.types.list_custom_verification_email_templates_request.ListCustomVerificationEmailTemplatesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3653,7 +3825,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDedicatedIpPools")
+        )
         input_: capo_sesv2.types.list_dedicated_ip_pools_request.ListDedicatedIpPoolsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3721,7 +3895,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeliverabilityTestReports")
+        )
         input_: capo_sesv2.types.list_deliverability_test_reports_request.ListDeliverabilityTestReportsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3795,7 +3971,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomainDeliverabilityCampaigns")
+        )
         input_: capo_sesv2.types.list_domain_deliverability_campaigns_request.ListDomainDeliverabilityCampaignsRequest = {
             "start_date": start_date,
             "end_date": end_date,
@@ -3874,7 +4052,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEmailIdentities")
+        )
         input_: capo_sesv2.types.list_email_identities_request.ListEmailIdentitiesRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -3948,7 +4128,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEmailIdentityCertificates")
+        )
         input_: capo_sesv2.types.list_email_identity_certificates_request.ListEmailIdentityCertificatesRequest = {
             "email_identity": email_identity
         }
@@ -4021,7 +4203,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEmailTemplates")
+        )
         input_: capo_sesv2.types.list_email_templates_request.ListEmailTemplatesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4094,7 +4278,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExportJobs")
+        )
         input_: capo_sesv2.types.list_export_jobs_request.ListExportJobsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4175,7 +4361,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImportJobs")
+        )
         input_: capo_sesv2.types.list_import_jobs_request.ListImportJobsRequest = {}
         if import_destination_type is not None:
             input_["import_destination_type"] = import_destination_type
@@ -4248,7 +4436,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMultiRegionEndpoints")
+        )
         input_: capo_sesv2.types.list_multi_region_endpoints_request.ListMultiRegionEndpointsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4322,7 +4512,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecommendations")
+        )
         input_: capo_sesv2.types.list_recommendations_request.ListRecommendationsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -4399,7 +4591,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReputationEntities")
+        )
         input_: capo_sesv2.types.list_reputation_entities_request.ListReputationEntitiesRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -4477,7 +4671,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceTenants")
+        )
         input_: capo_sesv2.types.list_resource_tenants_request.ListResourceTenantsRequest = {
             "resource_arn": resource_arn
         }
@@ -4562,7 +4758,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSuppressedDestinations")
+        )
         input_: capo_sesv2.types.list_suppressed_destinations_request.ListSuppressedDestinationsRequest = {}
         if tenant_name is not None:
             input_["tenant_name"] = tenant_name
@@ -4646,7 +4844,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_sesv2.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -4699,7 +4899,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTenantResources")
+        )
         input_: capo_sesv2.types.list_tenant_resources_request.ListTenantResourcesRequest = {
             "tenant_name": tenant_name
         }
@@ -4782,7 +4984,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTenants")
+        )
         input_: capo_sesv2.types.list_tenants_request.ListTenantsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -4855,7 +5059,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccountDedicatedIpWarmupAttributes")
+        )
         input_: capo_sesv2.types.put_account_dedicated_ip_warmup_attributes_request.PutAccountDedicatedIpWarmupAttributesRequest = {}
         if auto_warmup_enabled is not None:
             input_["auto_warmup_enabled"] = auto_warmup_enabled
@@ -4918,7 +5124,17 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sesv2.types.put_account_details_request.PutAccountDetailsRequest",
+        ) -> dict[str, Any]:
+            import capo_sesv2.types.put_account_details_request
+
+            return capo_sesv2.types.put_account_details_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutAccountDetails", redact_input=_redact_input),
+        )
         input_: capo_sesv2.types.put_account_details_request.PutAccountDetailsRequest = {
             "mail_type": mail_type,
             "website_url": website_url,
@@ -4974,7 +5190,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccountPricingAttributes")
+        )
         input_: capo_sesv2.types.put_account_pricing_attributes_request.PutAccountPricingAttributesRequest = {
             "plan": plan
         }
@@ -5018,7 +5236,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccountSendingAttributes")
+        )
         input_: capo_sesv2.types.put_account_sending_attributes_request.PutAccountSendingAttributesRequest = {}
         if sending_enabled is not None:
             input_["sending_enabled"] = sending_enabled
@@ -5068,7 +5288,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccountSuppressionAttributes")
+        )
         input_: capo_sesv2.types.put_account_suppression_attributes_request.PutAccountSuppressionAttributesRequest = {}
         if suppressed_reasons is not None:
             input_["suppressed_reasons"] = suppressed_reasons
@@ -5114,7 +5336,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccountVdmAttributes")
+        )
         input_: capo_sesv2.types.put_account_vdm_attributes_request.PutAccountVdmAttributesRequest = {
             "vdm_attributes": vdm_attributes
         }
@@ -5167,7 +5391,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutConfigurationSetArchivingOptions")
+        )
         input_: capo_sesv2.types.put_configuration_set_archiving_options_request.PutConfigurationSetArchivingOptionsRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -5224,7 +5450,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutConfigurationSetDeliveryOptions")
+        )
         input_: capo_sesv2.types.put_configuration_set_delivery_options_request.PutConfigurationSetDeliveryOptionsRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -5277,7 +5505,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutConfigurationSetReputationOptions")
+        )
         input_: capo_sesv2.types.put_configuration_set_reputation_options_request.PutConfigurationSetReputationOptionsRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -5326,7 +5556,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutConfigurationSetSendingOptions")
+        )
         input_: capo_sesv2.types.put_configuration_set_sending_options_request.PutConfigurationSetSendingOptionsRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -5385,7 +5617,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutConfigurationSetSuppressionOptions")
+        )
         input_: capo_sesv2.types.put_configuration_set_suppression_options_request.PutConfigurationSetSuppressionOptionsRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -5441,7 +5675,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutConfigurationSetTrackingOptions")
+        )
         input_: capo_sesv2.types.put_configuration_set_tracking_options_request.PutConfigurationSetTrackingOptionsRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -5492,7 +5728,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutConfigurationSetVdmOptions")
+        )
         input_: capo_sesv2.types.put_configuration_set_vdm_options_request.PutConfigurationSetVdmOptionsRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -5541,7 +5779,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDedicatedIpInPool")
+        )
         input_: capo_sesv2.types.put_dedicated_ip_in_pool_request.PutDedicatedIpInPoolRequest = {
             "ip": ip,
             "destination_pool_name": destination_pool_name,
@@ -5596,7 +5836,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDedicatedIpPoolScalingAttributes")
+        )
         input_: capo_sesv2.types.put_dedicated_ip_pool_scaling_attributes_request.PutDedicatedIpPoolScalingAttributesRequest = {
             "pool_name": pool_name,
             "scaling_mode": scaling_mode,
@@ -5644,7 +5886,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDedicatedIpWarmupAttributes")
+        )
         input_: capo_sesv2.types.put_dedicated_ip_warmup_attributes_request.PutDedicatedIpWarmupAttributesRequest = {
             "ip": ip,
             "warmup_percentage": warmup_percentage,
@@ -5696,7 +5940,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDeliverabilityDashboardOption")
+        )
         input_: capo_sesv2.types.put_deliverability_dashboard_option_request.PutDeliverabilityDashboardOptionRequest = {
             "dashboard_enabled": dashboard_enabled
         }
@@ -5747,7 +5993,10 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutEmailIdentityConfigurationSetAttributes"),
+        )
         input_: capo_sesv2.types.put_email_identity_configuration_set_attributes_request.PutEmailIdentityConfigurationSetAttributesRequest = {
             "email_identity": email_identity
         }
@@ -5796,7 +6045,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutEmailIdentityDkimAttributes")
+        )
         input_: capo_sesv2.types.put_email_identity_dkim_attributes_request.PutEmailIdentityDkimAttributesRequest = {
             "email_identity": email_identity
         }
@@ -5849,7 +6100,21 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sesv2.types.put_email_identity_dkim_signing_attributes_request.PutEmailIdentityDkimSigningAttributesRequest",
+        ) -> dict[str, Any]:
+            import capo_sesv2.types.put_email_identity_dkim_signing_attributes_request
+
+            return capo_sesv2.types.put_email_identity_dkim_signing_attributes_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutEmailIdentityDkimSigningAttributes", redact_input=_redact_input
+            ),
+        )
         input_: capo_sesv2.types.put_email_identity_dkim_signing_attributes_request.PutEmailIdentityDkimSigningAttributesRequest = {
             "email_identity": email_identity,
             "signing_attributes_origin": signing_attributes_origin,
@@ -5899,7 +6164,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutEmailIdentityFeedbackAttributes")
+        )
         input_: capo_sesv2.types.put_email_identity_feedback_attributes_request.PutEmailIdentityFeedbackAttributesRequest = {
             "email_identity": email_identity
         }
@@ -5954,7 +6221,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutEmailIdentityMailFromAttributes")
+        )
         input_: capo_sesv2.types.put_email_identity_mail_from_attributes_request.PutEmailIdentityMailFromAttributesRequest = {
             "email_identity": email_identity
         }
@@ -6007,7 +6276,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutSuppressedDestination")
+        )
         input_: capo_sesv2.types.put_suppressed_destination_request.PutSuppressedDestinationRequest = {
             "email_address": email_address,
             "reason": reason,
@@ -6063,7 +6334,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutTenantSuppressionAttributes")
+        )
         input_: capo_sesv2.types.put_tenant_suppression_attributes_request.PutTenantSuppressionAttributesRequest = {
             "tenant_name": tenant_name
         }
@@ -6155,7 +6428,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendBulkEmail")
+        )
         input_: capo_sesv2.types.send_bulk_email_request.SendBulkEmailRequest = {
             "default_content": default_content,
             "bulk_email_entries": bulk_email_entries,
@@ -6235,7 +6510,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendCustomVerificationEmail")
+        )
         input_: capo_sesv2.types.send_custom_verification_email_request.SendCustomVerificationEmailRequest = {
             "email_address": email_address,
             "template_name": template_name,
@@ -6328,7 +6605,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendEmail")
+        )
         input_: capo_sesv2.types.send_email_request.SendEmailRequest = {
             "content": content
         }
@@ -6404,7 +6683,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_sesv2.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -6452,7 +6733,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestRenderEmailTemplate")
+        )
         input_: capo_sesv2.types.test_render_email_template_request.TestRenderEmailTemplateRequest = {
             "template_name": template_name,
             "template_data": template_data,
@@ -6501,7 +6784,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_sesv2.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -6551,7 +6836,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConfigurationSet")
+        )
         input_: capo_sesv2.types.update_configuration_set_request.UpdateConfigurationSetRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -6602,7 +6889,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConfigurationSetEventDestination")
+        )
         input_: capo_sesv2.types.update_configuration_set_event_destination_request.UpdateConfigurationSetEventDestinationRequest = {
             "configuration_set_name": configuration_set_name,
             "event_destination_name": event_destination_name,
@@ -6664,7 +6953,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContact")
+        )
         input_: capo_sesv2.types.update_contact_request.UpdateContactRequest = {
             "contact_list_name": contact_list_name,
             "email_address": email_address,
@@ -6721,7 +7012,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContactList")
+        )
         input_: capo_sesv2.types.update_contact_list_request.UpdateContactListRequest = {
             "contact_list_name": contact_list_name
         }
@@ -6780,7 +7073,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCustomVerificationEmailTemplate")
+        )
         input_: capo_sesv2.types.update_custom_verification_email_template_request.UpdateCustomVerificationEmailTemplateRequest = {
             "template_name": template_name,
             "from_email_address": from_email_address,
@@ -6834,7 +7129,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEmailIdentityPolicy")
+        )
         input_: capo_sesv2.types.update_email_identity_policy_request.UpdateEmailIdentityPolicyRequest = {
             "email_identity": email_identity,
             "policy_name": policy_name,
@@ -6883,7 +7180,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEmailTemplate")
+        )
         input_: capo_sesv2.types.update_email_template_request.UpdateEmailTemplateRequest = {
             "template_name": template_name,
             "template_content": template_content,
@@ -6933,7 +7232,10 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateReputationEntityCustomerManagedStatus"),
+        )
         input_: capo_sesv2.types.update_reputation_entity_customer_managed_status_request.UpdateReputationEntityCustomerManagedStatusRequest = {
             "reputation_entity_type": reputation_entity_type,
             "reputation_entity_reference": reputation_entity_reference,
@@ -6984,7 +7286,9 @@ class SESv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateReputationEntityPolicy")
+        )
         input_: capo_sesv2.types.update_reputation_entity_policy_request.UpdateReputationEntityPolicyRequest = {
             "reputation_entity_type": reputation_entity_type,
             "reputation_entity_reference": reputation_entity_reference,

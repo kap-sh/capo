@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.acm#GetAcmeExternalAccountBindingCredentialsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -35,4 +35,13 @@ def deserialize_aws_json_1_1(
         out["key_id"] = data["KeyId"]
     if data.get("MacKey") is not None:
         out["mac_key"] = data["MacKey"]
+    return out
+
+
+def redact_sensitive(
+    value: GetAcmeExternalAccountBindingCredentialsResponse,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "mac_key" in value:
+        out["mac_key"] = "*** Sensitive Data Redacted ***"
     return out

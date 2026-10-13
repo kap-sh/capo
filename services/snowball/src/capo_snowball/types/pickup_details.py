@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.snowball#PickupDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,4 +79,13 @@ def deserialize_aws_json_1_1(data: dict) -> PickupDetails:
         out["identification_issuing_org"] = data["IdentificationIssuingOrg"]
     if data.get("DevicePickupId") is not None:
         out["device_pickup_id"] = data["DevicePickupId"]
+    return out
+
+
+def redact_sensitive(value: PickupDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "phone_number" in value:
+        out["phone_number"] = "*** Sensitive Data Redacted ***"
+    if "email" in value:
+        out["email"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#GuardrailContextualGroundingPolicy``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -41,5 +41,18 @@ def deserialize_json(data: dict) -> GuardrailContextualGroundingPolicy:
     else:
         raise DeserializationError(
             "GuardrailContextualGroundingPolicy.filters required"
+        )
+    return out
+
+
+def redact_sensitive(value: GuardrailContextualGroundingPolicy) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "filters" in value:
+        import capo_bedrock.types.guardrail_contextual_grounding_filters
+
+        out["filters"] = (
+            capo_bedrock.types.guardrail_contextual_grounding_filters.redact_sensitive(
+                value["filters"]
+            )
         )
     return out

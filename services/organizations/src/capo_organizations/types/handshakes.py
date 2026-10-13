@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.organizations#Handshakes``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_organizations.types.handshake
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> Handshakes:
             continue
         out.append(capo_organizations.types.handshake.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: Handshakes) -> list[Any]:
+    import capo_organizations.types.handshake
+
+    return [capo_organizations.types.handshake.redact_sensitive(item) for item in value]

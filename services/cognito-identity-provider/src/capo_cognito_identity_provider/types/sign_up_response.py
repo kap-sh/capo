@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#SignUpResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -66,4 +66,11 @@ def deserialize_aws_json_1_1(data: dict) -> SignUpResponse:
         raise DeserializationError("SignUpResponse.user_sub required")
     if data.get("Session") is not None:
         out["session"] = data["Session"]
+    return out
+
+
+def redact_sensitive(value: SignUpResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "session" in value:
+        out["session"] = "*** Sensitive Data Redacted ***"
     return out

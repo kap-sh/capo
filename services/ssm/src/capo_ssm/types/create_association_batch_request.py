@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#CreateAssociationBatchRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,17 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAssociationBatchRequest:
         raise DeserializationError("CreateAssociationBatchRequest.entries required")
     if data.get("AssociationDispatchAssumeRole") is not None:
         out["association_dispatch_assume_role"] = data["AssociationDispatchAssumeRole"]
+    return out
+
+
+def redact_sensitive(value: CreateAssociationBatchRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "entries" in value:
+        import capo_ssm.types.create_association_batch_request_entries
+
+        out["entries"] = (
+            capo_ssm.types.create_association_batch_request_entries.redact_sensitive(
+                value["entries"]
+            )
+        )
     return out

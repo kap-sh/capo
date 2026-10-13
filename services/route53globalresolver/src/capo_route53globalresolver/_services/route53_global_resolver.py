@@ -46,10 +46,12 @@ from capo_route53globalresolver._resources.ec2_dns_global_resolver_customer_api.
 from capo_route53globalresolver._services._aws_config import aws_config
 from capo_route53globalresolver._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -273,7 +275,9 @@ class Route53GlobalResolverClient:
         self.managed_firewall_domain_list = ManagedFirewallDomainList(self)
 
     def operation_options(
-        self, config_overrides: Optional[Route53GlobalResolverClientConfig] = None
+        self,
+        config_overrides: Optional[Route53GlobalResolverClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: Route53GlobalResolverClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -281,8 +285,10 @@ class Route53GlobalResolverClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -335,7 +341,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateHostedZone")
+        )
         input_: capo_route53globalresolver.types.disassociate_hosted_zone_input.DisassociateHostedZoneInput = {
             "hosted_zone_id": hosted_zone_id,
             "resource_arn": resource_arn,
@@ -384,7 +392,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSharedDNSViews")
+        )
         input_: capo_route53globalresolver.types.list_shared_dns_views_input.ListSharedDNSViewsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -450,7 +460,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_route53globalresolver.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -497,7 +509,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_route53globalresolver.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -546,7 +560,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_route53globalresolver.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -619,7 +635,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccessSource")
+        )
         input_: capo_route53globalresolver.types.create_access_source_input.CreateAccessSourceInput = {
             "cidr": cidr,
             "dns_view_id": dns_view_id,
@@ -677,7 +695,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessSource")
+        )
         input_: capo_route53globalresolver.types.get_access_source_input.GetAccessSourceInput = {
             "access_source_id": access_source_id
         }
@@ -740,7 +760,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccessSource")
+        )
         input_: capo_route53globalresolver.types.update_access_source_input.UpdateAccessSourceInput = {
             "access_source_id": access_source_id
         }
@@ -796,7 +818,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessSource")
+        )
         input_: capo_route53globalresolver.types.delete_access_source_input.DeleteAccessSourceInput = {
             "access_source_id": access_source_id
         }
@@ -846,7 +870,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessSources")
+        )
         input_: capo_route53globalresolver.types.list_access_sources_input.ListAccessSourcesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -936,7 +962,19 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_route53globalresolver.types.create_access_token_output.CreateAccessTokenOutput",
+        ) -> dict[str, Any]:
+            import capo_route53globalresolver.types.create_access_token_output
+
+            return capo_route53globalresolver.types.create_access_token_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateAccessToken", redact_output=_redact_output),
+        )
         input_: capo_route53globalresolver.types.create_access_token_input.CreateAccessTokenInput = {
             "dns_view_id": dns_view_id
         }
@@ -994,7 +1032,19 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_route53globalresolver.types.get_access_token_output.GetAccessTokenOutput",
+        ) -> dict[str, Any]:
+            import capo_route53globalresolver.types.get_access_token_output
+
+            return capo_route53globalresolver.types.get_access_token_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAccessToken", redact_output=_redact_output),
+        )
         input_: capo_route53globalresolver.types.get_access_token_input.GetAccessTokenInput = {
             "access_token_id": access_token_id
         }
@@ -1045,7 +1095,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccessToken")
+        )
         input_: capo_route53globalresolver.types.update_access_token_input.UpdateAccessTokenInput = {
             "access_token_id": access_token_id,
             "name": name,
@@ -1094,7 +1146,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessToken")
+        )
         input_: capo_route53globalresolver.types.delete_access_token_input.DeleteAccessTokenInput = {
             "access_token_id": access_token_id
         }
@@ -1147,7 +1201,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessTokens")
+        )
         input_: capo_route53globalresolver.types.list_access_tokens_input.ListAccessTokensInput = {
             "dns_view_id": dns_view_id
         }
@@ -1251,7 +1307,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDNSView")
+        )
         input_: capo_route53globalresolver.types.create_dns_view_input.CreateDNSViewInput = {
             "global_resolver_id": global_resolver_id,
             "name": name,
@@ -1312,7 +1370,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDNSView")
+        )
         input_: capo_route53globalresolver.types.get_dns_view_input.GetDNSViewInput = {
             "dns_view_id": dns_view_id
         }
@@ -1381,7 +1441,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDNSView")
+        )
         input_: capo_route53globalresolver.types.update_dns_view_input.UpdateDNSViewInput = {
             "dns_view_id": dns_view_id
         }
@@ -1439,7 +1501,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDNSView")
+        )
         input_: capo_route53globalresolver.types.delete_dns_view_input.DeleteDNSViewInput = {
             "dns_view_id": dns_view_id
         }
@@ -1490,7 +1554,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDNSViews")
+        )
         input_: capo_route53globalresolver.types.list_dns_views_input.ListDNSViewsInput = {
             "global_resolver_id": global_resolver_id
         }
@@ -1568,7 +1634,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableDNSView")
+        )
         input_: capo_route53globalresolver.types.disable_dns_view_input.DisableDNSViewInput = {
             "dns_view_id": dns_view_id
         }
@@ -1617,7 +1685,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableDNSView")
+        )
         input_: capo_route53globalresolver.types.enable_dns_view_input.EnableDNSViewInput = {
             "dns_view_id": dns_view_id
         }
@@ -1678,7 +1748,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFirewallDomainList")
+        )
         input_: capo_route53globalresolver.types.create_firewall_domain_list_input.CreateFirewallDomainListInput = {
             "global_resolver_id": global_resolver_id,
             "name": name,
@@ -1733,7 +1805,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFirewallDomainList")
+        )
         input_: capo_route53globalresolver.types.get_firewall_domain_list_input.GetFirewallDomainListInput = {
             "firewall_domain_list_id": firewall_domain_list_id
         }
@@ -1781,7 +1855,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFirewallDomainList")
+        )
         input_: capo_route53globalresolver.types.delete_firewall_domain_list_input.DeleteFirewallDomainListInput = {
             "firewall_domain_list_id": firewall_domain_list_id
         }
@@ -1834,7 +1910,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFirewallDomainLists")
+        )
         input_: capo_route53globalresolver.types.list_firewall_domain_lists_input.ListFirewallDomainListsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1916,7 +1994,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportFirewallDomains")
+        )
         input_: capo_route53globalresolver.types.import_firewall_domains_input.ImportFirewallDomainsInput = {
             "domain_file_url": domain_file_url,
             "firewall_domain_list_id": firewall_domain_list_id,
@@ -1969,7 +2049,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFirewallDomains")
+        )
         input_: capo_route53globalresolver.types.list_firewall_domains_input.ListFirewallDomainsInput = {
             "firewall_domain_list_id": firewall_domain_list_id
         }
@@ -2049,7 +2131,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFirewallDomains")
+        )
         input_: capo_route53globalresolver.types.update_firewall_domains_input.UpdateFirewallDomainsInput = {
             "domains": domains,
             "firewall_domain_list_id": firewall_domain_list_id,
@@ -2148,7 +2232,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFirewallRule")
+        )
         input_: capo_route53globalresolver.types.create_firewall_rule_input.CreateFirewallRuleInput = {
             "action": action,
             "name": name,
@@ -2220,7 +2306,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFirewallRule")
+        )
         input_: capo_route53globalresolver.types.get_firewall_rule_input.GetFirewallRuleInput = {
             "firewall_rule_id": firewall_rule_id
         }
@@ -2311,7 +2399,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFirewallRule")
+        )
         input_: capo_route53globalresolver.types.update_firewall_rule_input.UpdateFirewallRuleInput = {
             "client_token": client_token,
             "firewall_rule_id": firewall_rule_id,
@@ -2380,7 +2470,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFirewallRule")
+        )
         input_: capo_route53globalresolver.types.delete_firewall_rule_input.DeleteFirewallRuleInput = {
             "firewall_rule_id": firewall_rule_id
         }
@@ -2433,7 +2525,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFirewallRules")
+        )
         input_: capo_route53globalresolver.types.list_firewall_rules_input.ListFirewallRulesInput = {
             "dns_view_id": dns_view_id
         }
@@ -2510,7 +2604,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchCreateFirewallRule")
+        )
         input_: capo_route53globalresolver.types.batch_create_firewall_rule_input.BatchCreateFirewallRuleInput = {
             "firewall_rules": firewall_rules
         }
@@ -2556,7 +2652,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteFirewallRule")
+        )
         input_: capo_route53globalresolver.types.batch_delete_firewall_rule_input.BatchDeleteFirewallRuleInput = {
             "firewall_rules": firewall_rules
         }
@@ -2602,7 +2700,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchUpdateFirewallRule")
+        )
         input_: capo_route53globalresolver.types.batch_update_firewall_rule_input.BatchUpdateFirewallRuleInput = {
             "firewall_rules": firewall_rules
         }
@@ -2670,7 +2770,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGlobalResolver")
+        )
         input_: capo_route53globalresolver.types.create_global_resolver_input.CreateGlobalResolverInput = {
             "name": name,
             "regions": regions,
@@ -2729,7 +2831,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGlobalResolver")
+        )
         input_: capo_route53globalresolver.types.get_global_resolver_input.GetGlobalResolverInput = {
             "global_resolver_id": global_resolver_id
         }
@@ -2796,7 +2900,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGlobalResolver")
+        )
         input_: capo_route53globalresolver.types.update_global_resolver_input.UpdateGlobalResolverInput = {
             "global_resolver_id": global_resolver_id
         }
@@ -2854,7 +2960,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGlobalResolver")
+        )
         input_: capo_route53globalresolver.types.delete_global_resolver_input.DeleteGlobalResolverInput = {
             "global_resolver_id": global_resolver_id
         }
@@ -2902,7 +3010,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGlobalResolvers")
+        )
         input_: capo_route53globalresolver.types.list_global_resolvers_input.ListGlobalResolversInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2978,7 +3088,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateHostedZone")
+        )
         input_: capo_route53globalresolver.types.associate_hosted_zone_input.AssociateHostedZoneInput = {
             "hosted_zone_id": hosted_zone_id,
             "resource_arn": resource_arn,
@@ -3027,7 +3139,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetHostedZoneAssociation")
+        )
         input_: capo_route53globalresolver.types.get_hosted_zone_association_input.GetHostedZoneAssociationInput = {
             "hosted_zone_association_id": hosted_zone_association_id
         }
@@ -3080,7 +3194,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateHostedZoneAssociation")
+        )
         input_: capo_route53globalresolver.types.update_hosted_zone_association_input.UpdateHostedZoneAssociationInput = {
             "hosted_zone_association_id": hosted_zone_association_id
         }
@@ -3135,7 +3251,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHostedZoneAssociations")
+        )
         input_: capo_route53globalresolver.types.list_hosted_zone_associations_input.ListHostedZoneAssociationsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3211,7 +3329,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetManagedFirewallDomainList")
+        )
         input_: capo_route53globalresolver.types.get_managed_firewall_domain_list_input.GetManagedFirewallDomainListInput = {
             "managed_firewall_domain_list_id": managed_firewall_domain_list_id
         }
@@ -3261,7 +3381,9 @@ class Route53GlobalResolverClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListManagedFirewallDomainLists")
+        )
         input_: capo_route53globalresolver.types.list_managed_firewall_domain_lists_input.ListManagedFirewallDomainListsInput = {
             "managed_firewall_domain_list_type": managed_firewall_domain_list_type
         }

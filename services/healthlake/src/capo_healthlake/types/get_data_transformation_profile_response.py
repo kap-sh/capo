@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.healthlake#GetDataTransformationProfileResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -149,4 +149,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetDataTransformationProfileResponse
         raise DeserializationError(
             "GetDataTransformationProfileResponse.last_updated_at required"
         )
+    return out
+
+
+def redact_sensitive(value: GetDataTransformationProfileResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "profile_mapping" in value:
+        out["profile_mapping"] = "*** Sensitive Data Redacted ***"
     return out

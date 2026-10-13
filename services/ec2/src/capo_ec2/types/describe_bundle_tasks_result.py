@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#DescribeBundleTasksResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -36,5 +36,16 @@ def deserialize_ec2_query(el: Element) -> DescribeBundleTasksResult:
 
         out["bundle_tasks"] = capo_ec2.types.bundle_task_list.deserialize_ec2_query(
             child_bundle_tasks
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeBundleTasksResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "bundle_tasks" in value:
+        import capo_ec2.types.bundle_task_list
+
+        out["bundle_tasks"] = capo_ec2.types.bundle_task_list.redact_sensitive(
+            value["bundle_tasks"]
         )
     return out

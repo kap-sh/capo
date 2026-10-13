@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appflow#SnowflakeConnectorProfileCredentials``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -44,4 +44,13 @@ def deserialize_json(data: dict) -> SnowflakeConnectorProfileCredentials:
         out["password"] = data["password"]
     if data.get("privateKey") is not None:
         out["private_key"] = data["privateKey"]
+    return out
+
+
+def redact_sensitive(value: SnowflakeConnectorProfileCredentials) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
+    if "private_key" in value:
+        out["private_key"] = "*** Sensitive Data Redacted ***"
     return out

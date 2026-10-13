@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.resiliencehub#CreateRecommendationTemplateRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -119,4 +119,11 @@ def deserialize_json(data: dict) -> CreateRecommendationTemplateRequest:
         out["tags"] = capo_resiliencehub.types.tag_map.deserialize_json(data["tags"])
     if data.get("bucketName") is not None:
         out["bucket_name"] = data["bucketName"]
+    return out
+
+
+def redact_sensitive(value: CreateRecommendationTemplateRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
     return out

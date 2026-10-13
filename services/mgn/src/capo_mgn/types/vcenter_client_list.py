@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mgn#VcenterClientList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_mgn.types.vcenter_client
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> VcenterClientList:
             continue
         out.append(capo_mgn.types.vcenter_client.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: VcenterClientList) -> list[Any]:
+    import capo_mgn.types.vcenter_client
+
+    return [capo_mgn.types.vcenter_client.redact_sensitive(item) for item in value]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssmsap#RegisterApplicationInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -131,6 +131,19 @@ def deserialize_json(data: dict) -> RegisterApplicationInput:
         out["components_info"] = (
             capo_ssm_sap.types.component_info_list.deserialize_json(
                 data["ComponentsInfo"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: RegisterApplicationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "credentials" in value:
+        import capo_ssm_sap.types.application_credential_list
+
+        out["credentials"] = (
+            capo_ssm_sap.types.application_credential_list.redact_sensitive(
+                value["credentials"]
             )
         )
     return out

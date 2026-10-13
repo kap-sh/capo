@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#AutocompleteAddressHighlights``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -228,5 +228,98 @@ def deserialize_json(data: dict) -> AutocompleteAddressHighlights:
 
         out["building"] = capo_geo_places.types.highlight_list.deserialize_json(
             data["Building"]
+        )
+    return out
+
+
+def redact_sensitive(value: AutocompleteAddressHighlights) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "label" in value:
+        import capo_geo_places.types.highlight_list
+
+        out["label"] = capo_geo_places.types.highlight_list.redact_sensitive(
+            value["label"]
+        )
+    if "country" in value:
+        import capo_geo_places.types.country_highlights
+
+        out["country"] = capo_geo_places.types.country_highlights.redact_sensitive(
+            value["country"]
+        )
+    if "region" in value:
+        import capo_geo_places.types.region_highlights
+
+        out["region"] = capo_geo_places.types.region_highlights.redact_sensitive(
+            value["region"]
+        )
+    if "sub_region" in value:
+        import capo_geo_places.types.sub_region_highlights
+
+        out["sub_region"] = (
+            capo_geo_places.types.sub_region_highlights.redact_sensitive(
+                value["sub_region"]
+            )
+        )
+    if "locality" in value:
+        import capo_geo_places.types.highlight_list
+
+        out["locality"] = capo_geo_places.types.highlight_list.redact_sensitive(
+            value["locality"]
+        )
+    if "district" in value:
+        import capo_geo_places.types.highlight_list
+
+        out["district"] = capo_geo_places.types.highlight_list.redact_sensitive(
+            value["district"]
+        )
+    if "sub_district" in value:
+        import capo_geo_places.types.highlight_list
+
+        out["sub_district"] = capo_geo_places.types.highlight_list.redact_sensitive(
+            value["sub_district"]
+        )
+    if "street" in value:
+        import capo_geo_places.types.highlight_list
+
+        out["street"] = capo_geo_places.types.highlight_list.redact_sensitive(
+            value["street"]
+        )
+    if "block" in value:
+        import capo_geo_places.types.highlight_list
+
+        out["block"] = capo_geo_places.types.highlight_list.redact_sensitive(
+            value["block"]
+        )
+    if "sub_block" in value:
+        import capo_geo_places.types.highlight_list
+
+        out["sub_block"] = capo_geo_places.types.highlight_list.redact_sensitive(
+            value["sub_block"]
+        )
+    if "intersection" in value:
+        import capo_geo_places.types.intersection_highlights_list
+
+        out["intersection"] = (
+            capo_geo_places.types.intersection_highlights_list.redact_sensitive(
+                value["intersection"]
+            )
+        )
+    if "postal_code" in value:
+        import capo_geo_places.types.highlight_list
+
+        out["postal_code"] = capo_geo_places.types.highlight_list.redact_sensitive(
+            value["postal_code"]
+        )
+    if "address_number" in value:
+        import capo_geo_places.types.highlight_list
+
+        out["address_number"] = capo_geo_places.types.highlight_list.redact_sensitive(
+            value["address_number"]
+        )
+    if "building" in value:
+        import capo_geo_places.types.highlight_list
+
+        out["building"] = capo_geo_places.types.highlight_list.redact_sensitive(
+            value["building"]
         )
     return out

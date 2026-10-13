@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#DBClusterList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from capo_rds._protocol.xml import Element
 
@@ -53,3 +53,9 @@ def deserialize_query_flat(parent: Element, tag: str) -> DBClusterList:
     for child in parent.findall(tag):
         out.append(capo_rds.types.db_cluster.deserialize_query(child))
     return out
+
+
+def redact_sensitive(value: DBClusterList) -> list[Any]:
+    import capo_rds.types.db_cluster
+
+    return [capo_rds.types.db_cluster.redact_sensitive(item) for item in value]

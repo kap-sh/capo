@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridgev2#FilterList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_eventbridgev2.types.filter
@@ -27,3 +27,9 @@ def deserialize_cbor(data: list) -> FilterList:
             continue
         out.append(capo_eventbridgev2.types.filter.deserialize_cbor(item))
     return out
+
+
+def redact_sensitive(value: FilterList) -> list[Any]:
+    import capo_eventbridgev2.types.filter
+
+    return [capo_eventbridgev2.types.filter.redact_sensitive(item) for item in value]

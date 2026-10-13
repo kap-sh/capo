@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.finspacedata#GetPermissionGroupResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -36,6 +36,19 @@ def deserialize_json(data: dict) -> GetPermissionGroupResponse:
         out["permission_group"] = (
             capo_finspace_data.types.permission_group.deserialize_json(
                 data["permissionGroup"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GetPermissionGroupResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "permission_group" in value:
+        import capo_finspace_data.types.permission_group
+
+        out["permission_group"] = (
+            capo_finspace_data.types.permission_group.redact_sensitive(
+                value["permission_group"]
             )
         )
     return out

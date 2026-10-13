@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3control#GetDataAccessResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -55,4 +55,11 @@ def deserialize_xml(el: Element) -> GetDataAccessResult:
         import capo_s3_control.types.grantee
 
         out["grantee"] = capo_s3_control.types.grantee.deserialize_xml(child_grantee)
+    return out
+
+
+def redact_sensitive(value: GetDataAccessResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "credentials" in value:
+        out["credentials"] = "*** Sensitive Data Redacted ***"
     return out

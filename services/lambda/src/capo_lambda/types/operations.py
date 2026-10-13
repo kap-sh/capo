@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#Operations``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_lambda.types.operation
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> Operations:
             continue
         out.append(capo_lambda.types.operation.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: Operations) -> list[Any]:
+    import capo_lambda.types.operation
+
+    return [capo_lambda.types.operation.redact_sensitive(item) for item in value]

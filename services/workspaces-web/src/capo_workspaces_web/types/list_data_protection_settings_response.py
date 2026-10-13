@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#ListDataProtectionSettingsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -48,4 +48,17 @@ def deserialize_json(data: dict) -> ListDataProtectionSettingsResponse:
         )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListDataProtectionSettingsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "data_protection_settings" in value:
+        import capo_workspaces_web.types.data_protection_settings_list
+
+        out["data_protection_settings"] = (
+            capo_workspaces_web.types.data_protection_settings_list.redact_sensitive(
+                value["data_protection_settings"]
+            )
+        )
     return out

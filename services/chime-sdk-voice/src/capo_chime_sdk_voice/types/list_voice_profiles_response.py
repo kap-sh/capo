@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#ListVoiceProfilesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_json(data: dict) -> ListVoiceProfilesResponse:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListVoiceProfilesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "voice_profiles" in value:
+        import capo_chime_sdk_voice.types.voice_profile_summary_list
+
+        out["voice_profiles"] = (
+            capo_chime_sdk_voice.types.voice_profile_summary_list.redact_sensitive(
+                value["voice_profiles"]
+            )
+        )
     return out

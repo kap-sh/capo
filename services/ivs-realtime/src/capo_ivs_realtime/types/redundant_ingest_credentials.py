@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ivsrealtime#RedundantIngestCredentials``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_ivs_realtime.types.redundant_ingest_credential
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> RedundantIngestCredentials:
             capo_ivs_realtime.types.redundant_ingest_credential.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: RedundantIngestCredentials) -> list[Any]:
+    import capo_ivs_realtime.types.redundant_ingest_credential
+
+    return [
+        capo_ivs_realtime.types.redundant_ingest_credential.redact_sensitive(item)
+        for item in value
+    ]

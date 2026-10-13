@@ -23,10 +23,12 @@ from capo_sagemaker_featurestore_runtime._pagination import (
 from capo_sagemaker_featurestore_runtime._services._aws_config import aws_config
 from capo_sagemaker_featurestore_runtime._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -132,6 +134,7 @@ class SageMakerFeatureStoreRuntimeClient:
     def operation_options(
         self,
         config_overrides: Optional[SageMakerFeatureStoreRuntimeClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: SageMakerFeatureStoreRuntimeClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -139,8 +142,10 @@ class SageMakerFeatureStoreRuntimeClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -198,7 +203,9 @@ class SageMakerFeatureStoreRuntimeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetRecord")
+        )
         input_: capo_sagemaker_featurestore_runtime.types.batch_get_record_request.BatchGetRecordRequest = {}
         if identifiers is not None:
             input_["identifiers"] = identifiers
@@ -258,7 +265,9 @@ class SageMakerFeatureStoreRuntimeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchWriteRecord")
+        )
         input_: capo_sagemaker_featurestore_runtime.types.batch_write_record_request.BatchWriteRecordRequest = {}
         if entries is not None:
             input_["entries"] = entries
@@ -320,7 +329,9 @@ class SageMakerFeatureStoreRuntimeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRecord")
+        )
         input_: capo_sagemaker_featurestore_runtime.types.delete_record_request.DeleteRecordRequest = {
             "feature_group_name": feature_group_name
         }
@@ -389,7 +400,9 @@ class SageMakerFeatureStoreRuntimeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRecord")
+        )
         input_: capo_sagemaker_featurestore_runtime.types.get_record_request.GetRecordRequest = {
             "feature_group_name": feature_group_name
         }
@@ -461,7 +474,9 @@ class SageMakerFeatureStoreRuntimeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecords")
+        )
         input_: capo_sagemaker_featurestore_runtime.types.list_records_request.ListRecordsRequest = {
             "feature_group_name": feature_group_name
         }
@@ -554,7 +569,9 @@ class SageMakerFeatureStoreRuntimeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRecord")
+        )
         input_: capo_sagemaker_featurestore_runtime.types.put_record_request.PutRecordRequest = {
             "feature_group_name": feature_group_name
         }
@@ -630,7 +647,9 @@ class SageMakerFeatureStoreRuntimeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRecord")
+        )
         input_: capo_sagemaker_featurestore_runtime.types.update_record_request.UpdateRecordRequest = {
             "feature_group_name": feature_group_name
         }

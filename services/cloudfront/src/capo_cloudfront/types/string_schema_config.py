@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudfront#StringSchemaConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,4 +47,11 @@ def deserialize_xml(el: Element) -> StringSchemaConfig:
         out["required"] = (child_required.text or "").lower() == "true"
     else:
         raise DeserializationError("StringSchemaConfig.required required")
+    return out
+
+
+def redact_sensitive(value: StringSchemaConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "comment" in value:
+        out["comment"] = "*** Sensitive Data Redacted ***"
     return out

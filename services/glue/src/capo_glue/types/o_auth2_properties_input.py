@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glue#OAuth2PropertiesInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -128,6 +128,27 @@ def deserialize_aws_json_1_1(data: dict) -> OAuth2PropertiesInput:
         out["o_auth2_credentials"] = (
             capo_glue.types.o_auth2_credentials.deserialize_aws_json_1_1(
                 data["OAuth2Credentials"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: OAuth2PropertiesInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "authorization_code_properties" in value:
+        import capo_glue.types.authorization_code_properties
+
+        out["authorization_code_properties"] = (
+            capo_glue.types.authorization_code_properties.redact_sensitive(
+                value["authorization_code_properties"]
+            )
+        )
+    if "o_auth2_credentials" in value:
+        import capo_glue.types.o_auth2_credentials
+
+        out["o_auth2_credentials"] = (
+            capo_glue.types.o_auth2_credentials.redact_sensitive(
+                value["o_auth2_credentials"]
             )
         )
     return out

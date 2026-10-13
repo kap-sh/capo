@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#BatchGetJobResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -50,4 +50,15 @@ def deserialize_json(data: dict) -> BatchGetJobResponse:
         )
     else:
         raise DeserializationError("BatchGetJobResponse.errors required")
+    return out
+
+
+def redact_sensitive(value: BatchGetJobResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "jobs" in value:
+        import capo_deadline.types.batch_get_job_items
+
+        out["jobs"] = capo_deadline.types.batch_get_job_items.redact_sensitive(
+            value["jobs"]
+        )
     return out

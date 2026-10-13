@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#RespondToAuthChallengeRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -145,4 +145,17 @@ def deserialize_aws_json_1_1(data: dict) -> RespondToAuthChallengeRequest:
                 data["ClientMetadata"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: RespondToAuthChallengeRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_id" in value:
+        out["client_id"] = "*** Sensitive Data Redacted ***"
+    if "session" in value:
+        out["session"] = "*** Sensitive Data Redacted ***"
+    if "challenge_responses" in value:
+        out["challenge_responses"] = "*** Sensitive Data Redacted ***"
+    if "user_context_data" in value:
+        out["user_context_data"] = "*** Sensitive Data Redacted ***"
     return out

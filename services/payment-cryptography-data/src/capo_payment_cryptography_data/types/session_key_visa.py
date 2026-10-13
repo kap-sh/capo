@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#SessionKeyVisa``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -38,4 +38,11 @@ def deserialize_json(data: dict) -> SessionKeyVisa:
         out["pan_sequence_number"] = data["PanSequenceNumber"]
     else:
         raise DeserializationError("SessionKeyVisa.pan_sequence_number required")
+    return out
+
+
+def redact_sensitive(value: SessionKeyVisa) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "primary_account_number" in value:
+        out["primary_account_number"] = "*** Sensitive Data Redacted ***"
     return out

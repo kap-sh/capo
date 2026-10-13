@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.databasemigrationservice#GcpMySQLSettings``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -141,4 +141,11 @@ def deserialize_aws_json_1_1(data: dict) -> GcpMySQLSettings:
         out["secrets_manager_access_role_arn"] = data["SecretsManagerAccessRoleArn"]
     if data.get("SecretsManagerSecretId") is not None:
         out["secrets_manager_secret_id"] = data["SecretsManagerSecretId"]
+    return out
+
+
+def redact_sensitive(value: GcpMySQLSettings) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
     return out

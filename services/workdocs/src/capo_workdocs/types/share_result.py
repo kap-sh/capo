@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#ShareResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -71,4 +71,11 @@ def deserialize_json(data: dict) -> ShareResult:
         out["share_id"] = data["ShareId"]
     if data.get("StatusMessage") is not None:
         out["status_message"] = data["StatusMessage"]
+    return out
+
+
+def redact_sensitive(value: ShareResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "status_message" in value:
+        out["status_message"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#GuardrailTopicsTierConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -38,4 +38,11 @@ def deserialize_json(data: dict) -> GuardrailTopicsTierConfig:
         )
     else:
         raise DeserializationError("GuardrailTopicsTierConfig.tier_name required")
+    return out
+
+
+def redact_sensitive(value: GuardrailTopicsTierConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tier_name" in value:
+        out["tier_name"] = "*** Sensitive Data Redacted ***"
     return out

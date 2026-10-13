@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#WaypointOptimizationTravelModeOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,6 +58,27 @@ def deserialize_json(data: dict) -> WaypointOptimizationTravelModeOptions:
         out["truck"] = (
             capo_geo_routes.types.waypoint_optimization_truck_options.deserialize_json(
                 data["Truck"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: WaypointOptimizationTravelModeOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "pedestrian" in value:
+        import capo_geo_routes.types.waypoint_optimization_pedestrian_options
+
+        out["pedestrian"] = (
+            capo_geo_routes.types.waypoint_optimization_pedestrian_options.redact_sensitive(
+                value["pedestrian"]
+            )
+        )
+    if "truck" in value:
+        import capo_geo_routes.types.waypoint_optimization_truck_options
+
+        out["truck"] = (
+            capo_geo_routes.types.waypoint_optimization_truck_options.redact_sensitive(
+                value["truck"]
             )
         )
     return out

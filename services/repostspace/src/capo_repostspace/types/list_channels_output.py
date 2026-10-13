@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.repostspace#ListChannelsOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,4 +42,15 @@ def deserialize_json(data: dict) -> ListChannelsOutput:
         raise DeserializationError("ListChannelsOutput.channels required")
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListChannelsOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "channels" in value:
+        import capo_repostspace.types.channels_list
+
+        out["channels"] = capo_repostspace.types.channels_list.redact_sensitive(
+            value["channels"]
+        )
     return out

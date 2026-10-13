@@ -50,10 +50,12 @@ from capo_redshift_serverless._resources.redshift_serverless.workgroup_resource 
 from capo_redshift_serverless._services._aws_config import aws_config
 from capo_redshift_serverless._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -330,7 +332,9 @@ class RedshiftServerlessClient:
         self.workgroup_resource = WorkgroupResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[RedshiftServerlessClientConfig] = None
+        self,
+        config_overrides: Optional[RedshiftServerlessClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: RedshiftServerlessClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -338,8 +342,10 @@ class RedshiftServerlessClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -397,7 +403,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCustomDomainAssociation")
+        )
         input_: capo_redshift_serverless.types.create_custom_domain_association_request.CreateCustomDomainAssociationRequest = {
             "workgroup_name": workgroup_name,
             "custom_domain_name": custom_domain_name,
@@ -449,7 +457,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCustomDomainAssociation")
+        )
         input_: capo_redshift_serverless.types.delete_custom_domain_association_request.DeleteCustomDomainAssociationRequest = {
             "workgroup_name": workgroup_name,
             "custom_domain_name": custom_domain_name,
@@ -495,7 +505,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_redshift_serverless.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -552,7 +564,19 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift_serverless.types.get_credentials_response.GetCredentialsResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.get_credentials_response
+
+            return capo_redshift_serverless.types.get_credentials_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetCredentials", redact_output=_redact_output),
+        )
         input_: capo_redshift_serverless.types.get_credentials_request.GetCredentialsRequest = {}
         if db_name is not None:
             input_["db_name"] = db_name
@@ -608,7 +632,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCustomDomainAssociation")
+        )
         input_: capo_redshift_serverless.types.get_custom_domain_association_request.GetCustomDomainAssociationRequest = {
             "custom_domain_name": custom_domain_name,
             "workgroup_name": workgroup_name,
@@ -658,7 +684,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIdentityCenterAuthToken")
+        )
         input_: capo_redshift_serverless.types.get_identity_center_auth_token_request.GetIdentityCenterAuthTokenRequest = {
             "workgroup_names": workgroup_names
         }
@@ -703,7 +731,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_redshift_serverless.types.get_resource_policy_request.GetResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -752,7 +782,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTrack")
+        )
         input_: capo_redshift_serverless.types.get_track_request.GetTrackRequest = {
             "track_name": track_name
         }
@@ -811,7 +843,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCustomDomainAssociations")
+        )
         input_: capo_redshift_serverless.types.list_custom_domain_associations_request.ListCustomDomainAssociationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -894,7 +928,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_redshift_serverless.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -945,7 +981,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTracks")
+        )
         input_: capo_redshift_serverless.types.list_tracks_request.ListTracksRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1019,7 +1057,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_redshift_serverless.types.put_resource_policy_request.PutResourcePolicyRequest = {
             "resource_arn": resource_arn,
             "policy": policy,
@@ -1069,7 +1109,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_redshift_serverless.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1118,7 +1160,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_redshift_serverless.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1171,7 +1215,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCustomDomainAssociation")
+        )
         input_: capo_redshift_serverless.types.update_custom_domain_association_request.UpdateCustomDomainAssociationRequest = {
             "workgroup_name": workgroup_name,
             "custom_domain_name": custom_domain_name,
@@ -1233,7 +1279,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEndpointAccess")
+        )
         input_: capo_redshift_serverless.types.create_endpoint_access_request.CreateEndpointAccessRequest = {
             "endpoint_name": endpoint_name,
             "subnet_ids": subnet_ids,
@@ -1285,7 +1333,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEndpointAccess")
+        )
         input_: capo_redshift_serverless.types.delete_endpoint_access_request.DeleteEndpointAccessRequest = {
             "endpoint_name": endpoint_name
         }
@@ -1331,7 +1381,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEndpointAccess")
+        )
         input_: capo_redshift_serverless.types.get_endpoint_access_request.GetEndpointAccessRequest = {
             "endpoint_name": endpoint_name
         }
@@ -1387,7 +1439,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEndpointAccess")
+        )
         input_: capo_redshift_serverless.types.list_endpoint_access_request.ListEndpointAccessRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1475,7 +1529,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEndpointAccess")
+        )
         input_: capo_redshift_serverless.types.update_endpoint_access_request.UpdateEndpointAccessRequest = {
             "endpoint_name": endpoint_name
         }
@@ -1529,7 +1585,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListManagedWorkgroups")
+        )
         input_: capo_redshift_serverless.types.list_managed_workgroups_request.ListManagedWorkgroupsRequest = {}
         if source_arn is not None:
             input_["source_arn"] = source_arn
@@ -1640,7 +1698,32 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_redshift_serverless.types.create_namespace_request.CreateNamespaceRequest",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.create_namespace_request
+
+            return capo_redshift_serverless.types.create_namespace_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_redshift_serverless.types.create_namespace_response.CreateNamespaceResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.create_namespace_response
+
+            return capo_redshift_serverless.types.create_namespace_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateNamespace",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_redshift_serverless.types.create_namespace_request.CreateNamespaceRequest = {
             "namespace_name": namespace_name
         }
@@ -1709,7 +1792,21 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift_serverless.types.get_namespace_response.GetNamespaceResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.get_namespace_response
+
+            return (
+                capo_redshift_serverless.types.get_namespace_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetNamespace", redact_output=_redact_output),
+        )
         input_: capo_redshift_serverless.types.get_namespace_request.GetNamespaceRequest = {
             "namespace_name": namespace_name
         }
@@ -1801,7 +1898,32 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_redshift_serverless.types.update_namespace_request.UpdateNamespaceRequest",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.update_namespace_request
+
+            return capo_redshift_serverless.types.update_namespace_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_redshift_serverless.types.update_namespace_response.UpdateNamespaceResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.update_namespace_response
+
+            return capo_redshift_serverless.types.update_namespace_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateNamespace",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_redshift_serverless.types.update_namespace_request.UpdateNamespaceRequest = {
             "namespace_name": namespace_name
         }
@@ -1879,7 +2001,19 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift_serverless.types.delete_namespace_response.DeleteNamespaceResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.delete_namespace_response
+
+            return capo_redshift_serverless.types.delete_namespace_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteNamespace", redact_output=_redact_output),
+        )
         input_: capo_redshift_serverless.types.delete_namespace_request.DeleteNamespaceRequest = {
             "namespace_name": namespace_name
         }
@@ -1931,7 +2065,19 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift_serverless.types.list_namespaces_response.ListNamespacesResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.list_namespaces_response
+
+            return capo_redshift_serverless.types.list_namespaces_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListNamespaces", redact_output=_redact_output),
+        )
         input_: capo_redshift_serverless.types.list_namespaces_request.ListNamespacesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2017,7 +2163,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLakehouseConfiguration")
+        )
         input_: capo_redshift_serverless.types.update_lakehouse_configuration_request.UpdateLakehouseConfigurationRequest = {
             "namespace_name": namespace_name
         }
@@ -2081,7 +2229,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ConvertRecoveryPointToSnapshot")
+        )
         input_: capo_redshift_serverless.types.convert_recovery_point_to_snapshot_request.ConvertRecoveryPointToSnapshotRequest = {
             "recovery_point_id": recovery_point_id,
             "snapshot_name": snapshot_name,
@@ -2132,7 +2282,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRecoveryPoint")
+        )
         input_: capo_redshift_serverless.types.get_recovery_point_request.GetRecoveryPointRequest = {
             "recovery_point_id": recovery_point_id
         }
@@ -2188,7 +2340,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecoveryPoints")
+        )
         input_: capo_redshift_serverless.types.list_recovery_points_request.ListRecoveryPointsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2281,7 +2435,19 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift_serverless.types.restore_from_recovery_point_response.RestoreFromRecoveryPointResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.restore_from_recovery_point_response
+
+            return capo_redshift_serverless.types.restore_from_recovery_point_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RestoreFromRecoveryPoint", redact_output=_redact_output),
+        )
         input_: capo_redshift_serverless.types.restore_from_recovery_point_request.RestoreFromRecoveryPointRequest = {
             "recovery_point_id": recovery_point_id,
             "namespace_name": namespace_name,
@@ -2349,7 +2515,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreTableFromRecoveryPoint")
+        )
         input_: capo_redshift_serverless.types.restore_table_from_recovery_point_request.RestoreTableFromRecoveryPointRequest = {
             "namespace_name": namespace_name,
             "workgroup_name": workgroup_name,
@@ -2417,7 +2585,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateReservation")
+        )
         input_: capo_redshift_serverless.types.create_reservation_request.CreateReservationRequest = {
             "capacity": capacity,
             "offering_id": offering_id,
@@ -2469,7 +2639,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReservation")
+        )
         input_: capo_redshift_serverless.types.get_reservation_request.GetReservationRequest = {
             "reservation_id": reservation_id
         }
@@ -2515,7 +2687,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReservationOffering")
+        )
         input_: capo_redshift_serverless.types.get_reservation_offering_request.GetReservationOfferingRequest = {
             "offering_id": offering_id
         }
@@ -2564,7 +2738,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReservationOfferings")
+        )
         input_: capo_redshift_serverless.types.list_reservation_offerings_request.ListReservationOfferingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2638,7 +2814,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReservations")
+        )
         input_: capo_redshift_serverless.types.list_reservations_request.ListReservationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2724,7 +2902,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateScheduledAction")
+        )
         input_: capo_redshift_serverless.types.create_scheduled_action_request.CreateScheduledActionRequest = {
             "scheduled_action_name": scheduled_action_name,
             "target_action": target_action,
@@ -2781,7 +2961,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteScheduledAction")
+        )
         input_: capo_redshift_serverless.types.delete_scheduled_action_request.DeleteScheduledActionRequest = {
             "scheduled_action_name": scheduled_action_name
         }
@@ -2826,7 +3008,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetScheduledAction")
+        )
         input_: capo_redshift_serverless.types.get_scheduled_action_request.GetScheduledActionRequest = {
             "scheduled_action_name": scheduled_action_name
         }
@@ -2880,7 +3064,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListScheduledActions")
+        )
         input_: capo_redshift_serverless.types.list_scheduled_actions_request.ListScheduledActionsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2974,7 +3160,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateScheduledAction")
+        )
         input_: capo_redshift_serverless.types.update_scheduled_action_request.UpdateScheduledActionRequest = {
             "scheduled_action_name": scheduled_action_name
         }
@@ -3044,7 +3232,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSnapshot")
+        )
         input_: capo_redshift_serverless.types.create_snapshot_request.CreateSnapshotRequest = {
             "namespace_name": namespace_name,
             "snapshot_name": snapshot_name,
@@ -3105,7 +3295,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSnapshotCopyConfiguration")
+        )
         input_: capo_redshift_serverless.types.create_snapshot_copy_configuration_request.CreateSnapshotCopyConfigurationRequest = {
             "namespace_name": namespace_name,
             "destination_region": destination_region,
@@ -3158,7 +3350,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSnapshot")
+        )
         input_: capo_redshift_serverless.types.delete_snapshot_request.DeleteSnapshotRequest = {
             "snapshot_name": snapshot_name
         }
@@ -3205,7 +3399,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSnapshotCopyConfiguration")
+        )
         input_: capo_redshift_serverless.types.delete_snapshot_copy_configuration_request.DeleteSnapshotCopyConfigurationRequest = {
             "snapshot_copy_configuration_id": snapshot_copy_configuration_id
         }
@@ -3254,7 +3450,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSnapshot")
+        )
         input_: capo_redshift_serverless.types.get_snapshot_request.GetSnapshotRequest = {}
         if snapshot_name is not None:
             input_["snapshot_name"] = snapshot_name
@@ -3302,7 +3500,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableRestoreStatus")
+        )
         input_: capo_redshift_serverless.types.get_table_restore_status_request.GetTableRestoreStatusRequest = {
             "table_restore_request_id": table_restore_request_id
         }
@@ -3357,7 +3557,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSnapshotCopyConfigurations")
+        )
         input_: capo_redshift_serverless.types.list_snapshot_copy_configurations_request.ListSnapshotCopyConfigurationsRequest = {}
         if namespace_name is not None:
             input_["namespace_name"] = namespace_name
@@ -3445,7 +3647,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSnapshots")
+        )
         input_: capo_redshift_serverless.types.list_snapshots_request.ListSnapshotsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3541,7 +3745,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTableRestoreStatus")
+        )
         input_: capo_redshift_serverless.types.list_table_restore_status_request.ListTableRestoreStatusRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3637,7 +3843,19 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift_serverless.types.restore_from_snapshot_response.RestoreFromSnapshotResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.restore_from_snapshot_response
+
+            return capo_redshift_serverless.types.restore_from_snapshot_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RestoreFromSnapshot", redact_output=_redact_output),
+        )
         input_: capo_redshift_serverless.types.restore_from_snapshot_request.RestoreFromSnapshotRequest = {
             "namespace_name": namespace_name,
             "workgroup_name": workgroup_name,
@@ -3716,7 +3934,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreTableFromSnapshot")
+        )
         input_: capo_redshift_serverless.types.restore_table_from_snapshot_request.RestoreTableFromSnapshotRequest = {
             "namespace_name": namespace_name,
             "workgroup_name": workgroup_name,
@@ -3781,7 +4001,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSnapshot")
+        )
         input_: capo_redshift_serverless.types.update_snapshot_request.UpdateSnapshotRequest = {
             "snapshot_name": snapshot_name
         }
@@ -3832,7 +4054,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSnapshotCopyConfiguration")
+        )
         input_: capo_redshift_serverless.types.update_snapshot_copy_configuration_request.UpdateSnapshotCopyConfigurationRequest = {
             "snapshot_copy_configuration_id": snapshot_copy_configuration_id
         }
@@ -3893,7 +4117,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUsageLimit")
+        )
         input_: capo_redshift_serverless.types.create_usage_limit_request.CreateUsageLimitRequest = {
             "resource_arn": resource_arn,
             "usage_type": usage_type,
@@ -3945,7 +4171,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUsageLimit")
+        )
         input_: capo_redshift_serverless.types.delete_usage_limit_request.DeleteUsageLimitRequest = {
             "usage_limit_id": usage_limit_id
         }
@@ -3993,7 +4221,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUsageLimit")
+        )
         input_: capo_redshift_serverless.types.get_usage_limit_request.GetUsageLimitRequest = {
             "usage_limit_id": usage_limit_id
         }
@@ -4050,7 +4280,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUsageLimits")
+        )
         input_: capo_redshift_serverless.types.list_usage_limits_request.ListUsageLimitsRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -4137,7 +4369,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUsageLimit")
+        )
         input_: capo_redshift_serverless.types.update_usage_limit_request.UpdateUsageLimitRequest = {
             "usage_limit_id": usage_limit_id
         }
@@ -4230,7 +4464,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkgroup")
+        )
         input_: capo_redshift_serverless.types.create_workgroup_request.CreateWorkgroupRequest = {
             "workgroup_name": workgroup_name,
             "namespace_name": namespace_name,
@@ -4304,7 +4540,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkgroup")
+        )
         input_: capo_redshift_serverless.types.get_workgroup_request.GetWorkgroupRequest = {
             "workgroup_name": workgroup_name
         }
@@ -4388,7 +4626,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkgroup")
+        )
         input_: capo_redshift_serverless.types.update_workgroup_request.UpdateWorkgroupRequest = {
             "workgroup_name": workgroup_name
         }
@@ -4460,7 +4700,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkgroup")
+        )
         input_: capo_redshift_serverless.types.delete_workgroup_request.DeleteWorkgroupRequest = {
             "workgroup_name": workgroup_name
         }
@@ -4512,7 +4754,9 @@ class RedshiftServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkgroups")
+        )
         input_: capo_redshift_serverless.types.list_workgroups_request.ListWorkgroupsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

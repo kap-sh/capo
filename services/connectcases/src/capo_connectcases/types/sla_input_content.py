@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectcases#SlaInputContent``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -44,3 +44,16 @@ def deserialize_json(data: dict) -> SlaInputContent:
         }
     else:
         raise DeserializationError("SlaInputContent: no recognized variant key")
+
+
+def redact_sensitive(value: SlaInputContent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "slaInputConfiguration" in value:
+        import capo_connectcases.types.sla_input_configuration
+
+        out["slaInputConfiguration"] = (
+            capo_connectcases.types.sla_input_configuration.redact_sensitive(
+                value["slaInputConfiguration"]
+            )
+        )
+    return out

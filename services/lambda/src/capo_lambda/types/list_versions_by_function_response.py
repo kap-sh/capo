@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#ListVersionsByFunctionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,5 +39,16 @@ def deserialize_json(data: dict) -> ListVersionsByFunctionResponse:
 
         out["versions"] = capo_lambda.types.function_list.deserialize_json(
             data["Versions"]
+        )
+    return out
+
+
+def redact_sensitive(value: ListVersionsByFunctionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "versions" in value:
+        import capo_lambda.types.function_list
+
+        out["versions"] = capo_lambda.types.function_list.redact_sensitive(
+            value["versions"]
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.grafana#UpdateWorkspaceAuthenticationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -64,6 +64,19 @@ def deserialize_json(data: dict) -> UpdateWorkspaceAuthenticationRequest:
         out["saml_configuration"] = (
             capo_grafana.types.saml_configuration.deserialize_json(
                 data["samlConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateWorkspaceAuthenticationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "saml_configuration" in value:
+        import capo_grafana.types.saml_configuration
+
+        out["saml_configuration"] = (
+            capo_grafana.types.saml_configuration.redact_sensitive(
+                value["saml_configuration"]
             )
         )
     return out

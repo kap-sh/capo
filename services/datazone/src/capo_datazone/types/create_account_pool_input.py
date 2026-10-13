@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#CreateAccountPoolInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -74,4 +74,19 @@ def deserialize_json(data: dict) -> CreateAccountPoolInput:
         )
     else:
         raise DeserializationError("CreateAccountPoolInput.account_source required")
+    return out
+
+
+def redact_sensitive(value: CreateAccountPoolInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "account_source" in value:
+        import capo_datazone.types.account_source
+
+        out["account_source"] = capo_datazone.types.account_source.redact_sensitive(
+            value["account_source"]
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#ListPartsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -52,4 +52,11 @@ def serialize_xml(value: ListPartsRequest, parent: Element, tag: str) -> None:
 
 def deserialize_xml(el: Element) -> ListPartsRequest:
     out: ListPartsRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: ListPartsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sse_customer_key" in value:
+        out["sse_customer_key"] = "*** Sensitive Data Redacted ***"
     return out

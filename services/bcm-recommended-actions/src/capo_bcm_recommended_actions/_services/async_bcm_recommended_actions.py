@@ -24,7 +24,9 @@ from capo_bcm_recommended_actions._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -106,7 +108,9 @@ class AsyncBCMRecommendedActionsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncBCMRecommendedActionsClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncBCMRecommendedActionsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncBCMRecommendedActionsClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -114,8 +118,10 @@ class AsyncBCMRecommendedActionsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -175,7 +181,9 @@ class AsyncBCMRecommendedActionsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecommendedActions")
+        )
         input_: capo_bcm_recommended_actions.types.list_recommended_actions_request.ListRecommendedActionsRequest = {}
         if filter is not None:
             input_["filter"] = filter

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#BrowserProfileSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -154,4 +154,11 @@ def deserialize_json(data: dict) -> BrowserProfileSummary:
         out["last_saved_browser_session_id"] = data["lastSavedBrowserSessionId"]
     if data.get("lastSavedBrowserId") is not None:
         out["last_saved_browser_id"] = data["lastSavedBrowserId"]
+    return out
+
+
+def redact_sensitive(value: BrowserProfileSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

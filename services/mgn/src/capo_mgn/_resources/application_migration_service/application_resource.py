@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_mgn._auth._signers
 import capo_mgn._auth._sigv4
 from capo_mgn._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -83,7 +84,28 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.create_application_request.CreateApplicationRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.create_application_request
+
+            return capo_mgn.types.create_application_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_mgn.types.application.Application",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.application
+
+            return capo_mgn.types.application.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateApplication",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.create_application_request.CreateApplicationRequest = {
             "name": name
         }
@@ -136,7 +158,9 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_mgn.types.delete_application_request.DeleteApplicationRequest = {
             "application_id": application_id
         }
@@ -189,7 +213,17 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_applications_response.ListApplicationsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_applications_response
+
+            return capo_mgn.types.list_applications_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListApplications", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.list_applications_request.ListApplicationsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -241,7 +275,17 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.application.Application",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.application
+
+            return capo_mgn.types.application.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ArchiveApplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.archive_application_request.ArchiveApplicationRequest = {
             "application_id": application_id
         }
@@ -293,7 +337,9 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateSourceServers")
+        )
         input_: capo_mgn.types.associate_source_servers_request.AssociateSourceServersRequest = {
             "application_id": application_id,
             "source_server_i_ds": source_server_i_ds,
@@ -345,7 +391,9 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateSourceServers")
+        )
         input_: capo_mgn.types.disassociate_source_servers_request.DisassociateSourceServersRequest = {
             "application_id": application_id,
             "source_server_i_ds": source_server_i_ds,
@@ -393,7 +441,17 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.application.Application",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.application
+
+            return capo_mgn.types.application.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UnarchiveApplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.unarchive_application_request.UnarchiveApplicationRequest = {
             "application_id": application_id
         }
@@ -446,7 +504,17 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.application.Application",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.application
+
+            return capo_mgn.types.application.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateApplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.update_application_request.UpdateApplicationRequest = {
             "application_id": application_id
         }
@@ -509,7 +577,28 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.create_application_request.CreateApplicationRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.create_application_request
+
+            return capo_mgn.types.create_application_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_mgn.types.application.Application",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.application
+
+            return capo_mgn.types.application.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateApplication",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.create_application_request.CreateApplicationRequest = {
             "name": name
         }
@@ -563,7 +652,9 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_mgn.types.delete_application_request.DeleteApplicationRequest = {
             "application_id": application_id
         }
@@ -617,7 +708,17 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_applications_response.ListApplicationsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_applications_response
+
+            return capo_mgn.types.list_applications_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListApplications", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.list_applications_request.ListApplicationsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -670,7 +771,17 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.application.Application",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.application
+
+            return capo_mgn.types.application.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ArchiveApplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.archive_application_request.ArchiveApplicationRequest = {
             "application_id": application_id
         }
@@ -723,7 +834,9 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateSourceServers")
+        )
         input_: capo_mgn.types.associate_source_servers_request.AssociateSourceServersRequest = {
             "application_id": application_id,
             "source_server_i_ds": source_server_i_ds,
@@ -776,7 +889,9 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateSourceServers")
+        )
         input_: capo_mgn.types.disassociate_source_servers_request.DisassociateSourceServersRequest = {
             "application_id": application_id,
             "source_server_i_ds": source_server_i_ds,
@@ -825,7 +940,17 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.application.Application",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.application
+
+            return capo_mgn.types.application.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UnarchiveApplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.unarchive_application_request.UnarchiveApplicationRequest = {
             "application_id": application_id
         }
@@ -879,7 +1004,17 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.application.Application",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.application
+
+            return capo_mgn.types.application.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateApplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.update_application_request.UpdateApplicationRequest = {
             "application_id": application_id
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#ExternalSource``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -65,5 +65,16 @@ def deserialize_json(data: dict) -> ExternalSource:
 
         out["byte_content"] = capo_bedrock.types.byte_content_doc.deserialize_json(
             data["byteContent"]
+        )
+    return out
+
+
+def redact_sensitive(value: ExternalSource) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "byte_content" in value:
+        import capo_bedrock.types.byte_content_doc
+
+        out["byte_content"] = capo_bedrock.types.byte_content_doc.redact_sensitive(
+            value["byte_content"]
         )
     return out

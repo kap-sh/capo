@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#WebCrawlerConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -91,4 +91,13 @@ def deserialize_json(data: dict) -> WebCrawlerConfiguration:
         )
     if data.get("scope") is not None:
         out["scope"] = data["scope"]
+    return out
+
+
+def redact_sensitive(value: WebCrawlerConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inclusion_filters" in value:
+        out["inclusion_filters"] = "*** Sensitive Data Redacted ***"
+    if "exclusion_filters" in value:
+        out["exclusion_filters"] = "*** Sensitive Data Redacted ***"
     return out

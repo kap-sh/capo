@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ivsrealtime#IngestConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -155,4 +155,19 @@ def deserialize_json(data: dict) -> IngestConfiguration:
         import capo_ivs_realtime.types.tags
 
         out["tags"] = capo_ivs_realtime.types.tags.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: IngestConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "stream_key" in value:
+        out["stream_key"] = "*** Sensitive Data Redacted ***"
+    if "redundant_ingest_credentials" in value:
+        import capo_ivs_realtime.types.redundant_ingest_credentials
+
+        out["redundant_ingest_credentials"] = (
+            capo_ivs_realtime.types.redundant_ingest_credentials.redact_sensitive(
+                value["redundant_ingest_credentials"]
+            )
+        )
     return out

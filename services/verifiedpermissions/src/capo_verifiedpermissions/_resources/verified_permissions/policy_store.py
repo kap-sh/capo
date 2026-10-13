@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_verifiedpermissions._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -133,7 +134,19 @@ class PolicyStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.create_policy_store_input.CreatePolicyStoreInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.create_policy_store_input
+
+            return capo_verifiedpermissions.types.create_policy_store_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreatePolicyStore", redact_input=_redact_input),
+        )
         input_: capo_verifiedpermissions.types.create_policy_store_input.CreatePolicyStoreInput = {
             "validation_settings": validation_settings
         }
@@ -203,7 +216,21 @@ class PolicyStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.get_policy_store_output.GetPolicyStoreOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.get_policy_store_output
+
+            return (
+                capo_verifiedpermissions.types.get_policy_store_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetPolicyStore", redact_output=_redact_output),
+        )
         input_: capo_verifiedpermissions.types.get_policy_store_input.GetPolicyStoreInput = {
             "policy_store_id": policy_store_id
         }
@@ -269,7 +296,19 @@ class PolicyStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.update_policy_store_input.UpdatePolicyStoreInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.update_policy_store_input
+
+            return capo_verifiedpermissions.types.update_policy_store_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdatePolicyStore", redact_input=_redact_input),
+        )
         input_: capo_verifiedpermissions.types.update_policy_store_input.UpdatePolicyStoreInput = {
             "policy_store_id": policy_store_id,
             "validation_settings": validation_settings,
@@ -327,7 +366,9 @@ class PolicyStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePolicyStore")
+        )
         input_: capo_verifiedpermissions.types.delete_policy_store_input.DeletePolicyStoreInput = {
             "policy_store_id": policy_store_id
         }
@@ -385,7 +426,19 @@ class PolicyStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.list_policy_stores_output.ListPolicyStoresOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.list_policy_stores_output
+
+            return capo_verifiedpermissions.types.list_policy_stores_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListPolicyStores", redact_output=_redact_output),
+        )
         input_: capo_verifiedpermissions.types.list_policy_stores_input.ListPolicyStoresInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -446,7 +499,32 @@ class PolicyStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.batch_is_authorized_input.BatchIsAuthorizedInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.batch_is_authorized_input
+
+            return capo_verifiedpermissions.types.batch_is_authorized_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.batch_is_authorized_output.BatchIsAuthorizedOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.batch_is_authorized_output
+
+            return capo_verifiedpermissions.types.batch_is_authorized_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchIsAuthorized",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_verifiedpermissions.types.batch_is_authorized_input.BatchIsAuthorizedInput = {
             "policy_store_id": policy_store_id,
             "requests": requests,
@@ -512,7 +590,32 @@ class PolicyStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.batch_is_authorized_with_token_input.BatchIsAuthorizedWithTokenInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.batch_is_authorized_with_token_input
+
+            return capo_verifiedpermissions.types.batch_is_authorized_with_token_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.batch_is_authorized_with_token_output.BatchIsAuthorizedWithTokenOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.batch_is_authorized_with_token_output
+
+            return capo_verifiedpermissions.types.batch_is_authorized_with_token_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchIsAuthorizedWithToken",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_verifiedpermissions.types.batch_is_authorized_with_token_input.BatchIsAuthorizedWithTokenInput = {
             "policy_store_id": policy_store_id,
             "requests": requests,
@@ -577,7 +680,19 @@ class PolicyStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.get_schema_output.GetSchemaOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.get_schema_output
+
+            return capo_verifiedpermissions.types.get_schema_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetSchema", redact_output=_redact_output),
+        )
         input_: capo_verifiedpermissions.types.get_schema_input.GetSchemaInput = {
             "policy_store_id": policy_store_id
         }
@@ -656,7 +771,30 @@ class PolicyStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.is_authorized_input.IsAuthorizedInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.is_authorized_input
+
+            return capo_verifiedpermissions.types.is_authorized_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.is_authorized_output.IsAuthorizedOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.is_authorized_output
+
+            return capo_verifiedpermissions.types.is_authorized_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "IsAuthorized", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_verifiedpermissions.types.is_authorized_input.IsAuthorizedInput = {
             "policy_store_id": policy_store_id
         }
@@ -745,7 +883,32 @@ class PolicyStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.is_authorized_with_token_input.IsAuthorizedWithTokenInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.is_authorized_with_token_input
+
+            return capo_verifiedpermissions.types.is_authorized_with_token_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.is_authorized_with_token_output.IsAuthorizedWithTokenOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.is_authorized_with_token_output
+
+            return capo_verifiedpermissions.types.is_authorized_with_token_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "IsAuthorizedWithToken",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_verifiedpermissions.types.is_authorized_with_token_input.IsAuthorizedWithTokenInput = {
             "policy_store_id": policy_store_id
         }
@@ -819,7 +982,30 @@ class PolicyStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.put_schema_input.PutSchemaInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.put_schema_input
+
+            return capo_verifiedpermissions.types.put_schema_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.put_schema_output.PutSchemaOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.put_schema_output
+
+            return capo_verifiedpermissions.types.put_schema_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutSchema", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_verifiedpermissions.types.put_schema_input.PutSchemaInput = {
             "policy_store_id": policy_store_id,
             "definition": definition,
@@ -876,7 +1062,21 @@ class PolicyStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.batch_get_policy_output.BatchGetPolicyOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.batch_get_policy_output
+
+            return (
+                capo_verifiedpermissions.types.batch_get_policy_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetPolicy", redact_output=_redact_output),
+        )
         input_: capo_verifiedpermissions.types.batch_get_policy_input.BatchGetPolicyInput = {
             "requests": requests
         }
@@ -958,7 +1158,19 @@ class AsyncPolicyStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.create_policy_store_input.CreatePolicyStoreInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.create_policy_store_input
+
+            return capo_verifiedpermissions.types.create_policy_store_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreatePolicyStore", redact_input=_redact_input),
+        )
         input_: capo_verifiedpermissions.types.create_policy_store_input.CreatePolicyStoreInput = {
             "validation_settings": validation_settings
         }
@@ -1029,7 +1241,21 @@ class AsyncPolicyStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.get_policy_store_output.GetPolicyStoreOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.get_policy_store_output
+
+            return (
+                capo_verifiedpermissions.types.get_policy_store_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetPolicyStore", redact_output=_redact_output),
+        )
         input_: capo_verifiedpermissions.types.get_policy_store_input.GetPolicyStoreInput = {
             "policy_store_id": policy_store_id
         }
@@ -1096,7 +1322,19 @@ class AsyncPolicyStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.update_policy_store_input.UpdatePolicyStoreInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.update_policy_store_input
+
+            return capo_verifiedpermissions.types.update_policy_store_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdatePolicyStore", redact_input=_redact_input),
+        )
         input_: capo_verifiedpermissions.types.update_policy_store_input.UpdatePolicyStoreInput = {
             "policy_store_id": policy_store_id,
             "validation_settings": validation_settings,
@@ -1155,7 +1393,9 @@ class AsyncPolicyStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePolicyStore")
+        )
         input_: capo_verifiedpermissions.types.delete_policy_store_input.DeletePolicyStoreInput = {
             "policy_store_id": policy_store_id
         }
@@ -1214,7 +1454,19 @@ class AsyncPolicyStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.list_policy_stores_output.ListPolicyStoresOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.list_policy_stores_output
+
+            return capo_verifiedpermissions.types.list_policy_stores_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListPolicyStores", redact_output=_redact_output),
+        )
         input_: capo_verifiedpermissions.types.list_policy_stores_input.ListPolicyStoresInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1276,7 +1528,32 @@ class AsyncPolicyStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.batch_is_authorized_input.BatchIsAuthorizedInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.batch_is_authorized_input
+
+            return capo_verifiedpermissions.types.batch_is_authorized_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.batch_is_authorized_output.BatchIsAuthorizedOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.batch_is_authorized_output
+
+            return capo_verifiedpermissions.types.batch_is_authorized_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchIsAuthorized",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_verifiedpermissions.types.batch_is_authorized_input.BatchIsAuthorizedInput = {
             "policy_store_id": policy_store_id,
             "requests": requests,
@@ -1343,7 +1620,32 @@ class AsyncPolicyStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.batch_is_authorized_with_token_input.BatchIsAuthorizedWithTokenInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.batch_is_authorized_with_token_input
+
+            return capo_verifiedpermissions.types.batch_is_authorized_with_token_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.batch_is_authorized_with_token_output.BatchIsAuthorizedWithTokenOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.batch_is_authorized_with_token_output
+
+            return capo_verifiedpermissions.types.batch_is_authorized_with_token_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchIsAuthorizedWithToken",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_verifiedpermissions.types.batch_is_authorized_with_token_input.BatchIsAuthorizedWithTokenInput = {
             "policy_store_id": policy_store_id,
             "requests": requests,
@@ -1409,7 +1711,19 @@ class AsyncPolicyStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.get_schema_output.GetSchemaOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.get_schema_output
+
+            return capo_verifiedpermissions.types.get_schema_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetSchema", redact_output=_redact_output),
+        )
         input_: capo_verifiedpermissions.types.get_schema_input.GetSchemaInput = {
             "policy_store_id": policy_store_id
         }
@@ -1489,7 +1803,30 @@ class AsyncPolicyStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.is_authorized_input.IsAuthorizedInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.is_authorized_input
+
+            return capo_verifiedpermissions.types.is_authorized_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.is_authorized_output.IsAuthorizedOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.is_authorized_output
+
+            return capo_verifiedpermissions.types.is_authorized_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "IsAuthorized", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_verifiedpermissions.types.is_authorized_input.IsAuthorizedInput = {
             "policy_store_id": policy_store_id
         }
@@ -1579,7 +1916,32 @@ class AsyncPolicyStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.is_authorized_with_token_input.IsAuthorizedWithTokenInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.is_authorized_with_token_input
+
+            return capo_verifiedpermissions.types.is_authorized_with_token_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.is_authorized_with_token_output.IsAuthorizedWithTokenOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.is_authorized_with_token_output
+
+            return capo_verifiedpermissions.types.is_authorized_with_token_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "IsAuthorizedWithToken",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_verifiedpermissions.types.is_authorized_with_token_input.IsAuthorizedWithTokenInput = {
             "policy_store_id": policy_store_id
         }
@@ -1654,7 +2016,30 @@ class AsyncPolicyStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.put_schema_input.PutSchemaInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.put_schema_input
+
+            return capo_verifiedpermissions.types.put_schema_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.put_schema_output.PutSchemaOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.put_schema_output
+
+            return capo_verifiedpermissions.types.put_schema_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutSchema", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_verifiedpermissions.types.put_schema_input.PutSchemaInput = {
             "policy_store_id": policy_store_id,
             "definition": definition,
@@ -1712,7 +2097,21 @@ class AsyncPolicyStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.batch_get_policy_output.BatchGetPolicyOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.batch_get_policy_output
+
+            return (
+                capo_verifiedpermissions.types.batch_get_policy_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetPolicy", redact_output=_redact_output),
+        )
         input_: capo_verifiedpermissions.types.batch_get_policy_input.BatchGetPolicyInput = {
             "requests": requests
         }

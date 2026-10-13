@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_bcm_pricing_calculator._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -94,7 +95,9 @@ class WorkloadEstimate:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWorkloadEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.create_workload_estimate_request.CreateWorkloadEstimateRequest = {
             "name": name
         }
@@ -149,7 +152,9 @@ class WorkloadEstimate:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetWorkloadEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.get_workload_estimate_request.GetWorkloadEstimateRequest = {
             "identifier": identifier
         }
@@ -204,7 +209,9 @@ class WorkloadEstimate:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateWorkloadEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.update_workload_estimate_request.UpdateWorkloadEstimateRequest = {
             "identifier": identifier
         }
@@ -255,7 +262,9 @@ class WorkloadEstimate:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkloadEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.delete_workload_estimate_request.DeleteWorkloadEstimateRequest = {
             "identifier": identifier
         }
@@ -320,7 +329,9 @@ class WorkloadEstimate:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkloadEstimates")
+        )
         input_: capo_bcm_pricing_calculator.types.list_workload_estimates_request.ListWorkloadEstimatesRequest = {}
         if created_at_filter is not None:
             input_["created_at_filter"] = created_at_filter
@@ -393,7 +404,9 @@ class AsyncWorkloadEstimate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWorkloadEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.create_workload_estimate_request.CreateWorkloadEstimateRequest = {
             "name": name
         }
@@ -449,7 +462,9 @@ class AsyncWorkloadEstimate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetWorkloadEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.get_workload_estimate_request.GetWorkloadEstimateRequest = {
             "identifier": identifier
         }
@@ -505,7 +520,9 @@ class AsyncWorkloadEstimate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateWorkloadEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.update_workload_estimate_request.UpdateWorkloadEstimateRequest = {
             "identifier": identifier
         }
@@ -557,7 +574,9 @@ class AsyncWorkloadEstimate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkloadEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.delete_workload_estimate_request.DeleteWorkloadEstimateRequest = {
             "identifier": identifier
         }
@@ -623,7 +642,9 @@ class AsyncWorkloadEstimate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkloadEstimates")
+        )
         input_: capo_bcm_pricing_calculator.types.list_workload_estimates_request.ListWorkloadEstimatesRequest = {}
         if created_at_filter is not None:
             input_["created_at_filter"] = created_at_filter

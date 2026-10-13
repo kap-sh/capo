@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#CountTokensRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -39,4 +39,15 @@ def deserialize_json(data: dict) -> CountTokensRequest:
         )
     else:
         raise DeserializationError("CountTokensRequest.input required")
+    return out
+
+
+def redact_sensitive(value: CountTokensRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input" in value:
+        import capo_bedrock_runtime.types.count_tokens_input
+
+        out["input"] = capo_bedrock_runtime.types.count_tokens_input.redact_sensitive(
+            value["input"]
+        )
     return out

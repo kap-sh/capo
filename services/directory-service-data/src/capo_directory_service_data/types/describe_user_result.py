@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.directoryservicedata#DescribeUserResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -116,6 +116,29 @@ def deserialize_json(data: dict) -> DescribeUserResult:
         out["other_attributes"] = (
             capo_directory_service_data.types.attributes.deserialize_json(
                 data["OtherAttributes"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeUserResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "distinguished_name" in value:
+        out["distinguished_name"] = "*** Sensitive Data Redacted ***"
+    if "user_principal_name" in value:
+        out["user_principal_name"] = "*** Sensitive Data Redacted ***"
+    if "email_address" in value:
+        out["email_address"] = "*** Sensitive Data Redacted ***"
+    if "given_name" in value:
+        out["given_name"] = "*** Sensitive Data Redacted ***"
+    if "surname" in value:
+        out["surname"] = "*** Sensitive Data Redacted ***"
+    if "other_attributes" in value:
+        import capo_directory_service_data.types.attributes
+
+        out["other_attributes"] = (
+            capo_directory_service_data.types.attributes.redact_sensitive(
+                value["other_attributes"]
             )
         )
     return out

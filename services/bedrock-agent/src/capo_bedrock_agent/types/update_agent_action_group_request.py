@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#UpdateAgentActionGroupRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -162,5 +162,16 @@ def deserialize_json(data: dict) -> UpdateAgentActionGroupRequest:
             capo_bedrock_agent.types.function_schema.deserialize_json(
                 data["functionSchema"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateAgentActionGroupRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "api_schema" in value:
+        import capo_bedrock_agent.types.api_schema
+
+        out["api_schema"] = capo_bedrock_agent.types.api_schema.redact_sensitive(
+            value["api_schema"]
         )
     return out

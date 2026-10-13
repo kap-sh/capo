@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#CreateMediaCapturePipelineRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -155,4 +155,25 @@ def deserialize_json(data: dict) -> CreateMediaCapturePipelineRequest:
         out["tags"] = capo_chime_sdk_media_pipelines.types.tag_list.deserialize_json(
             data["Tags"]
         )
+    return out
+
+
+def redact_sensitive(value: CreateMediaCapturePipelineRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "source_arn" in value:
+        out["source_arn"] = "*** Sensitive Data Redacted ***"
+    if "sink_arn" in value:
+        out["sink_arn"] = "*** Sensitive Data Redacted ***"
+    if "client_request_token" in value:
+        out["client_request_token"] = "*** Sensitive Data Redacted ***"
+    if "chime_sdk_meeting_configuration" in value:
+        import capo_chime_sdk_media_pipelines.types.chime_sdk_meeting_configuration
+
+        out["chime_sdk_meeting_configuration"] = (
+            capo_chime_sdk_media_pipelines.types.chime_sdk_meeting_configuration.redact_sensitive(
+                value["chime_sdk_meeting_configuration"]
+            )
+        )
+    if "sink_iam_role_arn" in value:
+        out["sink_iam_role_arn"] = "*** Sensitive Data Redacted ***"
     return out

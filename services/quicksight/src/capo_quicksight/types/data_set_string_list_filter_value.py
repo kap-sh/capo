@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DataSetStringListFilterValue``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> DataSetStringListFilterValue:
         out["static_values"] = (
             capo_quicksight.types.data_set_string_filter_static_value_list.deserialize_json(
                 data["StaticValues"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DataSetStringListFilterValue) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "static_values" in value:
+        import capo_quicksight.types.data_set_string_filter_static_value_list
+
+        out["static_values"] = (
+            capo_quicksight.types.data_set_string_filter_static_value_list.redact_sensitive(
+                value["static_values"]
             )
         )
     return out

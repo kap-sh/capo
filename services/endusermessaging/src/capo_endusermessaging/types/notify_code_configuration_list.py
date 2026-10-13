@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.endusermessaging#NotifyCodeConfigurationList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_endusermessaging.types.notify_code_configuration
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> NotifyCodeConfigurationList:
             capo_endusermessaging.types.notify_code_configuration.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: NotifyCodeConfigurationList) -> list[Any]:
+    import capo_endusermessaging.types.notify_code_configuration
+
+    return [
+        capo_endusermessaging.types.notify_code_configuration.redact_sensitive(item)
+        for item in value
+    ]

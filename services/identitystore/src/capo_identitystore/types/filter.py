@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.identitystore#Filter``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -38,4 +38,11 @@ def deserialize_aws_json_1_1(data: dict) -> Filter:
         out["attribute_value"] = data["AttributeValue"]
     else:
         raise DeserializationError("Filter.attribute_value required")
+    return out
+
+
+def redact_sensitive(value: Filter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "attribute_value" in value:
+        out["attribute_value"] = "*** Sensitive Data Redacted ***"
     return out

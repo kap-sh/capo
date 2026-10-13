@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#AgentTracesConfig``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -110,3 +110,10 @@ def deserialize_json(data: dict) -> AgentTracesConfig:
         }
     else:
         raise DeserializationError("AgentTracesConfig: no recognized variant key")
+
+
+def redact_sensitive(value: AgentTracesConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sessionSpans" in value:
+        out["sessionSpans"] = "*** Sensitive Data Redacted ***"
+    return out

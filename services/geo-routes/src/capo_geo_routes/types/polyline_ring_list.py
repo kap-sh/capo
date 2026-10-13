@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#PolylineRingList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_routes.types.polyline_ring
@@ -15,3 +15,7 @@ def serialize_json(value: PolylineRingList) -> list:
 
 def deserialize_json(data: list) -> PolylineRingList:
     return [item for item in data if item is not None]
+
+
+def redact_sensitive(value: PolylineRingList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

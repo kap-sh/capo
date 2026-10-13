@@ -23,10 +23,12 @@ from capo_app_mesh._resources.app_mesh.mesh import Mesh
 from capo_app_mesh._services._aws_config import aws_config
 from capo_app_mesh._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -214,7 +216,9 @@ class AppMeshClient:
         self.mesh = Mesh(self)
 
     def operation_options(
-        self, config_overrides: Optional[AppMeshClientConfig] = None
+        self,
+        config_overrides: Optional[AppMeshClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: AppMeshClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -222,8 +226,10 @@ class AppMeshClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -281,7 +287,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_app_mesh.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -359,7 +367,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_app_mesh.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -410,7 +420,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_app_mesh.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -467,7 +479,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMesh")
+        )
         input_: capo_app_mesh.types.create_mesh_input.CreateMeshInput = {
             "mesh_name": mesh_name
         }
@@ -524,7 +538,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMesh")
+        )
         input_: capo_app_mesh.types.describe_mesh_input.DescribeMeshInput = {
             "mesh_name": mesh_name
         }
@@ -579,7 +595,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMesh")
+        )
         input_: capo_app_mesh.types.update_mesh_input.UpdateMeshInput = {
             "mesh_name": mesh_name
         }
@@ -633,7 +651,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMesh")
+        )
         input_: capo_app_mesh.types.delete_mesh_input.DeleteMeshInput = {
             "mesh_name": mesh_name
         }
@@ -683,7 +703,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMeshes")
+        )
         input_: capo_app_mesh.types.list_meshes_input.ListMeshesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -766,7 +788,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVirtualGateway")
+        )
         input_: capo_app_mesh.types.create_virtual_gateway_input.CreateVirtualGatewayInput = {
             "virtual_gateway_name": virtual_gateway_name,
             "mesh_name": mesh_name,
@@ -827,7 +851,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeVirtualGateway")
+        )
         input_: capo_app_mesh.types.describe_virtual_gateway_input.DescribeVirtualGatewayInput = {
             "virtual_gateway_name": virtual_gateway_name,
             "mesh_name": mesh_name,
@@ -888,7 +914,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateVirtualGateway")
+        )
         input_: capo_app_mesh.types.update_virtual_gateway_input.UpdateVirtualGatewayInput = {
             "virtual_gateway_name": virtual_gateway_name,
             "mesh_name": mesh_name,
@@ -948,7 +976,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVirtualGateway")
+        )
         input_: capo_app_mesh.types.delete_virtual_gateway_input.DeleteVirtualGatewayInput = {
             "virtual_gateway_name": virtual_gateway_name,
             "mesh_name": mesh_name,
@@ -1007,7 +1037,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVirtualGateways")
+        )
         input_: capo_app_mesh.types.list_virtual_gateways_input.ListVirtualGatewaysInput = {
             "mesh_name": mesh_name
         }
@@ -1102,7 +1134,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGatewayRoute")
+        )
         input_: capo_app_mesh.types.create_gateway_route_input.CreateGatewayRouteInput = {
             "gateway_route_name": gateway_route_name,
             "mesh_name": mesh_name,
@@ -1166,7 +1200,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeGatewayRoute")
+        )
         input_: capo_app_mesh.types.describe_gateway_route_input.DescribeGatewayRouteInput = {
             "gateway_route_name": gateway_route_name,
             "mesh_name": mesh_name,
@@ -1230,7 +1266,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGatewayRoute")
+        )
         input_: capo_app_mesh.types.update_gateway_route_input.UpdateGatewayRouteInput = {
             "gateway_route_name": gateway_route_name,
             "mesh_name": mesh_name,
@@ -1293,7 +1331,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGatewayRoute")
+        )
         input_: capo_app_mesh.types.delete_gateway_route_input.DeleteGatewayRouteInput = {
             "gateway_route_name": gateway_route_name,
             "mesh_name": mesh_name,
@@ -1355,7 +1395,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGatewayRoutes")
+        )
         input_: capo_app_mesh.types.list_gateway_routes_input.ListGatewayRoutesInput = {
             "mesh_name": mesh_name,
             "virtual_gateway_name": virtual_gateway_name,
@@ -1451,7 +1493,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVirtualNode")
+        )
         input_: capo_app_mesh.types.create_virtual_node_input.CreateVirtualNodeInput = {
             "virtual_node_name": virtual_node_name,
             "mesh_name": mesh_name,
@@ -1512,7 +1556,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeVirtualNode")
+        )
         input_: capo_app_mesh.types.describe_virtual_node_input.DescribeVirtualNodeInput = {
             "virtual_node_name": virtual_node_name,
             "mesh_name": mesh_name,
@@ -1573,7 +1619,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateVirtualNode")
+        )
         input_: capo_app_mesh.types.update_virtual_node_input.UpdateVirtualNodeInput = {
             "virtual_node_name": virtual_node_name,
             "mesh_name": mesh_name,
@@ -1633,7 +1681,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVirtualNode")
+        )
         input_: capo_app_mesh.types.delete_virtual_node_input.DeleteVirtualNodeInput = {
             "virtual_node_name": virtual_node_name,
             "mesh_name": mesh_name,
@@ -1692,7 +1742,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVirtualNodes")
+        )
         input_: capo_app_mesh.types.list_virtual_nodes_input.ListVirtualNodesInput = {
             "mesh_name": mesh_name
         }
@@ -1785,7 +1837,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVirtualRouter")
+        )
         input_: capo_app_mesh.types.create_virtual_router_input.CreateVirtualRouterInput = {
             "virtual_router_name": virtual_router_name,
             "mesh_name": mesh_name,
@@ -1848,7 +1902,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeVirtualRouter")
+        )
         input_: capo_app_mesh.types.describe_virtual_router_input.DescribeVirtualRouterInput = {
             "virtual_router_name": virtual_router_name,
             "mesh_name": mesh_name,
@@ -1909,7 +1965,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateVirtualRouter")
+        )
         input_: capo_app_mesh.types.update_virtual_router_input.UpdateVirtualRouterInput = {
             "virtual_router_name": virtual_router_name,
             "mesh_name": mesh_name,
@@ -1969,7 +2027,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVirtualRouter")
+        )
         input_: capo_app_mesh.types.delete_virtual_router_input.DeleteVirtualRouterInput = {
             "virtual_router_name": virtual_router_name,
             "mesh_name": mesh_name,
@@ -2028,7 +2088,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVirtualRouters")
+        )
         input_: capo_app_mesh.types.list_virtual_routers_input.ListVirtualRoutersInput = {
             "mesh_name": mesh_name
         }
@@ -2123,7 +2185,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRoute")
+        )
         input_: capo_app_mesh.types.create_route_input.CreateRouteInput = {
             "route_name": route_name,
             "mesh_name": mesh_name,
@@ -2187,7 +2251,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRoute")
+        )
         input_: capo_app_mesh.types.describe_route_input.DescribeRouteInput = {
             "route_name": route_name,
             "mesh_name": mesh_name,
@@ -2251,7 +2317,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRoute")
+        )
         input_: capo_app_mesh.types.update_route_input.UpdateRouteInput = {
             "route_name": route_name,
             "mesh_name": mesh_name,
@@ -2314,7 +2382,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRoute")
+        )
         input_: capo_app_mesh.types.delete_route_input.DeleteRouteInput = {
             "route_name": route_name,
             "mesh_name": mesh_name,
@@ -2374,7 +2444,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRoutes")
+        )
         input_: capo_app_mesh.types.list_routes_input.ListRoutesInput = {
             "mesh_name": mesh_name,
             "virtual_router_name": virtual_router_name,
@@ -2468,7 +2540,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVirtualService")
+        )
         input_: capo_app_mesh.types.create_virtual_service_input.CreateVirtualServiceInput = {
             "virtual_service_name": virtual_service_name,
             "mesh_name": mesh_name,
@@ -2529,7 +2603,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeVirtualService")
+        )
         input_: capo_app_mesh.types.describe_virtual_service_input.DescribeVirtualServiceInput = {
             "virtual_service_name": virtual_service_name,
             "mesh_name": mesh_name,
@@ -2590,7 +2666,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateVirtualService")
+        )
         input_: capo_app_mesh.types.update_virtual_service_input.UpdateVirtualServiceInput = {
             "virtual_service_name": virtual_service_name,
             "mesh_name": mesh_name,
@@ -2650,7 +2728,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVirtualService")
+        )
         input_: capo_app_mesh.types.delete_virtual_service_input.DeleteVirtualServiceInput = {
             "virtual_service_name": virtual_service_name,
             "mesh_name": mesh_name,
@@ -2709,7 +2789,9 @@ class AppMeshClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVirtualServices")
+        )
         input_: capo_app_mesh.types.list_virtual_services_input.ListVirtualServicesInput = {
             "mesh_name": mesh_name
         }

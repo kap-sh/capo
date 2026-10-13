@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#ListAssociationsOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,17 @@ def deserialize_json(data: dict) -> ListAssociationsOutput:
         )
     else:
         raise DeserializationError("ListAssociationsOutput.associations required")
+    return out
+
+
+def redact_sensitive(value: ListAssociationsOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "associations" in value:
+        import capo_devops_agent.types.associations_list
+
+        out["associations"] = (
+            capo_devops_agent.types.associations_list.redact_sensitive(
+                value["associations"]
+            )
+        )
     return out

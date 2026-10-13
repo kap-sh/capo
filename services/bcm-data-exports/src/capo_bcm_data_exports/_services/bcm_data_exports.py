@@ -24,10 +24,12 @@ from capo_bcm_data_exports._resources.aws_billing_and_cost_management_data_expor
 from capo_bcm_data_exports._services._aws_config import aws_config
 from capo_bcm_data_exports._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -142,7 +144,9 @@ class BCMDataExportsClient:
         self.data_export = DataExport(self)
 
     def operation_options(
-        self, config_overrides: Optional[BCMDataExportsClientConfig] = None
+        self,
+        config_overrides: Optional[BCMDataExportsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: BCMDataExportsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -150,8 +154,10 @@ class BCMDataExportsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -202,7 +208,9 @@ class BCMDataExportsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetExecution")
+        )
         input_: capo_bcm_data_exports.types.get_execution_request.GetExecutionRequest = {
             "export_arn": export_arn,
             "execution_id": execution_id,
@@ -252,7 +260,9 @@ class BCMDataExportsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTable")
+        )
         input_: capo_bcm_data_exports.types.get_table_request.GetTableRequest = {
             "table_name": table_name
         }
@@ -308,7 +318,9 @@ class BCMDataExportsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExecutions")
+        )
         input_: capo_bcm_data_exports.types.list_executions_request.ListExecutionsRequest = {
             "export_arn": export_arn
         }
@@ -390,7 +402,9 @@ class BCMDataExportsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTables")
+        )
         input_: capo_bcm_data_exports.types.list_tables_request.ListTablesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -472,7 +486,9 @@ class BCMDataExportsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_bcm_data_exports.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -525,7 +541,9 @@ class BCMDataExportsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_bcm_data_exports.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "resource_tags": resource_tags,
@@ -575,7 +593,9 @@ class BCMDataExportsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_bcm_data_exports.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "resource_tag_keys": resource_tag_keys,
@@ -627,7 +647,9 @@ class BCMDataExportsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateExport")
+        )
         input_: capo_bcm_data_exports.types.create_export_request.CreateExportRequest = {
             "export": export
         }
@@ -675,7 +697,9 @@ class BCMDataExportsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetExport")
+        )
         input_: capo_bcm_data_exports.types.get_export_request.GetExportRequest = {
             "export_arn": export_arn
         }
@@ -723,7 +747,9 @@ class BCMDataExportsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateExport")
+        )
         input_: capo_bcm_data_exports.types.update_export_request.UpdateExportRequest = {
             "export_arn": export_arn,
             "export": export,
@@ -770,7 +796,9 @@ class BCMDataExportsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteExport")
+        )
         input_: capo_bcm_data_exports.types.delete_export_request.DeleteExportRequest = {
             "export_arn": export_arn
         }
@@ -821,7 +849,9 @@ class BCMDataExportsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExports")
+        )
         input_: capo_bcm_data_exports.types.list_exports_request.ListExportsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

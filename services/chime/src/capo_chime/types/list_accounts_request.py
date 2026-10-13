@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chime#ListAccountsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,4 +32,11 @@ def serialize_json(value: ListAccountsRequest) -> dict:
 
 def deserialize_json(data: dict) -> ListAccountsRequest:
     out: ListAccountsRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: ListAccountsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_email" in value:
+        out["user_email"] = "*** Sensitive Data Redacted ***"
     return out

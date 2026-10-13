@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#InstanceInformationList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_ssm.types.instance_information
@@ -29,3 +29,11 @@ def deserialize_aws_json_1_1(data: list) -> InstanceInformationList:
             continue
         out.append(capo_ssm.types.instance_information.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: InstanceInformationList) -> list[Any]:
+    import capo_ssm.types.instance_information
+
+    return [
+        capo_ssm.types.instance_information.redact_sensitive(item) for item in value
+    ]

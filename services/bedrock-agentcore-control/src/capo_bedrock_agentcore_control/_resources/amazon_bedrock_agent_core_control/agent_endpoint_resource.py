@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agentcore_control._auth._signers
 import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -100,7 +101,32 @@ class AgentEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_agent_runtime_endpoint_request.CreateAgentRuntimeEndpointRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_agent_runtime_endpoint_request
+
+            return capo_bedrock_agentcore_control.types.create_agent_runtime_endpoint_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.create_agent_runtime_endpoint_response.CreateAgentRuntimeEndpointResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_agent_runtime_endpoint_response
+
+            return capo_bedrock_agentcore_control.types.create_agent_runtime_endpoint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAgentRuntimeEndpoint",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.create_agent_runtime_endpoint_request.CreateAgentRuntimeEndpointRequest = {
             "agent_runtime_id": agent_runtime_id,
             "name": name,
@@ -159,7 +185,32 @@ class AgentEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.get_agent_runtime_endpoint_request.GetAgentRuntimeEndpointRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_agent_runtime_endpoint_request
+
+            return capo_bedrock_agentcore_control.types.get_agent_runtime_endpoint_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_agent_runtime_endpoint_response.GetAgentRuntimeEndpointResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_agent_runtime_endpoint_response
+
+            return capo_bedrock_agentcore_control.types.get_agent_runtime_endpoint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAgentRuntimeEndpoint",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.get_agent_runtime_endpoint_request.GetAgentRuntimeEndpointRequest = {
             "agent_runtime_id": agent_runtime_id,
             "endpoint_name": endpoint_name,
@@ -223,7 +274,19 @@ class AgentEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_agent_runtime_endpoint_request.UpdateAgentRuntimeEndpointRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_agent_runtime_endpoint_request
+
+            return capo_bedrock_agentcore_control.types.update_agent_runtime_endpoint_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAgentRuntimeEndpoint", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.update_agent_runtime_endpoint_request.UpdateAgentRuntimeEndpointRequest = {
             "agent_runtime_id": agent_runtime_id,
             "endpoint_name": endpoint_name,
@@ -284,7 +347,32 @@ class AgentEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.delete_agent_runtime_endpoint_request.DeleteAgentRuntimeEndpointRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.delete_agent_runtime_endpoint_request
+
+            return capo_bedrock_agentcore_control.types.delete_agent_runtime_endpoint_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.delete_agent_runtime_endpoint_response.DeleteAgentRuntimeEndpointResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.delete_agent_runtime_endpoint_response
+
+            return capo_bedrock_agentcore_control.types.delete_agent_runtime_endpoint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DeleteAgentRuntimeEndpoint",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.delete_agent_runtime_endpoint_request.DeleteAgentRuntimeEndpointRequest = {
             "agent_runtime_id": agent_runtime_id,
             "endpoint_name": endpoint_name,
@@ -342,7 +430,19 @@ class AgentEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_agent_runtime_endpoints_response.ListAgentRuntimeEndpointsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_agent_runtime_endpoints_response
+
+            return capo_bedrock_agentcore_control.types.list_agent_runtime_endpoints_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListAgentRuntimeEndpoints", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_agent_runtime_endpoints_request.ListAgentRuntimeEndpointsRequest = {
             "agent_runtime_id": agent_runtime_id
         }
@@ -417,7 +517,32 @@ class AsyncAgentEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_agent_runtime_endpoint_request.CreateAgentRuntimeEndpointRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_agent_runtime_endpoint_request
+
+            return capo_bedrock_agentcore_control.types.create_agent_runtime_endpoint_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.create_agent_runtime_endpoint_response.CreateAgentRuntimeEndpointResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_agent_runtime_endpoint_response
+
+            return capo_bedrock_agentcore_control.types.create_agent_runtime_endpoint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAgentRuntimeEndpoint",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.create_agent_runtime_endpoint_request.CreateAgentRuntimeEndpointRequest = {
             "agent_runtime_id": agent_runtime_id,
             "name": name,
@@ -477,7 +602,32 @@ class AsyncAgentEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.get_agent_runtime_endpoint_request.GetAgentRuntimeEndpointRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_agent_runtime_endpoint_request
+
+            return capo_bedrock_agentcore_control.types.get_agent_runtime_endpoint_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_agent_runtime_endpoint_response.GetAgentRuntimeEndpointResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_agent_runtime_endpoint_response
+
+            return capo_bedrock_agentcore_control.types.get_agent_runtime_endpoint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAgentRuntimeEndpoint",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.get_agent_runtime_endpoint_request.GetAgentRuntimeEndpointRequest = {
             "agent_runtime_id": agent_runtime_id,
             "endpoint_name": endpoint_name,
@@ -542,7 +692,19 @@ class AsyncAgentEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_agent_runtime_endpoint_request.UpdateAgentRuntimeEndpointRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_agent_runtime_endpoint_request
+
+            return capo_bedrock_agentcore_control.types.update_agent_runtime_endpoint_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAgentRuntimeEndpoint", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.update_agent_runtime_endpoint_request.UpdateAgentRuntimeEndpointRequest = {
             "agent_runtime_id": agent_runtime_id,
             "endpoint_name": endpoint_name,
@@ -604,7 +766,32 @@ class AsyncAgentEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.delete_agent_runtime_endpoint_request.DeleteAgentRuntimeEndpointRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.delete_agent_runtime_endpoint_request
+
+            return capo_bedrock_agentcore_control.types.delete_agent_runtime_endpoint_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.delete_agent_runtime_endpoint_response.DeleteAgentRuntimeEndpointResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.delete_agent_runtime_endpoint_response
+
+            return capo_bedrock_agentcore_control.types.delete_agent_runtime_endpoint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DeleteAgentRuntimeEndpoint",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.delete_agent_runtime_endpoint_request.DeleteAgentRuntimeEndpointRequest = {
             "agent_runtime_id": agent_runtime_id,
             "endpoint_name": endpoint_name,
@@ -663,7 +850,19 @@ class AsyncAgentEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_agent_runtime_endpoints_response.ListAgentRuntimeEndpointsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_agent_runtime_endpoints_response
+
+            return capo_bedrock_agentcore_control.types.list_agent_runtime_endpoints_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListAgentRuntimeEndpoints", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_agent_runtime_endpoints_request.ListAgentRuntimeEndpointsRequest = {
             "agent_runtime_id": agent_runtime_id
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#PatternObjectFilter``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -61,4 +61,15 @@ def deserialize_json(data: dict) -> PatternObjectFilter:
                 data["exclusionFilters"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: PatternObjectFilter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "object_type" in value:
+        out["object_type"] = "*** Sensitive Data Redacted ***"
+    if "inclusion_filters" in value:
+        out["inclusion_filters"] = "*** Sensitive Data Redacted ***"
+    if "exclusion_filters" in value:
+        out["exclusion_filters"] = "*** Sensitive Data Redacted ***"
     return out

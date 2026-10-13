@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.transcribe#StartMedicalScribeJobRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -170,6 +170,19 @@ def deserialize_aws_json_1_1(data: dict) -> StartMedicalScribeJobRequest:
         out["medical_scribe_context"] = (
             capo_transcribe.types.medical_scribe_context.deserialize_aws_json_1_1(
                 data["MedicalScribeContext"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: StartMedicalScribeJobRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "medical_scribe_context" in value:
+        import capo_transcribe.types.medical_scribe_context
+
+        out["medical_scribe_context"] = (
+            capo_transcribe.types.medical_scribe_context.redact_sensitive(
+                value["medical_scribe_context"]
             )
         )
     return out

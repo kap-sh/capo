@@ -19,10 +19,12 @@ from capo_ec2_instance_connect._auth._zapros_handler import AuthMiddleware
 from capo_ec2_instance_connect._services._aws_config import aws_config
 from capo_ec2_instance_connect._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -111,7 +113,9 @@ class EC2InstanceConnectClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[EC2InstanceConnectClientConfig] = None
+        self,
+        config_overrides: Optional[EC2InstanceConnectClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: EC2InstanceConnectClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -119,8 +123,10 @@ class EC2InstanceConnectClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -186,7 +192,9 @@ class EC2InstanceConnectClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendSerialConsoleSSHPublicKey")
+        )
         input_: capo_ec2_instance_connect.types.send_serial_console_ssh_public_key_request.SendSerialConsoleSSHPublicKeyRequest = {
             "instance_id": instance_id,
             "ssh_public_key": ssh_public_key,
@@ -252,7 +260,9 @@ class EC2InstanceConnectClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendSSHPublicKey")
+        )
         input_: capo_ec2_instance_connect.types.send_ssh_public_key_request.SendSSHPublicKeyRequest = {
             "instance_id": instance_id,
             "instance_os_user": instance_os_user,

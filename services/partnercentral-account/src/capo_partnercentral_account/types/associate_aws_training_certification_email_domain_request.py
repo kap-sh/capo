@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralaccount#AssociateAwsTrainingCertificationEmailDomainRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -73,4 +73,13 @@ def deserialize_aws_json_1_0(
         raise DeserializationError(
             "AssociateAwsTrainingCertificationEmailDomainRequest.email_verification_code required"
         )
+    return out
+
+
+def redact_sensitive(
+    value: AssociateAwsTrainingCertificationEmailDomainRequest,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "email_verification_code" in value:
+        out["email_verification_code"] = "*** Sensitive Data Redacted ***"
     return out

@@ -24,10 +24,12 @@ from capo_rtbfabric._resources.rtb_fabric.responder_gateway import ResponderGate
 from capo_rtbfabric._services._aws_config import aws_config
 from capo_rtbfabric._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -211,7 +213,9 @@ class RTBFabricClient:
         self.responder_gateway = ResponderGateway(self)
 
     def operation_options(
-        self, config_overrides: Optional[RTBFabricClientConfig] = None
+        self,
+        config_overrides: Optional[RTBFabricClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: RTBFabricClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -219,8 +223,10 @@ class RTBFabricClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -282,7 +288,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRequesterGateways")
+        )
         input_: capo_rtbfabric.types.list_requester_gateways_request.ListRequesterGatewaysRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -361,7 +369,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResponderGateways")
+        )
         input_: capo_rtbfabric.types.list_responder_gateways_request.ListResponderGatewaysRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -437,7 +447,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_rtbfabric.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -492,7 +504,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_rtbfabric.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -548,7 +562,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_rtbfabric.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -620,7 +636,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLink")
+        )
         input_: capo_rtbfabric.types.create_link_request.CreateLinkRequest = {
             "gateway_id": gateway_id,
             "peer_gateway_id": peer_gateway_id,
@@ -686,7 +704,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLink")
+        )
         input_: capo_rtbfabric.types.get_link_request.GetLinkRequest = {
             "gateway_id": gateway_id,
             "link_id": link_id,
@@ -743,7 +763,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLink")
+        )
         input_: capo_rtbfabric.types.delete_link_request.DeleteLinkRequest = {
             "gateway_id": gateway_id,
             "link_id": link_id,
@@ -801,7 +823,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLinks")
+        )
         input_: capo_rtbfabric.types.list_links_request.ListLinksRequest = {
             "gateway_id": gateway_id
         }
@@ -894,7 +918,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptLink")
+        )
         input_: capo_rtbfabric.types.accept_link_request.AcceptLinkRequest = {
             "gateway_id": gateway_id,
             "link_id": link_id,
@@ -956,7 +982,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectLink")
+        )
         input_: capo_rtbfabric.types.reject_link_request.RejectLinkRequest = {
             "gateway_id": gateway_id,
             "link_id": link_id,
@@ -1021,7 +1049,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLink")
+        )
         input_: capo_rtbfabric.types.update_link_request.UpdateLinkRequest = {
             "gateway_id": gateway_id,
             "link_id": link_id,
@@ -1087,7 +1117,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLinkModuleFlow")
+        )
         input_: capo_rtbfabric.types.update_link_module_flow_request.UpdateLinkModuleFlowRequest = {
             "client_token": client_token,
             "gateway_id": gateway_id,
@@ -1155,7 +1187,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLinkRoutingRule")
+        )
         input_: capo_rtbfabric.types.create_link_routing_rule_request.CreateLinkRoutingRuleRequest = {
             "client_token": client_token,
             "gateway_id": gateway_id,
@@ -1220,7 +1254,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLinkRoutingRule")
+        )
         input_: capo_rtbfabric.types.get_link_routing_rule_request.GetLinkRoutingRuleRequest = {
             "gateway_id": gateway_id,
             "link_id": link_id,
@@ -1284,7 +1320,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLinkRoutingRule")
+        )
         input_: capo_rtbfabric.types.update_link_routing_rule_request.UpdateLinkRoutingRuleRequest = {
             "gateway_id": gateway_id,
             "link_id": link_id,
@@ -1346,7 +1384,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLinkRoutingRule")
+        )
         input_: capo_rtbfabric.types.delete_link_routing_rule_request.DeleteLinkRoutingRuleRequest = {
             "gateway_id": gateway_id,
             "link_id": link_id,
@@ -1407,7 +1447,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLinkRoutingRules")
+        )
         input_: capo_rtbfabric.types.list_link_routing_rules_request.ListLinkRoutingRulesRequest = {
             "gateway_id": gateway_id,
             "link_id": link_id,
@@ -1501,7 +1543,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRequesterGateway")
+        )
         input_: capo_rtbfabric.types.create_requester_gateway_request.CreateRequesterGatewayRequest = {
             "vpc_id": vpc_id,
             "subnet_ids": subnet_ids,
@@ -1561,7 +1605,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRequesterGateway")
+        )
         input_: capo_rtbfabric.types.get_requester_gateway_request.GetRequesterGatewayRequest = {
             "gateway_id": gateway_id
         }
@@ -1615,7 +1661,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRequesterGateway")
+        )
         input_: capo_rtbfabric.types.delete_requester_gateway_request.DeleteRequesterGatewayRequest = {
             "gateway_id": gateway_id
         }
@@ -1673,7 +1721,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRequesterGateway")
+        )
         input_: capo_rtbfabric.types.update_requester_gateway_request.UpdateRequesterGatewayRequest = {
             "client_token": client_token,
             "gateway_id": gateway_id,
@@ -1743,7 +1793,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateOutboundExternalLink")
+        )
         input_: capo_rtbfabric.types.create_outbound_external_link_request.CreateOutboundExternalLinkRequest = {
             "client_token": client_token,
             "gateway_id": gateway_id,
@@ -1806,7 +1858,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOutboundExternalLink")
+        )
         input_: capo_rtbfabric.types.delete_outbound_external_link_request.DeleteOutboundExternalLinkRequest = {
             "gateway_id": gateway_id,
             "link_id": link_id,
@@ -1862,7 +1916,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOutboundExternalLink")
+        )
         input_: capo_rtbfabric.types.get_outbound_external_link_request.GetOutboundExternalLinkRequest = {
             "gateway_id": gateway_id,
             "link_id": link_id,
@@ -1950,7 +2006,21 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rtbfabric.types.create_responder_gateway_request.CreateResponderGatewayRequest",
+        ) -> dict[str, Any]:
+            import capo_rtbfabric.types.create_responder_gateway_request
+
+            return (
+                capo_rtbfabric.types.create_responder_gateway_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateResponderGateway", redact_input=_redact_input),
+        )
         input_: capo_rtbfabric.types.create_responder_gateway_request.CreateResponderGatewayRequest = {
             "vpc_id": vpc_id,
             "subnet_ids": subnet_ids,
@@ -2024,7 +2094,19 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rtbfabric.types.get_responder_gateway_response.GetResponderGatewayResponse",
+        ) -> dict[str, Any]:
+            import capo_rtbfabric.types.get_responder_gateway_response
+
+            return capo_rtbfabric.types.get_responder_gateway_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetResponderGateway", redact_output=_redact_output),
+        )
         input_: capo_rtbfabric.types.get_responder_gateway_request.GetResponderGatewayRequest = {
             "gateway_id": gateway_id
         }
@@ -2078,7 +2160,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResponderGateway")
+        )
         input_: capo_rtbfabric.types.delete_responder_gateway_request.DeleteResponderGatewayRequest = {
             "gateway_id": gateway_id
         }
@@ -2137,7 +2221,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateCertificate")
+        )
         input_: capo_rtbfabric.types.associate_certificate_request.AssociateCertificateRequest = {
             "gateway_id": gateway_id,
             "acm_certificate_arn": acm_certificate_arn,
@@ -2196,7 +2282,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateCertificate")
+        )
         input_: capo_rtbfabric.types.disassociate_certificate_request.DisassociateCertificateRequest = {
             "gateway_id": gateway_id,
             "acm_certificate_arn": acm_certificate_arn,
@@ -2252,7 +2340,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCertificateAssociation")
+        )
         input_: capo_rtbfabric.types.get_certificate_association_request.GetCertificateAssociationRequest = {
             "gateway_id": gateway_id,
             "acm_certificate_arn": acm_certificate_arn,
@@ -2310,7 +2400,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCertificateAssociations")
+        )
         input_: capo_rtbfabric.types.list_certificate_associations_request.ListCertificateAssociationsRequest = {
             "gateway_id": gateway_id
         }
@@ -2417,7 +2509,21 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rtbfabric.types.update_responder_gateway_request.UpdateResponderGatewayRequest",
+        ) -> dict[str, Any]:
+            import capo_rtbfabric.types.update_responder_gateway_request
+
+            return (
+                capo_rtbfabric.types.update_responder_gateway_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateResponderGateway", redact_input=_redact_input),
+        )
         input_: capo_rtbfabric.types.update_responder_gateway_request.UpdateResponderGatewayRequest = {
             "port": port,
             "protocol": protocol,
@@ -2497,7 +2603,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInboundExternalLink")
+        )
         input_: capo_rtbfabric.types.create_inbound_external_link_request.CreateInboundExternalLinkRequest = {
             "client_token": client_token,
             "gateway_id": gateway_id,
@@ -2559,7 +2667,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInboundExternalLink")
+        )
         input_: capo_rtbfabric.types.delete_inbound_external_link_request.DeleteInboundExternalLinkRequest = {
             "gateway_id": gateway_id,
             "link_id": link_id,
@@ -2615,7 +2725,9 @@ class RTBFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInboundExternalLink")
+        )
         input_: capo_rtbfabric.types.get_inbound_external_link_request.GetInboundExternalLinkRequest = {
             "gateway_id": gateway_id,
             "link_id": link_id,

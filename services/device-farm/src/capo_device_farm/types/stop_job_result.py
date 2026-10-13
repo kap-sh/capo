@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devicefarm#StopJobResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -29,4 +29,13 @@ def deserialize_aws_json_1_1(data: dict) -> StopJobResult:
         import capo_device_farm.types.job
 
         out["job"] = capo_device_farm.types.job.deserialize_aws_json_1_1(data["job"])
+    return out
+
+
+def redact_sensitive(value: StopJobResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "job" in value:
+        import capo_device_farm.types.job
+
+        out["job"] = capo_device_farm.types.job.redact_sensitive(value["job"])
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appstream#DirectoryConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -101,6 +101,19 @@ def deserialize_aws_json_1_1(data: dict) -> DirectoryConfig:
         out["certificate_based_auth_properties"] = (
             capo_appstream.types.certificate_based_auth_properties.deserialize_aws_json_1_1(
                 data["CertificateBasedAuthProperties"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DirectoryConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "service_account_credentials" in value:
+        import capo_appstream.types.service_account_credentials
+
+        out["service_account_credentials"] = (
+            capo_appstream.types.service_account_credentials.redact_sensitive(
+                value["service_account_credentials"]
             )
         )
     return out

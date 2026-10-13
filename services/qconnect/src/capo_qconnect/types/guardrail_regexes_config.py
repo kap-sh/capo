@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#GuardrailRegexesConfig``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_qconnect.types.guardrail_regex_config
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> GuardrailRegexesConfig:
             continue
         out.append(capo_qconnect.types.guardrail_regex_config.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: GuardrailRegexesConfig) -> list[Any]:
+    import capo_qconnect.types.guardrail_regex_config
+
+    return [
+        capo_qconnect.types.guardrail_regex_config.redact_sensitive(item)
+        for item in value
+    ]

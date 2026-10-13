@@ -25,7 +25,9 @@ from capo_opensearch._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -403,7 +405,9 @@ class AsyncOpenSearchClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncOpenSearchClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncOpenSearchClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncOpenSearchClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -411,8 +415,10 @@ class AsyncOpenSearchClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -464,7 +470,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptInboundConnection")
+        )
         input_: capo_opensearch.types.accept_inbound_connection_request.AcceptInboundConnectionRequest = {
             "connection_id": connection_id
         }
@@ -522,7 +530,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddDataSource")
+        )
         input_: capo_opensearch.types.add_data_source_request.AddDataSourceRequest = {
             "domain_name": domain_name,
             "name": name,
@@ -590,7 +600,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddDirectQueryDataSource")
+        )
         input_: capo_opensearch.types.add_direct_query_data_source_request.AddDirectQueryDataSourceRequest = {
             "data_source_name": data_source_name,
             "data_source_type": data_source_type,
@@ -646,7 +658,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTags")
+        )
         input_: capo_opensearch.types.add_tags_request.AddTagsRequest = {
             "arn": arn,
             "tag_list": tag_list,
@@ -706,7 +720,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociatePackage")
+        )
         input_: capo_opensearch.types.associate_package_request.AssociatePackageRequest = {
             "package_id": package_id,
             "domain_name": domain_name,
@@ -761,7 +777,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociatePackages")
+        )
         input_: capo_opensearch.types.associate_packages_request.AssociatePackagesRequest = {
             "package_list": package_list,
             "domain_name": domain_name,
@@ -820,7 +838,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachDataSource")
+        )
         input_: capo_opensearch.types.attach_data_source_request.AttachDataSourceRequest = {
             "id": id,
             "data_source_arn": data_source_arn,
@@ -886,7 +906,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AuthorizeVpcEndpointAccess")
+        )
         input_: capo_opensearch.types.authorize_vpc_endpoint_access_request.AuthorizeVpcEndpointAccessRequest = {
             "domain_name": domain_name
         }
@@ -941,7 +963,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelDomainConfigChange")
+        )
         input_: capo_opensearch.types.cancel_domain_config_change_request.CancelDomainConfigChangeRequest = {
             "domain_name": domain_name
         }
@@ -990,7 +1014,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelServiceSoftwareUpdate")
+        )
         input_: capo_opensearch.types.cancel_service_software_update_request.CancelServiceSoftwareUpdateRequest = {
             "domain_name": domain_name
         }
@@ -1052,7 +1078,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_opensearch.types.create_application_request.CreateApplicationRequest = {
             "name": name
         }
@@ -1203,7 +1231,17 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_opensearch.types.create_domain_request.CreateDomainRequest",
+        ) -> dict[str, Any]:
+            import capo_opensearch.types.create_domain_request
+
+            return capo_opensearch.types.create_domain_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDomain", redact_input=_redact_input),
+        )
         input_: capo_opensearch.types.create_domain_request.CreateDomainRequest = {
             "domain_name": domain_name
         }
@@ -1307,7 +1345,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIndex")
+        )
         input_: capo_opensearch.types.create_index_request.CreateIndexRequest = {
             "domain_name": domain_name,
             "index_name": index_name,
@@ -1368,7 +1408,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateOutboundConnection")
+        )
         input_: capo_opensearch.types.create_outbound_connection_request.CreateOutboundConnectionRequest = {
             "local_domain_info": local_domain_info,
             "remote_domain_info": remote_domain_info,
@@ -1448,7 +1490,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePackage")
+        )
         input_: capo_opensearch.types.create_package_request.CreatePackageRequest = {
             "package_name": package_name,
             "package_type": package_type,
@@ -1513,7 +1557,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVpcEndpoint")
+        )
         input_: capo_opensearch.types.create_vpc_endpoint_request.CreateVpcEndpointRequest = {
             "domain_arn": domain_arn,
             "vpc_options": vpc_options,
@@ -1566,7 +1612,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_opensearch.types.delete_application_request.DeleteApplicationRequest = {
             "id": id
         }
@@ -1617,7 +1665,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataSource")
+        )
         input_: capo_opensearch.types.delete_data_source_request.DeleteDataSourceRequest = {
             "domain_name": domain_name,
             "name": name,
@@ -1664,7 +1714,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDirectQueryDataSource")
+        )
         input_: capo_opensearch.types.delete_direct_query_data_source_request.DeleteDirectQueryDataSourceRequest = {
             "data_source_name": data_source_name
         }
@@ -1711,7 +1763,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomain")
+        )
         input_: capo_opensearch.types.delete_domain_request.DeleteDomainRequest = {
             "domain_name": domain_name
         }
@@ -1756,7 +1810,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInboundConnection")
+        )
         input_: capo_opensearch.types.delete_inbound_connection_request.DeleteInboundConnectionRequest = {
             "connection_id": connection_id
         }
@@ -1807,7 +1863,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIndex")
+        )
         input_: capo_opensearch.types.delete_index_request.DeleteIndexRequest = {
             "domain_name": domain_name,
             "index_name": index_name,
@@ -1853,7 +1911,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOutboundConnection")
+        )
         input_: capo_opensearch.types.delete_outbound_connection_request.DeleteOutboundConnectionRequest = {
             "connection_id": connection_id
         }
@@ -1902,7 +1962,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePackage")
+        )
         input_: capo_opensearch.types.delete_package_request.DeletePackageRequest = {
             "package_id": package_id
         }
@@ -1949,7 +2011,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVpcEndpoint")
+        )
         input_: capo_opensearch.types.delete_vpc_endpoint_request.DeleteVpcEndpointRequest = {
             "vpc_endpoint_id": vpc_endpoint_id
         }
@@ -2000,7 +2064,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterCapability")
+        )
         input_: capo_opensearch.types.deregister_capability_request.DeregisterCapabilityRequest = {
             "application_id": application_id,
             "capability_name": capability_name,
@@ -2050,7 +2116,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataSourceAttachment")
+        )
         input_: capo_opensearch.types.describe_data_source_attachment_request.DescribeDataSourceAttachmentRequest = {
             "id": id,
             "data_source_arn": data_source_arn,
@@ -2098,7 +2166,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDomain")
+        )
         input_: capo_opensearch.types.describe_domain_request.DescribeDomainRequest = {
             "domain_name": domain_name
         }
@@ -2149,7 +2219,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDomainAutoTunes")
+        )
         input_: capo_opensearch.types.describe_domain_auto_tunes_request.DescribeDomainAutoTunesRequest = {
             "domain_name": domain_name
         }
@@ -2223,7 +2295,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDomainChangeProgress")
+        )
         input_: capo_opensearch.types.describe_domain_change_progress_request.DescribeDomainChangeProgressRequest = {
             "domain_name": domain_name
         }
@@ -2272,7 +2346,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDomainConfig")
+        )
         input_: capo_opensearch.types.describe_domain_config_request.DescribeDomainConfigRequest = {
             "domain_name": domain_name
         }
@@ -2320,7 +2396,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDomainHealth")
+        )
         input_: capo_opensearch.types.describe_domain_health_request.DescribeDomainHealthRequest = {
             "domain_name": domain_name
         }
@@ -2369,7 +2447,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDomainNodes")
+        )
         input_: capo_opensearch.types.describe_domain_nodes_request.DescribeDomainNodesRequest = {
             "domain_name": domain_name
         }
@@ -2415,7 +2495,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDomains")
+        )
         input_: capo_opensearch.types.describe_domains_request.DescribeDomainsRequest = {
             "domain_names": domain_names
         }
@@ -2467,7 +2549,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDryRunProgress")
+        )
         input_: capo_opensearch.types.describe_dry_run_progress_request.DescribeDryRunProgressRequest = {
             "domain_name": domain_name
         }
@@ -2520,7 +2604,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInboundConnections")
+        )
         input_: capo_opensearch.types.describe_inbound_connections_request.DescribeInboundConnectionsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -2598,7 +2684,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInsightDetails")
+        )
         input_: capo_opensearch.types.describe_insight_details_request.DescribeInsightDetailsRequest = {
             "entity": entity,
             "insight_id": insight_id,
@@ -2654,7 +2742,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInstanceTypeLimits")
+        )
         input_: capo_opensearch.types.describe_instance_type_limits_request.DescribeInstanceTypeLimitsRequest = {
             "instance_type": instance_type,
             "engine_version": engine_version,
@@ -2706,7 +2796,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOutboundConnections")
+        )
         input_: capo_opensearch.types.describe_outbound_connections_request.DescribeOutboundConnectionsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -2785,7 +2877,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePackages")
+        )
         input_: capo_opensearch.types.describe_packages_request.DescribePackagesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -2865,7 +2959,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReservedInstanceOfferings")
+        )
         input_: capo_opensearch.types.describe_reserved_instance_offerings_request.DescribeReservedInstanceOfferingsRequest = {}
         if reserved_instance_offering_id is not None:
             input_["reserved_instance_offering_id"] = reserved_instance_offering_id
@@ -2943,7 +3039,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReservedInstances")
+        )
         input_: capo_opensearch.types.describe_reserved_instances_request.DescribeReservedInstancesRequest = {}
         if reserved_instance_id is not None:
             input_["reserved_instance_id"] = reserved_instance_id
@@ -3015,7 +3113,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeVpcEndpoints")
+        )
         input_: capo_opensearch.types.describe_vpc_endpoints_request.DescribeVpcEndpointsRequest = {
             "vpc_endpoint_ids": vpc_endpoint_ids
         }
@@ -3065,7 +3165,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachDataSource")
+        )
         input_: capo_opensearch.types.detach_data_source_request.DetachDataSourceRequest = {
             "id": id,
             "data_source_arn": data_source_arn,
@@ -3117,7 +3219,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DissociatePackage")
+        )
         input_: capo_opensearch.types.dissociate_package_request.DissociatePackageRequest = {
             "package_id": package_id,
             "domain_name": domain_name,
@@ -3170,7 +3274,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DissociatePackages")
+        )
         input_: capo_opensearch.types.dissociate_packages_request.DissociatePackagesRequest = {
             "package_list": package_list,
             "domain_name": domain_name,
@@ -3220,7 +3326,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplication")
+        )
         input_: capo_opensearch.types.get_application_request.GetApplicationRequest = {
             "id": id
         }
@@ -3270,7 +3378,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCapability")
+        )
         input_: capo_opensearch.types.get_capability_request.GetCapabilityRequest = {
             "application_id": application_id,
             "capability_name": capability_name,
@@ -3319,7 +3429,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCompatibleVersions")
+        )
         input_: capo_opensearch.types.get_compatible_versions_request.GetCompatibleVersionsRequest = {}
         if domain_name is not None:
             input_["domain_name"] = domain_name
@@ -3370,7 +3482,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataSource")
+        )
         input_: capo_opensearch.types.get_data_source_request.GetDataSourceRequest = {
             "domain_name": domain_name,
             "name": name,
@@ -3412,7 +3526,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDefaultApplicationSetting")
+        )
         input_: capo_opensearch.types.get_default_application_setting_request.GetDefaultApplicationSettingRequest = {}
 
         response = await aexecute_pipeline(
@@ -3458,7 +3574,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDirectQueryDataSource")
+        )
         input_: capo_opensearch.types.get_direct_query_data_source_request.GetDirectQueryDataSourceRequest = {
             "data_source_name": data_source_name
         }
@@ -3508,7 +3626,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomainMaintenanceStatus")
+        )
         input_: capo_opensearch.types.get_domain_maintenance_status_request.GetDomainMaintenanceStatusRequest = {
             "domain_name": domain_name,
             "maintenance_id": maintenance_id,
@@ -3560,7 +3680,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIndex")
+        )
         input_: capo_opensearch.types.get_index_request.GetIndexRequest = {
             "domain_name": domain_name,
             "index_name": index_name,
@@ -3609,7 +3731,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMigration")
+        )
         input_: capo_opensearch.types.get_migration_request.GetMigrationRequest = {
             "migration_id": migration_id
         }
@@ -3661,7 +3785,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPackageVersionHistory")
+        )
         input_: capo_opensearch.types.get_package_version_history_request.GetPackageVersionHistoryRequest = {
             "package_id": package_id
         }
@@ -3738,7 +3864,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUpgradeHistory")
+        )
         input_: capo_opensearch.types.get_upgrade_history_request.GetUpgradeHistoryRequest = {
             "domain_name": domain_name
         }
@@ -3811,7 +3939,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUpgradeStatus")
+        )
         input_: capo_opensearch.types.get_upgrade_status_request.GetUpgradeStatusRequest = {
             "domain_name": domain_name
         }
@@ -3868,7 +3998,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InsightFeedback")
+        )
         input_: capo_opensearch.types.insight_feedback_request.InsightFeedbackRequest = {
             "entity": entity,
             "insight_id": insight_id,
@@ -3925,7 +4057,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_opensearch.types.list_applications_request.ListApplicationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4006,7 +4140,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataSourceAttachments")
+        )
         input_: capo_opensearch.types.list_data_source_attachments_request.ListDataSourceAttachmentsRequest = {
             "id": id
         }
@@ -4059,7 +4195,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataSources")
+        )
         input_: capo_opensearch.types.list_data_sources_request.ListDataSourcesRequest = {
             "domain_name": domain_name
         }
@@ -4104,7 +4242,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDirectQueryDataSources")
+        )
         input_: capo_opensearch.types.list_direct_query_data_sources_request.ListDirectQueryDataSourcesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4164,7 +4304,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomainMaintenances")
+        )
         input_: capo_opensearch.types.list_domain_maintenances_request.ListDomainMaintenancesRequest = {
             "domain_name": domain_name
         }
@@ -4246,7 +4388,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomainNames")
+        )
         input_: capo_opensearch.types.list_domain_names_request.ListDomainNamesRequest = {}
         if engine_type is not None:
             input_["engine_type"] = engine_type
@@ -4298,7 +4442,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomainsForPackage")
+        )
         input_: capo_opensearch.types.list_domains_for_package_request.ListDomainsForPackageRequest = {
             "package_id": package_id
         }
@@ -4386,7 +4532,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInsights")
+        )
         input_: capo_opensearch.types.list_insights_request.ListInsightsRequest = {
             "entity": entity
         }
@@ -4453,7 +4601,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInstanceTypeDetails")
+        )
         input_: capo_opensearch.types.list_instance_type_details_request.ListInstanceTypeDetailsRequest = {
             "engine_version": engine_version
         }
@@ -4545,7 +4695,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMigrations")
+        )
         input_: capo_opensearch.types.list_migrations_request.ListMigrationsRequest = {
             "application_id": application_id
         }
@@ -4603,7 +4755,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPackagesForDomain")
+        )
         input_: capo_opensearch.types.list_packages_for_domain_request.ListPackagesForDomainRequest = {
             "domain_name": domain_name
         }
@@ -4680,7 +4834,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListScheduledActions")
+        )
         input_: capo_opensearch.types.list_scheduled_actions_request.ListScheduledActionsRequest = {
             "domain_name": domain_name
         }
@@ -4752,7 +4908,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTags")
+        )
         input_: capo_opensearch.types.list_tags_request.ListTagsRequest = {"arn": arn}
 
         response = await aexecute_pipeline(
@@ -4799,7 +4957,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVersions")
+        )
         input_: capo_opensearch.types.list_versions_request.ListVersionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4869,7 +5029,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVpcEndpointAccess")
+        )
         input_: capo_opensearch.types.list_vpc_endpoint_access_request.ListVpcEndpointAccessRequest = {
             "domain_name": domain_name
         }
@@ -4917,7 +5079,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVpcEndpoints")
+        )
         input_: capo_opensearch.types.list_vpc_endpoints_request.ListVpcEndpointsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4966,7 +5130,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVpcEndpointsForDomain")
+        )
         input_: capo_opensearch.types.list_vpc_endpoints_for_domain_request.ListVpcEndpointsForDomainRequest = {
             "domain_name": domain_name
         }
@@ -5023,7 +5189,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PurchaseReservedInstanceOffering")
+        )
         input_: capo_opensearch.types.purchase_reserved_instance_offering_request.PurchaseReservedInstanceOfferingRequest = {
             "reserved_instance_offering_id": reserved_instance_offering_id,
             "reservation_name": reservation_name,
@@ -5074,7 +5242,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDefaultApplicationSetting")
+        )
         input_: capo_opensearch.types.put_default_application_setting_request.PutDefaultApplicationSettingRequest = {
             "application_arn": application_arn,
             "set_as_default": set_as_default,
@@ -5131,7 +5301,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterCapability")
+        )
         input_: capo_opensearch.types.register_capability_request.RegisterCapabilityRequest = {
             "application_id": application_id,
             "capability_name": capability_name,
@@ -5178,7 +5350,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectInboundConnection")
+        )
         input_: capo_opensearch.types.reject_inbound_connection_request.RejectInboundConnectionRequest = {
             "connection_id": connection_id
         }
@@ -5224,7 +5398,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTags")
+        )
         input_: capo_opensearch.types.remove_tags_request.RemoveTagsRequest = {
             "arn": arn,
             "tag_keys": tag_keys,
@@ -5283,7 +5459,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokeVpcEndpointAccess")
+        )
         input_: capo_opensearch.types.revoke_vpc_endpoint_access_request.RevokeVpcEndpointAccessRequest = {
             "domain_name": domain_name
         }
@@ -5337,7 +5515,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RollbackServiceSoftwareUpdate")
+        )
         input_: capo_opensearch.types.rollback_service_software_update_request.RollbackServiceSoftwareUpdateRequest = {
             "domain_name": domain_name
         }
@@ -5389,7 +5569,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDomainMaintenance")
+        )
         input_: capo_opensearch.types.start_domain_maintenance_request.StartDomainMaintenanceRequest = {
             "domain_name": domain_name,
             "action": action,
@@ -5445,7 +5627,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMigration")
+        )
         input_: capo_opensearch.types.start_migration_request.StartMigrationRequest = {
             "application_id": application_id,
             "migration_options": migration_options,
@@ -5499,7 +5683,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartServiceSoftwareUpdate")
+        )
         input_: capo_opensearch.types.start_service_software_update_request.StartServiceSoftwareUpdateRequest = {
             "domain_name": domain_name
         }
@@ -5561,7 +5747,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_opensearch.types.update_application_request.UpdateApplicationRequest = {
             "id": id
         }
@@ -5628,7 +5816,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataSource")
+        )
         input_: capo_opensearch.types.update_data_source_request.UpdateDataSourceRequest = {
             "domain_name": domain_name,
             "name": name,
@@ -5697,7 +5887,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDirectQueryDataSource")
+        )
         input_: capo_opensearch.types.update_direct_query_data_source_request.UpdateDirectQueryDataSourceRequest = {
             "data_source_name": data_source_name,
             "data_source_type": data_source_type,
@@ -5844,7 +6036,19 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_opensearch.types.update_domain_config_request.UpdateDomainConfigRequest",
+        ) -> dict[str, Any]:
+            import capo_opensearch.types.update_domain_config_request
+
+            return capo_opensearch.types.update_domain_config_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateDomainConfig", redact_input=_redact_input),
+        )
         input_: capo_opensearch.types.update_domain_config_request.UpdateDomainConfigRequest = {
             "domain_name": domain_name
         }
@@ -5949,7 +6153,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIndex")
+        )
         input_: capo_opensearch.types.update_index_request.UpdateIndexRequest = {
             "domain_name": domain_name,
             "index_name": index_name,
@@ -6018,7 +6224,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePackage")
+        )
         input_: capo_opensearch.types.update_package_request.UpdatePackageRequest = {
             "package_id": package_id,
             "package_source": package_source,
@@ -6081,7 +6289,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePackageScope")
+        )
         input_: capo_opensearch.types.update_package_scope_request.UpdatePackageScopeRequest = {
             "package_id": package_id,
             "operation": operation,
@@ -6141,7 +6351,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateScheduledAction")
+        )
         input_: capo_opensearch.types.update_scheduled_action_request.UpdateScheduledActionRequest = {
             "domain_name": domain_name,
             "action_id": action_id,
@@ -6197,7 +6409,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateVpcEndpoint")
+        )
         input_: capo_opensearch.types.update_vpc_endpoint_request.UpdateVpcEndpointRequest = {
             "vpc_endpoint_id": vpc_endpoint_id,
             "vpc_options": vpc_options,
@@ -6255,7 +6469,9 @@ class AsyncOpenSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpgradeDomain")
+        )
         input_: capo_opensearch.types.upgrade_domain_request.UpgradeDomainRequest = {
             "domain_name": domain_name,
             "target_version": target_version,

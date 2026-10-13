@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_rolesanywhere._auth._signers
 import capo_rolesanywhere._auth._sigv4
 from capo_rolesanywhere._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -81,7 +82,21 @@ class TrustAnchor:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rolesanywhere.types.create_trust_anchor_request.CreateTrustAnchorRequest",
+        ) -> dict[str, Any]:
+            import capo_rolesanywhere.types.create_trust_anchor_request
+
+            return (
+                capo_rolesanywhere.types.create_trust_anchor_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateTrustAnchor", redact_input=_redact_input),
+        )
         input_: capo_rolesanywhere.types.create_trust_anchor_request.CreateTrustAnchorRequest = {
             "name": name,
             "source": source,
@@ -133,7 +148,9 @@ class TrustAnchor:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTrustAnchor")
+        )
         input_: capo_rolesanywhere.types.scalar_trust_anchor_request.ScalarTrustAnchorRequest = {
             "trust_anchor_id": trust_anchor_id
         }
@@ -182,7 +199,9 @@ class TrustAnchor:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTrustAnchor")
+        )
         input_: capo_rolesanywhere.types.update_trust_anchor_request.UpdateTrustAnchorRequest = {
             "trust_anchor_id": trust_anchor_id
         }
@@ -230,7 +249,9 @@ class TrustAnchor:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTrustAnchor")
+        )
         input_: capo_rolesanywhere.types.scalar_trust_anchor_request.ScalarTrustAnchorRequest = {
             "trust_anchor_id": trust_anchor_id
         }
@@ -278,7 +299,9 @@ class TrustAnchor:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTrustAnchors")
+        )
         input_: capo_rolesanywhere.types.list_request.ListRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -324,7 +347,9 @@ class TrustAnchor:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisableTrustAnchor")
+        )
         input_: capo_rolesanywhere.types.scalar_trust_anchor_request.ScalarTrustAnchorRequest = {
             "trust_anchor_id": trust_anchor_id
         }
@@ -368,7 +393,9 @@ class TrustAnchor:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("EnableTrustAnchor")
+        )
         input_: capo_rolesanywhere.types.scalar_trust_anchor_request.ScalarTrustAnchorRequest = {
             "trust_anchor_id": trust_anchor_id
         }
@@ -428,7 +455,21 @@ class AsyncTrustAnchor:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rolesanywhere.types.create_trust_anchor_request.CreateTrustAnchorRequest",
+        ) -> dict[str, Any]:
+            import capo_rolesanywhere.types.create_trust_anchor_request
+
+            return (
+                capo_rolesanywhere.types.create_trust_anchor_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateTrustAnchor", redact_input=_redact_input),
+        )
         input_: capo_rolesanywhere.types.create_trust_anchor_request.CreateTrustAnchorRequest = {
             "name": name,
             "source": source,
@@ -481,7 +522,9 @@ class AsyncTrustAnchor:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTrustAnchor")
+        )
         input_: capo_rolesanywhere.types.scalar_trust_anchor_request.ScalarTrustAnchorRequest = {
             "trust_anchor_id": trust_anchor_id
         }
@@ -531,7 +574,9 @@ class AsyncTrustAnchor:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTrustAnchor")
+        )
         input_: capo_rolesanywhere.types.update_trust_anchor_request.UpdateTrustAnchorRequest = {
             "trust_anchor_id": trust_anchor_id
         }
@@ -580,7 +625,9 @@ class AsyncTrustAnchor:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTrustAnchor")
+        )
         input_: capo_rolesanywhere.types.scalar_trust_anchor_request.ScalarTrustAnchorRequest = {
             "trust_anchor_id": trust_anchor_id
         }
@@ -629,7 +676,9 @@ class AsyncTrustAnchor:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTrustAnchors")
+        )
         input_: capo_rolesanywhere.types.list_request.ListRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -676,7 +725,9 @@ class AsyncTrustAnchor:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisableTrustAnchor")
+        )
         input_: capo_rolesanywhere.types.scalar_trust_anchor_request.ScalarTrustAnchorRequest = {
             "trust_anchor_id": trust_anchor_id
         }
@@ -721,7 +772,9 @@ class AsyncTrustAnchor:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("EnableTrustAnchor")
+        )
         input_: capo_rolesanywhere.types.scalar_trust_anchor_request.ScalarTrustAnchorRequest = {
             "trust_anchor_id": trust_anchor_id
         }

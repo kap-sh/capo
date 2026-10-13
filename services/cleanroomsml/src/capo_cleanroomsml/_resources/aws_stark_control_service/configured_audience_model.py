@@ -7,6 +7,7 @@ import capo_cleanroomsml._auth._sigv4
 from capo_cleanroomsml._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -109,7 +110,9 @@ class ConfiguredAudienceModel:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateConfiguredAudienceModel")
+        )
         input_: capo_cleanroomsml.types.create_configured_audience_model_request.CreateConfiguredAudienceModelRequest = {
             "name": name,
             "audience_model_arn": audience_model_arn,
@@ -170,7 +173,9 @@ class ConfiguredAudienceModel:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConfiguredAudienceModel")
+        )
         input_: capo_cleanroomsml.types.get_configured_audience_model_request.GetConfiguredAudienceModelRequest = {
             "configured_audience_model_arn": configured_audience_model_arn
         }
@@ -241,7 +246,9 @@ class ConfiguredAudienceModel:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateConfiguredAudienceModel")
+        )
         input_: capo_cleanroomsml.types.update_configured_audience_model_request.UpdateConfiguredAudienceModelRequest = {
             "configured_audience_model_arn": configured_audience_model_arn
         }
@@ -298,7 +305,9 @@ class ConfiguredAudienceModel:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguredAudienceModel")
+        )
         input_: capo_cleanroomsml.types.delete_configured_audience_model_request.DeleteConfiguredAudienceModelRequest = {
             "configured_audience_model_arn": configured_audience_model_arn
         }
@@ -345,7 +354,9 @@ class ConfiguredAudienceModel:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConfiguredAudienceModels")
+        )
         input_: capo_cleanroomsml.types.list_configured_audience_models_request.ListConfiguredAudienceModelsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -425,7 +436,9 @@ class AsyncConfiguredAudienceModel:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateConfiguredAudienceModel")
+        )
         input_: capo_cleanroomsml.types.create_configured_audience_model_request.CreateConfiguredAudienceModelRequest = {
             "name": name,
             "audience_model_arn": audience_model_arn,
@@ -487,7 +500,9 @@ class AsyncConfiguredAudienceModel:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConfiguredAudienceModel")
+        )
         input_: capo_cleanroomsml.types.get_configured_audience_model_request.GetConfiguredAudienceModelRequest = {
             "configured_audience_model_arn": configured_audience_model_arn
         }
@@ -559,7 +574,9 @@ class AsyncConfiguredAudienceModel:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateConfiguredAudienceModel")
+        )
         input_: capo_cleanroomsml.types.update_configured_audience_model_request.UpdateConfiguredAudienceModelRequest = {
             "configured_audience_model_arn": configured_audience_model_arn
         }
@@ -617,7 +634,9 @@ class AsyncConfiguredAudienceModel:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguredAudienceModel")
+        )
         input_: capo_cleanroomsml.types.delete_configured_audience_model_request.DeleteConfiguredAudienceModelRequest = {
             "configured_audience_model_arn": configured_audience_model_arn
         }
@@ -665,7 +684,9 @@ class AsyncConfiguredAudienceModel:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConfiguredAudienceModels")
+        )
         input_: capo_cleanroomsml.types.list_configured_audience_models_request.ListConfiguredAudienceModelsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

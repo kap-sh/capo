@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#GetConfigurationBundleVersionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -165,4 +165,19 @@ def deserialize_json(data: dict) -> GetConfigurationBundleVersionResponse:
         )
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
+    return out
+
+
+def redact_sensitive(value: GetConfigurationBundleVersionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "components" in value:
+        import capo_bedrock_agentcore_control.types.component_configuration_map
+
+        out["components"] = (
+            capo_bedrock_agentcore_control.types.component_configuration_map.redact_sensitive(
+                value["components"]
+            )
+        )
     return out

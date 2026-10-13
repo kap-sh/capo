@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#GameSessionQueueList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_gamelift.types.game_session_queue
@@ -31,3 +31,11 @@ def deserialize_aws_json_1_1(data: list) -> GameSessionQueueList:
             capo_gamelift.types.game_session_queue.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+def redact_sensitive(value: GameSessionQueueList) -> list[Any]:
+    import capo_gamelift.types.game_session_queue
+
+    return [
+        capo_gamelift.types.game_session_queue.redact_sensitive(item) for item in value
+    ]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#Termination``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,4 +79,11 @@ def deserialize_json(data: dict) -> Termination:
         )
     if data.get("Disabled") is not None:
         out["disabled"] = data["Disabled"]
+    return out
+
+
+def redact_sensitive(value: Termination) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "default_phone_number" in value:
+        out["default_phone_number"] = "*** Sensitive Data Redacted ***"
     return out

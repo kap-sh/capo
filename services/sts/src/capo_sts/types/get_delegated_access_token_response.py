@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sts#GetDelegatedAccessTokenResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,4 +56,15 @@ def deserialize_query(el: Element) -> GetDelegatedAccessTokenResponse:
     child_assumed_principal = el.find("AssumedPrincipal")
     if child_assumed_principal is not None:
         out["assumed_principal"] = str(child_assumed_principal.text or "")
+    return out
+
+
+def redact_sensitive(value: GetDelegatedAccessTokenResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "credentials" in value:
+        import capo_sts.types.credentials
+
+        out["credentials"] = capo_sts.types.credentials.redact_sensitive(
+            value["credentials"]
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lightsail#SetupInstanceHttpsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -80,4 +80,11 @@ def deserialize_aws_json_1_1(data: dict) -> SetupInstanceHttpsRequest:
         raise DeserializationError(
             "SetupInstanceHttpsRequest.certificate_provider required"
         )
+    return out
+
+
+def redact_sensitive(value: SetupInstanceHttpsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "email_address" in value:
+        out["email_address"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.signin#CreateOAuth2TokenRequestBody``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -64,4 +64,11 @@ def deserialize_json(data: dict) -> CreateOAuth2TokenRequestBody:
         out["code_verifier"] = data["codeVerifier"]
     if data.get("refreshToken") is not None:
         out["refresh_token"] = data["refreshToken"]
+    return out
+
+
+def redact_sensitive(value: CreateOAuth2TokenRequestBody) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "refresh_token" in value:
+        out["refresh_token"] = "*** Sensitive Data Redacted ***"
     return out

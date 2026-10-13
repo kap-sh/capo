@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DateTimeParameter``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -44,4 +44,15 @@ def deserialize_json(data: dict) -> DateTimeParameter:
         )
     else:
         raise DeserializationError("DateTimeParameter.values required")
+    return out
+
+
+def redact_sensitive(value: DateTimeParameter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "values" in value:
+        import capo_quicksight.types.sensitive_timestamp_list
+
+        out["values"] = capo_quicksight.types.sensitive_timestamp_list.redact_sensitive(
+            value["values"]
+        )
     return out

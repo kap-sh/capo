@@ -7,6 +7,7 @@ import capo_codecatalyst._auth._sigv4
 from capo_codecatalyst._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -78,7 +79,9 @@ class Space:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSpace")
+        )
         input_: capo_codecatalyst.types.get_space_request.GetSpaceRequest = {
             "name": name
         }
@@ -130,7 +133,9 @@ class Space:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSpace")
+        )
         input_: capo_codecatalyst.types.update_space_request.UpdateSpaceRequest = {
             "name": name
         }
@@ -180,7 +185,9 @@ class Space:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSpace")
+        )
         input_: capo_codecatalyst.types.delete_space_request.DeleteSpaceRequest = {
             "name": name
         }
@@ -228,7 +235,9 @@ class Space:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSpaces")
+        )
         input_: capo_codecatalyst.types.list_spaces_request.ListSpacesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -284,7 +293,9 @@ class Space:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDevEnvironments")
+        )
         input_: capo_codecatalyst.types.list_dev_environments_request.ListDevEnvironmentsRequest = {
             "space_name": space_name
         }
@@ -346,7 +357,9 @@ class AsyncSpace:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSpace")
+        )
         input_: capo_codecatalyst.types.get_space_request.GetSpaceRequest = {
             "name": name
         }
@@ -399,7 +412,9 @@ class AsyncSpace:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSpace")
+        )
         input_: capo_codecatalyst.types.update_space_request.UpdateSpaceRequest = {
             "name": name
         }
@@ -450,7 +465,9 @@ class AsyncSpace:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSpace")
+        )
         input_: capo_codecatalyst.types.delete_space_request.DeleteSpaceRequest = {
             "name": name
         }
@@ -499,7 +516,9 @@ class AsyncSpace:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSpaces")
+        )
         input_: capo_codecatalyst.types.list_spaces_request.ListSpacesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -556,7 +575,9 @@ class AsyncSpace:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDevEnvironments")
+        )
         input_: capo_codecatalyst.types.list_dev_environments_request.ListDevEnvironmentsRequest = {
             "space_name": space_name
         }

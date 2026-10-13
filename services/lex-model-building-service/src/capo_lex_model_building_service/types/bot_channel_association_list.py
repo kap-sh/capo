@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexmodelbuildingservice#BotChannelAssociationList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_lex_model_building_service.types.bot_channel_association
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> BotChannelAssociationList:
             )
         )
     return out
+
+
+def redact_sensitive(value: BotChannelAssociationList) -> list[Any]:
+    import capo_lex_model_building_service.types.bot_channel_association
+
+    return [
+        capo_lex_model_building_service.types.bot_channel_association.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

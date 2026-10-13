@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#StartMatchmakingOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_aws_json_1_1(data: dict) -> StartMatchmakingOutput:
         out["matchmaking_ticket"] = (
             capo_gamelift.types.matchmaking_ticket.deserialize_aws_json_1_1(
                 data["MatchmakingTicket"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: StartMatchmakingOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "matchmaking_ticket" in value:
+        import capo_gamelift.types.matchmaking_ticket
+
+        out["matchmaking_ticket"] = (
+            capo_gamelift.types.matchmaking_ticket.redact_sensitive(
+                value["matchmaking_ticket"]
             )
         )
     return out

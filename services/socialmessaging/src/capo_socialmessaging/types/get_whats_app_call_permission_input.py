@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.socialmessaging#GetWhatsAppCallPermissionInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -50,4 +50,13 @@ def deserialize_json(data: dict) -> GetWhatsAppCallPermissionInput:
         out["destination_phone_number"] = data["destinationPhoneNumber"]
     if data.get("endUserBsuid") is not None:
         out["end_user_bsuid"] = data["endUserBsuid"]
+    return out
+
+
+def redact_sensitive(value: GetWhatsAppCallPermissionInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "destination_phone_number" in value:
+        out["destination_phone_number"] = "*** Sensitive Data Redacted ***"
+    if "end_user_bsuid" in value:
+        out["end_user_bsuid"] = "*** Sensitive Data Redacted ***"
     return out

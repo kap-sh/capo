@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TopicNullFilter``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -65,4 +65,11 @@ def deserialize_json(data: dict) -> TopicNullFilter:
         out["inverse"] = data["Inverse"]
     else:
         out["inverse"] = False
+    return out
+
+
+def redact_sensitive(value: TopicNullFilter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "constant" in value:
+        out["constant"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wellarchitected#CreateAgentProfileRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -122,4 +122,15 @@ def deserialize_json(data: dict) -> CreateAgentProfileRequest:
         import capo_wellarchitected.types.tags
 
         out["tags"] = capo_wellarchitected.types.tags.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: CreateAgentProfileRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "display_name" in value:
+        out["display_name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "business_overview" in value:
+        out["business_overview"] = "*** Sensitive Data Redacted ***"
     return out

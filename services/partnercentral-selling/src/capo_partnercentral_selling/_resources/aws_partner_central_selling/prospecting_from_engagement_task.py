@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_partnercentral_selling._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -84,7 +85,9 @@ class ProspectingFromEngagementTask:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartProspectingFromEngagementTask")
+        )
         input_: capo_partnercentral_selling.types.start_prospecting_from_engagement_task_request.StartProspectingFromEngagementTaskRequest = {
             "catalog": catalog,
             "identifiers": identifiers,
@@ -136,7 +139,9 @@ class ProspectingFromEngagementTask:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetProspectingFromEngagementTask")
+        )
         input_: capo_partnercentral_selling.types.get_prospecting_from_engagement_task_request.GetProspectingFromEngagementTaskRequest = {
             "catalog": catalog,
             "task_identifier": task_identifier,
@@ -209,7 +214,9 @@ class ProspectingFromEngagementTask:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListProspectingFromEngagementTasks")
+        )
         input_: capo_partnercentral_selling.types.list_prospecting_from_engagement_tasks_request.ListProspectingFromEngagementTasksRequest = {
             "catalog": catalog
         }
@@ -283,7 +290,9 @@ class AsyncProspectingFromEngagementTask:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartProspectingFromEngagementTask")
+        )
         input_: capo_partnercentral_selling.types.start_prospecting_from_engagement_task_request.StartProspectingFromEngagementTaskRequest = {
             "catalog": catalog,
             "identifiers": identifiers,
@@ -336,7 +345,9 @@ class AsyncProspectingFromEngagementTask:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetProspectingFromEngagementTask")
+        )
         input_: capo_partnercentral_selling.types.get_prospecting_from_engagement_task_request.GetProspectingFromEngagementTaskRequest = {
             "catalog": catalog,
             "task_identifier": task_identifier,
@@ -410,7 +421,9 @@ class AsyncProspectingFromEngagementTask:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListProspectingFromEngagementTasks")
+        )
         input_: capo_partnercentral_selling.types.list_prospecting_from_engagement_tasks_request.ListProspectingFromEngagementTasksRequest = {
             "catalog": catalog
         }

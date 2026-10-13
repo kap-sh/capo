@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_data_automation._auth._signers
 import capo_bedrock_data_automation._auth._sigv4
 from capo_bedrock_data_automation._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -101,7 +102,21 @@ class DataAutomationLibraryIngestionJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_data_automation.types.invoke_data_automation_library_ingestion_job_request.InvokeDataAutomationLibraryIngestionJobRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.invoke_data_automation_library_ingestion_job_request
+
+            return capo_bedrock_data_automation.types.invoke_data_automation_library_ingestion_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeDataAutomationLibraryIngestionJob", redact_input=_redact_input
+            ),
+        )
         input_: capo_bedrock_data_automation.types.invoke_data_automation_library_ingestion_job_request.InvokeDataAutomationLibraryIngestionJobRequest = {
             "library_arn": library_arn,
             "input_configuration": input_configuration,
@@ -161,7 +176,9 @@ class DataAutomationLibraryIngestionJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataAutomationLibraryIngestionJob")
+        )
         input_: capo_bedrock_data_automation.types.get_data_automation_library_ingestion_job_request.GetDataAutomationLibraryIngestionJobRequest = {
             "library_arn": library_arn,
             "job_arn": job_arn,
@@ -216,7 +233,9 @@ class DataAutomationLibraryIngestionJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDataAutomationLibraryIngestionJobs")
+        )
         input_: capo_bedrock_data_automation.types.list_data_automation_library_ingestion_jobs_request.ListDataAutomationLibraryIngestionJobsRequest = {
             "library_arn": library_arn
         }
@@ -293,7 +312,21 @@ class AsyncDataAutomationLibraryIngestionJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_data_automation.types.invoke_data_automation_library_ingestion_job_request.InvokeDataAutomationLibraryIngestionJobRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.invoke_data_automation_library_ingestion_job_request
+
+            return capo_bedrock_data_automation.types.invoke_data_automation_library_ingestion_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeDataAutomationLibraryIngestionJob", redact_input=_redact_input
+            ),
+        )
         input_: capo_bedrock_data_automation.types.invoke_data_automation_library_ingestion_job_request.InvokeDataAutomationLibraryIngestionJobRequest = {
             "library_arn": library_arn,
             "input_configuration": input_configuration,
@@ -354,7 +387,9 @@ class AsyncDataAutomationLibraryIngestionJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataAutomationLibraryIngestionJob")
+        )
         input_: capo_bedrock_data_automation.types.get_data_automation_library_ingestion_job_request.GetDataAutomationLibraryIngestionJobRequest = {
             "library_arn": library_arn,
             "job_arn": job_arn,
@@ -410,7 +445,9 @@ class AsyncDataAutomationLibraryIngestionJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDataAutomationLibraryIngestionJobs")
+        )
         input_: capo_bedrock_data_automation.types.list_data_automation_library_ingestion_jobs_request.ListDataAutomationLibraryIngestionJobsRequest = {
             "library_arn": library_arn
         }

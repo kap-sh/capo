@@ -8,6 +8,7 @@ import capo_mediapackagev2._auth._sigv4
 from capo_mediapackagev2._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -97,7 +98,9 @@ class ChannelGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateChannelGroup")
+        )
         input_: capo_mediapackagev2.types.create_channel_group_request.CreateChannelGroupRequest = {
             "channel_group_name": channel_group_name
         }
@@ -156,7 +159,9 @@ class ChannelGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetChannelGroup")
+        )
         input_: capo_mediapackagev2.types.get_channel_group_request.GetChannelGroupRequest = {
             "channel_group_name": channel_group_name
         }
@@ -215,7 +220,9 @@ class ChannelGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateChannelGroup")
+        )
         input_: capo_mediapackagev2.types.update_channel_group_request.UpdateChannelGroupRequest = {
             "channel_group_name": channel_group_name
         }
@@ -271,7 +278,9 @@ class ChannelGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteChannelGroup")
+        )
         input_: capo_mediapackagev2.types.delete_channel_group_request.DeleteChannelGroupRequest = {
             "channel_group_name": channel_group_name
         }
@@ -326,7 +335,9 @@ class ChannelGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListChannelGroups")
+        )
         input_: capo_mediapackagev2.types.list_channel_groups_request.ListChannelGroupsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -398,7 +409,9 @@ class AsyncChannelGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateChannelGroup")
+        )
         input_: capo_mediapackagev2.types.create_channel_group_request.CreateChannelGroupRequest = {
             "channel_group_name": channel_group_name
         }
@@ -458,7 +471,9 @@ class AsyncChannelGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetChannelGroup")
+        )
         input_: capo_mediapackagev2.types.get_channel_group_request.GetChannelGroupRequest = {
             "channel_group_name": channel_group_name
         }
@@ -518,7 +533,9 @@ class AsyncChannelGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateChannelGroup")
+        )
         input_: capo_mediapackagev2.types.update_channel_group_request.UpdateChannelGroupRequest = {
             "channel_group_name": channel_group_name
         }
@@ -575,7 +592,9 @@ class AsyncChannelGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteChannelGroup")
+        )
         input_: capo_mediapackagev2.types.delete_channel_group_request.DeleteChannelGroupRequest = {
             "channel_group_name": channel_group_name
         }
@@ -631,7 +650,9 @@ class AsyncChannelGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListChannelGroups")
+        )
         input_: capo_mediapackagev2.types.list_channel_groups_request.ListChannelGroupsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

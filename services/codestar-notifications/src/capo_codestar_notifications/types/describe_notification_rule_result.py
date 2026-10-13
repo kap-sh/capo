@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.codestarnotifications#DescribeNotificationRuleResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -189,5 +189,20 @@ def deserialize_json(data: dict) -> DescribeNotificationRuleResult:
 
         out["tags"] = capo_codestar_notifications.types.tags.deserialize_json(
             data["Tags"]
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeNotificationRuleResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "targets" in value:
+        import capo_codestar_notifications.types.targets_batch
+
+        out["targets"] = (
+            capo_codestar_notifications.types.targets_batch.redact_sensitive(
+                value["targets"]
+            )
         )
     return out

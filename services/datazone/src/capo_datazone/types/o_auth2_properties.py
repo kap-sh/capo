@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#OAuth2Properties``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -127,4 +127,11 @@ def deserialize_json(data: dict) -> OAuth2Properties:
                 data["oAuth2Credentials"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: OAuth2Properties) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "o_auth2_credentials" in value:
+        out["o_auth2_credentials"] = "*** Sensitive Data Redacted ***"
     return out

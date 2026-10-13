@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.trustedadvisor#GetOrganizationRecommendationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> GetOrganizationRecommendationResponse:
         out["organization_recommendation"] = (
             capo_trustedadvisor.types.organization_recommendation.deserialize_json(
                 data["organizationRecommendation"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GetOrganizationRecommendationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "organization_recommendation" in value:
+        import capo_trustedadvisor.types.organization_recommendation
+
+        out["organization_recommendation"] = (
+            capo_trustedadvisor.types.organization_recommendation.redact_sensitive(
+                value["organization_recommendation"]
             )
         )
     return out

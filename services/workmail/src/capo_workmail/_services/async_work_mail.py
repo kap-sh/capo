@@ -25,7 +25,9 @@ from capo_workmail._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -372,7 +374,9 @@ class AsyncWorkMailClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncWorkMailClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncWorkMailClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncWorkMailClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -380,8 +384,10 @@ class AsyncWorkMailClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -440,7 +446,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateDelegateToResource")
+        )
         input_: capo_workmail.types.associate_delegate_to_resource_request.AssociateDelegateToResourceRequest = {
             "organization_id": organization_id,
             "resource_id": resource_id,
@@ -497,7 +505,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateMemberToGroup")
+        )
         input_: capo_workmail.types.associate_member_to_group_request.AssociateMemberToGroupRequest = {
             "organization_id": organization_id,
             "group_id": group_id,
@@ -548,7 +558,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssumeImpersonationRole")
+        )
         input_: capo_workmail.types.assume_impersonation_role_request.AssumeImpersonationRoleRequest = {
             "organization_id": organization_id,
             "impersonation_role_id": impersonation_role_id,
@@ -600,7 +612,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelMailboxExportJob")
+        )
         input_: capo_workmail.types.cancel_mailbox_export_job_request.CancelMailboxExportJobRequest = {
             "client_token": client_token,
             "job_id": job_id,
@@ -658,7 +672,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAlias")
+        )
         input_: capo_workmail.types.create_alias_request.CreateAliasRequest = {
             "organization_id": organization_id,
             "entity_id": entity_id,
@@ -722,7 +738,21 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workmail.types.create_availability_configuration_request.CreateAvailabilityConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_workmail.types.create_availability_configuration_request
+
+            return capo_workmail.types.create_availability_configuration_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAvailabilityConfiguration", redact_input=_redact_input
+            ),
+        )
         input_: capo_workmail.types.create_availability_configuration_request.CreateAvailabilityConfigurationRequest = {
             "organization_id": organization_id,
             "domain_name": domain_name,
@@ -787,7 +817,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGroup")
+        )
         input_: capo_workmail.types.create_group_request.CreateGroupRequest = {
             "organization_id": organization_id,
             "name": name,
@@ -840,7 +872,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIdentityCenterApplication")
+        )
         input_: capo_workmail.types.create_identity_center_application_request.CreateIdentityCenterApplicationRequest = {
             "name": name,
             "instance_arn": instance_arn,
@@ -907,7 +941,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateImpersonationRole")
+        )
         input_: capo_workmail.types.create_impersonation_role_request.CreateImpersonationRoleRequest = {
             "organization_id": organization_id,
             "name": name,
@@ -1006,7 +1042,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMobileDeviceAccessRule")
+        )
         input_: capo_workmail.types.create_mobile_device_access_rule_request.CreateMobileDeviceAccessRuleRequest = {
             "organization_id": organization_id,
             "name": name,
@@ -1089,7 +1127,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateOrganization")
+        )
         input_: capo_workmail.types.create_organization_request.CreateOrganizationRequest = {
             "alias": alias
         }
@@ -1163,7 +1203,17 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workmail.types.create_resource_request.CreateResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_workmail.types.create_resource_request
+
+            return capo_workmail.types.create_resource_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateResource", redact_input=_redact_input),
+        )
         input_: capo_workmail.types.create_resource_request.CreateResourceRequest = {
             "organization_id": organization_id,
             "name": name,
@@ -1241,7 +1291,16 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workmail.types.create_user_request.CreateUserRequest",
+        ) -> dict[str, Any]:
+            import capo_workmail.types.create_user_request
+
+            return capo_workmail.types.create_user_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUser", redact_input=_redact_input)
+        )
         input_: capo_workmail.types.create_user_request.CreateUserRequest = {
             "organization_id": organization_id,
             "name": name,
@@ -1302,7 +1361,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessControlRule")
+        )
         input_: capo_workmail.types.delete_access_control_rule_request.DeleteAccessControlRuleRequest = {
             "organization_id": organization_id,
             "name": name,
@@ -1355,7 +1416,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAlias")
+        )
         input_: capo_workmail.types.delete_alias_request.DeleteAliasRequest = {
             "organization_id": organization_id,
             "entity_id": entity_id,
@@ -1404,7 +1467,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAvailabilityConfiguration")
+        )
         input_: capo_workmail.types.delete_availability_configuration_request.DeleteAvailabilityConfigurationRequest = {
             "organization_id": organization_id,
             "domain_name": domain_name,
@@ -1451,7 +1516,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEmailMonitoringConfiguration")
+        )
         input_: capo_workmail.types.delete_email_monitoring_configuration_request.DeleteEmailMonitoringConfigurationRequest = {
             "organization_id": organization_id
         }
@@ -1503,7 +1570,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGroup")
+        )
         input_: capo_workmail.types.delete_group_request.DeleteGroupRequest = {
             "organization_id": organization_id,
             "group_id": group_id,
@@ -1549,7 +1618,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIdentityCenterApplication")
+        )
         input_: capo_workmail.types.delete_identity_center_application_request.DeleteIdentityCenterApplicationRequest = {
             "application_arn": application_arn
         }
@@ -1595,7 +1666,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIdentityProviderConfiguration")
+        )
         input_: capo_workmail.types.delete_identity_provider_configuration_request.DeleteIdentityProviderConfigurationRequest = {
             "organization_id": organization_id
         }
@@ -1643,7 +1716,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteImpersonationRole")
+        )
         input_: capo_workmail.types.delete_impersonation_role_request.DeleteImpersonationRoleRequest = {
             "organization_id": organization_id,
             "impersonation_role_id": impersonation_role_id,
@@ -1696,7 +1771,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMailboxPermissions")
+        )
         input_: capo_workmail.types.delete_mailbox_permissions_request.DeleteMailboxPermissionsRequest = {
             "organization_id": organization_id,
             "entity_id": entity_id,
@@ -1749,7 +1826,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMobileDeviceAccessOverride")
+        )
         input_: capo_workmail.types.delete_mobile_device_access_override_request.DeleteMobileDeviceAccessOverrideRequest = {
             "organization_id": organization_id,
             "user_id": user_id,
@@ -1799,7 +1878,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMobileDeviceAccessRule")
+        )
         input_: capo_workmail.types.delete_mobile_device_access_rule_request.DeleteMobileDeviceAccessRuleRequest = {
             "organization_id": organization_id,
             "mobile_device_access_rule_id": mobile_device_access_rule_id,
@@ -1858,7 +1939,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOrganization")
+        )
         input_: capo_workmail.types.delete_organization_request.DeleteOrganizationRequest = {
             "organization_id": organization_id,
             "delete_directory": delete_directory,
@@ -1916,7 +1999,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePersonalAccessToken")
+        )
         input_: capo_workmail.types.delete_personal_access_token_request.DeletePersonalAccessTokenRequest = {
             "organization_id": organization_id,
             "personal_access_token_id": personal_access_token_id,
@@ -1967,7 +2052,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResource")
+        )
         input_: capo_workmail.types.delete_resource_request.DeleteResourceRequest = {
             "organization_id": organization_id,
             "resource_id": resource_id,
@@ -2016,7 +2103,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRetentionPolicy")
+        )
         input_: capo_workmail.types.delete_retention_policy_request.DeleteRetentionPolicyRequest = {
             "organization_id": organization_id,
             "id": id,
@@ -2069,7 +2158,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUser")
+        )
         input_: capo_workmail.types.delete_user_request.DeleteUserRequest = {
             "organization_id": organization_id,
             "user_id": user_id,
@@ -2120,7 +2211,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterFromWorkMail")
+        )
         input_: capo_workmail.types.deregister_from_work_mail_request.DeregisterFromWorkMailRequest = {
             "organization_id": organization_id,
             "entity_id": entity_id,
@@ -2171,7 +2264,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterMailDomain")
+        )
         input_: capo_workmail.types.deregister_mail_domain_request.DeregisterMailDomainRequest = {
             "organization_id": organization_id,
             "domain_name": domain_name,
@@ -2219,7 +2314,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEmailMonitoringConfiguration")
+        )
         input_: capo_workmail.types.describe_email_monitoring_configuration_request.DescribeEmailMonitoringConfigurationRequest = {
             "organization_id": organization_id
         }
@@ -2268,7 +2365,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEntity")
+        )
         input_: capo_workmail.types.describe_entity_request.DescribeEntityRequest = {
             "organization_id": organization_id,
             "email": email,
@@ -2318,7 +2417,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeGroup")
+        )
         input_: capo_workmail.types.describe_group_request.DescribeGroupRequest = {
             "organization_id": organization_id,
             "group_id": group_id,
@@ -2366,7 +2467,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeIdentityProviderConfiguration")
+        )
         input_: capo_workmail.types.describe_identity_provider_configuration_request.DescribeIdentityProviderConfigurationRequest = {
             "organization_id": organization_id
         }
@@ -2411,7 +2514,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInboundDmarcSettings")
+        )
         input_: capo_workmail.types.describe_inbound_dmarc_settings_request.DescribeInboundDmarcSettingsRequest = {
             "organization_id": organization_id
         }
@@ -2460,7 +2565,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMailboxExportJob")
+        )
         input_: capo_workmail.types.describe_mailbox_export_job_request.DescribeMailboxExportJobRequest = {
             "job_id": job_id,
             "organization_id": organization_id,
@@ -2506,7 +2613,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOrganization")
+        )
         input_: capo_workmail.types.describe_organization_request.DescribeOrganizationRequest = {
             "organization_id": organization_id
         }
@@ -2556,7 +2665,19 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workmail.types.describe_resource_response.DescribeResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_workmail.types.describe_resource_response
+
+            return capo_workmail.types.describe_resource_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeResource", redact_output=_redact_output),
+        )
         input_: capo_workmail.types.describe_resource_request.DescribeResourceRequest = {
             "organization_id": organization_id,
             "resource_id": resource_id,
@@ -2608,7 +2729,17 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workmail.types.describe_user_response.DescribeUserResponse",
+        ) -> dict[str, Any]:
+            import capo_workmail.types.describe_user_response
+
+            return capo_workmail.types.describe_user_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeUser", redact_output=_redact_output),
+        )
         input_: capo_workmail.types.describe_user_request.DescribeUserRequest = {
             "organization_id": organization_id,
             "user_id": user_id,
@@ -2662,7 +2793,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateDelegateFromResource")
+        )
         input_: capo_workmail.types.disassociate_delegate_from_resource_request.DisassociateDelegateFromResourceRequest = {
             "organization_id": organization_id,
             "resource_id": resource_id,
@@ -2719,7 +2852,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateMemberFromGroup")
+        )
         input_: capo_workmail.types.disassociate_member_from_group_request.DisassociateMemberFromGroupRequest = {
             "organization_id": organization_id,
             "group_id": group_id,
@@ -2781,7 +2916,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessControlEffect")
+        )
         input_: capo_workmail.types.get_access_control_effect_request.GetAccessControlEffectRequest = {
             "organization_id": organization_id,
             "ip_address": ip_address,
@@ -2834,7 +2971,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDefaultRetentionPolicy")
+        )
         input_: capo_workmail.types.get_default_retention_policy_request.GetDefaultRetentionPolicyRequest = {
             "organization_id": organization_id
         }
@@ -2883,7 +3022,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetImpersonationRole")
+        )
         input_: capo_workmail.types.get_impersonation_role_request.GetImpersonationRoleRequest = {
             "organization_id": organization_id,
             "impersonation_role_id": impersonation_role_id,
@@ -2937,7 +3078,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetImpersonationRoleEffect")
+        )
         input_: capo_workmail.types.get_impersonation_role_effect_request.GetImpersonationRoleEffectRequest = {
             "organization_id": organization_id,
             "impersonation_role_id": impersonation_role_id,
@@ -2988,7 +3131,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMailboxDetails")
+        )
         input_: capo_workmail.types.get_mailbox_details_request.GetMailboxDetailsRequest = {
             "organization_id": organization_id,
             "user_id": user_id,
@@ -3038,7 +3183,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMailDomain")
+        )
         input_: capo_workmail.types.get_mail_domain_request.GetMailDomainRequest = {
             "organization_id": organization_id,
             "domain_name": domain_name,
@@ -3097,7 +3244,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMobileDeviceAccessEffect")
+        )
         input_: capo_workmail.types.get_mobile_device_access_effect_request.GetMobileDeviceAccessEffectRequest = {
             "organization_id": organization_id
         }
@@ -3157,7 +3306,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMobileDeviceAccessOverride")
+        )
         input_: capo_workmail.types.get_mobile_device_access_override_request.GetMobileDeviceAccessOverrideRequest = {
             "organization_id": organization_id,
             "user_id": user_id,
@@ -3208,7 +3359,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPersonalAccessTokenMetadata")
+        )
         input_: capo_workmail.types.get_personal_access_token_metadata_request.GetPersonalAccessTokenMetadataRequest = {
             "organization_id": organization_id,
             "personal_access_token_id": personal_access_token_id,
@@ -3254,7 +3407,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessControlRules")
+        )
         input_: capo_workmail.types.list_access_control_rules_request.ListAccessControlRulesRequest = {
             "organization_id": organization_id
         }
@@ -3308,7 +3463,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAliases")
+        )
         input_: capo_workmail.types.list_aliases_request.ListAliasesRequest = {
             "organization_id": organization_id,
             "entity_id": entity_id,
@@ -3386,7 +3543,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAvailabilityConfigurations")
+        )
         input_: capo_workmail.types.list_availability_configurations_request.ListAvailabilityConfigurationsRequest = {
             "organization_id": organization_id
         }
@@ -3467,7 +3626,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroupMembers")
+        )
         input_: capo_workmail.types.list_group_members_request.ListGroupMembersRequest = {
             "organization_id": organization_id,
             "group_id": group_id,
@@ -3550,7 +3711,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroups")
+        )
         input_: capo_workmail.types.list_groups_request.ListGroupsRequest = {
             "organization_id": organization_id
         }
@@ -3639,7 +3802,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroupsForEntity")
+        )
         input_: capo_workmail.types.list_groups_for_entity_request.ListGroupsForEntityRequest = {
             "organization_id": organization_id,
             "entity_id": entity_id,
@@ -3723,7 +3888,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImpersonationRoles")
+        )
         input_: capo_workmail.types.list_impersonation_roles_request.ListImpersonationRolesRequest = {
             "organization_id": organization_id
         }
@@ -3798,7 +3965,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMailboxExportJobs")
+        )
         input_: capo_workmail.types.list_mailbox_export_jobs_request.ListMailboxExportJobsRequest = {
             "organization_id": organization_id
         }
@@ -3876,7 +4045,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMailboxPermissions")
+        )
         input_: capo_workmail.types.list_mailbox_permissions_request.ListMailboxPermissionsRequest = {
             "organization_id": organization_id,
             "entity_id": entity_id,
@@ -3954,7 +4125,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMailDomains")
+        )
         input_: capo_workmail.types.list_mail_domains_request.ListMailDomainsRequest = {
             "organization_id": organization_id
         }
@@ -4036,7 +4209,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMobileDeviceAccessOverrides")
+        )
         input_: capo_workmail.types.list_mobile_device_access_overrides_request.ListMobileDeviceAccessOverridesRequest = {
             "organization_id": organization_id
         }
@@ -4117,7 +4292,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMobileDeviceAccessRules")
+        )
         input_: capo_workmail.types.list_mobile_device_access_rules_request.ListMobileDeviceAccessRulesRequest = {
             "organization_id": organization_id
         }
@@ -4163,7 +4340,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOrganizations")
+        )
         input_: capo_workmail.types.list_organizations_request.ListOrganizationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4240,7 +4419,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPersonalAccessTokens")
+        )
         input_: capo_workmail.types.list_personal_access_tokens_request.ListPersonalAccessTokensRequest = {
             "organization_id": organization_id
         }
@@ -4328,7 +4509,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceDelegates")
+        )
         input_: capo_workmail.types.list_resource_delegates_request.ListResourceDelegatesRequest = {
             "organization_id": organization_id,
             "resource_id": resource_id,
@@ -4411,7 +4594,17 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workmail.types.list_resources_response.ListResourcesResponse",
+        ) -> dict[str, Any]:
+            import capo_workmail.types.list_resources_response
+
+            return capo_workmail.types.list_resources_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListResources", redact_output=_redact_output),
+        )
         input_: capo_workmail.types.list_resources_request.ListResourcesRequest = {
             "organization_id": organization_id
         }
@@ -4486,7 +4679,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_workmail.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -4540,7 +4735,16 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workmail.types.list_users_request.ListUsersRequest",
+        ) -> dict[str, Any]:
+            import capo_workmail.types.list_users_request
+
+            return capo_workmail.types.list_users_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUsers", redact_input=_redact_input)
+        )
         input_: capo_workmail.types.list_users_request.ListUsersRequest = {
             "organization_id": organization_id
         }
@@ -4646,7 +4850,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccessControlRule")
+        )
         input_: capo_workmail.types.put_access_control_rule_request.PutAccessControlRuleRequest = {
             "name": name,
             "effect": effect,
@@ -4716,7 +4922,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutEmailMonitoringConfiguration")
+        )
         input_: capo_workmail.types.put_email_monitoring_configuration_request.PutEmailMonitoringConfigurationRequest = {
             "organization_id": organization_id,
             "log_group_arn": log_group_arn,
@@ -4772,7 +4980,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutIdentityProviderConfiguration")
+        )
         input_: capo_workmail.types.put_identity_provider_configuration_request.PutIdentityProviderConfigurationRequest = {
             "organization_id": organization_id,
             "authentication_mode": authentication_mode,
@@ -4822,7 +5032,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutInboundDmarcSettings")
+        )
         input_: capo_workmail.types.put_inbound_dmarc_settings_request.PutInboundDmarcSettingsRequest = {
             "organization_id": organization_id,
             "enforced": enforced,
@@ -4877,7 +5089,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutMailboxPermissions")
+        )
         input_: capo_workmail.types.put_mailbox_permissions_request.PutMailboxPermissionsRequest = {
             "organization_id": organization_id,
             "entity_id": entity_id,
@@ -4938,7 +5152,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutMobileDeviceAccessOverride")
+        )
         input_: capo_workmail.types.put_mobile_device_access_override_request.PutMobileDeviceAccessOverrideRequest = {
             "organization_id": organization_id,
             "user_id": user_id,
@@ -5000,7 +5216,19 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workmail.types.put_retention_policy_request.PutRetentionPolicyRequest",
+        ) -> dict[str, Any]:
+            import capo_workmail.types.put_retention_policy_request
+
+            return capo_workmail.types.put_retention_policy_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutRetentionPolicy", redact_input=_redact_input),
+        )
         input_: capo_workmail.types.put_retention_policy_request.PutRetentionPolicyRequest = {
             "organization_id": organization_id,
             "name": name,
@@ -5060,7 +5288,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterMailDomain")
+        )
         input_: capo_workmail.types.register_mail_domain_request.RegisterMailDomainRequest = {
             "organization_id": organization_id,
             "domain_name": domain_name,
@@ -5125,7 +5355,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterToWorkMail")
+        )
         input_: capo_workmail.types.register_to_work_mail_request.RegisterToWorkMailRequest = {
             "organization_id": organization_id,
             "entity_id": entity_id,
@@ -5183,7 +5415,17 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workmail.types.reset_password_request.ResetPasswordRequest",
+        ) -> dict[str, Any]:
+            import capo_workmail.types.reset_password_request
+
+            return capo_workmail.types.reset_password_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ResetPassword", redact_input=_redact_input),
+        )
         input_: capo_workmail.types.reset_password_request.ResetPasswordRequest = {
             "organization_id": organization_id,
             "user_id": user_id,
@@ -5247,7 +5489,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMailboxExportJob")
+        )
         input_: capo_workmail.types.start_mailbox_export_job_request.StartMailboxExportJobRequest = {
             "client_token": client_token,
             "organization_id": organization_id,
@@ -5304,7 +5548,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_workmail.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -5360,7 +5606,21 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workmail.types.test_availability_configuration_request.TestAvailabilityConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_workmail.types.test_availability_configuration_request
+
+            return capo_workmail.types.test_availability_configuration_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "TestAvailabilityConfiguration", redact_input=_redact_input
+            ),
+        )
         input_: capo_workmail.types.test_availability_configuration_request.TestAvailabilityConfigurationRequest = {
             "organization_id": organization_id
         }
@@ -5412,7 +5672,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_workmail.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -5470,7 +5732,21 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workmail.types.update_availability_configuration_request.UpdateAvailabilityConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_workmail.types.update_availability_configuration_request
+
+            return capo_workmail.types.update_availability_configuration_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAvailabilityConfiguration", redact_input=_redact_input
+            ),
+        )
         input_: capo_workmail.types.update_availability_configuration_request.UpdateAvailabilityConfigurationRequest = {
             "organization_id": organization_id,
             "domain_name": domain_name,
@@ -5525,7 +5801,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDefaultMailDomain")
+        )
         input_: capo_workmail.types.update_default_mail_domain_request.UpdateDefaultMailDomainRequest = {
             "organization_id": organization_id,
             "domain_name": domain_name,
@@ -5581,7 +5859,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGroup")
+        )
         input_: capo_workmail.types.update_group_request.UpdateGroupRequest = {
             "organization_id": organization_id,
             "group_id": group_id,
@@ -5646,7 +5926,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateImpersonationRole")
+        )
         input_: capo_workmail.types.update_impersonation_role_request.UpdateImpersonationRoleRequest = {
             "organization_id": organization_id,
             "impersonation_role_id": impersonation_role_id,
@@ -5704,7 +5986,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMailboxQuota")
+        )
         input_: capo_workmail.types.update_mailbox_quota_request.UpdateMailboxQuotaRequest = {
             "organization_id": organization_id,
             "user_id": user_id,
@@ -5795,7 +6079,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMobileDeviceAccessRule")
+        )
         input_: capo_workmail.types.update_mobile_device_access_rule_request.UpdateMobileDeviceAccessRuleRequest = {
             "organization_id": organization_id,
             "mobile_device_access_rule_id": mobile_device_access_rule_id,
@@ -5874,7 +6160,9 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePrimaryEmailAddress")
+        )
         input_: capo_workmail.types.update_primary_email_address_request.UpdatePrimaryEmailAddressRequest = {
             "organization_id": organization_id,
             "entity_id": entity_id,
@@ -5949,7 +6237,17 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workmail.types.update_resource_request.UpdateResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_workmail.types.update_resource_request
+
+            return capo_workmail.types.update_resource_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateResource", redact_input=_redact_input),
+        )
         input_: capo_workmail.types.update_resource_request.UpdateResourceRequest = {
             "organization_id": organization_id,
             "resource_id": resource_id,
@@ -6051,7 +6349,16 @@ class AsyncWorkMailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workmail.types.update_user_request.UpdateUserRequest",
+        ) -> dict[str, Any]:
+            import capo_workmail.types.update_user_request
+
+            return capo_workmail.types.update_user_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUser", redact_input=_redact_input)
+        )
         input_: capo_workmail.types.update_user_request.UpdateUserRequest = {
             "organization_id": organization_id,
             "user_id": user_id,

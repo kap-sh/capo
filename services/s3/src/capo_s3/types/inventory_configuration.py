@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#InventoryConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -123,4 +123,15 @@ def deserialize_xml(el: Element) -> InventoryConfiguration:
         )
     else:
         raise DeserializationError("InventoryConfiguration.schedule required")
+    return out
+
+
+def redact_sensitive(value: InventoryConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "destination" in value:
+        import capo_s3.types.inventory_destination
+
+        out["destination"] = capo_s3.types.inventory_destination.redact_sensitive(
+            value["destination"]
+        )
     return out

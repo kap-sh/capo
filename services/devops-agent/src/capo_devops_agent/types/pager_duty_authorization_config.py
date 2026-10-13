@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#PagerDutyAuthorizationConfig``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -46,3 +46,16 @@ def deserialize_json(data: dict) -> PagerDutyAuthorizationConfig:
         raise DeserializationError(
             "PagerDutyAuthorizationConfig: no recognized variant key"
         )
+
+
+def redact_sensitive(value: PagerDutyAuthorizationConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "oAuthClientCredentials" in value:
+        import capo_devops_agent.types.pager_duty_o_auth_client_credentials_config
+
+        out["oAuthClientCredentials"] = (
+            capo_devops_agent.types.pager_duty_o_auth_client_credentials_config.redact_sensitive(
+                value["oAuthClientCredentials"]
+            )
+        )
+    return out

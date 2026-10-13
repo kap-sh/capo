@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_payment_cryptography._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -108,7 +109,9 @@ class KeyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateKey")
+        )
         input_: capo_payment_cryptography.types.create_key_input.CreateKeyInput = {
             "key_attributes": key_attributes,
             "exportable": exportable,
@@ -167,7 +170,9 @@ class KeyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetKey")
+        )
         input_: capo_payment_cryptography.types.get_key_input.GetKeyInput = {
             "key_identifier": key_identifier
         }
@@ -218,7 +223,9 @@ class KeyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteKey")
+        )
         input_: capo_payment_cryptography.types.delete_key_input.DeleteKeyInput = {
             "key_identifier": key_identifier
         }
@@ -278,7 +285,9 @@ class KeyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListKeys")
+        )
         input_: capo_payment_cryptography.types.list_keys_input.ListKeysInput = {}
         if key_state is not None:
             input_["key_state"] = key_state
@@ -333,7 +342,9 @@ class KeyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AddKeyReplicationRegions")
+        )
         input_: capo_payment_cryptography.types.add_key_replication_regions_input.AddKeyReplicationRegionsInput = {
             "key_identifier": key_identifier,
             "replication_regions": replication_regions,
@@ -385,7 +396,9 @@ class KeyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemoveKeyReplicationRegions")
+        )
         input_: capo_payment_cryptography.types.remove_key_replication_regions_input.RemoveKeyReplicationRegionsInput = {
             "key_identifier": key_identifier,
             "replication_regions": replication_regions,
@@ -436,7 +449,9 @@ class KeyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RestoreKey")
+        )
         input_: capo_payment_cryptography.types.restore_key_input.RestoreKeyInput = {
             "key_identifier": key_identifier
         }
@@ -486,7 +501,9 @@ class KeyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartKeyUsage")
+        )
         input_: capo_payment_cryptography.types.start_key_usage_input.StartKeyUsageInput = {
             "key_identifier": key_identifier
         }
@@ -536,7 +553,9 @@ class KeyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopKeyUsage")
+        )
         input_: capo_payment_cryptography.types.stop_key_usage_input.StopKeyUsageInput = {
             "key_identifier": key_identifier
         }
@@ -609,7 +628,9 @@ class AsyncKeyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateKey")
+        )
         input_: capo_payment_cryptography.types.create_key_input.CreateKeyInput = {
             "key_attributes": key_attributes,
             "exportable": exportable,
@@ -669,7 +690,9 @@ class AsyncKeyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetKey")
+        )
         input_: capo_payment_cryptography.types.get_key_input.GetKeyInput = {
             "key_identifier": key_identifier
         }
@@ -721,7 +744,9 @@ class AsyncKeyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteKey")
+        )
         input_: capo_payment_cryptography.types.delete_key_input.DeleteKeyInput = {
             "key_identifier": key_identifier
         }
@@ -782,7 +807,9 @@ class AsyncKeyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListKeys")
+        )
         input_: capo_payment_cryptography.types.list_keys_input.ListKeysInput = {}
         if key_state is not None:
             input_["key_state"] = key_state
@@ -838,7 +865,9 @@ class AsyncKeyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AddKeyReplicationRegions")
+        )
         input_: capo_payment_cryptography.types.add_key_replication_regions_input.AddKeyReplicationRegionsInput = {
             "key_identifier": key_identifier,
             "replication_regions": replication_regions,
@@ -891,7 +920,9 @@ class AsyncKeyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemoveKeyReplicationRegions")
+        )
         input_: capo_payment_cryptography.types.remove_key_replication_regions_input.RemoveKeyReplicationRegionsInput = {
             "key_identifier": key_identifier,
             "replication_regions": replication_regions,
@@ -943,7 +974,9 @@ class AsyncKeyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RestoreKey")
+        )
         input_: capo_payment_cryptography.types.restore_key_input.RestoreKeyInput = {
             "key_identifier": key_identifier
         }
@@ -994,7 +1027,9 @@ class AsyncKeyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartKeyUsage")
+        )
         input_: capo_payment_cryptography.types.start_key_usage_input.StartKeyUsageInput = {
             "key_identifier": key_identifier
         }
@@ -1045,7 +1080,9 @@ class AsyncKeyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopKeyUsage")
+        )
         input_: capo_payment_cryptography.types.stop_key_usage_input.StopKeyUsageInput = {
             "key_identifier": key_identifier
         }

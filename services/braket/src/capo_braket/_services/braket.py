@@ -25,10 +25,12 @@ from capo_braket._resources.braket.spending_limit_resource import SpendingLimitR
 from capo_braket._services._aws_config import aws_config
 from capo_braket._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -179,7 +181,9 @@ class BraketClient:
         self.spending_limit_resource = SpendingLimitResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[BraketClientConfig] = None
+        self,
+        config_overrides: Optional[BraketClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: BraketClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -187,8 +191,10 @@ class BraketClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -241,7 +247,9 @@ class BraketClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_braket.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -288,7 +296,9 @@ class BraketClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_braket.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -336,7 +346,9 @@ class BraketClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_braket.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -384,7 +396,9 @@ class BraketClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDevice")
+        )
         input_: capo_braket.types.get_device_request.GetDeviceRequest = {
             "device_arn": device_arn
         }
@@ -434,7 +448,9 @@ class BraketClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchDevices")
+        )
         input_: capo_braket.types.search_devices_request.SearchDevicesRequest = {
             "filters": filters
         }
@@ -543,7 +559,9 @@ class BraketClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateJob")
+        )
         input_: capo_braket.types.create_job_request.CreateJobRequest = {
             "client_token": client_token,
             "algorithm_specification": algorithm_specification,
@@ -608,7 +626,9 @@ class BraketClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJob")
+        )
         input_: capo_braket.types.get_job_request.GetJobRequest = {"job_arn": job_arn}
         if additional_attribute_names is not None:
             input_["additional_attribute_names"] = additional_attribute_names
@@ -656,7 +676,9 @@ class BraketClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelJob")
+        )
         input_: capo_braket.types.cancel_job_request.CancelJobRequest = {
             "job_arn": job_arn
         }
@@ -706,7 +728,9 @@ class BraketClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchJobs")
+        )
         input_: capo_braket.types.search_jobs_request.SearchJobsRequest = {
             "filters": filters
         }
@@ -804,7 +828,9 @@ class BraketClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateQuantumTask")
+        )
         input_: capo_braket.types.create_quantum_task_request.CreateQuantumTaskRequest = {
             "client_token": client_token,
             "device_arn": device_arn,
@@ -870,7 +896,9 @@ class BraketClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQuantumTask")
+        )
         input_: capo_braket.types.get_quantum_task_request.GetQuantumTaskRequest = {
             "quantum_task_arn": quantum_task_arn
         }
@@ -922,7 +950,9 @@ class BraketClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelQuantumTask")
+        )
         input_: capo_braket.types.cancel_quantum_task_request.CancelQuantumTaskRequest = {
             "quantum_task_arn": quantum_task_arn,
             "client_token": client_token,
@@ -973,7 +1003,9 @@ class BraketClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchQuantumTasks")
+        )
         input_: capo_braket.types.search_quantum_tasks_request.SearchQuantumTasksRequest = {
             "filters": filters
         }
@@ -1055,7 +1087,9 @@ class BraketClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSpendingLimit")
+        )
         input_: capo_braket.types.create_spending_limit_request.CreateSpendingLimitRequest = {
             "client_token": client_token,
             "device_arn": device_arn,
@@ -1114,7 +1148,9 @@ class BraketClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSpendingLimit")
+        )
         input_: capo_braket.types.update_spending_limit_request.UpdateSpendingLimitRequest = {
             "spending_limit_arn": spending_limit_arn,
             "client_token": client_token,
@@ -1166,7 +1202,9 @@ class BraketClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSpendingLimit")
+        )
         input_: capo_braket.types.delete_spending_limit_request.DeleteSpendingLimitRequest = {
             "spending_limit_arn": spending_limit_arn
         }
@@ -1220,7 +1258,9 @@ class BraketClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchSpendingLimits")
+        )
         input_: capo_braket.types.search_spending_limits_request.SearchSpendingLimitsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

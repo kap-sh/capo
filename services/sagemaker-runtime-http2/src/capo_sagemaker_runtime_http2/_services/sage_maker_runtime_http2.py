@@ -24,10 +24,12 @@ from capo_sagemaker_runtime_http2._iter import (
 from capo_sagemaker_runtime_http2._services._aws_config import aws_config
 from capo_sagemaker_runtime_http2._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -110,7 +112,9 @@ class SageMakerRuntimeHTTP2Client:
         )
 
     def operation_options(
-        self, config_overrides: Optional[SageMakerRuntimeHTTP2ClientConfig] = None
+        self,
+        config_overrides: Optional[SageMakerRuntimeHTTP2ClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: SageMakerRuntimeHTTP2ClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -118,8 +122,10 @@ class SageMakerRuntimeHTTP2Client:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -182,7 +188,32 @@ class SageMakerRuntimeHTTP2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker_runtime_http2.types.invoke_endpoint_with_bidirectional_stream_input.InvokeEndpointWithBidirectionalStreamInput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_runtime_http2.types.invoke_endpoint_with_bidirectional_stream_input
+
+            return capo_sagemaker_runtime_http2.types.invoke_endpoint_with_bidirectional_stream_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemaker_runtime_http2.types.invoke_endpoint_with_bidirectional_stream_output.InvokeEndpointWithBidirectionalStreamOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_runtime_http2.types.invoke_endpoint_with_bidirectional_stream_output
+
+            return capo_sagemaker_runtime_http2.types.invoke_endpoint_with_bidirectional_stream_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeEndpointWithBidirectionalStream",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sagemaker_runtime_http2.types.invoke_endpoint_with_bidirectional_stream_input.InvokeEndpointWithBidirectionalStreamInput = {
             "endpoint_name": endpoint_name,
             "body": ensure_sync_iterator(body),

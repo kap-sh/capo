@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#KnowledgeBaseConfig``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -65,3 +65,22 @@ def deserialize_json(data: dict) -> KnowledgeBaseConfig:
         }
     else:
         raise DeserializationError("KnowledgeBaseConfig: no recognized variant key")
+
+
+def redact_sensitive(value: KnowledgeBaseConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "retrieveConfig" in value:
+        import capo_bedrock.types.retrieve_config
+
+        out["retrieveConfig"] = capo_bedrock.types.retrieve_config.redact_sensitive(
+            value["retrieveConfig"]
+        )
+    if "retrieveAndGenerateConfig" in value:
+        import capo_bedrock.types.retrieve_and_generate_configuration
+
+        out["retrieveAndGenerateConfig"] = (
+            capo_bedrock.types.retrieve_and_generate_configuration.redact_sensitive(
+                value["retrieveAndGenerateConfig"]
+            )
+        )
+    return out

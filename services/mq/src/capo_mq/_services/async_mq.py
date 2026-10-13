@@ -25,7 +25,9 @@ from capo_mq._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -173,7 +175,9 @@ class AsyncmqClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncmqClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncmqClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncmqClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -181,8 +185,10 @@ class AsyncmqClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -300,7 +306,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBroker")
+        )
         input_: capo_mq.types.create_broker_request.CreateBrokerRequest = {}
         if authentication_strategy is not None:
             input_["authentication_strategy"] = authentication_strategy
@@ -402,7 +410,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfiguration")
+        )
         input_: capo_mq.types.create_configuration_request.CreateConfigurationRequest = {}
         if authentication_strategy is not None:
             input_["authentication_strategy"] = authentication_strategy
@@ -457,7 +467,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTags")
+        )
         input_: capo_mq.types.create_tags_request.CreateTagsRequest = {
             "resource_arn": resource_arn
         }
@@ -517,7 +529,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUser")
+        )
         input_: capo_mq.types.create_user_request.CreateUserRequest = {
             "broker_id": broker_id,
             "username": username,
@@ -573,7 +587,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBroker")
+        )
         input_: capo_mq.types.delete_broker_request.DeleteBrokerRequest = {
             "broker_id": broker_id
         }
@@ -621,7 +637,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguration")
+        )
         input_: capo_mq.types.delete_configuration_request.DeleteConfigurationRequest = {
             "configuration_id": configuration_id
         }
@@ -668,7 +686,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTags")
+        )
         input_: capo_mq.types.delete_tags_request.DeleteTagsRequest = {
             "resource_arn": resource_arn
         }
@@ -719,7 +739,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUser")
+        )
         input_: capo_mq.types.delete_user_request.DeleteUserRequest = {
             "broker_id": broker_id,
             "username": username,
@@ -767,7 +789,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBroker")
+        )
         input_: capo_mq.types.describe_broker_request.DescribeBrokerRequest = {
             "broker_id": broker_id
         }
@@ -817,7 +841,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBrokerEngineTypes")
+        )
         input_: capo_mq.types.describe_broker_engine_types_request.DescribeBrokerEngineTypesRequest = {}
         if engine_type is not None:
             input_["engine_type"] = engine_type
@@ -875,7 +901,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBrokerInstanceOptions")
+        )
         input_: capo_mq.types.describe_broker_instance_options_request.DescribeBrokerInstanceOptionsRequest = {}
         if engine_type is not None:
             input_["engine_type"] = engine_type
@@ -930,7 +958,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConfiguration")
+        )
         input_: capo_mq.types.describe_configuration_request.DescribeConfigurationRequest = {
             "configuration_id": configuration_id
         }
@@ -979,7 +1009,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConfigurationRevision")
+        )
         input_: capo_mq.types.describe_configuration_revision_request.DescribeConfigurationRevisionRequest = {
             "configuration_id": configuration_id,
             "configuration_revision": configuration_revision,
@@ -1031,7 +1063,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSharedResources")
+        )
         input_: capo_mq.types.describe_shared_resources_request.DescribeSharedResourcesRequest = {
             "broker_id": broker_id
         }
@@ -1107,7 +1141,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeUser")
+        )
         input_: capo_mq.types.describe_user_request.DescribeUserRequest = {
             "broker_id": broker_id,
             "username": username,
@@ -1156,7 +1192,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBrokers")
+        )
         input_: capo_mq.types.list_brokers_request.ListBrokersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1230,7 +1268,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfigurationRevisions")
+        )
         input_: capo_mq.types.list_configuration_revisions_request.ListConfigurationRevisionsRequest = {
             "configuration_id": configuration_id
         }
@@ -1282,7 +1322,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfigurations")
+        )
         input_: capo_mq.types.list_configurations_request.ListConfigurationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1331,7 +1373,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTags")
+        )
         input_: capo_mq.types.list_tags_request.ListTagsRequest = {
             "resource_arn": resource_arn
         }
@@ -1382,7 +1426,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUsers")
+        )
         input_: capo_mq.types.list_users_request.ListUsersRequest = {
             "broker_id": broker_id
         }
@@ -1430,7 +1476,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Promote")
+        )
         input_: capo_mq.types.promote_request.PromoteRequest = {"broker_id": broker_id}
         if mode is not None:
             input_["mode"] = mode
@@ -1477,7 +1525,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RebootBroker")
+        )
         input_: capo_mq.types.reboot_broker_request.RebootBrokerRequest = {
             "broker_id": broker_id
         }
@@ -1565,7 +1615,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBroker")
+        )
         input_: capo_mq.types.update_broker_request.UpdateBrokerRequest = {
             "broker_id": broker_id
         }
@@ -1641,7 +1693,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConfiguration")
+        )
         input_: capo_mq.types.update_configuration_request.UpdateConfigurationRequest = {
             "configuration_id": configuration_id
         }
@@ -1703,7 +1757,9 @@ class AsyncmqClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUser")
+        )
         input_: capo_mq.types.update_user_request.UpdateUserRequest = {
             "broker_id": broker_id,
             "username": username,

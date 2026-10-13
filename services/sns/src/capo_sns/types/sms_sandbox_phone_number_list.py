@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sns#SMSSandboxPhoneNumberList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from capo_sns._protocol.xml import Element
 
@@ -57,3 +57,11 @@ def deserialize_query_flat(parent: Element, tag: str) -> SMSSandboxPhoneNumberLi
     for child in parent.findall(tag):
         out.append(capo_sns.types.sms_sandbox_phone_number.deserialize_query(child))
     return out
+
+
+def redact_sensitive(value: SMSSandboxPhoneNumberList) -> list[Any]:
+    import capo_sns.types.sms_sandbox_phone_number
+
+    return [
+        capo_sns.types.sms_sandbox_phone_number.redact_sensitive(item) for item in value
+    ]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ivs#StreamKeys``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_ivs.types.stream_key
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> StreamKeys:
             continue
         out.append(capo_ivs.types.stream_key.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: StreamKeys) -> list[Any]:
+    import capo_ivs.types.stream_key
+
+    return [capo_ivs.types.stream_key.redact_sensitive(item) for item in value]

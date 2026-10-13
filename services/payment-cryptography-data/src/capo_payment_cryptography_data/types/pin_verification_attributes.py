@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#PinVerificationAttributes``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -72,3 +72,24 @@ def deserialize_json(data: dict) -> PinVerificationAttributes:
         raise DeserializationError(
             "PinVerificationAttributes: no recognized variant key"
         )
+
+
+def redact_sensitive(value: PinVerificationAttributes) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "VisaPin" in value:
+        import capo_payment_cryptography_data.types.visa_pin_verification
+
+        out["VisaPin"] = (
+            capo_payment_cryptography_data.types.visa_pin_verification.redact_sensitive(
+                value["VisaPin"]
+            )
+        )
+    if "Ibm3624Pin" in value:
+        import capo_payment_cryptography_data.types.ibm3624_pin_verification
+
+        out["Ibm3624Pin"] = (
+            capo_payment_cryptography_data.types.ibm3624_pin_verification.redact_sensitive(
+                value["Ibm3624Pin"]
+            )
+        )
+    return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#UniqueValuesComputation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -51,5 +51,16 @@ def deserialize_json(data: dict) -> UniqueValuesComputation:
 
         out["category"] = capo_quicksight.types.dimension_field.deserialize_json(
             data["Category"]
+        )
+    return out
+
+
+def redact_sensitive(value: UniqueValuesComputation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "category" in value:
+        import capo_quicksight.types.dimension_field
+
+        out["category"] = capo_quicksight.types.dimension_field.redact_sensitive(
+            value["category"]
         )
     return out

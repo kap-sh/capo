@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#HarnessLiteLlmModelConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -87,4 +87,11 @@ def deserialize_json(data: dict) -> HarnessLiteLlmModelConfig:
         out["top_p"] = float(data["topP"])
     if data.get("additionalParams") is not None:
         out["additional_params"] = data["additionalParams"]
+    return out
+
+
+def redact_sensitive(value: HarnessLiteLlmModelConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "api_base" in value:
+        out["api_base"] = "*** Sensitive Data Redacted ***"
     return out

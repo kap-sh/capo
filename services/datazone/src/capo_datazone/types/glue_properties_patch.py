@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#GluePropertiesPatch``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> GluePropertiesPatch:
         out["glue_connection_input"] = (
             capo_datazone.types.glue_connection_patch.deserialize_json(
                 data["glueConnectionInput"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GluePropertiesPatch) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "glue_connection_input" in value:
+        import capo_datazone.types.glue_connection_patch
+
+        out["glue_connection_input"] = (
+            capo_datazone.types.glue_connection_patch.redact_sensitive(
+                value["glue_connection_input"]
             )
         )
     return out

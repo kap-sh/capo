@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#BatchCreateMemoryRecordsInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,17 @@ def deserialize_json(data: dict) -> BatchCreateMemoryRecordsInput:
         raise DeserializationError("BatchCreateMemoryRecordsInput.records required")
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
+    return out
+
+
+def redact_sensitive(value: BatchCreateMemoryRecordsInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "records" in value:
+        import capo_bedrock_agentcore.types.memory_records_create_input_list
+
+        out["records"] = (
+            capo_bedrock_agentcore.types.memory_records_create_input_list.redact_sensitive(
+                value["records"]
+            )
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#RuntimeVersionError``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,4 +32,11 @@ def deserialize_json(data: dict) -> RuntimeVersionError:
         out["error_code"] = data["ErrorCode"]
     if data.get("Message") is not None:
         out["message"] = data["Message"]
+    return out
+
+
+def redact_sensitive(value: RuntimeVersionError) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "message" in value:
+        out["message"] = "*** Sensitive Data Redacted ***"
     return out

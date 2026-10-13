@@ -23,10 +23,12 @@ from capo_accessanalyzer._resources.access_analyzer.analyzer import Analyzer
 from capo_accessanalyzer._services._aws_config import aws_config
 from capo_accessanalyzer._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -209,7 +211,9 @@ class AccessAnalyzerClient:
         self.analyzer = Analyzer(self)
 
     def operation_options(
-        self, config_overrides: Optional[AccessAnalyzerClientConfig] = None
+        self,
+        config_overrides: Optional[AccessAnalyzerClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: AccessAnalyzerClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -217,8 +221,10 @@ class AccessAnalyzerClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -273,7 +279,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ApplyArchiveRule")
+        )
         input_: capo_accessanalyzer.types.apply_archive_rule_request.ApplyArchiveRuleRequest = {
             "analyzer_arn": analyzer_arn,
             "rule_name": rule_name,
@@ -323,7 +331,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelPolicyGeneration")
+        )
         input_: capo_accessanalyzer.types.cancel_policy_generation_request.CancelPolicyGenerationRequest = {
             "job_id": job_id
         }
@@ -386,7 +396,19 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_accessanalyzer.types.check_access_not_granted_request.CheckAccessNotGrantedRequest",
+        ) -> dict[str, Any]:
+            import capo_accessanalyzer.types.check_access_not_granted_request
+
+            return capo_accessanalyzer.types.check_access_not_granted_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CheckAccessNotGranted", redact_input=_redact_input),
+        )
         input_: capo_accessanalyzer.types.check_access_not_granted_request.CheckAccessNotGrantedRequest = {
             "policy_document": policy_document,
             "access": access,
@@ -440,7 +462,21 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_accessanalyzer.types.check_no_new_access_request.CheckNoNewAccessRequest",
+        ) -> dict[str, Any]:
+            import capo_accessanalyzer.types.check_no_new_access_request
+
+            return (
+                capo_accessanalyzer.types.check_no_new_access_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CheckNoNewAccess", redact_input=_redact_input),
+        )
         input_: capo_accessanalyzer.types.check_no_new_access_request.CheckNoNewAccessRequest = {
             "new_policy_document": new_policy_document,
             "existing_policy_document": existing_policy_document,
@@ -500,7 +536,19 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_accessanalyzer.types.check_no_public_access_request.CheckNoPublicAccessRequest",
+        ) -> dict[str, Any]:
+            import capo_accessanalyzer.types.check_no_public_access_request
+
+            return capo_accessanalyzer.types.check_no_public_access_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CheckNoPublicAccess", redact_input=_redact_input),
+        )
         input_: capo_accessanalyzer.types.check_no_public_access_request.CheckNoPublicAccessRequest = {
             "policy_document": policy_document,
             "resource_type": resource_type,
@@ -554,7 +602,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccessPreview")
+        )
         input_: capo_accessanalyzer.types.create_access_preview_request.CreateAccessPreviewRequest = {
             "analyzer_arn": analyzer_arn,
             "configurations": configurations,
@@ -616,7 +666,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateServiceLinkedAnalyzer")
+        )
         input_: capo_accessanalyzer.types.create_service_linked_analyzer_request.CreateServiceLinkedAnalyzerRequest = {
             "type": type
         }
@@ -677,7 +729,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GenerateFindingRecommendation")
+        )
         input_: capo_accessanalyzer.types.generate_finding_recommendation_request.GenerateFindingRecommendationRequest = {
             "analyzer_arn": analyzer_arn,
             "id": id,
@@ -729,7 +783,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessPreview")
+        )
         input_: capo_accessanalyzer.types.get_access_preview_request.GetAccessPreviewRequest = {
             "access_preview_id": access_preview_id,
             "analyzer_arn": analyzer_arn,
@@ -779,7 +835,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAnalyzedResource")
+        )
         input_: capo_accessanalyzer.types.get_analyzed_resource_request.GetAnalyzedResourceRequest = {
             "analyzer_arn": analyzer_arn,
             "resource_arn": resource_arn,
@@ -829,7 +887,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFinding")
+        )
         input_: capo_accessanalyzer.types.get_finding_request.GetFindingRequest = {
             "analyzer_arn": analyzer_arn,
             "id": id,
@@ -897,7 +957,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFindingRecommendation")
+        )
         input_: capo_accessanalyzer.types.get_finding_recommendation_request.GetFindingRecommendationRequest = {
             "analyzer_arn": analyzer_arn,
             "id": id,
@@ -974,7 +1036,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFindingsStatistics")
+        )
         input_: capo_accessanalyzer.types.get_findings_statistics_request.GetFindingsStatisticsRequest = {
             "analyzer_arn": analyzer_arn
         }
@@ -1027,7 +1091,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFindingV2")
+        )
         input_: capo_accessanalyzer.types.get_finding_v2_request.GetFindingV2Request = {
             "analyzer_arn": analyzer_arn,
             "id": id,
@@ -1082,7 +1148,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGeneratedPolicy")
+        )
         input_: capo_accessanalyzer.types.get_generated_policy_request.GetGeneratedPolicyRequest = {
             "job_id": job_id
         }
@@ -1144,7 +1212,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessPreviewFindings")
+        )
         input_: capo_accessanalyzer.types.list_access_preview_findings_request.ListAccessPreviewFindingsRequest = {
             "access_preview_id": access_preview_id,
             "analyzer_arn": analyzer_arn,
@@ -1202,7 +1272,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessPreviews")
+        )
         input_: capo_accessanalyzer.types.list_access_previews_request.ListAccessPreviewsRequest = {
             "analyzer_arn": analyzer_arn
         }
@@ -1261,7 +1333,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAnalyzedResources")
+        )
         input_: capo_accessanalyzer.types.list_analyzed_resources_request.ListAnalyzedResourcesRequest = {
             "analyzer_arn": analyzer_arn
         }
@@ -1324,7 +1398,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFindings")
+        )
         input_: capo_accessanalyzer.types.list_findings_request.ListFindingsRequest = {
             "analyzer_arn": analyzer_arn
         }
@@ -1388,7 +1464,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFindingsV2")
+        )
         input_: capo_accessanalyzer.types.list_findings_v2_request.ListFindingsV2Request = {
             "analyzer_arn": analyzer_arn
         }
@@ -1448,7 +1526,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPolicyGenerations")
+        )
         input_: capo_accessanalyzer.types.list_policy_generations_request.ListPolicyGenerationsRequest = {}
         if principal_arn is not None:
             input_["principal_arn"] = principal_arn
@@ -1499,7 +1579,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_accessanalyzer.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1553,7 +1635,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartPolicyGeneration")
+        )
         input_: capo_accessanalyzer.types.start_policy_generation_request.StartPolicyGenerationRequest = {
             "policy_generation_details": policy_generation_details
         }
@@ -1607,7 +1691,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartResourceScan")
+        )
         input_: capo_accessanalyzer.types.start_resource_scan_request.StartResourceScanRequest = {
             "analyzer_arn": analyzer_arn,
             "resource_arn": resource_arn,
@@ -1659,7 +1745,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_accessanalyzer.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1709,7 +1797,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_accessanalyzer.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1765,7 +1855,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFindings")
+        )
         input_: capo_accessanalyzer.types.update_findings_request.UpdateFindingsRequest = {
             "analyzer_arn": analyzer_arn,
             "status": status,
@@ -1831,7 +1923,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ValidatePolicy")
+        )
         input_: capo_accessanalyzer.types.validate_policy_request.ValidatePolicyRequest = {
             "policy_document": policy_document,
             "policy_type": policy_type,
@@ -1902,7 +1996,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAnalyzer")
+        )
         input_: capo_accessanalyzer.types.create_analyzer_request.CreateAnalyzerRequest = {
             "analyzer_name": analyzer_name,
             "type": type,
@@ -1959,7 +2055,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAnalyzer")
+        )
         input_: capo_accessanalyzer.types.get_analyzer_request.GetAnalyzerRequest = {
             "analyzer_name": analyzer_name
         }
@@ -2010,7 +2108,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAnalyzer")
+        )
         input_: capo_accessanalyzer.types.update_analyzer_request.UpdateAnalyzerRequest = {
             "analyzer_name": analyzer_name
         }
@@ -2059,7 +2159,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAnalyzer")
+        )
         input_: capo_accessanalyzer.types.delete_analyzer_request.DeleteAnalyzerRequest = {
             "analyzer_name": analyzer_name
         }
@@ -2112,7 +2214,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAnalyzers")
+        )
         input_: capo_accessanalyzer.types.list_analyzers_request.ListAnalyzersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2164,7 +2268,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteServiceLinkedAnalyzer")
+        )
         input_: capo_accessanalyzer.types.delete_service_linked_analyzer_request.DeleteServiceLinkedAnalyzerRequest = {
             "analyzer_name": analyzer_name
         }
@@ -2220,7 +2326,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateArchiveRule")
+        )
         input_: capo_accessanalyzer.types.create_archive_rule_request.CreateArchiveRuleRequest = {
             "analyzer_name": analyzer_name,
             "rule_name": rule_name,
@@ -2274,7 +2382,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetArchiveRule")
+        )
         input_: capo_accessanalyzer.types.get_archive_rule_request.GetArchiveRuleRequest = {
             "analyzer_name": analyzer_name,
             "rule_name": rule_name,
@@ -2326,7 +2436,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateArchiveRule")
+        )
         input_: capo_accessanalyzer.types.update_archive_rule_request.UpdateArchiveRuleRequest = {
             "analyzer_name": analyzer_name,
             "rule_name": rule_name,
@@ -2380,7 +2492,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteArchiveRule")
+        )
         input_: capo_accessanalyzer.types.delete_archive_rule_request.DeleteArchiveRuleRequest = {
             "analyzer_name": analyzer_name,
             "rule_name": rule_name,
@@ -2436,7 +2550,9 @@ class AccessAnalyzerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListArchiveRules")
+        )
         input_: capo_accessanalyzer.types.list_archive_rules_request.ListArchiveRulesRequest = {
             "analyzer_name": analyzer_name
         }

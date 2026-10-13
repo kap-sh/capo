@@ -7,6 +7,7 @@ import capo_s3tables._auth._sigv4
 from capo_s3tables._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -69,7 +70,9 @@ class TableEncryptionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTableEncryption")
+        )
         input_: capo_s3tables.types.get_table_encryption_request.GetTableEncryptionRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -129,7 +132,9 @@ class AsyncTableEncryptionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTableEncryption")
+        )
         input_: capo_s3tables.types.get_table_encryption_request.GetTableEncryptionRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,

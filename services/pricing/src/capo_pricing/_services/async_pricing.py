@@ -24,7 +24,9 @@ from capo_pricing._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -131,7 +133,9 @@ class AsyncPricingClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncPricingClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncPricingClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncPricingClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -139,8 +143,10 @@ class AsyncPricingClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -212,7 +218,9 @@ class AsyncPricingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeServices")
+        )
         input_: capo_pricing.types.describe_services_request.DescribeServicesRequest = {}
         if service_code is not None:
             input_["service_code"] = service_code
@@ -311,7 +319,9 @@ class AsyncPricingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAttributeValues")
+        )
         input_: capo_pricing.types.get_attribute_values_request.GetAttributeValuesRequest = {
             "service_code": service_code,
             "attribute_name": attribute_name,
@@ -394,7 +404,9 @@ class AsyncPricingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPriceListFileUrl")
+        )
         input_: capo_pricing.types.get_price_list_file_url_request.GetPriceListFileUrlRequest = {
             "price_list_arn": price_list_arn,
             "file_format": file_format,
@@ -457,7 +469,9 @@ class AsyncPricingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProducts")
+        )
         input_: capo_pricing.types.get_products_request.GetProductsRequest = {
             "service_code": service_code
         }
@@ -557,7 +571,9 @@ class AsyncPricingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPriceLists")
+        )
         input_: capo_pricing.types.list_price_lists_request.ListPriceListsRequest = {
             "service_code": service_code,
             "effective_date": effective_date,

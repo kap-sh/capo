@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#CreateEngagementInvitationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -71,5 +71,18 @@ def deserialize_aws_json_1_0(data: dict) -> CreateEngagementInvitationRequest:
     else:
         raise DeserializationError(
             "CreateEngagementInvitationRequest.invitation required"
+        )
+    return out
+
+
+def redact_sensitive(value: CreateEngagementInvitationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "invitation" in value:
+        import capo_partnercentral_selling.types.invitation
+
+        out["invitation"] = (
+            capo_partnercentral_selling.types.invitation.redact_sensitive(
+                value["invitation"]
+            )
         )
     return out

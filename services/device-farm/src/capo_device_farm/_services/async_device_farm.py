@@ -24,7 +24,9 @@ from capo_device_farm._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -318,7 +320,9 @@ class AsyncDeviceFarmClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncDeviceFarmClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncDeviceFarmClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncDeviceFarmClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -326,8 +330,10 @@ class AsyncDeviceFarmClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -394,7 +400,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDevicePool")
+        )
         input_: capo_device_farm.types.create_device_pool_request.CreateDevicePoolRequest = {
             "project_arn": project_arn,
             "name": name,
@@ -457,7 +465,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInstanceProfile")
+        )
         input_: capo_device_farm.types.create_instance_profile_request.CreateInstanceProfileRequest = {
             "name": name
         }
@@ -542,7 +552,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateNetworkProfile")
+        )
         input_: capo_device_farm.types.create_network_profile_request.CreateNetworkProfileRequest = {
             "project_arn": project_arn,
             "name": name,
@@ -625,7 +637,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProject")
+        )
         input_: capo_device_farm.types.create_project_request.CreateProjectRequest = {
             "name": name
         }
@@ -708,7 +722,19 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_device_farm.types.create_remote_access_session_result.CreateRemoteAccessSessionResult",
+        ) -> dict[str, Any]:
+            import capo_device_farm.types.create_remote_access_session_result
+
+            return capo_device_farm.types.create_remote_access_session_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateRemoteAccessSession", redact_output=_redact_output),
+        )
         input_: capo_device_farm.types.create_remote_access_session_request.CreateRemoteAccessSessionRequest = {
             "project_arn": project_arn,
             "device_arn": device_arn,
@@ -775,7 +801,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTestGridProject")
+        )
         input_: capo_device_farm.types.create_test_grid_project_request.CreateTestGridProjectRequest = {
             "name": name
         }
@@ -827,7 +855,19 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_device_farm.types.create_test_grid_url_result.CreateTestGridUrlResult",
+        ) -> dict[str, Any]:
+            import capo_device_farm.types.create_test_grid_url_result
+
+            return capo_device_farm.types.create_test_grid_url_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateTestGridUrl", redact_output=_redact_output),
+        )
         input_: capo_device_farm.types.create_test_grid_url_request.CreateTestGridUrlRequest = {
             "project_arn": project_arn,
             "expires_in_seconds": expires_in_seconds,
@@ -883,7 +923,17 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_device_farm.types.create_upload_result.CreateUploadResult",
+        ) -> dict[str, Any]:
+            import capo_device_farm.types.create_upload_result
+
+            return capo_device_farm.types.create_upload_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateUpload", redact_output=_redact_output),
+        )
         input_: capo_device_farm.types.create_upload_request.CreateUploadRequest = {
             "project_arn": project_arn,
             "name": name,
@@ -941,7 +991,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVPCEConfiguration")
+        )
         input_: capo_device_farm.types.create_vpce_configuration_request.CreateVPCEConfigurationRequest = {
             "vpce_configuration_name": vpce_configuration_name,
             "vpce_service_name": vpce_service_name,
@@ -998,7 +1050,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDevicePool")
+        )
         input_: capo_device_farm.types.delete_device_pool_request.DeleteDevicePoolRequest = {
             "arn": arn
         }
@@ -1045,7 +1099,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInstanceProfile")
+        )
         input_: capo_device_farm.types.delete_instance_profile_request.DeleteInstanceProfileRequest = {
             "arn": arn
         }
@@ -1092,7 +1148,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNetworkProfile")
+        )
         input_: capo_device_farm.types.delete_network_profile_request.DeleteNetworkProfileRequest = {
             "arn": arn
         }
@@ -1145,7 +1203,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProject")
+        )
         input_: capo_device_farm.types.delete_project_request.DeleteProjectRequest = {
             "arn": arn
         }
@@ -1198,7 +1258,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRemoteAccessSession")
+        )
         input_: capo_device_farm.types.delete_remote_access_session_request.DeleteRemoteAccessSessionRequest = {
             "arn": arn
         }
@@ -1251,7 +1313,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRun")
+        )
         input_: capo_device_farm.types.delete_run_request.DeleteRunRequest = {
             "arn": arn
         }
@@ -1298,7 +1362,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTestGridProject")
+        )
         input_: capo_device_farm.types.delete_test_grid_project_request.DeleteTestGridProjectRequest = {
             "project_arn": project_arn
         }
@@ -1351,7 +1417,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUpload")
+        )
         input_: capo_device_farm.types.delete_upload_request.DeleteUploadRequest = {
             "arn": arn
         }
@@ -1398,7 +1466,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVPCEConfiguration")
+        )
         input_: capo_device_farm.types.delete_vpce_configuration_request.DeleteVPCEConfigurationRequest = {
             "arn": arn
         }
@@ -1445,7 +1515,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountSettings")
+        )
         input_: capo_device_farm.types.get_account_settings_request.GetAccountSettingsRequest = {}
 
         response = await aexecute_pipeline(
@@ -1496,7 +1568,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDevice")
+        )
         input_: capo_device_farm.types.get_device_request.GetDeviceRequest = {
             "arn": arn
         }
@@ -1543,7 +1617,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeviceInstance")
+        )
         input_: capo_device_farm.types.get_device_instance_request.GetDeviceInstanceRequest = {
             "arn": arn
         }
@@ -1596,7 +1672,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDevicePool")
+        )
         input_: capo_device_farm.types.get_device_pool_request.GetDevicePoolRequest = {
             "arn": arn
         }
@@ -1667,7 +1745,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDevicePoolCompatibility")
+        )
         input_: capo_device_farm.types.get_device_pool_compatibility_request.GetDevicePoolCompatibilityRequest = {
             "device_pool_arn": device_pool_arn
         }
@@ -1724,7 +1804,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInstanceProfile")
+        )
         input_: capo_device_farm.types.get_instance_profile_request.GetInstanceProfileRequest = {
             "arn": arn
         }
@@ -1777,7 +1859,16 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_device_farm.types.get_job_result.GetJobResult",
+        ) -> dict[str, Any]:
+            import capo_device_farm.types.get_job_result
+
+            return capo_device_farm.types.get_job_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJob", redact_output=_redact_output)
+        )
         input_: capo_device_farm.types.get_job_request.GetJobRequest = {"arn": arn}
 
         response = await aexecute_pipeline(
@@ -1822,7 +1913,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNetworkProfile")
+        )
         input_: capo_device_farm.types.get_network_profile_request.GetNetworkProfileRequest = {
             "arn": arn
         }
@@ -1872,7 +1965,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOfferingStatus")
+        )
         input_: capo_device_farm.types.get_offering_status_request.GetOfferingStatusRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1938,7 +2033,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProject")
+        )
         input_: capo_device_farm.types.get_project_request.GetProjectRequest = {
             "arn": arn
         }
@@ -1991,7 +2088,19 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_device_farm.types.get_remote_access_session_result.GetRemoteAccessSessionResult",
+        ) -> dict[str, Any]:
+            import capo_device_farm.types.get_remote_access_session_result
+
+            return capo_device_farm.types.get_remote_access_session_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetRemoteAccessSession", redact_output=_redact_output),
+        )
         input_: capo_device_farm.types.get_remote_access_session_request.GetRemoteAccessSessionRequest = {
             "arn": arn
         }
@@ -2038,7 +2147,16 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_device_farm.types.get_run_result.GetRunResult",
+        ) -> dict[str, Any]:
+            import capo_device_farm.types.get_run_result
+
+            return capo_device_farm.types.get_run_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRun", redact_output=_redact_output)
+        )
         input_: capo_device_farm.types.get_run_request.GetRunRequest = {"arn": arn}
 
         response = await aexecute_pipeline(
@@ -2089,7 +2207,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSuite")
+        )
         input_: capo_device_farm.types.get_suite_request.GetSuiteRequest = {"arn": arn}
 
         response = await aexecute_pipeline(
@@ -2140,7 +2260,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTest")
+        )
         input_: capo_device_farm.types.get_test_request.GetTestRequest = {"arn": arn}
 
         response = await aexecute_pipeline(
@@ -2184,7 +2306,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTestGridProject")
+        )
         input_: capo_device_farm.types.get_test_grid_project_request.GetTestGridProjectRequest = {
             "project_arn": project_arn
         }
@@ -2238,7 +2362,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTestGridSession")
+        )
         input_: capo_device_farm.types.get_test_grid_session_request.GetTestGridSessionRequest = {}
         if project_arn is not None:
             input_["project_arn"] = project_arn
@@ -2295,7 +2421,17 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_device_farm.types.get_upload_result.GetUploadResult",
+        ) -> dict[str, Any]:
+            import capo_device_farm.types.get_upload_result
+
+            return capo_device_farm.types.get_upload_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetUpload", redact_output=_redact_output),
+        )
         input_: capo_device_farm.types.get_upload_request.GetUploadRequest = {
             "arn": arn
         }
@@ -2341,7 +2477,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetVPCEConfiguration")
+        )
         input_: capo_device_farm.types.get_vpce_configuration_request.GetVPCEConfigurationRequest = {
             "arn": arn
         }
@@ -2396,7 +2534,21 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_device_farm.types.install_to_remote_access_session_result.InstallToRemoteAccessSessionResult",
+        ) -> dict[str, Any]:
+            import capo_device_farm.types.install_to_remote_access_session_result
+
+            return capo_device_farm.types.install_to_remote_access_session_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InstallToRemoteAccessSession", redact_output=_redact_output
+            ),
+        )
         input_: capo_device_farm.types.install_to_remote_access_session_request.InstallToRemoteAccessSessionRequest = {
             "remote_access_session_arn": remote_access_session_arn,
             "app_arn": app_arn,
@@ -2456,7 +2608,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListArtifacts")
+        )
         input_: capo_device_farm.types.list_artifacts_request.ListArtifactsRequest = {
             "arn": arn,
             "type": type,
@@ -2537,7 +2691,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeviceInstances")
+        )
         input_: capo_device_farm.types.list_device_instances_request.ListDeviceInstancesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2598,7 +2754,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDevicePools")
+        )
         input_: capo_device_farm.types.list_device_pools_request.ListDevicePoolsRequest = {
             "arn": arn
         }
@@ -2688,7 +2846,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDevices")
+        )
         input_: capo_device_farm.types.list_devices_request.ListDevicesRequest = {}
         if arn is not None:
             input_["arn"] = arn
@@ -2770,7 +2930,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInstanceProfiles")
+        )
         input_: capo_device_farm.types.list_instance_profiles_request.ListInstanceProfilesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2829,7 +2991,16 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_device_farm.types.list_jobs_result.ListJobsResult",
+        ) -> dict[str, Any]:
+            import capo_device_farm.types.list_jobs_result
+
+            return capo_device_farm.types.list_jobs_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobs", redact_output=_redact_output)
+        )
         input_: capo_device_farm.types.list_jobs_request.ListJobsRequest = {"arn": arn}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2909,7 +3080,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNetworkProfiles")
+        )
         input_: capo_device_farm.types.list_network_profiles_request.ListNetworkProfilesRequest = {
             "arn": arn
         }
@@ -2963,7 +3136,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOfferingPromotions")
+        )
         input_: capo_device_farm.types.list_offering_promotions_request.ListOfferingPromotionsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3019,7 +3194,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOfferings")
+        )
         input_: capo_device_farm.types.list_offerings_request.ListOfferingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3090,7 +3267,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOfferingTransactions")
+        )
         input_: capo_device_farm.types.list_offering_transactions_request.ListOfferingTransactionsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3166,7 +3345,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProjects")
+        )
         input_: capo_device_farm.types.list_projects_request.ListProjectsRequest = {}
         if arn is not None:
             input_["arn"] = arn
@@ -3250,7 +3431,19 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_device_farm.types.list_remote_access_sessions_result.ListRemoteAccessSessionsResult",
+        ) -> dict[str, Any]:
+            import capo_device_farm.types.list_remote_access_sessions_result
+
+            return capo_device_farm.types.list_remote_access_sessions_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListRemoteAccessSessions", redact_output=_redact_output),
+        )
         input_: capo_device_farm.types.list_remote_access_sessions_request.ListRemoteAccessSessionsRequest = {
             "arn": arn
         }
@@ -3303,7 +3496,16 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_device_farm.types.list_runs_result.ListRunsResult",
+        ) -> dict[str, Any]:
+            import capo_device_farm.types.list_runs_result
+
+            return capo_device_farm.types.list_runs_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRuns", redact_output=_redact_output)
+        )
         input_: capo_device_farm.types.list_runs_request.ListRunsRequest = {"arn": arn}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3383,7 +3585,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSamples")
+        )
         input_: capo_device_farm.types.list_samples_request.ListSamplesRequest = {
             "arn": arn
         }
@@ -3465,7 +3669,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSuites")
+        )
         input_: capo_device_farm.types.list_suites_request.ListSuitesRequest = {
             "arn": arn
         }
@@ -3536,7 +3742,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_device_farm.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3585,7 +3793,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTestGridProjects")
+        )
         input_: capo_device_farm.types.list_test_grid_projects_request.ListTestGridProjectsRequest = {}
         if max_result is not None:
             input_["max_result"] = max_result
@@ -3660,7 +3870,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTestGridSessionActions")
+        )
         input_: capo_device_farm.types.list_test_grid_session_actions_request.ListTestGridSessionActionsRequest = {
             "session_arn": session_arn
         }
@@ -3743,7 +3955,21 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_device_farm.types.list_test_grid_session_artifacts_result.ListTestGridSessionArtifactsResult",
+        ) -> dict[str, Any]:
+            import capo_device_farm.types.list_test_grid_session_artifacts_result
+
+            return capo_device_farm.types.list_test_grid_session_artifacts_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListTestGridSessionArtifacts", redact_output=_redact_output
+            ),
+        )
         input_: capo_device_farm.types.list_test_grid_session_artifacts_request.ListTestGridSessionArtifactsRequest = {
             "session_arn": session_arn
         }
@@ -3844,7 +4070,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTestGridSessions")
+        )
         input_: capo_device_farm.types.list_test_grid_sessions_request.ListTestGridSessionsRequest = {
             "project_arn": project_arn
         }
@@ -3954,7 +4182,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTests")
+        )
         input_: capo_device_farm.types.list_tests_request.ListTestsRequest = {
             "arn": arn
         }
@@ -4036,7 +4266,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUniqueProblems")
+        )
         input_: capo_device_farm.types.list_unique_problems_request.ListUniqueProblemsRequest = {
             "arn": arn
         }
@@ -4120,7 +4352,17 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_device_farm.types.list_uploads_result.ListUploadsResult",
+        ) -> dict[str, Any]:
+            import capo_device_farm.types.list_uploads_result
+
+            return capo_device_farm.types.list_uploads_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListUploads", redact_output=_redact_output),
+        )
         input_: capo_device_farm.types.list_uploads_request.ListUploadsRequest = {
             "arn": arn
         }
@@ -4198,7 +4440,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVPCEConfigurations")
+        )
         input_: capo_device_farm.types.list_vpce_configurations_request.ListVPCEConfigurationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4254,7 +4498,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PurchaseOffering")
+        )
         input_: capo_device_farm.types.purchase_offering_request.PurchaseOfferingRequest = {
             "offering_id": offering_id,
             "quantity": quantity,
@@ -4307,7 +4553,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RenewOffering")
+        )
         input_: capo_device_farm.types.renew_offering_request.RenewOfferingRequest = {
             "offering_id": offering_id,
             "quantity": quantity,
@@ -4386,7 +4634,17 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_device_farm.types.schedule_run_result.ScheduleRunResult",
+        ) -> dict[str, Any]:
+            import capo_device_farm.types.schedule_run_result
+
+            return capo_device_farm.types.schedule_run_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ScheduleRun", redact_output=_redact_output),
+        )
         input_: capo_device_farm.types.schedule_run_request.ScheduleRunRequest = {
             "project_arn": project_arn,
             "test": test,
@@ -4446,7 +4704,16 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_device_farm.types.stop_job_result.StopJobResult",
+        ) -> dict[str, Any]:
+            import capo_device_farm.types.stop_job_result
+
+            return capo_device_farm.types.stop_job_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopJob", redact_output=_redact_output)
+        )
         input_: capo_device_farm.types.stop_job_request.StopJobRequest = {"arn": arn}
 
         response = await aexecute_pipeline(
@@ -4491,7 +4758,19 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_device_farm.types.stop_remote_access_session_result.StopRemoteAccessSessionResult",
+        ) -> dict[str, Any]:
+            import capo_device_farm.types.stop_remote_access_session_result
+
+            return capo_device_farm.types.stop_remote_access_session_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StopRemoteAccessSession", redact_output=_redact_output),
+        )
         input_: capo_device_farm.types.stop_remote_access_session_request.StopRemoteAccessSessionRequest = {
             "arn": arn
         }
@@ -4544,7 +4823,16 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_device_farm.types.stop_run_result.StopRunResult",
+        ) -> dict[str, Any]:
+            import capo_device_farm.types.stop_run_result
+
+            return capo_device_farm.types.stop_run_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopRun", redact_output=_redact_output)
+        )
         input_: capo_device_farm.types.stop_run_request.StopRunRequest = {"arn": arn}
 
         response = await aexecute_pipeline(
@@ -4592,7 +4880,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_device_farm.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -4641,7 +4931,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_device_farm.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -4697,7 +4989,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDeviceInstance")
+        )
         input_: capo_device_farm.types.update_device_instance_request.UpdateDeviceInstanceRequest = {
             "arn": arn
         }
@@ -4764,7 +5058,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDevicePool")
+        )
         input_: capo_device_farm.types.update_device_pool_request.UpdateDevicePoolRequest = {
             "arn": arn
         }
@@ -4833,7 +5129,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateInstanceProfile")
+        )
         input_: capo_device_farm.types.update_instance_profile_request.UpdateInstanceProfileRequest = {
             "arn": arn
         }
@@ -4920,7 +5218,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNetworkProfile")
+        )
         input_: capo_device_farm.types.update_network_profile_request.UpdateNetworkProfileRequest = {
             "arn": arn
         }
@@ -5005,7 +5305,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProject")
+        )
         input_: capo_device_farm.types.update_project_request.UpdateProjectRequest = {
             "arn": arn
         }
@@ -5072,7 +5374,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTestGridProject")
+        )
         input_: capo_device_farm.types.update_test_grid_project_request.UpdateTestGridProjectRequest = {
             "project_arn": project_arn
         }
@@ -5133,7 +5437,17 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_device_farm.types.update_upload_result.UpdateUploadResult",
+        ) -> dict[str, Any]:
+            import capo_device_farm.types.update_upload_result
+
+            return capo_device_farm.types.update_upload_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateUpload", redact_output=_redact_output),
+        )
         input_: capo_device_farm.types.update_upload_request.UpdateUploadRequest = {
             "arn": arn
         }
@@ -5202,7 +5516,9 @@ class AsyncDeviceFarmClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateVPCEConfiguration")
+        )
         input_: capo_device_farm.types.update_vpce_configuration_request.UpdateVPCEConfigurationRequest = {
             "arn": arn
         }

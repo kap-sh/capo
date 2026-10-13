@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotwireless#UpdatePartnerAccountRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -44,4 +44,17 @@ def deserialize_json(data: dict) -> UpdatePartnerAccountRequest:
         )
     else:
         raise DeserializationError("UpdatePartnerAccountRequest.sidewalk required")
+    return out
+
+
+def redact_sensitive(value: UpdatePartnerAccountRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sidewalk" in value:
+        import capo_iot_wireless.types.sidewalk_update_account
+
+        out["sidewalk"] = (
+            capo_iot_wireless.types.sidewalk_update_account.redact_sensitive(
+                value["sidewalk"]
+            )
+        )
     return out

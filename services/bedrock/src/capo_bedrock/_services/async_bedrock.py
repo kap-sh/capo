@@ -93,7 +93,9 @@ from capo_bedrock._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -593,7 +595,9 @@ class AsyncBedrockClient:
         self.training_resource = AsyncTrainingResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncBedrockClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncBedrockClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncBedrockClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -601,8 +605,10 @@ class AsyncBedrockClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -658,7 +664,10 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchDeleteAdvancedPromptOptimizationJob"),
+        )
         input_: capo_bedrock.types.batch_delete_advanced_prompt_optimization_job_request.BatchDeleteAdvancedPromptOptimizationJobRequest = {
             "job_identifiers": job_identifiers
         }
@@ -727,7 +736,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAdvancedPromptOptimizationJob")
+        )
         input_: capo_bedrock.types.create_advanced_prompt_optimization_job_request.CreateAdvancedPromptOptimizationJobRequest = {
             "job_name": job_name,
             "input_config": input_config,
@@ -787,7 +798,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAdvancedPromptOptimizationJob")
+        )
         input_: capo_bedrock.types.get_advanced_prompt_optimization_job_request.GetAdvancedPromptOptimizationJobRequest = {
             "job_identifier": job_identifier
         }
@@ -842,7 +855,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAdvancedPromptOptimizationJobs")
+        )
         input_: capo_bedrock.types.list_advanced_prompt_optimization_jobs_request.ListAdvancedPromptOptimizationJobsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -924,7 +939,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopAdvancedPromptOptimizationJob")
+        )
         input_: capo_bedrock.types.stop_advanced_prompt_optimization_job_request.StopAdvancedPromptOptimizationJobRequest = {
             "job_identifier": job_identifier
         }
@@ -965,7 +982,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUseCaseForModelAccess")
+        )
         input_: capo_bedrock.types.get_use_case_for_model_access_request.GetUseCaseForModelAccessRequest = {}
 
         response = await aexecute_pipeline(
@@ -1010,7 +1029,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutUseCaseForModelAccess")
+        )
         input_: capo_bedrock.types.put_use_case_for_model_access_request.PutUseCaseForModelAccessRequest = {
             "form_data": form_data
         }
@@ -1077,7 +1098,32 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_automated_reasoning_policy_request.CreateAutomatedReasoningPolicyRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_automated_reasoning_policy_request
+
+            return capo_bedrock.types.create_automated_reasoning_policy_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock.types.create_automated_reasoning_policy_response.CreateAutomatedReasoningPolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_automated_reasoning_policy_response
+
+            return capo_bedrock.types.create_automated_reasoning_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAutomatedReasoningPolicy",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock.types.create_automated_reasoning_policy_request.CreateAutomatedReasoningPolicyRequest = {
             "name": name
         }
@@ -1136,7 +1182,21 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_automated_reasoning_policy_response.GetAutomatedReasoningPolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_automated_reasoning_policy_response
+
+            return capo_bedrock.types.get_automated_reasoning_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAutomatedReasoningPolicy", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.get_automated_reasoning_policy_request.GetAutomatedReasoningPolicyRequest = {
             "policy_arn": policy_arn
         }
@@ -1196,7 +1256,32 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.update_automated_reasoning_policy_request.UpdateAutomatedReasoningPolicyRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.update_automated_reasoning_policy_request
+
+            return capo_bedrock.types.update_automated_reasoning_policy_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock.types.update_automated_reasoning_policy_response.UpdateAutomatedReasoningPolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.update_automated_reasoning_policy_response
+
+            return capo_bedrock.types.update_automated_reasoning_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAutomatedReasoningPolicy",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock.types.update_automated_reasoning_policy_request.UpdateAutomatedReasoningPolicyRequest = {
             "policy_arn": policy_arn,
             "policy_definition": policy_definition,
@@ -1253,7 +1338,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAutomatedReasoningPolicy")
+        )
         input_: capo_bedrock.types.delete_automated_reasoning_policy_request.DeleteAutomatedReasoningPolicyRequest = {
             "policy_arn": policy_arn
         }
@@ -1311,7 +1398,21 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.list_automated_reasoning_policies_response.ListAutomatedReasoningPoliciesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.list_automated_reasoning_policies_response
+
+            return capo_bedrock.types.list_automated_reasoning_policies_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListAutomatedReasoningPolicies", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.list_automated_reasoning_policies_request.ListAutomatedReasoningPoliciesRequest = {}
         if policy_arn is not None:
             input_["policy_arn"] = policy_arn
@@ -1392,7 +1493,10 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CancelAutomatedReasoningPolicyBuildWorkflow"),
+        )
         input_: capo_bedrock.types.cancel_automated_reasoning_policy_build_workflow_request.CancelAutomatedReasoningPolicyBuildWorkflowRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -1459,7 +1563,21 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_automated_reasoning_policy_test_case_request.CreateAutomatedReasoningPolicyTestCaseRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_automated_reasoning_policy_test_case_request
+
+            return capo_bedrock.types.create_automated_reasoning_policy_test_case_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAutomatedReasoningPolicyTestCase", redact_input=_redact_input
+            ),
+        )
         input_: capo_bedrock.types.create_automated_reasoning_policy_test_case_request.CreateAutomatedReasoningPolicyTestCaseRequest = {
             "policy_arn": policy_arn,
             "guard_content": guard_content,
@@ -1527,7 +1645,21 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.create_automated_reasoning_policy_version_response.CreateAutomatedReasoningPolicyVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_automated_reasoning_policy_version_response
+
+            return capo_bedrock.types.create_automated_reasoning_policy_version_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAutomatedReasoningPolicyVersion", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.create_automated_reasoning_policy_version_request.CreateAutomatedReasoningPolicyVersionRequest = {
             "policy_arn": policy_arn,
             "last_updated_definition_hash": last_updated_definition_hash,
@@ -1587,7 +1719,10 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteAutomatedReasoningPolicyBuildWorkflow"),
+        )
         input_: capo_bedrock.types.delete_automated_reasoning_policy_build_workflow_request.DeleteAutomatedReasoningPolicyBuildWorkflowRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -1643,7 +1778,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAutomatedReasoningPolicyTestCase")
+        )
         input_: capo_bedrock.types.delete_automated_reasoning_policy_test_case_request.DeleteAutomatedReasoningPolicyTestCaseRequest = {
             "policy_arn": policy_arn,
             "test_case_id": test_case_id,
@@ -1693,7 +1830,21 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.export_automated_reasoning_policy_version_response.ExportAutomatedReasoningPolicyVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.export_automated_reasoning_policy_version_response
+
+            return capo_bedrock.types.export_automated_reasoning_policy_version_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ExportAutomatedReasoningPolicyVersion", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.export_automated_reasoning_policy_version_request.ExportAutomatedReasoningPolicyVersionRequest = {
             "policy_arn": policy_arn
         }
@@ -1743,7 +1894,21 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_automated_reasoning_policy_annotations_response.GetAutomatedReasoningPolicyAnnotationsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_automated_reasoning_policy_annotations_response
+
+            return capo_bedrock.types.get_automated_reasoning_policy_annotations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAutomatedReasoningPolicyAnnotations", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.get_automated_reasoning_policy_annotations_request.GetAutomatedReasoningPolicyAnnotationsRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -1794,7 +1959,21 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_automated_reasoning_policy_build_workflow_response.GetAutomatedReasoningPolicyBuildWorkflowResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_automated_reasoning_policy_build_workflow_response
+
+            return capo_bedrock.types.get_automated_reasoning_policy_build_workflow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAutomatedReasoningPolicyBuildWorkflow", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.get_automated_reasoning_policy_build_workflow_request.GetAutomatedReasoningPolicyBuildWorkflowRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -1851,7 +2030,22 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_automated_reasoning_policy_build_workflow_result_assets_response.GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_automated_reasoning_policy_build_workflow_result_assets_response
+
+            return capo_bedrock.types.get_automated_reasoning_policy_build_workflow_result_assets_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAutomatedReasoningPolicyBuildWorkflowResultAssets",
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock.types.get_automated_reasoning_policy_build_workflow_result_assets_request.GetAutomatedReasoningPolicyBuildWorkflowResultAssetsRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -1905,7 +2099,21 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_automated_reasoning_policy_next_scenario_response.GetAutomatedReasoningPolicyNextScenarioResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_automated_reasoning_policy_next_scenario_response
+
+            return capo_bedrock.types.get_automated_reasoning_policy_next_scenario_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAutomatedReasoningPolicyNextScenario", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.get_automated_reasoning_policy_next_scenario_request.GetAutomatedReasoningPolicyNextScenarioRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -1956,7 +2164,21 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_automated_reasoning_policy_test_case_response.GetAutomatedReasoningPolicyTestCaseResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_automated_reasoning_policy_test_case_response
+
+            return capo_bedrock.types.get_automated_reasoning_policy_test_case_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAutomatedReasoningPolicyTestCase", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.get_automated_reasoning_policy_test_case_request.GetAutomatedReasoningPolicyTestCaseRequest = {
             "policy_arn": policy_arn,
             "test_case_id": test_case_id,
@@ -2009,7 +2231,21 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_automated_reasoning_policy_test_result_response.GetAutomatedReasoningPolicyTestResultResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_automated_reasoning_policy_test_result_response
+
+            return capo_bedrock.types.get_automated_reasoning_policy_test_result_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAutomatedReasoningPolicyTestResult", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.get_automated_reasoning_policy_test_result_request.GetAutomatedReasoningPolicyTestResultRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -2065,7 +2301,10 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAutomatedReasoningPolicyBuildWorkflows"),
+        )
         input_: capo_bedrock.types.list_automated_reasoning_policy_build_workflows_request.ListAutomatedReasoningPolicyBuildWorkflowsRequest = {
             "policy_arn": policy_arn
         }
@@ -2150,7 +2389,21 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.list_automated_reasoning_policy_test_cases_response.ListAutomatedReasoningPolicyTestCasesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.list_automated_reasoning_policy_test_cases_response
+
+            return capo_bedrock.types.list_automated_reasoning_policy_test_cases_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListAutomatedReasoningPolicyTestCases", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.list_automated_reasoning_policy_test_cases_request.ListAutomatedReasoningPolicyTestCasesRequest = {
             "policy_arn": policy_arn
         }
@@ -2236,7 +2489,21 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.list_automated_reasoning_policy_test_results_response.ListAutomatedReasoningPolicyTestResultsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.list_automated_reasoning_policy_test_results_response
+
+            return capo_bedrock.types.list_automated_reasoning_policy_test_results_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListAutomatedReasoningPolicyTestResults", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.list_automated_reasoning_policy_test_results_request.ListAutomatedReasoningPolicyTestResultsRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -2327,7 +2594,21 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.start_automated_reasoning_policy_build_workflow_request.StartAutomatedReasoningPolicyBuildWorkflowRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.start_automated_reasoning_policy_build_workflow_request
+
+            return capo_bedrock.types.start_automated_reasoning_policy_build_workflow_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartAutomatedReasoningPolicyBuildWorkflow", redact_input=_redact_input
+            ),
+        )
         input_: capo_bedrock.types.start_automated_reasoning_policy_build_workflow_request.StartAutomatedReasoningPolicyBuildWorkflowRequest = {
             "policy_arn": policy_arn,
             "build_workflow_type": build_workflow_type,
@@ -2391,7 +2672,10 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartAutomatedReasoningPolicyTestWorkflow"),
+        )
         input_: capo_bedrock.types.start_automated_reasoning_policy_test_workflow_request.StartAutomatedReasoningPolicyTestWorkflowRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -2452,7 +2736,21 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.update_automated_reasoning_policy_annotations_request.UpdateAutomatedReasoningPolicyAnnotationsRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.update_automated_reasoning_policy_annotations_request
+
+            return capo_bedrock.types.update_automated_reasoning_policy_annotations_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAutomatedReasoningPolicyAnnotations", redact_input=_redact_input
+            ),
+        )
         input_: capo_bedrock.types.update_automated_reasoning_policy_annotations_request.UpdateAutomatedReasoningPolicyAnnotationsRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -2525,7 +2823,21 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.update_automated_reasoning_policy_test_case_request.UpdateAutomatedReasoningPolicyTestCaseRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.update_automated_reasoning_policy_test_case_request
+
+            return capo_bedrock.types.update_automated_reasoning_policy_test_case_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAutomatedReasoningPolicyTestCase", redact_input=_redact_input
+            ),
+        )
         input_: capo_bedrock.types.update_automated_reasoning_policy_test_case_request.UpdateAutomatedReasoningPolicyTestCaseRequest = {
             "policy_arn": policy_arn,
             "test_case_id": test_case_id,
@@ -2598,7 +2910,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMarketplaceModelEndpoint")
+        )
         input_: capo_bedrock.types.create_marketplace_model_endpoint_request.CreateMarketplaceModelEndpointRequest = {
             "model_source_identifier": model_source_identifier,
             "endpoint_config": endpoint_config,
@@ -2655,7 +2969,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMarketplaceModelEndpoint")
+        )
         input_: capo_bedrock.types.delete_marketplace_model_endpoint_request.DeleteMarketplaceModelEndpointRequest = {
             "endpoint_arn": endpoint_arn
         }
@@ -2704,7 +3020,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterMarketplaceModelEndpoint")
+        )
         input_: capo_bedrock.types.deregister_marketplace_model_endpoint_request.DeregisterMarketplaceModelEndpointRequest = {
             "endpoint_arn": endpoint_arn
         }
@@ -2752,7 +3070,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMarketplaceModelEndpoint")
+        )
         input_: capo_bedrock.types.get_marketplace_model_endpoint_request.GetMarketplaceModelEndpointRequest = {
             "endpoint_arn": endpoint_arn
         }
@@ -2808,7 +3128,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMarketplaceModelEndpoints")
+        )
         input_: capo_bedrock.types.list_marketplace_model_endpoints_request.ListMarketplaceModelEndpointsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2890,7 +3212,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterMarketplaceModelEndpoint")
+        )
         input_: capo_bedrock.types.register_marketplace_model_endpoint_request.RegisterMarketplaceModelEndpointRequest = {
             "endpoint_identifier": endpoint_identifier,
             "model_source_identifier": model_source_identifier,
@@ -2947,7 +3271,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMarketplaceModelEndpoint")
+        )
         input_: capo_bedrock.types.update_marketplace_model_endpoint_request.UpdateMarketplaceModelEndpointRequest = {
             "endpoint_arn": endpoint_arn,
             "endpoint_config": endpoint_config,
@@ -3013,7 +3339,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCustomModelDeployment")
+        )
         input_: capo_bedrock.types.create_custom_model_deployment_request.CreateCustomModelDeploymentRequest = {
             "model_deployment_name": model_deployment_name,
             "model_arn": model_arn,
@@ -3070,7 +3398,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCustomModelDeployment")
+        )
         input_: capo_bedrock.types.delete_custom_model_deployment_request.DeleteCustomModelDeploymentRequest = {
             "custom_model_deployment_identifier": custom_model_deployment_identifier
         }
@@ -3118,7 +3448,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCustomModelDeployment")
+        )
         input_: capo_bedrock.types.get_custom_model_deployment_request.GetCustomModelDeploymentRequest = {
             "custom_model_deployment_identifier": custom_model_deployment_identifier
         }
@@ -3189,7 +3521,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCustomModelDeployments")
+        )
         input_: capo_bedrock.types.list_custom_model_deployments_request.ListCustomModelDeploymentsRequest = {}
         if created_before is not None:
             input_["created_before"] = created_before
@@ -3298,7 +3632,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCustomModelDeployment")
+        )
         input_: capo_bedrock.types.update_custom_model_deployment_request.UpdateCustomModelDeploymentRequest = {
             "model_arn": model_arn,
             "custom_model_deployment_identifier": custom_model_deployment_identifier,
@@ -3373,7 +3709,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCustomModel")
+        )
         input_: capo_bedrock.types.create_custom_model_request.CreateCustomModelRequest = {
             "model_name": model_name
         }
@@ -3435,7 +3773,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCustomModel")
+        )
         input_: capo_bedrock.types.delete_custom_model_request.DeleteCustomModelRequest = {
             "model_identifier": model_identifier
         }
@@ -3483,7 +3823,17 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_custom_model_response.GetCustomModelResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_custom_model_response
+
+            return capo_bedrock.types.get_custom_model_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetCustomModel", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.get_custom_model_request.GetCustomModelRequest = {
             "model_identifier": model_identifier
         }
@@ -3556,7 +3906,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCustomModels")
+        )
         input_: capo_bedrock.types.list_custom_models_request.ListCustomModelsRequest = {}
         if creation_time_before is not None:
             input_["creation_time_before"] = creation_time_before
@@ -3662,7 +4014,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountDataRetention")
+        )
         input_: capo_bedrock.types.get_account_data_retention_request.GetAccountDataRetentionRequest = {}
 
         response = await aexecute_pipeline(
@@ -3707,7 +4061,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccountDataRetention")
+        )
         input_: capo_bedrock.types.put_account_data_retention_request.PutAccountDataRetentionRequest = {
             "mode": mode
         }
@@ -3755,7 +4111,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEnforcedGuardrailConfiguration")
+        )
         input_: capo_bedrock.types.delete_enforced_guardrail_configuration_request.DeleteEnforcedGuardrailConfigurationRequest = {
             "config_id": config_id
         }
@@ -3805,7 +4163,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEnforcedGuardrailsConfiguration")
+        )
         input_: capo_bedrock.types.list_enforced_guardrails_configuration_request.ListEnforcedGuardrailsConfigurationRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3879,7 +4239,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutEnforcedGuardrailConfiguration")
+        )
         input_: capo_bedrock.types.put_enforced_guardrail_configuration_request.PutEnforcedGuardrailConfigurationRequest = {
             "guardrail_inference_config": guardrail_inference_config
         }
@@ -3936,7 +4298,34 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.batch_delete_evaluation_job_request.BatchDeleteEvaluationJobRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.batch_delete_evaluation_job_request
+
+            return (
+                capo_bedrock.types.batch_delete_evaluation_job_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_bedrock.types.batch_delete_evaluation_job_response.BatchDeleteEvaluationJobResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.batch_delete_evaluation_job_response
+
+            return capo_bedrock.types.batch_delete_evaluation_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchDeleteEvaluationJob",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock.types.batch_delete_evaluation_job_request.BatchDeleteEvaluationJobRequest = {
             "job_identifiers": job_identifiers
         }
@@ -4014,7 +4403,19 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_evaluation_job_request.CreateEvaluationJobRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_evaluation_job_request
+
+            return capo_bedrock.types.create_evaluation_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateEvaluationJob", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.create_evaluation_job_request.CreateEvaluationJobRequest = {
             "job_name": job_name,
             "role_arn": role_arn,
@@ -4077,7 +4478,32 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.get_evaluation_job_request.GetEvaluationJobRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_evaluation_job_request
+
+            return capo_bedrock.types.get_evaluation_job_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock.types.get_evaluation_job_response.GetEvaluationJobResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_evaluation_job_response
+
+            return capo_bedrock.types.get_evaluation_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetEvaluationJob",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock.types.get_evaluation_job_request.GetEvaluationJobRequest = {
             "job_identifier": job_identifier
         }
@@ -4148,7 +4574,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEvaluationJobs")
+        )
         input_: capo_bedrock.types.list_evaluation_jobs_request.ListEvaluationJobsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -4256,7 +4684,19 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.stop_evaluation_job_request.StopEvaluationJobRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.stop_evaluation_job_request
+
+            return capo_bedrock.types.stop_evaluation_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StopEvaluationJob", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.stop_evaluation_job_request.StopEvaluationJobRequest = {
             "job_identifier": job_identifier
         }
@@ -4351,7 +4791,17 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_guardrail_request.CreateGuardrailRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_guardrail_request
+
+            return capo_bedrock.types.create_guardrail_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateGuardrail", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.create_guardrail_request.CreateGuardrailRequest = {
             "name": name,
             "blocked_input_messaging": blocked_input_messaging,
@@ -4434,7 +4884,17 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_guardrail_response.GetGuardrailResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_guardrail_response
+
+            return capo_bedrock.types.get_guardrail_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetGuardrail", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.get_guardrail_request.GetGuardrailRequest = {
             "guardrail_identifier": guardrail_identifier
         }
@@ -4526,7 +4986,17 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.update_guardrail_request.UpdateGuardrailRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.update_guardrail_request
+
+            return capo_bedrock.types.update_guardrail_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateGuardrail", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.update_guardrail_request.UpdateGuardrailRequest = {
             "guardrail_identifier": guardrail_identifier,
             "name": name,
@@ -4607,7 +5077,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGuardrail")
+        )
         input_: capo_bedrock.types.delete_guardrail_request.DeleteGuardrailRequest = {
             "guardrail_identifier": guardrail_identifier
         }
@@ -4665,7 +5137,17 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.list_guardrails_response.ListGuardrailsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.list_guardrails_response
+
+            return capo_bedrock.types.list_guardrails_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListGuardrails", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.list_guardrails_request.ListGuardrailsRequest = {}
         if guardrail_identifier is not None:
             input_["guardrail_identifier"] = guardrail_identifier
@@ -4754,7 +5236,19 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_guardrail_version_request.CreateGuardrailVersionRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_guardrail_version_request
+
+            return capo_bedrock.types.create_guardrail_version_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateGuardrailVersion", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.create_guardrail_version_request.CreateGuardrailVersionRequest = {
             "guardrail_identifier": guardrail_identifier
         }
@@ -4822,7 +5316,19 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_inference_profile_request.CreateInferenceProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_inference_profile_request
+
+            return capo_bedrock.types.create_inference_profile_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateInferenceProfile", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.create_inference_profile_request.CreateInferenceProfileRequest = {
             "inference_profile_name": inference_profile_name,
             "model_source": model_source,
@@ -4880,7 +5386,19 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_inference_profile_response.GetInferenceProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_inference_profile_response
+
+            return capo_bedrock.types.get_inference_profile_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetInferenceProfile", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.get_inference_profile_request.GetInferenceProfileRequest = {
             "inference_profile_identifier": inference_profile_identifier
         }
@@ -4929,7 +5447,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInferenceProfile")
+        )
         input_: capo_bedrock.types.delete_inference_profile_request.DeleteInferenceProfileRequest = {
             "inference_profile_identifier": inference_profile_identifier
         }
@@ -4984,7 +5504,19 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.list_inference_profiles_response.ListInferenceProfilesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.list_inference_profiles_response
+
+            return capo_bedrock.types.list_inference_profiles_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListInferenceProfiles", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.list_inference_profiles_request.ListInferenceProfilesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -5055,7 +5587,10 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteModelInvocationLoggingConfiguration"),
+        )
         input_: capo_bedrock.types.delete_model_invocation_logging_configuration_request.DeleteModelInvocationLoggingConfigurationRequest = {}
 
         response = await aexecute_pipeline(
@@ -5093,7 +5628,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetModelInvocationLoggingConfiguration")
+        )
         input_: capo_bedrock.types.get_model_invocation_logging_configuration_request.GetModelInvocationLoggingConfigurationRequest = {}
 
         response = await aexecute_pipeline(
@@ -5138,7 +5675,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutModelInvocationLoggingConfiguration")
+        )
         input_: capo_bedrock.types.put_model_invocation_logging_configuration_request.PutModelInvocationLoggingConfigurationRequest = {
             "logging_config": logging_config
         }
@@ -5195,7 +5734,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateModelCopyJob")
+        )
         input_: capo_bedrock.types.create_model_copy_job_request.CreateModelCopyJobRequest = {
             "source_model_arn": source_model_arn,
             "target_model_name": target_model_name,
@@ -5251,7 +5792,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetModelCopyJob")
+        )
         input_: capo_bedrock.types.get_model_copy_job_request.GetModelCopyJobRequest = {
             "job_arn": job_arn
         }
@@ -5327,7 +5870,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListModelCopyJobs")
+        )
         input_: capo_bedrock.types.list_model_copy_jobs_request.ListModelCopyJobsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -5463,7 +6008,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateModelImportJob")
+        )
         input_: capo_bedrock.types.create_model_import_job_request.CreateModelImportJobRequest = {
             "job_name": job_name,
             "imported_model_name": imported_model_name,
@@ -5527,7 +6074,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteImportedModel")
+        )
         input_: capo_bedrock.types.delete_imported_model_request.DeleteImportedModelRequest = {
             "model_identifier": model_identifier
         }
@@ -5575,7 +6124,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetImportedModel")
+        )
         input_: capo_bedrock.types.get_imported_model_request.GetImportedModelRequest = {
             "model_identifier": model_identifier
         }
@@ -5623,7 +6174,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetModelImportJob")
+        )
         input_: capo_bedrock.types.get_model_import_job_request.GetModelImportJobRequest = {
             "job_identifier": job_identifier
         }
@@ -5686,7 +6239,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImportedModels")
+        )
         input_: capo_bedrock.types.list_imported_models_request.ListImportedModelsRequest = {}
         if creation_time_before is not None:
             input_["creation_time_before"] = creation_time_before
@@ -5802,7 +6357,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListModelImportJobs")
+        )
         input_: capo_bedrock.types.list_model_import_jobs_request.ListModelImportJobsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -5927,7 +6484,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateModelInvocationJob")
+        )
         input_: capo_bedrock.types.create_model_invocation_job_request.CreateModelInvocationJobRequest = {
             "job_name": job_name,
             "role_arn": role_arn,
@@ -5990,7 +6549,21 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_model_invocation_job_response.GetModelInvocationJobResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_model_invocation_job_response
+
+            return (
+                capo_bedrock.types.get_model_invocation_job_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetModelInvocationJob", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.get_model_invocation_job_request.GetModelInvocationJobRequest = {
             "job_identifier": job_identifier
         }
@@ -6057,7 +6630,21 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.list_model_invocation_jobs_response.ListModelInvocationJobsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.list_model_invocation_jobs_response
+
+            return (
+                capo_bedrock.types.list_model_invocation_jobs_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListModelInvocationJobs", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.list_model_invocation_jobs_request.ListModelInvocationJobsRequest = {}
         if submit_time_after is not None:
             input_["submit_time_after"] = submit_time_after
@@ -6159,7 +6746,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopModelInvocationJob")
+        )
         input_: capo_bedrock.types.stop_model_invocation_job_request.StopModelInvocationJobRequest = {
             "job_identifier": job_identifier
         }
@@ -6207,7 +6796,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFoundationModel")
+        )
         input_: capo_bedrock.types.get_foundation_model_request.GetFoundationModelRequest = {
             "model_identifier": model_identifier
         }
@@ -6266,7 +6857,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFoundationModels")
+        )
         input_: capo_bedrock.types.list_foundation_models_request.ListFoundationModelsRequest = {}
         if by_provider is not None:
             input_["by_provider"] = by_provider
@@ -6339,7 +6932,19 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_prompt_router_request.CreatePromptRouterRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_prompt_router_request
+
+            return capo_bedrock.types.create_prompt_router_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreatePromptRouter", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.create_prompt_router_request.CreatePromptRouterRequest = {
             "prompt_router_name": prompt_router_name,
             "models": models,
@@ -6397,7 +7002,19 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_prompt_router_response.GetPromptRouterResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_prompt_router_response
+
+            return capo_bedrock.types.get_prompt_router_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetPromptRouter", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.get_prompt_router_request.GetPromptRouterRequest = {
             "prompt_router_arn": prompt_router_arn
         }
@@ -6445,7 +7062,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePromptRouter")
+        )
         input_: capo_bedrock.types.delete_prompt_router_request.DeletePromptRouterRequest = {
             "prompt_router_arn": prompt_router_arn
         }
@@ -6498,7 +7117,19 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.list_prompt_routers_response.ListPromptRoutersResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.list_prompt_routers_response
+
+            return capo_bedrock.types.list_prompt_routers_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListPromptRouters", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.list_prompt_routers_request.ListPromptRoutersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -6591,7 +7222,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProvisionedModelThroughput")
+        )
         input_: capo_bedrock.types.create_provisioned_model_throughput_request.CreateProvisionedModelThroughputRequest = {
             "model_units": model_units,
             "provisioned_model_name": provisioned_model_name,
@@ -6649,7 +7282,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProvisionedModelThroughput")
+        )
         input_: capo_bedrock.types.delete_provisioned_model_throughput_request.DeleteProvisionedModelThroughputRequest = {
             "provisioned_model_id": provisioned_model_id
         }
@@ -6697,7 +7332,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProvisionedModelThroughput")
+        )
         input_: capo_bedrock.types.get_provisioned_model_throughput_request.GetProvisionedModelThroughputRequest = {
             "provisioned_model_id": provisioned_model_id
         }
@@ -6768,7 +7405,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProvisionedModelThroughputs")
+        )
         input_: capo_bedrock.types.list_provisioned_model_throughputs_request.ListProvisionedModelThroughputsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -6883,7 +7522,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProvisionedModelThroughput")
+        )
         input_: capo_bedrock.types.update_provisioned_model_throughput_request.UpdateProvisionedModelThroughputRequest = {
             "provisioned_model_id": provisioned_model_id
         }
@@ -6935,7 +7576,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_bedrock.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -6983,7 +7626,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_bedrock.types.get_resource_policy_request.GetResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -7033,7 +7678,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_bedrock.types.put_resource_policy_request.PutResourcePolicyRequest = {
             "resource_arn": resource_arn,
             "resource_policy": resource_policy,
@@ -7085,7 +7732,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFoundationModelAgreement")
+        )
         input_: capo_bedrock.types.create_foundation_model_agreement_request.CreateFoundationModelAgreementRequest = {
             "offer_token": offer_token,
             "model_id": model_id,
@@ -7135,7 +7784,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFoundationModelAgreement")
+        )
         input_: capo_bedrock.types.delete_foundation_model_agreement_request.DeleteFoundationModelAgreementRequest = {
             "model_id": model_id
         }
@@ -7183,7 +7834,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFoundationModelAvailability")
+        )
         input_: capo_bedrock.types.get_foundation_model_availability_request.GetFoundationModelAvailabilityRequest = {
             "model_id": model_id
         }
@@ -7233,7 +7886,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFoundationModelAgreementOffers")
+        )
         input_: capo_bedrock.types.list_foundation_model_agreement_offers_request.ListFoundationModelAgreementOffersRequest = {
             "model_id": model_id
         }
@@ -7285,7 +7940,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_bedrock.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -7336,7 +7993,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_bedrock.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -7387,7 +8046,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_bedrock.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -7479,7 +8140,19 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_model_customization_job_request.CreateModelCustomizationJobRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_model_customization_job_request
+
+            return capo_bedrock.types.create_model_customization_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateModelCustomizationJob", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.create_model_customization_job_request.CreateModelCustomizationJobRequest = {
             "job_name": job_name,
             "custom_model_name": custom_model_name,
@@ -7551,7 +8224,19 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_model_customization_job_response.GetModelCustomizationJobResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_model_customization_job_response
+
+            return capo_bedrock.types.get_model_customization_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetModelCustomizationJob", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.get_model_customization_job_request.GetModelCustomizationJobRequest = {
             "job_identifier": job_identifier
         }
@@ -7616,7 +8301,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListModelCustomizationJobs")
+        )
         input_: capo_bedrock.types.list_model_customization_jobs_request.ListModelCustomizationJobsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -7716,7 +8403,9 @@ class AsyncBedrockClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopModelCustomizationJob")
+        )
         input_: capo_bedrock.types.stop_model_customization_job_request.StopModelCustomizationJobRequest = {
             "job_identifier": job_identifier
         }

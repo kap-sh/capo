@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_drs._auth._signers
 import capo_drs._auth._sigv4
 from capo_drs._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -78,7 +79,28 @@ class RecoveryPlanResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.create_recovery_plan_request.CreateRecoveryPlanRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.create_recovery_plan_request
+
+            return capo_drs.types.create_recovery_plan_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_drs.types.create_recovery_plan_response.CreateRecoveryPlanResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.create_recovery_plan_response
+
+            return capo_drs.types.create_recovery_plan_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateRecoveryPlan",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.create_recovery_plan_request.CreateRecoveryPlanRequest = {
             "name": name
         }
@@ -147,7 +169,36 @@ class RecoveryPlanResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.start_recovery_plan_execution_request.StartRecoveryPlanExecutionRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_recovery_plan_execution_request
+
+            return (
+                capo_drs.types.start_recovery_plan_execution_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_drs.types.start_recovery_plan_execution_response.StartRecoveryPlanExecutionResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_recovery_plan_execution_response
+
+            return (
+                capo_drs.types.start_recovery_plan_execution_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartRecoveryPlanExecution",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.start_recovery_plan_execution_request.StartRecoveryPlanExecutionRequest = {
             "recovery_plan_arn": recovery_plan_arn,
             "mode": mode,
@@ -218,7 +269,28 @@ class AsyncRecoveryPlanResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.create_recovery_plan_request.CreateRecoveryPlanRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.create_recovery_plan_request
+
+            return capo_drs.types.create_recovery_plan_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_drs.types.create_recovery_plan_response.CreateRecoveryPlanResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.create_recovery_plan_response
+
+            return capo_drs.types.create_recovery_plan_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateRecoveryPlan",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.create_recovery_plan_request.CreateRecoveryPlanRequest = {
             "name": name
         }
@@ -288,7 +360,36 @@ class AsyncRecoveryPlanResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.start_recovery_plan_execution_request.StartRecoveryPlanExecutionRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_recovery_plan_execution_request
+
+            return (
+                capo_drs.types.start_recovery_plan_execution_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_drs.types.start_recovery_plan_execution_response.StartRecoveryPlanExecutionResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_recovery_plan_execution_response
+
+            return (
+                capo_drs.types.start_recovery_plan_execution_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartRecoveryPlanExecution",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.start_recovery_plan_execution_request.StartRecoveryPlanExecutionRequest = {
             "recovery_plan_arn": recovery_plan_arn,
             "mode": mode,

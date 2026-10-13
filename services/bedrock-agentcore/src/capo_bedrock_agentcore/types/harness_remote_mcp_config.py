@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#HarnessRemoteMcpConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -43,4 +43,13 @@ def deserialize_json(data: dict) -> HarnessRemoteMcpConfig:
         out["headers"] = capo_bedrock_agentcore.types.http_headers_map.deserialize_json(
             data["headers"]
         )
+    return out
+
+
+def redact_sensitive(value: HarnessRemoteMcpConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "url" in value:
+        out["url"] = "*** Sensitive Data Redacted ***"
+    if "headers" in value:
+        out["headers"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mailmanager#ImportJob``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -171,4 +171,11 @@ def deserialize_aws_json_1_0(data: dict) -> ImportJob:
         )
     if data.get("Error") is not None:
         out["error"] = data["Error"]
+    return out
+
+
+def redact_sensitive(value: ImportJob) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "pre_signed_url" in value:
+        out["pre_signed_url"] = "*** Sensitive Data Redacted ***"
     return out

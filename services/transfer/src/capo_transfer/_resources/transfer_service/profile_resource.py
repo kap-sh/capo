@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_transfer._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -82,7 +83,9 @@ class ProfileResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateProfile")
+        )
         input_: capo_transfer.types.create_profile_request.CreateProfileRequest = {
             "as2_id": as2_id,
             "profile_type": profile_type,
@@ -133,7 +136,9 @@ class ProfileResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeProfile")
+        )
         input_: capo_transfer.types.describe_profile_request.DescribeProfileRequest = {
             "profile_id": profile_id
         }
@@ -184,7 +189,9 @@ class ProfileResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateProfile")
+        )
         input_: capo_transfer.types.update_profile_request.UpdateProfileRequest = {
             "profile_id": profile_id
         }
@@ -230,7 +237,9 @@ class ProfileResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteProfile")
+        )
         input_: capo_transfer.types.delete_profile_request.DeleteProfileRequest = {
             "profile_id": profile_id
         }
@@ -281,7 +290,9 @@ class ProfileResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListProfiles")
+        )
         input_: capo_transfer.types.list_profiles_request.ListProfilesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -346,7 +357,9 @@ class AsyncProfileResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateProfile")
+        )
         input_: capo_transfer.types.create_profile_request.CreateProfileRequest = {
             "as2_id": as2_id,
             "profile_type": profile_type,
@@ -398,7 +411,9 @@ class AsyncProfileResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeProfile")
+        )
         input_: capo_transfer.types.describe_profile_request.DescribeProfileRequest = {
             "profile_id": profile_id
         }
@@ -450,7 +465,9 @@ class AsyncProfileResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateProfile")
+        )
         input_: capo_transfer.types.update_profile_request.UpdateProfileRequest = {
             "profile_id": profile_id
         }
@@ -497,7 +514,9 @@ class AsyncProfileResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteProfile")
+        )
         input_: capo_transfer.types.delete_profile_request.DeleteProfileRequest = {
             "profile_id": profile_id
         }
@@ -549,7 +568,9 @@ class AsyncProfileResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListProfiles")
+        )
         input_: capo_transfer.types.list_profiles_request.ListProfilesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

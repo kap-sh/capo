@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mailmanager#Row``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -164,4 +164,11 @@ def deserialize_aws_json_1_0(data: dict) -> Row:
         )
     if data.get("SourceArn") is not None:
         out["source_arn"] = data["SourceArn"]
+    return out
+
+
+def redact_sensitive(value: Row) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sender_ip_address" in value:
+        out["sender_ip_address"] = "*** Sensitive Data Redacted ***"
     return out

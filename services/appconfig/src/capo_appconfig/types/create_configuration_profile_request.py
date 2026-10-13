@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appconfig#CreateConfigurationProfileRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -99,4 +99,15 @@ def deserialize_json(data: dict) -> CreateConfigurationProfileRequest:
         out["type"] = data["Type"]
     if data.get("KmsKeyIdentifier") is not None:
         out["kms_key_identifier"] = data["KmsKeyIdentifier"]
+    return out
+
+
+def redact_sensitive(value: CreateConfigurationProfileRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "validators" in value:
+        import capo_appconfig.types.validator_list
+
+        out["validators"] = capo_appconfig.types.validator_list.redact_sensitive(
+            value["validators"]
+        )
     return out

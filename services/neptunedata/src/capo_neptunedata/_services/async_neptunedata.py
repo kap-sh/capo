@@ -22,7 +22,9 @@ from capo_neptunedata._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -198,7 +200,9 @@ class AsyncneptunedataClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncneptunedataClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncneptunedataClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncneptunedataClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -206,8 +210,10 @@ class AsyncneptunedataClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -270,7 +276,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelGremlinQuery")
+        )
         input_: capo_neptunedata.types.cancel_gremlin_query_input.CancelGremlinQueryInput = {
             "query_id": query_id
         }
@@ -326,7 +334,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelLoaderJob")
+        )
         input_: capo_neptunedata.types.cancel_loader_job_input.CancelLoaderJobInput = {
             "load_id": load_id
         }
@@ -384,7 +394,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelMLDataProcessingJob")
+        )
         input_: capo_neptunedata.types.cancel_ml_data_processing_job_input.CancelMLDataProcessingJobInput = {
             "id": id
         }
@@ -446,7 +458,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelMLModelTrainingJob")
+        )
         input_: capo_neptunedata.types.cancel_ml_model_training_job_input.CancelMLModelTrainingJobInput = {
             "id": id
         }
@@ -508,7 +522,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelMLModelTransformJob")
+        )
         input_: capo_neptunedata.types.cancel_ml_model_transform_job_input.CancelMLModelTransformJobInput = {
             "id": id
         }
@@ -572,7 +588,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelOpenCypherQuery")
+        )
         input_: capo_neptunedata.types.cancel_open_cypher_query_input.CancelOpenCypherQueryInput = {
             "query_id": query_id
         }
@@ -644,7 +662,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMLEndpoint")
+        )
         input_: capo_neptunedata.types.create_ml_endpoint_input.CreateMLEndpointInput = {}
         if id is not None:
             input_["id"] = id
@@ -718,7 +738,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMLEndpoint")
+        )
         input_: capo_neptunedata.types.delete_ml_endpoint_input.DeleteMLEndpointInput = {
             "id": id
         }
@@ -772,7 +794,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePropertygraphStatistics")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -819,7 +843,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSparqlStatistics")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -874,7 +900,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExecuteFastReset")
+        )
         input_: capo_neptunedata.types.execute_fast_reset_input.ExecuteFastResetInput = {
             "action": action
         }
@@ -939,7 +967,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExecuteGremlinExplainQuery")
+        )
         input_: capo_neptunedata.types.execute_gremlin_explain_query_input.ExecuteGremlinExplainQueryInput = {
             "gremlin_query": gremlin_query
         }
@@ -1010,7 +1040,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExecuteGremlinProfileQuery")
+        )
         input_: capo_neptunedata.types.execute_gremlin_profile_query_input.ExecuteGremlinProfileQueryInput = {
             "gremlin_query": gremlin_query
         }
@@ -1085,7 +1117,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExecuteGremlinQuery")
+        )
         input_: capo_neptunedata.types.execute_gremlin_query_input.ExecuteGremlinQueryInput = {
             "gremlin_query": gremlin_query
         }
@@ -1155,7 +1189,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExecuteOpenCypherExplainQuery")
+        )
         input_: capo_neptunedata.types.execute_open_cypher_explain_query_input.ExecuteOpenCypherExplainQueryInput = {
             "open_cypher_query": open_cypher_query,
             "explain_mode": explain_mode,
@@ -1224,7 +1260,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExecuteOpenCypherQuery")
+        )
         input_: capo_neptunedata.types.execute_open_cypher_query_input.ExecuteOpenCypherQueryInput = {
             "open_cypher_query": open_cypher_query
         }
@@ -1271,7 +1309,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEngineStatus")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -1327,7 +1367,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGremlinQueryStatus")
+        )
         input_: capo_neptunedata.types.get_gremlin_query_status_input.GetGremlinQueryStatusInput = {
             "query_id": query_id
         }
@@ -1395,7 +1437,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLoaderJobStatus")
+        )
         input_: capo_neptunedata.types.get_loader_job_status_input.GetLoaderJobStatusInput = {
             "load_id": load_id
         }
@@ -1459,7 +1503,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMLDataProcessingJob")
+        )
         input_: capo_neptunedata.types.get_ml_data_processing_job_input.GetMLDataProcessingJobInput = {
             "id": id
         }
@@ -1517,7 +1563,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMLEndpoint")
+        )
         input_: capo_neptunedata.types.get_ml_endpoint_input.GetMLEndpointInput = {
             "id": id
         }
@@ -1575,7 +1623,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMLModelTrainingJob")
+        )
         input_: capo_neptunedata.types.get_ml_model_training_job_input.GetMLModelTrainingJobInput = {
             "id": id
         }
@@ -1633,7 +1683,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMLModelTransformJob")
+        )
         input_: capo_neptunedata.types.get_ml_model_transform_job_input.GetMLModelTransformJobInput = {
             "id": id
         }
@@ -1695,7 +1747,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOpenCypherQueryStatus")
+        )
         input_: capo_neptunedata.types.get_open_cypher_query_status_input.GetOpenCypherQueryStatusInput = {
             "query_id": query_id
         }
@@ -1745,7 +1799,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPropertygraphStatistics")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -1807,7 +1863,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPropertygraphStream")
+        )
         input_: capo_neptunedata.types.get_propertygraph_stream_input.GetPropertygraphStreamInput = {}
         if limit is not None:
             input_["limit"] = limit
@@ -1873,7 +1931,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPropertygraphSummary")
+        )
         input_: capo_neptunedata.types.get_propertygraph_summary_input.GetPropertygraphSummaryInput = {}
         if mode is not None:
             input_["mode"] = mode
@@ -1931,7 +1991,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRDFGraphSummary")
+        )
         input_: capo_neptunedata.types.get_rdf_graph_summary_input.GetRDFGraphSummaryInput = {}
         if mode is not None:
             input_["mode"] = mode
@@ -1983,7 +2045,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSparqlStatistics")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -2045,7 +2109,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSparqlStream")
+        )
         input_: capo_neptunedata.types.get_sparql_stream_input.GetSparqlStreamInput = {}
         if limit is not None:
             input_["limit"] = limit
@@ -2112,7 +2178,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGremlinQueries")
+        )
         input_: capo_neptunedata.types.list_gremlin_queries_input.ListGremlinQueriesInput = {}
         if include_waiting is not None:
             input_["include_waiting"] = include_waiting
@@ -2171,7 +2239,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLoaderJobs")
+        )
         input_: capo_neptunedata.types.list_loader_jobs_input.ListLoaderJobsInput = {}
         if limit is not None:
             input_["limit"] = limit
@@ -2231,7 +2301,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMLDataProcessingJobs")
+        )
         input_: capo_neptunedata.types.list_ml_data_processing_jobs_input.ListMLDataProcessingJobsInput = {}
         if max_items is not None:
             input_["max_items"] = max_items
@@ -2291,7 +2363,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMLEndpoints")
+        )
         input_: capo_neptunedata.types.list_ml_endpoints_input.ListMLEndpointsInput = {}
         if max_items is not None:
             input_["max_items"] = max_items
@@ -2351,7 +2425,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMLModelTrainingJobs")
+        )
         input_: capo_neptunedata.types.list_ml_model_training_jobs_input.ListMLModelTrainingJobsInput = {}
         if max_items is not None:
             input_["max_items"] = max_items
@@ -2411,7 +2487,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMLModelTransformJobs")
+        )
         input_: capo_neptunedata.types.list_ml_model_transform_jobs_input.ListMLModelTransformJobsInput = {}
         if max_items is not None:
             input_["max_items"] = max_items
@@ -2473,7 +2551,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOpenCypherQueries")
+        )
         input_: capo_neptunedata.types.list_open_cypher_queries_input.ListOpenCypherQueriesInput = {}
         if include_waiting is not None:
             input_["include_waiting"] = include_waiting
@@ -2531,7 +2611,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ManagePropertygraphStatistics")
+        )
         input_: capo_neptunedata.types.manage_propertygraph_statistics_input.ManagePropertygraphStatisticsInput = {}
         if mode is not None:
             input_["mode"] = mode
@@ -2589,7 +2671,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ManageSparqlStatistics")
+        )
         input_: capo_neptunedata.types.manage_sparql_statistics_input.ManageSparqlStatisticsInput = {}
         if mode is not None:
             input_["mode"] = mode
@@ -2672,7 +2756,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartLoaderJob")
+        )
         input_: capo_neptunedata.types.start_loader_job_input.StartLoaderJobInput = {
             "source": source,
             "format": format,
@@ -2779,7 +2865,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMLDataProcessingJob")
+        )
         input_: capo_neptunedata.types.start_ml_data_processing_job_input.StartMLDataProcessingJobInput = {
             "input_data_s3_location": input_data_s3_location,
             "processed_data_s3_location": processed_data_s3_location,
@@ -2900,7 +2988,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMLModelTrainingJob")
+        )
         input_: capo_neptunedata.types.start_ml_model_training_job_input.StartMLModelTrainingJobInput = {
             "data_processing_job_id": data_processing_job_id,
             "train_model_s3_location": train_model_s3_location,
@@ -3021,7 +3111,9 @@ class AsyncneptunedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMLModelTransformJob")
+        )
         input_: capo_neptunedata.types.start_ml_model_transform_job_input.StartMLModelTransformJobInput = {
             "model_transform_output_s3_location": model_transform_output_s3_location
         }

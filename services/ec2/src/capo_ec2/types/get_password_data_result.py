@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#GetPasswordDataResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,4 +53,11 @@ def deserialize_ec2_query(el: Element) -> GetPasswordDataResult:
     child_password_data = el.find("passwordData")
     if child_password_data is not None:
         out["password_data"] = str(child_password_data.text or "")
+    return out
+
+
+def redact_sensitive(value: GetPasswordDataResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "password_data" in value:
+        out["password_data"] = "*** Sensitive Data Redacted ***"
     return out

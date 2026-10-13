@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#AIPromptInferenceConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -63,4 +63,17 @@ def deserialize_json(data: dict) -> AIPromptInferenceConfiguration:
         out["top_k"] = data["topK"]
     if data.get("maxTokensToSample") is not None:
         out["max_tokens_to_sample"] = data["maxTokensToSample"]
+    return out
+
+
+def redact_sensitive(value: AIPromptInferenceConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "temperature" in value:
+        out["temperature"] = "*** Sensitive Data Redacted ***"
+    if "top_p" in value:
+        out["top_p"] = "*** Sensitive Data Redacted ***"
+    if "top_k" in value:
+        out["top_k"] = "*** Sensitive Data Redacted ***"
+    if "max_tokens_to_sample" in value:
+        out["max_tokens_to_sample"] = "*** Sensitive Data Redacted ***"
     return out

@@ -7,6 +7,7 @@ import capo_omics._auth._sigv4
 from capo_omics._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -88,7 +89,9 @@ class RunGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRunGroup")
+        )
         input_: capo_omics.types.create_run_group_request.CreateRunGroupRequest = {
             "request_id": request_id
         }
@@ -150,7 +153,9 @@ class RunGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRunGroup")
+        )
         input_: capo_omics.types.get_run_group_request.GetRunGroupRequest = {"id": id}
 
         response = execute_pipeline(
@@ -206,7 +211,9 @@ class RunGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateRunGroup")
+        )
         input_: capo_omics.types.update_run_group_request.UpdateRunGroupRequest = {
             "id": id
         }
@@ -264,7 +271,9 @@ class RunGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRunGroup")
+        )
         input_: capo_omics.types.delete_run_group_request.DeleteRunGroupRequest = {
             "id": id
         }
@@ -320,7 +329,9 @@ class RunGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRunGroups")
+        )
         input_: capo_omics.types.list_run_groups_request.ListRunGroupsRequest = {}
         if name is not None:
             input_["name"] = name
@@ -392,7 +403,9 @@ class AsyncRunGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRunGroup")
+        )
         input_: capo_omics.types.create_run_group_request.CreateRunGroupRequest = {
             "request_id": request_id
         }
@@ -455,7 +468,9 @@ class AsyncRunGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRunGroup")
+        )
         input_: capo_omics.types.get_run_group_request.GetRunGroupRequest = {"id": id}
 
         response = await aexecute_pipeline(
@@ -512,7 +527,9 @@ class AsyncRunGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateRunGroup")
+        )
         input_: capo_omics.types.update_run_group_request.UpdateRunGroupRequest = {
             "id": id
         }
@@ -571,7 +588,9 @@ class AsyncRunGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRunGroup")
+        )
         input_: capo_omics.types.delete_run_group_request.DeleteRunGroupRequest = {
             "id": id
         }
@@ -628,7 +647,9 @@ class AsyncRunGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRunGroups")
+        )
         input_: capo_omics.types.list_run_groups_request.ListRunGroupsRequest = {}
         if name is not None:
             input_["name"] = name

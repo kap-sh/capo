@@ -7,6 +7,7 @@ import capo_migrationhuborchestrator._auth._sigv4
 from capo_migrationhuborchestrator._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -118,7 +119,9 @@ class WorkflowStep:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWorkflowStep")
+        )
         input_: capo_migrationhuborchestrator.types.create_workflow_step_request.CreateWorkflowStepRequest = {
             "name": name,
             "step_group_id": step_group_id,
@@ -185,7 +188,9 @@ class WorkflowStep:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetWorkflowStep")
+        )
         input_: capo_migrationhuborchestrator.types.get_workflow_step_request.GetWorkflowStepRequest = {
             "workflow_id": workflow_id,
             "step_group_id": step_group_id,
@@ -271,7 +276,9 @@ class WorkflowStep:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateWorkflowStep")
+        )
         input_: capo_migrationhuborchestrator.types.update_workflow_step_request.UpdateWorkflowStepRequest = {
             "id": id,
             "step_group_id": step_group_id,
@@ -344,7 +351,9 @@ class WorkflowStep:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflowStep")
+        )
         input_: capo_migrationhuborchestrator.types.delete_workflow_step_request.DeleteWorkflowStepRequest = {
             "id": id,
             "step_group_id": step_group_id,
@@ -402,7 +411,9 @@ class WorkflowStep:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkflowSteps")
+        )
         input_: capo_migrationhuborchestrator.types.list_workflow_steps_request.ListWorkflowStepsRequest = {
             "workflow_id": workflow_id,
             "step_group_id": step_group_id,
@@ -457,7 +468,9 @@ class WorkflowStep:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RetryWorkflowStep")
+        )
         input_: capo_migrationhuborchestrator.types.retry_workflow_step_request.RetryWorkflowStepRequest = {
             "workflow_id": workflow_id,
             "step_group_id": step_group_id,
@@ -541,7 +554,9 @@ class AsyncWorkflowStep:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWorkflowStep")
+        )
         input_: capo_migrationhuborchestrator.types.create_workflow_step_request.CreateWorkflowStepRequest = {
             "name": name,
             "step_group_id": step_group_id,
@@ -609,7 +624,9 @@ class AsyncWorkflowStep:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetWorkflowStep")
+        )
         input_: capo_migrationhuborchestrator.types.get_workflow_step_request.GetWorkflowStepRequest = {
             "workflow_id": workflow_id,
             "step_group_id": step_group_id,
@@ -696,7 +713,9 @@ class AsyncWorkflowStep:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateWorkflowStep")
+        )
         input_: capo_migrationhuborchestrator.types.update_workflow_step_request.UpdateWorkflowStepRequest = {
             "id": id,
             "step_group_id": step_group_id,
@@ -770,7 +789,9 @@ class AsyncWorkflowStep:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflowStep")
+        )
         input_: capo_migrationhuborchestrator.types.delete_workflow_step_request.DeleteWorkflowStepRequest = {
             "id": id,
             "step_group_id": step_group_id,
@@ -829,7 +850,9 @@ class AsyncWorkflowStep:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkflowSteps")
+        )
         input_: capo_migrationhuborchestrator.types.list_workflow_steps_request.ListWorkflowStepsRequest = {
             "workflow_id": workflow_id,
             "step_group_id": step_group_id,
@@ -885,7 +908,9 @@ class AsyncWorkflowStep:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RetryWorkflowStep")
+        )
         input_: capo_migrationhuborchestrator.types.retry_workflow_step_request.RetryWorkflowStepRequest = {
             "workflow_id": workflow_id,
             "step_group_id": step_group_id,

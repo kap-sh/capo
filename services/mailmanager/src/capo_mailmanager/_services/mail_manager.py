@@ -45,10 +45,12 @@ from capo_mailmanager._resources.mail_manager_svc.traffic_policy_resource import
 from capo_mailmanager._services._aws_config import aws_config
 from capo_mailmanager._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -320,7 +322,9 @@ class MailManagerClient:
         self.traffic_policy_resource = TrafficPolicyResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[MailManagerClientConfig] = None
+        self,
+        config_overrides: Optional[MailManagerClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MailManagerClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -328,8 +332,10 @@ class MailManagerClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -389,7 +395,21 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mailmanager.types.create_address_list_import_job_response.CreateAddressListImportJobResponse",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.create_address_list_import_job_response
+
+            return capo_mailmanager.types.create_address_list_import_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAddressListImportJob", redact_output=_redact_output
+            ),
+        )
         input_: capo_mailmanager.types.create_address_list_import_job_request.CreateAddressListImportJobRequest = {
             "address_list_id": address_list_id,
             "name": name,
@@ -443,7 +463,21 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mailmanager.types.deregister_member_from_address_list_request.DeregisterMemberFromAddressListRequest",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.deregister_member_from_address_list_request
+
+            return capo_mailmanager.types.deregister_member_from_address_list_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DeregisterMemberFromAddressList", redact_input=_redact_input
+            ),
+        )
         input_: capo_mailmanager.types.deregister_member_from_address_list_request.DeregisterMemberFromAddressListRequest = {
             "address_list_id": address_list_id,
             "address": address,
@@ -490,7 +524,19 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mailmanager.types.get_address_list_import_job_response.GetAddressListImportJobResponse",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.get_address_list_import_job_response
+
+            return capo_mailmanager.types.get_address_list_import_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAddressListImportJob", redact_output=_redact_output),
+        )
         input_: capo_mailmanager.types.get_address_list_import_job_request.GetAddressListImportJobRequest = {
             "job_id": job_id
         }
@@ -535,7 +581,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetArchiveExport")
+        )
         input_: capo_mailmanager.types.get_archive_export_request.GetArchiveExportRequest = {
             "export_id": export_id
         }
@@ -582,7 +630,19 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mailmanager.types.get_archive_message_response.GetArchiveMessageResponse",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.get_archive_message_response
+
+            return capo_mailmanager.types.get_archive_message_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetArchiveMessage", redact_output=_redact_output),
+        )
         input_: capo_mailmanager.types.get_archive_message_request.GetArchiveMessageRequest = {
             "archived_message_id": archived_message_id
         }
@@ -627,7 +687,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetArchiveMessageContent")
+        )
         input_: capo_mailmanager.types.get_archive_message_content_request.GetArchiveMessageContentRequest = {
             "archived_message_id": archived_message_id
         }
@@ -672,7 +734,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetArchiveSearch")
+        )
         input_: capo_mailmanager.types.get_archive_search_request.GetArchiveSearchRequest = {
             "search_id": search_id
         }
@@ -718,7 +782,19 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mailmanager.types.get_archive_search_results_response.GetArchiveSearchResultsResponse",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.get_archive_search_results_response
+
+            return capo_mailmanager.types.get_archive_search_results_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetArchiveSearchResults", redact_output=_redact_output),
+        )
         input_: capo_mailmanager.types.get_archive_search_results_request.GetArchiveSearchResultsRequest = {
             "search_id": search_id
         }
@@ -766,7 +842,32 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mailmanager.types.get_member_of_address_list_request.GetMemberOfAddressListRequest",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.get_member_of_address_list_request
+
+            return capo_mailmanager.types.get_member_of_address_list_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_mailmanager.types.get_member_of_address_list_response.GetMemberOfAddressListResponse",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.get_member_of_address_list_response
+
+            return capo_mailmanager.types.get_member_of_address_list_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetMemberOfAddressList",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mailmanager.types.get_member_of_address_list_request.GetMemberOfAddressListRequest = {
             "address_list_id": address_list_id,
             "address": address,
@@ -819,7 +920,19 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mailmanager.types.list_address_list_import_jobs_response.ListAddressListImportJobsResponse",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.list_address_list_import_jobs_response
+
+            return capo_mailmanager.types.list_address_list_import_jobs_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAddressListImportJobs", redact_output=_redact_output),
+        )
         input_: capo_mailmanager.types.list_address_list_import_jobs_request.ListAddressListImportJobsRequest = {
             "address_list_id": address_list_id
         }
@@ -900,7 +1013,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListArchiveExports")
+        )
         input_: capo_mailmanager.types.list_archive_exports_request.ListArchiveExportsRequest = {
             "archive_id": archive_id
         }
@@ -981,7 +1096,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListArchiveSearches")
+        )
         input_: capo_mailmanager.types.list_archive_searches_request.ListArchiveSearchesRequest = {
             "archive_id": archive_id
         }
@@ -1066,7 +1183,32 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mailmanager.types.list_members_of_address_list_request.ListMembersOfAddressListRequest",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.list_members_of_address_list_request
+
+            return capo_mailmanager.types.list_members_of_address_list_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_mailmanager.types.list_members_of_address_list_response.ListMembersOfAddressListResponse",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.list_members_of_address_list_response
+
+            return capo_mailmanager.types.list_members_of_address_list_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListMembersOfAddressList",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mailmanager.types.list_members_of_address_list_request.ListMembersOfAddressListRequest = {
             "address_list_id": address_list_id
         }
@@ -1145,7 +1287,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_mailmanager.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1195,7 +1339,19 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mailmanager.types.register_member_to_address_list_request.RegisterMemberToAddressListRequest",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.register_member_to_address_list_request
+
+            return capo_mailmanager.types.register_member_to_address_list_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RegisterMemberToAddressList", redact_input=_redact_input),
+        )
         input_: capo_mailmanager.types.register_member_to_address_list_request.RegisterMemberToAddressListRequest = {
             "address_list_id": address_list_id,
             "address": address,
@@ -1244,7 +1400,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAddressListImportJob")
+        )
         input_: capo_mailmanager.types.start_address_list_import_job_request.StartAddressListImportJobRequest = {
             "job_id": job_id
         }
@@ -1307,7 +1465,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartArchiveExport")
+        )
         input_: capo_mailmanager.types.start_archive_export_request.StartArchiveExportRequest = {
             "archive_id": archive_id,
             "from_timestamp": from_timestamp,
@@ -1374,7 +1534,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartArchiveSearch")
+        )
         input_: capo_mailmanager.types.start_archive_search_request.StartArchiveSearchRequest = {
             "archive_id": archive_id,
             "from_timestamp": from_timestamp,
@@ -1426,7 +1588,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopAddressListImportJob")
+        )
         input_: capo_mailmanager.types.stop_address_list_import_job_request.StopAddressListImportJobRequest = {
             "job_id": job_id
         }
@@ -1473,7 +1637,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopArchiveExport")
+        )
         input_: capo_mailmanager.types.stop_archive_export_request.StopArchiveExportRequest = {
             "export_id": export_id
         }
@@ -1520,7 +1686,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopArchiveSearch")
+        )
         input_: capo_mailmanager.types.stop_archive_search_request.StopArchiveSearchRequest = {
             "search_id": search_id
         }
@@ -1568,7 +1736,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_mailmanager.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1616,7 +1786,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_mailmanager.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1669,7 +1841,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAddonInstance")
+        )
         input_: capo_mailmanager.types.create_addon_instance_request.CreateAddonInstanceRequest = {
             "addon_subscription_id": addon_subscription_id
         }
@@ -1718,7 +1892,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAddonInstance")
+        )
         input_: capo_mailmanager.types.get_addon_instance_request.GetAddonInstanceRequest = {
             "addon_instance_id": addon_instance_id
         }
@@ -1762,7 +1938,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAddonInstance")
+        )
         input_: capo_mailmanager.types.delete_addon_instance_request.DeleteAddonInstanceRequest = {
             "addon_instance_id": addon_instance_id
         }
@@ -1809,7 +1987,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAddonInstances")
+        )
         input_: capo_mailmanager.types.list_addon_instances_request.ListAddonInstancesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1886,7 +2066,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAddonSubscription")
+        )
         input_: capo_mailmanager.types.create_addon_subscription_request.CreateAddonSubscriptionRequest = {
             "addon_name": addon_name
         }
@@ -1935,7 +2117,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAddonSubscription")
+        )
         input_: capo_mailmanager.types.get_addon_subscription_request.GetAddonSubscriptionRequest = {
             "addon_subscription_id": addon_subscription_id
         }
@@ -1979,7 +2163,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAddonSubscription")
+        )
         input_: capo_mailmanager.types.delete_addon_subscription_request.DeleteAddonSubscriptionRequest = {
             "addon_subscription_id": addon_subscription_id
         }
@@ -2026,7 +2212,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAddonSubscriptions")
+        )
         input_: capo_mailmanager.types.list_addon_subscriptions_request.ListAddonSubscriptionsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2106,7 +2294,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAddressList")
+        )
         input_: capo_mailmanager.types.create_address_list_request.CreateAddressListRequest = {
             "address_list_name": address_list_name
         }
@@ -2157,7 +2347,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAddressList")
+        )
         input_: capo_mailmanager.types.get_address_list_request.GetAddressListRequest = {
             "address_list_id": address_list_id
         }
@@ -2205,7 +2397,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAddressList")
+        )
         input_: capo_mailmanager.types.delete_address_list_request.DeleteAddressListRequest = {
             "address_list_id": address_list_id
         }
@@ -2254,7 +2448,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAddressLists")
+        )
         input_: capo_mailmanager.types.list_address_lists_request.ListAddressListsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2338,7 +2534,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateArchive")
+        )
         input_: capo_mailmanager.types.create_archive_request.CreateArchiveRequest = {
             "archive_name": archive_name
         }
@@ -2393,7 +2591,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetArchive")
+        )
         input_: capo_mailmanager.types.get_archive_request.GetArchiveRequest = {
             "archive_id": archive_id
         }
@@ -2449,7 +2649,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateArchive")
+        )
         input_: capo_mailmanager.types.update_archive_request.UpdateArchiveRequest = {
             "archive_id": archive_id
         }
@@ -2499,7 +2701,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteArchive")
+        )
         input_: capo_mailmanager.types.delete_archive_request.DeleteArchiveRequest = {
             "archive_id": archive_id
         }
@@ -2548,7 +2752,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListArchives")
+        )
         input_: capo_mailmanager.types.list_archives_request.ListArchivesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2651,7 +2857,19 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mailmanager.types.create_ingress_point_request.CreateIngressPointRequest",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.create_ingress_point_request
+
+            return capo_mailmanager.types.create_ingress_point_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateIngressPoint", redact_input=_redact_input),
+        )
         input_: capo_mailmanager.types.create_ingress_point_request.CreateIngressPointRequest = {
             "ingress_point_name": ingress_point_name,
             "type": type,
@@ -2721,7 +2939,19 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mailmanager.types.get_ingress_point_response.GetIngressPointResponse",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.get_ingress_point_response
+
+            return capo_mailmanager.types.get_ingress_point_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetIngressPoint", redact_output=_redact_output),
+        )
         input_: capo_mailmanager.types.get_ingress_point_request.GetIngressPointRequest = {
             "ingress_point_id": ingress_point_id
         }
@@ -2802,7 +3032,19 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mailmanager.types.update_ingress_point_request.UpdateIngressPointRequest",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.update_ingress_point_request
+
+            return capo_mailmanager.types.update_ingress_point_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateIngressPoint", redact_input=_redact_input),
+        )
         input_: capo_mailmanager.types.update_ingress_point_request.UpdateIngressPointRequest = {
             "ingress_point_id": ingress_point_id
         }
@@ -2864,7 +3106,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIngressPoint")
+        )
         input_: capo_mailmanager.types.delete_ingress_point_request.DeleteIngressPointRequest = {
             "ingress_point_id": ingress_point_id
         }
@@ -2924,7 +3168,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIngressPoints")
+        )
         input_: capo_mailmanager.types.list_ingress_points_request.ListIngressPointsRequest = {}
         if page_size is not None:
             input_["page_size"] = page_size
@@ -3006,7 +3252,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRelay")
+        )
         input_: capo_mailmanager.types.create_relay_request.CreateRelayRequest = {
             "relay_name": relay_name,
             "server_name": server_name,
@@ -3058,7 +3306,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRelay")
+        )
         input_: capo_mailmanager.types.get_relay_request.GetRelayRequest = {
             "relay_id": relay_id
         }
@@ -3117,7 +3367,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRelay")
+        )
         input_: capo_mailmanager.types.update_relay_request.UpdateRelayRequest = {
             "relay_id": relay_id
         }
@@ -3170,7 +3422,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRelay")
+        )
         input_: capo_mailmanager.types.delete_relay_request.DeleteRelayRequest = {
             "relay_id": relay_id
         }
@@ -3217,7 +3471,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRelays")
+        )
         input_: capo_mailmanager.types.list_relays_request.ListRelaysRequest = {}
         if page_size is not None:
             input_["page_size"] = page_size
@@ -3295,7 +3551,19 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mailmanager.types.create_rule_set_request.CreateRuleSetRequest",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.create_rule_set_request
+
+            return capo_mailmanager.types.create_rule_set_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateRuleSet", redact_input=_redact_input),
+        )
         input_: capo_mailmanager.types.create_rule_set_request.CreateRuleSetRequest = {
             "rule_set_name": rule_set_name,
             "rules": rules,
@@ -3345,7 +3613,17 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mailmanager.types.get_rule_set_response.GetRuleSetResponse",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.get_rule_set_response
+
+            return capo_mailmanager.types.get_rule_set_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetRuleSet", redact_output=_redact_output),
+        )
         input_: capo_mailmanager.types.get_rule_set_request.GetRuleSetRequest = {
             "rule_set_id": rule_set_id
         }
@@ -3396,7 +3674,19 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mailmanager.types.update_rule_set_request.UpdateRuleSetRequest",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.update_rule_set_request
+
+            return capo_mailmanager.types.update_rule_set_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateRuleSet", redact_input=_redact_input),
+        )
         input_: capo_mailmanager.types.update_rule_set_request.UpdateRuleSetRequest = {
             "rule_set_id": rule_set_id
         }
@@ -3444,7 +3734,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRuleSet")
+        )
         input_: capo_mailmanager.types.delete_rule_set_request.DeleteRuleSetRequest = {
             "rule_set_id": rule_set_id
         }
@@ -3491,7 +3783,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRuleSets")
+        )
         input_: capo_mailmanager.types.list_rule_sets_request.ListRuleSetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3580,7 +3874,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTrafficPolicy")
+        )
         input_: capo_mailmanager.types.create_traffic_policy_request.CreateTrafficPolicyRequest = {
             "traffic_policy_name": traffic_policy_name,
             "policy_statements": policy_statements,
@@ -3638,7 +3934,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTrafficPolicy")
+        )
         input_: capo_mailmanager.types.get_traffic_policy_request.GetTrafficPolicyRequest = {
             "traffic_policy_id": traffic_policy_id
         }
@@ -3710,7 +4008,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTrafficPolicy")
+        )
         input_: capo_mailmanager.types.update_traffic_policy_request.UpdateTrafficPolicyRequest = {
             "traffic_policy_id": traffic_policy_id
         }
@@ -3768,7 +4068,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTrafficPolicy")
+        )
         input_: capo_mailmanager.types.delete_traffic_policy_request.DeleteTrafficPolicyRequest = {
             "traffic_policy_id": traffic_policy_id
         }
@@ -3826,7 +4128,9 @@ class MailManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTrafficPolicies")
+        )
         input_: capo_mailmanager.types.list_traffic_policies_request.ListTrafficPoliciesRequest = {}
         if page_size is not None:
             input_["page_size"] = page_size

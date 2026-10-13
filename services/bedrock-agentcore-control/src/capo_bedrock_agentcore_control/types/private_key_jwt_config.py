@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#PrivateKeyJwtConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -99,6 +99,27 @@ def deserialize_json(data: dict) -> PrivateKeyJwtConfig:
         out["additional_payload_claims"] = (
             capo_bedrock_agentcore_control.types.additional_claims.deserialize_json(
                 data["additionalPayloadClaims"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: PrivateKeyJwtConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "additional_header_claims" in value:
+        import capo_bedrock_agentcore_control.types.additional_claims
+
+        out["additional_header_claims"] = (
+            capo_bedrock_agentcore_control.types.additional_claims.redact_sensitive(
+                value["additional_header_claims"]
+            )
+        )
+    if "additional_payload_claims" in value:
+        import capo_bedrock_agentcore_control.types.additional_claims
+
+        out["additional_payload_claims"] = (
+            capo_bedrock_agentcore_control.types.additional_claims.redact_sensitive(
+                value["additional_payload_claims"]
             )
         )
     return out

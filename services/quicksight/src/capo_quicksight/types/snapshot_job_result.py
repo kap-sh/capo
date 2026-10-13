@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SnapshotJobResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,6 +58,27 @@ def deserialize_json(data: dict) -> SnapshotJobResult:
         out["registered_users"] = (
             capo_quicksight.types.registered_user_snapshot_job_result_list.deserialize_json(
                 data["RegisteredUsers"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SnapshotJobResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "anonymous_users" in value:
+        import capo_quicksight.types.anonymous_user_snapshot_job_result_list
+
+        out["anonymous_users"] = (
+            capo_quicksight.types.anonymous_user_snapshot_job_result_list.redact_sensitive(
+                value["anonymous_users"]
+            )
+        )
+    if "registered_users" in value:
+        import capo_quicksight.types.registered_user_snapshot_job_result_list
+
+        out["registered_users"] = (
+            capo_quicksight.types.registered_user_snapshot_job_result_list.redact_sensitive(
+                value["registered_users"]
             )
         )
     return out

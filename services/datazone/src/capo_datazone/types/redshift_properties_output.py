@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#RedshiftPropertiesOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -120,4 +120,11 @@ def deserialize_json(data: dict) -> RedshiftPropertiesOutput:
         )
     if data.get("databaseName") is not None:
         out["database_name"] = data["databaseName"]
+    return out
+
+
+def redact_sensitive(value: RedshiftPropertiesOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "credentials" in value:
+        out["credentials"] = "*** Sensitive Data Redacted ***"
     return out

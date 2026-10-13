@@ -22,10 +22,12 @@ from capo_account_access._resources.aws_account_access.application import Applic
 from capo_account_access._services._aws_config import aws_config
 from capo_account_access._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -134,7 +136,9 @@ class AccountAccessClient:
         self.application = Application(self)
 
     def operation_options(
-        self, config_overrides: Optional[AccountAccessClientConfig] = None
+        self,
+        config_overrides: Optional[AccountAccessClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: AccountAccessClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -142,8 +146,10 @@ class AccountAccessClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -192,7 +198,9 @@ class AccountAccessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_account_access.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -240,7 +248,9 @@ class AccountAccessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_account_access.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -289,7 +299,9 @@ class AccountAccessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_account_access.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -340,7 +352,9 @@ class AccountAccessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_account_access.types.create_application_request.CreateApplicationRequest = {
             "identity_source": identity_source
         }
@@ -389,7 +403,9 @@ class AccountAccessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplication")
+        )
         input_: capo_account_access.types.get_application_request.GetApplicationRequest = {
             "application_arn": application_arn
         }
@@ -437,7 +453,9 @@ class AccountAccessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_account_access.types.delete_application_request.DeleteApplicationRequest = {
             "application_arn": application_arn
         }
@@ -487,7 +505,9 @@ class AccountAccessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_account_access.types.list_applications_request.ListApplicationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -561,7 +581,9 @@ class AccountAccessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEntitlement")
+        )
         input_: capo_account_access.types.create_entitlement_request.CreateEntitlementRequest = {
             "application_arn": application_arn,
             "entitlement": entitlement,
@@ -612,7 +634,9 @@ class AccountAccessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEntitlement")
+        )
         input_: capo_account_access.types.delete_entitlement_request.DeleteEntitlementRequest = {
             "application_arn": application_arn,
             "entitlement_id": entitlement_id,
@@ -662,7 +686,9 @@ class AccountAccessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEntitlement")
+        )
         input_: capo_account_access.types.get_entitlement_request.GetEntitlementRequest = {
             "application_arn": application_arn,
             "entitlement_id": entitlement_id,
@@ -718,7 +744,9 @@ class AccountAccessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEntitlements")
+        )
         input_: capo_account_access.types.list_entitlements_request.ListEntitlementsRequest = {
             "application_arn": application_arn,
             "filter": filter,

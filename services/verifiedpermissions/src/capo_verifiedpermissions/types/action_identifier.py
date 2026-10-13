@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#ActionIdentifier``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,13 @@ def deserialize_aws_json_1_0(data: dict) -> ActionIdentifier:
         out["action_id"] = data["actionId"]
     else:
         raise DeserializationError("ActionIdentifier.action_id required")
+    return out
+
+
+def redact_sensitive(value: ActionIdentifier) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "action_type" in value:
+        out["action_type"] = "*** Sensitive Data Redacted ***"
+    if "action_id" in value:
+        out["action_id"] = "*** Sensitive Data Redacted ***"
     return out

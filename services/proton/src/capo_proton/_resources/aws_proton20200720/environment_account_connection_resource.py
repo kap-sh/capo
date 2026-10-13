@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_proton._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -96,7 +97,9 @@ class EnvironmentAccountConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEnvironmentAccountConnection")
+        )
         input_: capo_proton.types.create_environment_account_connection_input.CreateEnvironmentAccountConnectionInput = {
             "management_account_id": management_account_id,
             "environment_name": environment_name,
@@ -155,7 +158,9 @@ class EnvironmentAccountConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEnvironmentAccountConnection")
+        )
         input_: capo_proton.types.get_environment_account_connection_input.GetEnvironmentAccountConnectionInput = {
             "id": id
         }
@@ -209,7 +214,9 @@ class EnvironmentAccountConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateEnvironmentAccountConnection")
+        )
         input_: capo_proton.types.update_environment_account_connection_input.UpdateEnvironmentAccountConnectionInput = {
             "id": id
         }
@@ -263,7 +270,9 @@ class EnvironmentAccountConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironmentAccountConnection")
+        )
         input_: capo_proton.types.delete_environment_account_connection_input.DeleteEnvironmentAccountConnectionInput = {
             "id": id
         }
@@ -323,7 +332,9 @@ class EnvironmentAccountConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnvironmentAccountConnections")
+        )
         input_: capo_proton.types.list_environment_account_connections_input.ListEnvironmentAccountConnectionsInput = {
             "requested_by": requested_by
         }
@@ -379,7 +390,9 @@ class EnvironmentAccountConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AcceptEnvironmentAccountConnection")
+        )
         input_: capo_proton.types.accept_environment_account_connection_input.AcceptEnvironmentAccountConnectionInput = {
             "id": id
         }
@@ -427,7 +440,9 @@ class EnvironmentAccountConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RejectEnvironmentAccountConnection")
+        )
         input_: capo_proton.types.reject_environment_account_connection_input.RejectEnvironmentAccountConnectionInput = {
             "id": id
         }
@@ -493,7 +508,9 @@ class AsyncEnvironmentAccountConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEnvironmentAccountConnection")
+        )
         input_: capo_proton.types.create_environment_account_connection_input.CreateEnvironmentAccountConnectionInput = {
             "management_account_id": management_account_id,
             "environment_name": environment_name,
@@ -553,7 +570,9 @@ class AsyncEnvironmentAccountConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEnvironmentAccountConnection")
+        )
         input_: capo_proton.types.get_environment_account_connection_input.GetEnvironmentAccountConnectionInput = {
             "id": id
         }
@@ -608,7 +627,9 @@ class AsyncEnvironmentAccountConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateEnvironmentAccountConnection")
+        )
         input_: capo_proton.types.update_environment_account_connection_input.UpdateEnvironmentAccountConnectionInput = {
             "id": id
         }
@@ -663,7 +684,9 @@ class AsyncEnvironmentAccountConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironmentAccountConnection")
+        )
         input_: capo_proton.types.delete_environment_account_connection_input.DeleteEnvironmentAccountConnectionInput = {
             "id": id
         }
@@ -724,7 +747,9 @@ class AsyncEnvironmentAccountConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnvironmentAccountConnections")
+        )
         input_: capo_proton.types.list_environment_account_connections_input.ListEnvironmentAccountConnectionsInput = {
             "requested_by": requested_by
         }
@@ -781,7 +806,9 @@ class AsyncEnvironmentAccountConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AcceptEnvironmentAccountConnection")
+        )
         input_: capo_proton.types.accept_environment_account_connection_input.AcceptEnvironmentAccountConnectionInput = {
             "id": id
         }
@@ -830,7 +857,9 @@ class AsyncEnvironmentAccountConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RejectEnvironmentAccountConnection")
+        )
         input_: capo_proton.types.reject_environment_account_connection_input.RejectEnvironmentAccountConnectionInput = {
             "id": id
         }

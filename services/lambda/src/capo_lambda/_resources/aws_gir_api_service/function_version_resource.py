@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_lambda._auth._signers
 import capo_lambda._auth._sigv4
 from capo_lambda._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -88,7 +89,17 @@ class FunctionVersionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.function_configuration.FunctionConfiguration",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.function_configuration
+
+            return capo_lambda.types.function_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("PublishVersion", redact_output=_redact_output),
+        )
         input_: capo_lambda.types.publish_version_request.PublishVersionRequest = {
             "function_name": function_name
         }
@@ -152,7 +163,21 @@ class FunctionVersionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.list_versions_by_function_response.ListVersionsByFunctionResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.list_versions_by_function_response
+
+            return (
+                capo_lambda.types.list_versions_by_function_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListVersionsByFunction", redact_output=_redact_output),
+        )
         input_: capo_lambda.types.list_versions_by_function_request.ListVersionsByFunctionRequest = {
             "function_name": function_name
         }
@@ -228,7 +253,17 @@ class AsyncFunctionVersionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.function_configuration.FunctionConfiguration",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.function_configuration
+
+            return capo_lambda.types.function_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("PublishVersion", redact_output=_redact_output),
+        )
         input_: capo_lambda.types.publish_version_request.PublishVersionRequest = {
             "function_name": function_name
         }
@@ -293,7 +328,21 @@ class AsyncFunctionVersionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.list_versions_by_function_response.ListVersionsByFunctionResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.list_versions_by_function_response
+
+            return (
+                capo_lambda.types.list_versions_by_function_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListVersionsByFunction", redact_output=_redact_output),
+        )
         input_: capo_lambda.types.list_versions_by_function_request.ListVersionsByFunctionRequest = {
             "function_name": function_name
         }

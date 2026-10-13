@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudwatchevents#ConnectionBodyParametersList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_cloudwatch_events.types.connection_body_parameter
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_1(data: list) -> ConnectionBodyParametersList:
             )
         )
     return out
+
+
+def redact_sensitive(value: ConnectionBodyParametersList) -> list[Any]:
+    import capo_cloudwatch_events.types.connection_body_parameter
+
+    return [
+        capo_cloudwatch_events.types.connection_body_parameter.redact_sensitive(item)
+        for item in value
+    ]

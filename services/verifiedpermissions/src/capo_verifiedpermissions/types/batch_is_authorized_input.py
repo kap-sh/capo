@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#BatchIsAuthorizedInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -69,4 +69,25 @@ def deserialize_aws_json_1_0(data: dict) -> BatchIsAuthorizedInput:
         )
     else:
         raise DeserializationError("BatchIsAuthorizedInput.requests required")
+    return out
+
+
+def redact_sensitive(value: BatchIsAuthorizedInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "entities" in value:
+        import capo_verifiedpermissions.types.entities_definition
+
+        out["entities"] = (
+            capo_verifiedpermissions.types.entities_definition.redact_sensitive(
+                value["entities"]
+            )
+        )
+    if "requests" in value:
+        import capo_verifiedpermissions.types.batch_is_authorized_input_list
+
+        out["requests"] = (
+            capo_verifiedpermissions.types.batch_is_authorized_input_list.redact_sensitive(
+                value["requests"]
+            )
+        )
     return out

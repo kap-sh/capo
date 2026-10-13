@@ -7,6 +7,7 @@ import capo_mediaconnect._auth._sigv4
 from capo_mediaconnect._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -69,7 +70,9 @@ class OfferingResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeOffering")
+        )
         input_: capo_mediaconnect.types.describe_offering_request.DescribeOfferingRequest = {
             "offering_arn": offering_arn
         }
@@ -117,7 +120,9 @@ class OfferingResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListOfferings")
+        )
         input_: capo_mediaconnect.types.list_offerings_request.ListOfferingsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -172,7 +177,9 @@ class AsyncOfferingResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeOffering")
+        )
         input_: capo_mediaconnect.types.describe_offering_request.DescribeOfferingRequest = {
             "offering_arn": offering_arn
         }
@@ -221,7 +228,9 @@ class AsyncOfferingResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListOfferings")
+        )
         input_: capo_mediaconnect.types.list_offerings_request.ListOfferingsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

@@ -7,6 +7,7 @@ import capo_lambda._auth._sigv4
 from capo_lambda._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -79,7 +80,9 @@ class LayerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListLayers")
+        )
         input_: capo_lambda.types.list_layers_request.ListLayersRequest = {}
         if compatible_architecture is not None:
             input_["compatible_architecture"] = compatible_architecture
@@ -152,7 +155,9 @@ class AsyncLayerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListLayers")
+        )
         input_: capo_lambda.types.list_layers_request.ListLayersRequest = {}
         if compatible_architecture is not None:
             input_["compatible_architecture"] = compatible_architecture

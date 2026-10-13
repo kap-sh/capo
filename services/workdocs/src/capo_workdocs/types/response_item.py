@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#ResponseItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -112,6 +112,41 @@ def deserialize_json(data: dict) -> ResponseItem:
         out["document_version_metadata"] = (
             capo_workdocs.types.document_version_metadata.deserialize_json(
                 data["DocumentVersionMetadata"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ResponseItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "web_url" in value:
+        out["web_url"] = "*** Sensitive Data Redacted ***"
+    if "document_metadata" in value:
+        import capo_workdocs.types.document_metadata
+
+        out["document_metadata"] = (
+            capo_workdocs.types.document_metadata.redact_sensitive(
+                value["document_metadata"]
+            )
+        )
+    if "folder_metadata" in value:
+        import capo_workdocs.types.folder_metadata
+
+        out["folder_metadata"] = capo_workdocs.types.folder_metadata.redact_sensitive(
+            value["folder_metadata"]
+        )
+    if "comment_metadata" in value:
+        import capo_workdocs.types.comment_metadata
+
+        out["comment_metadata"] = capo_workdocs.types.comment_metadata.redact_sensitive(
+            value["comment_metadata"]
+        )
+    if "document_version_metadata" in value:
+        import capo_workdocs.types.document_version_metadata
+
+        out["document_version_metadata"] = (
+            capo_workdocs.types.document_version_metadata.redact_sensitive(
+                value["document_version_metadata"]
             )
         )
     return out

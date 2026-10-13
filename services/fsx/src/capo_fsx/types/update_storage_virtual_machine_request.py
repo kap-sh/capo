@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.fsx#UpdateStorageVirtualMachineRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -63,4 +63,19 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateStorageVirtualMachineRequest:
         out["storage_virtual_machine_id"] = data["StorageVirtualMachineId"]
     if data.get("SvmAdminPassword") is not None:
         out["svm_admin_password"] = data["SvmAdminPassword"]
+    return out
+
+
+def redact_sensitive(value: UpdateStorageVirtualMachineRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "active_directory_configuration" in value:
+        import capo_fsx.types.update_svm_active_directory_configuration
+
+        out["active_directory_configuration"] = (
+            capo_fsx.types.update_svm_active_directory_configuration.redact_sensitive(
+                value["active_directory_configuration"]
+            )
+        )
+    if "svm_admin_password" in value:
+        out["svm_admin_password"] = "*** Sensitive Data Redacted ***"
     return out

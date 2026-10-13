@@ -8,6 +8,7 @@ import capo_pca_connector_ad._auth._sigv4
 from capo_pca_connector_ad._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -84,7 +85,9 @@ class DirectoryRegistrationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDirectoryRegistration")
+        )
         input_: capo_pca_connector_ad.types.create_directory_registration_request.CreateDirectoryRegistrationRequest = {
             "directory_id": directory_id
         }
@@ -136,7 +139,9 @@ class DirectoryRegistrationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDirectoryRegistration")
+        )
         input_: capo_pca_connector_ad.types.get_directory_registration_request.GetDirectoryRegistrationRequest = {
             "directory_registration_arn": directory_registration_arn
         }
@@ -181,7 +186,9 @@ class DirectoryRegistrationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDirectoryRegistration")
+        )
         input_: capo_pca_connector_ad.types.delete_directory_registration_request.DeleteDirectoryRegistrationRequest = {
             "directory_registration_arn": directory_registration_arn
         }
@@ -231,7 +238,9 @@ class DirectoryRegistrationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDirectoryRegistrations")
+        )
         input_: capo_pca_connector_ad.types.list_directory_registrations_request.ListDirectoryRegistrationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -293,7 +302,9 @@ class AsyncDirectoryRegistrationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDirectoryRegistration")
+        )
         input_: capo_pca_connector_ad.types.create_directory_registration_request.CreateDirectoryRegistrationRequest = {
             "directory_id": directory_id
         }
@@ -346,7 +357,9 @@ class AsyncDirectoryRegistrationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDirectoryRegistration")
+        )
         input_: capo_pca_connector_ad.types.get_directory_registration_request.GetDirectoryRegistrationRequest = {
             "directory_registration_arn": directory_registration_arn
         }
@@ -392,7 +405,9 @@ class AsyncDirectoryRegistrationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDirectoryRegistration")
+        )
         input_: capo_pca_connector_ad.types.delete_directory_registration_request.DeleteDirectoryRegistrationRequest = {
             "directory_registration_arn": directory_registration_arn
         }
@@ -443,7 +458,9 @@ class AsyncDirectoryRegistrationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDirectoryRegistrations")
+        )
         input_: capo_pca_connector_ad.types.list_directory_registrations_request.ListDirectoryRegistrationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

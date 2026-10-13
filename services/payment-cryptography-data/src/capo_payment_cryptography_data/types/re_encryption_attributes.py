@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#ReEncryptionAttributes``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -91,3 +91,24 @@ def deserialize_json(data: dict) -> ReEncryptionAttributes:
         }
     else:
         raise DeserializationError("ReEncryptionAttributes: no recognized variant key")
+
+
+def redact_sensitive(value: ReEncryptionAttributes) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "Symmetric" in value:
+        import capo_payment_cryptography_data.types.symmetric_encryption_attributes
+
+        out["Symmetric"] = (
+            capo_payment_cryptography_data.types.symmetric_encryption_attributes.redact_sensitive(
+                value["Symmetric"]
+            )
+        )
+    if "Dukpt" in value:
+        import capo_payment_cryptography_data.types.dukpt_encryption_attributes
+
+        out["Dukpt"] = (
+            capo_payment_cryptography_data.types.dukpt_encryption_attributes.redact_sensitive(
+                value["Dukpt"]
+            )
+        )
+    return out

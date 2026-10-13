@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_partnercentral_channel._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -121,7 +122,9 @@ class RelationshipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRelationship")
+        )
         input_: capo_partnercentral_channel.types.create_relationship_request.CreateRelationshipRequest = {
             "catalog": catalog,
             "association_type": association_type,
@@ -191,7 +194,9 @@ class RelationshipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRelationship")
+        )
         input_: capo_partnercentral_channel.types.get_relationship_request.GetRelationshipRequest = {
             "catalog": catalog,
             "program_management_account_identifier": program_management_account_identifier,
@@ -262,7 +267,9 @@ class RelationshipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateRelationship")
+        )
         input_: capo_partnercentral_channel.types.update_relationship_request.UpdateRelationshipRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -331,7 +338,9 @@ class RelationshipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRelationship")
+        )
         input_: capo_partnercentral_channel.types.delete_relationship_request.DeleteRelationshipRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -414,7 +423,9 @@ class RelationshipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRelationships")
+        )
         input_: capo_partnercentral_channel.types.list_relationships_request.ListRelationshipsRequest = {
             "catalog": catalog
         }
@@ -514,7 +525,9 @@ class AsyncRelationshipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRelationship")
+        )
         input_: capo_partnercentral_channel.types.create_relationship_request.CreateRelationshipRequest = {
             "catalog": catalog,
             "association_type": association_type,
@@ -585,7 +598,9 @@ class AsyncRelationshipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRelationship")
+        )
         input_: capo_partnercentral_channel.types.get_relationship_request.GetRelationshipRequest = {
             "catalog": catalog,
             "program_management_account_identifier": program_management_account_identifier,
@@ -657,7 +672,9 @@ class AsyncRelationshipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateRelationship")
+        )
         input_: capo_partnercentral_channel.types.update_relationship_request.UpdateRelationshipRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -727,7 +744,9 @@ class AsyncRelationshipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRelationship")
+        )
         input_: capo_partnercentral_channel.types.delete_relationship_request.DeleteRelationshipRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -811,7 +830,9 @@ class AsyncRelationshipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRelationships")
+        )
         input_: capo_partnercentral_channel.types.list_relationships_request.ListRelationshipsRequest = {
             "catalog": catalog
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#FileSource``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -80,6 +80,19 @@ def deserialize_json(data: dict) -> FileSource:
         out["byte_content"] = (
             capo_bedrock_agent_runtime.types.byte_content_file.deserialize_json(
                 data["byteContent"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: FileSource) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "byte_content" in value:
+        import capo_bedrock_agent_runtime.types.byte_content_file
+
+        out["byte_content"] = (
+            capo_bedrock_agent_runtime.types.byte_content_file.redact_sensitive(
+                value["byte_content"]
             )
         )
     return out

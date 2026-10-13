@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.apprunner#UpdateServiceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -139,6 +139,19 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateServiceRequest:
         out["observability_configuration"] = (
             capo_apprunner.types.service_observability_configuration.deserialize_aws_json_1_0(
                 data["ObservabilityConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateServiceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "source_configuration" in value:
+        import capo_apprunner.types.source_configuration
+
+        out["source_configuration"] = (
+            capo_apprunner.types.source_configuration.redact_sensitive(
+                value["source_configuration"]
             )
         )
     return out

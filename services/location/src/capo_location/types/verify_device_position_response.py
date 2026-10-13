@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#VerifyDevicePositionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -89,4 +89,19 @@ def deserialize_json(data: dict) -> VerifyDevicePositionResponse:
         raise DeserializationError(
             "VerifyDevicePositionResponse.distance_unit required"
         )
+    return out
+
+
+def redact_sensitive(value: VerifyDevicePositionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inferred_state" in value:
+        import capo_location.types.inferred_state
+
+        out["inferred_state"] = capo_location.types.inferred_state.redact_sensitive(
+            value["inferred_state"]
+        )
+    if "sample_time" in value:
+        out["sample_time"] = "*** Sensitive Data Redacted ***"
+    if "received_time" in value:
+        out["received_time"] = "*** Sensitive Data Redacted ***"
     return out

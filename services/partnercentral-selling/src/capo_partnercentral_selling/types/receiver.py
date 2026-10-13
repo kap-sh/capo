@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#Receiver``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -42,3 +42,16 @@ def deserialize_aws_json_1_0(data: dict) -> Receiver:
         }
     else:
         raise DeserializationError("Receiver: no recognized variant key")
+
+
+def redact_sensitive(value: Receiver) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "Account" in value:
+        import capo_partnercentral_selling.types.account_receiver
+
+        out["Account"] = (
+            capo_partnercentral_selling.types.account_receiver.redact_sensitive(
+                value["Account"]
+            )
+        )
+    return out

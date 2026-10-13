@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wickr#GetUserResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -99,4 +99,13 @@ def deserialize_json(data: dict) -> GetUserResponse:
                 data["securityGroupIds"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: GetUserResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "first_name" in value:
+        out["first_name"] = "*** Sensitive Data Redacted ***"
+    if "last_name" in value:
+        out["last_name"] = "*** Sensitive Data Redacted ***"
     return out

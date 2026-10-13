@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#BatchIsAuthorizedWithTokenInputList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.batch_is_authorized_with_token_input_item
@@ -37,3 +37,14 @@ def deserialize_aws_json_1_0(data: list) -> BatchIsAuthorizedWithTokenInputList:
             )
         )
     return out
+
+
+def redact_sensitive(value: BatchIsAuthorizedWithTokenInputList) -> list[Any]:
+    import capo_verifiedpermissions.types.batch_is_authorized_with_token_input_item
+
+    return [
+        capo_verifiedpermissions.types.batch_is_authorized_with_token_input_item.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

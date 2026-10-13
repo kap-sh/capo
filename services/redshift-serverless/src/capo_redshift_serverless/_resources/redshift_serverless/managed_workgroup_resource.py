@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_redshift_serverless._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -70,7 +71,9 @@ class ManagedWorkgroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListManagedWorkgroups")
+        )
         input_: capo_redshift_serverless.types.list_managed_workgroups_request.ListManagedWorkgroupsRequest = {}
         if source_arn is not None:
             input_["source_arn"] = source_arn
@@ -132,7 +135,9 @@ class AsyncManagedWorkgroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListManagedWorkgroups")
+        )
         input_: capo_redshift_serverless.types.list_managed_workgroups_request.ListManagedWorkgroupsRequest = {}
         if source_arn is not None:
             input_["source_arn"] = source_arn

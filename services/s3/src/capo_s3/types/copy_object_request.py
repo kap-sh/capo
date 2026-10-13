@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#CopyObjectRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -200,4 +200,17 @@ def serialize_xml(value: CopyObjectRequest, parent: Element, tag: str) -> None:
 
 def deserialize_xml(el: Element) -> CopyObjectRequest:
     out: CopyObjectRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: CopyObjectRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sse_customer_key" in value:
+        out["sse_customer_key"] = "*** Sensitive Data Redacted ***"
+    if "ssekms_key_id" in value:
+        out["ssekms_key_id"] = "*** Sensitive Data Redacted ***"
+    if "ssekms_encryption_context" in value:
+        out["ssekms_encryption_context"] = "*** Sensitive Data Redacted ***"
+    if "copy_source_sse_customer_key" in value:
+        out["copy_source_sse_customer_key"] = "*** Sensitive Data Redacted ***"
     return out

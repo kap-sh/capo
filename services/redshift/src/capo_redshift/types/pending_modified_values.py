@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.redshift#PendingModifiedValues``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -139,4 +139,11 @@ def deserialize_query(el: Element) -> PendingModifiedValues:
     child_encryption_type = el.find("EncryptionType")
     if child_encryption_type is not None:
         out["encryption_type"] = str(child_encryption_type.text or "")
+    return out
+
+
+def redact_sensitive(value: PendingModifiedValues) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "master_user_password" in value:
+        out["master_user_password"] = "*** Sensitive Data Redacted ***"
     return out

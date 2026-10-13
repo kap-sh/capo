@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloud9#UntagResourceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -44,4 +44,11 @@ def deserialize_aws_json_1_1(data: dict) -> UntagResourceRequest:
         )
     else:
         raise DeserializationError("UntagResourceRequest.tag_keys required")
+    return out
+
+
+def redact_sensitive(value: UntagResourceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tag_keys" in value:
+        out["tag_keys"] = "*** Sensitive Data Redacted ***"
     return out

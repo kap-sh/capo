@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexruntimeservice#PostContentRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,3 +40,16 @@ class PostContentRequest(TypedDict, closed=True):
         "capo_lex_runtime_service.types.synthesized_json_active_contexts_string.SynthesizedJsonActiveContextsString"
     ]
     """<p>A list of contexts active for the request. A context can be activated when a previous intent is fulfilled, or by including the context in the request,</p> <p>If you don't specify a list of contexts, Amazon Lex will use the current list of contexts for the session. If you specify an empty list, all contexts for the session are cleared.</p>"""
+
+
+def redact_sensitive(value: PostContentRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "session_attributes" in value:
+        out["session_attributes"] = "*** Sensitive Data Redacted ***"
+    if "request_attributes" in value:
+        out["request_attributes"] = "*** Sensitive Data Redacted ***"
+    if "input_stream" in value:
+        out["input_stream"] = "*** Streaming Data Redacted ***"
+    if "active_contexts" in value:
+        out["active_contexts"] = "*** Sensitive Data Redacted ***"
+    return out

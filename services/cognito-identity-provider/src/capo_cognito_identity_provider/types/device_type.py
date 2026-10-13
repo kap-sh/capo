@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#DeviceType``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -107,6 +107,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeviceType:
         out["device_last_authenticated_date"] = (
             capo_cognito_identity_provider.types.date_type.deserialize_aws_json_1_1(
                 data["DeviceLastAuthenticatedDate"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DeviceType) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "device_attributes" in value:
+        import capo_cognito_identity_provider.types.attribute_list_type
+
+        out["device_attributes"] = (
+            capo_cognito_identity_provider.types.attribute_list_type.redact_sensitive(
+                value["device_attributes"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityir#ThreatActorIpList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_security_ir.types.threat_actor_ip
@@ -29,3 +29,11 @@ def deserialize_json(data: list) -> ThreatActorIpList:
             continue
         out.append(capo_security_ir.types.threat_actor_ip.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ThreatActorIpList) -> list[Any]:
+    import capo_security_ir.types.threat_actor_ip
+
+    return [
+        capo_security_ir.types.threat_actor_ip.redact_sensitive(item) for item in value
+    ]

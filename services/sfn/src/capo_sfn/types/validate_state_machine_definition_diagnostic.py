@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#ValidateStateMachineDefinitionDiagnostic``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -71,4 +71,15 @@ def deserialize_aws_json_1_0(data: dict) -> ValidateStateMachineDefinitionDiagno
         )
     if data.get("location") is not None:
         out["location"] = data["location"]
+    return out
+
+
+def redact_sensitive(value: ValidateStateMachineDefinitionDiagnostic) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "code" in value:
+        out["code"] = "*** Sensitive Data Redacted ***"
+    if "message" in value:
+        out["message"] = "*** Sensitive Data Redacted ***"
+    if "location" in value:
+        out["location"] = "*** Sensitive Data Redacted ***"
     return out

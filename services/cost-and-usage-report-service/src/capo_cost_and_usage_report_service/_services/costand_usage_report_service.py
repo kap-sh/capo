@@ -21,10 +21,12 @@ from capo_cost_and_usage_report_service._pagination import resolve_path as _reso
 from capo_cost_and_usage_report_service._services._aws_config import aws_config
 from capo_cost_and_usage_report_service._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -124,7 +126,9 @@ class CostandUsageReportServiceClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[CostandUsageReportServiceClientConfig] = None
+        self,
+        config_overrides: Optional[CostandUsageReportServiceClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: CostandUsageReportServiceClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -132,8 +136,10 @@ class CostandUsageReportServiceClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -189,7 +195,9 @@ class CostandUsageReportServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReportDefinition")
+        )
         input_: capo_cost_and_usage_report_service.types.delete_report_definition_request.DeleteReportDefinitionRequest = {
             "report_name": report_name
         }
@@ -240,7 +248,9 @@ class CostandUsageReportServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReportDefinitions")
+        )
         input_: capo_cost_and_usage_report_service.types.describe_report_definitions_request.DescribeReportDefinitionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -310,7 +320,9 @@ class CostandUsageReportServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_cost_and_usage_report_service.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "report_name": report_name
         }
@@ -352,7 +364,9 @@ class CostandUsageReportServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyReportDefinition")
+        )
         input_: capo_cost_and_usage_report_service.types.modify_report_definition_request.ModifyReportDefinitionRequest = {
             "report_name": report_name,
             "report_definition": report_definition,
@@ -410,7 +424,9 @@ class CostandUsageReportServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutReportDefinition")
+        )
         input_: capo_cost_and_usage_report_service.types.put_report_definition_request.PutReportDefinitionRequest = {
             "report_definition": report_definition
         }
@@ -459,7 +475,9 @@ class CostandUsageReportServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_cost_and_usage_report_service.types.tag_resource_request.TagResourceRequest = {
             "report_name": report_name,
             "tags": tags,
@@ -507,7 +525,9 @@ class CostandUsageReportServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_cost_and_usage_report_service.types.untag_resource_request.UntagResourceRequest = {
             "report_name": report_name,
             "tag_keys": tag_keys,

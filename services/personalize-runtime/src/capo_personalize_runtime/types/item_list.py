@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.personalizeruntime#ItemList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_personalize_runtime.types.predicted_item
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> ItemList:
             continue
         out.append(capo_personalize_runtime.types.predicted_item.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ItemList) -> list[Any]:
+    import capo_personalize_runtime.types.predicted_item
+
+    return [
+        capo_personalize_runtime.types.predicted_item.redact_sensitive(item)
+        for item in value
+    ]

@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_account._auth._signers
 import capo_account._auth._sigv4
 from capo_account._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -76,7 +77,19 @@ class AlternateContactResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_account.types.put_alternate_contact_request.PutAlternateContactRequest",
+        ) -> dict[str, Any]:
+            import capo_account.types.put_alternate_contact_request
+
+            return capo_account.types.put_alternate_contact_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("PutAlternateContact", redact_input=_redact_input),
+        )
         input_: capo_account.types.put_alternate_contact_request.PutAlternateContactRequest = {
             "name": name,
             "title": title,
@@ -133,7 +146,19 @@ class AlternateContactResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_account.types.get_alternate_contact_response.GetAlternateContactResponse",
+        ) -> dict[str, Any]:
+            import capo_account.types.get_alternate_contact_response
+
+            return capo_account.types.get_alternate_contact_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAlternateContact", redact_output=_redact_output),
+        )
         input_: capo_account.types.get_alternate_contact_request.GetAlternateContactRequest = {
             "alternate_contact_type": alternate_contact_type
         }
@@ -182,7 +207,9 @@ class AlternateContactResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAlternateContact")
+        )
         input_: capo_account.types.delete_alternate_contact_request.DeleteAlternateContactRequest = {
             "alternate_contact_type": alternate_contact_type
         }
@@ -244,7 +271,19 @@ class AsyncAlternateContactResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_account.types.put_alternate_contact_request.PutAlternateContactRequest",
+        ) -> dict[str, Any]:
+            import capo_account.types.put_alternate_contact_request
+
+            return capo_account.types.put_alternate_contact_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("PutAlternateContact", redact_input=_redact_input),
+        )
         input_: capo_account.types.put_alternate_contact_request.PutAlternateContactRequest = {
             "name": name,
             "title": title,
@@ -302,7 +341,19 @@ class AsyncAlternateContactResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_account.types.get_alternate_contact_response.GetAlternateContactResponse",
+        ) -> dict[str, Any]:
+            import capo_account.types.get_alternate_contact_response
+
+            return capo_account.types.get_alternate_contact_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAlternateContact", redact_output=_redact_output),
+        )
         input_: capo_account.types.get_alternate_contact_request.GetAlternateContactRequest = {
             "alternate_contact_type": alternate_contact_type
         }
@@ -352,7 +403,9 @@ class AsyncAlternateContactResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAlternateContact")
+        )
         input_: capo_account.types.delete_alternate_contact_request.DeleteAlternateContactRequest = {
             "alternate_contact_type": alternate_contact_type
         }

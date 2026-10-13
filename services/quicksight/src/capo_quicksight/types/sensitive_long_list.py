@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SensitiveLongList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.sensitive_long
@@ -17,3 +17,7 @@ def serialize_json(value: SensitiveLongList) -> list:
 
 def deserialize_json(data: list) -> SensitiveLongList:
     return [item for item in data if item is not None]
+
+
+def redact_sensitive(value: SensitiveLongList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

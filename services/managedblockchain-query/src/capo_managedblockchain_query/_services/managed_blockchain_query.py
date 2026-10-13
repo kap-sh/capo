@@ -21,10 +21,12 @@ from capo_managedblockchain_query._pagination import resolve_path as _resolve_pa
 from capo_managedblockchain_query._services._aws_config import aws_config
 from capo_managedblockchain_query._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -145,7 +147,9 @@ class ManagedBlockchainQueryClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ManagedBlockchainQueryClientConfig] = None
+        self,
+        config_overrides: Optional[ManagedBlockchainQueryClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ManagedBlockchainQueryClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -153,8 +157,10 @@ class ManagedBlockchainQueryClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -210,7 +216,9 @@ class ManagedBlockchainQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetTokenBalance")
+        )
         input_: capo_managedblockchain_query.types.batch_get_token_balance_input.BatchGetTokenBalanceInput = {}
         if get_token_balance_inputs is not None:
             input_["get_token_balance_inputs"] = get_token_balance_inputs
@@ -258,7 +266,9 @@ class ManagedBlockchainQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAssetContract")
+        )
         input_: capo_managedblockchain_query.types.get_asset_contract_input.GetAssetContractInput = {
             "contract_identifier": contract_identifier
         }
@@ -312,7 +322,9 @@ class ManagedBlockchainQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTokenBalance")
+        )
         input_: capo_managedblockchain_query.types.get_token_balance_input.GetTokenBalanceInput = {
             "token_identifier": token_identifier,
             "owner_identifier": owner_identifier,
@@ -373,7 +385,9 @@ class ManagedBlockchainQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTransaction")
+        )
         input_: capo_managedblockchain_query.types.get_transaction_input.GetTransactionInput = {
             "network": network
         }
@@ -430,7 +444,9 @@ class ManagedBlockchainQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssetContracts")
+        )
         input_: capo_managedblockchain_query.types.list_asset_contracts_input.ListAssetContractsInput = {
             "contract_filter": contract_filter
         }
@@ -529,7 +545,9 @@ class ManagedBlockchainQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFilteredTransactionEvents")
+        )
         input_: capo_managedblockchain_query.types.list_filtered_transaction_events_input.ListFilteredTransactionEventsInput = {
             "network": network,
             "address_identifier_filter": address_identifier_filter,
@@ -642,7 +660,9 @@ class ManagedBlockchainQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTokenBalances")
+        )
         input_: capo_managedblockchain_query.types.list_token_balances_input.ListTokenBalancesInput = {
             "token_filter": token_filter
         }
@@ -738,7 +758,9 @@ class ManagedBlockchainQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTransactionEvents")
+        )
         input_: capo_managedblockchain_query.types.list_transaction_events_input.ListTransactionEventsInput = {
             "network": network
         }
@@ -848,7 +870,9 @@ class ManagedBlockchainQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTransactions")
+        )
         input_: capo_managedblockchain_query.types.list_transactions_input.ListTransactionsInput = {
             "address": address,
             "network": network,

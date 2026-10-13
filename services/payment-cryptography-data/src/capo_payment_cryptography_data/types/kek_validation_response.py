@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#KekValidationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -28,4 +28,11 @@ def deserialize_json(data: dict) -> KekValidationResponse:
         out["random_key_send"] = data["RandomKeySend"]
     else:
         raise DeserializationError("KekValidationResponse.random_key_send required")
+    return out
+
+
+def redact_sensitive(value: KekValidationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "random_key_send" in value:
+        out["random_key_send"] = "*** Sensitive Data Redacted ***"
     return out

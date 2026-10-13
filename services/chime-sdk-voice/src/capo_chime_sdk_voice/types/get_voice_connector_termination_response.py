@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#GetVoiceConnectorTerminationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_json(data: dict) -> GetVoiceConnectorTerminationResponse:
 
         out["termination"] = capo_chime_sdk_voice.types.termination.deserialize_json(
             data["Termination"]
+        )
+    return out
+
+
+def redact_sensitive(value: GetVoiceConnectorTerminationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "termination" in value:
+        import capo_chime_sdk_voice.types.termination
+
+        out["termination"] = capo_chime_sdk_voice.types.termination.redact_sensitive(
+            value["termination"]
         )
     return out

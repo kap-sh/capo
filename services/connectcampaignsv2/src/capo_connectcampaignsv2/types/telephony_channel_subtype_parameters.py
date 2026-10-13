@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectcampaignsv2#TelephonyChannelSubtypeParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -82,4 +82,13 @@ def deserialize_json(data: dict) -> TelephonyChannelSubtypeParameters:
         )
     if data.get("ringTimeout") is not None:
         out["ring_timeout"] = data["ringTimeout"]
+    return out
+
+
+def redact_sensitive(value: TelephonyChannelSubtypeParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "destination_phone_number" in value:
+        out["destination_phone_number"] = "*** Sensitive Data Redacted ***"
+    if "attributes" in value:
+        out["attributes"] = "*** Sensitive Data Redacted ***"
     return out

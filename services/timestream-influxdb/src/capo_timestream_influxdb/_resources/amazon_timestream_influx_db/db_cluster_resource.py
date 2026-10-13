@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_timestream_influxdb._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -168,7 +169,21 @@ class DbClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_timestream_influxdb.types.create_db_cluster_input.CreateDbClusterInput",
+        ) -> dict[str, Any]:
+            import capo_timestream_influxdb.types.create_db_cluster_input
+
+            return (
+                capo_timestream_influxdb.types.create_db_cluster_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateDbCluster", redact_input=_redact_input),
+        )
         input_: capo_timestream_influxdb.types.create_db_cluster_input.CreateDbClusterInput = {
             "name": name,
             "db_instance_type": db_instance_type,
@@ -252,7 +267,9 @@ class DbClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDbCluster")
+        )
         input_: capo_timestream_influxdb.types.get_db_cluster_input.GetDbClusterInput = {
             "db_cluster_id": db_cluster_id
         }
@@ -328,7 +345,9 @@ class DbClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDbCluster")
+        )
         input_: capo_timestream_influxdb.types.update_db_cluster_input.UpdateDbClusterInput = {
             "db_cluster_id": db_cluster_id
         }
@@ -394,7 +413,9 @@ class DbClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDbCluster")
+        )
         input_: capo_timestream_influxdb.types.delete_db_cluster_input.DeleteDbClusterInput = {
             "db_cluster_id": db_cluster_id
         }
@@ -449,7 +470,9 @@ class DbClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDbClusters")
+        )
         input_: capo_timestream_influxdb.types.list_db_clusters_input.ListDbClustersInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -506,7 +529,9 @@ class DbClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDbInstancesForCluster")
+        )
         input_: capo_timestream_influxdb.types.list_db_instances_for_cluster_input.ListDbInstancesForClusterInput = {
             "db_cluster_id": db_cluster_id
         }
@@ -564,7 +589,9 @@ class DbClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RebootDbCluster")
+        )
         input_: capo_timestream_influxdb.types.reboot_db_cluster_input.RebootDbClusterInput = {
             "db_cluster_id": db_cluster_id
         }
@@ -687,7 +714,21 @@ class AsyncDbClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_timestream_influxdb.types.create_db_cluster_input.CreateDbClusterInput",
+        ) -> dict[str, Any]:
+            import capo_timestream_influxdb.types.create_db_cluster_input
+
+            return (
+                capo_timestream_influxdb.types.create_db_cluster_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateDbCluster", redact_input=_redact_input),
+        )
         input_: capo_timestream_influxdb.types.create_db_cluster_input.CreateDbClusterInput = {
             "name": name,
             "db_instance_type": db_instance_type,
@@ -772,7 +813,9 @@ class AsyncDbClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDbCluster")
+        )
         input_: capo_timestream_influxdb.types.get_db_cluster_input.GetDbClusterInput = {
             "db_cluster_id": db_cluster_id
         }
@@ -849,7 +892,9 @@ class AsyncDbClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDbCluster")
+        )
         input_: capo_timestream_influxdb.types.update_db_cluster_input.UpdateDbClusterInput = {
             "db_cluster_id": db_cluster_id
         }
@@ -916,7 +961,9 @@ class AsyncDbClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDbCluster")
+        )
         input_: capo_timestream_influxdb.types.delete_db_cluster_input.DeleteDbClusterInput = {
             "db_cluster_id": db_cluster_id
         }
@@ -972,7 +1019,9 @@ class AsyncDbClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDbClusters")
+        )
         input_: capo_timestream_influxdb.types.list_db_clusters_input.ListDbClustersInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1030,7 +1079,9 @@ class AsyncDbClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDbInstancesForCluster")
+        )
         input_: capo_timestream_influxdb.types.list_db_instances_for_cluster_input.ListDbInstancesForClusterInput = {
             "db_cluster_id": db_cluster_id
         }
@@ -1089,7 +1140,9 @@ class AsyncDbClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RebootDbCluster")
+        )
         input_: capo_timestream_influxdb.types.reboot_db_cluster_input.RebootDbClusterInput = {
             "db_cluster_id": db_cluster_id
         }

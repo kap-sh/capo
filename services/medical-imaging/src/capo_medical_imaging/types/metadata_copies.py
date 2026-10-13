@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.medicalimaging#MetadataCopies``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -30,4 +30,11 @@ def deserialize_json(data: dict) -> MetadataCopies:
         out["copiable_attributes"] = data["copiableAttributes"]
     else:
         raise DeserializationError("MetadataCopies.copiable_attributes required")
+    return out
+
+
+def redact_sensitive(value: MetadataCopies) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "copiable_attributes" in value:
+        out["copiable_attributes"] = "*** Sensitive Data Redacted ***"
     return out

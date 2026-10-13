@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#AssociationDescription``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -403,4 +403,11 @@ def deserialize_aws_json_1_1(data: dict) -> AssociationDescription:
         )
     if data.get("AssociationDispatchAssumeRole") is not None:
         out["association_dispatch_assume_role"] = data["AssociationDispatchAssumeRole"]
+    return out
+
+
+def redact_sensitive(value: AssociationDescription) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "parameters" in value:
+        out["parameters"] = "*** Sensitive Data Redacted ***"
     return out

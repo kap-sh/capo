@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#InstancePatchStateList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_ssm.types.instance_patch_state
@@ -29,3 +29,11 @@ def deserialize_aws_json_1_1(data: list) -> InstancePatchStateList:
             continue
         out.append(capo_ssm.types.instance_patch_state.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: InstancePatchStateList) -> list[Any]:
+    import capo_ssm.types.instance_patch_state
+
+    return [
+        capo_ssm.types.instance_patch_state.redact_sensitive(item) for item in value
+    ]

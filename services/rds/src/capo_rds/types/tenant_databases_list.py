@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#TenantDatabasesList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from capo_rds._protocol.xml import Element
 
@@ -53,3 +53,9 @@ def deserialize_query_flat(parent: Element, tag: str) -> TenantDatabasesList:
     for child in parent.findall(tag):
         out.append(capo_rds.types.tenant_database.deserialize_query(child))
     return out
+
+
+def redact_sensitive(value: TenantDatabasesList) -> list[Any]:
+    import capo_rds.types.tenant_database
+
+    return [capo_rds.types.tenant_database.redact_sensitive(item) for item in value]

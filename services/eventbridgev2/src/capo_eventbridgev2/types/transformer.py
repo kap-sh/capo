@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridgev2#Transformer``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -54,4 +54,11 @@ def deserialize_cbor(data: dict) -> Transformer:
                 data["JsonataConfiguration"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: Transformer) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "jsonata_configuration" in value:
+        out["jsonata_configuration"] = "*** Sensitive Data Redacted ***"
     return out

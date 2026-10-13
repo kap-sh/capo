@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#WaypointOptimizationConnection``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -63,4 +63,17 @@ def deserialize_json(data: dict) -> WaypointOptimizationConnection:
         out["wait_duration"] = data["WaitDuration"]
     else:
         out["wait_duration"] = 0
+    return out
+
+
+def redact_sensitive(value: WaypointOptimizationConnection) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "distance" in value:
+        out["distance"] = "*** Sensitive Data Redacted ***"
+    if "rest_duration" in value:
+        out["rest_duration"] = "*** Sensitive Data Redacted ***"
+    if "travel_duration" in value:
+        out["travel_duration"] = "*** Sensitive Data Redacted ***"
+    if "wait_duration" in value:
+        out["wait_duration"] = "*** Sensitive Data Redacted ***"
     return out

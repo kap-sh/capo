@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#UpdateContactRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -131,4 +131,13 @@ def deserialize_json(data: dict) -> UpdateContactRequest:
         out["system_endpoint"] = capo_connect.types.endpoint.deserialize_json(
             data["SystemEndpoint"]
         )
+    return out
+
+
+def redact_sensitive(value: UpdateContactRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

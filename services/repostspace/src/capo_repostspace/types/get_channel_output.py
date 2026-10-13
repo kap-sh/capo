@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.repostspace#GetChannelOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -115,4 +115,13 @@ def deserialize_json(data: dict) -> GetChannelOutput:
         )
     else:
         raise DeserializationError("GetChannelOutput.channel_status required")
+    return out
+
+
+def redact_sensitive(value: GetChannelOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "channel_name" in value:
+        out["channel_name"] = "*** Sensitive Data Redacted ***"
+    if "channel_description" in value:
+        out["channel_description"] = "*** Sensitive Data Redacted ***"
     return out

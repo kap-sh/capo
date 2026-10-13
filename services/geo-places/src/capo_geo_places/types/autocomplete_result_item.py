@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#AutocompleteResultItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -114,4 +114,35 @@ def deserialize_json(data: dict) -> AutocompleteResultItem:
         )
     if data.get("EstimatedPointAddress") is not None:
         out["estimated_point_address"] = data["EstimatedPointAddress"]
+    return out
+
+
+def redact_sensitive(value: AutocompleteResultItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "place_id" in value:
+        out["place_id"] = "*** Sensitive Data Redacted ***"
+    if "place_type" in value:
+        out["place_type"] = "*** Sensitive Data Redacted ***"
+    if "title" in value:
+        out["title"] = "*** Sensitive Data Redacted ***"
+    if "address" in value:
+        import capo_geo_places.types.address
+
+        out["address"] = capo_geo_places.types.address.redact_sensitive(
+            value["address"]
+        )
+    if "distance" in value:
+        out["distance"] = "*** Sensitive Data Redacted ***"
+    if "political_view" in value:
+        out["political_view"] = "*** Sensitive Data Redacted ***"
+    if "highlights" in value:
+        import capo_geo_places.types.autocomplete_highlights
+
+        out["highlights"] = (
+            capo_geo_places.types.autocomplete_highlights.redact_sensitive(
+                value["highlights"]
+            )
+        )
+    if "estimated_point_address" in value:
+        out["estimated_point_address"] = "*** Sensitive Data Redacted ***"
     return out

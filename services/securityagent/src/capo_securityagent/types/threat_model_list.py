@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityagent#ThreatModelList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_securityagent.types.threat_model
@@ -27,3 +27,11 @@ def deserialize_json(data: list) -> ThreatModelList:
             continue
         out.append(capo_securityagent.types.threat_model.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ThreatModelList) -> list[Any]:
+    import capo_securityagent.types.threat_model
+
+    return [
+        capo_securityagent.types.threat_model.redact_sensitive(item) for item in value
+    ]

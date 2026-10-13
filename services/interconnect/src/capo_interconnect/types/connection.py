@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.interconnect#Connection``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -174,4 +174,11 @@ def deserialize_aws_json_1_0(data: dict) -> Connection:
         out["tags"] = capo_interconnect.types.tag_map.deserialize_aws_json_1_0(
             data["tags"]
         )
+    return out
+
+
+def redact_sensitive(value: Connection) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "activation_key" in value:
+        out["activation_key"] = "*** Sensitive Data Redacted ***"
     return out

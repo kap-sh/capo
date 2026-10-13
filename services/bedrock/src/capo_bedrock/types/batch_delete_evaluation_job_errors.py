@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#BatchDeleteEvaluationJobErrors``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock.types.batch_delete_evaluation_job_error
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> BatchDeleteEvaluationJobErrors:
             capo_bedrock.types.batch_delete_evaluation_job_error.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: BatchDeleteEvaluationJobErrors) -> list[Any]:
+    import capo_bedrock.types.batch_delete_evaluation_job_error
+
+    return [
+        capo_bedrock.types.batch_delete_evaluation_job_error.redact_sensitive(item)
+        for item in value
+    ]

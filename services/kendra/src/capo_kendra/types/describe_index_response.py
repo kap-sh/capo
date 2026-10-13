@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kendra#DescribeIndexResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -255,6 +255,19 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeIndexResponse:
         out["user_group_resolution_configuration"] = (
             capo_kendra.types.user_group_resolution_configuration.deserialize_aws_json_1_1(
                 data["UserGroupResolutionConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeIndexResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "server_side_encryption_configuration" in value:
+        import capo_kendra.types.server_side_encryption_configuration
+
+        out["server_side_encryption_configuration"] = (
+            capo_kendra.types.server_side_encryption_configuration.redact_sensitive(
+                value["server_side_encryption_configuration"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#InitiateDocumentVersionUploadResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,5 +47,22 @@ def deserialize_json(data: dict) -> InitiateDocumentVersionUploadResponse:
 
         out["upload_metadata"] = capo_workdocs.types.upload_metadata.deserialize_json(
             data["UploadMetadata"]
+        )
+    return out
+
+
+def redact_sensitive(value: InitiateDocumentVersionUploadResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "metadata" in value:
+        import capo_workdocs.types.document_metadata
+
+        out["metadata"] = capo_workdocs.types.document_metadata.redact_sensitive(
+            value["metadata"]
+        )
+    if "upload_metadata" in value:
+        import capo_workdocs.types.upload_metadata
+
+        out["upload_metadata"] = capo_workdocs.types.upload_metadata.redact_sensitive(
+            value["upload_metadata"]
         )
     return out

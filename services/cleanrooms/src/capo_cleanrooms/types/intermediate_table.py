@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cleanrooms#IntermediateTable``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -273,6 +273,27 @@ def deserialize_json(data: dict) -> IntermediateTable:
         out["schema"] = (
             capo_cleanrooms.types.intermediate_table_schema.deserialize_json(
                 data["schema"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: IntermediateTable) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "population_analysis_configuration" in value:
+        import capo_cleanrooms.types.population_analysis_configuration
+
+        out["population_analysis_configuration"] = (
+            capo_cleanrooms.types.population_analysis_configuration.redact_sensitive(
+                value["population_analysis_configuration"]
+            )
+        )
+    if "intermediate_table_version" in value:
+        import capo_cleanrooms.types.intermediate_table_active_version
+
+        out["intermediate_table_version"] = (
+            capo_cleanrooms.types.intermediate_table_active_version.redact_sensitive(
+                value["intermediate_table_version"]
             )
         )
     return out

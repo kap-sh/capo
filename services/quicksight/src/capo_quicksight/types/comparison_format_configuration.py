@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#ComparisonFormatConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,6 +58,27 @@ def deserialize_json(data: dict) -> ComparisonFormatConfiguration:
         out["percentage_display_format_configuration"] = (
             capo_quicksight.types.percentage_display_format_configuration.deserialize_json(
                 data["PercentageDisplayFormatConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ComparisonFormatConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "number_display_format_configuration" in value:
+        import capo_quicksight.types.number_display_format_configuration
+
+        out["number_display_format_configuration"] = (
+            capo_quicksight.types.number_display_format_configuration.redact_sensitive(
+                value["number_display_format_configuration"]
+            )
+        )
+    if "percentage_display_format_configuration" in value:
+        import capo_quicksight.types.percentage_display_format_configuration
+
+        out["percentage_display_format_configuration"] = (
+            capo_quicksight.types.percentage_display_format_configuration.redact_sensitive(
+                value["percentage_display_format_configuration"]
             )
         )
     return out

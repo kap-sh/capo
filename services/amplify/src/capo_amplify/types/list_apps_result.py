@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.amplify#ListAppsResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,4 +39,13 @@ def deserialize_json(data: dict) -> ListAppsResult:
         raise DeserializationError("ListAppsResult.apps required")
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListAppsResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "apps" in value:
+        import capo_amplify.types.apps
+
+        out["apps"] = capo_amplify.types.apps.redact_sensitive(value["apps"])
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#ListJobsResponseEntry``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -166,4 +166,15 @@ def deserialize_json(data: dict) -> ListJobsResponseEntry:
         )
     else:
         raise DeserializationError("ListJobsResponseEntry.updated_at required")
+    return out
+
+
+def redact_sensitive(value: ListJobsResponseEntry) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "created_at" in value:
+        out["created_at"] = "*** Sensitive Data Redacted ***"
+    if "ended_at" in value:
+        out["ended_at"] = "*** Sensitive Data Redacted ***"
+    if "updated_at" in value:
+        out["updated_at"] = "*** Sensitive Data Redacted ***"
     return out

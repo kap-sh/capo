@@ -32,10 +32,12 @@ from capo_sagemaker_geospatial._resources.sage_maker_geospatial.vector_enrichmen
 from capo_sagemaker_geospatial._services._aws_config import aws_config
 from capo_sagemaker_geospatial._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -182,7 +184,9 @@ class SageMakerGeospatialClient:
         self.vector_enrichment_job = VectorEnrichmentJob(self)
 
     def operation_options(
-        self, config_overrides: Optional[SageMakerGeospatialClientConfig] = None
+        self,
+        config_overrides: Optional[SageMakerGeospatialClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: SageMakerGeospatialClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -190,8 +194,10 @@ class SageMakerGeospatialClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -244,7 +250,9 @@ class SageMakerGeospatialClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_sagemaker_geospatial.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -293,7 +301,9 @@ class SageMakerGeospatialClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_sagemaker_geospatial.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -345,7 +355,9 @@ class SageMakerGeospatialClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_sagemaker_geospatial.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -407,7 +419,32 @@ class SageMakerGeospatialClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker_geospatial.types.start_earth_observation_job_input.StartEarthObservationJobInput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.start_earth_observation_job_input
+
+            return capo_sagemaker_geospatial.types.start_earth_observation_job_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemaker_geospatial.types.start_earth_observation_job_output.StartEarthObservationJobOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.start_earth_observation_job_output
+
+            return capo_sagemaker_geospatial.types.start_earth_observation_job_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartEarthObservationJob",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sagemaker_geospatial.types.start_earth_observation_job_input.StartEarthObservationJobInput = {
             "name": name,
             "input_config": input_config,
@@ -464,7 +501,19 @@ class SageMakerGeospatialClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sagemaker_geospatial.types.get_earth_observation_job_output.GetEarthObservationJobOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.get_earth_observation_job_output
+
+            return capo_sagemaker_geospatial.types.get_earth_observation_job_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetEarthObservationJob", redact_output=_redact_output),
+        )
         input_: capo_sagemaker_geospatial.types.get_earth_observation_job_input.GetEarthObservationJobInput = {
             "arn": arn
         }
@@ -512,7 +561,9 @@ class SageMakerGeospatialClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEarthObservationJob")
+        )
         input_: capo_sagemaker_geospatial.types.delete_earth_observation_job_input.DeleteEarthObservationJobInput = {
             "arn": arn
         }
@@ -573,7 +624,32 @@ class SageMakerGeospatialClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker_geospatial.types.list_earth_observation_job_input.ListEarthObservationJobInput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.list_earth_observation_job_input
+
+            return capo_sagemaker_geospatial.types.list_earth_observation_job_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemaker_geospatial.types.list_earth_observation_job_output.ListEarthObservationJobOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.list_earth_observation_job_output
+
+            return capo_sagemaker_geospatial.types.list_earth_observation_job_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListEarthObservationJobs",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sagemaker_geospatial.types.list_earth_observation_job_input.ListEarthObservationJobInput = {}
         if status_equals is not None:
             input_["status_equals"] = status_equals
@@ -671,7 +747,9 @@ class SageMakerGeospatialClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportEarthObservationJob")
+        )
         input_: capo_sagemaker_geospatial.types.export_earth_observation_job_input.ExportEarthObservationJobInput = {
             "arn": arn,
             "execution_role_arn": execution_role_arn,
@@ -752,7 +830,18 @@ class SageMakerGeospatialClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sagemaker_geospatial.types.get_tile_output.GetTileOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.get_tile_output
+
+            return capo_sagemaker_geospatial.types.get_tile_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTile", redact_output=_redact_output)
+        )
         input_: capo_sagemaker_geospatial.types.get_tile_input.GetTileInput = {
             "x": x,
             "y": y,
@@ -819,7 +908,9 @@ class SageMakerGeospatialClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopEarthObservationJob")
+        )
         input_: capo_sagemaker_geospatial.types.stop_earth_observation_job_input.StopEarthObservationJobInput = {
             "arn": arn
         }
@@ -866,7 +957,9 @@ class SageMakerGeospatialClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRasterDataCollection")
+        )
         input_: capo_sagemaker_geospatial.types.get_raster_data_collection_input.GetRasterDataCollectionInput = {
             "arn": arn
         }
@@ -917,7 +1010,32 @@ class SageMakerGeospatialClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker_geospatial.types.list_raster_data_collections_input.ListRasterDataCollectionsInput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.list_raster_data_collections_input
+
+            return capo_sagemaker_geospatial.types.list_raster_data_collections_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemaker_geospatial.types.list_raster_data_collections_output.ListRasterDataCollectionsOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.list_raster_data_collections_output
+
+            return capo_sagemaker_geospatial.types.list_raster_data_collections_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListRasterDataCollections",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sagemaker_geospatial.types.list_raster_data_collections_input.ListRasterDataCollectionsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -995,7 +1113,32 @@ class SageMakerGeospatialClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker_geospatial.types.search_raster_data_collection_input.SearchRasterDataCollectionInput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.search_raster_data_collection_input
+
+            return capo_sagemaker_geospatial.types.search_raster_data_collection_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemaker_geospatial.types.search_raster_data_collection_output.SearchRasterDataCollectionOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.search_raster_data_collection_output
+
+            return capo_sagemaker_geospatial.types.search_raster_data_collection_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchRasterDataCollection",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sagemaker_geospatial.types.search_raster_data_collection_input.SearchRasterDataCollectionInput = {
             "arn": arn,
             "raster_data_collection_query": raster_data_collection_query,
@@ -1082,7 +1225,9 @@ class SageMakerGeospatialClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartVectorEnrichmentJob")
+        )
         input_: capo_sagemaker_geospatial.types.start_vector_enrichment_job_input.StartVectorEnrichmentJobInput = {
             "name": name,
             "input_config": input_config,
@@ -1139,7 +1284,9 @@ class SageMakerGeospatialClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetVectorEnrichmentJob")
+        )
         input_: capo_sagemaker_geospatial.types.get_vector_enrichment_job_input.GetVectorEnrichmentJobInput = {
             "arn": arn
         }
@@ -1187,7 +1334,9 @@ class SageMakerGeospatialClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVectorEnrichmentJob")
+        )
         input_: capo_sagemaker_geospatial.types.delete_vector_enrichment_job_input.DeleteVectorEnrichmentJobInput = {
             "arn": arn
         }
@@ -1246,7 +1395,32 @@ class SageMakerGeospatialClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker_geospatial.types.list_vector_enrichment_job_input.ListVectorEnrichmentJobInput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.list_vector_enrichment_job_input
+
+            return capo_sagemaker_geospatial.types.list_vector_enrichment_job_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemaker_geospatial.types.list_vector_enrichment_job_output.ListVectorEnrichmentJobOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.list_vector_enrichment_job_output
+
+            return capo_sagemaker_geospatial.types.list_vector_enrichment_job_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListVectorEnrichmentJobs",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sagemaker_geospatial.types.list_vector_enrichment_job_input.ListVectorEnrichmentJobInput = {}
         if status_equals is not None:
             input_["status_equals"] = status_equals
@@ -1340,7 +1514,9 @@ class SageMakerGeospatialClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportVectorEnrichmentJob")
+        )
         input_: capo_sagemaker_geospatial.types.export_vector_enrichment_job_input.ExportVectorEnrichmentJobInput = {
             "arn": arn,
             "execution_role_arn": execution_role_arn,
@@ -1393,7 +1569,9 @@ class SageMakerGeospatialClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopVectorEnrichmentJob")
+        )
         input_: capo_sagemaker_geospatial.types.stop_vector_enrichment_job_input.StopVectorEnrichmentJobInput = {
             "arn": arn
         }

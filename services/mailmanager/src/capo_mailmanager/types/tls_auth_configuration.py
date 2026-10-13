@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mailmanager#TlsAuthConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -34,5 +34,16 @@ def deserialize_aws_json_1_0(data: dict) -> TlsAuthConfiguration:
             capo_mailmanager.types.trust_store.deserialize_aws_json_1_0(
                 data["TrustStore"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: TlsAuthConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "trust_store" in value:
+        import capo_mailmanager.types.trust_store
+
+        out["trust_store"] = capo_mailmanager.types.trust_store.redact_sensitive(
+            value["trust_store"]
         )
     return out

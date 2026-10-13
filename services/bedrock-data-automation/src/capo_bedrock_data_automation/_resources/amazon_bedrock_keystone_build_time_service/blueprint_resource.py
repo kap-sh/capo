@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_data_automation._auth._signers
 import capo_bedrock_data_automation._auth._sigv4
 from capo_bedrock_data_automation._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -98,7 +99,32 @@ class BlueprintResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_data_automation.types.create_blueprint_request.CreateBlueprintRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.create_blueprint_request
+
+            return capo_bedrock_data_automation.types.create_blueprint_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.create_blueprint_response.CreateBlueprintResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.create_blueprint_response
+
+            return capo_bedrock_data_automation.types.create_blueprint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateBlueprint",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_data_automation.types.create_blueprint_request.CreateBlueprintRequest = {
             "blueprint_name": blueprint_name,
             "type": type,
@@ -166,7 +192,19 @@ class BlueprintResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.get_blueprint_response.GetBlueprintResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.get_blueprint_response
+
+            return capo_bedrock_data_automation.types.get_blueprint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetBlueprint", redact_output=_redact_output),
+        )
         input_: capo_bedrock_data_automation.types.get_blueprint_request.GetBlueprintRequest = {
             "blueprint_arn": blueprint_arn
         }
@@ -225,7 +263,32 @@ class BlueprintResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_data_automation.types.update_blueprint_request.UpdateBlueprintRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.update_blueprint_request
+
+            return capo_bedrock_data_automation.types.update_blueprint_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.update_blueprint_response.UpdateBlueprintResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.update_blueprint_response
+
+            return capo_bedrock_data_automation.types.update_blueprint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateBlueprint",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_data_automation.types.update_blueprint_request.UpdateBlueprintRequest = {
             "blueprint_arn": blueprint_arn,
             "schema": schema,
@@ -281,7 +344,9 @@ class BlueprintResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteBlueprint")
+        )
         input_: capo_bedrock_data_automation.types.delete_blueprint_request.DeleteBlueprintRequest = {
             "blueprint_arn": blueprint_arn
         }
@@ -344,7 +409,19 @@ class BlueprintResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.list_blueprints_response.ListBlueprintsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.list_blueprints_response
+
+            return capo_bedrock_data_automation.types.list_blueprints_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListBlueprints", redact_output=_redact_output),
+        )
         input_: capo_bedrock_data_automation.types.list_blueprints_request.ListBlueprintsRequest = {}
         if blueprint_arn is not None:
             input_["blueprint_arn"] = blueprint_arn
@@ -417,7 +494,32 @@ class AsyncBlueprintResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_data_automation.types.create_blueprint_request.CreateBlueprintRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.create_blueprint_request
+
+            return capo_bedrock_data_automation.types.create_blueprint_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.create_blueprint_response.CreateBlueprintResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.create_blueprint_response
+
+            return capo_bedrock_data_automation.types.create_blueprint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateBlueprint",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_data_automation.types.create_blueprint_request.CreateBlueprintRequest = {
             "blueprint_name": blueprint_name,
             "type": type,
@@ -486,7 +588,19 @@ class AsyncBlueprintResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.get_blueprint_response.GetBlueprintResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.get_blueprint_response
+
+            return capo_bedrock_data_automation.types.get_blueprint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetBlueprint", redact_output=_redact_output),
+        )
         input_: capo_bedrock_data_automation.types.get_blueprint_request.GetBlueprintRequest = {
             "blueprint_arn": blueprint_arn
         }
@@ -546,7 +660,32 @@ class AsyncBlueprintResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_data_automation.types.update_blueprint_request.UpdateBlueprintRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.update_blueprint_request
+
+            return capo_bedrock_data_automation.types.update_blueprint_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.update_blueprint_response.UpdateBlueprintResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.update_blueprint_response
+
+            return capo_bedrock_data_automation.types.update_blueprint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateBlueprint",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_data_automation.types.update_blueprint_request.UpdateBlueprintRequest = {
             "blueprint_arn": blueprint_arn,
             "schema": schema,
@@ -603,7 +742,9 @@ class AsyncBlueprintResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteBlueprint")
+        )
         input_: capo_bedrock_data_automation.types.delete_blueprint_request.DeleteBlueprintRequest = {
             "blueprint_arn": blueprint_arn
         }
@@ -667,7 +808,19 @@ class AsyncBlueprintResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.list_blueprints_response.ListBlueprintsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.list_blueprints_response
+
+            return capo_bedrock_data_automation.types.list_blueprints_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListBlueprints", redact_output=_redact_output),
+        )
         input_: capo_bedrock_data_automation.types.list_blueprints_request.ListBlueprintsRequest = {}
         if blueprint_arn is not None:
             input_["blueprint_arn"] = blueprint_arn

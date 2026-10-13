@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#EvaluationResults``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.evaluation_result_content
@@ -35,3 +35,12 @@ def deserialize_json(data: list) -> EvaluationResults:
             )
         )
     return out
+
+
+def redact_sensitive(value: EvaluationResults) -> list[Any]:
+    import capo_bedrock_agentcore.types.evaluation_result_content
+
+    return [
+        capo_bedrock_agentcore.types.evaluation_result_content.redact_sensitive(item)
+        for item in value
+    ]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#JobSearchSummaries``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_deadline.types.job_search_summary
@@ -29,3 +29,11 @@ def deserialize_json(data: list) -> JobSearchSummaries:
             continue
         out.append(capo_deadline.types.job_search_summary.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: JobSearchSummaries) -> list[Any]:
+    import capo_deadline.types.job_search_summary
+
+    return [
+        capo_deadline.types.job_search_summary.redact_sensitive(item) for item in value
+    ]

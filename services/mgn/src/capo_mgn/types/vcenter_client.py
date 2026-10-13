@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mgn#VcenterClient``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -85,4 +85,13 @@ def deserialize_json(data: dict) -> VcenterClient:
         import capo_mgn.types.tags_map
 
         out["tags"] = capo_mgn.types.tags_map.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: VcenterClient) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "source_server_tags" in value:
+        out["source_server_tags"] = "*** Sensitive Data Redacted ***"
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
     return out

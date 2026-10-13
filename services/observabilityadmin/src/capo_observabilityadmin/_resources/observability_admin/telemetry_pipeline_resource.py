@@ -7,6 +7,7 @@ import capo_observabilityadmin._auth._sigv4
 from capo_observabilityadmin._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -86,7 +87,9 @@ class TelemetryPipelineResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTelemetryPipeline")
+        )
         input_: capo_observabilityadmin.types.create_telemetry_pipeline_input.CreateTelemetryPipelineInput = {
             "name": name,
             "configuration": configuration,
@@ -136,7 +139,9 @@ class TelemetryPipelineResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTelemetryPipeline")
+        )
         input_: capo_observabilityadmin.types.get_telemetry_pipeline_input.GetTelemetryPipelineInput = {
             "pipeline_identifier": pipeline_identifier
         }
@@ -185,7 +190,9 @@ class TelemetryPipelineResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTelemetryPipeline")
+        )
         input_: capo_observabilityadmin.types.update_telemetry_pipeline_input.UpdateTelemetryPipelineInput = {
             "pipeline_identifier": pipeline_identifier,
             "configuration": configuration,
@@ -234,7 +241,9 @@ class TelemetryPipelineResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTelemetryPipeline")
+        )
         input_: capo_observabilityadmin.types.delete_telemetry_pipeline_input.DeleteTelemetryPipelineInput = {
             "pipeline_identifier": pipeline_identifier
         }
@@ -286,7 +295,9 @@ class TelemetryPipelineResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTelemetryPipelines")
+        )
         input_: capo_observabilityadmin.types.list_telemetry_pipelines_input.ListTelemetryPipelinesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -348,7 +359,9 @@ class AsyncTelemetryPipelineResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTelemetryPipeline")
+        )
         input_: capo_observabilityadmin.types.create_telemetry_pipeline_input.CreateTelemetryPipelineInput = {
             "name": name,
             "configuration": configuration,
@@ -399,7 +412,9 @@ class AsyncTelemetryPipelineResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTelemetryPipeline")
+        )
         input_: capo_observabilityadmin.types.get_telemetry_pipeline_input.GetTelemetryPipelineInput = {
             "pipeline_identifier": pipeline_identifier
         }
@@ -449,7 +464,9 @@ class AsyncTelemetryPipelineResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTelemetryPipeline")
+        )
         input_: capo_observabilityadmin.types.update_telemetry_pipeline_input.UpdateTelemetryPipelineInput = {
             "pipeline_identifier": pipeline_identifier,
             "configuration": configuration,
@@ -499,7 +516,9 @@ class AsyncTelemetryPipelineResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTelemetryPipeline")
+        )
         input_: capo_observabilityadmin.types.delete_telemetry_pipeline_input.DeleteTelemetryPipelineInput = {
             "pipeline_identifier": pipeline_identifier
         }
@@ -552,7 +571,9 @@ class AsyncTelemetryPipelineResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTelemetryPipelines")
+        )
         input_: capo_observabilityadmin.types.list_telemetry_pipelines_input.ListTelemetryPipelinesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results

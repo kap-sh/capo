@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chime#PutEventsConfigurationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> PutEventsConfigurationResponse:
         out["events_configuration"] = (
             capo_chime.types.events_configuration.deserialize_json(
                 data["EventsConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: PutEventsConfigurationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "events_configuration" in value:
+        import capo_chime.types.events_configuration
+
+        out["events_configuration"] = (
+            capo_chime.types.events_configuration.redact_sensitive(
+                value["events_configuration"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#ContainerPortMapping``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,13 @@ def deserialize_aws_json_1_1(data: dict) -> ContainerPortMapping:
         out["protocol"] = capo_gamelift.types.ip_protocol.deserialize_aws_json_1_1(
             data["Protocol"]
         )
+    return out
+
+
+def redact_sensitive(value: ContainerPortMapping) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "container_port" in value:
+        out["container_port"] = "*** Sensitive Data Redacted ***"
+    if "connection_port" in value:
+        out["connection_port"] = "*** Sensitive Data Redacted ***"
     return out

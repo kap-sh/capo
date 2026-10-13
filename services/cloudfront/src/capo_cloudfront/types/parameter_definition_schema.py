@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudfront#ParameterDefinitionSchema``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_xml(el: Element) -> ParameterDefinitionSchema:
         out["string_schema"] = (
             capo_cloudfront.types.string_schema_config.deserialize_xml(
                 child_string_schema
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ParameterDefinitionSchema) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "string_schema" in value:
+        import capo_cloudfront.types.string_schema_config
+
+        out["string_schema"] = (
+            capo_cloudfront.types.string_schema_config.redact_sensitive(
+                value["string_schema"]
             )
         )
     return out

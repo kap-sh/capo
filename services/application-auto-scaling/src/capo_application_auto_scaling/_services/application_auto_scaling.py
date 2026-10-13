@@ -21,10 +21,12 @@ from capo_application_auto_scaling._pagination import resolve_path as _resolve_p
 from capo_application_auto_scaling._services._aws_config import aws_config
 from capo_application_auto_scaling._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -156,7 +158,9 @@ class ApplicationAutoScalingClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ApplicationAutoScalingClientConfig] = None
+        self,
+        config_overrides: Optional[ApplicationAutoScalingClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ApplicationAutoScalingClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -164,8 +168,10 @@ class ApplicationAutoScalingClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -229,7 +235,9 @@ class ApplicationAutoScalingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteScalingPolicy")
+        )
         input_: capo_application_auto_scaling.types.delete_scaling_policy_request.DeleteScalingPolicyRequest = {
             "policy_name": policy_name,
             "service_namespace": service_namespace,
@@ -290,7 +298,9 @@ class ApplicationAutoScalingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteScheduledAction")
+        )
         input_: capo_application_auto_scaling.types.delete_scheduled_action_request.DeleteScheduledActionRequest = {
             "service_namespace": service_namespace,
             "scheduled_action_name": scheduled_action_name,
@@ -349,7 +359,9 @@ class ApplicationAutoScalingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterScalableTarget")
+        )
         input_: capo_application_auto_scaling.types.deregister_scalable_target_request.DeregisterScalableTargetRequest = {
             "service_namespace": service_namespace,
             "resource_id": resource_id,
@@ -419,7 +431,9 @@ class ApplicationAutoScalingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeScalableTargets")
+        )
         input_: capo_application_auto_scaling.types.describe_scalable_targets_request.DescribeScalableTargetsRequest = {
             "service_namespace": service_namespace
         }
@@ -534,7 +548,9 @@ class ApplicationAutoScalingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeScalingActivities")
+        )
         input_: capo_application_auto_scaling.types.describe_scaling_activities_request.DescribeScalingActivitiesRequest = {
             "service_namespace": service_namespace
         }
@@ -658,7 +674,9 @@ class ApplicationAutoScalingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeScalingPolicies")
+        )
         input_: capo_application_auto_scaling.types.describe_scaling_policies_request.DescribeScalingPoliciesRequest = {
             "service_namespace": service_namespace
         }
@@ -779,7 +797,9 @@ class ApplicationAutoScalingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeScheduledActions")
+        )
         input_: capo_application_auto_scaling.types.describe_scheduled_actions_request.DescribeScheduledActionsRequest = {
             "service_namespace": service_namespace
         }
@@ -884,7 +904,9 @@ class ApplicationAutoScalingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPredictiveScalingForecast")
+        )
         input_: capo_application_auto_scaling.types.get_predictive_scaling_forecast_request.GetPredictiveScalingForecastRequest = {
             "service_namespace": service_namespace,
             "resource_id": resource_id,
@@ -938,7 +960,9 @@ class ApplicationAutoScalingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_application_auto_scaling.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1014,7 +1038,9 @@ class ApplicationAutoScalingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutScalingPolicy")
+        )
         input_: capo_application_auto_scaling.types.put_scaling_policy_request.PutScalingPolicyRequest = {
             "policy_name": policy_name,
             "service_namespace": service_namespace,
@@ -1110,7 +1136,9 @@ class ApplicationAutoScalingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutScheduledAction")
+        )
         input_: capo_application_auto_scaling.types.put_scheduled_action_request.PutScheduledActionRequest = {
             "service_namespace": service_namespace,
             "scheduled_action_name": scheduled_action_name,
@@ -1197,7 +1225,9 @@ class ApplicationAutoScalingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterScalableTarget")
+        )
         input_: capo_application_auto_scaling.types.register_scalable_target_request.RegisterScalableTargetRequest = {
             "service_namespace": service_namespace,
             "resource_id": resource_id,
@@ -1264,7 +1294,9 @@ class ApplicationAutoScalingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_application_auto_scaling.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1317,7 +1349,9 @@ class ApplicationAutoScalingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_application_auto_scaling.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,

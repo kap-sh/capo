@@ -40,7 +40,9 @@ from capo_pca_connector_ad._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -189,7 +191,9 @@ class AsyncPcaConnectorAdClient:
         self.template_resource = AsyncTemplateResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncPcaConnectorAdClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncPcaConnectorAdClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncPcaConnectorAdClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -197,8 +201,10 @@ class AsyncPcaConnectorAdClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -252,7 +258,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_pca_connector_ad.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -300,7 +308,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_pca_connector_ad.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -349,7 +359,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_pca_connector_ad.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -412,7 +424,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConnector")
+        )
         input_: capo_pca_connector_ad.types.create_connector_request.CreateConnectorRequest = {
             "directory_id": directory_id,
             "certificate_authority_arn": certificate_authority_arn,
@@ -467,7 +481,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnector")
+        )
         input_: capo_pca_connector_ad.types.get_connector_request.GetConnectorRequest = {
             "connector_arn": connector_arn
         }
@@ -514,7 +530,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnector")
+        )
         input_: capo_pca_connector_ad.types.delete_connector_request.DeleteConnectorRequest = {
             "connector_arn": connector_arn
         }
@@ -565,7 +583,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConnectors")
+        )
         input_: capo_pca_connector_ad.types.list_connectors_request.ListConnectorsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -647,7 +667,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDirectoryRegistration")
+        )
         input_: capo_pca_connector_ad.types.create_directory_registration_request.CreateDirectoryRegistrationRequest = {
             "directory_id": directory_id
         }
@@ -700,7 +722,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDirectoryRegistration")
+        )
         input_: capo_pca_connector_ad.types.get_directory_registration_request.GetDirectoryRegistrationRequest = {
             "directory_registration_arn": directory_registration_arn
         }
@@ -746,7 +770,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDirectoryRegistration")
+        )
         input_: capo_pca_connector_ad.types.delete_directory_registration_request.DeleteDirectoryRegistrationRequest = {
             "directory_registration_arn": directory_registration_arn
         }
@@ -797,7 +823,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDirectoryRegistrations")
+        )
         input_: capo_pca_connector_ad.types.list_directory_registrations_request.ListDirectoryRegistrationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -875,7 +903,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateServicePrincipalName")
+        )
         input_: capo_pca_connector_ad.types.create_service_principal_name_request.CreateServicePrincipalNameRequest = {
             "directory_registration_arn": directory_registration_arn,
             "connector_arn": connector_arn,
@@ -929,7 +959,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServicePrincipalName")
+        )
         input_: capo_pca_connector_ad.types.get_service_principal_name_request.GetServicePrincipalNameRequest = {
             "directory_registration_arn": directory_registration_arn,
             "connector_arn": connector_arn,
@@ -978,7 +1010,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteServicePrincipalName")
+        )
         input_: capo_pca_connector_ad.types.delete_service_principal_name_request.DeleteServicePrincipalNameRequest = {
             "directory_registration_arn": directory_registration_arn,
             "connector_arn": connector_arn,
@@ -1033,7 +1067,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServicePrincipalNames")
+        )
         input_: capo_pca_connector_ad.types.list_service_principal_names_request.ListServicePrincipalNamesRequest = {
             "directory_registration_arn": directory_registration_arn
         }
@@ -1120,7 +1156,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTemplateGroupAccessControlEntry")
+        )
         input_: capo_pca_connector_ad.types.create_template_group_access_control_entry_request.CreateTemplateGroupAccessControlEntryRequest = {
             "template_arn": template_arn,
             "group_security_identifier": group_security_identifier,
@@ -1176,7 +1214,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTemplateGroupAccessControlEntry")
+        )
         input_: capo_pca_connector_ad.types.get_template_group_access_control_entry_request.GetTemplateGroupAccessControlEntryRequest = {
             "template_arn": template_arn,
             "group_security_identifier": group_security_identifier,
@@ -1234,7 +1274,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTemplateGroupAccessControlEntry")
+        )
         input_: capo_pca_connector_ad.types.update_template_group_access_control_entry_request.UpdateTemplateGroupAccessControlEntryRequest = {
             "template_arn": template_arn,
             "group_security_identifier": group_security_identifier,
@@ -1288,7 +1330,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTemplateGroupAccessControlEntry")
+        )
         input_: capo_pca_connector_ad.types.delete_template_group_access_control_entry_request.DeleteTemplateGroupAccessControlEntryRequest = {
             "template_arn": template_arn,
             "group_security_identifier": group_security_identifier,
@@ -1343,7 +1387,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTemplateGroupAccessControlEntries")
+        )
         input_: capo_pca_connector_ad.types.list_template_group_access_control_entries_request.ListTemplateGroupAccessControlEntriesRequest = {
             "template_arn": template_arn
         }
@@ -1432,7 +1478,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTemplate")
+        )
         input_: capo_pca_connector_ad.types.create_template_request.CreateTemplateRequest = {
             "connector_arn": connector_arn,
             "name": name,
@@ -1487,7 +1535,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTemplate")
+        )
         input_: capo_pca_connector_ad.types.get_template_request.GetTemplateRequest = {
             "template_arn": template_arn
         }
@@ -1540,7 +1590,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTemplate")
+        )
         input_: capo_pca_connector_ad.types.update_template_request.UpdateTemplateRequest = {
             "template_arn": template_arn
         }
@@ -1593,7 +1645,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTemplate")
+        )
         input_: capo_pca_connector_ad.types.delete_template_request.DeleteTemplateRequest = {
             "template_arn": template_arn
         }
@@ -1647,7 +1701,9 @@ class AsyncPcaConnectorAdClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTemplates")
+        )
         input_: capo_pca_connector_ad.types.list_templates_request.ListTemplatesRequest = {
             "connector_arn": connector_arn
         }

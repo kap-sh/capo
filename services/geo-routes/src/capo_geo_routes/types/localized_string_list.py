@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#LocalizedStringList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_routes.types.localized_string
@@ -29,3 +29,11 @@ def deserialize_json(data: list) -> LocalizedStringList:
             continue
         out.append(capo_geo_routes.types.localized_string.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: LocalizedStringList) -> list[Any]:
+    import capo_geo_routes.types.localized_string
+
+    return [
+        capo_geo_routes.types.localized_string.redact_sensitive(item) for item in value
+    ]

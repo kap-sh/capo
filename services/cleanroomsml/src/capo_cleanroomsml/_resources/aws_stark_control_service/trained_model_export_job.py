@@ -7,6 +7,7 @@ import capo_cleanroomsml._auth._sigv4
 from capo_cleanroomsml._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -80,7 +81,9 @@ class TrainedModelExportJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartTrainedModelExportJob")
+        )
         input_: capo_cleanroomsml.types.start_trained_model_export_job_request.StartTrainedModelExportJobRequest = {
             "name": name,
             "trained_model_arn": trained_model_arn,
@@ -154,7 +157,9 @@ class AsyncTrainedModelExportJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartTrainedModelExportJob")
+        )
         input_: capo_cleanroomsml.types.start_trained_model_export_job_request.StartTrainedModelExportJobRequest = {
             "name": name,
             "trained_model_arn": trained_model_arn,

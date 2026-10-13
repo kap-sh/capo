@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralrevenuemeasurement#ListRevenueAttributionAllocationsInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -235,4 +235,17 @@ def deserialize_cbor(data: dict) -> ListRevenueAttributionAllocationsInput:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListRevenueAttributionAllocationsInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "customer_aws_account_id_filters" in value:
+        import capo_partnercentral_revenue_measurement.types.customer_aws_account_id_filter_list
+
+        out["customer_aws_account_id_filters"] = (
+            capo_partnercentral_revenue_measurement.types.customer_aws_account_id_filter_list.redact_sensitive(
+                value["customer_aws_account_id_filters"]
+            )
+        )
     return out

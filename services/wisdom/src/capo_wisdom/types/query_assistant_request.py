@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wisdom#QueryAssistantRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,11 @@ def deserialize_json(data: dict) -> QueryAssistantRequest:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
+    return out
+
+
+def redact_sensitive(value: QueryAssistantRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "query_text" in value:
+        out["query_text"] = "*** Sensitive Data Redacted ***"
     return out

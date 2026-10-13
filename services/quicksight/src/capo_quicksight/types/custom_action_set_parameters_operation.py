@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#CustomActionSetParametersOperation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -41,5 +41,18 @@ def deserialize_json(data: dict) -> CustomActionSetParametersOperation:
     else:
         raise DeserializationError(
             "CustomActionSetParametersOperation.parameter_value_configurations required"
+        )
+    return out
+
+
+def redact_sensitive(value: CustomActionSetParametersOperation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "parameter_value_configurations" in value:
+        import capo_quicksight.types.set_parameter_value_configuration_list
+
+        out["parameter_value_configurations"] = (
+            capo_quicksight.types.set_parameter_value_configuration_list.redact_sensitive(
+                value["parameter_value_configurations"]
+            )
         )
     return out

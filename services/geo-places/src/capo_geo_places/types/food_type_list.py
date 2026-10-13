@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#FoodTypeList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_places.types.food_type
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> FoodTypeList:
             continue
         out.append(capo_geo_places.types.food_type.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: FoodTypeList) -> list[Any]:
+    import capo_geo_places.types.food_type
+
+    return [capo_geo_places.types.food_type.redact_sensitive(item) for item in value]

@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agent._auth._signers
 import capo_bedrock_agent._auth._sigv4
 from capo_bedrock_agent._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -102,7 +103,32 @@ class AgentCollaboratorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.associate_agent_collaborator_request.AssociateAgentCollaboratorRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.associate_agent_collaborator_request
+
+            return capo_bedrock_agent.types.associate_agent_collaborator_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.associate_agent_collaborator_response.AssociateAgentCollaboratorResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.associate_agent_collaborator_response
+
+            return capo_bedrock_agent.types.associate_agent_collaborator_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AssociateAgentCollaborator",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agent.types.associate_agent_collaborator_request.AssociateAgentCollaboratorRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -163,7 +189,9 @@ class AgentCollaboratorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateAgentCollaborator")
+        )
         input_: capo_bedrock_agent.types.disassociate_agent_collaborator_request.DisassociateAgentCollaboratorRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -216,7 +244,19 @@ class AgentCollaboratorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agent.types.get_agent_collaborator_response.GetAgentCollaboratorResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.get_agent_collaborator_response
+
+            return capo_bedrock_agent.types.get_agent_collaborator_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAgentCollaborator", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agent.types.get_agent_collaborator_request.GetAgentCollaboratorRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -271,7 +311,19 @@ class AgentCollaboratorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agent.types.list_agent_collaborators_response.ListAgentCollaboratorsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.list_agent_collaborators_response
+
+            return capo_bedrock_agent.types.list_agent_collaborators_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListAgentCollaborators", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agent.types.list_agent_collaborators_request.ListAgentCollaboratorsRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -339,7 +391,32 @@ class AgentCollaboratorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.update_agent_collaborator_request.UpdateAgentCollaboratorRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_agent_collaborator_request
+
+            return capo_bedrock_agent.types.update_agent_collaborator_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.update_agent_collaborator_response.UpdateAgentCollaboratorResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_agent_collaborator_response
+
+            return capo_bedrock_agent.types.update_agent_collaborator_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAgentCollaborator",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agent.types.update_agent_collaborator_request.UpdateAgentCollaboratorRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -417,7 +494,32 @@ class AsyncAgentCollaboratorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.associate_agent_collaborator_request.AssociateAgentCollaboratorRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.associate_agent_collaborator_request
+
+            return capo_bedrock_agent.types.associate_agent_collaborator_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.associate_agent_collaborator_response.AssociateAgentCollaboratorResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.associate_agent_collaborator_response
+
+            return capo_bedrock_agent.types.associate_agent_collaborator_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AssociateAgentCollaborator",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agent.types.associate_agent_collaborator_request.AssociateAgentCollaboratorRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -479,7 +581,9 @@ class AsyncAgentCollaboratorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateAgentCollaborator")
+        )
         input_: capo_bedrock_agent.types.disassociate_agent_collaborator_request.DisassociateAgentCollaboratorRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -533,7 +637,19 @@ class AsyncAgentCollaboratorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agent.types.get_agent_collaborator_response.GetAgentCollaboratorResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.get_agent_collaborator_response
+
+            return capo_bedrock_agent.types.get_agent_collaborator_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAgentCollaborator", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agent.types.get_agent_collaborator_request.GetAgentCollaboratorRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -589,7 +705,19 @@ class AsyncAgentCollaboratorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agent.types.list_agent_collaborators_response.ListAgentCollaboratorsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.list_agent_collaborators_response
+
+            return capo_bedrock_agent.types.list_agent_collaborators_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListAgentCollaborators", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agent.types.list_agent_collaborators_request.ListAgentCollaboratorsRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -658,7 +786,32 @@ class AsyncAgentCollaboratorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.update_agent_collaborator_request.UpdateAgentCollaboratorRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_agent_collaborator_request
+
+            return capo_bedrock_agent.types.update_agent_collaborator_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.update_agent_collaborator_response.UpdateAgentCollaboratorResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_agent_collaborator_response
+
+            return capo_bedrock_agent.types.update_agent_collaborator_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAgentCollaborator",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agent.types.update_agent_collaborator_request.UpdateAgentCollaboratorRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,

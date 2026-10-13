@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cleanrooms#UpdateProtectedQueryOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -37,5 +37,16 @@ def deserialize_json(data: dict) -> UpdateProtectedQueryOutput:
     else:
         raise DeserializationError(
             "UpdateProtectedQueryOutput.protected_query required"
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateProtectedQueryOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "protected_query" in value:
+        import capo_cleanrooms.types.protected_query
+
+        out["protected_query"] = capo_cleanrooms.types.protected_query.redact_sensitive(
+            value["protected_query"]
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#UpdateKeyRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -73,5 +73,18 @@ def deserialize_json(data: dict) -> UpdateKeyRequest:
 
         out["restrictions"] = capo_location.types.api_key_restrictions.deserialize_json(
             data["Restrictions"]
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateKeyRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "expire_time" in value:
+        out["expire_time"] = "*** Sensitive Data Redacted ***"
+    if "restrictions" in value:
+        import capo_location.types.api_key_restrictions
+
+        out["restrictions"] = capo_location.types.api_key_restrictions.redact_sensitive(
+            value["restrictions"]
         )
     return out

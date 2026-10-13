@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.resourceexplorer2#UntagResourceInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -23,4 +23,11 @@ def serialize_json(value: UntagResourceInput) -> dict:
 
 def deserialize_json(data: dict) -> UntagResourceInput:
     out: UntagResourceInput = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: UntagResourceInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tag_keys" in value:
+        out["tag_keys"] = "*** Sensitive Data Redacted ***"
     return out

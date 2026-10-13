@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#ColorsConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -35,6 +35,19 @@ def deserialize_json(data: dict) -> ColorsConfiguration:
         out["custom_colors"] = (
             capo_quicksight.types.custom_colors_list.deserialize_json(
                 data["CustomColors"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ColorsConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "custom_colors" in value:
+        import capo_quicksight.types.custom_colors_list
+
+        out["custom_colors"] = (
+            capo_quicksight.types.custom_colors_list.redact_sensitive(
+                value["custom_colors"]
             )
         )
     return out

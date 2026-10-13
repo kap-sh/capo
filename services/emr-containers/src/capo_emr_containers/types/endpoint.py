@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.emrcontainers#Endpoint``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -220,4 +220,17 @@ def deserialize_json(data: dict) -> Endpoint:
         import capo_emr_containers.types.tag_map
 
         out["tags"] = capo_emr_containers.types.tag_map.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: Endpoint) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "configuration_overrides" in value:
+        import capo_emr_containers.types.configuration_overrides
+
+        out["configuration_overrides"] = (
+            capo_emr_containers.types.configuration_overrides.redact_sensitive(
+                value["configuration_overrides"]
+            )
+        )
     return out

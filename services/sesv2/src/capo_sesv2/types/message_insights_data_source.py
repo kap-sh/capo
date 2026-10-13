@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sesv2#MessageInsightsDataSource``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -87,4 +87,21 @@ def deserialize_json(data: dict) -> MessageInsightsDataSource:
         )
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
+    return out
+
+
+def redact_sensitive(value: MessageInsightsDataSource) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "include" in value:
+        import capo_sesv2.types.message_insights_filters
+
+        out["include"] = capo_sesv2.types.message_insights_filters.redact_sensitive(
+            value["include"]
+        )
+    if "exclude" in value:
+        import capo_sesv2.types.message_insights_filters
+
+        out["exclude"] = capo_sesv2.types.message_insights_filters.redact_sensitive(
+            value["exclude"]
+        )
     return out

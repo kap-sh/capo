@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.medicalimaging#ImportConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -44,3 +44,16 @@ def deserialize_json(data: dict) -> ImportConfiguration:
         }
     else:
         raise DeserializationError("ImportConfiguration: no recognized variant key")
+
+
+def redact_sensitive(value: ImportConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "dicomJsonMetadataImportConfiguration" in value:
+        import capo_medical_imaging.types.dicom_json_metadata_import_configuration
+
+        out["dicomJsonMetadataImportConfiguration"] = (
+            capo_medical_imaging.types.dicom_json_metadata_import_configuration.redact_sensitive(
+                value["dicomJsonMetadataImportConfiguration"]
+            )
+        )
+    return out

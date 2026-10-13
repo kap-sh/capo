@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#PhysicalEndpoints``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_datazone.types.physical_endpoint
@@ -29,3 +29,11 @@ def deserialize_json(data: list) -> PhysicalEndpoints:
             continue
         out.append(capo_datazone.types.physical_endpoint.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: PhysicalEndpoints) -> list[Any]:
+    import capo_datazone.types.physical_endpoint
+
+    return [
+        capo_datazone.types.physical_endpoint.redact_sensitive(item) for item in value
+    ]

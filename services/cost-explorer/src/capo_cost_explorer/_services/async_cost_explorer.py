@@ -24,7 +24,9 @@ from capo_cost_explorer._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -276,7 +278,9 @@ class AsyncCostExplorerClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncCostExplorerClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncCostExplorerClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncCostExplorerClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -284,8 +288,10 @@ class AsyncCostExplorerClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -339,7 +345,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAnomalyMonitor")
+        )
         input_: capo_cost_explorer.types.create_anomaly_monitor_request.CreateAnomalyMonitorRequest = {
             "anomaly_monitor": anomaly_monitor
         }
@@ -390,7 +398,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAnomalySubscription")
+        )
         input_: capo_cost_explorer.types.create_anomaly_subscription_request.CreateAnomalySubscriptionRequest = {
             "anomaly_subscription": anomaly_subscription
         }
@@ -454,7 +464,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCostCategoryDefinition")
+        )
         input_: capo_cost_explorer.types.create_cost_category_definition_request.CreateCostCategoryDefinitionRequest = {
             "name": name,
             "rule_version": rule_version,
@@ -509,7 +521,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAnomalyMonitor")
+        )
         input_: capo_cost_explorer.types.delete_anomaly_monitor_request.DeleteAnomalyMonitorRequest = {
             "monitor_arn": monitor_arn
         }
@@ -554,7 +568,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAnomalySubscription")
+        )
         input_: capo_cost_explorer.types.delete_anomaly_subscription_request.DeleteAnomalySubscriptionRequest = {
             "subscription_arn": subscription_arn
         }
@@ -599,7 +615,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCostCategoryDefinition")
+        )
         input_: capo_cost_explorer.types.delete_cost_category_definition_request.DeleteCostCategoryDefinitionRequest = {
             "cost_category_arn": cost_category_arn
         }
@@ -648,7 +666,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCostCategoryDefinition")
+        )
         input_: capo_cost_explorer.types.describe_cost_category_definition_request.DescribeCostCategoryDefinitionRequest = {
             "cost_category_arn": cost_category_arn
         }
@@ -713,7 +733,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAnomalies")
+        )
         input_: capo_cost_explorer.types.get_anomalies_request.GetAnomaliesRequest = {
             "date_interval": date_interval
         }
@@ -812,7 +834,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAnomalyMonitors")
+        )
         input_: capo_cost_explorer.types.get_anomaly_monitors_request.GetAnomalyMonitorsRequest = {}
         if monitor_arn_list is not None:
             input_["monitor_arn_list"] = monitor_arn_list
@@ -899,7 +923,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAnomalySubscriptions")
+        )
         input_: capo_cost_explorer.types.get_anomaly_subscriptions_request.GetAnomalySubscriptionsRequest = {}
         if subscription_arn_list is not None:
             input_["subscription_arn_list"] = subscription_arn_list
@@ -987,7 +1013,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApproximateUsageRecords")
+        )
         input_: capo_cost_explorer.types.get_approximate_usage_records_request.GetApproximateUsageRecordsRequest = {
             "granularity": granularity,
             "approximation_dimension": approximation_dimension,
@@ -1036,7 +1064,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCommitmentPurchaseAnalysis")
+        )
         input_: capo_cost_explorer.types.get_commitment_purchase_analysis_request.GetCommitmentPurchaseAnalysisRequest = {
             "analysis_id": analysis_id
         }
@@ -1104,7 +1134,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCostAndUsage")
+        )
         input_: capo_cost_explorer.types.get_cost_and_usage_request.GetCostAndUsageRequest = {
             "time_period": time_period,
             "granularity": granularity,
@@ -1183,7 +1215,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCostAndUsageComparisons")
+        )
         input_: capo_cost_explorer.types.get_cost_and_usage_comparisons_request.GetCostAndUsageComparisonsRequest = {
             "baseline_time_period": baseline_time_period,
             "comparison_time_period": comparison_time_period,
@@ -1304,7 +1338,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCostAndUsageWithResources")
+        )
         input_: capo_cost_explorer.types.get_cost_and_usage_with_resources_request.GetCostAndUsageWithResourcesRequest = {
             "time_period": time_period,
             "granularity": granularity,
@@ -1385,7 +1421,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCostCategories")
+        )
         input_: capo_cost_explorer.types.get_cost_categories_request.GetCostCategoriesRequest = {
             "time_period": time_period
         }
@@ -1468,7 +1506,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCostComparisonDrivers")
+        )
         input_: capo_cost_explorer.types.get_cost_comparison_drivers_request.GetCostComparisonDriversRequest = {
             "baseline_time_period": baseline_time_period,
             "comparison_time_period": comparison_time_period,
@@ -1582,7 +1622,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCostForecast")
+        )
         input_: capo_cost_explorer.types.get_cost_forecast_request.GetCostForecastRequest = {
             "time_period": time_period,
             "metric": metric,
@@ -1667,7 +1709,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDimensionValues")
+        )
         input_: capo_cost_explorer.types.get_dimension_values_request.GetDimensionValuesRequest = {
             "time_period": time_period,
             "dimension": dimension,
@@ -1752,7 +1796,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReservationCoverage")
+        )
         input_: capo_cost_explorer.types.get_reservation_coverage_request.GetReservationCoverageRequest = {
             "time_period": time_period
         }
@@ -1845,7 +1891,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReservationPurchaseRecommendation")
+        )
         input_: capo_cost_explorer.types.get_reservation_purchase_recommendation_request.GetReservationPurchaseRecommendationRequest = {
             "service": service
         }
@@ -1982,7 +2030,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReservationUtilization")
+        )
         input_: capo_cost_explorer.types.get_reservation_utilization_request.GetReservationUtilizationRequest = {
             "time_period": time_period
         }
@@ -2052,7 +2102,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRightsizingRecommendation")
+        )
         input_: capo_cost_explorer.types.get_rightsizing_recommendation_request.GetRightsizingRecommendationRequest = {
             "service": service
         }
@@ -2138,7 +2190,10 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSavingsPlanPurchaseRecommendationDetails"),
+        )
         input_: capo_cost_explorer.types.get_savings_plan_purchase_recommendation_details_request.GetSavingsPlanPurchaseRecommendationDetailsRequest = {
             "recommendation_detail_id": recommendation_detail_id
         }
@@ -2206,7 +2261,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSavingsPlansCoverage")
+        )
         input_: capo_cost_explorer.types.get_savings_plans_coverage_request.GetSavingsPlansCoverageRequest = {
             "time_period": time_period
         }
@@ -2324,7 +2381,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSavingsPlansPurchaseRecommendation")
+        )
         input_: capo_cost_explorer.types.get_savings_plans_purchase_recommendation_request.GetSavingsPlansPurchaseRecommendationRequest = {
             "savings_plans_type": savings_plans_type,
             "term_in_years": term_in_years,
@@ -2390,7 +2449,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSavingsPlansUtilization")
+        )
         input_: capo_cost_explorer.types.get_savings_plans_utilization_request.GetSavingsPlansUtilizationRequest = {
             "time_period": time_period
         }
@@ -2458,7 +2519,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSavingsPlansUtilizationDetails")
+        )
         input_: capo_cost_explorer.types.get_savings_plans_utilization_details_request.GetSavingsPlansUtilizationDetailsRequest = {
             "time_period": time_period
         }
@@ -2572,7 +2635,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTags")
+        )
         input_: capo_cost_explorer.types.get_tags_request.GetTagsRequest = {
             "time_period": time_period
         }
@@ -2650,7 +2715,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUsageForecast")
+        )
         input_: capo_cost_explorer.types.get_usage_forecast_request.GetUsageForecastRequest = {
             "time_period": time_period,
             "metric": metric,
@@ -2718,7 +2785,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCommitmentPurchaseAnalyses")
+        )
         input_: capo_cost_explorer.types.list_commitment_purchase_analyses_request.ListCommitmentPurchaseAnalysesRequest = {}
         if analysis_status is not None:
             input_["analysis_status"] = analysis_status
@@ -2808,7 +2877,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCostAllocationTagBackfillHistory")
+        )
         input_: capo_cost_explorer.types.list_cost_allocation_tag_backfill_history_request.ListCostAllocationTagBackfillHistoryRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2898,7 +2969,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCostAllocationTags")
+        )
         input_: capo_cost_explorer.types.list_cost_allocation_tags_request.ListCostAllocationTagsRequest = {}
         if status is not None:
             input_["status"] = status
@@ -3003,7 +3076,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCostCategoryDefinitions")
+        )
         input_: capo_cost_explorer.types.list_cost_category_definitions_request.ListCostCategoryDefinitionsRequest = {}
         if effective_on is not None:
             input_["effective_on"] = effective_on
@@ -3095,7 +3170,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCostCategoryResourceAssociations")
+        )
         input_: capo_cost_explorer.types.list_cost_category_resource_associations_request.ListCostCategoryResourceAssociationsRequest = {}
         if cost_category_arn is not None:
             input_["cost_category_arn"] = cost_category_arn
@@ -3186,7 +3263,10 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListSavingsPlansPurchaseRecommendationGeneration"),
+        )
         input_: capo_cost_explorer.types.list_savings_plans_purchase_recommendation_generation_request.ListSavingsPlansPurchaseRecommendationGenerationRequest = {}
         if generation_status is not None:
             input_["generation_status"] = generation_status
@@ -3272,7 +3352,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_cost_explorer.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3318,7 +3400,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ProvideAnomalyFeedback")
+        )
         input_: capo_cost_explorer.types.provide_anomaly_feedback_request.ProvideAnomalyFeedbackRequest = {
             "anomaly_id": anomaly_id,
             "feedback": feedback,
@@ -3366,7 +3450,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCommitmentPurchaseAnalysis")
+        )
         input_: capo_cost_explorer.types.start_commitment_purchase_analysis_request.StartCommitmentPurchaseAnalysisRequest = {
             "commitment_purchase_analysis_configuration": commitment_purchase_analysis_configuration
         }
@@ -3411,7 +3497,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCostAllocationTagBackfill")
+        )
         input_: capo_cost_explorer.types.start_cost_allocation_tag_backfill_request.StartCostAllocationTagBackfillRequest = {
             "backfill_from": backfill_from
         }
@@ -3452,7 +3540,10 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartSavingsPlansPurchaseRecommendationGeneration"),
+        )
         input_: capo_cost_explorer.types.start_savings_plans_purchase_recommendation_generation_request.StartSavingsPlansPurchaseRecommendationGenerationRequest = {}
 
         response = await aexecute_pipeline(
@@ -3498,7 +3589,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_cost_explorer.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "resource_tags": resource_tags,
@@ -3546,7 +3639,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_cost_explorer.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "resource_tag_keys": resource_tag_keys,
@@ -3596,7 +3691,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAnomalyMonitor")
+        )
         input_: capo_cost_explorer.types.update_anomaly_monitor_request.UpdateAnomalyMonitorRequest = {
             "monitor_arn": monitor_arn
         }
@@ -3668,7 +3765,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAnomalySubscription")
+        )
         input_: capo_cost_explorer.types.update_anomaly_subscription_request.UpdateAnomalySubscriptionRequest = {
             "subscription_arn": subscription_arn
         }
@@ -3724,7 +3823,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCostAllocationTagsStatus")
+        )
         input_: capo_cost_explorer.types.update_cost_allocation_tags_status_request.UpdateCostAllocationTagsStatusRequest = {
             "cost_allocation_tags_status": cost_allocation_tags_status
         }
@@ -3784,7 +3885,9 @@ class AsyncCostExplorerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCostCategoryDefinition")
+        )
         input_: capo_cost_explorer.types.update_cost_category_definition_request.UpdateCostCategoryDefinitionRequest = {
             "cost_category_arn": cost_category_arn,
             "rule_version": rule_version,

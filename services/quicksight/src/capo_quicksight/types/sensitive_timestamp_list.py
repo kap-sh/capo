@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SensitiveTimestampList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.sensitive_timestamp
@@ -29,3 +29,7 @@ def deserialize_json(data: list) -> SensitiveTimestampList:
             continue
         out.append(capo_quicksight.types.sensitive_timestamp.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: SensitiveTimestampList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#CustomValuesConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_json(data: dict) -> CustomValuesConfiguration:
         )
     else:
         raise DeserializationError("CustomValuesConfiguration.custom_values required")
+    return out
+
+
+def redact_sensitive(value: CustomValuesConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "custom_values" in value:
+        import capo_quicksight.types.custom_parameter_values
+
+        out["custom_values"] = (
+            capo_quicksight.types.custom_parameter_values.redact_sensitive(
+                value["custom_values"]
+            )
+        )
     return out

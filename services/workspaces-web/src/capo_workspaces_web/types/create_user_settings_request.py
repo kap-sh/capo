@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#CreateUserSettingsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -201,4 +201,23 @@ def deserialize_json(data: dict) -> CreateUserSettingsRequest:
         )
     if data.get("webAuthnAllowed") is not None:
         out["web_authn_allowed"] = data["webAuthnAllowed"]
+    return out
+
+
+def redact_sensitive(value: CreateUserSettingsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        import capo_workspaces_web.types.tag_list
+
+        out["tags"] = capo_workspaces_web.types.tag_list.redact_sensitive(value["tags"])
+    if "cookie_synchronization_configuration" in value:
+        out["cookie_synchronization_configuration"] = "*** Sensitive Data Redacted ***"
+    if "branding_configuration_input" in value:
+        import capo_workspaces_web.types.branding_configuration_create_input
+
+        out["branding_configuration_input"] = (
+            capo_workspaces_web.types.branding_configuration_create_input.redact_sensitive(
+                value["branding_configuration_input"]
+            )
+        )
     return out

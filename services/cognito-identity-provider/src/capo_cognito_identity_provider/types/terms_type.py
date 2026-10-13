@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#TermsType``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -155,4 +155,11 @@ def deserialize_aws_json_1_1(data: dict) -> TermsType:
         )
     else:
         raise DeserializationError("TermsType.last_modified_date required")
+    return out
+
+
+def redact_sensitive(value: TermsType) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_id" in value:
+        out["client_id"] = "*** Sensitive Data Redacted ***"
     return out

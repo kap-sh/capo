@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_voice_id._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -88,7 +89,26 @@ class DomainResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_voice_id.types.create_domain_request.CreateDomainRequest",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.create_domain_request
+
+            return capo_voice_id.types.create_domain_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_voice_id.types.create_domain_response.CreateDomainResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.create_domain_response
+
+            return capo_voice_id.types.create_domain_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDomain", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_voice_id.types.create_domain_request.CreateDomainRequest = {
             "name": name,
             "server_side_encryption_configuration": server_side_encryption_configuration,
@@ -143,7 +163,17 @@ class DomainResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_voice_id.types.describe_domain_response.DescribeDomainResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.describe_domain_response
+
+            return capo_voice_id.types.describe_domain_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeDomain", redact_output=_redact_output),
+        )
         input_: capo_voice_id.types.describe_domain_request.DescribeDomainRequest = {
             "domain_id": domain_id
         }
@@ -197,7 +227,26 @@ class DomainResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_voice_id.types.update_domain_request.UpdateDomainRequest",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.update_domain_request
+
+            return capo_voice_id.types.update_domain_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_voice_id.types.update_domain_response.UpdateDomainResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.update_domain_response
+
+            return capo_voice_id.types.update_domain_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDomain", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_voice_id.types.update_domain_request.UpdateDomainRequest = {
             "domain_id": domain_id,
             "name": name,
@@ -247,7 +296,9 @@ class DomainResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDomain")
+        )
         input_: capo_voice_id.types.delete_domain_request.DeleteDomainRequest = {
             "domain_id": domain_id
         }
@@ -297,7 +348,17 @@ class DomainResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_voice_id.types.list_domains_response.ListDomainsResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.list_domains_response
+
+            return capo_voice_id.types.list_domains_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListDomains", redact_output=_redact_output),
+        )
         input_: capo_voice_id.types.list_domains_request.ListDomainsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -364,7 +425,26 @@ class AsyncDomainResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_voice_id.types.create_domain_request.CreateDomainRequest",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.create_domain_request
+
+            return capo_voice_id.types.create_domain_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_voice_id.types.create_domain_response.CreateDomainResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.create_domain_response
+
+            return capo_voice_id.types.create_domain_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDomain", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_voice_id.types.create_domain_request.CreateDomainRequest = {
             "name": name,
             "server_side_encryption_configuration": server_side_encryption_configuration,
@@ -420,7 +500,17 @@ class AsyncDomainResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_voice_id.types.describe_domain_response.DescribeDomainResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.describe_domain_response
+
+            return capo_voice_id.types.describe_domain_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeDomain", redact_output=_redact_output),
+        )
         input_: capo_voice_id.types.describe_domain_request.DescribeDomainRequest = {
             "domain_id": domain_id
         }
@@ -475,7 +565,26 @@ class AsyncDomainResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_voice_id.types.update_domain_request.UpdateDomainRequest",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.update_domain_request
+
+            return capo_voice_id.types.update_domain_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_voice_id.types.update_domain_response.UpdateDomainResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.update_domain_response
+
+            return capo_voice_id.types.update_domain_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDomain", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_voice_id.types.update_domain_request.UpdateDomainRequest = {
             "domain_id": domain_id,
             "name": name,
@@ -526,7 +635,9 @@ class AsyncDomainResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDomain")
+        )
         input_: capo_voice_id.types.delete_domain_request.DeleteDomainRequest = {
             "domain_id": domain_id
         }
@@ -577,7 +688,17 @@ class AsyncDomainResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_voice_id.types.list_domains_response.ListDomainsResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.list_domains_response
+
+            return capo_voice_id.types.list_domains_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListDomains", redact_output=_redact_output),
+        )
         input_: capo_voice_id.types.list_domains_request.ListDomainsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

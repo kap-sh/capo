@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#GuardrailChecksMessage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -56,4 +56,17 @@ def deserialize_json(data: dict) -> GuardrailChecksMessage:
         )
     else:
         raise DeserializationError("GuardrailChecksMessage.content required")
+    return out
+
+
+def redact_sensitive(value: GuardrailChecksMessage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        import capo_bedrock_runtime.types.guardrail_checks_content_block_list
+
+        out["content"] = (
+            capo_bedrock_runtime.types.guardrail_checks_content_block_list.redact_sensitive(
+                value["content"]
+            )
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#ListServiceTemplateVersionsOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -48,5 +48,18 @@ def deserialize_aws_json_1_0(data: dict) -> ListServiceTemplateVersionsOutput:
     else:
         raise DeserializationError(
             "ListServiceTemplateVersionsOutput.template_versions required"
+        )
+    return out
+
+
+def redact_sensitive(value: ListServiceTemplateVersionsOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "template_versions" in value:
+        import capo_proton.types.service_template_version_summary_list
+
+        out["template_versions"] = (
+            capo_proton.types.service_template_version_summary_list.redact_sensitive(
+                value["template_versions"]
+            )
         )
     return out

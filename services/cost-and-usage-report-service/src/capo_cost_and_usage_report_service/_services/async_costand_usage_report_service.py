@@ -24,7 +24,9 @@ from capo_cost_and_usage_report_service._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -126,6 +128,7 @@ class AsyncCostandUsageReportServiceClient:
     def operation_options(
         self,
         config_overrides: Optional[AsyncCostandUsageReportServiceClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncCostandUsageReportServiceClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -133,8 +136,10 @@ class AsyncCostandUsageReportServiceClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -191,7 +196,9 @@ class AsyncCostandUsageReportServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReportDefinition")
+        )
         input_: capo_cost_and_usage_report_service.types.delete_report_definition_request.DeleteReportDefinitionRequest = {
             "report_name": report_name
         }
@@ -243,7 +250,9 @@ class AsyncCostandUsageReportServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReportDefinitions")
+        )
         input_: capo_cost_and_usage_report_service.types.describe_report_definitions_request.DescribeReportDefinitionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -314,7 +323,9 @@ class AsyncCostandUsageReportServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_cost_and_usage_report_service.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "report_name": report_name
         }
@@ -357,7 +368,9 @@ class AsyncCostandUsageReportServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyReportDefinition")
+        )
         input_: capo_cost_and_usage_report_service.types.modify_report_definition_request.ModifyReportDefinitionRequest = {
             "report_name": report_name,
             "report_definition": report_definition,
@@ -416,7 +429,9 @@ class AsyncCostandUsageReportServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutReportDefinition")
+        )
         input_: capo_cost_and_usage_report_service.types.put_report_definition_request.PutReportDefinitionRequest = {
             "report_definition": report_definition
         }
@@ -466,7 +481,9 @@ class AsyncCostandUsageReportServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_cost_and_usage_report_service.types.tag_resource_request.TagResourceRequest = {
             "report_name": report_name,
             "tags": tags,
@@ -515,7 +532,9 @@ class AsyncCostandUsageReportServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_cost_and_usage_report_service.types.untag_resource_request.UntagResourceRequest = {
             "report_name": report_name,
             "tag_keys": tag_keys,

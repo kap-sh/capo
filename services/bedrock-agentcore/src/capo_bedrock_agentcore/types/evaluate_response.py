@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#EvaluateResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -42,4 +42,17 @@ def deserialize_json(data: dict) -> EvaluateResponse:
         )
     else:
         raise DeserializationError("EvaluateResponse.evaluation_results required")
+    return out
+
+
+def redact_sensitive(value: EvaluateResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "evaluation_results" in value:
+        import capo_bedrock_agentcore.types.evaluation_results
+
+        out["evaluation_results"] = (
+            capo_bedrock_agentcore.types.evaluation_results.redact_sensitive(
+                value["evaluation_results"]
+            )
+        )
     return out

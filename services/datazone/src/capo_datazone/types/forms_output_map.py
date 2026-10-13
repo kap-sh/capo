@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#FormsOutputMap``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_datazone.types.form_entry_output
@@ -31,3 +31,12 @@ def deserialize_json(data: dict) -> FormsOutputMap:
 
         out[key] = capo_datazone.types.form_entry_output.deserialize_json(value)
     return out
+
+
+def redact_sensitive(value: FormsOutputMap) -> dict[str, Any]:
+    import capo_datazone.types.form_entry_output
+
+    return {
+        key: capo_datazone.types.form_entry_output.redact_sensitive(item)
+        for key, item in value.items()
+    }

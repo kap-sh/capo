@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#AdminInitiateAuthRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -151,4 +151,15 @@ def deserialize_aws_json_1_1(data: dict) -> AdminInitiateAuthRequest:
         )
     if data.get("Session") is not None:
         out["session"] = data["Session"]
+    return out
+
+
+def redact_sensitive(value: AdminInitiateAuthRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_id" in value:
+        out["client_id"] = "*** Sensitive Data Redacted ***"
+    if "auth_parameters" in value:
+        out["auth_parameters"] = "*** Sensitive Data Redacted ***"
+    if "session" in value:
+        out["session"] = "*** Sensitive Data Redacted ***"
     return out

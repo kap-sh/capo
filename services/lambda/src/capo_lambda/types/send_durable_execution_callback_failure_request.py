@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#SendDurableExecutionCallbackFailureRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,4 +32,15 @@ def deserialize_json(data: dict) -> SendDurableExecutionCallbackFailureRequest:
         import capo_lambda.types.error_object
 
         out["error"] = capo_lambda.types.error_object.deserialize_json(data["Error"])
+    return out
+
+
+def redact_sensitive(
+    value: SendDurableExecutionCallbackFailureRequest,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "error" in value:
+        import capo_lambda.types.error_object
+
+        out["error"] = capo_lambda.types.error_object.redact_sensitive(value["error"])
     return out

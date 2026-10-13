@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agentcore_control._auth._signers
 import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -108,7 +109,19 @@ class RegistryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_registry_request.CreateRegistryRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_registry_request
+
+            return capo_bedrock_agentcore_control.types.create_registry_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateRegistry", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.create_registry_request.CreateRegistryRequest = {
             "name": name
         }
@@ -168,7 +181,19 @@ class RegistryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_registry_response.GetRegistryResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_registry_response
+
+            return capo_bedrock_agentcore_control.types.get_registry_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetRegistry", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_registry_request.GetRegistryRequest = {
             "registry_id": registry_id
         }
@@ -233,7 +258,32 @@ class RegistryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_registry_request.UpdateRegistryRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_registry_request
+
+            return capo_bedrock_agentcore_control.types.update_registry_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.update_registry_response.UpdateRegistryResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_registry_response
+
+            return capo_bedrock_agentcore_control.types.update_registry_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateRegistry",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.update_registry_request.UpdateRegistryRequest = {
             "registry_id": registry_id
         }
@@ -289,7 +339,9 @@ class RegistryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRegistry")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_registry_request.DeleteRegistryRequest = {
             "registry_id": registry_id
         }
@@ -349,7 +401,19 @@ class RegistryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_registries_response.ListRegistriesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_registries_response
+
+            return capo_bedrock_agentcore_control.types.list_registries_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListRegistries", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_registries_request.ListRegistriesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -429,7 +493,19 @@ class AsyncRegistryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_registry_request.CreateRegistryRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_registry_request
+
+            return capo_bedrock_agentcore_control.types.create_registry_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateRegistry", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.create_registry_request.CreateRegistryRequest = {
             "name": name
         }
@@ -490,7 +566,19 @@ class AsyncRegistryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_registry_response.GetRegistryResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_registry_response
+
+            return capo_bedrock_agentcore_control.types.get_registry_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetRegistry", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_registry_request.GetRegistryRequest = {
             "registry_id": registry_id
         }
@@ -556,7 +644,32 @@ class AsyncRegistryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_registry_request.UpdateRegistryRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_registry_request
+
+            return capo_bedrock_agentcore_control.types.update_registry_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.update_registry_response.UpdateRegistryResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_registry_response
+
+            return capo_bedrock_agentcore_control.types.update_registry_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateRegistry",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.update_registry_request.UpdateRegistryRequest = {
             "registry_id": registry_id
         }
@@ -613,7 +726,9 @@ class AsyncRegistryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRegistry")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_registry_request.DeleteRegistryRequest = {
             "registry_id": registry_id
         }
@@ -674,7 +789,19 @@ class AsyncRegistryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_registries_response.ListRegistriesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_registries_response
+
+            return capo_bedrock_agentcore_control.types.list_registries_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListRegistries", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_registries_request.ListRegistriesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

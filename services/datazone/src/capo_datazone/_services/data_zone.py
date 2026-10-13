@@ -44,10 +44,12 @@ from capo_datazone._resources.data_zone.rule import Rule
 from capo_datazone._services._aws_config import aws_config
 from capo_datazone._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -783,7 +785,9 @@ class DataZoneClient:
         self.rule = Rule(self)
 
     def operation_options(
-        self, config_overrides: Optional[DataZoneClientConfig] = None
+        self,
+        config_overrides: Optional[DataZoneClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: DataZoneClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -791,8 +795,10 @@ class DataZoneClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -856,7 +862,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.accept_predictions_input.AcceptPredictionsInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.accept_predictions_input
+
+            return capo_datazone.types.accept_predictions_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AcceptPredictions", redact_input=_redact_input),
+        )
         input_: capo_datazone.types.accept_predictions_input.AcceptPredictionsInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -930,7 +946,36 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.accept_subscription_request_input.AcceptSubscriptionRequestInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.accept_subscription_request_input
+
+            return (
+                capo_datazone.types.accept_subscription_request_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.accept_subscription_request_output.AcceptSubscriptionRequestOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.accept_subscription_request_output
+
+            return (
+                capo_datazone.types.accept_subscription_request_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AcceptSubscriptionRequest",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.accept_subscription_request_input.AcceptSubscriptionRequestInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -995,7 +1040,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddEntityOwner")
+        )
         input_: capo_datazone.types.add_entity_owner_input.AddEntityOwnerInput = {
             "domain_identifier": domain_identifier,
             "entity_type": entity_type,
@@ -1062,7 +1109,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddPolicyGrant")
+        )
         input_: capo_datazone.types.add_policy_grant_input.AddPolicyGrantInput = {
             "domain_identifier": domain_identifier,
             "entity_type": entity_type,
@@ -1123,7 +1172,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateEnvironmentRole")
+        )
         input_: capo_datazone.types.associate_environment_role_input.AssociateEnvironmentRoleInput = {
             "domain_identifier": domain_identifier,
             "environment_identifier": environment_identifier,
@@ -1180,7 +1231,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateGovernedTerms")
+        )
         input_: capo_datazone.types.associate_governed_terms_input.AssociateGovernedTermsInput = {
             "domain_identifier": domain_identifier,
             "entity_identifier": entity_identifier,
@@ -1239,7 +1292,21 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.batch_get_attributes_metadata_output.BatchGetAttributesMetadataOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.batch_get_attributes_metadata_output
+
+            return capo_datazone.types.batch_get_attributes_metadata_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchGetAttributesMetadata", redact_output=_redact_output
+            ),
+        )
         input_: capo_datazone.types.batch_get_attributes_metadata_input.BatchGetAttributesMetadataInput = {
             "domain_identifier": domain_identifier,
             "entity_type": entity_type,
@@ -1301,7 +1368,19 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.batch_put_attributes_metadata_input.BatchPutAttributesMetadataInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.batch_put_attributes_metadata_input
+
+            return capo_datazone.types.batch_put_attributes_metadata_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchPutAttributesMetadata", redact_input=_redact_input),
+        )
         input_: capo_datazone.types.batch_put_attributes_metadata_input.BatchPutAttributesMetadataInput = {
             "domain_identifier": domain_identifier,
             "entity_type": entity_type,
@@ -1358,7 +1437,19 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.cancel_subscription_output.CancelSubscriptionOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.cancel_subscription_output
+
+            return capo_datazone.types.cancel_subscription_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CancelSubscription", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.cancel_subscription_input.CancelSubscriptionInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -1417,7 +1508,32 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_account_pool_input.CreateAccountPoolInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_account_pool_input
+
+            return capo_datazone.types.create_account_pool_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.create_account_pool_output.CreateAccountPoolOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_account_pool_output
+
+            return capo_datazone.types.create_account_pool_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAccountPool",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_account_pool_input.CreateAccountPoolInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -1482,7 +1598,32 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_asset_filter_input.CreateAssetFilterInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_asset_filter_input
+
+            return capo_datazone.types.create_asset_filter_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.create_asset_filter_output.CreateAssetFilterOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_asset_filter_output
+
+            return capo_datazone.types.create_asset_filter_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAssetFilter",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_asset_filter_input.CreateAssetFilterInput = {
             "domain_identifier": domain_identifier,
             "asset_identifier": asset_identifier,
@@ -1564,7 +1705,28 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_connection_input.CreateConnectionInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_connection_input
+
+            return capo_datazone.types.create_connection_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_connection_output.CreateConnectionOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_connection_output
+
+            return capo_datazone.types.create_connection_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateConnection",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_connection_input.CreateConnectionInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -1665,7 +1827,30 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_environment_input.CreateEnvironmentInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_environment_input
+
+            return capo_datazone.types.create_environment_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_environment_output.CreateEnvironmentOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_environment_output
+
+            return capo_datazone.types.create_environment_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateEnvironment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_environment_input.CreateEnvironmentInput = {
             "project_identifier": project_identifier,
             "domain_identifier": domain_identifier,
@@ -1746,7 +1931,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEnvironmentAction")
+        )
         input_: capo_datazone.types.create_environment_action_input.CreateEnvironmentActionInput = {
             "domain_identifier": domain_identifier,
             "environment_identifier": environment_identifier,
@@ -1815,7 +2002,34 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_environment_blueprint_input.CreateEnvironmentBlueprintInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_environment_blueprint_input
+
+            return (
+                capo_datazone.types.create_environment_blueprint_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.create_environment_blueprint_output.CreateEnvironmentBlueprintOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_environment_blueprint_output
+
+            return capo_datazone.types.create_environment_blueprint_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateEnvironmentBlueprint",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_environment_blueprint_input.CreateEnvironmentBlueprintInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -1891,7 +2105,36 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_environment_profile_input.CreateEnvironmentProfileInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_environment_profile_input
+
+            return (
+                capo_datazone.types.create_environment_profile_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.create_environment_profile_output.CreateEnvironmentProfileOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_environment_profile_output
+
+            return (
+                capo_datazone.types.create_environment_profile_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateEnvironmentProfile",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_environment_profile_input.CreateEnvironmentProfileInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -1958,7 +2201,19 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.create_group_profile_output.CreateGroupProfileOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_group_profile_output
+
+            return capo_datazone.types.create_group_profile_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateGroupProfile", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.create_group_profile_input.CreateGroupProfileInput = {
             "domain_identifier": domain_identifier
         }
@@ -2025,7 +2280,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateListingChangeSet")
+        )
         input_: capo_datazone.types.create_listing_change_set_input.CreateListingChangeSetInput = {
             "domain_identifier": domain_identifier,
             "entity_identifier": entity_identifier,
@@ -2113,7 +2370,28 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_project_input.CreateProjectInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_project_input
+
+            return capo_datazone.types.create_project_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_project_output.CreateProjectOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_project_output
+
+            return capo_datazone.types.create_project_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateProject",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_project_input.CreateProjectInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -2186,7 +2464,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProjectMembership")
+        )
         input_: capo_datazone.types.create_project_membership_input.CreateProjectMembershipInput = {
             "domain_identifier": domain_identifier,
             "project_identifier": project_identifier,
@@ -2263,7 +2543,32 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_project_profile_input.CreateProjectProfileInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_project_profile_input
+
+            return capo_datazone.types.create_project_profile_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.create_project_profile_output.CreateProjectProfileOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_project_profile_output
+
+            return capo_datazone.types.create_project_profile_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateProjectProfile",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_project_profile_input.CreateProjectProfileInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -2345,7 +2650,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSubscriptionGrant")
+        )
         input_: capo_datazone.types.create_subscription_grant_input.CreateSubscriptionGrantInput = {
             "domain_identifier": domain_identifier,
             "environment_identifier": environment_identifier,
@@ -2424,7 +2731,36 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_subscription_request_input.CreateSubscriptionRequestInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_subscription_request_input
+
+            return (
+                capo_datazone.types.create_subscription_request_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.create_subscription_request_output.CreateSubscriptionRequestOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_subscription_request_output
+
+            return (
+                capo_datazone.types.create_subscription_request_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateSubscriptionRequest",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_subscription_request_input.CreateSubscriptionRequestInput = {
             "domain_identifier": domain_identifier,
             "subscribed_principals": subscribed_principals,
@@ -2507,7 +2843,36 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_subscription_target_input.CreateSubscriptionTargetInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_subscription_target_input
+
+            return (
+                capo_datazone.types.create_subscription_target_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.create_subscription_target_output.CreateSubscriptionTargetOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_subscription_target_output
+
+            return (
+                capo_datazone.types.create_subscription_target_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateSubscriptionTarget",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_subscription_target_input.CreateSubscriptionTargetInput = {
             "domain_identifier": domain_identifier,
             "environment_identifier": environment_identifier,
@@ -2579,7 +2944,19 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.create_user_profile_output.CreateUserProfileOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_user_profile_output
+
+            return capo_datazone.types.create_user_profile_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateUserProfile", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.create_user_profile_input.CreateUserProfileInput = {
             "domain_identifier": domain_identifier,
             "user_identifier": user_identifier,
@@ -2637,7 +3014,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccountPool")
+        )
         input_: capo_datazone.types.delete_account_pool_input.DeleteAccountPoolInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -2689,7 +3068,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAssetFilter")
+        )
         input_: capo_datazone.types.delete_asset_filter_input.DeleteAssetFilterInput = {
             "domain_identifier": domain_identifier,
             "asset_identifier": asset_identifier,
@@ -2741,7 +3122,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnection")
+        )
         input_: capo_datazone.types.delete_connection_input.DeleteConnectionInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -2791,7 +3174,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataExportConfiguration")
+        )
         input_: capo_datazone.types.delete_data_export_configuration_input.DeleteDataExportConfigurationInput = {
             "domain_identifier": domain_identifier
         }
@@ -2839,7 +3224,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironment")
+        )
         input_: capo_datazone.types.delete_environment_input.DeleteEnvironmentInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -2891,7 +3278,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironmentAction")
+        )
         input_: capo_datazone.types.delete_environment_action_input.DeleteEnvironmentActionInput = {
             "domain_identifier": domain_identifier,
             "environment_identifier": environment_identifier,
@@ -2942,7 +3331,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironmentBlueprint")
+        )
         input_: capo_datazone.types.delete_environment_blueprint_input.DeleteEnvironmentBlueprintInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -2991,7 +3382,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironmentProfile")
+        )
         input_: capo_datazone.types.delete_environment_profile_input.DeleteEnvironmentProfileInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -3042,7 +3435,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLineageEvent")
+        )
         input_: capo_datazone.types.delete_lineage_event_input.DeleteLineageEventInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -3095,7 +3490,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProject")
+        )
         input_: capo_datazone.types.delete_project_input.DeleteProjectInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -3151,7 +3548,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProjectMembership")
+        )
         input_: capo_datazone.types.delete_project_membership_input.DeleteProjectMembershipInput = {
             "domain_identifier": domain_identifier,
             "project_identifier": project_identifier,
@@ -3203,7 +3602,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProjectProfile")
+        )
         input_: capo_datazone.types.delete_project_profile_input.DeleteProjectProfileInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -3255,7 +3656,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSubscriptionGrant")
+        )
         input_: capo_datazone.types.delete_subscription_grant_input.DeleteSubscriptionGrantInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -3305,7 +3708,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSubscriptionRequest")
+        )
         input_: capo_datazone.types.delete_subscription_request_input.DeleteSubscriptionRequestInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -3357,7 +3762,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSubscriptionTarget")
+        )
         input_: capo_datazone.types.delete_subscription_target_input.DeleteSubscriptionTargetInput = {
             "domain_identifier": domain_identifier,
             "environment_identifier": environment_identifier,
@@ -3415,7 +3822,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTimeSeriesDataPoints")
+        )
         input_: capo_datazone.types.delete_time_series_data_points_input.DeleteTimeSeriesDataPointsInput = {
             "domain_identifier": domain_identifier,
             "entity_identifier": entity_identifier,
@@ -3474,7 +3883,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateEnvironmentRole")
+        )
         input_: capo_datazone.types.disassociate_environment_role_input.DisassociateEnvironmentRoleInput = {
             "domain_identifier": domain_identifier,
             "environment_identifier": environment_identifier,
@@ -3531,7 +3942,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateGovernedTerms")
+        )
         input_: capo_datazone.types.disassociate_governed_terms_input.DisassociateGovernedTermsInput = {
             "domain_identifier": domain_identifier,
             "entity_identifier": entity_identifier,
@@ -3584,7 +3997,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_account_pool_output.GetAccountPoolOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_account_pool_output
+
+            return capo_datazone.types.get_account_pool_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAccountPool", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_account_pool_input.GetAccountPoolInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -3637,7 +4060,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_asset_filter_output.GetAssetFilterOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_asset_filter_output
+
+            return capo_datazone.types.get_asset_filter_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAssetFilter", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_asset_filter_input.GetAssetFilterInput = {
             "domain_identifier": domain_identifier,
             "asset_identifier": asset_identifier,
@@ -3691,7 +4124,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_connection_output.GetConnectionOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_connection_output
+
+            return capo_datazone.types.get_connection_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetConnection", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_connection_input.GetConnectionInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -3742,7 +4185,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataExportConfiguration")
+        )
         input_: capo_datazone.types.get_data_export_configuration_input.GetDataExportConfigurationInput = {
             "domain_identifier": domain_identifier
         }
@@ -3792,7 +4237,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_environment_output.GetEnvironmentOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_environment_output
+
+            return capo_datazone.types.get_environment_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetEnvironment", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_environment_input.GetEnvironmentInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -3845,7 +4300,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEnvironmentAction")
+        )
         input_: capo_datazone.types.get_environment_action_input.GetEnvironmentActionInput = {
             "domain_identifier": domain_identifier,
             "environment_identifier": environment_identifier,
@@ -3897,7 +4354,21 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_environment_blueprint_output.GetEnvironmentBlueprintOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_environment_blueprint_output
+
+            return (
+                capo_datazone.types.get_environment_blueprint_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetEnvironmentBlueprint", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_environment_blueprint_input.GetEnvironmentBlueprintInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -3948,7 +4419,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEnvironmentCredentials")
+        )
         input_: capo_datazone.types.get_environment_credentials_input.GetEnvironmentCredentialsInput = {
             "domain_identifier": domain_identifier,
             "environment_identifier": environment_identifier,
@@ -4001,7 +4474,19 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_environment_profile_output.GetEnvironmentProfileOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_environment_profile_output
+
+            return capo_datazone.types.get_environment_profile_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetEnvironmentProfile", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_environment_profile_input.GetEnvironmentProfileInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -4052,7 +4537,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_group_profile_output.GetGroupProfileOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_group_profile_output
+
+            return capo_datazone.types.get_group_profile_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetGroupProfile", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_group_profile_input.GetGroupProfileInput = {
             "domain_identifier": domain_identifier,
             "group_identifier": group_identifier,
@@ -4104,7 +4599,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIamPortalLoginUrl")
+        )
         input_: capo_datazone.types.get_iam_portal_login_url_input.GetIamPortalLoginUrlInput = {
             "domain_identifier": domain_identifier
         }
@@ -4154,7 +4651,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJobRun")
+        )
         input_: capo_datazone.types.get_job_run_input.GetJobRunInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -4205,7 +4704,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_lineage_event_output.GetLineageEventOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_lineage_event_output
+
+            return capo_datazone.types.get_lineage_event_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetLineageEvent", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_lineage_event_input.GetLineageEventInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -4258,7 +4767,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_lineage_node_output.GetLineageNodeOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_lineage_node_output
+
+            return capo_datazone.types.get_lineage_node_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetLineageNode", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_lineage_node_input.GetLineageNodeInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -4311,7 +4830,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_project_output.GetProjectOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_project_output
+
+            return capo_datazone.types.get_project_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetProject", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_project_input.GetProjectInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -4362,7 +4891,19 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_project_profile_output.GetProjectProfileOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_project_profile_output
+
+            return capo_datazone.types.get_project_profile_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetProjectProfile", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_project_profile_input.GetProjectProfileInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -4413,7 +4954,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_subscription_output.GetSubscriptionOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_subscription_output
+
+            return capo_datazone.types.get_subscription_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSubscription", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_subscription_input.GetSubscriptionInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -4464,7 +5015,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSubscriptionGrant")
+        )
         input_: capo_datazone.types.get_subscription_grant_input.GetSubscriptionGrantInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -4515,7 +5068,21 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_subscription_request_details_output.GetSubscriptionRequestDetailsOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_subscription_request_details_output
+
+            return capo_datazone.types.get_subscription_request_details_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetSubscriptionRequestDetails", redact_output=_redact_output
+            ),
+        )
         input_: capo_datazone.types.get_subscription_request_details_input.GetSubscriptionRequestDetailsInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -4570,7 +5137,19 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_subscription_target_output.GetSubscriptionTargetOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_subscription_target_output
+
+            return capo_datazone.types.get_subscription_target_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSubscriptionTarget", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_subscription_target_input.GetSubscriptionTargetInput = {
             "domain_identifier": domain_identifier,
             "environment_identifier": environment_identifier,
@@ -4628,7 +5207,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTimeSeriesDataPoint")
+        )
         input_: capo_datazone.types.get_time_series_data_point_input.GetTimeSeriesDataPointInput = {
             "domain_identifier": domain_identifier,
             "entity_identifier": entity_identifier,
@@ -4686,7 +5267,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_user_profile_output.GetUserProfileOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_user_profile_output
+
+            return capo_datazone.types.get_user_profile_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetUserProfile", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_user_profile_input.GetUserProfileInput = {
             "domain_identifier": domain_identifier,
             "user_identifier": user_identifier,
@@ -4752,7 +5343,30 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.list_account_pools_input.ListAccountPoolsInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_account_pools_input
+
+            return capo_datazone.types.list_account_pools_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.list_account_pools_output.ListAccountPoolsOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_account_pools_output
+
+            return capo_datazone.types.list_account_pools_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListAccountPools",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.list_account_pools_input.ListAccountPoolsInput = {
             "domain_identifier": domain_identifier
         }
@@ -4851,7 +5465,19 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.list_accounts_in_account_pool_output.ListAccountsInAccountPoolOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_accounts_in_account_pool_output
+
+            return capo_datazone.types.list_accounts_in_account_pool_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAccountsInAccountPool", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.list_accounts_in_account_pool_input.ListAccountsInAccountPoolInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -4941,7 +5567,19 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.list_asset_filters_output.ListAssetFiltersOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_asset_filters_output
+
+            return capo_datazone.types.list_asset_filters_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAssetFilters", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.list_asset_filters_input.ListAssetFiltersInput = {
             "domain_identifier": domain_identifier,
             "asset_identifier": asset_identifier,
@@ -5033,7 +5671,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssetRevisions")
+        )
         input_: capo_datazone.types.list_asset_revisions_input.ListAssetRevisionsInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -5109,7 +5749,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.list_connections_output.ListConnectionsOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_connections_output
+
+            return capo_datazone.types.list_connections_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListConnections", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.list_connections_input.ListConnectionsInput = {
             "domain_identifier": domain_identifier
         }
@@ -5226,7 +5876,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataProductRevisions")
+        )
         input_: capo_datazone.types.list_data_product_revisions_input.ListDataProductRevisionsInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -5320,7 +5972,21 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.list_data_source_run_activities_output.ListDataSourceRunActivitiesOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_data_source_run_activities_output
+
+            return capo_datazone.types.list_data_source_run_activities_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListDataSourceRunActivities", redact_output=_redact_output
+            ),
+        )
         input_: capo_datazone.types.list_data_source_run_activities_input.ListDataSourceRunActivitiesInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -5417,7 +6083,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEntityOwners")
+        )
         input_: capo_datazone.types.list_entity_owners_input.ListEntityOwnersInput = {
             "domain_identifier": domain_identifier,
             "entity_type": entity_type,
@@ -5509,7 +6177,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEnvironmentActions")
+        )
         input_: capo_datazone.types.list_environment_actions_input.ListEnvironmentActionsInput = {
             "domain_identifier": domain_identifier,
             "environment_identifier": environment_identifier,
@@ -5601,7 +6271,21 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.list_environment_blueprints_output.ListEnvironmentBlueprintsOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_environment_blueprints_output
+
+            return (
+                capo_datazone.types.list_environment_blueprints_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListEnvironmentBlueprints", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.list_environment_blueprints_input.ListEnvironmentBlueprintsInput = {
             "domain_identifier": domain_identifier
         }
@@ -5709,7 +6393,34 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.list_environment_profiles_input.ListEnvironmentProfilesInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_environment_profiles_input
+
+            return capo_datazone.types.list_environment_profiles_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.list_environment_profiles_output.ListEnvironmentProfilesOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_environment_profiles_output
+
+            return (
+                capo_datazone.types.list_environment_profiles_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListEnvironmentProfiles",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.list_environment_profiles_input.ListEnvironmentProfilesInput = {
             "domain_identifier": domain_identifier
         }
@@ -5843,7 +6554,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.list_environments_output.ListEnvironmentsOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_environments_output
+
+            return capo_datazone.types.list_environments_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListEnvironments", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.list_environments_input.ListEnvironmentsInput = {
             "domain_identifier": domain_identifier,
             "project_identifier": project_identifier,
@@ -5973,7 +6694,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobRuns")
+        )
         input_: capo_datazone.types.list_job_runs_input.ListJobRunsInput = {
             "domain_identifier": domain_identifier,
             "job_identifier": job_identifier,
@@ -6076,7 +6799,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLineageEvents")
+        )
         input_: capo_datazone.types.list_lineage_events_input.ListLineageEventsInput = {
             "domain_identifier": domain_identifier
         }
@@ -6187,7 +6912,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLineageNodeHistory")
+        )
         input_: capo_datazone.types.list_lineage_node_history_input.ListLineageNodeHistoryInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -6301,7 +7028,19 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.list_notifications_output.ListNotificationsOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_notifications_output
+
+            return capo_datazone.types.list_notifications_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListNotifications", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.list_notifications_input.ListNotificationsInput = {
             "domain_identifier": domain_identifier,
             "type": type,
@@ -6412,7 +7151,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPolicyGrants")
+        )
         input_: capo_datazone.types.list_policy_grants_input.ListPolicyGrantsInput = {
             "domain_identifier": domain_identifier,
             "entity_type": entity_type,
@@ -6514,7 +7255,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProjectMemberships")
+        )
         input_: capo_datazone.types.list_project_memberships_input.ListProjectMembershipsInput = {
             "domain_identifier": domain_identifier,
             "project_identifier": project_identifier,
@@ -6619,7 +7362,32 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.list_project_profiles_input.ListProjectProfilesInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_project_profiles_input
+
+            return capo_datazone.types.list_project_profiles_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.list_project_profiles_output.ListProjectProfilesOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_project_profiles_output
+
+            return capo_datazone.types.list_project_profiles_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListProjectProfiles",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.list_project_profiles_input.ListProjectProfilesInput = {
             "domain_identifier": domain_identifier
         }
@@ -6725,7 +7493,26 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.list_projects_input.ListProjectsInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_projects_input
+
+            return capo_datazone.types.list_projects_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.list_projects_output.ListProjectsOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_projects_output
+
+            return capo_datazone.types.list_projects_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListProjects", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_datazone.types.list_projects_input.ListProjectsInput = {
             "domain_identifier": domain_identifier
         }
@@ -6858,7 +7645,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSubscriptionGrants")
+        )
         input_: capo_datazone.types.list_subscription_grants_input.ListSubscriptionGrantsInput = {
             "domain_identifier": domain_identifier
         }
@@ -7025,7 +7814,21 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.list_subscription_requests_output.ListSubscriptionRequestsOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_subscription_requests_output
+
+            return (
+                capo_datazone.types.list_subscription_requests_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListSubscriptionRequests", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.list_subscription_requests_input.ListSubscriptionRequestsInput = {
             "domain_identifier": domain_identifier
         }
@@ -7190,7 +7993,19 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.list_subscriptions_output.ListSubscriptionsOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_subscriptions_output
+
+            return capo_datazone.types.list_subscriptions_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListSubscriptions", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.list_subscriptions_input.ListSubscriptionsInput = {
             "domain_identifier": domain_identifier
         }
@@ -7333,7 +8148,21 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.list_subscription_targets_output.ListSubscriptionTargetsOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_subscription_targets_output
+
+            return (
+                capo_datazone.types.list_subscription_targets_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListSubscriptionTargets", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.list_subscription_targets_input.ListSubscriptionTargetsInput = {
             "domain_identifier": domain_identifier,
             "environment_identifier": environment_identifier,
@@ -7421,7 +8250,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_datazone.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -7485,7 +8316,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTimeSeriesDataPoints")
+        )
         input_: capo_datazone.types.list_time_series_data_points_input.ListTimeSeriesDataPointsInput = {
             "domain_identifier": domain_identifier,
             "entity_identifier": entity_identifier,
@@ -7585,7 +8418,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.post_lineage_event_input.PostLineageEventInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.post_lineage_event_input
+
+            return capo_datazone.types.post_lineage_event_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PostLineageEvent", redact_input=_redact_input),
+        )
         input_: capo_datazone.types.post_lineage_event_input.PostLineageEventInput = {
             "domain_identifier": domain_identifier,
             "event": event,
@@ -7647,7 +8490,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PostTimeSeriesDataPoints")
+        )
         input_: capo_datazone.types.post_time_series_data_points_input.PostTimeSeriesDataPointsInput = {
             "domain_identifier": domain_identifier,
             "entity_identifier": entity_identifier,
@@ -7711,7 +8556,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDataExportConfiguration")
+        )
         input_: capo_datazone.types.put_data_export_configuration_input.PutDataExportConfigurationInput = {
             "domain_identifier": domain_identifier,
             "enable_export": enable_export,
@@ -7776,7 +8623,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.query_graph_output.QueryGraphOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.query_graph_output
+
+            return capo_datazone.types.query_graph_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("QueryGraph", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.query_graph_input.QueryGraphInput = {
             "domain_identifier": domain_identifier,
             "match": match,
@@ -7875,7 +8732,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectPredictions")
+        )
         input_: capo_datazone.types.reject_predictions_input.RejectPredictionsInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -7940,7 +8799,36 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.reject_subscription_request_input.RejectSubscriptionRequestInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.reject_subscription_request_input
+
+            return (
+                capo_datazone.types.reject_subscription_request_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.reject_subscription_request_output.RejectSubscriptionRequestOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.reject_subscription_request_output
+
+            return (
+                capo_datazone.types.reject_subscription_request_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RejectSubscriptionRequest",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.reject_subscription_request_input.RejectSubscriptionRequestInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -7999,7 +8887,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveEntityOwner")
+        )
         input_: capo_datazone.types.remove_entity_owner_input.RemoveEntityOwnerInput = {
             "domain_identifier": domain_identifier,
             "entity_type": entity_type,
@@ -8066,7 +8956,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemovePolicyGrant")
+        )
         input_: capo_datazone.types.remove_policy_grant_input.RemovePolicyGrantInput = {
             "domain_identifier": domain_identifier,
             "entity_type": entity_type,
@@ -8128,7 +9020,19 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.revoke_subscription_output.RevokeSubscriptionOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.revoke_subscription_output
+
+            return capo_datazone.types.revoke_subscription_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RevokeSubscription", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.revoke_subscription_input.RevokeSubscriptionInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -8198,7 +9102,16 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.search_output.SearchOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.search_output
+
+            return capo_datazone.types.search_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Search", redact_output=_redact_output)
+        )
         input_: capo_datazone.types.search_input.SearchInput = {
             "domain_identifier": domain_identifier,
             "search_scope": search_scope,
@@ -8318,7 +9231,32 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.search_group_profiles_input.SearchGroupProfilesInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.search_group_profiles_input
+
+            return capo_datazone.types.search_group_profiles_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.search_group_profiles_output.SearchGroupProfilesOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.search_group_profiles_output
+
+            return capo_datazone.types.search_group_profiles_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchGroupProfiles",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.search_group_profiles_input.SearchGroupProfilesInput = {
             "domain_identifier": domain_identifier,
             "group_type": group_type,
@@ -8425,7 +9363,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.search_listings_output.SearchListingsOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.search_listings_output
+
+            return capo_datazone.types.search_listings_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SearchListings", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.search_listings_input.SearchListingsInput = {
             "domain_identifier": domain_identifier
         }
@@ -8547,7 +9495,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.search_types_output.SearchTypesOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.search_types_output
+
+            return capo_datazone.types.search_types_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SearchTypes", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.search_types_input.SearchTypesInput = {
             "domain_identifier": domain_identifier,
             "search_scope": search_scope,
@@ -8658,7 +9616,32 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.search_user_profiles_input.SearchUserProfilesInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.search_user_profiles_input
+
+            return capo_datazone.types.search_user_profiles_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.search_user_profiles_output.SearchUserProfilesOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.search_user_profiles_output
+
+            return capo_datazone.types.search_user_profiles_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchUserProfiles",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.search_user_profiles_input.SearchUserProfilesInput = {
             "domain_identifier": domain_identifier,
             "user_type": user_type,
@@ -8758,7 +9741,32 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.start_notebook_import_input.StartNotebookImportInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.start_notebook_import_input
+
+            return capo_datazone.types.start_notebook_import_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.start_notebook_import_output.StartNotebookImportOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.start_notebook_import_output
+
+            return capo_datazone.types.start_notebook_import_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartNotebookImport",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.start_notebook_import_input.StartNotebookImportInput = {
             "domain_identifier": domain_identifier,
             "owning_project_identifier": owning_project_identifier,
@@ -8832,7 +9840,32 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.start_notebook_sync_input.StartNotebookSyncInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.start_notebook_sync_input
+
+            return capo_datazone.types.start_notebook_sync_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.start_notebook_sync_output.StartNotebookSyncOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.start_notebook_sync_output
+
+            return capo_datazone.types.start_notebook_sync_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartNotebookSync",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.start_notebook_sync_input.StartNotebookSyncInput = {
             "domain_identifier": domain_identifier,
             "owning_project_identifier": owning_project_identifier,
@@ -8895,7 +9928,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_datazone.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -8945,7 +9980,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_datazone.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -9010,7 +10047,32 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_account_pool_input.UpdateAccountPoolInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_account_pool_input
+
+            return capo_datazone.types.update_account_pool_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.update_account_pool_output.UpdateAccountPoolOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_account_pool_output
+
+            return capo_datazone.types.update_account_pool_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAccountPool",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_account_pool_input.UpdateAccountPoolInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -9080,7 +10142,32 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_asset_filter_input.UpdateAssetFilterInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_asset_filter_input
+
+            return capo_datazone.types.update_asset_filter_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.update_asset_filter_output.UpdateAssetFilterOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_asset_filter_output
+
+            return capo_datazone.types.update_asset_filter_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAssetFilter",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_asset_filter_input.UpdateAssetFilterInput = {
             "domain_identifier": domain_identifier,
             "asset_identifier": asset_identifier,
@@ -9152,7 +10239,28 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_connection_input.UpdateConnectionInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_connection_input
+
+            return capo_datazone.types.update_connection_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.update_connection_output.UpdateConnectionOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_connection_output
+
+            return capo_datazone.types.update_connection_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateConnection",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_connection_input.UpdateConnectionInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -9230,7 +10338,30 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_environment_input.UpdateEnvironmentInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_environment_input
+
+            return capo_datazone.types.update_environment_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.update_environment_output.UpdateEnvironmentOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_environment_output
+
+            return capo_datazone.types.update_environment_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateEnvironment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_environment_input.UpdateEnvironmentInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -9304,7 +10435,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEnvironmentAction")
+        )
         input_: capo_datazone.types.update_environment_action_input.UpdateEnvironmentActionInput = {
             "domain_identifier": domain_identifier,
             "environment_identifier": environment_identifier,
@@ -9378,7 +10511,34 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_environment_blueprint_input.UpdateEnvironmentBlueprintInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_environment_blueprint_input
+
+            return (
+                capo_datazone.types.update_environment_blueprint_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.update_environment_blueprint_output.UpdateEnvironmentBlueprintOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_environment_blueprint_output
+
+            return capo_datazone.types.update_environment_blueprint_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateEnvironmentBlueprint",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_environment_blueprint_input.UpdateEnvironmentBlueprintInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -9455,7 +10615,36 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_environment_profile_input.UpdateEnvironmentProfileInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_environment_profile_input
+
+            return (
+                capo_datazone.types.update_environment_profile_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.update_environment_profile_output.UpdateEnvironmentProfileOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_environment_profile_output
+
+            return (
+                capo_datazone.types.update_environment_profile_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateEnvironmentProfile",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_environment_profile_input.UpdateEnvironmentProfileInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -9518,7 +10707,19 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.update_group_profile_output.UpdateGroupProfileOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_group_profile_output
+
+            return capo_datazone.types.update_group_profile_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateGroupProfile", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.update_group_profile_input.UpdateGroupProfileInput = {
             "domain_identifier": domain_identifier,
             "group_identifier": group_identifier,
@@ -9596,7 +10797,28 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_project_input.UpdateProjectInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_project_input
+
+            return capo_datazone.types.update_project_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.update_project_output.UpdateProjectOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_project_output
+
+            return capo_datazone.types.update_project_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateProject",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_project_input.UpdateProjectInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -9691,7 +10913,32 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_project_profile_input.UpdateProjectProfileInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_project_profile_input
+
+            return capo_datazone.types.update_project_profile_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.update_project_profile_output.UpdateProjectProfileOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_project_profile_output
+
+            return capo_datazone.types.update_project_profile_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateProjectProfile",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_project_profile_input.UpdateProjectProfileInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -9767,7 +11014,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRootDomainUnitOwner")
+        )
         input_: capo_datazone.types.update_root_domain_unit_owner_input.UpdateRootDomainUnitOwnerInput = {
             "domain_identifier": domain_identifier,
             "current_owner": current_owner,
@@ -9833,7 +11082,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSubscriptionGrantStatus")
+        )
         input_: capo_datazone.types.update_subscription_grant_status_input.UpdateSubscriptionGrantStatusInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -9893,7 +11144,36 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_subscription_request_input.UpdateSubscriptionRequestInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_subscription_request_input
+
+            return (
+                capo_datazone.types.update_subscription_request_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.update_subscription_request_output.UpdateSubscriptionRequestOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_subscription_request_output
+
+            return (
+                capo_datazone.types.update_subscription_request_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateSubscriptionRequest",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_subscription_request_input.UpdateSubscriptionRequestInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -9974,7 +11254,36 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_subscription_target_input.UpdateSubscriptionTargetInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_subscription_target_input
+
+            return (
+                capo_datazone.types.update_subscription_target_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.update_subscription_target_output.UpdateSubscriptionTargetOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_subscription_target_output
+
+            return (
+                capo_datazone.types.update_subscription_target_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateSubscriptionTarget",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_subscription_target_input.UpdateSubscriptionTargetInput = {
             "domain_identifier": domain_identifier,
             "environment_identifier": environment_identifier,
@@ -10048,7 +11357,19 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.update_user_profile_output.UpdateUserProfileOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_user_profile_output
+
+            return capo_datazone.types.update_user_profile_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateUserProfile", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.update_user_profile_input.UpdateUserProfileInput = {
             "domain_identifier": domain_identifier,
             "user_identifier": user_identifier,
@@ -10132,7 +11453,26 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_asset_input.CreateAssetInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_asset_input
+
+            return capo_datazone.types.create_asset_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_asset_output.CreateAssetOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_asset_output
+
+            return capo_datazone.types.create_asset_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAsset", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_datazone.types.create_asset_input.CreateAssetInput = {
             "name": name,
             "domain_identifier": domain_identifier,
@@ -10200,7 +11540,16 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_asset_output.GetAssetOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_asset_output
+
+            return capo_datazone.types.get_asset_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAsset", redact_output=_redact_output)
+        )
         input_: capo_datazone.types.get_asset_input.GetAssetInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -10254,7 +11603,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAsset")
+        )
         input_: capo_datazone.types.delete_asset_input.DeleteAssetInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -10326,7 +11677,32 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_asset_revision_input.CreateAssetRevisionInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_asset_revision_input
+
+            return capo_datazone.types.create_asset_revision_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.create_asset_revision_output.CreateAssetRevisionOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_asset_revision_output
+
+            return capo_datazone.types.create_asset_revision_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAssetRevision",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_asset_revision_input.CreateAssetRevisionInput = {
             "name": name,
             "domain_identifier": domain_identifier,
@@ -10398,7 +11774,28 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_asset_type_input.CreateAssetTypeInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_asset_type_input
+
+            return capo_datazone.types.create_asset_type_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_asset_type_output.CreateAssetTypeOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_asset_type_output
+
+            return capo_datazone.types.create_asset_type_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAssetType",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_asset_type_input.CreateAssetTypeInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -10454,7 +11851,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAssetType")
+        )
         input_: capo_datazone.types.delete_asset_type_input.DeleteAssetTypeInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -10507,7 +11906,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_asset_type_output.GetAssetTypeOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_asset_type_output
+
+            return capo_datazone.types.get_asset_type_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAssetType", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_asset_type_input.GetAssetTypeInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -10582,7 +11991,32 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_data_product_input.CreateDataProductInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_data_product_input
+
+            return capo_datazone.types.create_data_product_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.create_data_product_output.CreateDataProductOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_data_product_output
+
+            return capo_datazone.types.create_data_product_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDataProduct",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_data_product_input.CreateDataProductInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -10647,7 +12081,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_data_product_output.GetDataProductOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_data_product_output
+
+            return capo_datazone.types.get_data_product_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDataProduct", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_data_product_input.GetDataProductInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -10701,7 +12145,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataProduct")
+        )
         input_: capo_datazone.types.delete_data_product_input.DeleteDataProductInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -10773,7 +12219,34 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_data_product_revision_input.CreateDataProductRevisionInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_data_product_revision_input
+
+            return (
+                capo_datazone.types.create_data_product_revision_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.create_data_product_revision_output.CreateDataProductRevisionOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_data_product_revision_output
+
+            return capo_datazone.types.create_data_product_revision_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDataProductRevision",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_data_product_revision_input.CreateDataProductRevisionInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -10872,7 +12345,30 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_data_source_input.CreateDataSourceInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_data_source_input
+
+            return capo_datazone.types.create_data_source_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_data_source_output.CreateDataSourceOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_data_source_output
+
+            return capo_datazone.types.create_data_source_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDataSource",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_data_source_input.CreateDataSourceInput = {
             "name": name,
             "domain_identifier": domain_identifier,
@@ -10948,7 +12444,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_data_source_output.GetDataSourceOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_data_source_output
+
+            return capo_datazone.types.get_data_source_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDataSource", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_data_source_input.GetDataSourceInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -11029,7 +12535,30 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_data_source_input.UpdateDataSourceInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_data_source_input
+
+            return capo_datazone.types.update_data_source_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.update_data_source_output.UpdateDataSourceOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_data_source_output
+
+            return capo_datazone.types.update_data_source_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDataSource",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_data_source_input.UpdateDataSourceInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -11106,7 +12635,19 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.delete_data_source_output.DeleteDataSourceOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.delete_data_source_output
+
+            return capo_datazone.types.delete_data_source_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteDataSource", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.delete_data_source_input.DeleteDataSourceInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -11184,7 +12725,28 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.list_data_sources_input.ListDataSourcesInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_data_sources_input
+
+            return capo_datazone.types.list_data_sources_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.list_data_sources_output.ListDataSourcesOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_data_sources_output
+
+            return capo_datazone.types.list_data_sources_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListDataSources",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.list_data_sources_input.ListDataSourcesInput = {
             "domain_identifier": domain_identifier,
             "project_identifier": project_identifier,
@@ -11292,7 +12854,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDataSourceRun")
+        )
         input_: capo_datazone.types.start_data_source_run_input.StartDataSourceRunInput = {
             "domain_identifier": domain_identifier,
             "data_source_identifier": data_source_identifier,
@@ -11348,7 +12912,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataSourceRun")
+        )
         input_: capo_datazone.types.get_data_source_run_input.GetDataSourceRunInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -11411,7 +12977,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataSourceRuns")
+        )
         input_: capo_datazone.types.list_data_source_runs_input.ListDataSourceRunsInput = {
             "domain_identifier": domain_identifier,
             "data_source_identifier": data_source_identifier,
@@ -11521,7 +13089,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDomain")
+        )
         input_: capo_datazone.types.create_domain_input.CreateDomainInput = {
             "name": name
         }
@@ -11585,7 +13155,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomain")
+        )
         input_: capo_datazone.types.get_domain_input.GetDomainInput = {
             "identifier": identifier
         }
@@ -11649,7 +13221,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDomain")
+        )
         input_: capo_datazone.types.update_domain_input.UpdateDomainInput = {
             "identifier": identifier
         }
@@ -11717,7 +13291,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomain")
+        )
         input_: capo_datazone.types.delete_domain_input.DeleteDomainInput = {
             "identifier": identifier
         }
@@ -11782,7 +13358,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.list_domains_output.ListDomainsOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_domains_output
+
+            return capo_datazone.types.list_domains_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListDomains", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.list_domains_input.ListDomainsInput = {}
         if status is not None:
             input_["status"] = status
@@ -11872,7 +13458,30 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_domain_unit_input.CreateDomainUnitInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_domain_unit_input
+
+            return capo_datazone.types.create_domain_unit_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_domain_unit_output.CreateDomainUnitOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_domain_unit_output
+
+            return capo_datazone.types.create_domain_unit_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDomainUnit",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_domain_unit_input.CreateDomainUnitInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -11929,7 +13538,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_domain_unit_output.GetDomainUnitOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_domain_unit_output
+
+            return capo_datazone.types.get_domain_unit_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDomainUnit", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_domain_unit_input.GetDomainUnitInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -11987,7 +13606,30 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_domain_unit_input.UpdateDomainUnitInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_domain_unit_input
+
+            return capo_datazone.types.update_domain_unit_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.update_domain_unit_output.UpdateDomainUnitOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_domain_unit_output
+
+            return capo_datazone.types.update_domain_unit_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDomainUnit",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_domain_unit_input.UpdateDomainUnitInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -12043,7 +13685,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomainUnit")
+        )
         input_: capo_datazone.types.delete_domain_unit_input.DeleteDomainUnitInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -12101,7 +13745,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomainUnitsForParent")
+        )
         input_: capo_datazone.types.list_domain_units_for_parent_input.ListDomainUnitsForParentInput = {
             "domain_identifier": domain_identifier,
             "parent_domain_unit_identifier": parent_domain_unit_identifier,
@@ -12214,7 +13860,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutEnvironmentBlueprintConfiguration")
+        )
         input_: capo_datazone.types.put_environment_blueprint_configuration_input.PutEnvironmentBlueprintConfigurationInput = {
             "domain_identifier": domain_identifier,
             "environment_blueprint_identifier": environment_blueprint_identifier,
@@ -12286,7 +13934,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEnvironmentBlueprintConfiguration")
+        )
         input_: capo_datazone.types.get_environment_blueprint_configuration_input.GetEnvironmentBlueprintConfigurationInput = {
             "domain_identifier": domain_identifier,
             "environment_blueprint_identifier": environment_blueprint_identifier,
@@ -12336,7 +13986,10 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteEnvironmentBlueprintConfiguration"),
+        )
         input_: capo_datazone.types.delete_environment_blueprint_configuration_input.DeleteEnvironmentBlueprintConfigurationInput = {
             "domain_identifier": domain_identifier,
             "environment_blueprint_identifier": environment_blueprint_identifier,
@@ -12391,7 +14044,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEnvironmentBlueprintConfigurations")
+        )
         input_: capo_datazone.types.list_environment_blueprint_configurations_input.ListEnvironmentBlueprintConfigurationsInput = {
             "domain_identifier": domain_identifier
         }
@@ -12479,7 +14134,28 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_form_type_input.CreateFormTypeInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_form_type_input
+
+            return capo_datazone.types.create_form_type_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_form_type_output.CreateFormTypeOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_form_type_output
+
+            return capo_datazone.types.create_form_type_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateFormType",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_form_type_input.CreateFormTypeInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -12537,7 +14213,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFormType")
+        )
         input_: capo_datazone.types.delete_form_type_input.DeleteFormTypeInput = {
             "domain_identifier": domain_identifier,
             "form_type_identifier": form_type_identifier,
@@ -12590,7 +14268,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_form_type_output.GetFormTypeOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_form_type_output
+
+            return capo_datazone.types.get_form_type_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetFormType", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_form_type_input.GetFormTypeInput = {
             "domain_identifier": domain_identifier,
             "form_type_identifier": form_type_identifier,
@@ -12658,7 +14346,28 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_glossary_input.CreateGlossaryInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_glossary_input
+
+            return capo_datazone.types.create_glossary_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_glossary_output.CreateGlossaryOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_glossary_output
+
+            return capo_datazone.types.create_glossary_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateGlossary",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_glossary_input.CreateGlossaryInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -12719,7 +14428,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_glossary_output.GetGlossaryOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_glossary_output
+
+            return capo_datazone.types.get_glossary_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetGlossary", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_glossary_input.GetGlossaryInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -12781,7 +14500,28 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_glossary_input.UpdateGlossaryInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_glossary_input
+
+            return capo_datazone.types.update_glossary_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.update_glossary_output.UpdateGlossaryOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_glossary_output
+
+            return capo_datazone.types.update_glossary_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateGlossary",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_glossary_input.UpdateGlossaryInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -12842,7 +14582,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGlossary")
+        )
         input_: capo_datazone.types.delete_glossary_input.DeleteGlossaryInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -12915,7 +14657,32 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_glossary_term_input.CreateGlossaryTermInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_glossary_term_input
+
+            return capo_datazone.types.create_glossary_term_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.create_glossary_term_output.CreateGlossaryTermOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_glossary_term_output
+
+            return capo_datazone.types.create_glossary_term_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateGlossaryTerm",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_glossary_term_input.CreateGlossaryTermInput = {
             "domain_identifier": domain_identifier,
             "glossary_identifier": glossary_identifier,
@@ -12978,7 +14745,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_glossary_term_output.GetGlossaryTermOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_glossary_term_output
+
+            return capo_datazone.types.get_glossary_term_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetGlossaryTerm", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_glossary_term_input.GetGlossaryTermInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -13054,7 +14831,32 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_glossary_term_input.UpdateGlossaryTermInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_glossary_term_input
+
+            return capo_datazone.types.update_glossary_term_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.update_glossary_term_output.UpdateGlossaryTermOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_glossary_term_output
+
+            return capo_datazone.types.update_glossary_term_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateGlossaryTerm",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_glossary_term_input.UpdateGlossaryTermInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -13118,7 +14920,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGlossaryTerm")
+        )
         input_: capo_datazone.types.delete_glossary_term_input.DeleteGlossaryTermInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -13171,7 +14975,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_listing_output.GetListingOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_listing_output
+
+            return capo_datazone.types.get_listing_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetListing", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_listing_input.GetListingInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -13225,7 +15039,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteListing")
+        )
         input_: capo_datazone.types.delete_listing_input.DeleteListingInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -13290,7 +15106,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMetadataGenerationRun")
+        )
         input_: capo_datazone.types.start_metadata_generation_run_input.StartMetadataGenerationRunInput = {
             "domain_identifier": domain_identifier,
             "target": target,
@@ -13353,7 +15171,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMetadataGenerationRun")
+        )
         input_: capo_datazone.types.get_metadata_generation_run_input.GetMetadataGenerationRunInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -13407,7 +15227,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelMetadataGenerationRun")
+        )
         input_: capo_datazone.types.cancel_metadata_generation_run_input.CancelMetadataGenerationRunInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -13472,7 +15294,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMetadataGenerationRuns")
+        )
         input_: capo_datazone.types.list_metadata_generation_runs_input.ListMetadataGenerationRunsInput = {
             "domain_identifier": domain_identifier
         }
@@ -13581,7 +15405,28 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_notebook_input.CreateNotebookInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_notebook_input
+
+            return capo_datazone.types.create_notebook_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_notebook_output.CreateNotebookOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_notebook_output
+
+            return capo_datazone.types.create_notebook_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateNotebook",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_notebook_input.CreateNotebookInput = {
             "domain_identifier": domain_identifier,
             "owning_project_identifier": owning_project_identifier,
@@ -13644,7 +15489,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_notebook_output.GetNotebookOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_notebook_output
+
+            return capo_datazone.types.get_notebook_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetNotebook", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_notebook_input.GetNotebookInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -13716,7 +15571,28 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_notebook_input.UpdateNotebookInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_notebook_input
+
+            return capo_datazone.types.update_notebook_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.update_notebook_output.UpdateNotebookOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_notebook_output
+
+            return capo_datazone.types.update_notebook_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateNotebook",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_notebook_input.UpdateNotebookInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -13786,7 +15662,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNotebook")
+        )
         input_: capo_datazone.types.delete_notebook_input.DeleteNotebookInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -13850,7 +15728,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.list_notebooks_output.ListNotebooksOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_notebooks_output
+
+            return capo_datazone.types.list_notebooks_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListNotebooks", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.list_notebooks_input.ListNotebooksInput = {
             "domain_identifier": domain_identifier,
             "owning_project_identifier": owning_project_identifier,
@@ -13956,7 +15844,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartNotebookExport")
+        )
         input_: capo_datazone.types.start_notebook_export_input.StartNotebookExportInput = {
             "domain_identifier": domain_identifier,
             "notebook_identifier": notebook_identifier,
@@ -14012,7 +15902,19 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_notebook_export_output.GetNotebookExportOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_notebook_export_output
+
+            return capo_datazone.types.get_notebook_export_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetNotebookExport", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_notebook_export_input.GetNotebookExportInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -14097,7 +15999,30 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.start_notebook_run_input.StartNotebookRunInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.start_notebook_run_input
+
+            return capo_datazone.types.start_notebook_run_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.start_notebook_run_output.StartNotebookRunOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.start_notebook_run_output
+
+            return capo_datazone.types.start_notebook_run_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartNotebookRun",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.start_notebook_run_input.StartNotebookRunInput = {
             "domain_identifier": domain_identifier,
             "owning_project_identifier": owning_project_identifier,
@@ -14168,7 +16093,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_notebook_run_output.GetNotebookRunOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_notebook_run_output
+
+            return capo_datazone.types.get_notebook_run_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetNotebookRun", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_notebook_run_input.GetNotebookRunInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -14238,7 +16173,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNotebookRuns")
+        )
         input_: capo_datazone.types.list_notebook_runs_input.ListNotebookRunsInput = {
             "domain_identifier": domain_identifier,
             "owning_project_identifier": owning_project_identifier,
@@ -14345,7 +16282,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopNotebookRun")
+        )
         input_: capo_datazone.types.stop_notebook_run_input.StopNotebookRunInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -14413,7 +16352,26 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_rule_input.CreateRuleInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_rule_input
+
+            return capo_datazone.types.create_rule_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_rule_output.CreateRuleOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_rule_output
+
+            return capo_datazone.types.create_rule_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateRule", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_datazone.types.create_rule_input.CreateRuleInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -14473,7 +16431,16 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_rule_output.GetRuleOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_rule_output
+
+            return capo_datazone.types.get_rule_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRule", redact_output=_redact_output)
+        )
         input_: capo_datazone.types.get_rule_input.GetRuleInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -14538,7 +16505,26 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_rule_input.UpdateRuleInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_rule_input
+
+            return capo_datazone.types.update_rule_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.update_rule_output.UpdateRuleOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_rule_output
+
+            return capo_datazone.types.update_rule_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateRule", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_datazone.types.update_rule_input.UpdateRuleInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -14600,7 +16586,9 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRule")
+        )
         input_: capo_datazone.types.delete_rule_input.DeleteRuleInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -14671,7 +16659,17 @@ class DataZoneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.list_rules_output.ListRulesOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_rules_output
+
+            return capo_datazone.types.list_rules_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListRules", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.list_rules_input.ListRulesInput = {
             "domain_identifier": domain_identifier,
             "target_type": target_type,

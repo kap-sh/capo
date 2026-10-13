@@ -30,7 +30,9 @@ from capo_backupsearch._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -145,7 +147,9 @@ class AsyncBackupSearchClient:
         self.search_result_export_job = AsyncSearchResultExportJob(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncBackupSearchClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncBackupSearchClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncBackupSearchClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -153,8 +157,10 @@ class AsyncBackupSearchClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -209,7 +215,9 @@ class AsyncBackupSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSearchJobBackups")
+        )
         input_: capo_backupsearch.types.list_search_job_backups_input.ListSearchJobBackupsInput = {
             "search_job_identifier": search_job_identifier
         }
@@ -288,7 +296,21 @@ class AsyncBackupSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_backupsearch.types.list_search_job_results_output.ListSearchJobResultsOutput",
+        ) -> dict[str, Any]:
+            import capo_backupsearch.types.list_search_job_results_output
+
+            return (
+                capo_backupsearch.types.list_search_job_results_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListSearchJobResults", redact_output=_redact_output),
+        )
         input_: capo_backupsearch.types.list_search_job_results_input.ListSearchJobResultsInput = {
             "search_job_identifier": search_job_identifier
         }
@@ -340,7 +362,9 @@ class AsyncBackupSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_backupsearch.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -390,7 +414,9 @@ class AsyncBackupSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_backupsearch.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -441,7 +467,9 @@ class AsyncBackupSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_backupsearch.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -506,7 +534,9 @@ class AsyncBackupSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartSearchJob")
+        )
         input_: capo_backupsearch.types.start_search_job_input.StartSearchJobInput = {
             "search_scope": search_scope
         }
@@ -564,7 +594,9 @@ class AsyncBackupSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSearchJob")
+        )
         input_: capo_backupsearch.types.get_search_job_input.GetSearchJobInput = {
             "search_job_identifier": search_job_identifier
         }
@@ -613,7 +645,9 @@ class AsyncBackupSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopSearchJob")
+        )
         input_: capo_backupsearch.types.stop_search_job_input.StopSearchJobInput = {
             "search_job_identifier": search_job_identifier
         }
@@ -666,7 +700,9 @@ class AsyncBackupSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSearchJobs")
+        )
         input_: capo_backupsearch.types.list_search_jobs_input.ListSearchJobsInput = {}
         if by_status is not None:
             input_["by_status"] = by_status
@@ -728,7 +764,9 @@ class AsyncBackupSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartSearchResultExportJob")
+        )
         input_: capo_backupsearch.types.start_search_result_export_job_input.StartSearchResultExportJobInput = {
             "search_job_identifier": search_job_identifier,
             "export_specification": export_specification,
@@ -783,7 +821,9 @@ class AsyncBackupSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSearchResultExportJob")
+        )
         input_: capo_backupsearch.types.get_search_result_export_job_input.GetSearchResultExportJobInput = {
             "export_job_identifier": export_job_identifier
         }
@@ -842,7 +882,9 @@ class AsyncBackupSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSearchResultExportJobs")
+        )
         input_: capo_backupsearch.types.list_search_result_export_jobs_input.ListSearchResultExportJobsInput = {}
         if status is not None:
             input_["status"] = status

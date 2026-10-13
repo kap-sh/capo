@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#ListManagedThingsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -67,4 +67,15 @@ def serialize_json(value: ListManagedThingsRequest) -> dict:
 
 def deserialize_json(data: dict) -> ListManagedThingsRequest:
     out: ListManagedThingsRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: ListManagedThingsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "owner_filter" in value:
+        out["owner_filter"] = "*** Sensitive Data Redacted ***"
+    if "connector_device_id_filter" in value:
+        out["connector_device_id_filter"] = "*** Sensitive Data Redacted ***"
+    if "serial_number_filter" in value:
+        out["serial_number_filter"] = "*** Sensitive Data Redacted ***"
     return out

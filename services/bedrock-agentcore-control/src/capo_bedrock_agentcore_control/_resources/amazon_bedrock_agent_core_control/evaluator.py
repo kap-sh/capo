@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agentcore_control._auth._signers
 import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -102,7 +103,19 @@ class Evaluator:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_evaluator_request.CreateEvaluatorRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_evaluator_request
+
+            return capo_bedrock_agentcore_control.types.create_evaluator_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateEvaluator", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.create_evaluator_request.CreateEvaluatorRequest = {
             "evaluator_name": evaluator_name,
             "evaluator_config": evaluator_config,
@@ -164,7 +177,19 @@ class Evaluator:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_evaluator_response.GetEvaluatorResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_evaluator_response
+
+            return capo_bedrock_agentcore_control.types.get_evaluator_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetEvaluator", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_evaluator_request.GetEvaluatorRequest = {
             "evaluator_id": evaluator_id
         }
@@ -235,7 +260,19 @@ class Evaluator:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_evaluator_request.UpdateEvaluatorRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_evaluator_request
+
+            return capo_bedrock_agentcore_control.types.update_evaluator_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateEvaluator", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.update_evaluator_request.UpdateEvaluatorRequest = {
             "evaluator_id": evaluator_id
         }
@@ -294,7 +331,9 @@ class Evaluator:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEvaluator")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_evaluator_request.DeleteEvaluatorRequest = {
             "evaluator_id": evaluator_id
         }
@@ -342,7 +381,19 @@ class Evaluator:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_evaluators_response.ListEvaluatorsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_evaluators_response
+
+            return capo_bedrock_agentcore_control.types.list_evaluators_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListEvaluators", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_evaluators_request.ListEvaluatorsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -416,7 +467,19 @@ class AsyncEvaluator:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_evaluator_request.CreateEvaluatorRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_evaluator_request
+
+            return capo_bedrock_agentcore_control.types.create_evaluator_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateEvaluator", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.create_evaluator_request.CreateEvaluatorRequest = {
             "evaluator_name": evaluator_name,
             "evaluator_config": evaluator_config,
@@ -479,7 +542,19 @@ class AsyncEvaluator:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_evaluator_response.GetEvaluatorResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_evaluator_response
+
+            return capo_bedrock_agentcore_control.types.get_evaluator_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetEvaluator", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_evaluator_request.GetEvaluatorRequest = {
             "evaluator_id": evaluator_id
         }
@@ -551,7 +626,19 @@ class AsyncEvaluator:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_evaluator_request.UpdateEvaluatorRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_evaluator_request
+
+            return capo_bedrock_agentcore_control.types.update_evaluator_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateEvaluator", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.update_evaluator_request.UpdateEvaluatorRequest = {
             "evaluator_id": evaluator_id
         }
@@ -611,7 +698,9 @@ class AsyncEvaluator:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEvaluator")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_evaluator_request.DeleteEvaluatorRequest = {
             "evaluator_id": evaluator_id
         }
@@ -660,7 +749,19 @@ class AsyncEvaluator:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_evaluators_response.ListEvaluatorsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_evaluators_response
+
+            return capo_bedrock_agentcore_control.types.list_evaluators_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListEvaluators", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_evaluators_request.ListEvaluatorsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

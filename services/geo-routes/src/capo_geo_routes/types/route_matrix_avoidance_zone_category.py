@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteMatrixAvoidanceZoneCategory``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,4 +39,11 @@ def deserialize_json(data: dict) -> RouteMatrixAvoidanceZoneCategory:
                 data["Category"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: RouteMatrixAvoidanceZoneCategory) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "category" in value:
+        out["category"] = "*** Sensitive Data Redacted ***"
     return out

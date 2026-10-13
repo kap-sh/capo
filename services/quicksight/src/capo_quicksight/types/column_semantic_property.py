@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#ColumnSemanticProperty``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -71,6 +71,25 @@ def deserialize_json(data: dict) -> ColumnSemanticProperty:
         out["semantic_type"] = (
             capo_quicksight.types.column_semantic_type.deserialize_json(
                 data["SemanticType"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ColumnSemanticProperty) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        import capo_quicksight.types.column_description
+
+        out["description"] = capo_quicksight.types.column_description.redact_sensitive(
+            value["description"]
+        )
+    if "additional_notes" in value:
+        import capo_quicksight.types.additional_notes
+
+        out["additional_notes"] = (
+            capo_quicksight.types.additional_notes.redact_sensitive(
+                value["additional_notes"]
             )
         )
     return out

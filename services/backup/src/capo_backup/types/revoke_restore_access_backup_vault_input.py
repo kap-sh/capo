@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.backup#RevokeRestoreAccessBackupVaultInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -29,4 +29,11 @@ def serialize_json(value: RevokeRestoreAccessBackupVaultInput) -> dict:
 
 def deserialize_json(data: dict) -> RevokeRestoreAccessBackupVaultInput:
     out: RevokeRestoreAccessBackupVaultInput = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: RevokeRestoreAccessBackupVaultInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "requester_comment" in value:
+        out["requester_comment"] = "*** Sensitive Data Redacted ***"
     return out

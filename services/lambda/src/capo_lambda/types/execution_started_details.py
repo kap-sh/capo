@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#ExecutionStartedDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -40,4 +40,13 @@ def deserialize_json(data: dict) -> ExecutionStartedDetails:
         out["execution_timeout"] = data["ExecutionTimeout"]
     else:
         raise DeserializationError("ExecutionStartedDetails.execution_timeout required")
+    return out
+
+
+def redact_sensitive(value: ExecutionStartedDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input" in value:
+        import capo_lambda.types.event_input
+
+        out["input"] = capo_lambda.types.event_input.redact_sensitive(value["input"])
     return out

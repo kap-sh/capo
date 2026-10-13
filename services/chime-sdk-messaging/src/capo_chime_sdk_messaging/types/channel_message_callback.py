@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmessaging#ChannelMessageCallback``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -102,4 +102,25 @@ def deserialize_json(data: dict) -> ChannelMessageCallback:
         out["sub_channel_id"] = data["SubChannelId"]
     if data.get("ContentType") is not None:
         out["content_type"] = data["ContentType"]
+    return out
+
+
+def redact_sensitive(value: ChannelMessageCallback) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        out["content"] = "*** Sensitive Data Redacted ***"
+    if "metadata" in value:
+        out["metadata"] = "*** Sensitive Data Redacted ***"
+    if "push_notification" in value:
+        import capo_chime_sdk_messaging.types.push_notification_configuration
+
+        out["push_notification"] = (
+            capo_chime_sdk_messaging.types.push_notification_configuration.redact_sensitive(
+                value["push_notification"]
+            )
+        )
+    if "message_attributes" in value:
+        out["message_attributes"] = "*** Sensitive Data Redacted ***"
+    if "content_type" in value:
+        out["content_type"] = "*** Sensitive Data Redacted ***"
     return out

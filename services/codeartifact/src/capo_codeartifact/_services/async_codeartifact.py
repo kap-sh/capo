@@ -27,7 +27,9 @@ from capo_codeartifact._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -256,7 +258,9 @@ class AsynccodeartifactClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsynccodeartifactClientConfig] = None
+        self,
+        config_overrides: Optional[AsynccodeartifactClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsynccodeartifactClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -264,8 +268,10 @@ class AsynccodeartifactClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -327,7 +333,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateExternalConnection")
+        )
         input_: capo_codeartifact.types.associate_external_connection_request.AssociateExternalConnectionRequest = {
             "domain": domain,
             "repository": repository,
@@ -413,7 +421,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CopyPackageVersions")
+        )
         input_: capo_codeartifact.types.copy_package_versions_request.CopyPackageVersionsRequest = {
             "domain": domain,
             "source_repository": source_repository,
@@ -483,7 +493,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDomain")
+        )
         input_: capo_codeartifact.types.create_domain_request.CreateDomainRequest = {
             "domain": domain
         }
@@ -549,7 +561,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePackageGroup")
+        )
         input_: capo_codeartifact.types.create_package_group_request.CreatePackageGroupRequest = {
             "domain": domain,
             "package_group": package_group,
@@ -620,7 +634,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRepository")
+        )
         input_: capo_codeartifact.types.create_repository_request.CreateRepositoryRequest = {
             "domain": domain,
             "repository": repository,
@@ -679,7 +695,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomain")
+        )
         input_: capo_codeartifact.types.delete_domain_request.DeleteDomainRequest = {
             "domain": domain
         }
@@ -736,7 +754,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomainPermissionsPolicy")
+        )
         input_: capo_codeartifact.types.delete_domain_permissions_policy_request.DeleteDomainPermissionsPolicyRequest = {
             "domain": domain
         }
@@ -801,7 +821,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePackage")
+        )
         input_: capo_codeartifact.types.delete_package_request.DeletePackageRequest = {
             "domain": domain,
             "repository": repository,
@@ -862,7 +884,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePackageGroup")
+        )
         input_: capo_codeartifact.types.delete_package_group_request.DeletePackageGroupRequest = {
             "domain": domain,
             "package_group": package_group,
@@ -932,7 +956,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePackageVersions")
+        )
         input_: capo_codeartifact.types.delete_package_versions_request.DeletePackageVersionsRequest = {
             "domain": domain,
             "repository": repository,
@@ -995,7 +1021,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRepository")
+        )
         input_: capo_codeartifact.types.delete_repository_request.DeleteRepositoryRequest = {
             "domain": domain,
             "repository": repository,
@@ -1055,7 +1083,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRepositoryPermissionsPolicy")
+        )
         input_: capo_codeartifact.types.delete_repository_permissions_policy_request.DeleteRepositoryPermissionsPolicyRequest = {
             "domain": domain,
             "repository": repository,
@@ -1110,7 +1140,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDomain")
+        )
         input_: capo_codeartifact.types.describe_domain_request.DescribeDomainRequest = {
             "domain": domain
         }
@@ -1172,7 +1204,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePackage")
+        )
         input_: capo_codeartifact.types.describe_package_request.DescribePackageRequest = {
             "domain": domain,
             "repository": repository,
@@ -1231,7 +1265,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePackageGroup")
+        )
         input_: capo_codeartifact.types.describe_package_group_request.DescribePackageGroupRequest = {
             "domain": domain,
             "package_group": package_group,
@@ -1297,7 +1333,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePackageVersion")
+        )
         input_: capo_codeartifact.types.describe_package_version_request.DescribePackageVersionRequest = {
             "domain": domain,
             "repository": repository,
@@ -1357,7 +1395,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRepository")
+        )
         input_: capo_codeartifact.types.describe_repository_request.DescribeRepositoryRequest = {
             "domain": domain,
             "repository": repository,
@@ -1416,7 +1456,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateExternalConnection")
+        )
         input_: capo_codeartifact.types.disassociate_external_connection_request.DisassociateExternalConnectionRequest = {
             "domain": domain,
             "repository": repository,
@@ -1491,7 +1533,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisposePackageVersions")
+        )
         input_: capo_codeartifact.types.dispose_package_versions_request.DisposePackageVersionsRequest = {
             "domain": domain,
             "repository": repository,
@@ -1560,7 +1604,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAssociatedPackageGroup")
+        )
         input_: capo_codeartifact.types.get_associated_package_group_request.GetAssociatedPackageGroupRequest = {
             "domain": domain,
             "format": format,
@@ -1620,7 +1666,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAuthorizationToken")
+        )
         input_: capo_codeartifact.types.get_authorization_token_request.GetAuthorizationTokenRequest = {
             "domain": domain
         }
@@ -1674,7 +1722,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomainPermissionsPolicy")
+        )
         input_: capo_codeartifact.types.get_domain_permissions_policy_request.GetDomainPermissionsPolicyRequest = {
             "domain": domain
         }
@@ -1746,7 +1796,19 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_codeartifact.types.get_package_version_asset_result.GetPackageVersionAssetResult",
+        ) -> dict[str, Any]:
+            import capo_codeartifact.types.get_package_version_asset_result
+
+            return capo_codeartifact.types.get_package_version_asset_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetPackageVersionAsset", redact_output=_redact_output),
+        )
         input_: capo_codeartifact.types.get_package_version_asset_request.GetPackageVersionAssetRequest = {
             "domain": domain,
             "repository": repository,
@@ -1821,7 +1883,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPackageVersionReadme")
+        )
         input_: capo_codeartifact.types.get_package_version_readme_request.GetPackageVersionReadmeRequest = {
             "domain": domain,
             "repository": repository,
@@ -1887,7 +1951,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRepositoryEndpoint")
+        )
         input_: capo_codeartifact.types.get_repository_endpoint_request.GetRepositoryEndpointRequest = {
             "domain": domain,
             "repository": repository,
@@ -1945,7 +2011,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRepositoryPermissionsPolicy")
+        )
         input_: capo_codeartifact.types.get_repository_permissions_policy_request.GetRepositoryPermissionsPolicyRequest = {
             "domain": domain,
             "repository": repository,
@@ -2011,7 +2079,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAllowedRepositoriesForGroup")
+        )
         input_: capo_codeartifact.types.list_allowed_repositories_for_group_request.ListAllowedRepositoriesForGroupRequest = {
             "domain": domain,
             "package_group": package_group,
@@ -2115,7 +2185,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssociatedPackages")
+        )
         input_: capo_codeartifact.types.list_associated_packages_request.ListAssociatedPackagesRequest = {
             "domain": domain,
             "package_group": package_group,
@@ -2212,7 +2284,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomains")
+        )
         input_: capo_codeartifact.types.list_domains_request.ListDomainsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2301,7 +2375,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPackageGroups")
+        )
         input_: capo_codeartifact.types.list_package_groups_request.ListPackageGroupsRequest = {
             "domain": domain
         }
@@ -2418,7 +2494,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPackages")
+        )
         input_: capo_codeartifact.types.list_packages_request.ListPackagesRequest = {
             "domain": domain,
             "repository": repository,
@@ -2552,7 +2630,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPackageVersionAssets")
+        )
         input_: capo_codeartifact.types.list_package_version_assets_request.ListPackageVersionAssetsRequest = {
             "domain": domain,
             "repository": repository,
@@ -2671,7 +2751,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPackageVersionDependencies")
+        )
         input_: capo_codeartifact.types.list_package_version_dependencies_request.ListPackageVersionDependenciesRequest = {
             "domain": domain,
             "repository": repository,
@@ -2763,7 +2845,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPackageVersions")
+        )
         input_: capo_codeartifact.types.list_package_versions_request.ListPackageVersionsRequest = {
             "domain": domain,
             "repository": repository,
@@ -2888,7 +2972,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRepositories")
+        )
         input_: capo_codeartifact.types.list_repositories_request.ListRepositoriesRequest = {}
         if repository_prefix is not None:
             input_["repository_prefix"] = repository_prefix
@@ -2987,7 +3073,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRepositoriesInDomain")
+        )
         input_: capo_codeartifact.types.list_repositories_in_domain_request.ListRepositoriesInDomainRequest = {
             "domain": domain
         }
@@ -3094,7 +3182,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSubPackageGroups")
+        )
         input_: capo_codeartifact.types.list_sub_package_groups_request.ListSubPackageGroupsRequest = {
             "domain": domain,
             "package_group": package_group,
@@ -3179,7 +3269,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_codeartifact.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3253,7 +3345,19 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_codeartifact.types.publish_package_version_request.PublishPackageVersionRequest",
+        ) -> dict[str, Any]:
+            import capo_codeartifact.types.publish_package_version_request
+
+            return capo_codeartifact.types.publish_package_version_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PublishPackageVersion", redact_input=_redact_input),
+        )
         input_: capo_codeartifact.types.publish_package_version_request.PublishPackageVersionRequest = {
             "domain": domain,
             "repository": repository,
@@ -3325,7 +3429,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDomainPermissionsPolicy")
+        )
         input_: capo_codeartifact.types.put_domain_permissions_policy_request.PutDomainPermissionsPolicyRequest = {
             "domain": domain,
             "policy_document": policy_document,
@@ -3392,7 +3498,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutPackageOriginConfiguration")
+        )
         input_: capo_codeartifact.types.put_package_origin_configuration_request.PutPackageOriginConfigurationRequest = {
             "domain": domain,
             "repository": repository,
@@ -3460,7 +3568,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRepositoryPermissionsPolicy")
+        )
         input_: capo_codeartifact.types.put_repository_permissions_policy_request.PutRepositoryPermissionsPolicyRequest = {
             "domain": domain,
             "repository": repository,
@@ -3516,7 +3626,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_codeartifact.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -3566,7 +3678,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_codeartifact.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -3626,7 +3740,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePackageGroup")
+        )
         input_: capo_codeartifact.types.update_package_group_request.UpdatePackageGroupRequest = {
             "domain": domain,
             "package_group": package_group,
@@ -3698,7 +3814,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePackageGroupOriginConfiguration")
+        )
         input_: capo_codeartifact.types.update_package_group_origin_configuration_request.UpdatePackageGroupOriginConfigurationRequest = {
             "domain": domain,
             "package_group": package_group,
@@ -3780,7 +3898,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePackageVersionsStatus")
+        )
         input_: capo_codeartifact.types.update_package_versions_status_request.UpdatePackageVersionsStatusRequest = {
             "domain": domain,
             "repository": repository,
@@ -3853,7 +3973,9 @@ class AsynccodeartifactClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRepository")
+        )
         input_: capo_codeartifact.types.update_repository_request.UpdateRepositoryRequest = {
             "domain": domain,
             "repository": repository,

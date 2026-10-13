@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityir#Watchers``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_security_ir.types.watcher
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> Watchers:
             continue
         out.append(capo_security_ir.types.watcher.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: Watchers) -> list[Any]:
+    import capo_security_ir.types.watcher
+
+    return [capo_security_ir.types.watcher.redact_sensitive(item) for item in value]

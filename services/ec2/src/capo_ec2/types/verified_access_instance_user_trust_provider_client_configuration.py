@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#VerifiedAccessInstanceUserTrustProviderClientConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -122,4 +122,13 @@ def deserialize_ec2_query(
     child_pkce_enabled = el.find("pkceEnabled")
     if child_pkce_enabled is not None:
         out["pkce_enabled"] = (child_pkce_enabled.text or "").lower() == "true"
+    return out
+
+
+def redact_sensitive(
+    value: VerifiedAccessInstanceUserTrustProviderClientConfiguration,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_secret" in value:
+        out["client_secret"] = "*** Sensitive Data Redacted ***"
     return out

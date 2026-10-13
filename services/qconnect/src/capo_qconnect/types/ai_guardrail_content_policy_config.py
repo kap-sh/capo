@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#AIGuardrailContentPolicyConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -41,5 +41,18 @@ def deserialize_json(data: dict) -> AIGuardrailContentPolicyConfig:
     else:
         raise DeserializationError(
             "AIGuardrailContentPolicyConfig.filters_config required"
+        )
+    return out
+
+
+def redact_sensitive(value: AIGuardrailContentPolicyConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "filters_config" in value:
+        import capo_qconnect.types.guardrail_content_filters_config
+
+        out["filters_config"] = (
+            capo_qconnect.types.guardrail_content_filters_config.redact_sensitive(
+                value["filters_config"]
+            )
         )
     return out

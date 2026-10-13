@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#GetParametersResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,5 +53,16 @@ def deserialize_aws_json_1_1(data: dict) -> GetParametersResult:
             capo_ssm.types.parameter_name_list.deserialize_aws_json_1_1(
                 data["InvalidParameters"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: GetParametersResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "parameters" in value:
+        import capo_ssm.types.parameter_list
+
+        out["parameters"] = capo_ssm.types.parameter_list.redact_sensitive(
+            value["parameters"]
         )
     return out

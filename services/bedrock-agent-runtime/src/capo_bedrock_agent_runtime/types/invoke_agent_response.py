@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#InvokeAgentResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -20,3 +20,10 @@ class InvokeAgentResponse(TypedDict, closed=True):
     """<p>The unique identifier of the session with the agent.</p>"""
     memory_id: NotRequired["capo_bedrock_agent_runtime.types.memory_id.MemoryId"]
     """<p>The unique identifier of the agent memory.</p>"""
+
+
+def redact_sensitive(value: InvokeAgentResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "completion" in value:
+        out["completion"] = "*** Streaming Data Redacted ***"
+    return out

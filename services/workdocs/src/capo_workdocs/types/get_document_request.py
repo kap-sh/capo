@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#GetDocumentRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -29,4 +29,11 @@ def serialize_json(value: GetDocumentRequest) -> dict:
 
 def deserialize_json(data: dict) -> GetDocumentRequest:
     out: GetDocumentRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: GetDocumentRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "authentication_token" in value:
+        out["authentication_token"] = "*** Sensitive Data Redacted ***"
     return out

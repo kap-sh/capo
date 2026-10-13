@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#GetPlaceResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -32,4 +32,13 @@ def deserialize_json(data: dict) -> GetPlaceResponse:
         out["place"] = capo_location.types.place.deserialize_json(data["Place"])
     else:
         raise DeserializationError("GetPlaceResponse.place required")
+    return out
+
+
+def redact_sensitive(value: GetPlaceResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "place" in value:
+        import capo_location.types.place
+
+        out["place"] = capo_location.types.place.redact_sensitive(value["place"])
     return out

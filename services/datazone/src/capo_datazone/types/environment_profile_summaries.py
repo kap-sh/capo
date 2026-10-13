@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#EnvironmentProfileSummaries``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_datazone.types.environment_profile_summary
@@ -31,3 +31,12 @@ def deserialize_json(data: list) -> EnvironmentProfileSummaries:
             capo_datazone.types.environment_profile_summary.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: EnvironmentProfileSummaries) -> list[Any]:
+    import capo_datazone.types.environment_profile_summary
+
+    return [
+        capo_datazone.types.environment_profile_summary.redact_sensitive(item)
+        for item in value
+    ]

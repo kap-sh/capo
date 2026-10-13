@@ -8,6 +8,7 @@ import capo_pca_connector_ad._auth._sigv4
 from capo_pca_connector_ad._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -88,7 +89,9 @@ class TemplateGroupAccessControlEntryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTemplateGroupAccessControlEntry")
+        )
         input_: capo_pca_connector_ad.types.create_template_group_access_control_entry_request.CreateTemplateGroupAccessControlEntryRequest = {
             "template_arn": template_arn,
             "group_security_identifier": group_security_identifier,
@@ -143,7 +146,9 @@ class TemplateGroupAccessControlEntryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTemplateGroupAccessControlEntry")
+        )
         input_: capo_pca_connector_ad.types.get_template_group_access_control_entry_request.GetTemplateGroupAccessControlEntryRequest = {
             "template_arn": template_arn,
             "group_security_identifier": group_security_identifier,
@@ -200,7 +205,9 @@ class TemplateGroupAccessControlEntryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTemplateGroupAccessControlEntry")
+        )
         input_: capo_pca_connector_ad.types.update_template_group_access_control_entry_request.UpdateTemplateGroupAccessControlEntryRequest = {
             "template_arn": template_arn,
             "group_security_identifier": group_security_identifier,
@@ -253,7 +260,9 @@ class TemplateGroupAccessControlEntryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTemplateGroupAccessControlEntry")
+        )
         input_: capo_pca_connector_ad.types.delete_template_group_access_control_entry_request.DeleteTemplateGroupAccessControlEntryRequest = {
             "template_arn": template_arn,
             "group_security_identifier": group_security_identifier,
@@ -307,7 +316,9 @@ class TemplateGroupAccessControlEntryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTemplateGroupAccessControlEntries")
+        )
         input_: capo_pca_connector_ad.types.list_template_group_access_control_entries_request.ListTemplateGroupAccessControlEntriesRequest = {
             "template_arn": template_arn
         }
@@ -374,7 +385,9 @@ class AsyncTemplateGroupAccessControlEntryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTemplateGroupAccessControlEntry")
+        )
         input_: capo_pca_connector_ad.types.create_template_group_access_control_entry_request.CreateTemplateGroupAccessControlEntryRequest = {
             "template_arn": template_arn,
             "group_security_identifier": group_security_identifier,
@@ -430,7 +443,9 @@ class AsyncTemplateGroupAccessControlEntryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTemplateGroupAccessControlEntry")
+        )
         input_: capo_pca_connector_ad.types.get_template_group_access_control_entry_request.GetTemplateGroupAccessControlEntryRequest = {
             "template_arn": template_arn,
             "group_security_identifier": group_security_identifier,
@@ -488,7 +503,9 @@ class AsyncTemplateGroupAccessControlEntryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTemplateGroupAccessControlEntry")
+        )
         input_: capo_pca_connector_ad.types.update_template_group_access_control_entry_request.UpdateTemplateGroupAccessControlEntryRequest = {
             "template_arn": template_arn,
             "group_security_identifier": group_security_identifier,
@@ -542,7 +559,9 @@ class AsyncTemplateGroupAccessControlEntryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTemplateGroupAccessControlEntry")
+        )
         input_: capo_pca_connector_ad.types.delete_template_group_access_control_entry_request.DeleteTemplateGroupAccessControlEntryRequest = {
             "template_arn": template_arn,
             "group_security_identifier": group_security_identifier,
@@ -597,7 +616,9 @@ class AsyncTemplateGroupAccessControlEntryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTemplateGroupAccessControlEntries")
+        )
         input_: capo_pca_connector_ad.types.list_template_group_access_control_entries_request.ListTemplateGroupAccessControlEntriesRequest = {
             "template_arn": template_arn
         }

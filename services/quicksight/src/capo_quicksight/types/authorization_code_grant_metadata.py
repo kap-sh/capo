@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#AuthorizationCodeGrantMetadata``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,6 +79,19 @@ def deserialize_json(data: dict) -> AuthorizationCodeGrantMetadata:
         out["authorization_code_grant_credentials_details"] = (
             capo_quicksight.types.authorization_code_grant_credentials_details.deserialize_json(
                 data["AuthorizationCodeGrantCredentialsDetails"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: AuthorizationCodeGrantMetadata) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "authorization_code_grant_credentials_details" in value:
+        import capo_quicksight.types.authorization_code_grant_credentials_details
+
+        out["authorization_code_grant_credentials_details"] = (
+            capo_quicksight.types.authorization_code_grant_credentials_details.redact_sensitive(
+                value["authorization_code_grant_credentials_details"]
             )
         )
     return out

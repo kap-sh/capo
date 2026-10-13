@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#EntityReference``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -50,3 +50,16 @@ def deserialize_aws_json_1_0(data: dict) -> EntityReference:
         }
     else:
         raise DeserializationError("EntityReference: no recognized variant key")
+
+
+def redact_sensitive(value: EntityReference) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "identifier" in value:
+        import capo_verifiedpermissions.types.entity_identifier
+
+        out["identifier"] = (
+            capo_verifiedpermissions.types.entity_identifier.redact_sensitive(
+                value["identifier"]
+            )
+        )
+    return out

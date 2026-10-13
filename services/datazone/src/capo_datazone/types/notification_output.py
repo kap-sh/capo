@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#NotificationOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -148,4 +148,15 @@ def deserialize_json(data: dict) -> NotificationOutput:
         out["metadata"] = capo_datazone.types.metadata_map.deserialize_json(
             data["metadata"]
         )
+    return out
+
+
+def redact_sensitive(value: NotificationOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "title" in value:
+        out["title"] = "*** Sensitive Data Redacted ***"
+    if "message" in value:
+        out["message"] = "*** Sensitive Data Redacted ***"
+    if "action_link" in value:
+        out["action_link"] = "*** Sensitive Data Redacted ***"
     return out

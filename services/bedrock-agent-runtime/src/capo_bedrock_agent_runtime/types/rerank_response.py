@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#RerankResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,4 +47,17 @@ def deserialize_json(data: dict) -> RerankResponse:
         raise DeserializationError("RerankResponse.results required")
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: RerankResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "results" in value:
+        import capo_bedrock_agent_runtime.types.rerank_results_list
+
+        out["results"] = (
+            capo_bedrock_agent_runtime.types.rerank_results_list.redact_sensitive(
+                value["results"]
+            )
+        )
     return out

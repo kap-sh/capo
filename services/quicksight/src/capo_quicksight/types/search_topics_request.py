@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SearchTopicsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -55,4 +55,17 @@ def deserialize_json(data: dict) -> SearchTopicsRequest:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
+    return out
+
+
+def redact_sensitive(value: SearchTopicsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "filters" in value:
+        import capo_quicksight.types.topic_search_filter_list
+
+        out["filters"] = (
+            capo_quicksight.types.topic_search_filter_list.redact_sensitive(
+                value["filters"]
+            )
+        )
     return out

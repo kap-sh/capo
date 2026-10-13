@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_mwaa_serverless._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -68,7 +69,9 @@ class WorkflowVersionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkflowVersions")
+        )
         input_: capo_mwaa_serverless.types.list_workflow_versions_request.ListWorkflowVersionsRequest = {
             "workflow_arn": workflow_arn
         }
@@ -129,7 +132,9 @@ class AsyncWorkflowVersionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkflowVersions")
+        )
         input_: capo_mwaa_serverless.types.list_workflow_versions_request.ListWorkflowVersionsRequest = {
             "workflow_arn": workflow_arn
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#CustomOauth2ProviderConfigInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -205,6 +205,21 @@ def deserialize_json(data: dict) -> CustomOauth2ProviderConfigInput:
         out["private_endpoint_overrides"] = (
             capo_bedrock_agentcore_control.types.private_endpoint_overrides.deserialize_json(
                 data["privateEndpointOverrides"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CustomOauth2ProviderConfigInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_secret" in value:
+        out["client_secret"] = "*** Sensitive Data Redacted ***"
+    if "private_key_jwt_config" in value:
+        import capo_bedrock_agentcore_control.types.private_key_jwt_config
+
+        out["private_key_jwt_config"] = (
+            capo_bedrock_agentcore_control.types.private_key_jwt_config.redact_sensitive(
+                value["private_key_jwt_config"]
             )
         )
     return out

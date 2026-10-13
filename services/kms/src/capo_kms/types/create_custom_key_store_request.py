@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kms#CreateCustomKeyStoreRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -164,6 +164,21 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCustomKeyStoreRequest:
         out["xks_proxy_connectivity"] = (
             capo_kms.types.xks_proxy_connectivity_type.deserialize_aws_json_1_1(
                 data["XksProxyConnectivity"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateCustomKeyStoreRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "key_store_password" in value:
+        out["key_store_password"] = "*** Sensitive Data Redacted ***"
+    if "xks_proxy_authentication_credential" in value:
+        import capo_kms.types.xks_proxy_authentication_credential_type
+
+        out["xks_proxy_authentication_credential"] = (
+            capo_kms.types.xks_proxy_authentication_credential_type.redact_sensitive(
+                value["xks_proxy_authentication_credential"]
             )
         )
     return out

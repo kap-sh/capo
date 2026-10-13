@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#PinGenerationAttributes``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -163,3 +163,48 @@ def deserialize_json(data: dict) -> PinGenerationAttributes:
         }
     else:
         raise DeserializationError("PinGenerationAttributes: no recognized variant key")
+
+
+def redact_sensitive(value: PinGenerationAttributes) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "VisaPinVerificationValue" in value:
+        import capo_payment_cryptography_data.types.visa_pin_verification_value
+
+        out["VisaPinVerificationValue"] = (
+            capo_payment_cryptography_data.types.visa_pin_verification_value.redact_sensitive(
+                value["VisaPinVerificationValue"]
+            )
+        )
+    if "Ibm3624PinOffset" in value:
+        import capo_payment_cryptography_data.types.ibm3624_pin_offset
+
+        out["Ibm3624PinOffset"] = (
+            capo_payment_cryptography_data.types.ibm3624_pin_offset.redact_sensitive(
+                value["Ibm3624PinOffset"]
+            )
+        )
+    if "Ibm3624NaturalPin" in value:
+        import capo_payment_cryptography_data.types.ibm3624_natural_pin
+
+        out["Ibm3624NaturalPin"] = (
+            capo_payment_cryptography_data.types.ibm3624_natural_pin.redact_sensitive(
+                value["Ibm3624NaturalPin"]
+            )
+        )
+    if "Ibm3624RandomPin" in value:
+        import capo_payment_cryptography_data.types.ibm3624_random_pin
+
+        out["Ibm3624RandomPin"] = (
+            capo_payment_cryptography_data.types.ibm3624_random_pin.redact_sensitive(
+                value["Ibm3624RandomPin"]
+            )
+        )
+    if "Ibm3624PinFromOffset" in value:
+        import capo_payment_cryptography_data.types.ibm3624_pin_from_offset
+
+        out["Ibm3624PinFromOffset"] = (
+            capo_payment_cryptography_data.types.ibm3624_pin_from_offset.redact_sensitive(
+                value["Ibm3624PinFromOffset"]
+            )
+        )
+    return out

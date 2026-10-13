@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DescribeFlowResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,4 +41,13 @@ def deserialize_json(data: dict) -> DescribeFlowResponse:
         raise DeserializationError("DescribeFlowResponse.flow required")
     if data.get("RequestId") is not None:
         out["request_id"] = data["RequestId"]
+    return out
+
+
+def redact_sensitive(value: DescribeFlowResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "flow" in value:
+        import capo_quicksight.types.flow_detail
+
+        out["flow"] = capo_quicksight.types.flow_detail.redact_sensitive(value["flow"])
     return out

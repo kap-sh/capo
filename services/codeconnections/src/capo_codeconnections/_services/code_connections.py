@@ -21,10 +21,12 @@ from capo_codeconnections._pagination import resolve_path as _resolve_path
 from capo_codeconnections._services._aws_config import aws_config
 from capo_codeconnections._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -185,7 +187,9 @@ class CodeConnectionsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[CodeConnectionsClientConfig] = None
+        self,
+        config_overrides: Optional[CodeConnectionsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: CodeConnectionsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -193,8 +197,10 @@ class CodeConnectionsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -253,7 +259,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConnection")
+        )
         input_: capo_codeconnections.types.create_connection_input.CreateConnectionInput = {
             "connection_name": connection_name
         }
@@ -312,7 +320,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHost")
+        )
         input_: capo_codeconnections.types.create_host_input.CreateHostInput = {
             "name": name,
             "provider_type": provider_type,
@@ -377,7 +387,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRepositoryLink")
+        )
         input_: capo_codeconnections.types.create_repository_link_input.CreateRepositoryLinkInput = {
             "connection_arn": connection_arn,
             "owner_id": owner_id,
@@ -454,7 +466,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSyncConfiguration")
+        )
         input_: capo_codeconnections.types.create_sync_configuration_input.CreateSyncConfigurationInput = {
             "branch": branch,
             "config_file": config_file,
@@ -508,7 +522,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnection")
+        )
         input_: capo_codeconnections.types.delete_connection_input.DeleteConnectionInput = {
             "connection_arn": connection_arn
         }
@@ -552,7 +568,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteHost")
+        )
         input_: capo_codeconnections.types.delete_host_input.DeleteHostInput = {
             "host_arn": host_arn
         }
@@ -602,7 +620,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRepositoryLink")
+        )
         input_: capo_codeconnections.types.delete_repository_link_input.DeleteRepositoryLinkInput = {
             "repository_link_id": repository_link_id
         }
@@ -652,7 +672,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSyncConfiguration")
+        )
         input_: capo_codeconnections.types.delete_sync_configuration_input.DeleteSyncConfigurationInput = {
             "sync_type": sync_type,
             "resource_name": resource_name,
@@ -697,7 +719,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnection")
+        )
         input_: capo_codeconnections.types.get_connection_input.GetConnectionInput = {
             "connection_arn": connection_arn
         }
@@ -741,7 +765,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetHost")
+        )
         input_: capo_codeconnections.types.get_host_input.GetHostInput = {
             "host_arn": host_arn
         }
@@ -791,7 +817,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRepositoryLink")
+        )
         input_: capo_codeconnections.types.get_repository_link_input.GetRepositoryLinkInput = {
             "repository_link_id": repository_link_id
         }
@@ -842,7 +870,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRepositorySyncStatus")
+        )
         input_: capo_codeconnections.types.get_repository_sync_status_input.GetRepositorySyncStatusInput = {
             "branch": branch,
             "repository_link_id": repository_link_id,
@@ -893,7 +923,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourceSyncStatus")
+        )
         input_: capo_codeconnections.types.get_resource_sync_status_input.GetResourceSyncStatusInput = {
             "resource_name": resource_name,
             "sync_type": sync_type,
@@ -943,7 +975,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSyncBlockerSummary")
+        )
         input_: capo_codeconnections.types.get_sync_blocker_summary_input.GetSyncBlockerSummaryInput = {
             "sync_type": sync_type,
             "resource_name": resource_name,
@@ -993,7 +1027,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSyncConfiguration")
+        )
         input_: capo_codeconnections.types.get_sync_configuration_input.GetSyncConfigurationInput = {
             "sync_type": sync_type,
             "resource_name": resource_name,
@@ -1047,7 +1083,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConnections")
+        )
         input_: capo_codeconnections.types.list_connections_input.ListConnectionsInput = {}
         if provider_type_filter is not None:
             input_["provider_type_filter"] = provider_type_filter
@@ -1126,7 +1164,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHosts")
+        )
         input_: capo_codeconnections.types.list_hosts_input.ListHostsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1203,7 +1243,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRepositoryLinks")
+        )
         input_: capo_codeconnections.types.list_repository_links_input.ListRepositoryLinksInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1277,7 +1319,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRepositorySyncDefinitions")
+        )
         input_: capo_codeconnections.types.list_repository_sync_definitions_input.ListRepositorySyncDefinitionsInput = {
             "repository_link_id": repository_link_id,
             "sync_type": sync_type,
@@ -1335,7 +1379,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSyncConfigurations")
+        )
         input_: capo_codeconnections.types.list_sync_configurations_input.ListSyncConfigurationsInput = {
             "repository_link_id": repository_link_id,
             "sync_type": sync_type,
@@ -1410,7 +1456,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_codeconnections.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -1456,7 +1504,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_codeconnections.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1502,7 +1552,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_codeconnections.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1555,7 +1607,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateHost")
+        )
         input_: capo_codeconnections.types.update_host_input.UpdateHostInput = {
             "host_arn": host_arn
         }
@@ -1616,7 +1670,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRepositoryLink")
+        )
         input_: capo_codeconnections.types.update_repository_link_input.UpdateRepositoryLinkInput = {
             "repository_link_id": repository_link_id
         }
@@ -1677,7 +1733,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSyncBlocker")
+        )
         input_: capo_codeconnections.types.update_sync_blocker_input.UpdateSyncBlockerInput = {
             "id": id,
             "sync_type": sync_type,
@@ -1755,7 +1813,9 @@ class CodeConnectionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSyncConfiguration")
+        )
         input_: capo_codeconnections.types.update_sync_configuration_input.UpdateSyncConfigurationInput = {
             "resource_name": resource_name,
             "sync_type": sync_type,

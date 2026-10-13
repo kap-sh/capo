@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#WaypointOptimizationAvoidanceAreaGeometry``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -33,4 +33,13 @@ def deserialize_json(data: dict) -> WaypointOptimizationAvoidanceAreaGeometry:
         out["bounding_box"] = capo_geo_routes.types.bounding_box.deserialize_json(
             data["BoundingBox"]
         )
+    return out
+
+
+def redact_sensitive(
+    value: WaypointOptimizationAvoidanceAreaGeometry,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "bounding_box" in value:
+        out["bounding_box"] = "*** Sensitive Data Redacted ***"
     return out

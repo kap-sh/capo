@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.invoicing#Contacts``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_invoicing.types.contact
@@ -27,3 +27,7 @@ def deserialize_aws_json_1_0(data: list) -> Contacts:
             continue
         out.append(capo_invoicing.types.contact.deserialize_aws_json_1_0(item))
     return out
+
+
+def redact_sensitive(value: Contacts) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

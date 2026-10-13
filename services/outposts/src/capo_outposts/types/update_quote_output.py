@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.outposts#UpdateQuoteOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -29,4 +29,13 @@ def deserialize_json(data: dict) -> UpdateQuoteOutput:
         import capo_outposts.types.quote
 
         out["quote"] = capo_outposts.types.quote.deserialize_json(data["Quote"])
+    return out
+
+
+def redact_sensitive(value: UpdateQuoteOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "quote" in value:
+        import capo_outposts.types.quote
+
+        out["quote"] = capo_outposts.types.quote.redact_sensitive(value["quote"])
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#GuardrailManagedWordsConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -28,4 +28,11 @@ def deserialize_json(data: dict) -> GuardrailManagedWordsConfig:
         out["type"] = data["type"]
     else:
         raise DeserializationError("GuardrailManagedWordsConfig.type required")
+    return out
+
+
+def redact_sensitive(value: GuardrailManagedWordsConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "type" in value:
+        out["type"] = "*** Sensitive Data Redacted ***"
     return out

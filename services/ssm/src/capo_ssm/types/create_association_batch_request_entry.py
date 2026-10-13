@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#CreateAssociationBatchRequestEntry``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -269,4 +269,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAssociationBatchRequestEntry:
                 data["AlarmConfiguration"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: CreateAssociationBatchRequestEntry) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "parameters" in value:
+        out["parameters"] = "*** Sensitive Data Redacted ***"
     return out

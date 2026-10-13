@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#KPIConditionalFormattingOption``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -100,6 +100,43 @@ def deserialize_json(data: dict) -> KPIConditionalFormattingOption:
         out["comparison_value"] = (
             capo_quicksight.types.kpi_comparison_value_conditional_formatting.deserialize_json(
                 data["ComparisonValue"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: KPIConditionalFormattingOption) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "primary_value" in value:
+        import capo_quicksight.types.kpi_primary_value_conditional_formatting
+
+        out["primary_value"] = (
+            capo_quicksight.types.kpi_primary_value_conditional_formatting.redact_sensitive(
+                value["primary_value"]
+            )
+        )
+    if "progress_bar" in value:
+        import capo_quicksight.types.kpi_progress_bar_conditional_formatting
+
+        out["progress_bar"] = (
+            capo_quicksight.types.kpi_progress_bar_conditional_formatting.redact_sensitive(
+                value["progress_bar"]
+            )
+        )
+    if "actual_value" in value:
+        import capo_quicksight.types.kpi_actual_value_conditional_formatting
+
+        out["actual_value"] = (
+            capo_quicksight.types.kpi_actual_value_conditional_formatting.redact_sensitive(
+                value["actual_value"]
+            )
+        )
+    if "comparison_value" in value:
+        import capo_quicksight.types.kpi_comparison_value_conditional_formatting
+
+        out["comparison_value"] = (
+            capo_quicksight.types.kpi_comparison_value_conditional_formatting.redact_sensitive(
+                value["comparison_value"]
             )
         )
     return out

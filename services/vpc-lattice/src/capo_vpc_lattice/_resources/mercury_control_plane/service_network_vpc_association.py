@@ -8,6 +8,7 @@ import capo_vpc_lattice._auth._sigv4
 from capo_vpc_lattice._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -103,7 +104,9 @@ class ServiceNetworkVpcAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateServiceNetworkVpcAssociation")
+        )
         input_: capo_vpc_lattice.types.create_service_network_vpc_association_request.CreateServiceNetworkVpcAssociationRequest = {
             "service_network_identifier": service_network_identifier,
             "vpc_identifier": vpc_identifier,
@@ -162,7 +165,9 @@ class ServiceNetworkVpcAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetServiceNetworkVpcAssociation")
+        )
         input_: capo_vpc_lattice.types.get_service_network_vpc_association_request.GetServiceNetworkVpcAssociationRequest = {
             "service_network_vpc_association_identifier": service_network_vpc_association_identifier
         }
@@ -218,7 +223,9 @@ class ServiceNetworkVpcAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateServiceNetworkVpcAssociation")
+        )
         input_: capo_vpc_lattice.types.update_service_network_vpc_association_request.UpdateServiceNetworkVpcAssociationRequest = {
             "service_network_vpc_association_identifier": service_network_vpc_association_identifier
         }
@@ -272,7 +279,9 @@ class ServiceNetworkVpcAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteServiceNetworkVpcAssociation")
+        )
         input_: capo_vpc_lattice.types.delete_service_network_vpc_association_request.DeleteServiceNetworkVpcAssociationRequest = {
             "service_network_vpc_association_identifier": service_network_vpc_association_identifier
         }
@@ -326,7 +335,9 @@ class ServiceNetworkVpcAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListServiceNetworkVpcAssociations")
+        )
         input_: capo_vpc_lattice.types.list_service_network_vpc_associations_request.ListServiceNetworkVpcAssociationsRequest = {}
         if service_network_identifier is not None:
             input_["service_network_identifier"] = service_network_identifier
@@ -403,7 +414,9 @@ class AsyncServiceNetworkVpcAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateServiceNetworkVpcAssociation")
+        )
         input_: capo_vpc_lattice.types.create_service_network_vpc_association_request.CreateServiceNetworkVpcAssociationRequest = {
             "service_network_identifier": service_network_identifier,
             "vpc_identifier": vpc_identifier,
@@ -463,7 +476,9 @@ class AsyncServiceNetworkVpcAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetServiceNetworkVpcAssociation")
+        )
         input_: capo_vpc_lattice.types.get_service_network_vpc_association_request.GetServiceNetworkVpcAssociationRequest = {
             "service_network_vpc_association_identifier": service_network_vpc_association_identifier
         }
@@ -520,7 +535,9 @@ class AsyncServiceNetworkVpcAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateServiceNetworkVpcAssociation")
+        )
         input_: capo_vpc_lattice.types.update_service_network_vpc_association_request.UpdateServiceNetworkVpcAssociationRequest = {
             "service_network_vpc_association_identifier": service_network_vpc_association_identifier
         }
@@ -575,7 +592,9 @@ class AsyncServiceNetworkVpcAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteServiceNetworkVpcAssociation")
+        )
         input_: capo_vpc_lattice.types.delete_service_network_vpc_association_request.DeleteServiceNetworkVpcAssociationRequest = {
             "service_network_vpc_association_identifier": service_network_vpc_association_identifier
         }
@@ -630,7 +649,9 @@ class AsyncServiceNetworkVpcAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListServiceNetworkVpcAssociations")
+        )
         input_: capo_vpc_lattice.types.list_service_network_vpc_associations_request.ListServiceNetworkVpcAssociationsRequest = {}
         if service_network_identifier is not None:
             input_["service_network_identifier"] = service_network_identifier

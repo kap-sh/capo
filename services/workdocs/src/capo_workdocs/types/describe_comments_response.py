@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#DescribeCommentsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,15 @@ def deserialize_json(data: dict) -> DescribeCommentsResponse:
         )
     if data.get("Marker") is not None:
         out["marker"] = data["Marker"]
+    return out
+
+
+def redact_sensitive(value: DescribeCommentsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "comments" in value:
+        import capo_workdocs.types.comment_list
+
+        out["comments"] = capo_workdocs.types.comment_list.redact_sensitive(
+            value["comments"]
+        )
     return out

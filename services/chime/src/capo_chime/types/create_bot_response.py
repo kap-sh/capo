@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chime#CreateBotResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -29,4 +29,13 @@ def deserialize_json(data: dict) -> CreateBotResponse:
         import capo_chime.types.bot
 
         out["bot"] = capo_chime.types.bot.deserialize_json(data["Bot"])
+    return out
+
+
+def redact_sensitive(value: CreateBotResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "bot" in value:
+        import capo_chime.types.bot
+
+        out["bot"] = capo_chime.types.bot.redact_sensitive(value["bot"])
     return out

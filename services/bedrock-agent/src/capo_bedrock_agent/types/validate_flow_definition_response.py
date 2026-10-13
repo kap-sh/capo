@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#ValidateFlowDefinitionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -37,5 +37,16 @@ def deserialize_json(data: dict) -> ValidateFlowDefinitionResponse:
     else:
         raise DeserializationError(
             "ValidateFlowDefinitionResponse.validations required"
+        )
+    return out
+
+
+def redact_sensitive(value: ValidateFlowDefinitionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "validations" in value:
+        import capo_bedrock_agent.types.flow_validations
+
+        out["validations"] = capo_bedrock_agent.types.flow_validations.redact_sensitive(
+            value["validations"]
         )
     return out

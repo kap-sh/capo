@@ -7,6 +7,7 @@ import capo_cleanroomsml._auth._sigv4
 from capo_cleanroomsml._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -96,7 +97,10 @@ class ConfiguredModelAlgorithmAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateConfiguredModelAlgorithmAssociation"),
+        )
         input_: capo_cleanroomsml.types.create_configured_model_algorithm_association_request.CreateConfiguredModelAlgorithmAssociationRequest = {
             "membership_identifier": membership_identifier,
             "configured_model_algorithm_arn": configured_model_algorithm_arn,
@@ -152,7 +156,9 @@ class ConfiguredModelAlgorithmAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConfiguredModelAlgorithmAssociation")
+        )
         input_: capo_cleanroomsml.types.get_configured_model_algorithm_association_request.GetConfiguredModelAlgorithmAssociationRequest = {
             "configured_model_algorithm_association_arn": configured_model_algorithm_association_arn,
             "membership_identifier": membership_identifier,
@@ -200,7 +206,10 @@ class ConfiguredModelAlgorithmAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteConfiguredModelAlgorithmAssociation"),
+        )
         input_: capo_cleanroomsml.types.delete_configured_model_algorithm_association_request.DeleteConfiguredModelAlgorithmAssociationRequest = {
             "configured_model_algorithm_association_arn": configured_model_algorithm_association_arn,
             "membership_identifier": membership_identifier,
@@ -250,7 +259,10 @@ class ConfiguredModelAlgorithmAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListConfiguredModelAlgorithmAssociations"),
+        )
         input_: capo_cleanroomsml.types.list_configured_model_algorithm_associations_request.ListConfiguredModelAlgorithmAssociationsRequest = {
             "membership_identifier": membership_identifier
         }
@@ -302,7 +314,10 @@ class ConfiguredModelAlgorithmAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetCollaborationConfiguredModelAlgorithmAssociation"),
+        )
         input_: capo_cleanroomsml.types.get_collaboration_configured_model_algorithm_association_request.GetCollaborationConfiguredModelAlgorithmAssociationRequest = {
             "configured_model_algorithm_association_arn": configured_model_algorithm_association_arn,
             "collaboration_identifier": collaboration_identifier,
@@ -371,7 +386,10 @@ class AsyncConfiguredModelAlgorithmAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateConfiguredModelAlgorithmAssociation"),
+        )
         input_: capo_cleanroomsml.types.create_configured_model_algorithm_association_request.CreateConfiguredModelAlgorithmAssociationRequest = {
             "membership_identifier": membership_identifier,
             "configured_model_algorithm_arn": configured_model_algorithm_arn,
@@ -428,7 +446,9 @@ class AsyncConfiguredModelAlgorithmAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConfiguredModelAlgorithmAssociation")
+        )
         input_: capo_cleanroomsml.types.get_configured_model_algorithm_association_request.GetConfiguredModelAlgorithmAssociationRequest = {
             "configured_model_algorithm_association_arn": configured_model_algorithm_association_arn,
             "membership_identifier": membership_identifier,
@@ -477,7 +497,10 @@ class AsyncConfiguredModelAlgorithmAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteConfiguredModelAlgorithmAssociation"),
+        )
         input_: capo_cleanroomsml.types.delete_configured_model_algorithm_association_request.DeleteConfiguredModelAlgorithmAssociationRequest = {
             "configured_model_algorithm_association_arn": configured_model_algorithm_association_arn,
             "membership_identifier": membership_identifier,
@@ -528,7 +551,10 @@ class AsyncConfiguredModelAlgorithmAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListConfiguredModelAlgorithmAssociations"),
+        )
         input_: capo_cleanroomsml.types.list_configured_model_algorithm_associations_request.ListConfiguredModelAlgorithmAssociationsRequest = {
             "membership_identifier": membership_identifier
         }
@@ -581,7 +607,10 @@ class AsyncConfiguredModelAlgorithmAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetCollaborationConfiguredModelAlgorithmAssociation"),
+        )
         input_: capo_cleanroomsml.types.get_collaboration_configured_model_algorithm_association_request.GetCollaborationConfiguredModelAlgorithmAssociationRequest = {
             "configured_model_algorithm_association_arn": configured_model_algorithm_association_arn,
             "collaboration_identifier": collaboration_identifier,

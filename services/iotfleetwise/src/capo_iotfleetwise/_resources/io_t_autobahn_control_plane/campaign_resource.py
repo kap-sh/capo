@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_iotfleetwise._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -144,7 +145,19 @@ class CampaignResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iotfleetwise.types.create_campaign_request.CreateCampaignRequest",
+        ) -> dict[str, Any]:
+            import capo_iotfleetwise.types.create_campaign_request
+
+            return capo_iotfleetwise.types.create_campaign_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateCampaign", redact_input=_redact_input),
+        )
         input_: capo_iotfleetwise.types.create_campaign_request.CreateCampaignRequest = {
             "name": name,
             "signal_catalog_arn": signal_catalog_arn,
@@ -224,7 +237,19 @@ class CampaignResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iotfleetwise.types.get_campaign_response.GetCampaignResponse",
+        ) -> dict[str, Any]:
+            import capo_iotfleetwise.types.get_campaign_response
+
+            return capo_iotfleetwise.types.get_campaign_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetCampaign", redact_output=_redact_output),
+        )
         input_: capo_iotfleetwise.types.get_campaign_request.GetCampaignRequest = {
             "name": name
         }
@@ -280,7 +305,19 @@ class CampaignResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iotfleetwise.types.update_campaign_request.UpdateCampaignRequest",
+        ) -> dict[str, Any]:
+            import capo_iotfleetwise.types.update_campaign_request
+
+            return capo_iotfleetwise.types.update_campaign_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateCampaign", redact_input=_redact_input),
+        )
         input_: capo_iotfleetwise.types.update_campaign_request.UpdateCampaignRequest = {
             "name": name,
             "action": action,
@@ -332,7 +369,9 @@ class CampaignResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCampaign")
+        )
         input_: capo_iotfleetwise.types.delete_campaign_request.DeleteCampaignRequest = {
             "name": name
         }
@@ -386,7 +425,9 @@ class CampaignResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCampaigns")
+        )
         input_: capo_iotfleetwise.types.list_campaigns_request.ListCampaignsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -497,7 +538,19 @@ class AsyncCampaignResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iotfleetwise.types.create_campaign_request.CreateCampaignRequest",
+        ) -> dict[str, Any]:
+            import capo_iotfleetwise.types.create_campaign_request
+
+            return capo_iotfleetwise.types.create_campaign_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateCampaign", redact_input=_redact_input),
+        )
         input_: capo_iotfleetwise.types.create_campaign_request.CreateCampaignRequest = {
             "name": name,
             "signal_catalog_arn": signal_catalog_arn,
@@ -578,7 +631,19 @@ class AsyncCampaignResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iotfleetwise.types.get_campaign_response.GetCampaignResponse",
+        ) -> dict[str, Any]:
+            import capo_iotfleetwise.types.get_campaign_response
+
+            return capo_iotfleetwise.types.get_campaign_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetCampaign", redact_output=_redact_output),
+        )
         input_: capo_iotfleetwise.types.get_campaign_request.GetCampaignRequest = {
             "name": name
         }
@@ -635,7 +700,19 @@ class AsyncCampaignResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iotfleetwise.types.update_campaign_request.UpdateCampaignRequest",
+        ) -> dict[str, Any]:
+            import capo_iotfleetwise.types.update_campaign_request
+
+            return capo_iotfleetwise.types.update_campaign_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateCampaign", redact_input=_redact_input),
+        )
         input_: capo_iotfleetwise.types.update_campaign_request.UpdateCampaignRequest = {
             "name": name,
             "action": action,
@@ -688,7 +765,9 @@ class AsyncCampaignResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCampaign")
+        )
         input_: capo_iotfleetwise.types.delete_campaign_request.DeleteCampaignRequest = {
             "name": name
         }
@@ -743,7 +822,9 @@ class AsyncCampaignResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCampaigns")
+        )
         input_: capo_iotfleetwise.types.list_campaigns_request.ListCampaignsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

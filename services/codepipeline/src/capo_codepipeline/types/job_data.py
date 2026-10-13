@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.codepipeline#JobData``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -165,4 +165,11 @@ def deserialize_aws_json_1_1(data: dict) -> JobData:
                 data["encryptionKey"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: JobData) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "artifact_credentials" in value:
+        out["artifact_credentials"] = "*** Sensitive Data Redacted ***"
     return out

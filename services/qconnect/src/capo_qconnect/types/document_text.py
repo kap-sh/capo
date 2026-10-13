@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#DocumentText``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,11 @@ def deserialize_json(data: dict) -> DocumentText:
         out["highlights"] = capo_qconnect.types.highlights.deserialize_json(
             data["highlights"]
         )
+    return out
+
+
+def redact_sensitive(value: DocumentText) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text" in value:
+        out["text"] = "*** Sensitive Data Redacted ***"
     return out

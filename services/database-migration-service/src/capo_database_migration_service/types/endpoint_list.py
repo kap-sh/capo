@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.databasemigrationservice#EndpointList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_database_migration_service.types.endpoint
@@ -35,3 +35,12 @@ def deserialize_aws_json_1_1(data: list) -> EndpointList:
             )
         )
     return out
+
+
+def redact_sensitive(value: EndpointList) -> list[Any]:
+    import capo_database_migration_service.types.endpoint
+
+    return [
+        capo_database_migration_service.types.endpoint.redact_sensitive(item)
+        for item in value
+    ]

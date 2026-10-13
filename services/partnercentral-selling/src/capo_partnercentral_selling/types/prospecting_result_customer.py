@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#ProspectingResultCustomer``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -147,4 +147,11 @@ def deserialize_aws_json_1_0(data: dict) -> ProspectingResultCustomer:
         )
     if data.get("PublicProfileSummary") is not None:
         out["public_profile_summary"] = data["PublicProfileSummary"]
+    return out
+
+
+def redact_sensitive(value: ProspectingResultCustomer) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "country" in value:
+        out["country"] = "*** Sensitive Data Redacted ***"
     return out

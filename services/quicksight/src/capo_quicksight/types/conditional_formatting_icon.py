@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#ConditionalFormattingIcon``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,6 +58,27 @@ def deserialize_json(data: dict) -> ConditionalFormattingIcon:
         out["custom_condition"] = (
             capo_quicksight.types.conditional_formatting_custom_icon_condition.deserialize_json(
                 data["CustomCondition"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ConditionalFormattingIcon) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "icon_set" in value:
+        import capo_quicksight.types.conditional_formatting_icon_set
+
+        out["icon_set"] = (
+            capo_quicksight.types.conditional_formatting_icon_set.redact_sensitive(
+                value["icon_set"]
+            )
+        )
+    if "custom_condition" in value:
+        import capo_quicksight.types.conditional_formatting_custom_icon_condition
+
+        out["custom_condition"] = (
+            capo_quicksight.types.conditional_formatting_custom_icon_condition.redact_sensitive(
+                value["custom_condition"]
             )
         )
     return out

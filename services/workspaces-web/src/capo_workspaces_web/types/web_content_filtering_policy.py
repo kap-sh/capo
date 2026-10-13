@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#WebContentFilteringPolicy``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -74,6 +74,27 @@ def deserialize_json(data: dict) -> WebContentFilteringPolicy:
         out["blocked_urls"] = (
             capo_workspaces_web.types.url_pattern_list.deserialize_json(
                 data["blockedUrls"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: WebContentFilteringPolicy) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "allowed_urls" in value:
+        import capo_workspaces_web.types.url_pattern_list
+
+        out["allowed_urls"] = (
+            capo_workspaces_web.types.url_pattern_list.redact_sensitive(
+                value["allowed_urls"]
+            )
+        )
+    if "blocked_urls" in value:
+        import capo_workspaces_web.types.url_pattern_list
+
+        out["blocked_urls"] = (
+            capo_workspaces_web.types.url_pattern_list.redact_sensitive(
+                value["blocked_urls"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#PlayerDataMap``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_gamelift.types.non_zero_and_max_string
@@ -27,3 +27,7 @@ def deserialize_aws_json_1_1(data: dict) -> PlayerDataMap:
             continue
         out[key] = value
     return out
+
+
+def redact_sensitive(value: PlayerDataMap) -> dict[str, Any]:
+    return dict.fromkeys(value, "*** Sensitive Data Redacted ***")

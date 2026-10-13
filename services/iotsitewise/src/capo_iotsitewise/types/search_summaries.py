@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotsitewise#SearchSummaries``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_iotsitewise.types.search_summary
@@ -27,3 +27,11 @@ def deserialize_json(data: list) -> SearchSummaries:
             continue
         out.append(capo_iotsitewise.types.search_summary.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: SearchSummaries) -> list[Any]:
+    import capo_iotsitewise.types.search_summary
+
+    return [
+        capo_iotsitewise.types.search_summary.redact_sensitive(item) for item in value
+    ]

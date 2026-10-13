@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#GetFunctionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -92,5 +92,24 @@ def deserialize_json(data: dict) -> GetFunctionResponse:
 
         out["concurrency"] = capo_lambda.types.concurrency.deserialize_json(
             data["Concurrency"]
+        )
+    return out
+
+
+def redact_sensitive(value: GetFunctionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "configuration" in value:
+        import capo_lambda.types.function_configuration
+
+        out["configuration"] = (
+            capo_lambda.types.function_configuration.redact_sensitive(
+                value["configuration"]
+            )
+        )
+    if "code" in value:
+        import capo_lambda.types.function_code_location
+
+        out["code"] = capo_lambda.types.function_code_location.redact_sensitive(
+            value["code"]
         )
     return out

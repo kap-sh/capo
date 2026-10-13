@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glue#ListDataQualityStatisticsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,15 @@ def deserialize_aws_json_1_1(data: dict) -> ListDataQualityStatisticsResponse:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListDataQualityStatisticsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "statistics" in value:
+        import capo_glue.types.statistic_summary_list
+
+        out["statistics"] = capo_glue.types.statistic_summary_list.redact_sensitive(
+            value["statistics"]
+        )
     return out

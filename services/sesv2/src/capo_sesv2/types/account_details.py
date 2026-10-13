@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sesv2#AccountDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -96,4 +96,15 @@ def deserialize_json(data: dict) -> AccountDetails:
         out["review_details"] = capo_sesv2.types.review_details.deserialize_json(
             data["ReviewDetails"]
         )
+    return out
+
+
+def redact_sensitive(value: AccountDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "website_url" in value:
+        out["website_url"] = "*** Sensitive Data Redacted ***"
+    if "use_case_description" in value:
+        out["use_case_description"] = "*** Sensitive Data Redacted ***"
+    if "additional_contact_email_addresses" in value:
+        out["additional_contact_email_addresses"] = "*** Sensitive Data Redacted ***"
     return out

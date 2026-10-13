@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.guardduty#Action``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -210,6 +210,51 @@ def deserialize_json(data: dict) -> Action:
         out["rds_login_attempt_action"] = (
             capo_guardduty.types.rds_login_attempt_action.deserialize_json(
                 data["rdsLoginAttemptAction"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: Action) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "aws_api_call_action" in value:
+        import capo_guardduty.types.aws_api_call_action
+
+        out["aws_api_call_action"] = (
+            capo_guardduty.types.aws_api_call_action.redact_sensitive(
+                value["aws_api_call_action"]
+            )
+        )
+    if "network_connection_action" in value:
+        import capo_guardduty.types.network_connection_action
+
+        out["network_connection_action"] = (
+            capo_guardduty.types.network_connection_action.redact_sensitive(
+                value["network_connection_action"]
+            )
+        )
+    if "port_probe_action" in value:
+        import capo_guardduty.types.port_probe_action
+
+        out["port_probe_action"] = (
+            capo_guardduty.types.port_probe_action.redact_sensitive(
+                value["port_probe_action"]
+            )
+        )
+    if "kubernetes_api_call_action" in value:
+        import capo_guardduty.types.kubernetes_api_call_action
+
+        out["kubernetes_api_call_action"] = (
+            capo_guardduty.types.kubernetes_api_call_action.redact_sensitive(
+                value["kubernetes_api_call_action"]
+            )
+        )
+    if "rds_login_attempt_action" in value:
+        import capo_guardduty.types.rds_login_attempt_action
+
+        out["rds_login_attempt_action"] = (
+            capo_guardduty.types.rds_login_attempt_action.redact_sensitive(
+                value["rds_login_attempt_action"]
             )
         )
     return out

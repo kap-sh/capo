@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wickr#GetOidcInfoRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,4 +39,11 @@ def serialize_json(value: GetOidcInfoRequest) -> dict:
 
 def deserialize_json(data: dict) -> GetOidcInfoRequest:
     out: GetOidcInfoRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: GetOidcInfoRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_secret" in value:
+        out["client_secret"] = "*** Sensitive Data Redacted ***"
     return out

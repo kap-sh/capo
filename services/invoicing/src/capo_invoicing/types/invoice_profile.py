@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.invoicing#InvoiceProfile``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -80,4 +80,15 @@ def deserialize_aws_json_1_0(data: dict) -> InvoiceProfile:
         out["issuer"] = data["Issuer"]
     if data.get("TaxRegistrationNumber") is not None:
         out["tax_registration_number"] = data["TaxRegistrationNumber"]
+    return out
+
+
+def redact_sensitive(value: InvoiceProfile) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "receiver_address" in value:
+        out["receiver_address"] = "*** Sensitive Data Redacted ***"
+    if "receiver_email" in value:
+        out["receiver_email"] = "*** Sensitive Data Redacted ***"
+    if "tax_registration_number" in value:
+        out["tax_registration_number"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#InboundRawMessage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -61,4 +61,13 @@ def deserialize_json(data: dict) -> InboundRawMessage:
         out["headers"] = capo_connect.types.email_headers.deserialize_json(
             data["Headers"]
         )
+    return out
+
+
+def redact_sensitive(value: InboundRawMessage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "subject" in value:
+        out["subject"] = "*** Sensitive Data Redacted ***"
+    if "body" in value:
+        out["body"] = "*** Sensitive Data Redacted ***"
     return out

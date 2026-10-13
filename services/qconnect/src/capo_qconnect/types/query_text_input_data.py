@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#QueryTextInputData``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -28,4 +28,11 @@ def deserialize_json(data: dict) -> QueryTextInputData:
         out["text"] = data["text"]
     else:
         raise DeserializationError("QueryTextInputData.text required")
+    return out
+
+
+def redact_sensitive(value: QueryTextInputData) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text" in value:
+        out["text"] = "*** Sensitive Data Redacted ***"
     return out

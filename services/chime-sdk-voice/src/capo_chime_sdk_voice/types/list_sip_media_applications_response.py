@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#ListSipMediaApplicationsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -48,4 +48,17 @@ def deserialize_json(data: dict) -> ListSipMediaApplicationsResponse:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListSipMediaApplicationsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sip_media_applications" in value:
+        import capo_chime_sdk_voice.types.sip_media_application_list
+
+        out["sip_media_applications"] = (
+            capo_chime_sdk_voice.types.sip_media_application_list.redact_sensitive(
+                value["sip_media_applications"]
+            )
+        )
     return out

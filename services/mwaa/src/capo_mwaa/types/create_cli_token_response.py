@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mwaa#CreateCliTokenResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,4 +32,11 @@ def deserialize_json(data: dict) -> CreateCliTokenResponse:
         out["cli_token"] = data["CliToken"]
     if data.get("WebServerHostname") is not None:
         out["web_server_hostname"] = data["WebServerHostname"]
+    return out
+
+
+def redact_sensitive(value: CreateCliTokenResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "cli_token" in value:
+        out["cli_token"] = "*** Sensitive Data Redacted ***"
     return out

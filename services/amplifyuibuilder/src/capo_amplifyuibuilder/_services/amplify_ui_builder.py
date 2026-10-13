@@ -34,10 +34,12 @@ from capo_amplifyuibuilder._resources.amplify_ui_builder.theme_resource import (
 from capo_amplifyuibuilder._services._aws_config import aws_config
 from capo_amplifyuibuilder._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -199,7 +201,9 @@ class AmplifyUIBuilderClient:
         self.theme_resource = ThemeResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AmplifyUIBuilderClientConfig] = None
+        self,
+        config_overrides: Optional[AmplifyUIBuilderClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: AmplifyUIBuilderClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -207,8 +211,10 @@ class AmplifyUIBuilderClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -259,7 +265,32 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_amplifyuibuilder.types.exchange_code_for_token_request.ExchangeCodeForTokenRequest",
+        ) -> dict[str, Any]:
+            import capo_amplifyuibuilder.types.exchange_code_for_token_request
+
+            return capo_amplifyuibuilder.types.exchange_code_for_token_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_amplifyuibuilder.types.exchange_code_for_token_response.ExchangeCodeForTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_amplifyuibuilder.types.exchange_code_for_token_response
+
+            return capo_amplifyuibuilder.types.exchange_code_for_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ExchangeCodeForToken",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_amplifyuibuilder.types.exchange_code_for_token_request.ExchangeCodeForTokenRequest = {
             "provider": provider,
             "request": request,
@@ -306,7 +337,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMetadata")
+        )
         input_: capo_amplifyuibuilder.types.get_metadata_request.GetMetadataRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -354,7 +387,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_amplifyuibuilder.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -402,7 +437,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutMetadataFlag")
+        )
         input_: capo_amplifyuibuilder.types.put_metadata_flag_request.PutMetadataFlagRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -450,7 +487,30 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_amplifyuibuilder.types.refresh_token_request.RefreshTokenRequest",
+        ) -> dict[str, Any]:
+            import capo_amplifyuibuilder.types.refresh_token_request
+
+            return capo_amplifyuibuilder.types.refresh_token_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_amplifyuibuilder.types.refresh_token_response.RefreshTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_amplifyuibuilder.types.refresh_token_response
+
+            return capo_amplifyuibuilder.types.refresh_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RefreshToken", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_amplifyuibuilder.types.refresh_token_request.RefreshTokenRequest = {
             "provider": provider,
             "refresh_token_body": refresh_token_body,
@@ -500,7 +560,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_amplifyuibuilder.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -550,7 +612,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_amplifyuibuilder.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -604,7 +668,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCodegenJob")
+        )
         input_: capo_amplifyuibuilder.types.start_codegen_job_request.StartCodegenJobRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -659,7 +725,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCodegenJob")
+        )
         input_: capo_amplifyuibuilder.types.get_codegen_job_request.GetCodegenJobRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -716,7 +784,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCodegenJobs")
+        )
         input_: capo_amplifyuibuilder.types.list_codegen_jobs_request.ListCodegenJobsRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -802,7 +872,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateComponent")
+        )
         input_: capo_amplifyuibuilder.types.create_component_request.CreateComponentRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -856,7 +928,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetComponent")
+        )
         input_: capo_amplifyuibuilder.types.get_component_request.GetComponentRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -913,7 +987,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateComponent")
+        )
         input_: capo_amplifyuibuilder.types.update_component_request.UpdateComponentRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -966,7 +1042,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteComponent")
+        )
         input_: capo_amplifyuibuilder.types.delete_component_request.DeleteComponentRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -1020,7 +1098,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListComponents")
+        )
         input_: capo_amplifyuibuilder.types.list_components_request.ListComponentsRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -1100,7 +1180,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportComponents")
+        )
         input_: capo_amplifyuibuilder.types.export_components_request.ExportComponentsRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -1178,7 +1260,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateForm")
+        )
         input_: capo_amplifyuibuilder.types.create_form_request.CreateFormRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -1232,7 +1316,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetForm")
+        )
         input_: capo_amplifyuibuilder.types.get_form_request.GetFormRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -1287,7 +1373,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateForm")
+        )
         input_: capo_amplifyuibuilder.types.update_form_request.UpdateFormRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -1340,7 +1428,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteForm")
+        )
         input_: capo_amplifyuibuilder.types.delete_form_request.DeleteFormRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -1394,7 +1484,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListForms")
+        )
         input_: capo_amplifyuibuilder.types.list_forms_request.ListFormsRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -1474,7 +1566,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportForms")
+        )
         input_: capo_amplifyuibuilder.types.export_forms_request.ExportFormsRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -1552,7 +1646,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTheme")
+        )
         input_: capo_amplifyuibuilder.types.create_theme_request.CreateThemeRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -1606,7 +1702,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTheme")
+        )
         input_: capo_amplifyuibuilder.types.get_theme_request.GetThemeRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -1661,7 +1759,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTheme")
+        )
         input_: capo_amplifyuibuilder.types.update_theme_request.UpdateThemeRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -1714,7 +1814,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTheme")
+        )
         input_: capo_amplifyuibuilder.types.delete_theme_request.DeleteThemeRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -1768,7 +1870,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThemes")
+        )
         input_: capo_amplifyuibuilder.types.list_themes_request.ListThemesRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -1848,7 +1952,9 @@ class AmplifyUIBuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportThemes")
+        )
         input_: capo_amplifyuibuilder.types.export_themes_request.ExportThemesRequest = {
             "app_id": app_id,
             "environment_name": environment_name,

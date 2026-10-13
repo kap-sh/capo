@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_sagemaker_geospatial._auth._signers
 import capo_sagemaker_geospatial._auth._sigv4
 from capo_sagemaker_geospatial._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -72,7 +73,9 @@ class RasterDataCollection:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRasterDataCollection")
+        )
         input_: capo_sagemaker_geospatial.types.get_raster_data_collection_input.GetRasterDataCollectionInput = {
             "arn": arn
         }
@@ -123,7 +126,32 @@ class RasterDataCollection:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker_geospatial.types.list_raster_data_collections_input.ListRasterDataCollectionsInput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.list_raster_data_collections_input
+
+            return capo_sagemaker_geospatial.types.list_raster_data_collections_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemaker_geospatial.types.list_raster_data_collections_output.ListRasterDataCollectionsOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.list_raster_data_collections_output
+
+            return capo_sagemaker_geospatial.types.list_raster_data_collections_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListRasterDataCollections",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sagemaker_geospatial.types.list_raster_data_collections_input.ListRasterDataCollectionsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -178,7 +206,32 @@ class RasterDataCollection:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker_geospatial.types.search_raster_data_collection_input.SearchRasterDataCollectionInput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.search_raster_data_collection_input
+
+            return capo_sagemaker_geospatial.types.search_raster_data_collection_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemaker_geospatial.types.search_raster_data_collection_output.SearchRasterDataCollectionOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.search_raster_data_collection_output
+
+            return capo_sagemaker_geospatial.types.search_raster_data_collection_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchRasterDataCollection",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sagemaker_geospatial.types.search_raster_data_collection_input.SearchRasterDataCollectionInput = {
             "arn": arn,
             "raster_data_collection_query": raster_data_collection_query,
@@ -234,7 +287,9 @@ class AsyncRasterDataCollection:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRasterDataCollection")
+        )
         input_: capo_sagemaker_geospatial.types.get_raster_data_collection_input.GetRasterDataCollectionInput = {
             "arn": arn
         }
@@ -286,7 +341,32 @@ class AsyncRasterDataCollection:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker_geospatial.types.list_raster_data_collections_input.ListRasterDataCollectionsInput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.list_raster_data_collections_input
+
+            return capo_sagemaker_geospatial.types.list_raster_data_collections_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemaker_geospatial.types.list_raster_data_collections_output.ListRasterDataCollectionsOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.list_raster_data_collections_output
+
+            return capo_sagemaker_geospatial.types.list_raster_data_collections_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListRasterDataCollections",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sagemaker_geospatial.types.list_raster_data_collections_input.ListRasterDataCollectionsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -342,7 +422,32 @@ class AsyncRasterDataCollection:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker_geospatial.types.search_raster_data_collection_input.SearchRasterDataCollectionInput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.search_raster_data_collection_input
+
+            return capo_sagemaker_geospatial.types.search_raster_data_collection_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemaker_geospatial.types.search_raster_data_collection_output.SearchRasterDataCollectionOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.search_raster_data_collection_output
+
+            return capo_sagemaker_geospatial.types.search_raster_data_collection_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchRasterDataCollection",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sagemaker_geospatial.types.search_raster_data_collection_input.SearchRasterDataCollectionInput = {
             "arn": arn,
             "raster_data_collection_query": raster_data_collection_query,

@@ -21,10 +21,12 @@ from capo_iot_data_plane._pagination import resolve_path as _resolve_path
 from capo_iot_data_plane._services._aws_config import aws_config
 from capo_iot_data_plane._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -148,7 +150,9 @@ class IoTDataPlaneClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[IoTDataPlaneClientConfig] = None
+        self,
+        config_overrides: Optional[IoTDataPlaneClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: IoTDataPlaneClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -156,8 +160,10 @@ class IoTDataPlaneClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -216,7 +222,9 @@ class IoTDataPlaneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnection")
+        )
         input_: capo_iot_data_plane.types.delete_connection_request.DeleteConnectionRequest = {
             "client_id": client_id
         }
@@ -274,7 +282,9 @@ class IoTDataPlaneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteThingShadow")
+        )
         input_: capo_iot_data_plane.types.delete_thing_shadow_request.DeleteThingShadowRequest = {
             "thing_name": thing_name
         }
@@ -327,7 +337,9 @@ class IoTDataPlaneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnection")
+        )
         input_: capo_iot_data_plane.types.get_connection_request.GetConnectionRequest = {
             "client_id": client_id
         }
@@ -378,7 +390,9 @@ class IoTDataPlaneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRetainedMessage")
+        )
         input_: capo_iot_data_plane.types.get_retained_message_request.GetRetainedMessageRequest = {
             "topic": topic
         }
@@ -432,7 +446,9 @@ class IoTDataPlaneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetThingShadow")
+        )
         input_: capo_iot_data_plane.types.get_thing_shadow_request.GetThingShadowRequest = {
             "thing_name": thing_name
         }
@@ -487,7 +503,9 @@ class IoTDataPlaneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNamedShadowsForThing")
+        )
         input_: capo_iot_data_plane.types.list_named_shadows_for_thing_request.ListNamedShadowsForThingRequest = {
             "thing_name": thing_name
         }
@@ -543,7 +561,9 @@ class IoTDataPlaneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRetainedMessages")
+        )
         input_: capo_iot_data_plane.types.list_retained_messages_request.ListRetainedMessagesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -621,7 +641,9 @@ class IoTDataPlaneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSubscriptions")
+        )
         input_: capo_iot_data_plane.types.list_subscriptions_request.ListSubscriptionsRequest = {
             "client_id": client_id
         }
@@ -725,7 +747,9 @@ class IoTDataPlaneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Publish")
+        )
         input_: capo_iot_data_plane.types.publish_request.PublishRequest = {
             "topic": topic
         }
@@ -825,7 +849,9 @@ class IoTDataPlaneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendDirectMessage")
+        )
         input_: capo_iot_data_plane.types.send_direct_message_request.SendDirectMessageRequest = {
             "client_id": client_id,
             "topic": topic,
@@ -899,7 +925,9 @@ class IoTDataPlaneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateThingShadow")
+        )
         input_: capo_iot_data_plane.types.update_thing_shadow_request.UpdateThingShadowRequest = {
             "thing_name": thing_name,
             "payload": payload,

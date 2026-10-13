@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#SearchTextResultItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -309,6 +309,109 @@ def deserialize_json(data: dict) -> SearchTextResultItem:
         out["cross_references"] = (
             capo_geo_places.types.cross_reference_list.deserialize_json(
                 data["CrossReferences"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SearchTextResultItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "place_id" in value:
+        out["place_id"] = "*** Sensitive Data Redacted ***"
+    if "place_type" in value:
+        out["place_type"] = "*** Sensitive Data Redacted ***"
+    if "title" in value:
+        out["title"] = "*** Sensitive Data Redacted ***"
+    if "address" in value:
+        import capo_geo_places.types.address
+
+        out["address"] = capo_geo_places.types.address.redact_sensitive(
+            value["address"]
+        )
+    if "address_number_corrected" in value:
+        out["address_number_corrected"] = "*** Sensitive Data Redacted ***"
+    if "position" in value:
+        out["position"] = "*** Sensitive Data Redacted ***"
+    if "distance" in value:
+        out["distance"] = "*** Sensitive Data Redacted ***"
+    if "map_view" in value:
+        out["map_view"] = "*** Sensitive Data Redacted ***"
+    if "categories" in value:
+        import capo_geo_places.types.category_list
+
+        out["categories"] = capo_geo_places.types.category_list.redact_sensitive(
+            value["categories"]
+        )
+    if "food_types" in value:
+        import capo_geo_places.types.food_type_list
+
+        out["food_types"] = capo_geo_places.types.food_type_list.redact_sensitive(
+            value["food_types"]
+        )
+    if "business_chains" in value:
+        import capo_geo_places.types.business_chain_list
+
+        out["business_chains"] = (
+            capo_geo_places.types.business_chain_list.redact_sensitive(
+                value["business_chains"]
+            )
+        )
+    if "contacts" in value:
+        import capo_geo_places.types.contacts
+
+        out["contacts"] = capo_geo_places.types.contacts.redact_sensitive(
+            value["contacts"]
+        )
+    if "opening_hours" in value:
+        import capo_geo_places.types.opening_hours_list
+
+        out["opening_hours"] = (
+            capo_geo_places.types.opening_hours_list.redact_sensitive(
+                value["opening_hours"]
+            )
+        )
+    if "access_points" in value:
+        import capo_geo_places.types.access_point_list
+
+        out["access_points"] = capo_geo_places.types.access_point_list.redact_sensitive(
+            value["access_points"]
+        )
+    if "access_restrictions" in value:
+        import capo_geo_places.types.access_restriction_list
+
+        out["access_restrictions"] = (
+            capo_geo_places.types.access_restriction_list.redact_sensitive(
+                value["access_restrictions"]
+            )
+        )
+    if "time_zone" in value:
+        import capo_geo_places.types.time_zone
+
+        out["time_zone"] = capo_geo_places.types.time_zone.redact_sensitive(
+            value["time_zone"]
+        )
+    if "political_view" in value:
+        out["political_view"] = "*** Sensitive Data Redacted ***"
+    if "phonemes" in value:
+        import capo_geo_places.types.phoneme_details
+
+        out["phonemes"] = capo_geo_places.types.phoneme_details.redact_sensitive(
+            value["phonemes"]
+        )
+    if "place_attributes" in value:
+        import capo_geo_places.types.place_attribute_list
+
+        out["place_attributes"] = (
+            capo_geo_places.types.place_attribute_list.redact_sensitive(
+                value["place_attributes"]
+            )
+        )
+    if "cross_references" in value:
+        import capo_geo_places.types.cross_reference_list
+
+        out["cross_references"] = (
+            capo_geo_places.types.cross_reference_list.redact_sensitive(
+                value["cross_references"]
             )
         )
     return out

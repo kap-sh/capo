@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.evs#LicenseInfo``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,13 @@ def deserialize_aws_json_1_0(data: dict) -> LicenseInfo:
         out["vsan_key"] = data["vsanKey"]
     else:
         raise DeserializationError("LicenseInfo.vsan_key required")
+    return out
+
+
+def redact_sensitive(value: LicenseInfo) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "solution_key" in value:
+        out["solution_key"] = "*** Sensitive Data Redacted ***"
+    if "vsan_key" in value:
+        out["vsan_key"] = "*** Sensitive Data Redacted ***"
     return out

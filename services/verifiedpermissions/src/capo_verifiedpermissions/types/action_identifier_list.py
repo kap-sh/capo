@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#ActionIdentifierList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.action_identifier
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_0(data: list) -> ActionIdentifierList:
             )
         )
     return out
+
+
+def redact_sensitive(value: ActionIdentifierList) -> list[Any]:
+    import capo_verifiedpermissions.types.action_identifier
+
+    return [
+        capo_verifiedpermissions.types.action_identifier.redact_sensitive(item)
+        for item in value
+    ]

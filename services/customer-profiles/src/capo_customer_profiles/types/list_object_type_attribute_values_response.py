@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#ListObjectTypeAttributeValuesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_json(data: dict) -> ListObjectTypeAttributeValuesResponse:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListObjectTypeAttributeValuesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "items" in value:
+        import capo_customer_profiles.types.list_object_type_attribute_values_list
+
+        out["items"] = (
+            capo_customer_profiles.types.list_object_type_attribute_values_list.redact_sensitive(
+                value["items"]
+            )
+        )
     return out

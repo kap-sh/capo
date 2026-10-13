@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#ListKnowledgeBasesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -51,4 +51,17 @@ def deserialize_json(data: dict) -> ListKnowledgeBasesResponse:
         )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListKnowledgeBasesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "knowledge_base_summaries" in value:
+        import capo_qconnect.types.knowledge_base_list
+
+        out["knowledge_base_summaries"] = (
+            capo_qconnect.types.knowledge_base_list.redact_sensitive(
+                value["knowledge_base_summaries"]
+            )
+        )
     return out

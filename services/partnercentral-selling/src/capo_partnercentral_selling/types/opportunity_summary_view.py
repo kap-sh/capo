@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#OpportunitySummaryView``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -157,6 +157,41 @@ def deserialize_aws_json_1_0(data: dict) -> OpportunitySummaryView:
         out["related_entity_identifiers"] = (
             capo_partnercentral_selling.types.related_entity_identifiers.deserialize_aws_json_1_0(
                 data["RelatedEntityIdentifiers"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: OpportunitySummaryView) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "lifecycle" in value:
+        import capo_partnercentral_selling.types.life_cycle_for_view
+
+        out["lifecycle"] = (
+            capo_partnercentral_selling.types.life_cycle_for_view.redact_sensitive(
+                value["lifecycle"]
+            )
+        )
+    if "opportunity_team" in value:
+        import capo_partnercentral_selling.types.partner_opportunity_team_members_list
+
+        out["opportunity_team"] = (
+            capo_partnercentral_selling.types.partner_opportunity_team_members_list.redact_sensitive(
+                value["opportunity_team"]
+            )
+        )
+    if "customer" in value:
+        import capo_partnercentral_selling.types.customer
+
+        out["customer"] = capo_partnercentral_selling.types.customer.redact_sensitive(
+            value["customer"]
+        )
+    if "project" in value:
+        import capo_partnercentral_selling.types.project_view
+
+        out["project"] = (
+            capo_partnercentral_selling.types.project_view.redact_sensitive(
+                value["project"]
             )
         )
     return out

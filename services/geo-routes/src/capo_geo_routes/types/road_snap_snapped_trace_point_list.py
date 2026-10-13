@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RoadSnapSnappedTracePointList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_routes.types.road_snap_snapped_trace_point
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> RoadSnapSnappedTracePointList:
             capo_geo_routes.types.road_snap_snapped_trace_point.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: RoadSnapSnappedTracePointList) -> list[Any]:
+    import capo_geo_routes.types.road_snap_snapped_trace_point
+
+    return [
+        capo_geo_routes.types.road_snap_snapped_trace_point.redact_sensitive(item)
+        for item in value
+    ]

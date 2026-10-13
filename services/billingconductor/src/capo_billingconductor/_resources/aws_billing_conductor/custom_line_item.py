@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_billingconductor._auth._signers
 import capo_billingconductor._auth._sigv4
 from capo_billingconductor._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -129,7 +130,19 @@ class CustomLineItem:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_billingconductor.types.create_custom_line_item_input.CreateCustomLineItemInput",
+        ) -> dict[str, Any]:
+            import capo_billingconductor.types.create_custom_line_item_input
+
+            return capo_billingconductor.types.create_custom_line_item_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateCustomLineItem", redact_input=_redact_input),
+        )
         input_: capo_billingconductor.types.create_custom_line_item_input.CreateCustomLineItemInput = {
             "name": name,
             "description": description,
@@ -208,7 +221,32 @@ class CustomLineItem:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_billingconductor.types.update_custom_line_item_input.UpdateCustomLineItemInput",
+        ) -> dict[str, Any]:
+            import capo_billingconductor.types.update_custom_line_item_input
+
+            return capo_billingconductor.types.update_custom_line_item_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_billingconductor.types.update_custom_line_item_output.UpdateCustomLineItemOutput",
+        ) -> dict[str, Any]:
+            import capo_billingconductor.types.update_custom_line_item_output
+
+            return capo_billingconductor.types.update_custom_line_item_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateCustomLineItem",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_billingconductor.types.update_custom_line_item_input.UpdateCustomLineItemInput = {
             "arn": arn
         }
@@ -266,7 +304,9 @@ class CustomLineItem:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCustomLineItem")
+        )
         input_: capo_billingconductor.types.delete_custom_line_item_input.DeleteCustomLineItemInput = {
             "arn": arn
         }
@@ -327,7 +367,32 @@ class CustomLineItem:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_billingconductor.types.list_custom_line_items_input.ListCustomLineItemsInput",
+        ) -> dict[str, Any]:
+            import capo_billingconductor.types.list_custom_line_items_input
+
+            return capo_billingconductor.types.list_custom_line_items_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_billingconductor.types.list_custom_line_items_output.ListCustomLineItemsOutput",
+        ) -> dict[str, Any]:
+            import capo_billingconductor.types.list_custom_line_items_output
+
+            return capo_billingconductor.types.list_custom_line_items_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListCustomLineItems",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_billingconductor.types.list_custom_line_items_input.ListCustomLineItemsInput = {}
         if billing_period is not None:
             input_["billing_period"] = billing_period
@@ -387,7 +452,10 @@ class CustomLineItem:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("BatchAssociateResourcesToCustomLineItem"),
+        )
         input_: capo_billingconductor.types.batch_associate_resources_to_custom_line_item_input.BatchAssociateResourcesToCustomLineItemInput = {
             "target_arn": target_arn,
             "resource_arns": resource_arns,
@@ -443,7 +511,10 @@ class CustomLineItem:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("BatchDisassociateResourcesFromCustomLineItem"),
+        )
         input_: capo_billingconductor.types.batch_disassociate_resources_from_custom_line_item_input.BatchDisassociateResourcesFromCustomLineItemInput = {
             "target_arn": target_arn,
             "resource_arns": resource_arns,
@@ -502,7 +573,21 @@ class CustomLineItem:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_billingconductor.types.list_custom_line_item_versions_output.ListCustomLineItemVersionsOutput",
+        ) -> dict[str, Any]:
+            import capo_billingconductor.types.list_custom_line_item_versions_output
+
+            return capo_billingconductor.types.list_custom_line_item_versions_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListCustomLineItemVersions", redact_output=_redact_output
+            ),
+        )
         input_: capo_billingconductor.types.list_custom_line_item_versions_input.ListCustomLineItemVersionsInput = {
             "arn": arn
         }
@@ -569,7 +654,10 @@ class CustomLineItem:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListResourcesAssociatedToCustomLineItem"),
+        )
         input_: capo_billingconductor.types.list_resources_associated_to_custom_line_item_input.ListResourcesAssociatedToCustomLineItemInput = {
             "arn": arn
         }
@@ -657,7 +745,19 @@ class AsyncCustomLineItem:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_billingconductor.types.create_custom_line_item_input.CreateCustomLineItemInput",
+        ) -> dict[str, Any]:
+            import capo_billingconductor.types.create_custom_line_item_input
+
+            return capo_billingconductor.types.create_custom_line_item_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateCustomLineItem", redact_input=_redact_input),
+        )
         input_: capo_billingconductor.types.create_custom_line_item_input.CreateCustomLineItemInput = {
             "name": name,
             "description": description,
@@ -737,7 +837,32 @@ class AsyncCustomLineItem:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_billingconductor.types.update_custom_line_item_input.UpdateCustomLineItemInput",
+        ) -> dict[str, Any]:
+            import capo_billingconductor.types.update_custom_line_item_input
+
+            return capo_billingconductor.types.update_custom_line_item_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_billingconductor.types.update_custom_line_item_output.UpdateCustomLineItemOutput",
+        ) -> dict[str, Any]:
+            import capo_billingconductor.types.update_custom_line_item_output
+
+            return capo_billingconductor.types.update_custom_line_item_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateCustomLineItem",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_billingconductor.types.update_custom_line_item_input.UpdateCustomLineItemInput = {
             "arn": arn
         }
@@ -796,7 +921,9 @@ class AsyncCustomLineItem:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCustomLineItem")
+        )
         input_: capo_billingconductor.types.delete_custom_line_item_input.DeleteCustomLineItemInput = {
             "arn": arn
         }
@@ -858,7 +985,32 @@ class AsyncCustomLineItem:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_billingconductor.types.list_custom_line_items_input.ListCustomLineItemsInput",
+        ) -> dict[str, Any]:
+            import capo_billingconductor.types.list_custom_line_items_input
+
+            return capo_billingconductor.types.list_custom_line_items_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_billingconductor.types.list_custom_line_items_output.ListCustomLineItemsOutput",
+        ) -> dict[str, Any]:
+            import capo_billingconductor.types.list_custom_line_items_output
+
+            return capo_billingconductor.types.list_custom_line_items_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListCustomLineItems",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_billingconductor.types.list_custom_line_items_input.ListCustomLineItemsInput = {}
         if billing_period is not None:
             input_["billing_period"] = billing_period
@@ -919,7 +1071,10 @@ class AsyncCustomLineItem:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("BatchAssociateResourcesToCustomLineItem"),
+        )
         input_: capo_billingconductor.types.batch_associate_resources_to_custom_line_item_input.BatchAssociateResourcesToCustomLineItemInput = {
             "target_arn": target_arn,
             "resource_arns": resource_arns,
@@ -976,7 +1131,10 @@ class AsyncCustomLineItem:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("BatchDisassociateResourcesFromCustomLineItem"),
+        )
         input_: capo_billingconductor.types.batch_disassociate_resources_from_custom_line_item_input.BatchDisassociateResourcesFromCustomLineItemInput = {
             "target_arn": target_arn,
             "resource_arns": resource_arns,
@@ -1036,7 +1194,21 @@ class AsyncCustomLineItem:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_billingconductor.types.list_custom_line_item_versions_output.ListCustomLineItemVersionsOutput",
+        ) -> dict[str, Any]:
+            import capo_billingconductor.types.list_custom_line_item_versions_output
+
+            return capo_billingconductor.types.list_custom_line_item_versions_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListCustomLineItemVersions", redact_output=_redact_output
+            ),
+        )
         input_: capo_billingconductor.types.list_custom_line_item_versions_input.ListCustomLineItemVersionsInput = {
             "arn": arn
         }
@@ -1104,7 +1276,10 @@ class AsyncCustomLineItem:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListResourcesAssociatedToCustomLineItem"),
+        )
         input_: capo_billingconductor.types.list_resources_associated_to_custom_line_item_input.ListResourcesAssociatedToCustomLineItemInput = {
             "arn": arn
         }

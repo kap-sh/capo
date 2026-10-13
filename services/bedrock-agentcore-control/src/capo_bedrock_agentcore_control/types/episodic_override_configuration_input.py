@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#EpisodicOverrideConfigurationInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,6 +79,35 @@ def deserialize_json(data: dict) -> EpisodicOverrideConfigurationInput:
         out["reflection"] = (
             capo_bedrock_agentcore_control.types.episodic_override_reflection_configuration_input.deserialize_json(
                 data["reflection"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: EpisodicOverrideConfigurationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "extraction" in value:
+        import capo_bedrock_agentcore_control.types.episodic_override_extraction_configuration_input
+
+        out["extraction"] = (
+            capo_bedrock_agentcore_control.types.episodic_override_extraction_configuration_input.redact_sensitive(
+                value["extraction"]
+            )
+        )
+    if "consolidation" in value:
+        import capo_bedrock_agentcore_control.types.episodic_override_consolidation_configuration_input
+
+        out["consolidation"] = (
+            capo_bedrock_agentcore_control.types.episodic_override_consolidation_configuration_input.redact_sensitive(
+                value["consolidation"]
+            )
+        )
+    if "reflection" in value:
+        import capo_bedrock_agentcore_control.types.episodic_override_reflection_configuration_input
+
+        out["reflection"] = (
+            capo_bedrock_agentcore_control.types.episodic_override_reflection_configuration_input.redact_sensitive(
+                value["reflection"]
             )
         )
     return out

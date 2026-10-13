@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptography#AssociateMpaTeamInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,11 @@ def deserialize_aws_json_1_0(data: dict) -> AssociateMpaTeamInput:
         raise DeserializationError("AssociateMpaTeamInput.mpa_team_arn required")
     if data.get("RequesterComment") is not None:
         out["requester_comment"] = data["RequesterComment"]
+    return out
+
+
+def redact_sensitive(value: AssociateMpaTeamInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "requester_comment" in value:
+        out["requester_comment"] = "*** Sensitive Data Redacted ***"
     return out

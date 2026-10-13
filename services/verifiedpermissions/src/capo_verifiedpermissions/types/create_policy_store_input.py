@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#CreatePolicyStoreInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -119,4 +119,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreatePolicyStoreInput:
         out["tags"] = capo_verifiedpermissions.types.tag_map.deserialize_aws_json_1_0(
             data["tags"]
         )
+    return out
+
+
+def redact_sensitive(value: CreatePolicyStoreInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

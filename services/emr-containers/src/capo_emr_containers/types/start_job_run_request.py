@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.emrcontainers#StartJobRunRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -149,6 +149,25 @@ def deserialize_json(data: dict) -> StartJobRunRequest:
         out["retry_policy_configuration"] = (
             capo_emr_containers.types.retry_policy_configuration.deserialize_json(
                 data["retryPolicyConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: StartJobRunRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "job_driver" in value:
+        import capo_emr_containers.types.job_driver
+
+        out["job_driver"] = capo_emr_containers.types.job_driver.redact_sensitive(
+            value["job_driver"]
+        )
+    if "configuration_overrides" in value:
+        import capo_emr_containers.types.configuration_overrides
+
+        out["configuration_overrides"] = (
+            capo_emr_containers.types.configuration_overrides.redact_sensitive(
+                value["configuration_overrides"]
             )
         )
     return out

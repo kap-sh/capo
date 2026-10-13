@@ -7,6 +7,7 @@ import capo_bedrock_agent_runtime._auth._sigv4
 from capo_bedrock_agent_runtime._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -88,7 +89,9 @@ class MemoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAgentMemory")
+        )
         input_: capo_bedrock_agent_runtime.types.delete_agent_memory_request.DeleteAgentMemoryRequest = {
             "agent_id": agent_id,
             "agent_alias_id": agent_alias_id,
@@ -158,7 +161,9 @@ class MemoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAgentMemory")
+        )
         input_: capo_bedrock_agent_runtime.types.get_agent_memory_request.GetAgentMemoryRequest = {
             "agent_id": agent_id,
             "agent_alias_id": agent_alias_id,
@@ -232,7 +237,9 @@ class AsyncMemoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAgentMemory")
+        )
         input_: capo_bedrock_agent_runtime.types.delete_agent_memory_request.DeleteAgentMemoryRequest = {
             "agent_id": agent_id,
             "agent_alias_id": agent_alias_id,
@@ -303,7 +310,9 @@ class AsyncMemoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAgentMemory")
+        )
         input_: capo_bedrock_agent_runtime.types.get_agent_memory_request.GetAgentMemoryRequest = {
             "agent_id": agent_id,
             "agent_alias_id": agent_alias_id,

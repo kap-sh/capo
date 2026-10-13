@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.resiliencehubv2#UpdatePolicyResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -34,4 +34,15 @@ def deserialize_json(data: dict) -> UpdatePolicyResponse:
         )
     else:
         raise DeserializationError("UpdatePolicyResponse.policy required")
+    return out
+
+
+def redact_sensitive(value: UpdatePolicyResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "policy" in value:
+        import capo_resiliencehubv2.types.policy
+
+        out["policy"] = capo_resiliencehubv2.types.policy.redact_sensitive(
+            value["policy"]
+        )
     return out

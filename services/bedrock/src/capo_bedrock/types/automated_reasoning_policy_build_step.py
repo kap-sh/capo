@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyBuildStep``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -82,5 +82,26 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildStep:
     else:
         raise DeserializationError(
             "AutomatedReasoningPolicyBuildStep.messages required"
+        )
+    return out
+
+
+def redact_sensitive(value: AutomatedReasoningPolicyBuildStep) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "context" in value:
+        import capo_bedrock.types.automated_reasoning_policy_build_step_context
+
+        out["context"] = (
+            capo_bedrock.types.automated_reasoning_policy_build_step_context.redact_sensitive(
+                value["context"]
+            )
+        )
+    if "prior_element" in value:
+        import capo_bedrock.types.automated_reasoning_policy_definition_element
+
+        out["prior_element"] = (
+            capo_bedrock.types.automated_reasoning_policy_definition_element.redact_sensitive(
+                value["prior_element"]
+            )
         )
     return out

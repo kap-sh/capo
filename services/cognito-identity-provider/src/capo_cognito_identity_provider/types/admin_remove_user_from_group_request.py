@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#AdminRemoveUserFromGroupRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -50,4 +50,11 @@ def deserialize_aws_json_1_1(data: dict) -> AdminRemoveUserFromGroupRequest:
         raise DeserializationError(
             "AdminRemoveUserFromGroupRequest.group_name required"
         )
+    return out
+
+
+def redact_sensitive(value: AdminRemoveUserFromGroupRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "username" in value:
+        out["username"] = "*** Sensitive Data Redacted ***"
     return out

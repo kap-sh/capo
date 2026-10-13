@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#DataSourceType``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -66,3 +66,16 @@ def deserialize_json(data: dict) -> DataSourceType:
         }
     else:
         raise DeserializationError("DataSourceType: no recognized variant key")
+
+
+def redact_sensitive(value: DataSourceType) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inlineExamples" in value:
+        import capo_bedrock_agentcore_control.types.inline_examples_source
+
+        out["inlineExamples"] = (
+            capo_bedrock_agentcore_control.types.inline_examples_source.redact_sensitive(
+                value["inlineExamples"]
+            )
+        )
+    return out

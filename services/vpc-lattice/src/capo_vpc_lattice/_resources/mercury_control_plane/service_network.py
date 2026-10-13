@@ -8,6 +8,7 @@ import capo_vpc_lattice._auth._sigv4
 from capo_vpc_lattice._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -96,7 +97,9 @@ class ServiceNetwork:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateServiceNetwork")
+        )
         input_: capo_vpc_lattice.types.create_service_network_request.CreateServiceNetworkRequest = {
             "name": name
         }
@@ -154,7 +157,9 @@ class ServiceNetwork:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetServiceNetwork")
+        )
         input_: capo_vpc_lattice.types.get_service_network_request.GetServiceNetworkRequest = {
             "service_network_identifier": service_network_identifier
         }
@@ -204,7 +209,9 @@ class ServiceNetwork:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateServiceNetwork")
+        )
         input_: capo_vpc_lattice.types.update_service_network_request.UpdateServiceNetworkRequest = {
             "service_network_identifier": service_network_identifier,
             "auth_type": auth_type,
@@ -253,7 +260,9 @@ class ServiceNetwork:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteServiceNetwork")
+        )
         input_: capo_vpc_lattice.types.delete_service_network_request.DeleteServiceNetworkRequest = {
             "service_network_identifier": service_network_identifier
         }
@@ -301,7 +310,9 @@ class ServiceNetwork:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListServiceNetworks")
+        )
         input_: capo_vpc_lattice.types.list_service_networks_request.ListServiceNetworksRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -370,7 +381,9 @@ class AsyncServiceNetwork:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateServiceNetwork")
+        )
         input_: capo_vpc_lattice.types.create_service_network_request.CreateServiceNetworkRequest = {
             "name": name
         }
@@ -429,7 +442,9 @@ class AsyncServiceNetwork:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetServiceNetwork")
+        )
         input_: capo_vpc_lattice.types.get_service_network_request.GetServiceNetworkRequest = {
             "service_network_identifier": service_network_identifier
         }
@@ -480,7 +495,9 @@ class AsyncServiceNetwork:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateServiceNetwork")
+        )
         input_: capo_vpc_lattice.types.update_service_network_request.UpdateServiceNetworkRequest = {
             "service_network_identifier": service_network_identifier,
             "auth_type": auth_type,
@@ -530,7 +547,9 @@ class AsyncServiceNetwork:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteServiceNetwork")
+        )
         input_: capo_vpc_lattice.types.delete_service_network_request.DeleteServiceNetworkRequest = {
             "service_network_identifier": service_network_identifier
         }
@@ -579,7 +598,9 @@ class AsyncServiceNetwork:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListServiceNetworks")
+        )
         input_: capo_vpc_lattice.types.list_service_networks_request.ListServiceNetworksRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

@@ -25,7 +25,9 @@ from capo_marketplace_reporting._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -112,7 +114,9 @@ class AsyncMarketplaceReportingClient:
         self.dashboard = AsyncDashboard(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncMarketplaceReportingClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncMarketplaceReportingClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncMarketplaceReportingClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -120,8 +124,10 @@ class AsyncMarketplaceReportingClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -186,7 +192,9 @@ class AsyncMarketplaceReportingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBuyerDashboard")
+        )
         input_: capo_marketplace_reporting.types.get_buyer_dashboard_input.GetBuyerDashboardInput = {
             "dashboard_identifier": dashboard_identifier,
             "embedding_domains": embedding_domains,

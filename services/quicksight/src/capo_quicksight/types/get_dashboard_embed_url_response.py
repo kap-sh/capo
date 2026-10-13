@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#GetDashboardEmbedUrlResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -35,4 +35,11 @@ def deserialize_json(data: dict) -> GetDashboardEmbedUrlResponse:
         out["embed_url"] = data["EmbedUrl"]
     if data.get("RequestId") is not None:
         out["request_id"] = data["RequestId"]
+    return out
+
+
+def redact_sensitive(value: GetDashboardEmbedUrlResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "embed_url" in value:
+        out["embed_url"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#GuardrailChecksContentBlock``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -32,3 +32,10 @@ def deserialize_json(data: dict) -> GuardrailChecksContentBlock:
         raise DeserializationError(
             "GuardrailChecksContentBlock: no recognized variant key"
         )
+
+
+def redact_sensitive(value: GuardrailChecksContentBlock) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text" in value:
+        out["text"] = "*** Sensitive Data Redacted ***"
+    return out

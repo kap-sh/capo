@@ -27,7 +27,9 @@ from capo_wisdom._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -242,7 +244,9 @@ class AsyncWisdomClient:
         self.knowledge_base = AsyncKnowledgeBase(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncWisdomClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncWisdomClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncWisdomClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -250,8 +254,10 @@ class AsyncWisdomClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -303,7 +309,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_wisdom.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -350,7 +358,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_wisdom.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -397,7 +407,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_wisdom.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -457,7 +469,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAssistant")
+        )
         input_: capo_wisdom.types.create_assistant_request.CreateAssistantRequest = {
             "name": name,
             "type": type,
@@ -515,7 +529,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAssistant")
+        )
         input_: capo_wisdom.types.get_assistant_request.GetAssistantRequest = {
             "assistant_id": assistant_id
         }
@@ -561,7 +577,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAssistant")
+        )
         input_: capo_wisdom.types.delete_assistant_request.DeleteAssistantRequest = {
             "assistant_id": assistant_id
         }
@@ -608,7 +626,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssistants")
+        )
         input_: capo_wisdom.types.list_assistants_request.ListAssistantsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -685,7 +705,19 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wisdom.types.get_recommendations_response.GetRecommendationsResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.get_recommendations_response
+
+            return capo_wisdom.types.get_recommendations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetRecommendations", redact_output=_redact_output),
+        )
         input_: capo_wisdom.types.get_recommendations_request.GetRecommendationsRequest = {
             "assistant_id": assistant_id,
             "session_id": session_id,
@@ -740,7 +772,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("NotifyRecommendationsReceived")
+        )
         input_: capo_wisdom.types.notify_recommendations_received_request.NotifyRecommendationsReceivedRequest = {
             "assistant_id": assistant_id,
             "session_id": session_id,
@@ -795,7 +829,28 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wisdom.types.query_assistant_request.QueryAssistantRequest",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.query_assistant_request
+
+            return capo_wisdom.types.query_assistant_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_wisdom.types.query_assistant_response.QueryAssistantResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.query_assistant_response
+
+            return capo_wisdom.types.query_assistant_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "QueryAssistant",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_wisdom.types.query_assistant_request.QueryAssistantRequest = {
             "assistant_id": assistant_id,
             "query_text": query_text,
@@ -877,7 +932,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchSessions")
+        )
         input_: capo_wisdom.types.search_sessions_request.SearchSessionsRequest = {
             "assistant_id": assistant_id,
             "search_expression": search_expression,
@@ -963,7 +1020,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAssistantAssociation")
+        )
         input_: capo_wisdom.types.create_assistant_association_request.CreateAssistantAssociationRequest = {
             "assistant_id": assistant_id,
             "association_type": association_type,
@@ -1018,7 +1077,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAssistantAssociation")
+        )
         input_: capo_wisdom.types.get_assistant_association_request.GetAssistantAssociationRequest = {
             "assistant_association_id": assistant_association_id,
             "assistant_id": assistant_id,
@@ -1067,7 +1128,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAssistantAssociation")
+        )
         input_: capo_wisdom.types.delete_assistant_association_request.DeleteAssistantAssociationRequest = {
             "assistant_association_id": assistant_association_id,
             "assistant_id": assistant_id,
@@ -1118,7 +1181,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssistantAssociations")
+        )
         input_: capo_wisdom.types.list_assistant_associations_request.ListAssistantAssociationsRequest = {
             "assistant_id": assistant_id
         }
@@ -1199,7 +1264,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSession")
+        )
         input_: capo_wisdom.types.create_session_request.CreateSessionRequest = {
             "assistant_id": assistant_id,
             "name": name,
@@ -1255,7 +1322,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSession")
+        )
         input_: capo_wisdom.types.get_session_request.GetSessionRequest = {
             "assistant_id": assistant_id,
             "session_id": session_id,
@@ -1325,7 +1394,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateKnowledgeBase")
+        )
         input_: capo_wisdom.types.create_knowledge_base_request.CreateKnowledgeBaseRequest = {
             "name": name,
             "knowledge_base_type": knowledge_base_type,
@@ -1387,7 +1458,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetKnowledgeBase")
+        )
         input_: capo_wisdom.types.get_knowledge_base_request.GetKnowledgeBaseRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -1434,7 +1507,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteKnowledgeBase")
+        )
         input_: capo_wisdom.types.delete_knowledge_base_request.DeleteKnowledgeBaseRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -1483,7 +1558,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListKnowledgeBases")
+        )
         input_: capo_wisdom.types.list_knowledge_bases_request.ListKnowledgeBasesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1557,7 +1634,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteImportJob")
+        )
         input_: capo_wisdom.types.delete_import_job_request.DeleteImportJobRequest = {
             "knowledge_base_id": knowledge_base_id,
             "import_job_id": import_job_id,
@@ -1606,7 +1685,17 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wisdom.types.get_import_job_response.GetImportJobResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.get_import_job_response
+
+            return capo_wisdom.types.get_import_job_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetImportJob", redact_output=_redact_output),
+        )
         input_: capo_wisdom.types.get_import_job_request.GetImportJobRequest = {
             "import_job_id": import_job_id,
             "knowledge_base_id": knowledge_base_id,
@@ -1658,7 +1747,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImportJobs")
+        )
         input_: capo_wisdom.types.list_import_jobs_request.ListImportJobsRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -1733,7 +1824,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveKnowledgeBaseTemplateUri")
+        )
         input_: capo_wisdom.types.remove_knowledge_base_template_uri_request.RemoveKnowledgeBaseTemplateUriRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -1785,7 +1878,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchContent")
+        )
         input_: capo_wisdom.types.search_content_request.SearchContentRequest = {
             "knowledge_base_id": knowledge_base_id,
             "search_expression": search_expression,
@@ -1876,7 +1971,32 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wisdom.types.search_quick_responses_request.SearchQuickResponsesRequest",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.search_quick_responses_request
+
+            return capo_wisdom.types.search_quick_responses_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_wisdom.types.search_quick_responses_response.SearchQuickResponsesResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.search_quick_responses_response
+
+            return capo_wisdom.types.search_quick_responses_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchQuickResponses",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_wisdom.types.search_quick_responses_request.SearchQuickResponsesRequest = {
             "knowledge_base_id": knowledge_base_id,
             "search_expression": search_expression,
@@ -1966,7 +2086,19 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wisdom.types.start_content_upload_response.StartContentUploadResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.start_content_upload_response
+
+            return capo_wisdom.types.start_content_upload_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartContentUpload", redact_output=_redact_output),
+        )
         input_: capo_wisdom.types.start_content_upload_request.StartContentUploadRequest = {
             "knowledge_base_id": knowledge_base_id,
             "content_type": content_type,
@@ -2031,7 +2163,17 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wisdom.types.start_import_job_response.StartImportJobResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.start_import_job_response
+
+            return capo_wisdom.types.start_import_job_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartImportJob", redact_output=_redact_output),
+        )
         input_: capo_wisdom.types.start_import_job_request.StartImportJobRequest = {
             "knowledge_base_id": knowledge_base_id,
             "import_job_type": import_job_type,
@@ -2088,7 +2230,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateKnowledgeBaseTemplateUri")
+        )
         input_: capo_wisdom.types.update_knowledge_base_template_uri_request.UpdateKnowledgeBaseTemplateUriRequest = {
             "knowledge_base_id": knowledge_base_id,
             "template_uri": template_uri,
@@ -2153,7 +2297,17 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wisdom.types.create_content_response.CreateContentResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.create_content_response
+
+            return capo_wisdom.types.create_content_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateContent", redact_output=_redact_output),
+        )
         input_: capo_wisdom.types.create_content_request.CreateContentRequest = {
             "knowledge_base_id": knowledge_base_id,
             "name": name,
@@ -2214,7 +2368,17 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wisdom.types.get_content_response.GetContentResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.get_content_response
+
+            return capo_wisdom.types.get_content_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetContent", redact_output=_redact_output),
+        )
         input_: capo_wisdom.types.get_content_request.GetContentRequest = {
             "content_id": content_id,
             "knowledge_base_id": knowledge_base_id,
@@ -2278,7 +2442,17 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wisdom.types.update_content_response.UpdateContentResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.update_content_response
+
+            return capo_wisdom.types.update_content_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateContent", redact_output=_redact_output),
+        )
         input_: capo_wisdom.types.update_content_request.UpdateContentRequest = {
             "knowledge_base_id": knowledge_base_id,
             "content_id": content_id,
@@ -2339,7 +2513,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContent")
+        )
         input_: capo_wisdom.types.delete_content_request.DeleteContentRequest = {
             "knowledge_base_id": knowledge_base_id,
             "content_id": content_id,
@@ -2390,7 +2566,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContents")
+        )
         input_: capo_wisdom.types.list_contents_request.ListContentsRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -2465,7 +2643,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContentSummary")
+        )
         input_: capo_wisdom.types.get_content_summary_request.GetContentSummaryRequest = {
             "content_id": content_id,
             "knowledge_base_id": knowledge_base_id,
@@ -2544,7 +2724,32 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wisdom.types.create_quick_response_request.CreateQuickResponseRequest",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.create_quick_response_request
+
+            return capo_wisdom.types.create_quick_response_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_wisdom.types.create_quick_response_response.CreateQuickResponseResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.create_quick_response_response
+
+            return capo_wisdom.types.create_quick_response_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateQuickResponse",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_wisdom.types.create_quick_response_request.CreateQuickResponseRequest = {
             "knowledge_base_id": knowledge_base_id,
             "name": name,
@@ -2613,7 +2818,19 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wisdom.types.get_quick_response_response.GetQuickResponseResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.get_quick_response_response
+
+            return capo_wisdom.types.get_quick_response_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetQuickResponse", redact_output=_redact_output),
+        )
         input_: capo_wisdom.types.get_quick_response_request.GetQuickResponseRequest = {
             "quick_response_id": quick_response_id,
             "knowledge_base_id": knowledge_base_id,
@@ -2698,7 +2915,32 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wisdom.types.update_quick_response_request.UpdateQuickResponseRequest",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.update_quick_response_request
+
+            return capo_wisdom.types.update_quick_response_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_wisdom.types.update_quick_response_response.UpdateQuickResponseResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.update_quick_response_response
+
+            return capo_wisdom.types.update_quick_response_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateQuickResponse",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_wisdom.types.update_quick_response_request.UpdateQuickResponseRequest = {
             "knowledge_base_id": knowledge_base_id,
             "quick_response_id": quick_response_id,
@@ -2771,7 +3013,9 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQuickResponse")
+        )
         input_: capo_wisdom.types.delete_quick_response_request.DeleteQuickResponseRequest = {
             "knowledge_base_id": knowledge_base_id,
             "quick_response_id": quick_response_id,
@@ -2824,7 +3068,19 @@ class AsyncWisdomClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wisdom.types.list_quick_responses_response.ListQuickResponsesResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.list_quick_responses_response
+
+            return capo_wisdom.types.list_quick_responses_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListQuickResponses", redact_output=_redact_output),
+        )
         input_: capo_wisdom.types.list_quick_responses_request.ListQuickResponsesRequest = {
             "knowledge_base_id": knowledge_base_id
         }

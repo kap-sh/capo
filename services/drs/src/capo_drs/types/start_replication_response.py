@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.drs#StartReplicationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_json(data: dict) -> StartReplicationResponse:
 
         out["source_server"] = capo_drs.types.source_server.deserialize_json(
             data["sourceServer"]
+        )
+    return out
+
+
+def redact_sensitive(value: StartReplicationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "source_server" in value:
+        import capo_drs.types.source_server
+
+        out["source_server"] = capo_drs.types.source_server.redact_sensitive(
+            value["source_server"]
         )
     return out

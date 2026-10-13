@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.redshift#ClusterList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from capo_redshift._protocol.xml import Element
 
@@ -53,3 +53,9 @@ def deserialize_query_flat(parent: Element, tag: str) -> ClusterList:
     for child in parent.findall(tag):
         out.append(capo_redshift.types.cluster.deserialize_query(child))
     return out
+
+
+def redact_sensitive(value: ClusterList) -> list[Any]:
+    import capo_redshift.types.cluster
+
+    return [capo_redshift.types.cluster.redact_sensitive(item) for item in value]

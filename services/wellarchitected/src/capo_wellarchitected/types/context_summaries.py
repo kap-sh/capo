@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wellarchitected#ContextSummaries``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_wellarchitected.types.context_summary
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> ContextSummaries:
             continue
         out.append(capo_wellarchitected.types.context_summary.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ContextSummaries) -> list[Any]:
+    import capo_wellarchitected.types.context_summary
+
+    return [
+        capo_wellarchitected.types.context_summary.redact_sensitive(item)
+        for item in value
+    ]

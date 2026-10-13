@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#StartNotebookImportOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -116,4 +116,19 @@ def deserialize_json(data: dict) -> StartNotebookImportOutput:
         )
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
+    return out
+
+
+def redact_sensitive(value: StartNotebookImportOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "source_location" in value:
+        import capo_datazone.types.source_location
+
+        out["source_location"] = capo_datazone.types.source_location.redact_sensitive(
+            value["source_location"]
+        )
     return out

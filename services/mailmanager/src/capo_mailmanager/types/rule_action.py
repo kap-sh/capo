@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mailmanager#RuleAction``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -292,3 +292,22 @@ def deserialize_aws_json_1_0(data: dict) -> RuleAction:
         }
     else:
         raise DeserializationError("RuleAction: no recognized variant key")
+
+
+def redact_sensitive(value: RuleAction) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ReplaceRecipient" in value:
+        import capo_mailmanager.types.replace_recipient_action
+
+        out["ReplaceRecipient"] = (
+            capo_mailmanager.types.replace_recipient_action.redact_sensitive(
+                value["ReplaceRecipient"]
+            )
+        )
+    if "Bounce" in value:
+        import capo_mailmanager.types.bounce_action
+
+        out["Bounce"] = capo_mailmanager.types.bounce_action.redact_sensitive(
+            value["Bounce"]
+        )
+    return out

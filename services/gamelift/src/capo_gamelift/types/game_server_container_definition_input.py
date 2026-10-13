@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#GameServerContainerDefinitionInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -163,4 +163,17 @@ def deserialize_aws_json_1_1(data: dict) -> GameServerContainerDefinitionInput:
         )
     if data.get("Vcpu") is not None:
         out["vcpu"] = float(data["Vcpu"])
+    return out
+
+
+def redact_sensitive(value: GameServerContainerDefinitionInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "port_configuration" in value:
+        import capo_gamelift.types.container_port_configuration
+
+        out["port_configuration"] = (
+            capo_gamelift.types.container_port_configuration.redact_sensitive(
+                value["port_configuration"]
+            )
+        )
     return out

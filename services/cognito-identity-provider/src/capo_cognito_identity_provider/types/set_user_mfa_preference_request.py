@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#SetUserMFAPreferenceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -112,4 +112,11 @@ def deserialize_aws_json_1_1(data: dict) -> SetUserMFAPreferenceRequest:
         out["access_token"] = data["AccessToken"]
     else:
         raise DeserializationError("SetUserMFAPreferenceRequest.access_token required")
+    return out
+
+
+def redact_sensitive(value: SetUserMFAPreferenceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "access_token" in value:
+        out["access_token"] = "*** Sensitive Data Redacted ***"
     return out

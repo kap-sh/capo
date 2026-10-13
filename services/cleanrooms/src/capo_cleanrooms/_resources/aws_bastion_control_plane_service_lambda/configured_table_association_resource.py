@@ -7,6 +7,7 @@ import capo_cleanrooms._auth._sigv4
 from capo_cleanrooms._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -105,7 +106,9 @@ class ConfiguredTableAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateConfiguredTableAssociation")
+        )
         input_: capo_cleanrooms.types.create_configured_table_association_input.CreateConfiguredTableAssociationInput = {
             "name": name,
             "membership_identifier": membership_identifier,
@@ -161,7 +164,9 @@ class ConfiguredTableAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConfiguredTableAssociation")
+        )
         input_: capo_cleanrooms.types.get_configured_table_association_input.GetConfiguredTableAssociationInput = {
             "configured_table_association_identifier": configured_table_association_identifier,
             "membership_identifier": membership_identifier,
@@ -218,7 +223,9 @@ class ConfiguredTableAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateConfiguredTableAssociation")
+        )
         input_: capo_cleanrooms.types.update_configured_table_association_input.UpdateConfiguredTableAssociationInput = {
             "configured_table_association_identifier": configured_table_association_identifier,
             "membership_identifier": membership_identifier,
@@ -273,7 +280,9 @@ class ConfiguredTableAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguredTableAssociation")
+        )
         input_: capo_cleanrooms.types.delete_configured_table_association_input.DeleteConfiguredTableAssociationInput = {
             "configured_table_association_identifier": configured_table_association_identifier,
             "membership_identifier": membership_identifier,
@@ -327,7 +336,9 @@ class ConfiguredTableAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConfiguredTableAssociations")
+        )
         input_: capo_cleanrooms.types.list_configured_table_associations_input.ListConfiguredTableAssociationsInput = {
             "membership_identifier": membership_identifier
         }
@@ -385,7 +396,10 @@ class ConfiguredTableAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateConfiguredTableAssociationAnalysisRule"),
+        )
         input_: capo_cleanrooms.types.create_configured_table_association_analysis_rule_input.CreateConfiguredTableAssociationAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "configured_table_association_identifier": configured_table_association_identifier,
@@ -440,7 +454,10 @@ class ConfiguredTableAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteConfiguredTableAssociationAnalysisRule"),
+        )
         input_: capo_cleanrooms.types.delete_configured_table_association_analysis_rule_input.DeleteConfiguredTableAssociationAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "configured_table_association_identifier": configured_table_association_identifier,
@@ -493,7 +510,10 @@ class ConfiguredTableAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetConfiguredTableAssociationAnalysisRule"),
+        )
         input_: capo_cleanrooms.types.get_configured_table_association_analysis_rule_input.GetConfiguredTableAssociationAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "configured_table_association_identifier": configured_table_association_identifier,
@@ -549,7 +569,10 @@ class ConfiguredTableAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateConfiguredTableAssociationAnalysisRule"),
+        )
         input_: capo_cleanrooms.types.update_configured_table_association_analysis_rule_input.UpdateConfiguredTableAssociationAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "configured_table_association_identifier": configured_table_association_identifier,
@@ -619,7 +642,9 @@ class AsyncConfiguredTableAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateConfiguredTableAssociation")
+        )
         input_: capo_cleanrooms.types.create_configured_table_association_input.CreateConfiguredTableAssociationInput = {
             "name": name,
             "membership_identifier": membership_identifier,
@@ -676,7 +701,9 @@ class AsyncConfiguredTableAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConfiguredTableAssociation")
+        )
         input_: capo_cleanrooms.types.get_configured_table_association_input.GetConfiguredTableAssociationInput = {
             "configured_table_association_identifier": configured_table_association_identifier,
             "membership_identifier": membership_identifier,
@@ -734,7 +761,9 @@ class AsyncConfiguredTableAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateConfiguredTableAssociation")
+        )
         input_: capo_cleanrooms.types.update_configured_table_association_input.UpdateConfiguredTableAssociationInput = {
             "configured_table_association_identifier": configured_table_association_identifier,
             "membership_identifier": membership_identifier,
@@ -790,7 +819,9 @@ class AsyncConfiguredTableAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguredTableAssociation")
+        )
         input_: capo_cleanrooms.types.delete_configured_table_association_input.DeleteConfiguredTableAssociationInput = {
             "configured_table_association_identifier": configured_table_association_identifier,
             "membership_identifier": membership_identifier,
@@ -845,7 +876,9 @@ class AsyncConfiguredTableAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConfiguredTableAssociations")
+        )
         input_: capo_cleanrooms.types.list_configured_table_associations_input.ListConfiguredTableAssociationsInput = {
             "membership_identifier": membership_identifier
         }
@@ -904,7 +937,10 @@ class AsyncConfiguredTableAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateConfiguredTableAssociationAnalysisRule"),
+        )
         input_: capo_cleanrooms.types.create_configured_table_association_analysis_rule_input.CreateConfiguredTableAssociationAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "configured_table_association_identifier": configured_table_association_identifier,
@@ -960,7 +996,10 @@ class AsyncConfiguredTableAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteConfiguredTableAssociationAnalysisRule"),
+        )
         input_: capo_cleanrooms.types.delete_configured_table_association_analysis_rule_input.DeleteConfiguredTableAssociationAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "configured_table_association_identifier": configured_table_association_identifier,
@@ -1014,7 +1053,10 @@ class AsyncConfiguredTableAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetConfiguredTableAssociationAnalysisRule"),
+        )
         input_: capo_cleanrooms.types.get_configured_table_association_analysis_rule_input.GetConfiguredTableAssociationAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "configured_table_association_identifier": configured_table_association_identifier,
@@ -1071,7 +1113,10 @@ class AsyncConfiguredTableAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateConfiguredTableAssociationAnalysisRule"),
+        )
         input_: capo_cleanrooms.types.update_configured_table_association_analysis_rule_input.UpdateConfiguredTableAssociationAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "configured_table_association_identifier": configured_table_association_identifier,

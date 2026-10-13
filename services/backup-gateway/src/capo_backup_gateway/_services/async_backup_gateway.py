@@ -31,7 +31,9 @@ from capo_backup_gateway._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -188,7 +190,9 @@ class AsyncBackupGatewayClient:
         self.virtual_machine_resource = AsyncVirtualMachineResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncBackupGatewayClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncBackupGatewayClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncBackupGatewayClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -196,8 +200,10 @@ class AsyncBackupGatewayClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -250,7 +256,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_backup_gateway.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -299,7 +307,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_backup_gateway.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -349,7 +359,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_backup_gateway.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -402,7 +414,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGateway")
+        )
         input_: capo_backup_gateway.types.create_gateway_input.CreateGatewayInput = {
             "activation_key": activation_key,
             "gateway_display_name": gateway_display_name,
@@ -453,7 +467,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGateway")
+        )
         input_: capo_backup_gateway.types.get_gateway_input.GetGatewayInput = {
             "gateway_arn": gateway_arn
         }
@@ -503,7 +519,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGatewayInformation")
+        )
         input_: capo_backup_gateway.types.update_gateway_information_input.UpdateGatewayInformationInput = {
             "gateway_arn": gateway_arn
         }
@@ -552,7 +570,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGateway")
+        )
         input_: capo_backup_gateway.types.delete_gateway_input.DeleteGatewayInput = {
             "gateway_arn": gateway_arn
         }
@@ -602,7 +622,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGateways")
+        )
         input_: capo_backup_gateway.types.list_gateways_input.ListGatewaysInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -653,7 +675,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateGatewayToServer")
+        )
         input_: capo_backup_gateway.types.associate_gateway_to_server_input.AssociateGatewayToServerInput = {
             "gateway_arn": gateway_arn,
             "server_arn": server_arn,
@@ -702,7 +726,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateGatewayFromServer")
+        )
         input_: capo_backup_gateway.types.disassociate_gateway_from_server_input.DisassociateGatewayFromServerInput = {
             "gateway_arn": gateway_arn
         }
@@ -760,7 +786,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutMaintenanceStartTime")
+        )
         input_: capo_backup_gateway.types.put_maintenance_start_time_input.PutMaintenanceStartTimeInput = {
             "gateway_arn": gateway_arn,
             "hour_of_day": hour_of_day,
@@ -820,7 +848,19 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup_gateway.types.test_hypervisor_configuration_input.TestHypervisorConfigurationInput",
+        ) -> dict[str, Any]:
+            import capo_backup_gateway.types.test_hypervisor_configuration_input
+
+            return capo_backup_gateway.types.test_hypervisor_configuration_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TestHypervisorConfiguration", redact_input=_redact_input),
+        )
         input_: capo_backup_gateway.types.test_hypervisor_configuration_input.TestHypervisorConfigurationInput = {
             "gateway_arn": gateway_arn,
             "host": host,
@@ -872,7 +912,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGatewaySoftwareNow")
+        )
         input_: capo_backup_gateway.types.update_gateway_software_now_input.UpdateGatewaySoftwareNowInput = {
             "gateway_arn": gateway_arn
         }
@@ -921,7 +963,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBandwidthRateLimitSchedule")
+        )
         input_: capo_backup_gateway.types.put_bandwidth_rate_limit_schedule_input.PutBandwidthRateLimitScheduleInput = {
             "gateway_arn": gateway_arn,
             "bandwidth_rate_limit_intervals": bandwidth_rate_limit_intervals,
@@ -969,7 +1013,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBandwidthRateLimitSchedule")
+        )
         input_: capo_backup_gateway.types.get_bandwidth_rate_limit_schedule_input.GetBandwidthRateLimitScheduleInput = {
             "gateway_arn": gateway_arn
         }
@@ -1027,7 +1073,21 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup_gateway.types.import_hypervisor_configuration_input.ImportHypervisorConfigurationInput",
+        ) -> dict[str, Any]:
+            import capo_backup_gateway.types.import_hypervisor_configuration_input
+
+            return capo_backup_gateway.types.import_hypervisor_configuration_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ImportHypervisorConfiguration", redact_input=_redact_input
+            ),
+        )
         input_: capo_backup_gateway.types.import_hypervisor_configuration_input.ImportHypervisorConfigurationInput = {
             "name": name,
             "host": host,
@@ -1083,7 +1143,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetHypervisor")
+        )
         input_: capo_backup_gateway.types.get_hypervisor_input.GetHypervisorInput = {
             "hypervisor_arn": hypervisor_arn
         }
@@ -1144,7 +1206,19 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup_gateway.types.update_hypervisor_input.UpdateHypervisorInput",
+        ) -> dict[str, Any]:
+            import capo_backup_gateway.types.update_hypervisor_input
+
+            return capo_backup_gateway.types.update_hypervisor_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateHypervisor", redact_input=_redact_input),
+        )
         input_: capo_backup_gateway.types.update_hypervisor_input.UpdateHypervisorInput = {
             "hypervisor_arn": hypervisor_arn
         }
@@ -1203,7 +1277,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteHypervisor")
+        )
         input_: capo_backup_gateway.types.delete_hypervisor_input.DeleteHypervisorInput = {
             "hypervisor_arn": hypervisor_arn
         }
@@ -1253,7 +1329,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHypervisors")
+        )
         input_: capo_backup_gateway.types.list_hypervisors_input.ListHypervisorsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1303,7 +1381,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartVirtualMachinesMetadataSync")
+        )
         input_: capo_backup_gateway.types.start_virtual_machines_metadata_sync_input.StartVirtualMachinesMetadataSyncInput = {
             "hypervisor_arn": hypervisor_arn
         }
@@ -1356,7 +1436,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutHypervisorPropertyMappings")
+        )
         input_: capo_backup_gateway.types.put_hypervisor_property_mappings_input.PutHypervisorPropertyMappingsInput = {
             "hypervisor_arn": hypervisor_arn,
             "vmware_to_aws_tag_mappings": vmware_to_aws_tag_mappings,
@@ -1405,7 +1487,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetHypervisorPropertyMappings")
+        )
         input_: capo_backup_gateway.types.get_hypervisor_property_mappings_input.GetHypervisorPropertyMappingsInput = {
             "hypervisor_arn": hypervisor_arn
         }
@@ -1452,7 +1536,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetVirtualMachine")
+        )
         input_: capo_backup_gateway.types.get_virtual_machine_input.GetVirtualMachineInput = {
             "resource_arn": resource_arn
         }
@@ -1506,7 +1592,9 @@ class AsyncBackupGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVirtualMachines")
+        )
         input_: capo_backup_gateway.types.list_virtual_machines_input.ListVirtualMachinesInput = {}
         if hypervisor_arn is not None:
             input_["hypervisor_arn"] = hypervisor_arn

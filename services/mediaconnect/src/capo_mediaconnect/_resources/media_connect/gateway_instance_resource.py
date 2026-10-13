@@ -7,6 +7,7 @@ import capo_mediaconnect._auth._sigv4
 from capo_mediaconnect._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -76,7 +77,9 @@ class GatewayInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeGatewayInstance")
+        )
         input_: capo_mediaconnect.types.describe_gateway_instance_request.DescribeGatewayInstanceRequest = {
             "gateway_instance_arn": gateway_instance_arn
         }
@@ -129,7 +132,9 @@ class GatewayInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateGatewayInstance")
+        )
         input_: capo_mediaconnect.types.update_gateway_instance_request.UpdateGatewayInstanceRequest = {
             "gateway_instance_arn": gateway_instance_arn
         }
@@ -182,7 +187,9 @@ class GatewayInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeregisterGatewayInstance")
+        )
         input_: capo_mediaconnect.types.deregister_gateway_instance_request.DeregisterGatewayInstanceRequest = {
             "gateway_instance_arn": gateway_instance_arn
         }
@@ -235,7 +242,9 @@ class GatewayInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGatewayInstances")
+        )
         input_: capo_mediaconnect.types.list_gateway_instances_request.ListGatewayInstancesRequest = {}
         if filter_arn is not None:
             input_["filter_arn"] = filter_arn
@@ -294,7 +303,9 @@ class AsyncGatewayInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeGatewayInstance")
+        )
         input_: capo_mediaconnect.types.describe_gateway_instance_request.DescribeGatewayInstanceRequest = {
             "gateway_instance_arn": gateway_instance_arn
         }
@@ -348,7 +359,9 @@ class AsyncGatewayInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateGatewayInstance")
+        )
         input_: capo_mediaconnect.types.update_gateway_instance_request.UpdateGatewayInstanceRequest = {
             "gateway_instance_arn": gateway_instance_arn
         }
@@ -402,7 +415,9 @@ class AsyncGatewayInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeregisterGatewayInstance")
+        )
         input_: capo_mediaconnect.types.deregister_gateway_instance_request.DeregisterGatewayInstanceRequest = {
             "gateway_instance_arn": gateway_instance_arn
         }
@@ -456,7 +471,9 @@ class AsyncGatewayInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGatewayInstances")
+        )
         input_: capo_mediaconnect.types.list_gateway_instances_request.ListGatewayInstancesRequest = {}
         if filter_arn is not None:
             input_["filter_arn"] = filter_arn

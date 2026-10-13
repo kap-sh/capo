@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.databasemigrationservice#ImportCertificateMessage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -85,4 +85,11 @@ def deserialize_aws_json_1_1(data: dict) -> ImportCertificateMessage:
         )
     if data.get("KmsKeyId") is not None:
         out["kms_key_id"] = data["KmsKeyId"]
+    return out
+
+
+def redact_sensitive(value: ImportCertificateMessage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "certificate_pem" in value:
+        out["certificate_pem"] = "*** Sensitive Data Redacted ***"
     return out

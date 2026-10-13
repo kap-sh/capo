@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyDefinitionElement``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -98,3 +98,34 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyDefinitionElement:
         raise DeserializationError(
             "AutomatedReasoningPolicyDefinitionElement: no recognized variant key"
         )
+
+
+def redact_sensitive(
+    value: AutomatedReasoningPolicyDefinitionElement,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "policyDefinitionVariable" in value:
+        import capo_bedrock.types.automated_reasoning_policy_definition_variable
+
+        out["policyDefinitionVariable"] = (
+            capo_bedrock.types.automated_reasoning_policy_definition_variable.redact_sensitive(
+                value["policyDefinitionVariable"]
+            )
+        )
+    if "policyDefinitionType" in value:
+        import capo_bedrock.types.automated_reasoning_policy_definition_type
+
+        out["policyDefinitionType"] = (
+            capo_bedrock.types.automated_reasoning_policy_definition_type.redact_sensitive(
+                value["policyDefinitionType"]
+            )
+        )
+    if "policyDefinitionRule" in value:
+        import capo_bedrock.types.automated_reasoning_policy_definition_rule
+
+        out["policyDefinitionRule"] = (
+            capo_bedrock.types.automated_reasoning_policy_definition_rule.redact_sensitive(
+                value["policyDefinitionRule"]
+            )
+        )
+    return out

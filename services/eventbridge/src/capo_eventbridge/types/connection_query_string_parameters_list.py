@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridge#ConnectionQueryStringParametersList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_eventbridge.types.connection_query_string_parameter
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_1(data: list) -> ConnectionQueryStringParametersList:
             )
         )
     return out
+
+
+def redact_sensitive(value: ConnectionQueryStringParametersList) -> list[Any]:
+    import capo_eventbridge.types.connection_query_string_parameter
+
+    return [
+        capo_eventbridge.types.connection_query_string_parameter.redact_sensitive(item)
+        for item in value
+    ]

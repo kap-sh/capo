@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#ColumnTag``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,6 +58,19 @@ def deserialize_json(data: dict) -> ColumnTag:
         out["column_description"] = (
             capo_quicksight.types.column_description.deserialize_json(
                 data["ColumnDescription"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ColumnTag) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "column_description" in value:
+        import capo_quicksight.types.column_description
+
+        out["column_description"] = (
+            capo_quicksight.types.column_description.redact_sensitive(
+                value["column_description"]
             )
         )
     return out

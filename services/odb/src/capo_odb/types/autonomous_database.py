@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.odb#AutonomousDatabase``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -1352,5 +1352,16 @@ def deserialize_aws_json_1_0(data: dict) -> AutonomousDatabase:
             capo_odb.types.admin_password_source_summary.deserialize_aws_json_1_0(
                 data["adminPasswordSourceSummary"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: AutonomousDatabase) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "customer_contacts" in value:
+        import capo_odb.types.customer_contacts
+
+        out["customer_contacts"] = capo_odb.types.customer_contacts.redact_sensitive(
+            value["customer_contacts"]
         )
     return out

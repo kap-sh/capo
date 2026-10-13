@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.personalizeevents#PutActionInteractionsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -51,5 +51,18 @@ def deserialize_json(data: dict) -> PutActionInteractionsRequest:
     else:
         raise DeserializationError(
             "PutActionInteractionsRequest.action_interactions required"
+        )
+    return out
+
+
+def redact_sensitive(value: PutActionInteractionsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "action_interactions" in value:
+        import capo_personalize_events.types.action_interactions_list
+
+        out["action_interactions"] = (
+            capo_personalize_events.types.action_interactions_list.redact_sensitive(
+                value["action_interactions"]
+            )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#AgentCollaboratorInvocationInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -52,6 +52,19 @@ def deserialize_json(data: dict) -> AgentCollaboratorInvocationInput:
         out["input"] = (
             capo_bedrock_agent_runtime.types.agent_collaborator_input_payload.deserialize_json(
                 data["input"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: AgentCollaboratorInvocationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input" in value:
+        import capo_bedrock_agent_runtime.types.agent_collaborator_input_payload
+
+        out["input"] = (
+            capo_bedrock_agent_runtime.types.agent_collaborator_input_payload.redact_sensitive(
+                value["input"]
             )
         )
     return out

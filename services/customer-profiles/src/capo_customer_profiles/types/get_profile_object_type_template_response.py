@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#GetProfileObjectTypeTemplateResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -86,4 +86,13 @@ def deserialize_json(data: dict) -> GetProfileObjectTypeTemplateResponse:
         out["keys"] = capo_customer_profiles.types.key_map.deserialize_json(
             data["Keys"]
         )
+    return out
+
+
+def redact_sensitive(value: GetProfileObjectTypeTemplateResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "fields" in value:
+        out["fields"] = "*** Sensitive Data Redacted ***"
+    if "keys" in value:
+        out["keys"] = "*** Sensitive Data Redacted ***"
     return out

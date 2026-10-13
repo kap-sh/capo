@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#GatewayProtocolConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -47,3 +47,16 @@ def deserialize_json(data: dict) -> GatewayProtocolConfiguration:
         raise DeserializationError(
             "GatewayProtocolConfiguration: no recognized variant key"
         )
+
+
+def redact_sensitive(value: GatewayProtocolConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "mcp" in value:
+        import capo_bedrock_agentcore_control.types.mcp_gateway_configuration
+
+        out["mcp"] = (
+            capo_bedrock_agentcore_control.types.mcp_gateway_configuration.redact_sensitive(
+                value["mcp"]
+            )
+        )
+    return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#CreateMediaInsightsPipelineConfigurationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -111,4 +111,23 @@ def deserialize_json(data: dict) -> CreateMediaInsightsPipelineConfigurationRequ
         )
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
+    return out
+
+
+def redact_sensitive(
+    value: CreateMediaInsightsPipelineConfigurationRequest,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "resource_access_role_arn" in value:
+        out["resource_access_role_arn"] = "*** Sensitive Data Redacted ***"
+    if "elements" in value:
+        import capo_chime_sdk_media_pipelines.types.media_insights_pipeline_configuration_elements
+
+        out["elements"] = (
+            capo_chime_sdk_media_pipelines.types.media_insights_pipeline_configuration_elements.redact_sensitive(
+                value["elements"]
+            )
+        )
+    if "client_request_token" in value:
+        out["client_request_token"] = "*** Sensitive Data Redacted ***"
     return out

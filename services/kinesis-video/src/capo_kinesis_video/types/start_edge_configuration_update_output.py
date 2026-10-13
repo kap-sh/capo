@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kinesisvideo#StartEdgeConfigurationUpdateOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -99,5 +99,16 @@ def deserialize_json(data: dict) -> StartEdgeConfigurationUpdateOutput:
 
         out["edge_config"] = capo_kinesis_video.types.edge_config.deserialize_json(
             data["EdgeConfig"]
+        )
+    return out
+
+
+def redact_sensitive(value: StartEdgeConfigurationUpdateOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "edge_config" in value:
+        import capo_kinesis_video.types.edge_config
+
+        out["edge_config"] = capo_kinesis_video.types.edge_config.redact_sensitive(
+            value["edge_config"]
         )
     return out

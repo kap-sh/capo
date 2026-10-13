@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iam#AccessKey``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -80,4 +80,11 @@ def deserialize_query(el: Element) -> AccessKey:
         out["create_date"] = capo_iam.types.date_type.deserialize_query(
             child_create_date
         )
+    return out
+
+
+def redact_sensitive(value: AccessKey) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "secret_access_key" in value:
+        out["secret_access_key"] = "*** Sensitive Data Redacted ***"
     return out

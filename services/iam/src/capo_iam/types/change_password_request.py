@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iam#ChangePasswordRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -39,4 +39,13 @@ def deserialize_query(el: Element) -> ChangePasswordRequest:
         out["new_password"] = str(child_new_password.text or "")
     else:
         raise DeserializationError("ChangePasswordRequest.new_password required")
+    return out
+
+
+def redact_sensitive(value: ChangePasswordRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "old_password" in value:
+        out["old_password"] = "*** Sensitive Data Redacted ***"
+    if "new_password" in value:
+        out["new_password"] = "*** Sensitive Data Redacted ***"
     return out

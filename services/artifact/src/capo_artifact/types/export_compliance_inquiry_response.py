@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.artifact#ExportComplianceInquiryResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -38,4 +38,11 @@ def deserialize_json(data: dict) -> ExportComplianceInquiryResponse:
         import capo_artifact.types.tags_map
 
         out["tags"] = capo_artifact.types.tags_map.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: ExportComplianceInquiryResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "document_presigned_url" in value:
+        out["document_presigned_url"] = "*** Sensitive Data Redacted ***"
     return out

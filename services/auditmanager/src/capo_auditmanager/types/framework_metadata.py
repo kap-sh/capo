@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#FrameworkMetadata``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -50,4 +50,13 @@ def deserialize_json(data: dict) -> FrameworkMetadata:
         out["logo"] = data["logo"]
     if data.get("complianceType") is not None:
         out["compliance_type"] = data["complianceType"]
+    return out
+
+
+def redact_sensitive(value: FrameworkMetadata) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "compliance_type" in value:
+        out["compliance_type"] = "*** Sensitive Data Redacted ***"
     return out

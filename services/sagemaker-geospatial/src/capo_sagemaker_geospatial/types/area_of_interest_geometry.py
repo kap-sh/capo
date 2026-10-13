@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemakergeospatial#AreaOfInterestGeometry``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -68,3 +68,24 @@ def deserialize_json(data: dict) -> AreaOfInterestGeometry:
         }
     else:
         raise DeserializationError("AreaOfInterestGeometry: no recognized variant key")
+
+
+def redact_sensitive(value: AreaOfInterestGeometry) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "PolygonGeometry" in value:
+        import capo_sagemaker_geospatial.types.polygon_geometry_input
+
+        out["PolygonGeometry"] = (
+            capo_sagemaker_geospatial.types.polygon_geometry_input.redact_sensitive(
+                value["PolygonGeometry"]
+            )
+        )
+    if "MultiPolygonGeometry" in value:
+        import capo_sagemaker_geospatial.types.multi_polygon_geometry_input
+
+        out["MultiPolygonGeometry"] = (
+            capo_sagemaker_geospatial.types.multi_polygon_geometry_input.redact_sensitive(
+                value["MultiPolygonGeometry"]
+            )
+        )
+    return out

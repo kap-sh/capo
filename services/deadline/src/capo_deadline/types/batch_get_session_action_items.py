@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#BatchGetSessionActionItems``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_deadline.types.batch_get_session_action_item
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> BatchGetSessionActionItems:
             capo_deadline.types.batch_get_session_action_item.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: BatchGetSessionActionItems) -> list[Any]:
+    import capo_deadline.types.batch_get_session_action_item
+
+    return [
+        capo_deadline.types.batch_get_session_action_item.redact_sensitive(item)
+        for item in value
+    ]

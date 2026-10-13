@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appconfig#DeploymentParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -50,4 +50,11 @@ def deserialize_json(data: dict) -> DeploymentParameters:
         import capo_appconfig.types.tag_map
 
         out["tags"] = capo_appconfig.types.tag_map.deserialize_json(data["Tags"])
+    return out
+
+
+def redact_sensitive(value: DeploymentParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "dynamic_extension_parameters" in value:
+        out["dynamic_extension_parameters"] = "*** Sensitive Data Redacted ***"
     return out

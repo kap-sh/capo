@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.acm#ExportCertificateResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,4 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> ExportCertificateResponse:
         out["certificate_chain"] = data["CertificateChain"]
     if data.get("PrivateKey") is not None:
         out["private_key"] = data["PrivateKey"]
+    return out
+
+
+def redact_sensitive(value: ExportCertificateResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "private_key" in value:
+        out["private_key"] = "*** Sensitive Data Redacted ***"
     return out

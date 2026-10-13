@@ -7,6 +7,7 @@ import capo_bedrock._auth._sigv4
 from capo_bedrock._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -68,7 +69,9 @@ class ModelResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFoundationModel")
+        )
         input_: capo_bedrock.types.get_foundation_model_request.GetFoundationModelRequest = {
             "model_identifier": model_identifier
         }
@@ -126,7 +129,9 @@ class ModelResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFoundationModels")
+        )
         input_: capo_bedrock.types.list_foundation_models_request.ListFoundationModelsRequest = {}
         if by_provider is not None:
             input_["by_provider"] = by_provider
@@ -185,7 +190,9 @@ class AsyncModelResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFoundationModel")
+        )
         input_: capo_bedrock.types.get_foundation_model_request.GetFoundationModelRequest = {
             "model_identifier": model_identifier
         }
@@ -244,7 +251,9 @@ class AsyncModelResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFoundationModels")
+        )
         input_: capo_bedrock.types.list_foundation_models_request.ListFoundationModelsRequest = {}
         if by_provider is not None:
             input_["by_provider"] = by_provider

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#AgentSpaceList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_devops_agent.types.agent_space
@@ -27,3 +27,11 @@ def deserialize_json(data: list) -> AgentSpaceList:
             continue
         out.append(capo_devops_agent.types.agent_space.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: AgentSpaceList) -> list[Any]:
+    import capo_devops_agent.types.agent_space
+
+    return [
+        capo_devops_agent.types.agent_space.redact_sensitive(item) for item in value
+    ]

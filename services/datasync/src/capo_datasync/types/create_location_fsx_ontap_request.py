@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datasync#CreateLocationFsxOntapRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -94,5 +94,16 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationFsxOntapRequest:
 
         out["tags"] = capo_datasync.types.input_tag_list.deserialize_aws_json_1_1(
             data["Tags"]
+        )
+    return out
+
+
+def redact_sensitive(value: CreateLocationFsxOntapRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "protocol" in value:
+        import capo_datasync.types.fsx_protocol
+
+        out["protocol"] = capo_datasync.types.fsx_protocol.redact_sensitive(
+            value["protocol"]
         )
     return out

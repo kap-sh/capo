@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#PhysicalTableMap``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.physical_table
@@ -31,3 +31,12 @@ def deserialize_json(data: dict) -> PhysicalTableMap:
 
         out[key] = capo_quicksight.types.physical_table.deserialize_json(value)
     return out
+
+
+def redact_sensitive(value: PhysicalTableMap) -> dict[str, Any]:
+    import capo_quicksight.types.physical_table
+
+    return {
+        key: capo_quicksight.types.physical_table.redact_sensitive(item)
+        for key, item in value.items()
+    }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#AssociateServiceOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,5 +49,22 @@ def deserialize_json(data: dict) -> AssociateServiceOutput:
 
         out["webhook"] = capo_devops_agent.types.generic_webhook.deserialize_json(
             data["webhook"]
+        )
+    return out
+
+
+def redact_sensitive(value: AssociateServiceOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "association" in value:
+        import capo_devops_agent.types.association
+
+        out["association"] = capo_devops_agent.types.association.redact_sensitive(
+            value["association"]
+        )
+    if "webhook" in value:
+        import capo_devops_agent.types.generic_webhook
+
+        out["webhook"] = capo_devops_agent.types.generic_webhook.redact_sensitive(
+            value["webhook"]
         )
     return out

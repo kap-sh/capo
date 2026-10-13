@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.novaact#CallResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -43,4 +43,15 @@ def deserialize_json(data: dict) -> CallResult:
         )
     else:
         raise DeserializationError("CallResult.content required")
+    return out
+
+
+def redact_sensitive(value: CallResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        import capo_nova_act.types.call_result_contents
+
+        out["content"] = capo_nova_act.types.call_result_contents.redact_sensitive(
+            value["content"]
+        )
     return out

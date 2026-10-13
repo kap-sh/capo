@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cleanroomsml#GetAudienceGenerationJobResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -209,4 +209,17 @@ def deserialize_json(data: dict) -> GetAudienceGenerationJobResponse:
         out["tags"] = capo_cleanroomsml.types.tag_map.deserialize_json(data["tags"])
     if data.get("protectedQueryIdentifier") is not None:
         out["protected_query_identifier"] = data["protectedQueryIdentifier"]
+    return out
+
+
+def redact_sensitive(value: GetAudienceGenerationJobResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "seed_audience" in value:
+        import capo_cleanroomsml.types.audience_generation_job_data_source
+
+        out["seed_audience"] = (
+            capo_cleanroomsml.types.audience_generation_job_data_source.redact_sensitive(
+                value["seed_audience"]
+            )
+        )
     return out

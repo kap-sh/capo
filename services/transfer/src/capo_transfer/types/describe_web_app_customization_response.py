@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.transfer#DescribeWebAppCustomizationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -41,5 +41,18 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeWebAppCustomizationResponse:
     else:
         raise DeserializationError(
             "DescribeWebAppCustomizationResponse.web_app_customization required"
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeWebAppCustomizationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "web_app_customization" in value:
+        import capo_transfer.types.described_web_app_customization
+
+        out["web_app_customization"] = (
+            capo_transfer.types.described_web_app_customization.redact_sensitive(
+                value["web_app_customization"]
+            )
         )
     return out

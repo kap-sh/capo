@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#RowLevelPermissionTagRule``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -54,4 +54,11 @@ def deserialize_json(data: dict) -> RowLevelPermissionTagRule:
         out["tag_multi_value_delimiter"] = data["TagMultiValueDelimiter"]
     if data.get("MatchAllValue") is not None:
         out["match_all_value"] = data["MatchAllValue"]
+    return out
+
+
+def redact_sensitive(value: RowLevelPermissionTagRule) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "match_all_value" in value:
+        out["match_all_value"] = "*** Sensitive Data Redacted ***"
     return out

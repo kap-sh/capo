@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.endusermessaging#UpdateBrandProfileFromRegistrationInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -71,4 +71,11 @@ def deserialize_json(data: dict) -> UpdateBrandProfileFromRegistrationInput:
         )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
+    return out
+
+
+def redact_sensitive(value: UpdateBrandProfileFromRegistrationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_token" in value:
+        out["client_token"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#UpdateTopicV2Request``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,6 +79,19 @@ def deserialize_json(data: dict) -> UpdateTopicV2Request:
         out["publish_option"] = (
             capo_quicksight.types.topic_v2_publish_option.deserialize_json(
                 data["PublishOption"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateTopicV2Request) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "custom_instructions" in value:
+        import capo_quicksight.types.custom_instructions
+
+        out["custom_instructions"] = (
+            capo_quicksight.types.custom_instructions.redact_sensitive(
+                value["custom_instructions"]
             )
         )
     return out

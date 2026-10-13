@@ -24,7 +24,9 @@ from capo_pinpoint_email._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -222,7 +224,9 @@ class AsyncPinpointEmailClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncPinpointEmailClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncPinpointEmailClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncPinpointEmailClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -230,8 +234,10 @@ class AsyncPinpointEmailClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -304,7 +310,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfigurationSet")
+        )
         input_: capo_pinpoint_email.types.create_configuration_set_request.CreateConfigurationSetRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -366,7 +374,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfigurationSetEventDestination")
+        )
         input_: capo_pinpoint_email.types.create_configuration_set_event_destination_request.CreateConfigurationSetEventDestinationRequest = {
             "configuration_set_name": configuration_set_name,
             "event_destination_name": event_destination_name,
@@ -418,7 +428,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDedicatedIpPool")
+        )
         input_: capo_pinpoint_email.types.create_dedicated_ip_pool_request.CreateDedicatedIpPoolRequest = {
             "pool_name": pool_name
         }
@@ -480,7 +492,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDeliverabilityTestReport")
+        )
         input_: capo_pinpoint_email.types.create_deliverability_test_report_request.CreateDeliverabilityTestReportRequest = {
             "from_email_address": from_email_address,
             "content": content,
@@ -534,7 +548,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEmailIdentity")
+        )
         input_: capo_pinpoint_email.types.create_email_identity_request.CreateEmailIdentityRequest = {
             "email_identity": email_identity
         }
@@ -583,7 +599,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfigurationSet")
+        )
         input_: capo_pinpoint_email.types.delete_configuration_set_request.DeleteConfigurationSetRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -631,7 +649,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfigurationSetEventDestination")
+        )
         input_: capo_pinpoint_email.types.delete_configuration_set_event_destination_request.DeleteConfigurationSetEventDestinationRequest = {
             "configuration_set_name": configuration_set_name,
             "event_destination_name": event_destination_name,
@@ -679,7 +699,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDedicatedIpPool")
+        )
         input_: capo_pinpoint_email.types.delete_dedicated_ip_pool_request.DeleteDedicatedIpPoolRequest = {
             "pool_name": pool_name
         }
@@ -726,7 +748,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEmailIdentity")
+        )
         input_: capo_pinpoint_email.types.delete_email_identity_request.DeleteEmailIdentityRequest = {
             "email_identity": email_identity
         }
@@ -765,7 +789,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccount")
+        )
         input_: capo_pinpoint_email.types.get_account_request.GetAccountRequest = {}
 
         response = await aexecute_pipeline(
@@ -809,7 +835,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBlacklistReports")
+        )
         input_: capo_pinpoint_email.types.get_blacklist_reports_request.GetBlacklistReportsRequest = {
             "blacklist_item_names": blacklist_item_names
         }
@@ -855,7 +883,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConfigurationSet")
+        )
         input_: capo_pinpoint_email.types.get_configuration_set_request.GetConfigurationSetRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -901,7 +931,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConfigurationSetEventDestinations")
+        )
         input_: capo_pinpoint_email.types.get_configuration_set_event_destinations_request.GetConfigurationSetEventDestinationsRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -947,7 +979,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDedicatedIp")
+        )
         input_: capo_pinpoint_email.types.get_dedicated_ip_request.GetDedicatedIpRequest = {
             "ip": ip
         }
@@ -997,7 +1031,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDedicatedIps")
+        )
         input_: capo_pinpoint_email.types.get_dedicated_ips_request.GetDedicatedIpsRequest = {}
         if pool_name is not None:
             input_["pool_name"] = pool_name
@@ -1062,7 +1098,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeliverabilityDashboardOptions")
+        )
         input_: capo_pinpoint_email.types.get_deliverability_dashboard_options_request.GetDeliverabilityDashboardOptionsRequest = {}
 
         response = await aexecute_pipeline(
@@ -1106,7 +1144,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeliverabilityTestReport")
+        )
         input_: capo_pinpoint_email.types.get_deliverability_test_report_request.GetDeliverabilityTestReportRequest = {
             "report_id": report_id
         }
@@ -1152,7 +1192,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomainDeliverabilityCampaign")
+        )
         input_: capo_pinpoint_email.types.get_domain_deliverability_campaign_request.GetDomainDeliverabilityCampaignRequest = {
             "campaign_id": campaign_id
         }
@@ -1202,7 +1244,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomainStatisticsReport")
+        )
         input_: capo_pinpoint_email.types.get_domain_statistics_report_request.GetDomainStatisticsReportRequest = {
             "domain": domain,
             "start_date": start_date,
@@ -1252,7 +1296,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEmailIdentity")
+        )
         input_: capo_pinpoint_email.types.get_email_identity_request.GetEmailIdentityRequest = {
             "email_identity": email_identity
         }
@@ -1299,7 +1345,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfigurationSets")
+        )
         input_: capo_pinpoint_email.types.list_configuration_sets_request.ListConfigurationSetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1367,7 +1415,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDedicatedIpPools")
+        )
         input_: capo_pinpoint_email.types.list_dedicated_ip_pools_request.ListDedicatedIpPoolsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1436,7 +1486,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeliverabilityTestReports")
+        )
         input_: capo_pinpoint_email.types.list_deliverability_test_reports_request.ListDeliverabilityTestReportsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1511,7 +1563,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomainDeliverabilityCampaigns")
+        )
         input_: capo_pinpoint_email.types.list_domain_deliverability_campaigns_request.ListDomainDeliverabilityCampaignsRequest = {
             "start_date": start_date,
             "end_date": end_date,
@@ -1589,7 +1643,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEmailIdentities")
+        )
         input_: capo_pinpoint_email.types.list_email_identities_request.ListEmailIdentitiesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1656,7 +1712,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_pinpoint_email.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1703,7 +1761,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccountDedicatedIpWarmupAttributes")
+        )
         input_: capo_pinpoint_email.types.put_account_dedicated_ip_warmup_attributes_request.PutAccountDedicatedIpWarmupAttributesRequest = {}
         if auto_warmup_enabled is not None:
             input_["auto_warmup_enabled"] = auto_warmup_enabled
@@ -1748,7 +1808,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccountSendingAttributes")
+        )
         input_: capo_pinpoint_email.types.put_account_sending_attributes_request.PutAccountSendingAttributesRequest = {}
         if sending_enabled is not None:
             input_["sending_enabled"] = sending_enabled
@@ -1800,7 +1862,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutConfigurationSetDeliveryOptions")
+        )
         input_: capo_pinpoint_email.types.put_configuration_set_delivery_options_request.PutConfigurationSetDeliveryOptionsRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -1854,7 +1918,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutConfigurationSetReputationOptions")
+        )
         input_: capo_pinpoint_email.types.put_configuration_set_reputation_options_request.PutConfigurationSetReputationOptionsRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -1904,7 +1970,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutConfigurationSetSendingOptions")
+        )
         input_: capo_pinpoint_email.types.put_configuration_set_sending_options_request.PutConfigurationSetSendingOptionsRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -1956,7 +2024,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutConfigurationSetTrackingOptions")
+        )
         input_: capo_pinpoint_email.types.put_configuration_set_tracking_options_request.PutConfigurationSetTrackingOptionsRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -2006,7 +2076,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDedicatedIpInPool")
+        )
         input_: capo_pinpoint_email.types.put_dedicated_ip_in_pool_request.PutDedicatedIpInPoolRequest = {
             "ip": ip,
             "destination_pool_name": destination_pool_name,
@@ -2055,7 +2127,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDedicatedIpWarmupAttributes")
+        )
         input_: capo_pinpoint_email.types.put_dedicated_ip_warmup_attributes_request.PutDedicatedIpWarmupAttributesRequest = {
             "ip": ip,
             "warmup_percentage": warmup_percentage,
@@ -2108,7 +2182,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDeliverabilityDashboardOption")
+        )
         input_: capo_pinpoint_email.types.put_deliverability_dashboard_option_request.PutDeliverabilityDashboardOptionRequest = {
             "dashboard_enabled": dashboard_enabled
         }
@@ -2158,7 +2234,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutEmailIdentityDkimAttributes")
+        )
         input_: capo_pinpoint_email.types.put_email_identity_dkim_attributes_request.PutEmailIdentityDkimAttributesRequest = {
             "email_identity": email_identity
         }
@@ -2210,7 +2288,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutEmailIdentityFeedbackAttributes")
+        )
         input_: capo_pinpoint_email.types.put_email_identity_feedback_attributes_request.PutEmailIdentityFeedbackAttributesRequest = {
             "email_identity": email_identity
         }
@@ -2266,7 +2346,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutEmailIdentityMailFromAttributes")
+        )
         input_: capo_pinpoint_email.types.put_email_identity_mail_from_attributes_request.PutEmailIdentityMailFromAttributesRequest = {
             "email_identity": email_identity
         }
@@ -2343,7 +2425,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendEmail")
+        )
         input_: capo_pinpoint_email.types.send_email_request.SendEmailRequest = {
             "destination": destination,
             "content": content,
@@ -2405,7 +2489,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_pinpoint_email.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2455,7 +2541,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_pinpoint_email.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2506,7 +2594,9 @@ class AsyncPinpointEmailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConfigurationSetEventDestination")
+        )
         input_: capo_pinpoint_email.types.update_configuration_set_event_destination_request.UpdateConfigurationSetEventDestinationRequest = {
             "configuration_set_name": configuration_set_name,
             "event_destination_name": event_destination_name,

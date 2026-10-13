@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridgev2#UpdateSubscriberRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -193,5 +193,32 @@ def deserialize_cbor(data: dict) -> UpdateSubscriberRequest:
             capo_eventbridgev2.types.log_configuration.deserialize_cbor(
                 data["LogConfiguration"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateSubscriberRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "invoke_configuration" in value:
+        import capo_eventbridgev2.types.update_invoke_configuration
+
+        out["invoke_configuration"] = (
+            capo_eventbridgev2.types.update_invoke_configuration.redact_sensitive(
+                value["invoke_configuration"]
+            )
+        )
+    if "filter_configuration" in value:
+        import capo_eventbridgev2.types.filter_configuration
+
+        out["filter_configuration"] = (
+            capo_eventbridgev2.types.filter_configuration.redact_sensitive(
+                value["filter_configuration"]
+            )
+        )
+    if "transformer" in value:
+        import capo_eventbridgev2.types.transformer
+
+        out["transformer"] = capo_eventbridgev2.types.transformer.redact_sensitive(
+            value["transformer"]
         )
     return out

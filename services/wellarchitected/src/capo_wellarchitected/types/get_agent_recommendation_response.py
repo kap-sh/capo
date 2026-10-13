@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wellarchitected#GetAgentRecommendationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -469,6 +469,25 @@ def deserialize_json(data: dict) -> GetAgentRecommendationResponse:
         out["remediations"] = (
             capo_wellarchitected.types.agent_recommendation_remediations.deserialize_json(
                 data["remediations"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GetAgentRecommendationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "title" in value:
+        out["title"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "update_reason" in value:
+        out["update_reason"] = "*** Sensitive Data Redacted ***"
+    if "remediations" in value:
+        import capo_wellarchitected.types.agent_recommendation_remediations
+
+        out["remediations"] = (
+            capo_wellarchitected.types.agent_recommendation_remediations.redact_sensitive(
+                value["remediations"]
             )
         )
     return out

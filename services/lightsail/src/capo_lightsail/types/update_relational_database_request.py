@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lightsail#UpdateRelationalDatabaseRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -95,4 +95,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateRelationalDatabaseRequest:
         out["ca_certificate_identifier"] = data["caCertificateIdentifier"]
     if data.get("relationalDatabaseBlueprintId") is not None:
         out["relational_database_blueprint_id"] = data["relationalDatabaseBlueprintId"]
+    return out
+
+
+def redact_sensitive(value: UpdateRelationalDatabaseRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "master_user_password" in value:
+        out["master_user_password"] = "*** Sensitive Data Redacted ***"
     return out

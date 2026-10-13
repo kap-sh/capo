@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.medicalimaging#DICOMTags``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -168,4 +168,37 @@ def deserialize_json(data: dict) -> DICOMTags:
         out["dicom_study_date"] = data["DICOMStudyDate"]
     if data.get("DICOMStudyTime") is not None:
         out["dicom_study_time"] = data["DICOMStudyTime"]
+    return out
+
+
+def redact_sensitive(value: DICOMTags) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "dicom_patient_id" in value:
+        out["dicom_patient_id"] = "*** Sensitive Data Redacted ***"
+    if "dicom_patient_name" in value:
+        out["dicom_patient_name"] = "*** Sensitive Data Redacted ***"
+    if "dicom_patient_birth_date" in value:
+        out["dicom_patient_birth_date"] = "*** Sensitive Data Redacted ***"
+    if "dicom_patient_sex" in value:
+        out["dicom_patient_sex"] = "*** Sensitive Data Redacted ***"
+    if "dicom_study_instance_uid" in value:
+        out["dicom_study_instance_uid"] = "*** Sensitive Data Redacted ***"
+    if "dicom_study_id" in value:
+        out["dicom_study_id"] = "*** Sensitive Data Redacted ***"
+    if "dicom_study_description" in value:
+        out["dicom_study_description"] = "*** Sensitive Data Redacted ***"
+    if "dicom_accession_number" in value:
+        out["dicom_accession_number"] = "*** Sensitive Data Redacted ***"
+    if "dicom_series_instance_uid" in value:
+        out["dicom_series_instance_uid"] = "*** Sensitive Data Redacted ***"
+    if "dicom_series_modality" in value:
+        out["dicom_series_modality"] = "*** Sensitive Data Redacted ***"
+    if "dicom_series_body_part" in value:
+        out["dicom_series_body_part"] = "*** Sensitive Data Redacted ***"
+    if "dicom_series_number" in value:
+        out["dicom_series_number"] = "*** Sensitive Data Redacted ***"
+    if "dicom_study_date" in value:
+        out["dicom_study_date"] = "*** Sensitive Data Redacted ***"
+    if "dicom_study_time" in value:
+        out["dicom_study_time"] = "*** Sensitive Data Redacted ***"
     return out

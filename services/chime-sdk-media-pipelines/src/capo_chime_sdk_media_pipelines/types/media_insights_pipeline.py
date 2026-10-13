@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#MediaInsightsPipeline``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -191,6 +191,27 @@ def deserialize_json(data: dict) -> MediaInsightsPipeline:
         out["element_statuses"] = (
             capo_chime_sdk_media_pipelines.types.media_insights_pipeline_element_statuses.deserialize_json(
                 data["ElementStatuses"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: MediaInsightsPipeline) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "media_pipeline_arn" in value:
+        out["media_pipeline_arn"] = "*** Sensitive Data Redacted ***"
+    if "media_insights_pipeline_configuration_arn" in value:
+        out["media_insights_pipeline_configuration_arn"] = (
+            "*** Sensitive Data Redacted ***"
+        )
+    if "media_insights_runtime_metadata" in value:
+        out["media_insights_runtime_metadata"] = "*** Sensitive Data Redacted ***"
+    if "s3_recording_sink_runtime_configuration" in value:
+        import capo_chime_sdk_media_pipelines.types.s3_recording_sink_runtime_configuration
+
+        out["s3_recording_sink_runtime_configuration"] = (
+            capo_chime_sdk_media_pipelines.types.s3_recording_sink_runtime_configuration.redact_sensitive(
+                value["s3_recording_sink_runtime_configuration"]
             )
         )
     return out

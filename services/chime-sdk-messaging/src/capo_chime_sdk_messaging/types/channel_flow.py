@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmessaging#ChannelFlow``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -94,4 +94,19 @@ def deserialize_json(data: dict) -> ChannelFlow:
                 data["LastUpdatedTimestamp"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: ChannelFlow) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "processors" in value:
+        import capo_chime_sdk_messaging.types.processor_list
+
+        out["processors"] = (
+            capo_chime_sdk_messaging.types.processor_list.redact_sensitive(
+                value["processors"]
+            )
+        )
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
     return out

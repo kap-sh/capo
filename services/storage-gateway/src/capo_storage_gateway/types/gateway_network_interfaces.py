@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.storagegateway#GatewayNetworkInterfaces``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_storage_gateway.types.network_interface
@@ -33,3 +33,7 @@ def deserialize_aws_json_1_1(data: list) -> GatewayNetworkInterfaces:
             capo_storage_gateway.types.network_interface.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+def redact_sensitive(value: GatewayNetworkInterfaces) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

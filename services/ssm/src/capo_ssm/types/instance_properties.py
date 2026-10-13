@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#InstanceProperties``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_ssm.types.instance_property
@@ -29,3 +29,9 @@ def deserialize_aws_json_1_1(data: list) -> InstanceProperties:
             continue
         out.append(capo_ssm.types.instance_property.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: InstanceProperties) -> list[Any]:
+    import capo_ssm.types.instance_property
+
+    return [capo_ssm.types.instance_property.redact_sensitive(item) for item in value]

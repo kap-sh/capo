@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chime#CreateMeetingDialOutRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -50,4 +50,15 @@ def deserialize_json(data: dict) -> CreateMeetingDialOutRequest:
         out["join_token"] = data["JoinToken"]
     else:
         raise DeserializationError("CreateMeetingDialOutRequest.join_token required")
+    return out
+
+
+def redact_sensitive(value: CreateMeetingDialOutRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "from_phone_number" in value:
+        out["from_phone_number"] = "*** Sensitive Data Redacted ***"
+    if "to_phone_number" in value:
+        out["to_phone_number"] = "*** Sensitive Data Redacted ***"
+    if "join_token" in value:
+        out["join_token"] = "*** Sensitive Data Redacted ***"
     return out

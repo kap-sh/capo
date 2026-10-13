@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#FilterGroup``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -99,4 +99,15 @@ def deserialize_json(data: dict) -> FilterGroup:
         )
     else:
         raise DeserializationError("FilterGroup.cross_dataset required")
+    return out
+
+
+def redact_sensitive(value: FilterGroup) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "filters" in value:
+        import capo_quicksight.types.filter_list
+
+        out["filters"] = capo_quicksight.types.filter_list.redact_sensitive(
+            value["filters"]
+        )
     return out

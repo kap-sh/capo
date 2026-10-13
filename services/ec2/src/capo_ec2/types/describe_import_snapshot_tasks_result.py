@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#DescribeImportSnapshotTasksResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,17 @@ def deserialize_ec2_query(el: Element) -> DescribeImportSnapshotTasksResult:
     child_next_token = el.find("nextToken")
     if child_next_token is not None:
         out["next_token"] = str(child_next_token.text or "")
+    return out
+
+
+def redact_sensitive(value: DescribeImportSnapshotTasksResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "import_snapshot_tasks" in value:
+        import capo_ec2.types.import_snapshot_task_list
+
+        out["import_snapshot_tasks"] = (
+            capo_ec2.types.import_snapshot_task_list.redact_sensitive(
+                value["import_snapshot_tasks"]
+            )
+        )
     return out

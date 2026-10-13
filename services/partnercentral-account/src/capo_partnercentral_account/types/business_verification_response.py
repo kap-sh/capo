@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralaccount#BusinessVerificationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -70,6 +70,19 @@ def deserialize_aws_json_1_0(data: dict) -> BusinessVerificationResponse:
         out["completion_url_expires_at"] = (
             capo_partnercentral_account.types.date_time.deserialize_aws_json_1_0(
                 data["CompletionUrlExpiresAt"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: BusinessVerificationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "business_verification_details" in value:
+        import capo_partnercentral_account.types.business_verification_details
+
+        out["business_verification_details"] = (
+            capo_partnercentral_account.types.business_verification_details.redact_sensitive(
+                value["business_verification_details"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkidentity#UpdateAppInstanceUserRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -39,4 +39,13 @@ def deserialize_json(data: dict) -> UpdateAppInstanceUserRequest:
         out["metadata"] = data["Metadata"]
     else:
         raise DeserializationError("UpdateAppInstanceUserRequest.metadata required")
+    return out
+
+
+def redact_sensitive(value: UpdateAppInstanceUserRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "metadata" in value:
+        out["metadata"] = "*** Sensitive Data Redacted ***"
     return out

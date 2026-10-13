@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#StepList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_location.types.step
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> StepList:
             continue
         out.append(capo_location.types.step.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: StepList) -> list[Any]:
+    import capo_location.types.step
+
+    return [capo_location.types.step.redact_sensitive(item) for item in value]

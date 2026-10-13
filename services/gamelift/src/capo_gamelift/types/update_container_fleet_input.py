@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#UpdateContainerFleetInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -256,6 +256,35 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateContainerFleetInput:
         out["remove_attributes"] = (
             capo_gamelift.types.container_fleet_remove_attribute_list.deserialize_aws_json_1_1(
                 data["RemoveAttributes"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateContainerFleetInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "instance_connection_port_range" in value:
+        import capo_gamelift.types.connection_port_range
+
+        out["instance_connection_port_range"] = (
+            capo_gamelift.types.connection_port_range.redact_sensitive(
+                value["instance_connection_port_range"]
+            )
+        )
+    if "instance_inbound_permission_authorizations" in value:
+        import capo_gamelift.types.ip_permissions_list
+
+        out["instance_inbound_permission_authorizations"] = (
+            capo_gamelift.types.ip_permissions_list.redact_sensitive(
+                value["instance_inbound_permission_authorizations"]
+            )
+        )
+    if "instance_inbound_permission_revocations" in value:
+        import capo_gamelift.types.ip_permissions_list
+
+        out["instance_inbound_permission_revocations"] = (
+            capo_gamelift.types.ip_permissions_list.redact_sensitive(
+                value["instance_inbound_permission_revocations"]
             )
         )
     return out

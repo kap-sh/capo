@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#PostLineageEventInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -38,4 +38,11 @@ def deserialize_json(data: dict) -> PostLineageEventInput:
         out["event"] = capo_datazone.types.lineage_event.deserialize_json(data["event"])
     else:
         raise DeserializationError("PostLineageEventInput.event required")
+    return out
+
+
+def redact_sensitive(value: PostLineageEventInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "event" in value:
+        out["event"] = "*** Sensitive Data Redacted ***"
     return out

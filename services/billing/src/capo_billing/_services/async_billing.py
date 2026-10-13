@@ -26,7 +26,9 @@ from capo_billing._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -182,7 +184,9 @@ class AsyncBillingClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncBillingClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncBillingClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncBillingClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -190,8 +194,10 @@ class AsyncBillingClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -255,7 +261,9 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateSourceViews")
+        )
         input_: capo_billing.types.associate_source_views_request.AssociateSourceViewsRequest = {
             "arn": arn,
             "source_views": source_views,
@@ -328,7 +336,19 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_billing.types.create_billing_view_request.CreateBillingViewRequest",
+        ) -> dict[str, Any]:
+            import capo_billing.types.create_billing_view_request
+
+            return capo_billing.types.create_billing_view_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateBillingView", redact_input=_redact_input),
+        )
         input_: capo_billing.types.create_billing_view_request.CreateBillingViewRequest = {
             "name": name,
             "source_views": source_views,
@@ -393,7 +413,9 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBillingView")
+        )
         input_: capo_billing.types.delete_billing_view_request.DeleteBillingViewRequest = {
             "arn": arn
         }
@@ -452,7 +474,9 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateSourceViews")
+        )
         input_: capo_billing.types.disassociate_source_views_request.DisassociateSourceViewsRequest = {
             "arn": arn,
             "source_views": source_views,
@@ -508,7 +532,9 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBillingPreferences")
+        )
         input_: capo_billing.types.get_billing_preferences_request.GetBillingPreferencesRequest = {
             "features": features
         }
@@ -567,7 +593,17 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_billing.types.get_billing_view_response.GetBillingViewResponse",
+        ) -> dict[str, Any]:
+            import capo_billing.types.get_billing_view_response
+
+            return capo_billing.types.get_billing_view_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetBillingView", redact_output=_redact_output),
+        )
         input_: capo_billing.types.get_billing_view_request.GetBillingViewRequest = {
             "arn": arn
         }
@@ -624,7 +660,9 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCreditAllocationHistory")
+        )
         input_: capo_billing.types.get_credit_allocation_history_request.GetCreditAllocationHistoryRequest = {
             "account_id": account_id,
             "start_date": start_date,
@@ -714,7 +752,9 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCredits")
+        )
         input_: capo_billing.types.get_credits_request.GetCreditsRequest = {
             "account_id": account_id,
             "start_date": start_date,
@@ -767,7 +807,9 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEnterpriseSupportChargeSummary")
+        )
         input_: capo_billing.types.get_enterprise_support_charge_summary_request.GetEnterpriseSupportChargeSummaryRequest = {
             "billing_month": billing_month
         }
@@ -815,7 +857,9 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEnterpriseSupportContractDetails")
+        )
         input_: capo_billing.types.get_enterprise_support_contract_details_request.GetEnterpriseSupportContractDetailsRequest = {
             "billing_month": billing_month
         }
@@ -868,7 +912,9 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_billing.types.get_resource_policy_request.GetResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -945,7 +991,19 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_billing.types.list_billing_views_response.ListBillingViewsResponse",
+        ) -> dict[str, Any]:
+            import capo_billing.types.list_billing_views_response
+
+            return capo_billing.types.list_billing_views_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListBillingViews", redact_output=_redact_output),
+        )
         input_: capo_billing.types.list_billing_views_request.ListBillingViewsRequest = {}
         if active_time_range is not None:
             input_["active_time_range"] = active_time_range
@@ -1067,7 +1125,9 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBillingViewSegments")
+        )
         input_: capo_billing.types.list_billing_view_segments_request.ListBillingViewSegmentsRequest = {}
         if time_range is not None:
             input_["time_range"] = time_range
@@ -1156,7 +1216,9 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBusinessSupportAccountCharges")
+        )
         input_: capo_billing.types.list_business_support_account_charges_request.ListBusinessSupportAccountChargesRequest = {
             "billing_month": billing_month
         }
@@ -1247,7 +1309,9 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBusinessSupportSubscriptionHistory")
+        )
         input_: capo_billing.types.list_business_support_subscription_history_request.ListBusinessSupportSubscriptionHistoryRequest = {}
         if billing_month is not None:
             input_["billing_month"] = billing_month
@@ -1342,7 +1406,10 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListEnterpriseSupportLinkedAccountCharges"),
+        )
         input_: capo_billing.types.list_enterprise_support_linked_account_charges_request.ListEnterpriseSupportLinkedAccountChargesRequest = {
             "billing_month": billing_month
         }
@@ -1432,7 +1499,9 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSourceViewsForBillingView")
+        )
         input_: capo_billing.types.list_source_views_for_billing_view_request.ListSourceViewsForBillingViewRequest = {
             "arn": arn
         }
@@ -1516,7 +1585,9 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_billing.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1563,7 +1634,9 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RedeemCredits")
+        )
         input_: capo_billing.types.redeem_credits_request.RedeemCreditsRequest = {
             "promo_code": promo_code
         }
@@ -1618,7 +1691,9 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_billing.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "resource_tags": resource_tags,
@@ -1674,7 +1749,9 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_billing.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "resource_tag_keys": resource_tag_keys,
@@ -1724,7 +1801,9 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBillingPreferences")
+        )
         input_: capo_billing.types.update_billing_preferences_request.UpdateBillingPreferencesRequest = {
             "feature": feature,
             "billing_preferences_per_key": billing_preferences_per_key,
@@ -1791,7 +1870,19 @@ class AsyncBillingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_billing.types.update_billing_view_request.UpdateBillingViewRequest",
+        ) -> dict[str, Any]:
+            import capo_billing.types.update_billing_view_request
+
+            return capo_billing.types.update_billing_view_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateBillingView", redact_input=_redact_input),
+        )
         input_: capo_billing.types.update_billing_view_request.UpdateBillingViewRequest = {
             "arn": arn
         }

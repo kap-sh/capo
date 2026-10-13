@@ -21,10 +21,12 @@ from capo_route53profiles._pagination import resolve_path as _resolve_path
 from capo_route53profiles._services._aws_config import aws_config
 from capo_route53profiles._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -150,7 +152,9 @@ class Route53ProfilesClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[Route53ProfilesClientConfig] = None
+        self,
+        config_overrides: Optional[Route53ProfilesClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: Route53ProfilesClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -158,8 +162,10 @@ class Route53ProfilesClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -223,7 +229,9 @@ class Route53ProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateProfile")
+        )
         input_: capo_route53profiles.types.associate_profile_request.AssociateProfileRequest = {
             "profile_id": profile_id,
             "resource_id": resource_id,
@@ -285,7 +293,9 @@ class Route53ProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateResourceToProfile")
+        )
         input_: capo_route53profiles.types.associate_resource_to_profile_request.AssociateResourceToProfileRequest = {
             "profile_id": profile_id,
             "resource_arn": resource_arn,
@@ -340,7 +350,9 @@ class Route53ProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProfile")
+        )
         input_: capo_route53profiles.types.create_profile_request.CreateProfileRequest = {
             "name": name,
             "client_token": client_token,
@@ -390,7 +402,9 @@ class Route53ProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProfile")
+        )
         input_: capo_route53profiles.types.delete_profile_request.DeleteProfileRequest = {
             "profile_id": profile_id
         }
@@ -440,7 +454,9 @@ class Route53ProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateProfile")
+        )
         input_: capo_route53profiles.types.disassociate_profile_request.DisassociateProfileRequest = {
             "profile_id": profile_id,
             "resource_id": resource_id,
@@ -493,7 +509,9 @@ class Route53ProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateResourceFromProfile")
+        )
         input_: capo_route53profiles.types.disassociate_resource_from_profile_request.DisassociateResourceFromProfileRequest = {
             "profile_id": profile_id,
             "resource_arn": resource_arn,
@@ -540,7 +558,9 @@ class Route53ProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProfile")
+        )
         input_: capo_route53profiles.types.get_profile_request.GetProfileRequest = {
             "profile_id": profile_id
         }
@@ -586,7 +606,9 @@ class Route53ProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProfileAssociation")
+        )
         input_: capo_route53profiles.types.get_profile_association_request.GetProfileAssociationRequest = {
             "profile_association_id": profile_association_id
         }
@@ -633,7 +655,9 @@ class Route53ProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProfileResourceAssociation")
+        )
         input_: capo_route53profiles.types.get_profile_resource_association_request.GetProfileResourceAssociationRequest = {
             "profile_resource_association_id": profile_resource_association_id
         }
@@ -692,7 +716,9 @@ class Route53ProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProfileAssociations")
+        )
         input_: capo_route53profiles.types.list_profile_associations_request.ListProfileAssociationsRequest = {}
         if resource_id is not None:
             input_["resource_id"] = resource_id
@@ -786,7 +812,9 @@ class Route53ProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProfileResourceAssociations")
+        )
         input_: capo_route53profiles.types.list_profile_resource_associations_request.ListProfileResourceAssociationsRequest = {
             "profile_id": profile_id
         }
@@ -870,7 +898,9 @@ class Route53ProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProfiles")
+        )
         input_: capo_route53profiles.types.list_profiles_request.ListProfilesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -942,7 +972,9 @@ class Route53ProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_route53profiles.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -990,7 +1022,9 @@ class Route53ProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_route53profiles.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1040,7 +1074,9 @@ class Route53ProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_route53profiles.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1097,7 +1133,9 @@ class Route53ProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProfileResourceAssociation")
+        )
         input_: capo_route53profiles.types.update_profile_resource_association_request.UpdateProfileResourceAssociationRequest = {
             "profile_resource_association_id": profile_resource_association_id
         }

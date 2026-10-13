@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#JobAttachmentDetailsEntity``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -44,4 +44,15 @@ def deserialize_json(data: dict) -> JobAttachmentDetailsEntity:
         )
     else:
         raise DeserializationError("JobAttachmentDetailsEntity.attachments required")
+    return out
+
+
+def redact_sensitive(value: JobAttachmentDetailsEntity) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "attachments" in value:
+        import capo_deadline.types.attachments
+
+        out["attachments"] = capo_deadline.types.attachments.redact_sensitive(
+            value["attachments"]
+        )
     return out

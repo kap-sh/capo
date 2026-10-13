@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#PipeSourceParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -178,6 +178,49 @@ def deserialize_json(data: dict) -> PipeSourceParameters:
         out["self_managed_kafka_parameters"] = (
             capo_pipes.types.pipe_source_self_managed_kafka_parameters.deserialize_json(
                 data["SelfManagedKafkaParameters"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: PipeSourceParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "filter_criteria" in value:
+        import capo_pipes.types.filter_criteria
+
+        out["filter_criteria"] = capo_pipes.types.filter_criteria.redact_sensitive(
+            value["filter_criteria"]
+        )
+    if "active_mq_broker_parameters" in value:
+        import capo_pipes.types.pipe_source_active_mq_broker_parameters
+
+        out["active_mq_broker_parameters"] = (
+            capo_pipes.types.pipe_source_active_mq_broker_parameters.redact_sensitive(
+                value["active_mq_broker_parameters"]
+            )
+        )
+    if "rabbit_mq_broker_parameters" in value:
+        import capo_pipes.types.pipe_source_rabbit_mq_broker_parameters
+
+        out["rabbit_mq_broker_parameters"] = (
+            capo_pipes.types.pipe_source_rabbit_mq_broker_parameters.redact_sensitive(
+                value["rabbit_mq_broker_parameters"]
+            )
+        )
+    if "managed_streaming_kafka_parameters" in value:
+        import capo_pipes.types.pipe_source_managed_streaming_kafka_parameters
+
+        out["managed_streaming_kafka_parameters"] = (
+            capo_pipes.types.pipe_source_managed_streaming_kafka_parameters.redact_sensitive(
+                value["managed_streaming_kafka_parameters"]
+            )
+        )
+    if "self_managed_kafka_parameters" in value:
+        import capo_pipes.types.pipe_source_self_managed_kafka_parameters
+
+        out["self_managed_kafka_parameters"] = (
+            capo_pipes.types.pipe_source_self_managed_kafka_parameters.redact_sensitive(
+                value["self_managed_kafka_parameters"]
             )
         )
     return out

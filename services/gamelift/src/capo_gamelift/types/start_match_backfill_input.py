@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#StartMatchBackfillInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -57,5 +57,16 @@ def deserialize_aws_json_1_1(data: dict) -> StartMatchBackfillInput:
 
         out["players"] = capo_gamelift.types.player_list.deserialize_aws_json_1_1(
             data["Players"]
+        )
+    return out
+
+
+def redact_sensitive(value: StartMatchBackfillInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "players" in value:
+        import capo_gamelift.types.player_list
+
+        out["players"] = capo_gamelift.types.player_list.redact_sensitive(
+            value["players"]
         )
     return out

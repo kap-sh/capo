@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#EvaluationBedrockModel``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -57,4 +57,11 @@ def deserialize_json(data: dict) -> EvaluationBedrockModel:
                 data["performanceConfig"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: EvaluationBedrockModel) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inference_params" in value:
+        out["inference_params"] = "*** Sensitive Data Redacted ***"
     return out

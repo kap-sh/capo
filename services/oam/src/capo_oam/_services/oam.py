@@ -21,10 +21,12 @@ from capo_oam._pagination import resolve_path as _resolve_path
 from capo_oam._services._aws_config import aws_config
 from capo_oam._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -151,7 +153,9 @@ class OAMClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[OAMClientConfig] = None
+        self,
+        config_overrides: Optional[OAMClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: OAMClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -159,8 +163,10 @@ class OAMClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -221,7 +227,9 @@ class OAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLink")
+        )
         input_: capo_oam.types.create_link_input.CreateLinkInput = {
             "label_template": label_template,
             "resource_types": resource_types,
@@ -274,7 +282,9 @@ class OAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSink")
+        )
         input_: capo_oam.types.create_sink_input.CreateSinkInput = {"name": name}
         if tags is not None:
             input_["tags"] = tags
@@ -318,7 +328,9 @@ class OAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLink")
+        )
         input_: capo_oam.types.delete_link_input.DeleteLinkInput = {
             "identifier": identifier
         }
@@ -363,7 +375,9 @@ class OAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSink")
+        )
         input_: capo_oam.types.delete_sink_input.DeleteSinkInput = {
             "identifier": identifier
         }
@@ -407,7 +421,9 @@ class OAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLink")
+        )
         input_: capo_oam.types.get_link_input.GetLinkInput = {"identifier": identifier}
         if include_tags is not None:
             input_["include_tags"] = include_tags
@@ -451,7 +467,9 @@ class OAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSink")
+        )
         input_: capo_oam.types.get_sink_input.GetSinkInput = {"identifier": identifier}
         if include_tags is not None:
             input_["include_tags"] = include_tags
@@ -497,7 +515,9 @@ class OAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSinkPolicy")
+        )
         input_: capo_oam.types.get_sink_policy_input.GetSinkPolicyInput = {
             "sink_identifier": sink_identifier
         }
@@ -549,7 +569,9 @@ class OAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAttachedLinks")
+        )
         input_: capo_oam.types.list_attached_links_input.ListAttachedLinksInput = {
             "sink_identifier": sink_identifier
         }
@@ -625,7 +647,9 @@ class OAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLinks")
+        )
         input_: capo_oam.types.list_links_input.ListLinksInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -697,7 +721,9 @@ class OAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSinks")
+        )
         input_: capo_oam.types.list_sinks_input.ListSinksInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -766,7 +792,9 @@ class OAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_oam.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -814,7 +842,9 @@ class OAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutSinkPolicy")
+        )
         input_: capo_oam.types.put_sink_policy_input.PutSinkPolicyInput = {
             "sink_identifier": sink_identifier,
             "policy": policy,
@@ -860,7 +890,9 @@ class OAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_oam.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -907,7 +939,9 @@ class OAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_oam.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -960,7 +994,9 @@ class OAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLink")
+        )
         input_: capo_oam.types.update_link_input.UpdateLinkInput = {
             "identifier": identifier,
             "resource_types": resource_types,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#KnowledgeBaseLookupInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -36,4 +36,13 @@ def deserialize_json(data: dict) -> KnowledgeBaseLookupInput:
         out["text"] = data["text"]
     if data.get("knowledgeBaseId") is not None:
         out["knowledge_base_id"] = data["knowledgeBaseId"]
+    return out
+
+
+def redact_sensitive(value: KnowledgeBaseLookupInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text" in value:
+        out["text"] = "*** Sensitive Data Redacted ***"
+    if "knowledge_base_id" in value:
+        out["knowledge_base_id"] = "*** Sensitive Data Redacted ***"
     return out

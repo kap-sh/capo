@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#CommandCapability``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -64,4 +64,17 @@ def deserialize_json(data: dict) -> CommandCapability:
         )
     else:
         raise DeserializationError("CommandCapability.actions required")
+    return out
+
+
+def redact_sensitive(value: CommandCapability) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "actions" in value:
+        import capo_iot_managed_integrations.types.capability_actions
+
+        out["actions"] = (
+            capo_iot_managed_integrations.types.capability_actions.redact_sensitive(
+                value["actions"]
+            )
+        )
     return out

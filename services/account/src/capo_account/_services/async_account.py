@@ -43,7 +43,9 @@ from capo_account._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -179,7 +181,9 @@ class AsyncAccountClient:
         self.region_opt_resource = AsyncRegionOptResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncAccountClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncAccountClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncAccountClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -187,8 +191,10 @@ class AsyncAccountClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -241,7 +247,17 @@ class AsyncAccountClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_account.types.put_account_name_request.PutAccountNameRequest",
+        ) -> dict[str, Any]:
+            import capo_account.types.put_account_name_request
+
+            return capo_account.types.put_account_name_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutAccountName", redact_input=_redact_input),
+        )
         input_: capo_account.types.put_account_name_request.PutAccountNameRequest = {
             "account_name": account_name
         }
@@ -290,7 +306,19 @@ class AsyncAccountClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_account.types.get_account_information_response.GetAccountInformationResponse",
+        ) -> dict[str, Any]:
+            import capo_account.types.get_account_information_response
+
+            return capo_account.types.get_account_information_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAccountInformation", redact_output=_redact_output),
+        )
         input_: capo_account.types.get_account_information_request.GetAccountInformationRequest = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -345,7 +373,19 @@ class AsyncAccountClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_account.types.put_alternate_contact_request.PutAlternateContactRequest",
+        ) -> dict[str, Any]:
+            import capo_account.types.put_alternate_contact_request
+
+            return capo_account.types.put_alternate_contact_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutAlternateContact", redact_input=_redact_input),
+        )
         input_: capo_account.types.put_alternate_contact_request.PutAlternateContactRequest = {
             "name": name,
             "title": title,
@@ -403,7 +443,19 @@ class AsyncAccountClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_account.types.get_alternate_contact_response.GetAlternateContactResponse",
+        ) -> dict[str, Any]:
+            import capo_account.types.get_alternate_contact_response
+
+            return capo_account.types.get_alternate_contact_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAlternateContact", redact_output=_redact_output),
+        )
         input_: capo_account.types.get_alternate_contact_request.GetAlternateContactRequest = {
             "alternate_contact_type": alternate_contact_type
         }
@@ -453,7 +505,9 @@ class AsyncAccountClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAlternateContact")
+        )
         input_: capo_account.types.delete_alternate_contact_request.DeleteAlternateContactRequest = {
             "alternate_contact_type": alternate_contact_type
         }
@@ -504,7 +558,9 @@ class AsyncAccountClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGovCloudAccountInformation")
+        )
         input_: capo_account.types.get_gov_cloud_account_information_request.GetGovCloudAccountInformationRequest = {}
         if standard_account_id is not None:
             input_["standard_account_id"] = standard_account_id
@@ -551,7 +607,19 @@ class AsyncAccountClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_account.types.put_contact_information_request.PutContactInformationRequest",
+        ) -> dict[str, Any]:
+            import capo_account.types.put_contact_information_request
+
+            return capo_account.types.put_contact_information_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutContactInformation", redact_input=_redact_input),
+        )
         input_: capo_account.types.put_contact_information_request.PutContactInformationRequest = {
             "contact_information": contact_information
         }
@@ -601,7 +669,19 @@ class AsyncAccountClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_account.types.get_contact_information_response.GetContactInformationResponse",
+        ) -> dict[str, Any]:
+            import capo_account.types.get_contact_information_response
+
+            return capo_account.types.get_contact_information_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetContactInformation", redact_output=_redact_output),
+        )
         input_: capo_account.types.get_contact_information_request.GetContactInformationRequest = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -650,7 +730,9 @@ class AsyncAccountClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendPhoneNumberVerification")
+        )
         input_: capo_account.types.send_phone_number_verification_request.SendPhoneNumberVerificationRequest = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -701,7 +783,19 @@ class AsyncAccountClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_account.types.verify_phone_number_request.VerifyPhoneNumberRequest",
+        ) -> dict[str, Any]:
+            import capo_account.types.verify_phone_number_request
+
+            return capo_account.types.verify_phone_number_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("VerifyPhoneNumber", redact_input=_redact_input),
+        )
         input_: capo_account.types.verify_phone_number_request.VerifyPhoneNumberRequest = {
             "otp": otp
         }
@@ -756,7 +850,21 @@ class AsyncAccountClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_account.types.accept_primary_email_update_request.AcceptPrimaryEmailUpdateRequest",
+        ) -> dict[str, Any]:
+            import capo_account.types.accept_primary_email_update_request
+
+            return (
+                capo_account.types.accept_primary_email_update_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AcceptPrimaryEmailUpdate", redact_input=_redact_input),
+        )
         input_: capo_account.types.accept_primary_email_update_request.AcceptPrimaryEmailUpdateRequest = {
             "account_id": account_id,
             "primary_email": primary_email,
@@ -806,7 +914,19 @@ class AsyncAccountClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_account.types.get_primary_email_response.GetPrimaryEmailResponse",
+        ) -> dict[str, Any]:
+            import capo_account.types.get_primary_email_response
+
+            return capo_account.types.get_primary_email_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetPrimaryEmail", redact_output=_redact_output),
+        )
         input_: capo_account.types.get_primary_email_request.GetPrimaryEmailRequest = {
             "account_id": account_id
         }
@@ -854,7 +974,9 @@ class AsyncAccountClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPrimaryEmailUpdateStatus")
+        )
         input_: capo_account.types.get_primary_email_update_status_request.GetPrimaryEmailUpdateStatusRequest = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -905,7 +1027,21 @@ class AsyncAccountClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_account.types.start_primary_email_update_request.StartPrimaryEmailUpdateRequest",
+        ) -> dict[str, Any]:
+            import capo_account.types.start_primary_email_update_request
+
+            return (
+                capo_account.types.start_primary_email_update_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartPrimaryEmailUpdate", redact_input=_redact_input),
+        )
         input_: capo_account.types.start_primary_email_update_request.StartPrimaryEmailUpdateRequest = {
             "account_id": account_id,
             "primary_email": primary_email,
@@ -954,7 +1090,9 @@ class AsyncAccountClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableRegion")
+        )
         input_: capo_account.types.disable_region_request.DisableRegionRequest = {
             "region_name": region_name
         }
@@ -1004,7 +1142,9 @@ class AsyncAccountClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableRegion")
+        )
         input_: capo_account.types.enable_region_request.EnableRegionRequest = {
             "region_name": region_name
         }
@@ -1055,7 +1195,9 @@ class AsyncAccountClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRegionOptStatus")
+        )
         input_: capo_account.types.get_region_opt_status_request.GetRegionOptStatusRequest = {
             "region_name": region_name
         }
@@ -1112,7 +1254,9 @@ class AsyncAccountClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRegions")
+        )
         input_: capo_account.types.list_regions_request.ListRegionsRequest = {}
         if account_id is not None:
             input_["account_id"] = account_id

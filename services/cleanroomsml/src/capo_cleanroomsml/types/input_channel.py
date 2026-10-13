@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cleanroomsml#InputChannel``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -50,4 +50,17 @@ def deserialize_json(data: dict) -> InputChannel:
         out["role_arn"] = data["roleArn"]
     else:
         raise DeserializationError("InputChannel.role_arn required")
+    return out
+
+
+def redact_sensitive(value: InputChannel) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "data_source" in value:
+        import capo_cleanroomsml.types.input_channel_data_source
+
+        out["data_source"] = (
+            capo_cleanroomsml.types.input_channel_data_source.redact_sensitive(
+                value["data_source"]
+            )
+        )
     return out

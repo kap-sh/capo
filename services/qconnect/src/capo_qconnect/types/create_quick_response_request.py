@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#CreateQuickResponseRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -141,4 +141,31 @@ def deserialize_json(data: dict) -> CreateQuickResponseRequest:
         import capo_qconnect.types.tags
 
         out["tags"] = capo_qconnect.types.tags.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: CreateQuickResponseRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        import capo_qconnect.types.quick_response_data_provider
+
+        out["content"] = (
+            capo_qconnect.types.quick_response_data_provider.redact_sensitive(
+                value["content"]
+            )
+        )
+    if "grouping_configuration" in value:
+        import capo_qconnect.types.grouping_configuration
+
+        out["grouping_configuration"] = (
+            capo_qconnect.types.grouping_configuration.redact_sensitive(
+                value["grouping_configuration"]
+            )
+        )
+    if "channels" in value:
+        import capo_qconnect.types.channels
+
+        out["channels"] = capo_qconnect.types.channels.redact_sensitive(
+            value["channels"]
+        )
     return out

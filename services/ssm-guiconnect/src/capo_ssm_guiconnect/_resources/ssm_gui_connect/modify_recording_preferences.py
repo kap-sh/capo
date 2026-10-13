@@ -8,6 +8,7 @@ import capo_ssm_guiconnect._auth._sigv4
 from capo_ssm_guiconnect._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -68,7 +69,9 @@ class ModifyRecordingPreferences:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConnectionRecordingPreferences")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -121,7 +124,9 @@ class ModifyRecordingPreferences:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConnectionRecordingPreferences")
+        )
         input_: capo_ssm_guiconnect.types.delete_connection_recording_preferences_request.DeleteConnectionRecordingPreferencesRequest = {}
         if client_token is None:
             client_token = str(uuid.uuid4())
@@ -176,7 +181,9 @@ class AsyncModifyRecordingPreferences:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConnectionRecordingPreferences")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -230,7 +237,9 @@ class AsyncModifyRecordingPreferences:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConnectionRecordingPreferences")
+        )
         input_: capo_ssm_guiconnect.types.delete_connection_recording_preferences_request.DeleteConnectionRecordingPreferencesRequest = {}
         if client_token is None:
             client_token = str(uuid.uuid4())

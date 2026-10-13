@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_iot_managed_integrations._auth._signers
 import capo_iot_managed_integrations._auth._sigv4
 from capo_iot_managed_integrations._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -86,7 +87,21 @@ class NotificationConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.create_notification_configuration_request.CreateNotificationConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_notification_configuration_request
+
+            return capo_iot_managed_integrations.types.create_notification_configuration_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateNotificationConfiguration", redact_input=_redact_input
+            ),
+        )
         input_: capo_iot_managed_integrations.types.create_notification_configuration_request.CreateNotificationConfigurationRequest = {
             "event_type": event_type,
             "destination_name": destination_name,
@@ -137,7 +152,9 @@ class NotificationConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteNotificationConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.delete_notification_configuration_request.DeleteNotificationConfigurationRequest = {
             "event_type": event_type
         }
@@ -184,7 +201,21 @@ class NotificationConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_notification_configuration_response.GetNotificationConfigurationResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_notification_configuration_response
+
+            return capo_iot_managed_integrations.types.get_notification_configuration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetNotificationConfiguration", redact_output=_redact_output
+            ),
+        )
         input_: capo_iot_managed_integrations.types.get_notification_configuration_request.GetNotificationConfigurationRequest = {
             "event_type": event_type
         }
@@ -236,7 +267,9 @@ class NotificationConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNotificationConfigurations")
+        )
         input_: capo_iot_managed_integrations.types.list_notification_configurations_request.ListNotificationConfigurationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -285,7 +318,9 @@ class NotificationConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateNotificationConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.update_notification_configuration_request.UpdateNotificationConfigurationRequest = {
             "event_type": event_type,
             "destination_name": destination_name,
@@ -347,7 +382,21 @@ class AsyncNotificationConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.create_notification_configuration_request.CreateNotificationConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_notification_configuration_request
+
+            return capo_iot_managed_integrations.types.create_notification_configuration_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateNotificationConfiguration", redact_input=_redact_input
+            ),
+        )
         input_: capo_iot_managed_integrations.types.create_notification_configuration_request.CreateNotificationConfigurationRequest = {
             "event_type": event_type,
             "destination_name": destination_name,
@@ -399,7 +448,9 @@ class AsyncNotificationConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteNotificationConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.delete_notification_configuration_request.DeleteNotificationConfigurationRequest = {
             "event_type": event_type
         }
@@ -447,7 +498,21 @@ class AsyncNotificationConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_notification_configuration_response.GetNotificationConfigurationResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_notification_configuration_response
+
+            return capo_iot_managed_integrations.types.get_notification_configuration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetNotificationConfiguration", redact_output=_redact_output
+            ),
+        )
         input_: capo_iot_managed_integrations.types.get_notification_configuration_request.GetNotificationConfigurationRequest = {
             "event_type": event_type
         }
@@ -500,7 +565,9 @@ class AsyncNotificationConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNotificationConfigurations")
+        )
         input_: capo_iot_managed_integrations.types.list_notification_configurations_request.ListNotificationConfigurationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -550,7 +617,9 @@ class AsyncNotificationConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateNotificationConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.update_notification_configuration_request.UpdateNotificationConfigurationRequest = {
             "event_type": event_type,
             "destination_name": destination_name,

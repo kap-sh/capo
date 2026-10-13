@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#ColumnConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -108,6 +108,27 @@ def deserialize_json(data: dict) -> ColumnConfiguration:
         out["decal_settings_configuration"] = (
             capo_quicksight.types.decal_settings_configuration.deserialize_json(
                 data["DecalSettingsConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ColumnConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "format_configuration" in value:
+        import capo_quicksight.types.format_configuration
+
+        out["format_configuration"] = (
+            capo_quicksight.types.format_configuration.redact_sensitive(
+                value["format_configuration"]
+            )
+        )
+    if "colors_configuration" in value:
+        import capo_quicksight.types.colors_configuration
+
+        out["colors_configuration"] = (
+            capo_quicksight.types.colors_configuration.redact_sensitive(
+                value["colors_configuration"]
             )
         )
     return out

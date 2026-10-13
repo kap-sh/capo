@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#GeneratedAnswerResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -87,4 +87,13 @@ def deserialize_json(data: dict) -> GeneratedAnswerResult:
         out["answer_id"] = data["AnswerId"]
     if data.get("QuestionUrl") is not None:
         out["question_url"] = data["QuestionUrl"]
+    return out
+
+
+def redact_sensitive(value: GeneratedAnswerResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "question_text" in value:
+        out["question_text"] = "*** Sensitive Data Redacted ***"
+    if "restatement" in value:
+        out["restatement"] = "*** Sensitive Data Redacted ***"
     return out

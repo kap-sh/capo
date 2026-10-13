@@ -49,7 +49,9 @@ from capo_migrationhuborchestrator._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -237,6 +239,7 @@ class AsyncMigrationHubOrchestratorClient:
     def operation_options(
         self,
         config_overrides: Optional[AsyncMigrationHubOrchestratorClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncMigrationHubOrchestratorClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -244,8 +247,10 @@ class AsyncMigrationHubOrchestratorClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -296,7 +301,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_migrationhuborchestrator.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -345,7 +352,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_migrationhuborchestrator.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -393,7 +402,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_migrationhuborchestrator.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -457,7 +468,32 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_migrationhuborchestrator.types.create_migration_workflow_request.CreateMigrationWorkflowRequest",
+        ) -> dict[str, Any]:
+            import capo_migrationhuborchestrator.types.create_migration_workflow_request
+
+            return capo_migrationhuborchestrator.types.create_migration_workflow_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_migrationhuborchestrator.types.create_migration_workflow_response.CreateMigrationWorkflowResponse",
+        ) -> dict[str, Any]:
+            import capo_migrationhuborchestrator.types.create_migration_workflow_response
+
+            return capo_migrationhuborchestrator.types.create_migration_workflow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateWorkflow",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_migrationhuborchestrator.types.create_migration_workflow_request.CreateMigrationWorkflowRequest = {
             "name": name,
             "template_id": template_id,
@@ -515,7 +551,19 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_migrationhuborchestrator.types.get_migration_workflow_response.GetMigrationWorkflowResponse",
+        ) -> dict[str, Any]:
+            import capo_migrationhuborchestrator.types.get_migration_workflow_response
+
+            return capo_migrationhuborchestrator.types.get_migration_workflow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetWorkflow", redact_output=_redact_output),
+        )
         input_: capo_migrationhuborchestrator.types.get_migration_workflow_request.GetMigrationWorkflowRequest = {
             "id": id
         }
@@ -575,7 +623,32 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_migrationhuborchestrator.types.update_migration_workflow_request.UpdateMigrationWorkflowRequest",
+        ) -> dict[str, Any]:
+            import capo_migrationhuborchestrator.types.update_migration_workflow_request
+
+            return capo_migrationhuborchestrator.types.update_migration_workflow_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_migrationhuborchestrator.types.update_migration_workflow_response.UpdateMigrationWorkflowResponse",
+        ) -> dict[str, Any]:
+            import capo_migrationhuborchestrator.types.update_migration_workflow_response
+
+            return capo_migrationhuborchestrator.types.update_migration_workflow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateWorkflow",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_migrationhuborchestrator.types.update_migration_workflow_request.UpdateMigrationWorkflowRequest = {
             "id": id
         }
@@ -631,7 +704,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflow")
+        )
         input_: capo_migrationhuborchestrator.types.delete_migration_workflow_request.DeleteMigrationWorkflowRequest = {
             "id": id
         }
@@ -699,7 +774,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkflows")
+        )
         input_: capo_migrationhuborchestrator.types.list_migration_workflows_request.ListMigrationWorkflowsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -798,7 +875,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartWorkflow")
+        )
         input_: capo_migrationhuborchestrator.types.start_migration_workflow_request.StartMigrationWorkflowRequest = {
             "id": id
         }
@@ -846,7 +925,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopWorkflow")
+        )
         input_: capo_migrationhuborchestrator.types.stop_migration_workflow_request.StopMigrationWorkflowRequest = {
             "id": id
         }
@@ -904,7 +985,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTemplate")
+        )
         input_: capo_migrationhuborchestrator.types.create_template_request.CreateTemplateRequest = {
             "template_name": template_name,
             "template_source": template_source,
@@ -959,7 +1042,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTemplate")
+        )
         input_: capo_migrationhuborchestrator.types.get_migration_workflow_template_request.GetMigrationWorkflowTemplateRequest = {
             "id": id
         }
@@ -1015,7 +1100,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTemplate")
+        )
         input_: capo_migrationhuborchestrator.types.update_template_request.UpdateTemplateRequest = {
             "id": id
         }
@@ -1070,7 +1157,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTemplate")
+        )
         input_: capo_migrationhuborchestrator.types.delete_template_request.DeleteTemplateRequest = {
             "id": id
         }
@@ -1126,7 +1215,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTemplates")
+        )
         input_: capo_migrationhuborchestrator.types.list_migration_workflow_templates_request.ListMigrationWorkflowTemplatesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1213,7 +1304,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPlugins")
+        )
         input_: capo_migrationhuborchestrator.types.list_plugins_request.ListPluginsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1292,7 +1385,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTemplateStep")
+        )
         input_: capo_migrationhuborchestrator.types.get_template_step_request.GetTemplateStepRequest = {
             "id": id,
             "template_id": template_id,
@@ -1352,7 +1447,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTemplateSteps")
+        )
         input_: capo_migrationhuborchestrator.types.list_template_steps_request.ListTemplateStepsRequest = {
             "template_id": template_id,
             "step_group_id": step_group_id,
@@ -1436,7 +1533,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTemplateStepGroup")
+        )
         input_: capo_migrationhuborchestrator.types.get_template_step_group_request.GetTemplateStepGroupRequest = {
             "template_id": template_id,
             "id": id,
@@ -1492,7 +1591,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTemplateStepGroups")
+        )
         input_: capo_migrationhuborchestrator.types.list_template_step_groups_request.ListTemplateStepGroupsRequest = {
             "template_id": template_id
         }
@@ -1600,7 +1701,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkflowStep")
+        )
         input_: capo_migrationhuborchestrator.types.create_workflow_step_request.CreateWorkflowStepRequest = {
             "name": name,
             "step_group_id": step_group_id,
@@ -1668,7 +1771,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkflowStep")
+        )
         input_: capo_migrationhuborchestrator.types.get_workflow_step_request.GetWorkflowStepRequest = {
             "workflow_id": workflow_id,
             "step_group_id": step_group_id,
@@ -1755,7 +1860,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkflowStep")
+        )
         input_: capo_migrationhuborchestrator.types.update_workflow_step_request.UpdateWorkflowStepRequest = {
             "id": id,
             "step_group_id": step_group_id,
@@ -1829,7 +1936,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflowStep")
+        )
         input_: capo_migrationhuborchestrator.types.delete_workflow_step_request.DeleteWorkflowStepRequest = {
             "id": id,
             "step_group_id": step_group_id,
@@ -1888,7 +1997,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkflowSteps")
+        )
         input_: capo_migrationhuborchestrator.types.list_workflow_steps_request.ListWorkflowStepsRequest = {
             "workflow_id": workflow_id,
             "step_group_id": step_group_id,
@@ -1973,7 +2084,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RetryWorkflowStep")
+        )
         input_: capo_migrationhuborchestrator.types.retry_workflow_step_request.RetryWorkflowStepRequest = {
             "workflow_id": workflow_id,
             "step_group_id": step_group_id,
@@ -2036,7 +2149,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkflowStepGroup")
+        )
         input_: capo_migrationhuborchestrator.types.create_workflow_step_group_request.CreateWorkflowStepGroupRequest = {
             "workflow_id": workflow_id,
             "name": name,
@@ -2093,7 +2208,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkflowStepGroup")
+        )
         input_: capo_migrationhuborchestrator.types.get_workflow_step_group_request.GetWorkflowStepGroupRequest = {
             "id": id,
             "workflow_id": workflow_id,
@@ -2160,7 +2277,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkflowStepGroup")
+        )
         input_: capo_migrationhuborchestrator.types.update_workflow_step_group_request.UpdateWorkflowStepGroupRequest = {
             "workflow_id": workflow_id,
             "id": id,
@@ -2219,7 +2338,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflowStepGroup")
+        )
         input_: capo_migrationhuborchestrator.types.delete_workflow_step_group_request.DeleteWorkflowStepGroupRequest = {
             "workflow_id": workflow_id,
             "id": id,
@@ -2276,7 +2397,9 @@ class AsyncMigrationHubOrchestratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkflowStepGroups")
+        )
         input_: capo_migrationhuborchestrator.types.list_workflow_step_groups_request.ListWorkflowStepGroupsRequest = {
             "workflow_id": workflow_id
         }

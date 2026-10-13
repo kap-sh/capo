@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#GamePropertyList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_gamelift.types.game_property
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> GamePropertyList:
             continue
         out.append(capo_gamelift.types.game_property.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: GamePropertyList) -> list[Any]:
+    import capo_gamelift.types.game_property
+
+    return [capo_gamelift.types.game_property.redact_sensitive(item) for item in value]

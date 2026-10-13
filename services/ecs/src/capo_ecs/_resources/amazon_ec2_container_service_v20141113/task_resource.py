@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_ecs._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -91,7 +92,17 @@ class TaskResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.describe_tasks_response.DescribeTasksResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.describe_tasks_response
+
+            return capo_ecs.types.describe_tasks_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeTasks", redact_output=_redact_output),
+        )
         input_: capo_ecs.types.describe_tasks_request.DescribeTasksRequest = {
             "tasks": tasks
         }
@@ -152,7 +163,9 @@ class TaskResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTaskProtection")
+        )
         input_: capo_ecs.types.get_task_protection_request.GetTaskProtectionRequest = {
             "cluster": cluster
         }
@@ -256,7 +269,26 @@ class TaskResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ecs.types.run_task_request.RunTaskRequest",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.run_task_request
+
+            return capo_ecs.types.run_task_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_ecs.types.run_task_response.RunTaskResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.run_task_response
+
+            return capo_ecs.types.run_task_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RunTask", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_ecs.types.run_task_request.RunTaskRequest = {
             "task_definition": task_definition
         }
@@ -374,7 +406,26 @@ class TaskResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ecs.types.start_task_request.StartTaskRequest",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.start_task_request
+
+            return capo_ecs.types.start_task_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_ecs.types.start_task_response.StartTaskResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.start_task_response
+
+            return capo_ecs.types.start_task_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartTask", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_ecs.types.start_task_request.StartTaskRequest = {
             "container_instances": container_instances,
             "task_definition": task_definition,
@@ -452,7 +503,16 @@ class TaskResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.stop_task_response.StopTaskResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.stop_task_response
+
+            return capo_ecs.types.stop_task_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopTask", redact_output=_redact_output)
+        )
         input_: capo_ecs.types.stop_task_request.StopTaskRequest = {"task": task}
         if cluster is not None:
             input_["cluster"] = cluster
@@ -525,7 +585,9 @@ class TaskResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTaskProtection")
+        )
         input_: capo_ecs.types.update_task_protection_request.UpdateTaskProtectionRequest = {
             "cluster": cluster,
             "tasks": tasks,
@@ -592,7 +654,17 @@ class AsyncTaskResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.describe_tasks_response.DescribeTasksResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.describe_tasks_response
+
+            return capo_ecs.types.describe_tasks_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeTasks", redact_output=_redact_output),
+        )
         input_: capo_ecs.types.describe_tasks_request.DescribeTasksRequest = {
             "tasks": tasks
         }
@@ -654,7 +726,9 @@ class AsyncTaskResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTaskProtection")
+        )
         input_: capo_ecs.types.get_task_protection_request.GetTaskProtectionRequest = {
             "cluster": cluster
         }
@@ -759,7 +833,26 @@ class AsyncTaskResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ecs.types.run_task_request.RunTaskRequest",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.run_task_request
+
+            return capo_ecs.types.run_task_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_ecs.types.run_task_response.RunTaskResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.run_task_response
+
+            return capo_ecs.types.run_task_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RunTask", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_ecs.types.run_task_request.RunTaskRequest = {
             "task_definition": task_definition
         }
@@ -880,7 +973,26 @@ class AsyncTaskResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ecs.types.start_task_request.StartTaskRequest",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.start_task_request
+
+            return capo_ecs.types.start_task_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_ecs.types.start_task_response.StartTaskResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.start_task_response
+
+            return capo_ecs.types.start_task_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartTask", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_ecs.types.start_task_request.StartTaskRequest = {
             "container_instances": container_instances,
             "task_definition": task_definition,
@@ -961,7 +1073,16 @@ class AsyncTaskResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.stop_task_response.StopTaskResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.stop_task_response
+
+            return capo_ecs.types.stop_task_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopTask", redact_output=_redact_output)
+        )
         input_: capo_ecs.types.stop_task_request.StopTaskRequest = {"task": task}
         if cluster is not None:
             input_["cluster"] = cluster
@@ -1035,7 +1156,9 @@ class AsyncTaskResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTaskProtection")
+        )
         input_: capo_ecs.types.update_task_protection_request.UpdateTaskProtectionRequest = {
             "cluster": cluster,
             "tasks": tasks,

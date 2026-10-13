@@ -23,7 +23,9 @@ from capo_iot_jobs_data_plane._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -128,7 +130,9 @@ class AsyncIoTJobsDataPlaneClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncIoTJobsDataPlaneClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncIoTJobsDataPlaneClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncIoTJobsDataPlaneClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -136,8 +140,10 @@ class AsyncIoTJobsDataPlaneClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -202,7 +208,9 @@ class AsyncIoTJobsDataPlaneClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeJobExecution")
+        )
         input_: capo_iot_jobs_data_plane.types.describe_job_execution_request.DescribeJobExecutionRequest = {
             "job_id": job_id,
             "thing_name": thing_name,
@@ -255,7 +263,9 @@ class AsyncIoTJobsDataPlaneClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPendingJobExecutions")
+        )
         input_: capo_iot_jobs_data_plane.types.get_pending_job_executions_request.GetPendingJobExecutionsRequest = {
             "thing_name": thing_name
         }
@@ -318,7 +328,9 @@ class AsyncIoTJobsDataPlaneClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCommandExecution")
+        )
         input_: capo_iot_jobs_data_plane.types.start_command_execution_request.StartCommandExecutionRequest = {
             "target_arn": target_arn,
             "command_arn": command_arn,
@@ -382,7 +394,9 @@ class AsyncIoTJobsDataPlaneClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartNextPendingJobExecution")
+        )
         input_: capo_iot_jobs_data_plane.types.start_next_pending_job_execution_request.StartNextPendingJobExecutionRequest = {
             "thing_name": thing_name
         }
@@ -463,7 +477,9 @@ class AsyncIoTJobsDataPlaneClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateJobExecution")
+        )
         input_: capo_iot_jobs_data_plane.types.update_job_execution_request.UpdateJobExecutionRequest = {
             "job_id": job_id,
             "thing_name": thing_name,

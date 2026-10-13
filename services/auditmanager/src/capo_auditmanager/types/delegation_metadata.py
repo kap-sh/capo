@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#DelegationMetadata``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -86,4 +86,11 @@ def deserialize_json(data: dict) -> DelegationMetadata:
         )
     if data.get("controlSetName") is not None:
         out["control_set_name"] = data["controlSetName"]
+    return out
+
+
+def redact_sensitive(value: DelegationMetadata) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "assessment_name" in value:
+        out["assessment_name"] = "*** Sensitive Data Redacted ***"
     return out

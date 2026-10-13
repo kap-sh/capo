@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridge#TargetList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_eventbridge.types.target
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> TargetList:
             continue
         out.append(capo_eventbridge.types.target.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: TargetList) -> list[Any]:
+    import capo_eventbridge.types.target
+
+    return [capo_eventbridge.types.target.redact_sensitive(item) for item in value]

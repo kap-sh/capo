@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudwatchevents#DescribeConnectionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -179,6 +179,19 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeConnectionResponse:
         out["last_authorized_time"] = (
             capo_cloudwatch_events.types.timestamp.deserialize_aws_json_1_1(
                 data["LastAuthorizedTime"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeConnectionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "auth_parameters" in value:
+        import capo_cloudwatch_events.types.connection_auth_response_parameters
+
+        out["auth_parameters"] = (
+            capo_cloudwatch_events.types.connection_auth_response_parameters.redact_sensitive(
+                value["auth_parameters"]
             )
         )
     return out

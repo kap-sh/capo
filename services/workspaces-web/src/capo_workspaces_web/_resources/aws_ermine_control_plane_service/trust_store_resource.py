@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_workspaces_web._auth._signers
 import capo_workspaces_web._auth._sigv4
 from capo_workspaces_web._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -94,7 +95,21 @@ class TrustStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_trust_store_request.CreateTrustStoreRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_trust_store_request
+
+            return (
+                capo_workspaces_web.types.create_trust_store_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateTrustStore", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.create_trust_store_request.CreateTrustStoreRequest = {
             "certificate_list": certificate_list
         }
@@ -146,7 +161,9 @@ class TrustStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTrustStore")
+        )
         input_: capo_workspaces_web.types.get_trust_store_request.GetTrustStoreRequest = {
             "trust_store_arn": trust_store_arn
         }
@@ -208,7 +225,9 @@ class TrustStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTrustStore")
+        )
         input_: capo_workspaces_web.types.update_trust_store_request.UpdateTrustStoreRequest = {
             "trust_store_arn": trust_store_arn
         }
@@ -264,7 +283,9 @@ class TrustStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTrustStore")
+        )
         input_: capo_workspaces_web.types.delete_trust_store_request.DeleteTrustStoreRequest = {
             "trust_store_arn": trust_store_arn
         }
@@ -316,7 +337,9 @@ class TrustStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTrustStores")
+        )
         input_: capo_workspaces_web.types.list_trust_stores_request.ListTrustStoresRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -367,7 +390,9 @@ class TrustStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTrustStoreCertificate")
+        )
         input_: capo_workspaces_web.types.get_trust_store_certificate_request.GetTrustStoreCertificateRequest = {
             "trust_store_arn": trust_store_arn,
             "thumbprint": thumbprint,
@@ -423,7 +448,9 @@ class TrustStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTrustStoreCertificates")
+        )
         input_: capo_workspaces_web.types.list_trust_store_certificates_request.ListTrustStoreCertificatesRequest = {
             "trust_store_arn": trust_store_arn
         }
@@ -489,7 +516,21 @@ class AsyncTrustStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_trust_store_request.CreateTrustStoreRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_trust_store_request
+
+            return (
+                capo_workspaces_web.types.create_trust_store_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateTrustStore", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.create_trust_store_request.CreateTrustStoreRequest = {
             "certificate_list": certificate_list
         }
@@ -542,7 +583,9 @@ class AsyncTrustStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTrustStore")
+        )
         input_: capo_workspaces_web.types.get_trust_store_request.GetTrustStoreRequest = {
             "trust_store_arn": trust_store_arn
         }
@@ -605,7 +648,9 @@ class AsyncTrustStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTrustStore")
+        )
         input_: capo_workspaces_web.types.update_trust_store_request.UpdateTrustStoreRequest = {
             "trust_store_arn": trust_store_arn
         }
@@ -662,7 +707,9 @@ class AsyncTrustStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTrustStore")
+        )
         input_: capo_workspaces_web.types.delete_trust_store_request.DeleteTrustStoreRequest = {
             "trust_store_arn": trust_store_arn
         }
@@ -715,7 +762,9 @@ class AsyncTrustStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTrustStores")
+        )
         input_: capo_workspaces_web.types.list_trust_stores_request.ListTrustStoresRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -767,7 +816,9 @@ class AsyncTrustStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTrustStoreCertificate")
+        )
         input_: capo_workspaces_web.types.get_trust_store_certificate_request.GetTrustStoreCertificateRequest = {
             "trust_store_arn": trust_store_arn,
             "thumbprint": thumbprint,
@@ -824,7 +875,9 @@ class AsyncTrustStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTrustStoreCertificates")
+        )
         input_: capo_workspaces_web.types.list_trust_store_certificates_request.ListTrustStoreCertificatesRequest = {
             "trust_store_arn": trust_store_arn
         }

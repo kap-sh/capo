@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#BasicAuthConnectionMetadata``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -44,4 +44,13 @@ def deserialize_json(data: dict) -> BasicAuthConnectionMetadata:
         out["password"] = data["Password"]
     else:
         raise DeserializationError("BasicAuthConnectionMetadata.password required")
+    return out
+
+
+def redact_sensitive(value: BasicAuthConnectionMetadata) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "username" in value:
+        out["username"] = "*** Sensitive Data Redacted ***"
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
     return out

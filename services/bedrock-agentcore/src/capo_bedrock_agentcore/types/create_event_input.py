@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#CreateEventInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -153,6 +153,19 @@ def deserialize_json(data: dict) -> CreateEventInput:
         out["extraction_config"] = (
             capo_bedrock_agentcore.types.extraction_config.deserialize_json(
                 data["extractionConfig"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateEventInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "payload" in value:
+        import capo_bedrock_agentcore.types.payload_type_list
+
+        out["payload"] = (
+            capo_bedrock_agentcore.types.payload_type_list.redact_sensitive(
+                value["payload"]
             )
         )
     return out

@@ -21,10 +21,12 @@ from capo_shield._pagination import resolve_path as _resolve_path
 from capo_shield._services._aws_config import aws_config
 from capo_shield._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -201,7 +203,9 @@ class ShieldClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ShieldClientConfig] = None
+        self,
+        config_overrides: Optional[ShieldClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ShieldClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -209,8 +213,10 @@ class ShieldClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -266,7 +272,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateDRTLogBucket")
+        )
         input_: capo_shield.types.associate_drt_log_bucket_request.AssociateDRTLogBucketRequest = {
             "log_bucket": log_bucket
         }
@@ -314,7 +322,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateDRTRole")
+        )
         input_: capo_shield.types.associate_drt_role_request.AssociateDRTRoleRequest = {
             "role_arn": role_arn
         }
@@ -366,7 +376,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateHealthCheck")
+        )
         input_: capo_shield.types.associate_health_check_request.AssociateHealthCheckRequest = {
             "protection_id": protection_id,
             "health_check_arn": health_check_arn,
@@ -414,7 +426,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateProactiveEngagementDetails")
+        )
         input_: capo_shield.types.associate_proactive_engagement_details_request.AssociateProactiveEngagementDetailsRequest = {
             "emergency_contact_list": emergency_contact_list
         }
@@ -468,7 +482,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProtection")
+        )
         input_: capo_shield.types.create_protection_request.CreateProtectionRequest = {
             "name": name,
             "resource_arn": resource_arn,
@@ -533,7 +549,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProtectionGroup")
+        )
         input_: capo_shield.types.create_protection_group_request.CreateProtectionGroupRequest = {
             "protection_group_id": protection_group_id,
             "aggregation": aggregation,
@@ -579,7 +597,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSubscription")
+        )
         input_: capo_shield.types.create_subscription_request.CreateSubscriptionRequest = {}
 
         response = execute_pipeline(
@@ -622,7 +642,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProtection")
+        )
         input_: capo_shield.types.delete_protection_request.DeleteProtectionRequest = {
             "protection_id": protection_id
         }
@@ -667,7 +689,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProtectionGroup")
+        )
         input_: capo_shield.types.delete_protection_group_request.DeleteProtectionGroupRequest = {
             "protection_group_id": protection_group_id
         }
@@ -706,7 +730,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSubscription")
+        )
         input_: capo_shield.types.delete_subscription_request.DeleteSubscriptionRequest = {}
 
         response = execute_pipeline(
@@ -748,7 +774,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAttack")
+        )
         input_: capo_shield.types.describe_attack_request.DescribeAttackRequest = {
             "attack_id": attack_id
         }
@@ -785,7 +813,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAttackStatistics")
+        )
         input_: capo_shield.types.describe_attack_statistics_request.DescribeAttackStatisticsRequest = {}
 
         response = execute_pipeline(
@@ -821,7 +851,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDRTAccess")
+        )
         input_: capo_shield.types.describe_drt_access_request.DescribeDRTAccessRequest = {}
 
         response = execute_pipeline(
@@ -857,7 +889,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEmergencyContactSettings")
+        )
         input_: capo_shield.types.describe_emergency_contact_settings_request.DescribeEmergencyContactSettingsRequest = {}
 
         response = execute_pipeline(
@@ -902,7 +936,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProtection")
+        )
         input_: capo_shield.types.describe_protection_request.DescribeProtectionRequest = {}
         if protection_id is not None:
             input_["protection_id"] = protection_id
@@ -948,7 +984,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProtectionGroup")
+        )
         input_: capo_shield.types.describe_protection_group_request.DescribeProtectionGroupRequest = {
             "protection_group_id": protection_group_id
         }
@@ -988,7 +1026,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSubscription")
+        )
         input_: capo_shield.types.describe_subscription_request.DescribeSubscriptionRequest = {}
 
         response = execute_pipeline(
@@ -1033,7 +1073,10 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisableApplicationLayerAutomaticResponse"),
+        )
         input_: capo_shield.types.disable_application_layer_automatic_response_request.DisableApplicationLayerAutomaticResponseRequest = {
             "resource_arn": resource_arn
         }
@@ -1074,7 +1117,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableProactiveEngagement")
+        )
         input_: capo_shield.types.disable_proactive_engagement_request.DisableProactiveEngagementRequest = {}
 
         response = execute_pipeline(
@@ -1120,7 +1165,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateDRTLogBucket")
+        )
         input_: capo_shield.types.disassociate_drt_log_bucket_request.DisassociateDRTLogBucketRequest = {
             "log_bucket": log_bucket
         }
@@ -1160,7 +1207,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateDRTRole")
+        )
         input_: capo_shield.types.disassociate_drt_role_request.DisassociateDRTRoleRequest = {}
 
         response = execute_pipeline(
@@ -1207,7 +1256,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateHealthCheck")
+        )
         input_: capo_shield.types.disassociate_health_check_request.DisassociateHealthCheckRequest = {
             "protection_id": protection_id,
             "health_check_arn": health_check_arn,
@@ -1258,7 +1309,10 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("EnableApplicationLayerAutomaticResponse"),
+        )
         input_: capo_shield.types.enable_application_layer_automatic_response_request.EnableApplicationLayerAutomaticResponseRequest = {
             "resource_arn": resource_arn,
             "action": action,
@@ -1300,7 +1354,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableProactiveEngagement")
+        )
         input_: capo_shield.types.enable_proactive_engagement_request.EnableProactiveEngagementRequest = {}
 
         response = execute_pipeline(
@@ -1337,7 +1393,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSubscriptionState")
+        )
         input_: capo_shield.types.get_subscription_state_request.GetSubscriptionStateRequest = {}
 
         response = execute_pipeline(
@@ -1390,7 +1448,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAttacks")
+        )
         input_: capo_shield.types.list_attacks_request.ListAttacksRequest = {}
         if resource_arns is not None:
             input_["resource_arns"] = resource_arns
@@ -1480,7 +1540,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProtectionGroups")
+        )
         input_: capo_shield.types.list_protection_groups_request.ListProtectionGroupsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1558,7 +1620,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProtections")
+        )
         input_: capo_shield.types.list_protections_request.ListProtectionsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1636,7 +1700,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourcesInProtectionGroup")
+        )
         input_: capo_shield.types.list_resources_in_protection_group_request.ListResourcesInProtectionGroupRequest = {
             "protection_group_id": protection_group_id
         }
@@ -1708,7 +1774,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_shield.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1756,7 +1824,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_shield.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1805,7 +1875,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_shield.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1855,7 +1927,10 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateApplicationLayerAutomaticResponse"),
+        )
         input_: capo_shield.types.update_application_layer_automatic_response_request.UpdateApplicationLayerAutomaticResponseRequest = {
             "resource_arn": resource_arn,
             "action": action,
@@ -1904,7 +1979,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEmergencyContactSettings")
+        )
         input_: capo_shield.types.update_emergency_contact_settings_request.UpdateEmergencyContactSettingsRequest = {}
         if emergency_contact_list is not None:
             input_["emergency_contact_list"] = emergency_contact_list
@@ -1962,7 +2039,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProtectionGroup")
+        )
         input_: capo_shield.types.update_protection_group_request.UpdateProtectionGroupRequest = {
             "protection_group_id": protection_group_id,
             "aggregation": aggregation,
@@ -2015,7 +2094,9 @@ class ShieldClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSubscription")
+        )
         input_: capo_shield.types.update_subscription_request.UpdateSubscriptionRequest = {}
         if auto_renew is not None:
             input_["auto_renew"] = auto_renew

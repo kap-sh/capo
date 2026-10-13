@@ -24,7 +24,9 @@ from capo_cloudfront_keyvaluestore._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -121,6 +123,7 @@ class AsyncCloudFrontKeyValueStoreClient:
     def operation_options(
         self,
         config_overrides: Optional[AsyncCloudFrontKeyValueStoreClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncCloudFrontKeyValueStoreClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -128,8 +131,10 @@ class AsyncCloudFrontKeyValueStoreClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -190,7 +195,9 @@ class AsyncCloudFrontKeyValueStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteKey")
+        )
         input_: capo_cloudfront_keyvaluestore.types.delete_key_request.DeleteKeyRequest = {
             "kvs_arn": kvs_arn,
             "key": key,
@@ -247,7 +254,9 @@ class AsyncCloudFrontKeyValueStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeKeyValueStore")
+        )
         input_: capo_cloudfront_keyvaluestore.types.describe_key_value_store_request.DescribeKeyValueStoreRequest = {
             "kvs_arn": kvs_arn
         }
@@ -301,7 +310,20 @@ class AsyncCloudFrontKeyValueStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cloudfront_keyvaluestore.types.get_key_response.GetKeyResponse",
+        ) -> dict[str, Any]:
+            import capo_cloudfront_keyvaluestore.types.get_key_response
+
+            return (
+                capo_cloudfront_keyvaluestore.types.get_key_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetKey", redact_output=_redact_output)
+        )
         input_: capo_cloudfront_keyvaluestore.types.get_key_request.GetKeyRequest = {
             "kvs_arn": kvs_arn,
             "key": key,
@@ -362,7 +384,20 @@ class AsyncCloudFrontKeyValueStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cloudfront_keyvaluestore.types.list_keys_response.ListKeysResponse",
+        ) -> dict[str, Any]:
+            import capo_cloudfront_keyvaluestore.types.list_keys_response
+
+            return (
+                capo_cloudfront_keyvaluestore.types.list_keys_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListKeys", redact_output=_redact_output)
+        )
         input_: capo_cloudfront_keyvaluestore.types.list_keys_request.ListKeysRequest = {
             "kvs_arn": kvs_arn
         }
@@ -449,7 +484,18 @@ class AsyncCloudFrontKeyValueStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cloudfront_keyvaluestore.types.put_key_request.PutKeyRequest",
+        ) -> dict[str, Any]:
+            import capo_cloudfront_keyvaluestore.types.put_key_request
+
+            return capo_cloudfront_keyvaluestore.types.put_key_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutKey", redact_input=_redact_input)
+        )
         input_: capo_cloudfront_keyvaluestore.types.put_key_request.PutKeyRequest = {
             "key": key,
             "value": value,
@@ -522,7 +568,18 @@ class AsyncCloudFrontKeyValueStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cloudfront_keyvaluestore.types.update_keys_request.UpdateKeysRequest",
+        ) -> dict[str, Any]:
+            import capo_cloudfront_keyvaluestore.types.update_keys_request
+
+            return capo_cloudfront_keyvaluestore.types.update_keys_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateKeys", redact_input=_redact_input)
+        )
         input_: capo_cloudfront_keyvaluestore.types.update_keys_request.UpdateKeysRequest = {
             "kvs_arn": kvs_arn,
             "if_match": if_match,

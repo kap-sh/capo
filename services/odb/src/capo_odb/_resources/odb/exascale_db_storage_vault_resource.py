@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_odb._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -93,7 +94,9 @@ class ExascaleDbStorageVaultResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateExascaleDbStorageVault")
+        )
         input_: capo_odb.types.create_exascale_db_storage_vault_input.CreateExascaleDbStorageVaultInput = {
             "display_name": display_name,
             "high_capacity_database_storage_total_size_in_g_bs": high_capacity_database_storage_total_size_in_g_bs,
@@ -162,7 +165,9 @@ class ExascaleDbStorageVaultResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetExascaleDbStorageVault")
+        )
         input_: capo_odb.types.get_exascale_db_storage_vault_input.GetExascaleDbStorageVaultInput = {
             "exascale_db_storage_vault_id": exascale_db_storage_vault_id
         }
@@ -224,7 +229,9 @@ class ExascaleDbStorageVaultResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateExascaleDbStorageVault")
+        )
         input_: capo_odb.types.update_exascale_db_storage_vault_input.UpdateExascaleDbStorageVaultInput = {
             "exascale_db_storage_vault_id": exascale_db_storage_vault_id
         }
@@ -288,7 +295,9 @@ class ExascaleDbStorageVaultResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteExascaleDbStorageVault")
+        )
         input_: capo_odb.types.delete_exascale_db_storage_vault_input.DeleteExascaleDbStorageVaultInput = {
             "exascale_db_storage_vault_id": exascale_db_storage_vault_id
         }
@@ -336,7 +345,9 @@ class ExascaleDbStorageVaultResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListExascaleDbStorageVaults")
+        )
         input_: capo_odb.types.list_exascale_db_storage_vaults_input.ListExascaleDbStorageVaultsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -414,7 +425,9 @@ class AsyncExascaleDbStorageVaultResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateExascaleDbStorageVault")
+        )
         input_: capo_odb.types.create_exascale_db_storage_vault_input.CreateExascaleDbStorageVaultInput = {
             "display_name": display_name,
             "high_capacity_database_storage_total_size_in_g_bs": high_capacity_database_storage_total_size_in_g_bs,
@@ -484,7 +497,9 @@ class AsyncExascaleDbStorageVaultResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetExascaleDbStorageVault")
+        )
         input_: capo_odb.types.get_exascale_db_storage_vault_input.GetExascaleDbStorageVaultInput = {
             "exascale_db_storage_vault_id": exascale_db_storage_vault_id
         }
@@ -547,7 +562,9 @@ class AsyncExascaleDbStorageVaultResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateExascaleDbStorageVault")
+        )
         input_: capo_odb.types.update_exascale_db_storage_vault_input.UpdateExascaleDbStorageVaultInput = {
             "exascale_db_storage_vault_id": exascale_db_storage_vault_id
         }
@@ -612,7 +629,9 @@ class AsyncExascaleDbStorageVaultResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteExascaleDbStorageVault")
+        )
         input_: capo_odb.types.delete_exascale_db_storage_vault_input.DeleteExascaleDbStorageVaultInput = {
             "exascale_db_storage_vault_id": exascale_db_storage_vault_id
         }
@@ -661,7 +680,9 @@ class AsyncExascaleDbStorageVaultResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListExascaleDbStorageVaults")
+        )
         input_: capo_odb.types.list_exascale_db_storage_vaults_input.ListExascaleDbStorageVaultsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results

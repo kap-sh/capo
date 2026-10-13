@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#QueryStringParametersMap``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_pipes.types.query_string_key
@@ -27,3 +27,7 @@ def deserialize_json(data: dict) -> QueryStringParametersMap:
             continue
         out[key] = value
     return out
+
+
+def redact_sensitive(value: QueryStringParametersMap) -> dict[str, Any]:
+    return dict.fromkeys(value, "*** Sensitive Data Redacted ***")

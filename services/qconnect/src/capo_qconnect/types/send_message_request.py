@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#SendMessageRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -135,4 +135,23 @@ def deserialize_json(data: dict) -> SendMessageRequest:
         )
     if data.get("originRequestId") is not None:
         out["origin_request_id"] = data["originRequestId"]
+    return out
+
+
+def redact_sensitive(value: SendMessageRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "message" in value:
+        import capo_qconnect.types.message_input
+
+        out["message"] = capo_qconnect.types.message_input.redact_sensitive(
+            value["message"]
+        )
+    if "conversation_context" in value:
+        import capo_qconnect.types.conversation_context
+
+        out["conversation_context"] = (
+            capo_qconnect.types.conversation_context.redact_sensitive(
+                value["conversation_context"]
+            )
+        )
     return out

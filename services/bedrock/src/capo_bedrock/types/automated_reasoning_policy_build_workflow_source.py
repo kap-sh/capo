@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyBuildWorkflowSource``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,6 +58,29 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildWorkflowSource:
         out["workflow_content"] = (
             capo_bedrock.types.automated_reasoning_policy_workflow_type_content.deserialize_json(
                 data["workflowContent"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(
+    value: AutomatedReasoningPolicyBuildWorkflowSource,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "policy_definition" in value:
+        import capo_bedrock.types.automated_reasoning_policy_definition
+
+        out["policy_definition"] = (
+            capo_bedrock.types.automated_reasoning_policy_definition.redact_sensitive(
+                value["policy_definition"]
+            )
+        )
+    if "workflow_content" in value:
+        import capo_bedrock.types.automated_reasoning_policy_workflow_type_content
+
+        out["workflow_content"] = (
+            capo_bedrock.types.automated_reasoning_policy_workflow_type_content.redact_sensitive(
+                value["workflow_content"]
             )
         )
     return out

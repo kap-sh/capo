@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_transfer._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -111,7 +112,9 @@ class AgreementResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAgreement")
+        )
         input_: capo_transfer.types.create_agreement_request.CreateAgreementRequest = {
             "server_id": server_id,
             "local_profile_id": local_profile_id,
@@ -176,7 +179,9 @@ class AgreementResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeAgreement")
+        )
         input_: capo_transfer.types.describe_agreement_request.DescribeAgreementRequest = {
             "agreement_id": agreement_id,
             "server_id": server_id,
@@ -255,7 +260,9 @@ class AgreementResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAgreement")
+        )
         input_: capo_transfer.types.update_agreement_request.UpdateAgreementRequest = {
             "agreement_id": agreement_id,
             "server_id": server_id,
@@ -320,7 +327,9 @@ class AgreementResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAgreement")
+        )
         input_: capo_transfer.types.delete_agreement_request.DeleteAgreementRequest = {
             "agreement_id": agreement_id,
             "server_id": server_id,
@@ -372,7 +381,9 @@ class AgreementResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAgreements")
+        )
         input_: capo_transfer.types.list_agreements_request.ListAgreementsRequest = {
             "server_id": server_id
         }
@@ -460,7 +471,9 @@ class AsyncAgreementResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAgreement")
+        )
         input_: capo_transfer.types.create_agreement_request.CreateAgreementRequest = {
             "server_id": server_id,
             "local_profile_id": local_profile_id,
@@ -526,7 +539,9 @@ class AsyncAgreementResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeAgreement")
+        )
         input_: capo_transfer.types.describe_agreement_request.DescribeAgreementRequest = {
             "agreement_id": agreement_id,
             "server_id": server_id,
@@ -606,7 +621,9 @@ class AsyncAgreementResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAgreement")
+        )
         input_: capo_transfer.types.update_agreement_request.UpdateAgreementRequest = {
             "agreement_id": agreement_id,
             "server_id": server_id,
@@ -672,7 +689,9 @@ class AsyncAgreementResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAgreement")
+        )
         input_: capo_transfer.types.delete_agreement_request.DeleteAgreementRequest = {
             "agreement_id": agreement_id,
             "server_id": server_id,
@@ -725,7 +744,9 @@ class AsyncAgreementResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAgreements")
+        )
         input_: capo_transfer.types.list_agreements_request.ListAgreementsRequest = {
             "server_id": server_id
         }

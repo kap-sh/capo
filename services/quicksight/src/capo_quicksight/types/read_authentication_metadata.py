@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#ReadAuthenticationMetadata``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -164,3 +164,24 @@ def deserialize_json(data: dict) -> ReadAuthenticationMetadata:
         raise DeserializationError(
             "ReadAuthenticationMetadata: no recognized variant key"
         )
+
+
+def redact_sensitive(value: ReadAuthenticationMetadata) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "BasicAuthConnectionMetadata" in value:
+        import capo_quicksight.types.read_basic_auth_connection_metadata
+
+        out["BasicAuthConnectionMetadata"] = (
+            capo_quicksight.types.read_basic_auth_connection_metadata.redact_sensitive(
+                value["BasicAuthConnectionMetadata"]
+            )
+        )
+    if "ApiKeyConnectionMetadata" in value:
+        import capo_quicksight.types.read_api_key_connection_metadata
+
+        out["ApiKeyConnectionMetadata"] = (
+            capo_quicksight.types.read_api_key_connection_metadata.redact_sensitive(
+                value["ApiKeyConnectionMetadata"]
+            )
+        )
+    return out

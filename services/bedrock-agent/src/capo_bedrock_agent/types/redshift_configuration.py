@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#RedshiftConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -83,6 +83,19 @@ def deserialize_json(data: dict) -> RedshiftConfiguration:
         out["query_generation_configuration"] = (
             capo_bedrock_agent.types.query_generation_configuration.deserialize_json(
                 data["queryGenerationConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: RedshiftConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "query_generation_configuration" in value:
+        import capo_bedrock_agent.types.query_generation_configuration
+
+        out["query_generation_configuration"] = (
+            capo_bedrock_agent.types.query_generation_configuration.redact_sensitive(
+                value["query_generation_configuration"]
             )
         )
     return out

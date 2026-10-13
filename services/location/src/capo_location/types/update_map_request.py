@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#UpdateMapRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,6 +56,19 @@ def deserialize_json(data: dict) -> UpdateMapRequest:
         out["configuration_update"] = (
             capo_location.types.map_configuration_update.deserialize_json(
                 data["ConfigurationUpdate"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateMapRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "configuration_update" in value:
+        import capo_location.types.map_configuration_update
+
+        out["configuration_update"] = (
+            capo_location.types.map_configuration_update.redact_sensitive(
+                value["configuration_update"]
             )
         )
     return out

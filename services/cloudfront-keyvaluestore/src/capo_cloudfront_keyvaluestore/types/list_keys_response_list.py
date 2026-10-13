@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudfrontkeyvaluestore#ListKeysResponseList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_cloudfront_keyvaluestore.types.list_keys_response_list_item
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> ListKeysResponseList:
             )
         )
     return out
+
+
+def redact_sensitive(value: ListKeysResponseList) -> list[Any]:
+    import capo_cloudfront_keyvaluestore.types.list_keys_response_list_item
+
+    return [
+        capo_cloudfront_keyvaluestore.types.list_keys_response_list_item.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

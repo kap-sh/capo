@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#RequestSpotLaunchSpecification``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -241,4 +241,11 @@ def deserialize_ec2_query(el: Element) -> RequestSpotLaunchSpecification:
     child_user_data = el.find("userData")
     if child_user_data is not None:
         out["user_data"] = str(child_user_data.text or "")
+    return out
+
+
+def redact_sensitive(value: RequestSpotLaunchSpecification) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_data" in value:
+        out["user_data"] = "*** Sensitive Data Redacted ***"
     return out

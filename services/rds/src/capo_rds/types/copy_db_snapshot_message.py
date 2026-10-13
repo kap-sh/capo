@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#CopyDBSnapshotMessage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -144,4 +144,11 @@ def deserialize_query(el: Element) -> CopyDBSnapshotMessage:
         out["snapshot_availability_zone"] = str(
             child_snapshot_availability_zone.text or ""
         )
+    return out
+
+
+def redact_sensitive(value: CopyDBSnapshotMessage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "pre_signed_url" in value:
+        out["pre_signed_url"] = "*** Sensitive Data Redacted ***"
     return out

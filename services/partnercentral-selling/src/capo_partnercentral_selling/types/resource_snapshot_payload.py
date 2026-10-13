@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#ResourceSnapshotPayload``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -66,3 +66,24 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceSnapshotPayload:
         }
     else:
         raise DeserializationError("ResourceSnapshotPayload: no recognized variant key")
+
+
+def redact_sensitive(value: ResourceSnapshotPayload) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "OpportunitySummary" in value:
+        import capo_partnercentral_selling.types.opportunity_summary_view
+
+        out["OpportunitySummary"] = (
+            capo_partnercentral_selling.types.opportunity_summary_view.redact_sensitive(
+                value["OpportunitySummary"]
+            )
+        )
+    if "AwsOpportunitySummaryFullView" in value:
+        import capo_partnercentral_selling.types.aws_opportunity_summary_full_view
+
+        out["AwsOpportunitySummaryFullView"] = (
+            capo_partnercentral_selling.types.aws_opportunity_summary_full_view.redact_sensitive(
+                value["AwsOpportunitySummaryFullView"]
+            )
+        )
+    return out

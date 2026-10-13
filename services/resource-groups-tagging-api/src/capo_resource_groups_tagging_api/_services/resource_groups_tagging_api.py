@@ -21,10 +21,12 @@ from capo_resource_groups_tagging_api._pagination import resolve_path as _resolv
 from capo_resource_groups_tagging_api._services._aws_config import aws_config
 from capo_resource_groups_tagging_api._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -145,7 +147,9 @@ class ResourceGroupsTaggingAPIClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ResourceGroupsTaggingAPIClientConfig] = None
+        self,
+        config_overrides: Optional[ResourceGroupsTaggingAPIClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ResourceGroupsTaggingAPIClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -153,8 +157,10 @@ class ResourceGroupsTaggingAPIClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -200,7 +206,9 @@ class ResourceGroupsTaggingAPIClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReportCreation")
+        )
         input_: capo_resource_groups_tagging_api.types.describe_report_creation_input.DescribeReportCreationInput = {}
 
         response = execute_pipeline(
@@ -270,7 +278,9 @@ class ResourceGroupsTaggingAPIClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetComplianceSummary")
+        )
         input_: capo_resource_groups_tagging_api.types.get_compliance_summary_input.GetComplianceSummaryInput = {}
         if target_id_filters is not None:
             input_["target_id_filters"] = target_id_filters
@@ -405,7 +415,9 @@ class ResourceGroupsTaggingAPIClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResources")
+        )
         input_: capo_resource_groups_tagging_api.types.get_resources_input.GetResourcesInput = {}
         if pagination_token is not None:
             input_["pagination_token"] = pagination_token
@@ -516,7 +528,9 @@ class ResourceGroupsTaggingAPIClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTagKeys")
+        )
         input_: capo_resource_groups_tagging_api.types.get_tag_keys_input.GetTagKeysInput = {}
         if pagination_token is not None:
             input_["pagination_token"] = pagination_token
@@ -587,7 +601,9 @@ class ResourceGroupsTaggingAPIClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTagValues")
+        )
         input_: capo_resource_groups_tagging_api.types.get_tag_values_input.GetTagValuesInput = {
             "key": key
         }
@@ -664,7 +680,9 @@ class ResourceGroupsTaggingAPIClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRequiredTags")
+        )
         input_: capo_resource_groups_tagging_api.types.list_required_tags_input.ListRequiredTagsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -738,7 +756,9 @@ class ResourceGroupsTaggingAPIClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartReportCreation")
+        )
         input_: capo_resource_groups_tagging_api.types.start_report_creation_input.StartReportCreationInput = {
             "s3_bucket": s3_bucket
         }
@@ -787,7 +807,9 @@ class ResourceGroupsTaggingAPIClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResources")
+        )
         input_: capo_resource_groups_tagging_api.types.tag_resources_input.TagResourcesInput = {
             "resource_arn_list": resource_arn_list,
             "tags": tags,
@@ -835,7 +857,9 @@ class ResourceGroupsTaggingAPIClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResources")
+        )
         input_: capo_resource_groups_tagging_api.types.untag_resources_input.UntagResourcesInput = {
             "resource_arn_list": resource_arn_list,
             "tag_keys": tag_keys,

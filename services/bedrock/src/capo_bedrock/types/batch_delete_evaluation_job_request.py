@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#BatchDeleteEvaluationJobRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -43,5 +43,18 @@ def deserialize_json(data: dict) -> BatchDeleteEvaluationJobRequest:
     else:
         raise DeserializationError(
             "BatchDeleteEvaluationJobRequest.job_identifiers required"
+        )
+    return out
+
+
+def redact_sensitive(value: BatchDeleteEvaluationJobRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "job_identifiers" in value:
+        import capo_bedrock.types.evaluation_job_identifiers
+
+        out["job_identifiers"] = (
+            capo_bedrock.types.evaluation_job_identifiers.redact_sensitive(
+                value["job_identifiers"]
+            )
         )
     return out

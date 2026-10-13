@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mailmanager#ImportJobs``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_mailmanager.types.import_job
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_0(data: list) -> ImportJobs:
             continue
         out.append(capo_mailmanager.types.import_job.deserialize_aws_json_1_0(item))
     return out
+
+
+def redact_sensitive(value: ImportJobs) -> list[Any]:
+    import capo_mailmanager.types.import_job
+
+    return [capo_mailmanager.types.import_job.redact_sensitive(item) for item in value]

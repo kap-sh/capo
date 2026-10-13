@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#CreateGroupProfileOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -66,4 +66,11 @@ def deserialize_json(data: dict) -> CreateGroupProfileOutput:
         out["role_principal_arn"] = data["rolePrincipalArn"]
     if data.get("rolePrincipalId") is not None:
         out["role_principal_id"] = data["rolePrincipalId"]
+    return out
+
+
+def redact_sensitive(value: CreateGroupProfileOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "group_name" in value:
+        out["group_name"] = "*** Sensitive Data Redacted ***"
     return out

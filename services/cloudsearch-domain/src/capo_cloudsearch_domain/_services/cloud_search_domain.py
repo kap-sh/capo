@@ -22,10 +22,12 @@ from capo_cloudsearch_domain._iter import ensure_sync_iterator
 from capo_cloudsearch_domain._services._aws_config import aws_config
 from capo_cloudsearch_domain._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -129,7 +131,9 @@ class CloudSearchDomainClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[CloudSearchDomainClientConfig] = None
+        self,
+        config_overrides: Optional[CloudSearchDomainClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: CloudSearchDomainClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -137,8 +141,10 @@ class CloudSearchDomainClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -219,7 +225,9 @@ class CloudSearchDomainClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Search")
+        )
         input_: capo_cloudsearch_domain.types.search_request.SearchRequest = {
             "query": query
         }
@@ -294,7 +302,9 @@ class CloudSearchDomainClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Suggest")
+        )
         input_: capo_cloudsearch_domain.types.suggest_request.SuggestRequest = {
             "query": query,
             "suggester": suggester,
@@ -342,7 +352,21 @@ class CloudSearchDomainClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cloudsearch_domain.types.upload_documents_request.UploadDocumentsRequest",
+        ) -> dict[str, Any]:
+            import capo_cloudsearch_domain.types.upload_documents_request
+
+            return (
+                capo_cloudsearch_domain.types.upload_documents_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UploadDocuments", redact_input=_redact_input),
+        )
         input_: capo_cloudsearch_domain.types.upload_documents_request.UploadDocumentsRequest = {
             "documents": ensure_sync_iterator(documents),
             "content_type": content_type,

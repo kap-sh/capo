@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#ContentBlocks``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.content_block
@@ -31,3 +31,7 @@ def deserialize_json(data: list) -> ContentBlocks:
             capo_bedrock_agent_runtime.types.content_block.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: ContentBlocks) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

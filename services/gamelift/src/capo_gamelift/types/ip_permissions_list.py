@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#IpPermissionsList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_gamelift.types.ip_permission
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> IpPermissionsList:
             continue
         out.append(capo_gamelift.types.ip_permission.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: IpPermissionsList) -> list[Any]:
+    import capo_gamelift.types.ip_permission
+
+    return [capo_gamelift.types.ip_permission.redact_sensitive(item) for item in value]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.emrserverless#Configuration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -68,6 +68,21 @@ def deserialize_json(data: dict) -> Configuration:
         out["configurations"] = (
             capo_emr_serverless.types.configuration_list.deserialize_json(
                 data["configurations"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: Configuration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "properties" in value:
+        out["properties"] = "*** Sensitive Data Redacted ***"
+    if "configurations" in value:
+        import capo_emr_serverless.types.configuration_list
+
+        out["configurations"] = (
+            capo_emr_serverless.types.configuration_list.redact_sensitive(
+                value["configurations"]
             )
         )
     return out

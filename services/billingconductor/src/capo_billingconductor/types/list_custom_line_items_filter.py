@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.billingconductor#ListCustomLineItemsFilter``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -96,6 +96,19 @@ def deserialize_json(data: dict) -> ListCustomLineItemsFilter:
         out["account_ids"] = (
             capo_billingconductor.types.account_id_list.deserialize_json(
                 data["AccountIds"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ListCustomLineItemsFilter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "names" in value:
+        import capo_billingconductor.types.custom_line_item_name_list
+
+        out["names"] = (
+            capo_billingconductor.types.custom_line_item_name_list.redact_sensitive(
+                value["names"]
             )
         )
     return out

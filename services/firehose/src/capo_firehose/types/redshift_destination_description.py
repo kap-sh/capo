@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.firehose#RedshiftDestinationDescription``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -212,4 +212,11 @@ def deserialize_aws_json_1_1(data: dict) -> RedshiftDestinationDescription:
                 data["SecretsManagerConfiguration"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: RedshiftDestinationDescription) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "username" in value:
+        out["username"] = "*** Sensitive Data Redacted ***"
     return out

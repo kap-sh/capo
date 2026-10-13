@@ -7,6 +7,7 @@ import capo_bedrock_agent_runtime._auth._sigv4
 from capo_bedrock_agent_runtime._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -92,7 +93,9 @@ class SessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSession")
+        )
         input_: capo_bedrock_agent_runtime.types.create_session_request.CreateSessionRequest = {}
         if session_metadata is not None:
             input_["session_metadata"] = session_metadata
@@ -143,7 +146,9 @@ class SessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSession")
+        )
         input_: capo_bedrock_agent_runtime.types.get_session_request.GetSessionRequest = {
             "session_identifier": session_identifier
         }
@@ -197,7 +202,9 @@ class SessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSession")
+        )
         input_: capo_bedrock_agent_runtime.types.update_session_request.UpdateSessionRequest = {
             "session_identifier": session_identifier
         }
@@ -249,7 +256,9 @@ class SessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSession")
+        )
         input_: capo_bedrock_agent_runtime.types.delete_session_request.DeleteSessionRequest = {
             "session_identifier": session_identifier
         }
@@ -301,7 +310,9 @@ class SessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSessions")
+        )
         input_: capo_bedrock_agent_runtime.types.list_sessions_request.ListSessionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -351,7 +362,9 @@ class SessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("EndSession")
+        )
         input_: capo_bedrock_agent_runtime.types.end_session_request.EndSessionRequest = {
             "session_identifier": session_identifier
         }
@@ -415,7 +428,9 @@ class AsyncSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSession")
+        )
         input_: capo_bedrock_agent_runtime.types.create_session_request.CreateSessionRequest = {}
         if session_metadata is not None:
             input_["session_metadata"] = session_metadata
@@ -467,7 +482,9 @@ class AsyncSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSession")
+        )
         input_: capo_bedrock_agent_runtime.types.get_session_request.GetSessionRequest = {
             "session_identifier": session_identifier
         }
@@ -522,7 +539,9 @@ class AsyncSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSession")
+        )
         input_: capo_bedrock_agent_runtime.types.update_session_request.UpdateSessionRequest = {
             "session_identifier": session_identifier
         }
@@ -575,7 +594,9 @@ class AsyncSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSession")
+        )
         input_: capo_bedrock_agent_runtime.types.delete_session_request.DeleteSessionRequest = {
             "session_identifier": session_identifier
         }
@@ -628,7 +649,9 @@ class AsyncSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSessions")
+        )
         input_: capo_bedrock_agent_runtime.types.list_sessions_request.ListSessionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -679,7 +702,9 @@ class AsyncSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("EndSession")
+        )
         input_: capo_bedrock_agent_runtime.types.end_session_request.EndSessionRequest = {
             "session_identifier": session_identifier
         }

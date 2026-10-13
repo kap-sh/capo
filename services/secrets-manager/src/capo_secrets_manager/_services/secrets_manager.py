@@ -22,10 +22,12 @@ from capo_secrets_manager._pagination import resolve_path as _resolve_path
 from capo_secrets_manager._services._aws_config import aws_config
 from capo_secrets_manager._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -187,7 +189,9 @@ class SecretsManagerClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[SecretsManagerClientConfig] = None
+        self,
+        config_overrides: Optional[SecretsManagerClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: SecretsManagerClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -195,8 +199,10 @@ class SecretsManagerClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -270,7 +276,19 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_secrets_manager.types.batch_get_secret_value_response.BatchGetSecretValueResponse",
+        ) -> dict[str, Any]:
+            import capo_secrets_manager.types.batch_get_secret_value_response
+
+            return capo_secrets_manager.types.batch_get_secret_value_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetSecretValue", redact_output=_redact_output),
+        )
         input_: capo_secrets_manager.types.batch_get_secret_value_request.BatchGetSecretValueRequest = {}
         if secret_id_list is not None:
             input_["secret_id_list"] = secret_id_list
@@ -359,7 +377,9 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelRotateSecret")
+        )
         input_: capo_secrets_manager.types.cancel_rotate_secret_request.CancelRotateSecretRequest = {
             "secret_id": secret_id
         }
@@ -451,7 +471,19 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_secrets_manager.types.create_secret_request.CreateSecretRequest",
+        ) -> dict[str, Any]:
+            import capo_secrets_manager.types.create_secret_request
+
+            return capo_secrets_manager.types.create_secret_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateSecret", redact_input=_redact_input),
+        )
         input_: capo_secrets_manager.types.create_secret_request.CreateSecretRequest = {
             "name": name
         }
@@ -522,7 +554,9 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_secrets_manager.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {
             "secret_id": secret_id
         }
@@ -576,7 +610,9 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSecret")
+        )
         input_: capo_secrets_manager.types.delete_secret_request.DeleteSecretRequest = {
             "secret_id": secret_id
         }
@@ -625,7 +661,9 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSecret")
+        )
         input_: capo_secrets_manager.types.describe_secret_request.DescribeSecretRequest = {
             "secret_id": secret_id
         }
@@ -706,7 +744,19 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_secrets_manager.types.get_random_password_response.GetRandomPasswordResponse",
+        ) -> dict[str, Any]:
+            import capo_secrets_manager.types.get_random_password_response
+
+            return capo_secrets_manager.types.get_random_password_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetRandomPassword", redact_output=_redact_output),
+        )
         input_: capo_secrets_manager.types.get_random_password_request.GetRandomPasswordRequest = {}
         if password_length is not None:
             input_["password_length"] = password_length
@@ -772,7 +822,9 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_secrets_manager.types.get_resource_policy_request.GetResourcePolicyRequest = {
             "secret_id": secret_id
         }
@@ -833,7 +885,21 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_secrets_manager.types.get_secret_value_response.GetSecretValueResponse",
+        ) -> dict[str, Any]:
+            import capo_secrets_manager.types.get_secret_value_response
+
+            return (
+                capo_secrets_manager.types.get_secret_value_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSecretValue", redact_output=_redact_output),
+        )
         input_: capo_secrets_manager.types.get_secret_value_request.GetSecretValueRequest = {
             "secret_id": secret_id
         }
@@ -909,7 +975,9 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSecrets")
+        )
         input_: capo_secrets_manager.types.list_secrets_request.ListSecretsRequest = {}
         if include_planned_deletion is not None:
             input_["include_planned_deletion"] = include_planned_deletion
@@ -1022,7 +1090,9 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSecretVersionIds")
+        )
         input_: capo_secrets_manager.types.list_secret_version_ids_request.ListSecretVersionIdsRequest = {
             "secret_id": secret_id
         }
@@ -1117,7 +1187,9 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_secrets_manager.types.put_resource_policy_request.PutResourcePolicyRequest = {
             "secret_id": secret_id,
             "resource_policy": resource_policy,
@@ -1196,7 +1268,19 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_secrets_manager.types.put_secret_value_request.PutSecretValueRequest",
+        ) -> dict[str, Any]:
+            import capo_secrets_manager.types.put_secret_value_request
+
+            return capo_secrets_manager.types.put_secret_value_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutSecretValue", redact_input=_redact_input),
+        )
         input_: capo_secrets_manager.types.put_secret_value_request.PutSecretValueRequest = {
             "secret_id": secret_id
         }
@@ -1255,7 +1339,9 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveRegionsFromReplication")
+        )
         input_: capo_secrets_manager.types.remove_regions_from_replication_request.RemoveRegionsFromReplicationRequest = {
             "secret_id": secret_id,
             "remove_replica_regions": remove_replica_regions,
@@ -1314,7 +1400,9 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReplicateSecretToRegions")
+        )
         input_: capo_secrets_manager.types.replicate_secret_to_regions_request.ReplicateSecretToRegionsRequest = {
             "secret_id": secret_id,
             "add_replica_regions": add_replica_regions,
@@ -1369,7 +1457,9 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreSecret")
+        )
         input_: capo_secrets_manager.types.restore_secret_request.RestoreSecretRequest = {
             "secret_id": secret_id
         }
@@ -1449,7 +1539,9 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RotateSecret")
+        )
         input_: capo_secrets_manager.types.rotate_secret_request.RotateSecretRequest = {
             "secret_id": secret_id
         }
@@ -1512,7 +1604,9 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopReplicationToReplica")
+        )
         input_: capo_secrets_manager.types.stop_replication_to_replica_request.StopReplicationToReplicaRequest = {
             "secret_id": secret_id
         }
@@ -1564,7 +1658,9 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_secrets_manager.types.tag_resource_request.TagResourceRequest = {
             "secret_id": secret_id,
             "tags": tags,
@@ -1617,7 +1713,9 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_secrets_manager.types.untag_resource_request.UntagResourceRequest = {
             "secret_id": secret_id,
             "tag_keys": tag_keys,
@@ -1708,7 +1806,19 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_secrets_manager.types.update_secret_request.UpdateSecretRequest",
+        ) -> dict[str, Any]:
+            import capo_secrets_manager.types.update_secret_request
+
+            return capo_secrets_manager.types.update_secret_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateSecret", redact_input=_redact_input),
+        )
         input_: capo_secrets_manager.types.update_secret_request.UpdateSecretRequest = {
             "secret_id": secret_id
         }
@@ -1792,7 +1902,9 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSecretVersionStage")
+        )
         input_: capo_secrets_manager.types.update_secret_version_stage_request.UpdateSecretVersionStageRequest = {
             "secret_id": secret_id,
             "version_stage": version_stage,
@@ -1854,7 +1966,9 @@ class SecretsManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ValidateResourcePolicy")
+        )
         input_: capo_secrets_manager.types.validate_resource_policy_request.ValidateResourcePolicyRequest = {
             "resource_policy": resource_policy
         }

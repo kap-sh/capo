@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#CreateMediaPipelineKinesisVideoStreamPoolRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -76,4 +76,13 @@ def deserialize_json(data: dict) -> CreateMediaPipelineKinesisVideoStreamPoolReq
         out["tags"] = capo_chime_sdk_media_pipelines.types.tag_list.deserialize_json(
             data["Tags"]
         )
+    return out
+
+
+def redact_sensitive(
+    value: CreateMediaPipelineKinesisVideoStreamPoolRequest,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_request_token" in value:
+        out["client_request_token"] = "*** Sensitive Data Redacted ***"
     return out

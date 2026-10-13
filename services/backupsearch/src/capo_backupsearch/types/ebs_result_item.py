@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.backupsearch#EBSResultItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -91,4 +91,11 @@ def deserialize_json(data: dict) -> EBSResultItem:
                 data["LastModifiedTime"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: EBSResultItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "file_path" in value:
+        out["file_path"] = "*** Sensitive Data Redacted ***"
     return out

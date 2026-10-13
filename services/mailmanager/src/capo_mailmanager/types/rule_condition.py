@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mailmanager#RuleCondition``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -162,3 +162,16 @@ def deserialize_aws_json_1_0(data: dict) -> RuleCondition:
         }
     else:
         raise DeserializationError("RuleCondition: no recognized variant key")
+
+
+def redact_sensitive(value: RuleCondition) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "StringExpression" in value:
+        import capo_mailmanager.types.rule_string_expression
+
+        out["StringExpression"] = (
+            capo_mailmanager.types.rule_string_expression.redact_sensitive(
+                value["StringExpression"]
+            )
+        )
+    return out

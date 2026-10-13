@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudfront#TestFunctionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -57,4 +57,11 @@ def deserialize_xml(el: Element) -> TestFunctionRequest:
         )
     else:
         raise DeserializationError("TestFunctionRequest.event_object required")
+    return out
+
+
+def redact_sensitive(value: TestFunctionRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "event_object" in value:
+        out["event_object"] = "*** Sensitive Data Redacted ***"
     return out

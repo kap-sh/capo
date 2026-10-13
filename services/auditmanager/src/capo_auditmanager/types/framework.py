@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#Framework``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -159,4 +159,17 @@ def deserialize_json(data: dict) -> Framework:
         import capo_auditmanager.types.tag_map
 
         out["tags"] = capo_auditmanager.types.tag_map.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: Framework) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "compliance_type" in value:
+        out["compliance_type"] = "*** Sensitive Data Redacted ***"
+    if "control_sets" in value:
+        out["control_sets"] = "*** Sensitive Data Redacted ***"
+    if "created_by" in value:
+        out["created_by"] = "*** Sensitive Data Redacted ***"
+    if "last_updated_by" in value:
+        out["last_updated_by"] = "*** Sensitive Data Redacted ***"
     return out

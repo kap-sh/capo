@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workmail#EwsAvailabilityProvider``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -44,4 +44,11 @@ def deserialize_aws_json_1_1(data: dict) -> EwsAvailabilityProvider:
         out["ews_password"] = data["EwsPassword"]
     else:
         raise DeserializationError("EwsAvailabilityProvider.ews_password required")
+    return out
+
+
+def redact_sensitive(value: EwsAvailabilityProvider) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ews_password" in value:
+        out["ews_password"] = "*** Sensitive Data Redacted ***"
     return out

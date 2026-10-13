@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.medicalimaging#DICOMImportJobProperties``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -140,6 +140,19 @@ def deserialize_json(data: dict) -> DICOMImportJobProperties:
         out["import_configuration"] = (
             capo_medical_imaging.types.import_configuration.deserialize_json(
                 data["importConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DICOMImportJobProperties) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "import_configuration" in value:
+        import capo_medical_imaging.types.import_configuration
+
+        out["import_configuration"] = (
+            capo_medical_imaging.types.import_configuration.redact_sensitive(
+                value["import_configuration"]
             )
         )
     return out

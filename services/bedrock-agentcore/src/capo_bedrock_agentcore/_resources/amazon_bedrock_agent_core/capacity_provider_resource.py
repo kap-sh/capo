@@ -7,6 +7,7 @@ import capo_bedrock_agentcore._auth._sigv4
 from capo_bedrock_agentcore._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -68,7 +69,9 @@ class CapacityProviderResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCapacityProviderSession")
+        )
         input_: capo_bedrock_agentcore.types.delete_capacity_provider_session_request.DeleteCapacityProviderSessionRequest = {
             "capacity_provider_id": capacity_provider_id,
             "session_id": session_id,
@@ -124,7 +127,9 @@ class AsyncCapacityProviderResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCapacityProviderSession")
+        )
         input_: capo_bedrock_agentcore.types.delete_capacity_provider_session_request.DeleteCapacityProviderSessionRequest = {
             "capacity_provider_id": capacity_provider_id,
             "session_id": session_id,

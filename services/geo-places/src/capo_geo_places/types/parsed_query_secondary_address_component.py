@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#ParsedQuerySecondaryAddressComponent``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -66,4 +66,15 @@ def deserialize_json(data: dict) -> ParsedQuerySecondaryAddressComponent:
         raise DeserializationError(
             "ParsedQuerySecondaryAddressComponent.designator required"
         )
+    return out
+
+
+def redact_sensitive(value: ParsedQuerySecondaryAddressComponent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        out["value"] = "*** Sensitive Data Redacted ***"
+    if "number" in value:
+        out["number"] = "*** Sensitive Data Redacted ***"
+    if "designator" in value:
+        out["designator"] = "*** Sensitive Data Redacted ***"
     return out

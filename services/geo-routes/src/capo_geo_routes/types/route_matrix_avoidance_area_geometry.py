@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteMatrixAvoidanceAreaGeometry``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -67,6 +67,27 @@ def deserialize_json(data: dict) -> RouteMatrixAvoidanceAreaGeometry:
         out["polyline_polygon"] = (
             capo_geo_routes.types.polyline_ring_list.deserialize_json(
                 data["PolylinePolygon"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: RouteMatrixAvoidanceAreaGeometry) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "bounding_box" in value:
+        out["bounding_box"] = "*** Sensitive Data Redacted ***"
+    if "polygon" in value:
+        import capo_geo_routes.types.linear_rings
+
+        out["polygon"] = capo_geo_routes.types.linear_rings.redact_sensitive(
+            value["polygon"]
+        )
+    if "polyline_polygon" in value:
+        import capo_geo_routes.types.polyline_ring_list
+
+        out["polyline_polygon"] = (
+            capo_geo_routes.types.polyline_ring_list.redact_sensitive(
+                value["polyline_polygon"]
             )
         )
     return out

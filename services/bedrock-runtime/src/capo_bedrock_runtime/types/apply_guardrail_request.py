@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#ApplyGuardrailRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -85,6 +85,19 @@ def deserialize_json(data: dict) -> ApplyGuardrailRequest:
         out["output_scope"] = (
             capo_bedrock_runtime.types.guardrail_output_scope.deserialize_json(
                 data["outputScope"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ApplyGuardrailRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        import capo_bedrock_runtime.types.guardrail_content_block_list
+
+        out["content"] = (
+            capo_bedrock_runtime.types.guardrail_content_block_list.redact_sensitive(
+                value["content"]
             )
         )
     return out

@@ -24,7 +24,9 @@ from capo_pi._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -157,7 +159,9 @@ class AsyncPIClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncPIClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncPIClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncPIClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -165,8 +169,10 @@ class AsyncPIClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -226,7 +232,9 @@ class AsyncPIClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePerformanceAnalysisReport")
+        )
         input_: capo_pi.types.create_performance_analysis_report_request.CreatePerformanceAnalysisReportRequest = {
             "service_type": service_type,
             "identifier": identifier,
@@ -282,7 +290,9 @@ class AsyncPIClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePerformanceAnalysisReport")
+        )
         input_: capo_pi.types.delete_performance_analysis_report_request.DeletePerformanceAnalysisReportRequest = {
             "service_type": service_type,
             "identifier": identifier,
@@ -356,7 +366,9 @@ class AsyncPIClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDimensionKeys")
+        )
         input_: capo_pi.types.describe_dimension_keys_request.DescribeDimensionKeysRequest = {
             "service_type": service_type,
             "identifier": identifier,
@@ -472,7 +484,9 @@ class AsyncPIClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDimensionKeyDetails")
+        )
         input_: capo_pi.types.get_dimension_key_details_request.GetDimensionKeyDetailsRequest = {
             "service_type": service_type,
             "identifier": identifier,
@@ -533,7 +547,23 @@ class AsyncPIClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_pi.types.get_performance_analysis_report_response.GetPerformanceAnalysisReportResponse",
+        ) -> dict[str, Any]:
+            import capo_pi.types.get_performance_analysis_report_response
+
+            return (
+                capo_pi.types.get_performance_analysis_report_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetPerformanceAnalysisReport", redact_output=_redact_output
+            ),
+        )
         input_: capo_pi.types.get_performance_analysis_report_request.GetPerformanceAnalysisReportRequest = {
             "service_type": service_type,
             "identifier": identifier,
@@ -587,7 +617,9 @@ class AsyncPIClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourceMetadata")
+        )
         input_: capo_pi.types.get_resource_metadata_request.GetResourceMetadataRequest = {
             "service_type": service_type,
             "identifier": identifier,
@@ -652,7 +684,9 @@ class AsyncPIClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourceMetrics")
+        )
         input_: capo_pi.types.get_resource_metrics_request.GetResourceMetricsRequest = {
             "service_type": service_type,
             "identifier": identifier,
@@ -757,7 +791,9 @@ class AsyncPIClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAvailableResourceDimensions")
+        )
         input_: capo_pi.types.list_available_resource_dimensions_request.ListAvailableResourceDimensionsRequest = {
             "service_type": service_type,
             "identifier": identifier,
@@ -848,7 +884,9 @@ class AsyncPIClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAvailableResourceMetrics")
+        )
         input_: capo_pi.types.list_available_resource_metrics_request.ListAvailableResourceMetricsRequest = {
             "service_type": service_type,
             "identifier": identifier,
@@ -937,7 +975,22 @@ class AsyncPIClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_pi.types.list_performance_analysis_report_recommendations_response.ListPerformanceAnalysisReportRecommendationsResponse",
+        ) -> dict[str, Any]:
+            import capo_pi.types.list_performance_analysis_report_recommendations_response
+
+            return capo_pi.types.list_performance_analysis_report_recommendations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListPerformanceAnalysisReportRecommendations",
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_pi.types.list_performance_analysis_report_recommendations_request.ListPerformanceAnalysisReportRecommendationsRequest = {
             "service_type": service_type,
             "identifier": identifier,
@@ -1030,7 +1083,9 @@ class AsyncPIClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPerformanceAnalysisReports")
+        )
         input_: capo_pi.types.list_performance_analysis_reports_request.ListPerformanceAnalysisReportsRequest = {
             "service_type": service_type,
             "identifier": identifier,
@@ -1110,7 +1165,9 @@ class AsyncPIClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_pi.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "service_type": service_type,
             "resource_arn": resource_arn,
@@ -1161,7 +1218,9 @@ class AsyncPIClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_pi.types.tag_resource_request.TagResourceRequest = {
             "service_type": service_type,
             "resource_arn": resource_arn,
@@ -1213,7 +1272,9 @@ class AsyncPIClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_pi.types.untag_resource_request.UntagResourceRequest = {
             "service_type": service_type,
             "resource_arn": resource_arn,

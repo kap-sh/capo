@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.redshift#Cluster``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -952,6 +952,19 @@ def deserialize_query(el: Element) -> Cluster:
         out["logging_publish_status"] = (
             capo_redshift.types.logging_publish_status.deserialize_query(
                 child_logging_publish_status
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: Cluster) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "pending_modified_values" in value:
+        import capo_redshift.types.pending_modified_values
+
+        out["pending_modified_values"] = (
+            capo_redshift.types.pending_modified_values.redact_sensitive(
+                value["pending_modified_values"]
             )
         )
     return out

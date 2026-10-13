@@ -24,7 +24,9 @@ from capo_appstream._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -360,7 +362,9 @@ class AsyncAppStreamClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncAppStreamClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncAppStreamClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncAppStreamClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -368,8 +372,10 @@ class AsyncAppStreamClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -425,7 +431,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateAppBlockBuilderAppBlock")
+        )
         input_: capo_appstream.types.associate_app_block_builder_app_block_request.AssociateAppBlockBuilderAppBlockRequest = {}
         if app_block_arn is not None:
             input_["app_block_arn"] = app_block_arn
@@ -477,7 +485,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateApplicationFleet")
+        )
         input_: capo_appstream.types.associate_application_fleet_request.AssociateApplicationFleetRequest = {}
         if fleet_name is not None:
             input_["fleet_name"] = fleet_name
@@ -530,7 +540,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateApplicationToEntitlement")
+        )
         input_: capo_appstream.types.associate_application_to_entitlement_request.AssociateApplicationToEntitlementRequest = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -585,7 +597,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateFleet")
+        )
         input_: capo_appstream.types.associate_fleet_request.AssociateFleetRequest = {}
         if fleet_name is not None:
             input_["fleet_name"] = fleet_name
@@ -637,7 +651,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateSoftwareToImageBuilder")
+        )
         input_: capo_appstream.types.associate_software_to_image_builder_request.AssociateSoftwareToImageBuilderRequest = {}
         if image_builder_name is not None:
             input_["image_builder_name"] = image_builder_name
@@ -686,7 +702,34 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appstream.types.batch_associate_user_stack_request.BatchAssociateUserStackRequest",
+        ) -> dict[str, Any]:
+            import capo_appstream.types.batch_associate_user_stack_request
+
+            return capo_appstream.types.batch_associate_user_stack_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_appstream.types.batch_associate_user_stack_result.BatchAssociateUserStackResult",
+        ) -> dict[str, Any]:
+            import capo_appstream.types.batch_associate_user_stack_result
+
+            return (
+                capo_appstream.types.batch_associate_user_stack_result.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchAssociateUserStack",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_appstream.types.batch_associate_user_stack_request.BatchAssociateUserStackRequest = {}
         if user_stack_associations is not None:
             input_["user_stack_associations"] = user_stack_associations
@@ -733,7 +776,32 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appstream.types.batch_disassociate_user_stack_request.BatchDisassociateUserStackRequest",
+        ) -> dict[str, Any]:
+            import capo_appstream.types.batch_disassociate_user_stack_request
+
+            return capo_appstream.types.batch_disassociate_user_stack_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_appstream.types.batch_disassociate_user_stack_result.BatchDisassociateUserStackResult",
+        ) -> dict[str, Any]:
+            import capo_appstream.types.batch_disassociate_user_stack_result
+
+            return capo_appstream.types.batch_disassociate_user_stack_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchDisassociateUserStack",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_appstream.types.batch_disassociate_user_stack_request.BatchDisassociateUserStackRequest = {}
         if user_stack_associations is not None:
             input_["user_stack_associations"] = user_stack_associations
@@ -792,7 +860,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CopyImage")
+        )
         input_: capo_appstream.types.copy_image_request.CopyImageRequest = {}
         if source_image_name is not None:
             input_["source_image_name"] = source_image_name
@@ -867,7 +937,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAppBlock")
+        )
         input_: capo_appstream.types.create_app_block_request.CreateAppBlockRequest = {}
         if name is not None:
             input_["name"] = name
@@ -962,7 +1034,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAppBlockBuilder")
+        )
         input_: capo_appstream.types.create_app_block_builder_request.CreateAppBlockBuilderRequest = {}
         if name is not None:
             input_["name"] = name
@@ -1029,7 +1103,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAppBlockBuilderStreamingURL")
+        )
         input_: capo_appstream.types.create_app_block_builder_streaming_url_request.CreateAppBlockBuilderStreamingURLRequest = {}
         if app_block_builder_name is not None:
             input_["app_block_builder_name"] = app_block_builder_name
@@ -1103,7 +1179,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_appstream.types.create_application_request.CreateApplicationRequest = {}
         if name is not None:
             input_["name"] = name
@@ -1186,7 +1264,34 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appstream.types.create_directory_config_request.CreateDirectoryConfigRequest",
+        ) -> dict[str, Any]:
+            import capo_appstream.types.create_directory_config_request
+
+            return (
+                capo_appstream.types.create_directory_config_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_appstream.types.create_directory_config_result.CreateDirectoryConfigResult",
+        ) -> dict[str, Any]:
+            import capo_appstream.types.create_directory_config_result
+
+            return capo_appstream.types.create_directory_config_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDirectoryConfig",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_appstream.types.create_directory_config_request.CreateDirectoryConfigRequest = {}
         if directory_name is not None:
             input_["directory_name"] = directory_name
@@ -1255,7 +1360,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEntitlement")
+        )
         input_: capo_appstream.types.create_entitlement_request.CreateEntitlementRequest = {}
         if name is not None:
             input_["name"] = name
@@ -1323,7 +1430,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateExportImageTask")
+        )
         input_: capo_appstream.types.create_export_image_task_request.CreateExportImageTaskRequest = {}
         if image_name is not None:
             input_["image_name"] = image_name
@@ -1455,7 +1564,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFleet")
+        )
         input_: capo_appstream.types.create_fleet_request.CreateFleetRequest = {}
         if name is not None:
             input_["name"] = name
@@ -1605,7 +1716,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateImageBuilder")
+        )
         input_: capo_appstream.types.create_image_builder_request.CreateImageBuilderRequest = {}
         if name is not None:
             input_["name"] = name
@@ -1684,7 +1797,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateImageBuilderStreamingURL")
+        )
         input_: capo_appstream.types.create_image_builder_streaming_url_request.CreateImageBuilderStreamingURLRequest = {}
         if name is not None:
             input_["name"] = name
@@ -1772,7 +1887,19 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appstream.types.create_imported_image_request.CreateImportedImageRequest",
+        ) -> dict[str, Any]:
+            import capo_appstream.types.create_imported_image_request
+
+            return capo_appstream.types.create_imported_image_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateImportedImage", redact_input=_redact_input),
+        )
         input_: capo_appstream.types.create_imported_image_request.CreateImportedImageRequest = {}
         if name is not None:
             input_["name"] = name
@@ -1884,7 +2011,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStack")
+        )
         input_: capo_appstream.types.create_stack_request.CreateStackRequest = {}
         if name is not None:
             input_["name"] = name
@@ -1969,7 +2098,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStreamingURL")
+        )
         input_: capo_appstream.types.create_streaming_url_request.CreateStreamingURLRequest = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -2048,7 +2179,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateThemeForStack")
+        )
         input_: capo_appstream.types.create_theme_for_stack_request.CreateThemeForStackRequest = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -2122,7 +2255,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUpdatedImage")
+        )
         input_: capo_appstream.types.create_updated_image_request.CreateUpdatedImageRequest = {}
         if existing_image_name is not None:
             input_["existing_image_name"] = existing_image_name
@@ -2172,7 +2307,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUsageReportSubscription")
+        )
         input_: capo_appstream.types.create_usage_report_subscription_request.CreateUsageReportSubscriptionRequest = {}
 
         response = await aexecute_pipeline(
@@ -2234,7 +2371,16 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appstream.types.create_user_request.CreateUserRequest",
+        ) -> dict[str, Any]:
+            import capo_appstream.types.create_user_request
+
+            return capo_appstream.types.create_user_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUser", redact_input=_redact_input)
+        )
         input_: capo_appstream.types.create_user_request.CreateUserRequest = {}
         if user_name is not None:
             input_["user_name"] = user_name
@@ -2288,7 +2434,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAppBlock")
+        )
         input_: capo_appstream.types.delete_app_block_request.DeleteAppBlockRequest = {}
         if name is not None:
             input_["name"] = name
@@ -2335,7 +2483,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAppBlockBuilder")
+        )
         input_: capo_appstream.types.delete_app_block_builder_request.DeleteAppBlockBuilderRequest = {}
         if name is not None:
             input_["name"] = name
@@ -2382,7 +2532,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_appstream.types.delete_application_request.DeleteApplicationRequest = {}
         if name is not None:
             input_["name"] = name
@@ -2429,7 +2581,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDirectoryConfig")
+        )
         input_: capo_appstream.types.delete_directory_config_request.DeleteDirectoryConfigRequest = {}
         if directory_name is not None:
             input_["directory_name"] = directory_name
@@ -2478,7 +2632,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEntitlement")
+        )
         input_: capo_appstream.types.delete_entitlement_request.DeleteEntitlementRequest = {}
         if name is not None:
             input_["name"] = name
@@ -2526,7 +2682,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFleet")
+        )
         input_: capo_appstream.types.delete_fleet_request.DeleteFleetRequest = {}
         if name is not None:
             input_["name"] = name
@@ -2573,7 +2731,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteImage")
+        )
         input_: capo_appstream.types.delete_image_request.DeleteImageRequest = {}
         if name is not None:
             input_["name"] = name
@@ -2619,7 +2779,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteImageBuilder")
+        )
         input_: capo_appstream.types.delete_image_builder_request.DeleteImageBuilderRequest = {}
         if name is not None:
             input_["name"] = name
@@ -2668,7 +2830,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteImagePermissions")
+        )
         input_: capo_appstream.types.delete_image_permissions_request.DeleteImagePermissionsRequest = {}
         if name is not None:
             input_["name"] = name
@@ -2717,7 +2881,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStack")
+        )
         input_: capo_appstream.types.delete_stack_request.DeleteStackRequest = {}
         if name is not None:
             input_["name"] = name
@@ -2763,7 +2929,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteThemeForStack")
+        )
         input_: capo_appstream.types.delete_theme_for_stack_request.DeleteThemeForStackRequest = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -2802,7 +2970,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUsageReportSubscription")
+        )
         input_: capo_appstream.types.delete_usage_report_subscription_request.DeleteUsageReportSubscriptionRequest = {}
 
         response = await aexecute_pipeline(
@@ -2848,7 +3018,16 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appstream.types.delete_user_request.DeleteUserRequest",
+        ) -> dict[str, Any]:
+            import capo_appstream.types.delete_user_request
+
+            return capo_appstream.types.delete_user_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUser", redact_input=_redact_input)
+        )
         input_: capo_appstream.types.delete_user_request.DeleteUserRequest = {}
         if user_name is not None:
             input_["user_name"] = user_name
@@ -2901,7 +3080,10 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeAppBlockBuilderAppBlockAssociations"),
+        )
         input_: capo_appstream.types.describe_app_block_builder_app_block_associations_request.DescribeAppBlockBuilderAppBlockAssociationsRequest = {}
         if app_block_arn is not None:
             input_["app_block_arn"] = app_block_arn
@@ -2979,7 +3161,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAppBlockBuilders")
+        )
         input_: capo_appstream.types.describe_app_block_builders_request.DescribeAppBlockBuildersRequest = {}
         if names is not None:
             input_["names"] = names
@@ -3053,7 +3237,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAppBlocks")
+        )
         input_: capo_appstream.types.describe_app_blocks_request.DescribeAppBlocksRequest = {}
         if arns is not None:
             input_["arns"] = arns
@@ -3108,7 +3294,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeApplicationFleetAssociations")
+        )
         input_: capo_appstream.types.describe_application_fleet_associations_request.DescribeApplicationFleetAssociationsRequest = {}
         if fleet_name is not None:
             input_["fleet_name"] = fleet_name
@@ -3163,7 +3351,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeApplications")
+        )
         input_: capo_appstream.types.describe_applications_request.DescribeApplicationsRequest = {}
         if arns is not None:
             input_["arns"] = arns
@@ -3217,7 +3407,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAppLicenseUsage")
+        )
         input_: capo_appstream.types.describe_app_license_usage_request.DescribeAppLicenseUsageRequest = {}
         if billing_period is not None:
             input_["billing_period"] = billing_period
@@ -3271,7 +3463,21 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_appstream.types.describe_directory_configs_result.DescribeDirectoryConfigsResult",
+        ) -> dict[str, Any]:
+            import capo_appstream.types.describe_directory_configs_result
+
+            return (
+                capo_appstream.types.describe_directory_configs_result.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeDirectoryConfigs", redact_output=_redact_output),
+        )
         input_: capo_appstream.types.describe_directory_configs_request.DescribeDirectoryConfigsRequest = {}
         if directory_names is not None:
             input_["directory_names"] = directory_names
@@ -3327,7 +3533,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEntitlements")
+        )
         input_: capo_appstream.types.describe_entitlements_request.DescribeEntitlementsRequest = {}
         if name is not None:
             input_["name"] = name
@@ -3379,7 +3587,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFleets")
+        )
         input_: capo_appstream.types.describe_fleets_request.DescribeFleetsRequest = {}
         if names is not None:
             input_["names"] = names
@@ -3429,7 +3639,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeImageBuilders")
+        )
         input_: capo_appstream.types.describe_image_builders_request.DescribeImageBuildersRequest = {}
         if names is not None:
             input_["names"] = names
@@ -3485,7 +3697,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeImagePermissions")
+        )
         input_: capo_appstream.types.describe_image_permissions_request.DescribeImagePermissionsRequest = {}
         if name is not None:
             input_["name"] = name
@@ -3571,7 +3785,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeImages")
+        )
         input_: capo_appstream.types.describe_images_request.DescribeImagesRequest = {}
         if names is not None:
             input_["names"] = names
@@ -3664,7 +3880,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSessions")
+        )
         input_: capo_appstream.types.describe_sessions_request.DescribeSessionsRequest = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -3725,7 +3943,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSoftwareAssociations")
+        )
         input_: capo_appstream.types.describe_software_associations_request.DescribeSoftwareAssociationsRequest = {}
         if associated_resource is not None:
             input_["associated_resource"] = associated_resource
@@ -3775,7 +3995,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStacks")
+        )
         input_: capo_appstream.types.describe_stacks_request.DescribeStacksRequest = {}
         if names is not None:
             input_["names"] = names
@@ -3822,7 +4044,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeThemeForStack")
+        )
         input_: capo_appstream.types.describe_theme_for_stack_request.DescribeThemeForStackRequest = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -3869,7 +4093,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeUsageReportSubscriptions")
+        )
         input_: capo_appstream.types.describe_usage_report_subscriptions_request.DescribeUsageReportSubscriptionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3923,7 +4149,17 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_appstream.types.describe_users_result.DescribeUsersResult",
+        ) -> dict[str, Any]:
+            import capo_appstream.types.describe_users_result
+
+            return capo_appstream.types.describe_users_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeUsers", redact_output=_redact_output),
+        )
         input_: capo_appstream.types.describe_users_request.DescribeUsersRequest = {}
         if authentication_type is not None:
             input_["authentication_type"] = authentication_type
@@ -3982,7 +4218,32 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appstream.types.describe_user_stack_associations_request.DescribeUserStackAssociationsRequest",
+        ) -> dict[str, Any]:
+            import capo_appstream.types.describe_user_stack_associations_request
+
+            return capo_appstream.types.describe_user_stack_associations_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_appstream.types.describe_user_stack_associations_result.DescribeUserStackAssociationsResult",
+        ) -> dict[str, Any]:
+            import capo_appstream.types.describe_user_stack_associations_result
+
+            return capo_appstream.types.describe_user_stack_associations_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeUserStackAssociations",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_appstream.types.describe_user_stack_associations_request.DescribeUserStackAssociationsRequest = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -4038,7 +4299,17 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appstream.types.disable_user_request.DisableUserRequest",
+        ) -> dict[str, Any]:
+            import capo_appstream.types.disable_user_request
+
+            return capo_appstream.types.disable_user_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisableUser", redact_input=_redact_input),
+        )
         input_: capo_appstream.types.disable_user_request.DisableUserRequest = {}
         if user_name is not None:
             input_["user_name"] = user_name
@@ -4089,7 +4360,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateAppBlockBuilderAppBlock")
+        )
         input_: capo_appstream.types.disassociate_app_block_builder_app_block_request.DisassociateAppBlockBuilderAppBlockRequest = {}
         if app_block_arn is not None:
             input_["app_block_arn"] = app_block_arn
@@ -4139,7 +4412,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateApplicationFleet")
+        )
         input_: capo_appstream.types.disassociate_application_fleet_request.DisassociateApplicationFleetRequest = {}
         if fleet_name is not None:
             input_["fleet_name"] = fleet_name
@@ -4191,7 +4466,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateApplicationFromEntitlement")
+        )
         input_: capo_appstream.types.disassociate_application_from_entitlement_request.DisassociateApplicationFromEntitlementRequest = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -4244,7 +4521,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateFleet")
+        )
         input_: capo_appstream.types.disassociate_fleet_request.DisassociateFleetRequest = {}
         if fleet_name is not None:
             input_["fleet_name"] = fleet_name
@@ -4295,7 +4574,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateSoftwareFromImageBuilder")
+        )
         input_: capo_appstream.types.disassociate_software_from_image_builder_request.DisassociateSoftwareFromImageBuilderRequest = {}
         if image_builder_name is not None:
             input_["image_builder_name"] = image_builder_name
@@ -4345,7 +4626,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DrainSessionInstance")
+        )
         input_: capo_appstream.types.drain_session_instance_request.DrainSessionInstanceRequest = {}
         if session_id is not None:
             input_["session_id"] = session_id
@@ -4394,7 +4677,16 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appstream.types.enable_user_request.EnableUserRequest",
+        ) -> dict[str, Any]:
+            import capo_appstream.types.enable_user_request
+
+            return capo_appstream.types.enable_user_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableUser", redact_input=_redact_input)
+        )
         input_: capo_appstream.types.enable_user_request.EnableUserRequest = {}
         if user_name is not None:
             input_["user_name"] = user_name
@@ -4439,7 +4731,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExpireSession")
+        )
         input_: capo_appstream.types.expire_session_request.ExpireSessionRequest = {}
         if session_id is not None:
             input_["session_id"] = session_id
@@ -4484,7 +4778,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetExportImageTask")
+        )
         input_: capo_appstream.types.get_export_image_task_request.GetExportImageTaskRequest = {}
         if task_id is not None:
             input_["task_id"] = task_id
@@ -4531,7 +4827,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssociatedFleets")
+        )
         input_: capo_appstream.types.list_associated_fleets_request.ListAssociatedFleetsRequest = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -4580,7 +4878,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssociatedStacks")
+        )
         input_: capo_appstream.types.list_associated_stacks_request.ListAssociatedStacksRequest = {}
         if fleet_name is not None:
             input_["fleet_name"] = fleet_name
@@ -4634,7 +4934,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEntitledApplications")
+        )
         input_: capo_appstream.types.list_entitled_applications_request.ListEntitledApplicationsRequest = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name
@@ -4690,7 +4992,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExportImageTasks")
+        )
         input_: capo_appstream.types.list_export_image_tasks_request.ListExportImageTasksRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -4738,7 +5042,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_appstream.types.list_tags_for_resource_request.ListTagsForResourceRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -4790,7 +5096,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAppBlockBuilder")
+        )
         input_: capo_appstream.types.start_app_block_builder_request.StartAppBlockBuilderRequest = {}
         if name is not None:
             input_["name"] = name
@@ -4841,7 +5149,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartFleet")
+        )
         input_: capo_appstream.types.start_fleet_request.StartFleetRequest = {}
         if name is not None:
             input_["name"] = name
@@ -4893,7 +5203,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartImageBuilder")
+        )
         input_: capo_appstream.types.start_image_builder_request.StartImageBuilderRequest = {}
         if name is not None:
             input_["name"] = name
@@ -4945,7 +5257,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartSoftwareDeploymentToImageBuilder")
+        )
         input_: capo_appstream.types.start_software_deployment_to_image_builder_request.StartSoftwareDeploymentToImageBuilderRequest = {}
         if image_builder_name is not None:
             input_["image_builder_name"] = image_builder_name
@@ -4993,7 +5307,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopAppBlockBuilder")
+        )
         input_: capo_appstream.types.stop_app_block_builder_request.StopAppBlockBuilderRequest = {}
         if name is not None:
             input_["name"] = name
@@ -5038,7 +5354,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopFleet")
+        )
         input_: capo_appstream.types.stop_fleet_request.StopFleetRequest = {}
         if name is not None:
             input_["name"] = name
@@ -5084,7 +5402,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopImageBuilder")
+        )
         input_: capo_appstream.types.stop_image_builder_request.StopImageBuilderRequest = {}
         if name is not None:
             input_["name"] = name
@@ -5132,7 +5452,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_appstream.types.tag_resource_request.TagResourceRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -5180,7 +5502,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_appstream.types.untag_resource_request.UntagResourceRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -5263,7 +5587,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAppBlockBuilder")
+        )
         input_: capo_appstream.types.update_app_block_builder_request.UpdateAppBlockBuilderRequest = {}
         if name is not None:
             input_["name"] = name
@@ -5349,7 +5675,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_appstream.types.update_application_request.UpdateApplicationRequest = {}
         if name is not None:
             input_["name"] = name
@@ -5428,7 +5756,34 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appstream.types.update_directory_config_request.UpdateDirectoryConfigRequest",
+        ) -> dict[str, Any]:
+            import capo_appstream.types.update_directory_config_request
+
+            return (
+                capo_appstream.types.update_directory_config_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_appstream.types.update_directory_config_result.UpdateDirectoryConfigResult",
+        ) -> dict[str, Any]:
+            import capo_appstream.types.update_directory_config_result
+
+            return capo_appstream.types.update_directory_config_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDirectoryConfig",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_appstream.types.update_directory_config_request.UpdateDirectoryConfigRequest = {}
         if directory_name is not None:
             input_["directory_name"] = directory_name
@@ -5497,7 +5852,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEntitlement")
+        )
         input_: capo_appstream.types.update_entitlement_request.UpdateEntitlementRequest = {}
         if name is not None:
             input_["name"] = name
@@ -5631,7 +5988,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFleet")
+        )
         input_: capo_appstream.types.update_fleet_request.UpdateFleetRequest = {}
         if image_name is not None:
             input_["image_name"] = image_name
@@ -5733,7 +6092,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateImagePermissions")
+        )
         input_: capo_appstream.types.update_image_permissions_request.UpdateImagePermissionsRequest = {}
         if name is not None:
             input_["name"] = name
@@ -5836,7 +6197,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateStack")
+        )
         input_: capo_appstream.types.update_stack_request.UpdateStackRequest = {}
         if display_name is not None:
             input_["display_name"] = display_name
@@ -5939,7 +6302,9 @@ class AsyncAppStreamClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateThemeForStack")
+        )
         input_: capo_appstream.types.update_theme_for_stack_request.UpdateThemeForStackRequest = {}
         if stack_name is not None:
             input_["stack_name"] = stack_name

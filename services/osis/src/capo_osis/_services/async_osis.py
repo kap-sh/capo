@@ -24,7 +24,9 @@ from capo_osis._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -169,7 +171,9 @@ class AsyncOSISClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncOSISClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncOSISClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncOSISClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -177,8 +181,10 @@ class AsyncOSISClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -258,7 +264,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePipeline")
+        )
         input_: capo_osis.types.create_pipeline_request.CreatePipelineRequest = {
             "pipeline_name": pipeline_name,
             "min_units": min_units,
@@ -324,7 +332,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePipelineEndpoint")
+        )
         input_: capo_osis.types.create_pipeline_endpoint_request.CreatePipelineEndpointRequest = {
             "pipeline_arn": pipeline_arn,
             "vpc_options": vpc_options,
@@ -374,7 +384,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePipeline")
+        )
         input_: capo_osis.types.delete_pipeline_request.DeletePipelineRequest = {
             "pipeline_name": pipeline_name
         }
@@ -421,7 +433,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePipelineEndpoint")
+        )
         input_: capo_osis.types.delete_pipeline_endpoint_request.DeletePipelineEndpointRequest = {
             "endpoint_id": endpoint_id
         }
@@ -470,7 +484,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_osis.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -518,7 +534,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPipeline")
+        )
         input_: capo_osis.types.get_pipeline_request.GetPipelineRequest = {
             "pipeline_name": pipeline_name
         }
@@ -568,7 +586,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPipelineBlueprint")
+        )
         input_: capo_osis.types.get_pipeline_blueprint_request.GetPipelineBlueprintRequest = {
             "blueprint_name": blueprint_name
         }
@@ -618,7 +638,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPipelineChangeProgress")
+        )
         input_: capo_osis.types.get_pipeline_change_progress_request.GetPipelineChangeProgressRequest = {
             "pipeline_name": pipeline_name
         }
@@ -667,7 +689,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_osis.types.get_resource_policy_request.GetResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -709,7 +733,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPipelineBlueprints")
+        )
         input_: capo_osis.types.list_pipeline_blueprints_request.ListPipelineBlueprintsRequest = {}
 
         response = await aexecute_pipeline(
@@ -757,7 +783,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPipelineEndpointConnections")
+        )
         input_: capo_osis.types.list_pipeline_endpoint_connections_request.ListPipelineEndpointConnectionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -832,7 +860,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPipelineEndpoints")
+        )
         input_: capo_osis.types.list_pipeline_endpoints_request.ListPipelineEndpointsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -905,7 +935,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPipelines")
+        )
         input_: capo_osis.types.list_pipelines_request.ListPipelinesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -974,7 +1006,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_osis.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "arn": arn
         }
@@ -1025,7 +1059,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_osis.types.put_resource_policy_request.PutResourcePolicyRequest = {
             "resource_arn": resource_arn,
             "policy": policy,
@@ -1076,7 +1112,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokePipelineEndpointConnections")
+        )
         input_: capo_osis.types.revoke_pipeline_endpoint_connections_request.RevokePipelineEndpointConnectionsRequest = {
             "pipeline_arn": pipeline_arn,
             "endpoint_ids": endpoint_ids,
@@ -1126,7 +1164,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartPipeline")
+        )
         input_: capo_osis.types.start_pipeline_request.StartPipelineRequest = {
             "pipeline_name": pipeline_name
         }
@@ -1175,7 +1215,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopPipeline")
+        )
         input_: capo_osis.types.stop_pipeline_request.StopPipelineRequest = {
             "pipeline_name": pipeline_name
         }
@@ -1226,7 +1268,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_osis.types.tag_resource_request.TagResourceRequest = {
             "arn": arn,
             "tags": tags,
@@ -1277,7 +1321,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_osis.types.untag_resource_request.UntagResourceRequest = {
             "arn": arn,
             "tag_keys": tag_keys,
@@ -1349,7 +1395,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePipeline")
+        )
         input_: capo_osis.types.update_pipeline_request.UpdatePipelineRequest = {
             "pipeline_name": pipeline_name
         }
@@ -1410,7 +1458,9 @@ class AsyncOSISClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ValidatePipeline")
+        )
         input_: capo_osis.types.validate_pipeline_request.ValidatePipelineRequest = {
             "pipeline_configuration_body": pipeline_configuration_body
         }

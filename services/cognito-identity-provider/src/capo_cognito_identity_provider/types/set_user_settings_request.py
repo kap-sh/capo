@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#SetUserSettingsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -50,4 +50,11 @@ def deserialize_aws_json_1_1(data: dict) -> SetUserSettingsRequest:
         )
     else:
         raise DeserializationError("SetUserSettingsRequest.mfa_options required")
+    return out
+
+
+def redact_sensitive(value: SetUserSettingsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "access_token" in value:
+        out["access_token"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_identitystore._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -151,7 +152,16 @@ class UserResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_identitystore.types.create_user_request.CreateUserRequest",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.create_user_request
+
+            return capo_identitystore.types.create_user_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateUser", redact_input=_redact_input)
+        )
         input_: capo_identitystore.types.create_user_request.CreateUserRequest = {
             "identity_store_id": identity_store_id
         }
@@ -240,7 +250,19 @@ class UserResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_identitystore.types.describe_user_response.DescribeUserResponse",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.describe_user_response
+
+            return capo_identitystore.types.describe_user_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeUser", redact_output=_redact_output),
+        )
         input_: capo_identitystore.types.describe_user_request.DescribeUserRequest = {
             "identity_store_id": identity_store_id,
             "user_id": user_id,
@@ -300,7 +322,9 @@ class UserResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateUser")
+        )
         input_: capo_identitystore.types.update_user_request.UpdateUserRequest = {
             "identity_store_id": identity_store_id,
             "user_id": user_id,
@@ -358,7 +382,9 @@ class UserResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteUser")
+        )
         input_: capo_identitystore.types.delete_user_request.DeleteUserRequest = {
             "identity_store_id": identity_store_id,
             "user_id": user_id,
@@ -418,7 +444,26 @@ class UserResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_identitystore.types.list_users_request.ListUsersRequest",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.list_users_request
+
+            return capo_identitystore.types.list_users_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_identitystore.types.list_users_response.ListUsersResponse",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.list_users_response
+
+            return capo_identitystore.types.list_users_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListUsers", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_identitystore.types.list_users_request.ListUsersRequest = {
             "identity_store_id": identity_store_id
         }
@@ -475,7 +520,16 @@ class UserResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_identitystore.types.get_user_id_request.GetUserIdRequest",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.get_user_id_request
+
+            return capo_identitystore.types.get_user_id_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetUserId", redact_input=_redact_input)
+        )
         input_: capo_identitystore.types.get_user_id_request.GetUserIdRequest = {
             "identity_store_id": identity_store_id,
             "alternate_identifier": alternate_identifier,
@@ -589,7 +643,16 @@ class AsyncUserResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_identitystore.types.create_user_request.CreateUserRequest",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.create_user_request
+
+            return capo_identitystore.types.create_user_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateUser", redact_input=_redact_input)
+        )
         input_: capo_identitystore.types.create_user_request.CreateUserRequest = {
             "identity_store_id": identity_store_id
         }
@@ -679,7 +742,19 @@ class AsyncUserResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_identitystore.types.describe_user_response.DescribeUserResponse",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.describe_user_response
+
+            return capo_identitystore.types.describe_user_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeUser", redact_output=_redact_output),
+        )
         input_: capo_identitystore.types.describe_user_request.DescribeUserRequest = {
             "identity_store_id": identity_store_id,
             "user_id": user_id,
@@ -740,7 +815,9 @@ class AsyncUserResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateUser")
+        )
         input_: capo_identitystore.types.update_user_request.UpdateUserRequest = {
             "identity_store_id": identity_store_id,
             "user_id": user_id,
@@ -799,7 +876,9 @@ class AsyncUserResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteUser")
+        )
         input_: capo_identitystore.types.delete_user_request.DeleteUserRequest = {
             "identity_store_id": identity_store_id,
             "user_id": user_id,
@@ -860,7 +939,26 @@ class AsyncUserResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_identitystore.types.list_users_request.ListUsersRequest",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.list_users_request
+
+            return capo_identitystore.types.list_users_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_identitystore.types.list_users_response.ListUsersResponse",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.list_users_response
+
+            return capo_identitystore.types.list_users_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListUsers", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_identitystore.types.list_users_request.ListUsersRequest = {
             "identity_store_id": identity_store_id
         }
@@ -918,7 +1016,16 @@ class AsyncUserResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_identitystore.types.get_user_id_request.GetUserIdRequest",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.get_user_id_request
+
+            return capo_identitystore.types.get_user_id_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetUserId", redact_input=_redact_input)
+        )
         input_: capo_identitystore.types.get_user_id_request.GetUserIdRequest = {
             "identity_store_id": identity_store_id,
             "alternate_identifier": alternate_identifier,

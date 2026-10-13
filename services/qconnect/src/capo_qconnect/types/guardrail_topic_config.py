@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#GuardrailTopicConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -63,4 +63,21 @@ def deserialize_json(data: dict) -> GuardrailTopicConfig:
         out["type"] = data["type"]
     else:
         raise DeserializationError("GuardrailTopicConfig.type required")
+    return out
+
+
+def redact_sensitive(value: GuardrailTopicConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "definition" in value:
+        out["definition"] = "*** Sensitive Data Redacted ***"
+    if "examples" in value:
+        import capo_qconnect.types.guardrail_topic_examples
+
+        out["examples"] = capo_qconnect.types.guardrail_topic_examples.redact_sensitive(
+            value["examples"]
+        )
+    if "type" in value:
+        out["type"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#EpisodicMemoryStrategyInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -118,6 +118,29 @@ def deserialize_json(data: dict) -> EpisodicMemoryStrategyInput:
         out["memory_record_schema"] = (
             capo_bedrock_agentcore_control.types.memory_record_schema.deserialize_json(
                 data["memoryRecordSchema"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: EpisodicMemoryStrategyInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "reflection_configuration" in value:
+        import capo_bedrock_agentcore_control.types.episodic_reflection_configuration_input
+
+        out["reflection_configuration"] = (
+            capo_bedrock_agentcore_control.types.episodic_reflection_configuration_input.redact_sensitive(
+                value["reflection_configuration"]
+            )
+        )
+    if "memory_record_schema" in value:
+        import capo_bedrock_agentcore_control.types.memory_record_schema
+
+        out["memory_record_schema"] = (
+            capo_bedrock_agentcore_control.types.memory_record_schema.redact_sensitive(
+                value["memory_record_schema"]
             )
         )
     return out

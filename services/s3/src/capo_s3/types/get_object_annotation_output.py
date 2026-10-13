@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#GetObjectAnnotationOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -72,3 +72,10 @@ class GetObjectAnnotationOutput(TypedDict, closed=True):
         "capo_s3.types.replication_status.ReplicationStatus"
     ]
     """<p>The replication status of the annotation. Possible values include <code>PENDING</code>, <code>COMPLETED</code>, <code>FAILED</code>, and <code>REPLICA</code>.</p>"""
+
+
+def redact_sensitive(value: GetObjectAnnotationOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "annotation_payload" in value:
+        out["annotation_payload"] = "*** Streaming Data Redacted ***"
+    return out

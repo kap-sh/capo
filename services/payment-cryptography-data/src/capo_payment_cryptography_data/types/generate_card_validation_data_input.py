@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#GenerateCardValidationDataInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -71,4 +71,19 @@ def deserialize_json(data: dict) -> GenerateCardValidationDataInput:
         )
     if data.get("ValidationDataLength") is not None:
         out["validation_data_length"] = data["ValidationDataLength"]
+    return out
+
+
+def redact_sensitive(value: GenerateCardValidationDataInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "primary_account_number" in value:
+        out["primary_account_number"] = "*** Sensitive Data Redacted ***"
+    if "generation_attributes" in value:
+        import capo_payment_cryptography_data.types.card_generation_attributes
+
+        out["generation_attributes"] = (
+            capo_payment_cryptography_data.types.card_generation_attributes.redact_sensitive(
+                value["generation_attributes"]
+            )
+        )
     return out

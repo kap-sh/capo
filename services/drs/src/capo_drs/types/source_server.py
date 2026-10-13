@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.drs#SourceServer``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -182,4 +182,11 @@ def deserialize_json(data: dict) -> SourceServer:
         out["source_network_id"] = data["sourceNetworkID"]
     if data.get("agentVersion") is not None:
         out["agent_version"] = data["agentVersion"]
+    return out
+
+
+def redact_sensitive(value: SourceServer) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
     return out

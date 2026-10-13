@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.transfer#StartFileTransferRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -95,6 +95,19 @@ def deserialize_aws_json_1_1(data: dict) -> StartFileTransferRequest:
         out["custom_http_headers"] = (
             capo_transfer.types.custom_http_headers.deserialize_aws_json_1_1(
                 data["CustomHttpHeaders"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: StartFileTransferRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "custom_http_headers" in value:
+        import capo_transfer.types.custom_http_headers
+
+        out["custom_http_headers"] = (
+            capo_transfer.types.custom_http_headers.redact_sensitive(
+                value["custom_http_headers"]
             )
         )
     return out

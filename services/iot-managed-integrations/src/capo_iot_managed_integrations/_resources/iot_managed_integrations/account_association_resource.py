@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_iot_managed_integrations._auth._signers
 import capo_iot_managed_integrations._auth._sigv4
 from capo_iot_managed_integrations._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -104,7 +105,32 @@ class AccountAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.create_account_association_request.CreateAccountAssociationRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_account_association_request
+
+            return capo_iot_managed_integrations.types.create_account_association_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.create_account_association_response.CreateAccountAssociationResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_account_association_response
+
+            return capo_iot_managed_integrations.types.create_account_association_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAccountAssociation",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_iot_managed_integrations.types.create_account_association_request.CreateAccountAssociationRequest = {
             "connector_destination_id": connector_destination_id
         }
@@ -163,7 +189,19 @@ class AccountAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_account_association_response.GetAccountAssociationResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_account_association_response
+
+            return capo_iot_managed_integrations.types.get_account_association_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAccountAssociation", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_account_association_request.GetAccountAssociationRequest = {
             "account_association_id": account_association_id
         }
@@ -218,7 +256,9 @@ class AccountAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAccountAssociation")
+        )
         input_: capo_iot_managed_integrations.types.update_account_association_request.UpdateAccountAssociationRequest = {
             "account_association_id": account_association_id
         }
@@ -268,7 +308,9 @@ class AccountAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAccountAssociation")
+        )
         input_: capo_iot_managed_integrations.types.delete_account_association_request.DeleteAccountAssociationRequest = {
             "account_association_id": account_association_id
         }
@@ -325,7 +367,9 @@ class AccountAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAccountAssociations")
+        )
         input_: capo_iot_managed_integrations.types.list_account_associations_request.ListAccountAssociationsRequest = {}
         if connector_destination_id is not None:
             input_["connector_destination_id"] = connector_destination_id
@@ -378,7 +422,21 @@ class AccountAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.start_account_association_refresh_response.StartAccountAssociationRefreshResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.start_account_association_refresh_response
+
+            return capo_iot_managed_integrations.types.start_account_association_refresh_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartAccountAssociationRefresh", redact_output=_redact_output
+            ),
+        )
         input_: capo_iot_managed_integrations.types.start_account_association_refresh_request.StartAccountAssociationRefreshRequest = {
             "account_association_id": account_association_id
         }
@@ -452,7 +510,32 @@ class AsyncAccountAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.create_account_association_request.CreateAccountAssociationRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_account_association_request
+
+            return capo_iot_managed_integrations.types.create_account_association_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.create_account_association_response.CreateAccountAssociationResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_account_association_response
+
+            return capo_iot_managed_integrations.types.create_account_association_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAccountAssociation",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_iot_managed_integrations.types.create_account_association_request.CreateAccountAssociationRequest = {
             "connector_destination_id": connector_destination_id
         }
@@ -512,7 +595,19 @@ class AsyncAccountAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_account_association_response.GetAccountAssociationResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_account_association_response
+
+            return capo_iot_managed_integrations.types.get_account_association_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAccountAssociation", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_account_association_request.GetAccountAssociationRequest = {
             "account_association_id": account_association_id
         }
@@ -568,7 +663,9 @@ class AsyncAccountAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAccountAssociation")
+        )
         input_: capo_iot_managed_integrations.types.update_account_association_request.UpdateAccountAssociationRequest = {
             "account_association_id": account_association_id
         }
@@ -619,7 +716,9 @@ class AsyncAccountAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAccountAssociation")
+        )
         input_: capo_iot_managed_integrations.types.delete_account_association_request.DeleteAccountAssociationRequest = {
             "account_association_id": account_association_id
         }
@@ -677,7 +776,9 @@ class AsyncAccountAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAccountAssociations")
+        )
         input_: capo_iot_managed_integrations.types.list_account_associations_request.ListAccountAssociationsRequest = {}
         if connector_destination_id is not None:
             input_["connector_destination_id"] = connector_destination_id
@@ -731,7 +832,21 @@ class AsyncAccountAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.start_account_association_refresh_response.StartAccountAssociationRefreshResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.start_account_association_refresh_response
+
+            return capo_iot_managed_integrations.types.start_account_association_refresh_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartAccountAssociationRefresh", redact_output=_redact_output
+            ),
+        )
         input_: capo_iot_managed_integrations.types.start_account_association_refresh_request.StartAccountAssociationRefreshRequest = {
             "account_association_id": account_association_id
         }

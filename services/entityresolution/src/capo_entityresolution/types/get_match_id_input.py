@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.entityresolution#GetMatchIdInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -48,4 +48,11 @@ def deserialize_json(data: dict) -> GetMatchIdInput:
         out["apply_normalization"] = data["applyNormalization"]
     else:
         out["apply_normalization"] = True
+    return out
+
+
+def redact_sensitive(value: GetMatchIdInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "record" in value:
+        out["record"] = "*** Sensitive Data Redacted ***"
     return out

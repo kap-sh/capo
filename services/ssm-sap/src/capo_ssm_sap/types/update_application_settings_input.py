@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssmsap#UpdateApplicationSettingsInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -93,4 +93,25 @@ def deserialize_json(data: dict) -> UpdateApplicationSettingsInput:
         )
     if data.get("DatabaseArn") is not None:
         out["database_arn"] = data["DatabaseArn"]
+    return out
+
+
+def redact_sensitive(value: UpdateApplicationSettingsInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "credentials_to_add_or_update" in value:
+        import capo_ssm_sap.types.application_credential_list
+
+        out["credentials_to_add_or_update"] = (
+            capo_ssm_sap.types.application_credential_list.redact_sensitive(
+                value["credentials_to_add_or_update"]
+            )
+        )
+    if "credentials_to_remove" in value:
+        import capo_ssm_sap.types.application_credential_list
+
+        out["credentials_to_remove"] = (
+            capo_ssm_sap.types.application_credential_list.redact_sensitive(
+                value["credentials_to_remove"]
+            )
+        )
     return out

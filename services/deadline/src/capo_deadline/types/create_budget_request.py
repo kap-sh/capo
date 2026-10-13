@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#CreateBudgetRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -129,4 +129,17 @@ def deserialize_json(data: dict) -> CreateBudgetRequest:
         import capo_deadline.types.tags
 
         out["tags"] = capo_deadline.types.tags.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: CreateBudgetRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "actions" in value:
+        import capo_deadline.types.budget_actions_to_add
+
+        out["actions"] = capo_deadline.types.budget_actions_to_add.redact_sensitive(
+            value["actions"]
+        )
     return out

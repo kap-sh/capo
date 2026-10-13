@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cleanrooms#AnalysisParameterList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_cleanrooms.types.analysis_parameter
@@ -29,3 +29,7 @@ def deserialize_json(data: list) -> AnalysisParameterList:
             continue
         out.append(capo_cleanrooms.types.analysis_parameter.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: AnalysisParameterList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

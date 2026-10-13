@@ -27,10 +27,12 @@ from capo_deadline._resources.deadline.monitor_resource import MonitorResource
 from capo_deadline._services._aws_config import aws_config
 from capo_deadline._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -502,7 +504,9 @@ class deadlineClient:
         self.monitor_resource = MonitorResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[deadlineClientConfig] = None
+        self,
+        config_overrides: Optional[deadlineClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: deadlineClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -510,8 +514,10 @@ class deadlineClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -568,7 +574,17 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.batch_get_job_response.BatchGetJobResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.batch_get_job_response
+
+            return capo_deadline.types.batch_get_job_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetJob", redact_output=_redact_output),
+        )
         input_: capo_deadline.types.batch_get_job_request.BatchGetJobRequest = {
             "identifiers": identifiers
         }
@@ -619,7 +635,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetSession")
+        )
         input_: capo_deadline.types.batch_get_session_request.BatchGetSessionRequest = {
             "identifiers": identifiers
         }
@@ -670,7 +688,21 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.batch_get_session_action_response.BatchGetSessionActionResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.batch_get_session_action_response
+
+            return (
+                capo_deadline.types.batch_get_session_action_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetSessionAction", redact_output=_redact_output),
+        )
         input_: capo_deadline.types.batch_get_session_action_request.BatchGetSessionActionRequest = {
             "identifiers": identifiers
         }
@@ -721,7 +753,17 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.batch_get_step_response.BatchGetStepResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.batch_get_step_response
+
+            return capo_deadline.types.batch_get_step_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetStep", redact_output=_redact_output),
+        )
         input_: capo_deadline.types.batch_get_step_request.BatchGetStepRequest = {
             "identifiers": identifiers
         }
@@ -772,7 +814,17 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.batch_get_task_response.BatchGetTaskResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.batch_get_task_response
+
+            return capo_deadline.types.batch_get_task_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetTask", redact_output=_redact_output),
+        )
         input_: capo_deadline.types.batch_get_task_request.BatchGetTaskRequest = {
             "identifiers": identifiers
         }
@@ -823,7 +875,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetWorker")
+        )
         input_: capo_deadline.types.batch_get_worker_request.BatchGetWorkerRequest = {
             "identifiers": identifiers
         }
@@ -876,7 +930,17 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_deadline.types.batch_update_job_request.BatchUpdateJobRequest",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.batch_update_job_request
+
+            return capo_deadline.types.batch_update_job_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchUpdateJob", redact_input=_redact_input),
+        )
         input_: capo_deadline.types.batch_update_job_request.BatchUpdateJobRequest = {
             "jobs": jobs
         }
@@ -932,7 +996,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchUpdateTask")
+        )
         input_: capo_deadline.types.batch_update_task_request.BatchUpdateTaskRequest = {
             "tasks": tasks
         }
@@ -986,7 +1052,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateQueueFleetAssociation")
+        )
         input_: capo_deadline.types.create_queue_fleet_association_request.CreateQueueFleetAssociationRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -1039,7 +1107,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateQueueLimitAssociation")
+        )
         input_: capo_deadline.types.create_queue_limit_association_request.CreateQueueLimitAssociationRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -1093,7 +1163,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQueueFleetAssociation")
+        )
         input_: capo_deadline.types.delete_queue_fleet_association_request.DeleteQueueFleetAssociationRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -1147,7 +1219,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQueueLimitAssociation")
+        )
         input_: capo_deadline.types.delete_queue_limit_association_request.DeleteQueueLimitAssociationRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -1200,7 +1274,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQueueFleetAssociation")
+        )
         input_: capo_deadline.types.get_queue_fleet_association_request.GetQueueFleetAssociationRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -1253,7 +1329,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQueueLimitAssociation")
+        )
         input_: capo_deadline.types.get_queue_limit_association_request.GetQueueLimitAssociationRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -1308,7 +1386,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSessionsStatisticsAggregation")
+        )
         input_: capo_deadline.types.get_sessions_statistics_aggregation_request.GetSessionsStatisticsAggregationRequest = {
             "farm_id": farm_id,
             "aggregation_id": aggregation_id,
@@ -1384,7 +1464,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAvailableMeteredProducts")
+        )
         input_: capo_deadline.types.list_available_metered_products_request.ListAvailableMeteredProductsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1461,7 +1543,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQueueFleetAssociations")
+        )
         input_: capo_deadline.types.list_queue_fleet_associations_request.ListQueueFleetAssociationsRequest = {
             "farm_id": farm_id
         }
@@ -1550,7 +1634,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQueueLimitAssociations")
+        )
         input_: capo_deadline.types.list_queue_limit_associations_request.ListQueueLimitAssociationsRequest = {
             "farm_id": farm_id
         }
@@ -1632,7 +1718,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_deadline.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1693,7 +1781,17 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.search_jobs_response.SearchJobsResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.search_jobs_response
+
+            return capo_deadline.types.search_jobs_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SearchJobs", redact_output=_redact_output),
+        )
         input_: capo_deadline.types.search_jobs_request.SearchJobsRequest = {
             "farm_id": farm_id,
             "item_offset": item_offset,
@@ -1764,7 +1862,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchSteps")
+        )
         input_: capo_deadline.types.search_steps_request.SearchStepsRequest = {
             "farm_id": farm_id,
             "item_offset": item_offset,
@@ -1837,7 +1937,17 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.search_tasks_response.SearchTasksResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.search_tasks_response
+
+            return capo_deadline.types.search_tasks_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SearchTasks", redact_output=_redact_output),
+        )
         input_: capo_deadline.types.search_tasks_request.SearchTasksRequest = {
             "farm_id": farm_id,
             "item_offset": item_offset,
@@ -1908,7 +2018,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchWorkers")
+        )
         input_: capo_deadline.types.search_workers_request.SearchWorkersRequest = {
             "farm_id": farm_id,
             "item_offset": item_offset,
@@ -1977,7 +2089,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartSessionsStatisticsAggregation")
+        )
         input_: capo_deadline.types.start_sessions_statistics_aggregation_request.StartSessionsStatisticsAggregationRequest = {
             "farm_id": farm_id,
             "resource_ids": resource_ids,
@@ -2036,7 +2150,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_deadline.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2088,7 +2204,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_deadline.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2142,7 +2260,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQueueFleetAssociation")
+        )
         input_: capo_deadline.types.update_queue_fleet_association_request.UpdateQueueFleetAssociationRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -2198,7 +2318,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQueueLimitAssociation")
+        )
         input_: capo_deadline.types.update_queue_limit_association_request.UpdateQueueLimitAssociationRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -2261,7 +2383,16 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_deadline.types.create_farm_request.CreateFarmRequest",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.create_farm_request
+
+            return capo_deadline.types.create_farm_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFarm", redact_input=_redact_input)
+        )
         input_: capo_deadline.types.create_farm_request.CreateFarmRequest = {
             "display_name": display_name
         }
@@ -2317,7 +2448,16 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.get_farm_response.GetFarmResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.get_farm_response
+
+            return capo_deadline.types.get_farm_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFarm", redact_output=_redact_output)
+        )
         input_: capo_deadline.types.get_farm_request.GetFarmRequest = {
             "farm_id": farm_id
         }
@@ -2372,7 +2512,16 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_deadline.types.update_farm_request.UpdateFarmRequest",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.update_farm_request
+
+            return capo_deadline.types.update_farm_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFarm", redact_input=_redact_input)
+        )
         input_: capo_deadline.types.update_farm_request.UpdateFarmRequest = {
             "farm_id": farm_id
         }
@@ -2425,7 +2574,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFarm")
+        )
         input_: capo_deadline.types.delete_farm_request.DeleteFarmRequest = {
             "farm_id": farm_id
         }
@@ -2477,7 +2628,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFarms")
+        )
         input_: capo_deadline.types.list_farms_request.ListFarmsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2564,7 +2717,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateMemberToFarm")
+        )
         input_: capo_deadline.types.associate_member_to_farm_request.AssociateMemberToFarmRequest = {
             "farm_id": farm_id,
             "principal_type": principal_type,
@@ -2628,7 +2783,17 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_deadline.types.create_limit_request.CreateLimitRequest",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.create_limit_request
+
+            return capo_deadline.types.create_limit_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateLimit", redact_input=_redact_input),
+        )
         input_: capo_deadline.types.create_limit_request.CreateLimitRequest = {
             "farm_id": farm_id,
             "display_name": display_name,
@@ -2694,7 +2859,19 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_deadline.types.create_storage_profile_request.CreateStorageProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.create_storage_profile_request
+
+            return capo_deadline.types.create_storage_profile_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateStorageProfile", redact_input=_redact_input),
+        )
         input_: capo_deadline.types.create_storage_profile_request.CreateStorageProfileRequest = {
             "farm_id": farm_id,
             "display_name": display_name,
@@ -2749,7 +2926,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLimit")
+        )
         input_: capo_deadline.types.delete_limit_request.DeleteLimitRequest = {
             "farm_id": farm_id,
             "limit_id": limit_id,
@@ -2798,7 +2977,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStorageProfile")
+        )
         input_: capo_deadline.types.delete_storage_profile_request.DeleteStorageProfileRequest = {
             "farm_id": farm_id,
             "storage_profile_id": storage_profile_id,
@@ -2848,7 +3029,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateMemberFromFarm")
+        )
         input_: capo_deadline.types.disassociate_member_from_farm_request.DisassociateMemberFromFarmRequest = {
             "farm_id": farm_id,
             "principal_id": principal_id,
@@ -2898,7 +3081,16 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.get_limit_response.GetLimitResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.get_limit_response
+
+            return capo_deadline.types.get_limit_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLimit", redact_output=_redact_output)
+        )
         input_: capo_deadline.types.get_limit_request.GetLimitRequest = {
             "farm_id": farm_id,
             "limit_id": limit_id,
@@ -2948,7 +3140,19 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.get_storage_profile_response.GetStorageProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.get_storage_profile_response
+
+            return capo_deadline.types.get_storage_profile_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetStorageProfile", redact_output=_redact_output),
+        )
         input_: capo_deadline.types.get_storage_profile_request.GetStorageProfileRequest = {
             "farm_id": farm_id,
             "storage_profile_id": storage_profile_id,
@@ -3000,7 +3204,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFarmMembers")
+        )
         input_: capo_deadline.types.list_farm_members_request.ListFarmMembersRequest = {
             "farm_id": farm_id
         }
@@ -3078,7 +3284,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLimits")
+        )
         input_: capo_deadline.types.list_limits_request.ListLimitsRequest = {
             "farm_id": farm_id
         }
@@ -3158,7 +3366,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStorageProfiles")
+        )
         input_: capo_deadline.types.list_storage_profiles_request.ListStorageProfilesRequest = {
             "farm_id": farm_id
         }
@@ -3240,7 +3450,17 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_deadline.types.update_limit_request.UpdateLimitRequest",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.update_limit_request
+
+            return capo_deadline.types.update_limit_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateLimit", redact_input=_redact_input),
+        )
         input_: capo_deadline.types.update_limit_request.UpdateLimitRequest = {
             "farm_id": farm_id,
             "limit_id": limit_id,
@@ -3312,7 +3532,19 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_deadline.types.update_storage_profile_request.UpdateStorageProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.update_storage_profile_request
+
+            return capo_deadline.types.update_storage_profile_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateStorageProfile", redact_input=_redact_input),
+        )
         input_: capo_deadline.types.update_storage_profile_request.UpdateStorageProfileRequest = {
             "farm_id": farm_id,
             "storage_profile_id": storage_profile_id,
@@ -3388,7 +3620,17 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_deadline.types.create_budget_request.CreateBudgetRequest",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.create_budget_request
+
+            return capo_deadline.types.create_budget_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateBudget", redact_input=_redact_input),
+        )
         input_: capo_deadline.types.create_budget_request.CreateBudgetRequest = {
             "farm_id": farm_id,
             "display_name": display_name,
@@ -3449,7 +3691,17 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.get_budget_response.GetBudgetResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.get_budget_response
+
+            return capo_deadline.types.get_budget_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetBudget", redact_output=_redact_output),
+        )
         input_: capo_deadline.types.get_budget_request.GetBudgetRequest = {
             "farm_id": farm_id,
             "budget_id": budget_id,
@@ -3521,7 +3773,17 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_deadline.types.update_budget_request.UpdateBudgetRequest",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.update_budget_request
+
+            return capo_deadline.types.update_budget_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateBudget", redact_input=_redact_input),
+        )
         input_: capo_deadline.types.update_budget_request.UpdateBudgetRequest = {
             "farm_id": farm_id,
             "budget_id": budget_id,
@@ -3588,7 +3850,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBudget")
+        )
         input_: capo_deadline.types.delete_budget_request.DeleteBudgetRequest = {
             "farm_id": farm_id,
             "budget_id": budget_id,
@@ -3642,7 +3906,17 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.list_budgets_response.ListBudgetsResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.list_budgets_response
+
+            return capo_deadline.types.list_budgets_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListBudgets", redact_output=_redact_output),
+        )
         input_: capo_deadline.types.list_budgets_request.ListBudgetsRequest = {
             "farm_id": farm_id
         }
@@ -3743,7 +4017,17 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_deadline.types.create_fleet_request.CreateFleetRequest",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.create_fleet_request
+
+            return capo_deadline.types.create_fleet_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateFleet", redact_input=_redact_input),
+        )
         input_: capo_deadline.types.create_fleet_request.CreateFleetRequest = {
             "farm_id": farm_id,
             "display_name": display_name,
@@ -3807,7 +4091,16 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.get_fleet_response.GetFleetResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.get_fleet_response
+
+            return capo_deadline.types.get_fleet_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFleet", redact_output=_redact_output)
+        )
         input_: capo_deadline.types.get_fleet_request.GetFleetRequest = {
             "farm_id": farm_id,
             "fleet_id": fleet_id,
@@ -3882,7 +4175,17 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_deadline.types.update_fleet_request.UpdateFleetRequest",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.update_fleet_request
+
+            return capo_deadline.types.update_fleet_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateFleet", redact_input=_redact_input),
+        )
         input_: capo_deadline.types.update_fleet_request.UpdateFleetRequest = {
             "farm_id": farm_id,
             "fleet_id": fleet_id,
@@ -3952,7 +4255,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFleet")
+        )
         input_: capo_deadline.types.delete_fleet_request.DeleteFleetRequest = {
             "farm_id": farm_id,
             "fleet_id": fleet_id,
@@ -4015,7 +4320,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFleets")
+        )
         input_: capo_deadline.types.list_fleets_request.ListFleetsRequest = {
             "farm_id": farm_id
         }
@@ -4116,7 +4423,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateMemberToFleet")
+        )
         input_: capo_deadline.types.associate_member_to_fleet_request.AssociateMemberToFleetRequest = {
             "farm_id": farm_id,
             "fleet_id": fleet_id,
@@ -4172,7 +4481,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssumeFleetRoleForRead")
+        )
         input_: capo_deadline.types.assume_fleet_role_for_read_request.AssumeFleetRoleForReadRequest = {
             "farm_id": farm_id,
             "fleet_id": fleet_id,
@@ -4225,7 +4536,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateMemberFromFleet")
+        )
         input_: capo_deadline.types.disassociate_member_from_fleet_request.DisassociateMemberFromFleetRequest = {
             "farm_id": farm_id,
             "fleet_id": fleet_id,
@@ -4280,7 +4593,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFleetMembers")
+        )
         input_: capo_deadline.types.list_fleet_members_request.ListFleetMembersRequest = {
             "farm_id": farm_id,
             "fleet_id": fleet_id,
@@ -4366,7 +4681,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetVolume")
+        )
         input_: capo_deadline.types.get_volume_request.GetVolumeRequest = {
             "farm_id": farm_id,
             "fleet_id": fleet_id,
@@ -4425,7 +4742,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVolume")
+        )
         input_: capo_deadline.types.delete_volume_request.DeleteVolumeRequest = {
             "farm_id": farm_id,
             "fleet_id": fleet_id,
@@ -4485,7 +4804,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVolumes")
+        )
         input_: capo_deadline.types.list_volumes_request.ListVolumesRequest = {
             "farm_id": farm_id,
             "fleet_id": fleet_id,
@@ -4573,7 +4894,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorker")
+        )
         input_: capo_deadline.types.create_worker_request.CreateWorkerRequest = {
             "farm_id": farm_id,
             "fleet_id": fleet_id,
@@ -4632,7 +4955,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorker")
+        )
         input_: capo_deadline.types.get_worker_request.GetWorkerRequest = {
             "farm_id": farm_id,
             "fleet_id": fleet_id,
@@ -4698,7 +5023,17 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.update_worker_response.UpdateWorkerResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.update_worker_response
+
+            return capo_deadline.types.update_worker_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateWorker", redact_output=_redact_output),
+        )
         input_: capo_deadline.types.update_worker_request.UpdateWorkerRequest = {
             "farm_id": farm_id,
             "fleet_id": fleet_id,
@@ -4758,7 +5093,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorker")
+        )
         input_: capo_deadline.types.delete_worker_request.DeleteWorkerRequest = {
             "farm_id": farm_id,
             "fleet_id": fleet_id,
@@ -4813,7 +5150,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkers")
+        )
         input_: capo_deadline.types.list_workers_request.ListWorkersRequest = {
             "farm_id": farm_id,
             "fleet_id": fleet_id,
@@ -4895,7 +5234,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssumeFleetRoleForWorker")
+        )
         input_: capo_deadline.types.assume_fleet_role_for_worker_request.AssumeFleetRoleForWorkerRequest = {
             "farm_id": farm_id,
             "fleet_id": fleet_id,
@@ -4951,7 +5292,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssumeQueueRoleForWorker")
+        )
         input_: capo_deadline.types.assume_queue_role_for_worker_request.AssumeQueueRoleForWorkerRequest = {
             "farm_id": farm_id,
             "fleet_id": fleet_id,
@@ -5007,7 +5350,19 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.batch_get_job_entity_response.BatchGetJobEntityResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.batch_get_job_entity_response
+
+            return capo_deadline.types.batch_get_job_entity_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetJobEntity", redact_output=_redact_output),
+        )
         input_: capo_deadline.types.batch_get_job_entity_request.BatchGetJobEntityRequest = {
             "farm_id": farm_id,
             "fleet_id": fleet_id,
@@ -5065,7 +5420,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSessionsForWorker")
+        )
         input_: capo_deadline.types.list_sessions_for_worker_request.ListSessionsForWorkerRequest = {
             "farm_id": farm_id,
             "fleet_id": fleet_id,
@@ -5154,7 +5511,32 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_deadline.types.update_worker_schedule_request.UpdateWorkerScheduleRequest",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.update_worker_schedule_request
+
+            return capo_deadline.types.update_worker_schedule_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_deadline.types.update_worker_schedule_response.UpdateWorkerScheduleResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.update_worker_schedule_response
+
+            return capo_deadline.types.update_worker_schedule_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateWorkerSchedule",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_deadline.types.update_worker_schedule_request.UpdateWorkerScheduleRequest = {
             "farm_id": farm_id,
             "fleet_id": fleet_id,
@@ -5240,7 +5622,17 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_deadline.types.create_queue_request.CreateQueueRequest",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.create_queue_request
+
+            return capo_deadline.types.create_queue_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateQueue", redact_input=_redact_input),
+        )
         input_: capo_deadline.types.create_queue_request.CreateQueueRequest = {
             "farm_id": farm_id,
             "display_name": display_name,
@@ -5313,7 +5705,16 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.get_queue_response.GetQueueResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.get_queue_response
+
+            return capo_deadline.types.get_queue_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQueue", redact_output=_redact_output)
+        )
         input_: capo_deadline.types.get_queue_request.GetQueueRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -5403,7 +5804,17 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_deadline.types.update_queue_request.UpdateQueueRequest",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.update_queue_request
+
+            return capo_deadline.types.update_queue_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateQueue", redact_input=_redact_input),
+        )
         input_: capo_deadline.types.update_queue_request.UpdateQueueRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -5487,7 +5898,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQueue")
+        )
         input_: capo_deadline.types.delete_queue_request.DeleteQueueRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -5545,7 +5958,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQueues")
+        )
         input_: capo_deadline.types.list_queues_request.ListQueuesRequest = {
             "farm_id": farm_id
         }
@@ -5642,7 +6057,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateMemberToQueue")
+        )
         input_: capo_deadline.types.associate_member_to_queue_request.AssociateMemberToQueueRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -5698,7 +6115,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssumeQueueRoleForRead")
+        )
         input_: capo_deadline.types.assume_queue_role_for_read_request.AssumeQueueRoleForReadRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -5748,7 +6167,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssumeQueueRoleForUser")
+        )
         input_: capo_deadline.types.assume_queue_role_for_user_request.AssumeQueueRoleForUserRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -5807,7 +6228,21 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_deadline.types.create_queue_environment_request.CreateQueueEnvironmentRequest",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.create_queue_environment_request
+
+            return (
+                capo_deadline.types.create_queue_environment_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateQueueEnvironment", redact_input=_redact_input),
+        )
         input_: capo_deadline.types.create_queue_environment_request.CreateQueueEnvironmentRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -5864,7 +6299,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQueueEnvironment")
+        )
         input_: capo_deadline.types.delete_queue_environment_request.DeleteQueueEnvironmentRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -5918,7 +6355,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateMemberFromQueue")
+        )
         input_: capo_deadline.types.disassociate_member_from_queue_request.DisassociateMemberFromQueueRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -5973,7 +6412,19 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.get_queue_environment_response.GetQueueEnvironmentResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.get_queue_environment_response
+
+            return capo_deadline.types.get_queue_environment_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetQueueEnvironment", redact_output=_redact_output),
+        )
         input_: capo_deadline.types.get_queue_environment_request.GetQueueEnvironmentRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -6026,7 +6477,19 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.get_storage_profile_for_queue_response.GetStorageProfileForQueueResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.get_storage_profile_for_queue_response
+
+            return capo_deadline.types.get_storage_profile_for_queue_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetStorageProfileForQueue", redact_output=_redact_output),
+        )
         input_: capo_deadline.types.get_storage_profile_for_queue_request.GetStorageProfileForQueueRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -6081,7 +6544,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQueueEnvironments")
+        )
         input_: capo_deadline.types.list_queue_environments_request.ListQueueEnvironmentsRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -6164,7 +6629,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQueueMembers")
+        )
         input_: capo_deadline.types.list_queue_members_request.ListQueueMembersRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -6247,7 +6714,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStorageProfilesForQueue")
+        )
         input_: capo_deadline.types.list_storage_profiles_for_queue_request.ListStorageProfilesForQueueRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -6340,7 +6809,21 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_deadline.types.update_queue_environment_request.UpdateQueueEnvironmentRequest",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.update_queue_environment_request
+
+            return (
+                capo_deadline.types.update_queue_environment_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateQueueEnvironment", redact_input=_redact_input),
+        )
         input_: capo_deadline.types.update_queue_environment_request.UpdateQueueEnvironmentRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -6445,7 +6928,16 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_deadline.types.create_job_request.CreateJobRequest",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.create_job_request
+
+            return capo_deadline.types.create_job_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateJob", redact_input=_redact_input)
+        )
         input_: capo_deadline.types.create_job_request.CreateJobRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -6523,7 +7015,16 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.get_job_response.GetJobResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.get_job_response
+
+            return capo_deadline.types.get_job_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJob", redact_output=_redact_output)
+        )
         input_: capo_deadline.types.get_job_request.GetJobRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -6607,7 +7108,16 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_deadline.types.update_job_request.UpdateJobRequest",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.update_job_request
+
+            return capo_deadline.types.update_job_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateJob", redact_input=_redact_input)
+        )
         input_: capo_deadline.types.update_job_request.UpdateJobRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -6685,7 +7195,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobs")
+        )
         input_: capo_deadline.types.list_jobs_request.ListJobsRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -6783,7 +7295,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateMemberToJob")
+        )
         input_: capo_deadline.types.associate_member_to_job_request.AssociateMemberToJobRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -6844,7 +7358,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CopyJobTemplate")
+        )
         input_: capo_deadline.types.copy_job_template_request.CopyJobTemplateRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -6900,7 +7416,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateMemberFromJob")
+        )
         input_: capo_deadline.types.disassociate_member_from_job_request.DisassociateMemberFromJobRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -6956,7 +7474,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSession")
+        )
         input_: capo_deadline.types.get_session_request.GetSessionRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -7012,7 +7532,19 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.get_session_action_response.GetSessionActionResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.get_session_action_response
+
+            return capo_deadline.types.get_session_action_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSessionAction", redact_output=_redact_output),
+        )
         input_: capo_deadline.types.get_session_action_request.GetSessionActionRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -7066,7 +7598,16 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.get_step_response.GetStepResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.get_step_response
+
+            return capo_deadline.types.get_step_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStep", redact_output=_redact_output)
+        )
         input_: capo_deadline.types.get_step_request.GetStepRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -7122,7 +7663,16 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.get_task_response.GetTaskResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.get_task_response
+
+            return capo_deadline.types.get_task_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTask", redact_output=_redact_output)
+        )
         input_: capo_deadline.types.get_task_request.GetTaskRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -7181,7 +7731,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobMembers")
+        )
         input_: capo_deadline.types.list_job_members_request.ListJobMembersRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -7269,7 +7821,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobParameterDefinitions")
+        )
         input_: capo_deadline.types.list_job_parameter_definitions_request.ListJobParameterDefinitionsRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -7363,7 +7917,19 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.list_session_actions_response.ListSessionActionsResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.list_session_actions_response
+
+            return capo_deadline.types.list_session_actions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListSessionActions", redact_output=_redact_output),
+        )
         input_: capo_deadline.types.list_session_actions_request.ListSessionActionsRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -7459,7 +8025,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSessions")
+        )
         input_: capo_deadline.types.list_sessions_request.ListSessionsRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -7549,7 +8117,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStepConsumers")
+        )
         input_: capo_deadline.types.list_step_consumers_request.ListStepConsumersRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -7642,7 +8212,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStepDependencies")
+        )
         input_: capo_deadline.types.list_step_dependencies_request.ListStepDependenciesRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -7733,7 +8305,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSteps")
+        )
         input_: capo_deadline.types.list_steps_request.ListStepsRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -7823,7 +8397,17 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_deadline.types.list_tasks_response.ListTasksResponse",
+        ) -> dict[str, Any]:
+            import capo_deadline.types.list_tasks_response
+
+            return capo_deadline.types.list_tasks_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTasks", redact_output=_redact_output),
+        )
         input_: capo_deadline.types.list_tasks_request.ListTasksRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -7917,7 +8501,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSession")
+        )
         input_: capo_deadline.types.update_session_request.UpdateSessionRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -7982,7 +8568,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateStep")
+        )
         input_: capo_deadline.types.update_step_request.UpdateStepRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -8049,7 +8637,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTask")
+        )
         input_: capo_deadline.types.update_task_request.UpdateTaskRequest = {
             "farm_id": farm_id,
             "queue_id": queue_id,
@@ -8113,7 +8703,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLicenseEndpoint")
+        )
         input_: capo_deadline.types.create_license_endpoint_request.CreateLicenseEndpointRequest = {
             "vpc_id": vpc_id,
             "subnet_ids": subnet_ids,
@@ -8167,7 +8759,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLicenseEndpoint")
+        )
         input_: capo_deadline.types.get_license_endpoint_request.GetLicenseEndpointRequest = {
             "license_endpoint_id": license_endpoint_id
         }
@@ -8215,7 +8809,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLicenseEndpoint")
+        )
         input_: capo_deadline.types.delete_license_endpoint_request.DeleteLicenseEndpointRequest = {
             "license_endpoint_id": license_endpoint_id
         }
@@ -8264,7 +8860,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLicenseEndpoints")
+        )
         input_: capo_deadline.types.list_license_endpoints_request.ListLicenseEndpointsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -8338,7 +8936,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMeteredProduct")
+        )
         input_: capo_deadline.types.delete_metered_product_request.DeleteMeteredProductRequest = {
             "license_endpoint_id": license_endpoint_id,
             "product_id": product_id,
@@ -8392,7 +8992,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMeteredProducts")
+        )
         input_: capo_deadline.types.list_metered_products_request.ListMeteredProductsRequest = {
             "license_endpoint_id": license_endpoint_id
         }
@@ -8468,7 +9070,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutMeteredProduct")
+        )
         input_: capo_deadline.types.put_metered_product_request.PutMeteredProductRequest = {
             "license_endpoint_id": license_endpoint_id,
             "product_id": product_id,
@@ -8528,7 +9132,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMonitor")
+        )
         input_: capo_deadline.types.create_monitor_request.CreateMonitorRequest = {
             "display_name": display_name,
             "identity_center_instance_arn": identity_center_instance_arn,
@@ -8585,7 +9191,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMonitor")
+        )
         input_: capo_deadline.types.get_monitor_request.GetMonitorRequest = {
             "monitor_id": monitor_id
         }
@@ -8638,7 +9246,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMonitor")
+        )
         input_: capo_deadline.types.update_monitor_request.UpdateMonitorRequest = {
             "monitor_id": monitor_id
         }
@@ -8691,7 +9301,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMonitor")
+        )
         input_: capo_deadline.types.delete_monitor_request.DeleteMonitorRequest = {
             "monitor_id": monitor_id
         }
@@ -8739,7 +9351,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMonitors")
+        )
         input_: capo_deadline.types.list_monitors_request.ListMonitorsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -8814,7 +9428,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMonitorSettings")
+        )
         input_: capo_deadline.types.get_monitor_settings_request.GetMonitorSettingsRequest = {
             "monitor_id": monitor_id
         }
@@ -8868,7 +9484,9 @@ class deadlineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMonitorSettings")
+        )
         input_: capo_deadline.types.update_monitor_settings_request.UpdateMonitorSettingsRequest = {
             "monitor_id": monitor_id,
             "settings": settings,

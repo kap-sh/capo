@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#PutVoiceConnectorEmergencyCallingConfigurationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -48,5 +48,20 @@ def deserialize_json(
     else:
         raise DeserializationError(
             "PutVoiceConnectorEmergencyCallingConfigurationRequest.emergency_calling_configuration required"
+        )
+    return out
+
+
+def redact_sensitive(
+    value: PutVoiceConnectorEmergencyCallingConfigurationRequest,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "emergency_calling_configuration" in value:
+        import capo_chime_sdk_voice.types.emergency_calling_configuration
+
+        out["emergency_calling_configuration"] = (
+            capo_chime_sdk_voice.types.emergency_calling_configuration.redact_sensitive(
+                value["emergency_calling_configuration"]
+            )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemaker#UpdateModelPackageInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -220,4 +220,17 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateModelPackageInput:
         )
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
+    return out
+
+
+def redact_sensitive(value: UpdateModelPackageInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "model_card" in value:
+        import capo_sagemaker.types.model_package_model_card
+
+        out["model_card"] = (
+            capo_sagemaker.types.model_package_model_card.redact_sensitive(
+                value["model_card"]
+            )
+        )
     return out

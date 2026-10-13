@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#UpdatedSessionActionInfo``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -134,4 +134,11 @@ def deserialize_json(data: dict) -> UpdatedSessionActionInfo:
                 data["manifests"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: UpdatedSessionActionInfo) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "progress_message" in value:
+        out["progress_message"] = "*** Sensitive Data Redacted ***"
     return out

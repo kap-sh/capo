@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#RegisterImageRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -237,4 +237,11 @@ def deserialize_ec2_query(el: Element) -> RegisterImageRequest:
     child_ena_support = el.find("enaSupport")
     if child_ena_support is not None:
         out["ena_support"] = (child_ena_support.text or "").lower() == "true"
+    return out
+
+
+def redact_sensitive(value: RegisterImageRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "uefi_data" in value:
+        out["uefi_data"] = "*** Sensitive Data Redacted ***"
     return out

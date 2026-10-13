@@ -21,10 +21,12 @@ from capo_mediapackage._pagination import resolve_path as _resolve_path
 from capo_mediapackage._services._aws_config import aws_config
 from capo_mediapackage._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -158,7 +160,9 @@ class MediaPackageClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[MediaPackageClientConfig] = None
+        self,
+        config_overrides: Optional[MediaPackageClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MediaPackageClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -166,8 +170,10 @@ class MediaPackageClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -227,7 +233,19 @@ class MediaPackageClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mediapackage.types.configure_logs_response.ConfigureLogsResponse",
+        ) -> dict[str, Any]:
+            import capo_mediapackage.types.configure_logs_response
+
+            return capo_mediapackage.types.configure_logs_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ConfigureLogs", redact_output=_redact_output),
+        )
         input_: capo_mediapackage.types.configure_logs_request.ConfigureLogsRequest = {
             "id": id
         }
@@ -282,7 +300,19 @@ class MediaPackageClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mediapackage.types.create_channel_response.CreateChannelResponse",
+        ) -> dict[str, Any]:
+            import capo_mediapackage.types.create_channel_response
+
+            return capo_mediapackage.types.create_channel_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateChannel", redact_output=_redact_output),
+        )
         input_: capo_mediapackage.types.create_channel_request.CreateChannelRequest = {}
         if description is not None:
             input_["description"] = description
@@ -345,7 +375,9 @@ class MediaPackageClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHarvestJob")
+        )
         input_: capo_mediapackage.types.create_harvest_job_request.CreateHarvestJobRequest = {}
         if end_time is not None:
             input_["end_time"] = end_time
@@ -433,7 +465,9 @@ class MediaPackageClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateOriginEndpoint")
+        )
         input_: capo_mediapackage.types.create_origin_endpoint_request.CreateOriginEndpointRequest = {}
         if authorization is not None:
             input_["authorization"] = authorization
@@ -507,7 +541,9 @@ class MediaPackageClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChannel")
+        )
         input_: capo_mediapackage.types.delete_channel_request.DeleteChannelRequest = {
             "id": id
         }
@@ -555,7 +591,9 @@ class MediaPackageClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOriginEndpoint")
+        )
         input_: capo_mediapackage.types.delete_origin_endpoint_request.DeleteOriginEndpointRequest = {
             "id": id
         }
@@ -603,7 +641,19 @@ class MediaPackageClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mediapackage.types.describe_channel_response.DescribeChannelResponse",
+        ) -> dict[str, Any]:
+            import capo_mediapackage.types.describe_channel_response
+
+            return capo_mediapackage.types.describe_channel_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeChannel", redact_output=_redact_output),
+        )
         input_: capo_mediapackage.types.describe_channel_request.DescribeChannelRequest = {
             "id": id
         }
@@ -651,7 +701,9 @@ class MediaPackageClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeHarvestJob")
+        )
         input_: capo_mediapackage.types.describe_harvest_job_request.DescribeHarvestJobRequest = {
             "id": id
         }
@@ -699,7 +751,9 @@ class MediaPackageClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOriginEndpoint")
+        )
         input_: capo_mediapackage.types.describe_origin_endpoint_request.DescribeOriginEndpointRequest = {
             "id": id
         }
@@ -749,7 +803,19 @@ class MediaPackageClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mediapackage.types.list_channels_response.ListChannelsResponse",
+        ) -> dict[str, Any]:
+            import capo_mediapackage.types.list_channels_response
+
+            return capo_mediapackage.types.list_channels_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListChannels", redact_output=_redact_output),
+        )
         input_: capo_mediapackage.types.list_channels_request.ListChannelsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -828,7 +894,9 @@ class MediaPackageClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHarvestJobs")
+        )
         input_: capo_mediapackage.types.list_harvest_jobs_request.ListHarvestJobsRequest = {}
         if include_channel_id is not None:
             input_["include_channel_id"] = include_channel_id
@@ -913,7 +981,9 @@ class MediaPackageClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOriginEndpoints")
+        )
         input_: capo_mediapackage.types.list_origin_endpoints_request.ListOriginEndpointsRequest = {}
         if channel_id is not None:
             input_["channel_id"] = channel_id
@@ -973,7 +1043,9 @@ class MediaPackageClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_mediapackage.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1021,7 +1093,19 @@ class MediaPackageClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mediapackage.types.rotate_channel_credentials_response.RotateChannelCredentialsResponse",
+        ) -> dict[str, Any]:
+            import capo_mediapackage.types.rotate_channel_credentials_response
+
+            return capo_mediapackage.types.rotate_channel_credentials_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RotateChannelCredentials", redact_output=_redact_output),
+        )
         input_: capo_mediapackage.types.rotate_channel_credentials_request.RotateChannelCredentialsRequest = {
             "id": id
         }
@@ -1071,7 +1155,21 @@ class MediaPackageClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mediapackage.types.rotate_ingest_endpoint_credentials_response.RotateIngestEndpointCredentialsResponse",
+        ) -> dict[str, Any]:
+            import capo_mediapackage.types.rotate_ingest_endpoint_credentials_response
+
+            return capo_mediapackage.types.rotate_ingest_endpoint_credentials_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RotateIngestEndpointCredentials", redact_output=_redact_output
+            ),
+        )
         input_: capo_mediapackage.types.rotate_ingest_endpoint_credentials_request.RotateIngestEndpointCredentialsRequest = {
             "id": id,
             "ingest_endpoint_id": ingest_endpoint_id,
@@ -1106,7 +1204,9 @@ class MediaPackageClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_mediapackage.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1151,7 +1251,9 @@ class MediaPackageClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_mediapackage.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1203,7 +1305,19 @@ class MediaPackageClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mediapackage.types.update_channel_response.UpdateChannelResponse",
+        ) -> dict[str, Any]:
+            import capo_mediapackage.types.update_channel_response
+
+            return capo_mediapackage.types.update_channel_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateChannel", redact_output=_redact_output),
+        )
         input_: capo_mediapackage.types.update_channel_request.UpdateChannelRequest = {
             "id": id
         }
@@ -1282,7 +1396,9 @@ class MediaPackageClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateOriginEndpoint")
+        )
         input_: capo_mediapackage.types.update_origin_endpoint_request.UpdateOriginEndpointRequest = {
             "id": id
         }

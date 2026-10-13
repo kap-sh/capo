@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#DeleteTenantDatabaseResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -35,5 +35,16 @@ def deserialize_query(el: Element) -> DeleteTenantDatabaseResult:
 
         out["tenant_database"] = capo_rds.types.tenant_database.deserialize_query(
             child_tenant_database
+        )
+    return out
+
+
+def redact_sensitive(value: DeleteTenantDatabaseResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tenant_database" in value:
+        import capo_rds.types.tenant_database
+
+        out["tenant_database"] = capo_rds.types.tenant_database.redact_sensitive(
+            value["tenant_database"]
         )
     return out

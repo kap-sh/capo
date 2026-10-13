@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#HarnessToolResultMetadataBlockDelta``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -30,4 +30,11 @@ def deserialize_json(data: dict) -> HarnessToolResultMetadataBlockDelta:
         raise DeserializationError(
             "HarnessToolResultMetadataBlockDelta.metadata required"
         )
+    return out
+
+
+def redact_sensitive(value: HarnessToolResultMetadataBlockDelta) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "metadata" in value:
+        out["metadata"] = "*** Sensitive Data Redacted ***"
     return out

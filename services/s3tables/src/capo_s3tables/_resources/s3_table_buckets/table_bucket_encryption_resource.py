@@ -7,6 +7,7 @@ import capo_s3tables._auth._sigv4
 from capo_s3tables._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -64,7 +65,9 @@ class TableBucketEncryptionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTableBucketEncryption")
+        )
         input_: capo_s3tables.types.delete_table_bucket_encryption_request.DeleteTableBucketEncryptionRequest = {
             "table_bucket_arn": table_bucket_arn
         }
@@ -112,7 +115,9 @@ class TableBucketEncryptionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTableBucketEncryption")
+        )
         input_: capo_s3tables.types.get_table_bucket_encryption_request.GetTableBucketEncryptionRequest = {
             "table_bucket_arn": table_bucket_arn
         }
@@ -160,7 +165,9 @@ class TableBucketEncryptionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutTableBucketEncryption")
+        )
         input_: capo_s3tables.types.put_table_bucket_encryption_request.PutTableBucketEncryptionRequest = {
             "table_bucket_arn": table_bucket_arn,
             "encryption_configuration": encryption_configuration,
@@ -213,7 +220,9 @@ class AsyncTableBucketEncryptionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTableBucketEncryption")
+        )
         input_: capo_s3tables.types.delete_table_bucket_encryption_request.DeleteTableBucketEncryptionRequest = {
             "table_bucket_arn": table_bucket_arn
         }
@@ -262,7 +271,9 @@ class AsyncTableBucketEncryptionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTableBucketEncryption")
+        )
         input_: capo_s3tables.types.get_table_bucket_encryption_request.GetTableBucketEncryptionRequest = {
             "table_bucket_arn": table_bucket_arn
         }
@@ -311,7 +322,9 @@ class AsyncTableBucketEncryptionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutTableBucketEncryption")
+        )
         input_: capo_s3tables.types.put_table_bucket_encryption_request.PutTableBucketEncryptionRequest = {
             "table_bucket_arn": table_bucket_arn,
             "encryption_configuration": encryption_configuration,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.grafana#UpdateWorkspaceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -200,4 +200,19 @@ def deserialize_json(data: dict) -> UpdateWorkspaceRequest:
         ]
     if data.get("ipAddressType") is not None:
         out["ip_address_type"] = data["ipAddressType"]
+    return out
+
+
+def redact_sensitive(value: UpdateWorkspaceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "organization_role_name" in value:
+        out["organization_role_name"] = "*** Sensitive Data Redacted ***"
+    if "workspace_description" in value:
+        out["workspace_description"] = "*** Sensitive Data Redacted ***"
+    if "workspace_name" in value:
+        out["workspace_name"] = "*** Sensitive Data Redacted ***"
+    if "workspace_organizational_units" in value:
+        out["workspace_organizational_units"] = "*** Sensitive Data Redacted ***"
+    if "workspace_role_arn" in value:
+        out["workspace_role_arn"] = "*** Sensitive Data Redacted ***"
     return out

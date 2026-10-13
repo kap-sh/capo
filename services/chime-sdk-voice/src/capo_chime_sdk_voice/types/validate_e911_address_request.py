@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#ValidateE911AddressRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -83,4 +83,21 @@ def deserialize_json(data: dict) -> ValidateE911AddressRequest:
         out["postal_code"] = data["PostalCode"]
     else:
         raise DeserializationError("ValidateE911AddressRequest.postal_code required")
+    return out
+
+
+def redact_sensitive(value: ValidateE911AddressRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "street_number" in value:
+        out["street_number"] = "*** Sensitive Data Redacted ***"
+    if "street_info" in value:
+        out["street_info"] = "*** Sensitive Data Redacted ***"
+    if "city" in value:
+        out["city"] = "*** Sensitive Data Redacted ***"
+    if "state" in value:
+        out["state"] = "*** Sensitive Data Redacted ***"
+    if "country" in value:
+        out["country"] = "*** Sensitive Data Redacted ***"
+    if "postal_code" in value:
+        out["postal_code"] = "*** Sensitive Data Redacted ***"
     return out

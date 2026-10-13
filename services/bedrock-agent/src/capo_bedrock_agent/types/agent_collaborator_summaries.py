@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#AgentCollaboratorSummaries``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.agent_collaborator_summary
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> AgentCollaboratorSummaries:
             capo_bedrock_agent.types.agent_collaborator_summary.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: AgentCollaboratorSummaries) -> list[Any]:
+    import capo_bedrock_agent.types.agent_collaborator_summary
+
+    return [
+        capo_bedrock_agent.types.agent_collaborator_summary.redact_sensitive(item)
+        for item in value
+    ]

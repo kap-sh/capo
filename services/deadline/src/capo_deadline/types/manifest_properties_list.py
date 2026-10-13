@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#ManifestPropertiesList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_deadline.types.manifest_properties
@@ -29,3 +29,7 @@ def deserialize_json(data: list) -> ManifestPropertiesList:
             continue
         out.append(capo_deadline.types.manifest_properties.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ManifestPropertiesList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_datazone._auth._signers
 import capo_datazone._auth._sigv4
 from capo_datazone._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -105,7 +106,9 @@ class Domain:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDomain")
+        )
         input_: capo_datazone.types.create_domain_input.CreateDomainInput = {
             "name": name
         }
@@ -169,7 +172,9 @@ class Domain:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDomain")
+        )
         input_: capo_datazone.types.get_domain_input.GetDomainInput = {
             "identifier": identifier
         }
@@ -233,7 +238,9 @@ class Domain:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDomain")
+        )
         input_: capo_datazone.types.update_domain_input.UpdateDomainInput = {
             "identifier": identifier
         }
@@ -301,7 +308,9 @@ class Domain:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDomain")
+        )
         input_: capo_datazone.types.delete_domain_input.DeleteDomainInput = {
             "identifier": identifier
         }
@@ -366,7 +375,17 @@ class Domain:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.list_domains_output.ListDomainsOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_domains_output
+
+            return capo_datazone.types.list_domains_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListDomains", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.list_domains_input.ListDomainsInput = {}
         if status is not None:
             input_["status"] = status
@@ -448,7 +467,9 @@ class AsyncDomain:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDomain")
+        )
         input_: capo_datazone.types.create_domain_input.CreateDomainInput = {
             "name": name
         }
@@ -515,7 +536,9 @@ class AsyncDomain:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDomain")
+        )
         input_: capo_datazone.types.get_domain_input.GetDomainInput = {
             "identifier": identifier
         }
@@ -580,7 +603,9 @@ class AsyncDomain:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDomain")
+        )
         input_: capo_datazone.types.update_domain_input.UpdateDomainInput = {
             "identifier": identifier
         }
@@ -649,7 +674,9 @@ class AsyncDomain:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDomain")
+        )
         input_: capo_datazone.types.delete_domain_input.DeleteDomainInput = {
             "identifier": identifier
         }
@@ -715,7 +742,17 @@ class AsyncDomain:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.list_domains_output.ListDomainsOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_domains_output
+
+            return capo_datazone.types.list_domains_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListDomains", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.list_domains_input.ListDomainsInput = {}
         if status is not None:
             input_["status"] = status

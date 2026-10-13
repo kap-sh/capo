@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.databrew#StartProjectSessionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,4 +37,11 @@ def deserialize_json(data: dict) -> StartProjectSessionResponse:
         raise DeserializationError("StartProjectSessionResponse.name required")
     if data.get("ClientSessionId") is not None:
         out["client_session_id"] = data["ClientSessionId"]
+    return out
+
+
+def redact_sensitive(value: StartProjectSessionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_session_id" in value:
+        out["client_session_id"] = "*** Sensitive Data Redacted ***"
     return out

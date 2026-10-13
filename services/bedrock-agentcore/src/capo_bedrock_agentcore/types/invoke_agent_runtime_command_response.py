@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#InvokeAgentRuntimeCommandResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -29,3 +29,10 @@ class InvokeAgentRuntimeCommandResponse(TypedDict, closed=True):
     """<p>The HTTP status code of the response. A status code of 200 indicates a successful operation. Other status codes indicate various error conditions.</p>"""
     stream: "capo_bedrock_agentcore.types.invoke_agent_runtime_command_stream_output.InvokeAgentRuntimeCommandStreamOutput"
     """<p>The streaming output from the command execution. This stream contains events that provide real-time updates including standard output, standard error, and completion status.</p>"""
+
+
+def redact_sensitive(value: InvokeAgentRuntimeCommandResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "stream" in value:
+        out["stream"] = "*** Streaming Data Redacted ***"
+    return out

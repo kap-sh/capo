@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityagent#CreatePrivateConnectionInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -59,4 +59,15 @@ def deserialize_json(data: dict) -> CreatePrivateConnectionInput:
         import capo_securityagent.types.tag_map
 
         out["tags"] = capo_securityagent.types.tag_map.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: CreatePrivateConnectionInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "mode" in value:
+        import capo_securityagent.types.private_connection_mode
+
+        out["mode"] = capo_securityagent.types.private_connection_mode.redact_sensitive(
+            value["mode"]
+        )
     return out

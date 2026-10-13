@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#FreeFormLayoutElement``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -211,4 +211,17 @@ def deserialize_json(data: dict) -> FreeFormLayoutElement:
         out["border_radius"] = data["BorderRadius"]
     if data.get("Padding") is not None:
         out["padding"] = data["Padding"]
+    return out
+
+
+def redact_sensitive(value: FreeFormLayoutElement) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "rendering_rules" in value:
+        import capo_quicksight.types.sheet_element_rendering_rule_list
+
+        out["rendering_rules"] = (
+            capo_quicksight.types.sheet_element_rendering_rule_list.redact_sensitive(
+                value["rendering_rules"]
+            )
+        )
     return out

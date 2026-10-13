@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#S3DataSourceConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -54,4 +54,17 @@ def deserialize_json(data: dict) -> S3DataSourceConfiguration:
         )
     if data.get("bucketOwnerAccountId") is not None:
         out["bucket_owner_account_id"] = data["bucketOwnerAccountId"]
+    return out
+
+
+def redact_sensitive(value: S3DataSourceConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inclusion_prefixes" in value:
+        import capo_bedrock_agent.types.s3_prefixes
+
+        out["inclusion_prefixes"] = (
+            capo_bedrock_agent.types.s3_prefixes.redact_sensitive(
+                value["inclusion_prefixes"]
+            )
+        )
     return out

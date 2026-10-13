@@ -21,10 +21,12 @@ from capo_keyspaces._pagination import resolve_path as _resolve_path
 from capo_keyspaces._services._aws_config import aws_config
 from capo_keyspaces._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -168,7 +170,9 @@ class KeyspacesClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[KeyspacesClientConfig] = None
+        self,
+        config_overrides: Optional[KeyspacesClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: KeyspacesClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -176,8 +180,10 @@ class KeyspacesClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -236,7 +242,9 @@ class KeyspacesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateKeyspace")
+        )
         input_: capo_keyspaces.types.create_keyspace_request.CreateKeyspaceRequest = {
             "keyspace_name": keyspace_name
         }
@@ -334,7 +342,9 @@ class KeyspacesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTable")
+        )
         input_: capo_keyspaces.types.create_table_request.CreateTableRequest = {
             "keyspace_name": keyspace_name,
             "table_name": table_name,
@@ -412,7 +422,9 @@ class KeyspacesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateType")
+        )
         input_: capo_keyspaces.types.create_type_request.CreateTypeRequest = {
             "keyspace_name": keyspace_name,
             "type_name": type_name,
@@ -462,7 +474,9 @@ class KeyspacesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteKeyspace")
+        )
         input_: capo_keyspaces.types.delete_keyspace_request.DeleteKeyspaceRequest = {
             "keyspace_name": keyspace_name
         }
@@ -512,7 +526,9 @@ class KeyspacesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTable")
+        )
         input_: capo_keyspaces.types.delete_table_request.DeleteTableRequest = {
             "keyspace_name": keyspace_name,
             "table_name": table_name,
@@ -563,7 +579,9 @@ class KeyspacesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteType")
+        )
         input_: capo_keyspaces.types.delete_type_request.DeleteTypeRequest = {
             "keyspace_name": keyspace_name,
             "type_name": type_name,
@@ -611,7 +629,9 @@ class KeyspacesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetKeyspace")
+        )
         input_: capo_keyspaces.types.get_keyspace_request.GetKeyspaceRequest = {
             "keyspace_name": keyspace_name
         }
@@ -660,7 +680,9 @@ class KeyspacesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTable")
+        )
         input_: capo_keyspaces.types.get_table_request.GetTableRequest = {
             "keyspace_name": keyspace_name,
             "table_name": table_name,
@@ -710,7 +732,9 @@ class KeyspacesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableAutoScalingSettings")
+        )
         input_: capo_keyspaces.types.get_table_auto_scaling_settings_request.GetTableAutoScalingSettingsRequest = {
             "keyspace_name": keyspace_name,
             "table_name": table_name,
@@ -760,7 +784,9 @@ class KeyspacesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetType")
+        )
         input_: capo_keyspaces.types.get_type_request.GetTypeRequest = {
             "keyspace_name": keyspace_name,
             "type_name": type_name,
@@ -810,7 +836,9 @@ class KeyspacesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListKeyspaces")
+        )
         input_: capo_keyspaces.types.list_keyspaces_request.ListKeyspacesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -884,7 +912,9 @@ class KeyspacesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTables")
+        )
         input_: capo_keyspaces.types.list_tables_request.ListTablesRequest = {
             "keyspace_name": keyspace_name
         }
@@ -962,7 +992,9 @@ class KeyspacesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_keyspaces.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1040,7 +1072,9 @@ class KeyspacesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTypes")
+        )
         input_: capo_keyspaces.types.list_types_request.ListTypesRequest = {
             "keyspace_name": keyspace_name
         }
@@ -1145,7 +1179,9 @@ class KeyspacesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreTable")
+        )
         input_: capo_keyspaces.types.restore_table_request.RestoreTableRequest = {
             "source_keyspace_name": source_keyspace_name,
             "source_table_name": source_table_name,
@@ -1214,7 +1250,9 @@ class KeyspacesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_keyspaces.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1265,7 +1303,9 @@ class KeyspacesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_keyspaces.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1318,7 +1358,9 @@ class KeyspacesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateKeyspace")
+        )
         input_: capo_keyspaces.types.update_keyspace_request.UpdateKeyspaceRequest = {
             "keyspace_name": keyspace_name,
             "replication_specification": replication_specification,
@@ -1413,7 +1455,9 @@ class KeyspacesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTable")
+        )
         input_: capo_keyspaces.types.update_table_request.UpdateTableRequest = {
             "keyspace_name": keyspace_name,
             "table_name": table_name,

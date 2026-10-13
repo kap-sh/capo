@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#OutputLocation``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -34,3 +34,12 @@ def deserialize_json(data: dict) -> OutputLocation:
         return {"s3": capo_datazone.types.s3_destination.deserialize_json(data["s3"])}
     else:
         raise DeserializationError("OutputLocation: no recognized variant key")
+
+
+def redact_sensitive(value: OutputLocation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "s3" in value:
+        import capo_datazone.types.s3_destination
+
+        out["s3"] = capo_datazone.types.s3_destination.redact_sensitive(value["s3"])
+    return out

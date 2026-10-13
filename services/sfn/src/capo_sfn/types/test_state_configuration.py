@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#TestStateConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -52,4 +52,13 @@ def deserialize_aws_json_1_0(data: dict) -> TestStateConfiguration:
         out["map_iteration_failure_count"] = data["mapIterationFailureCount"]
     if data.get("mapItemReaderData") is not None:
         out["map_item_reader_data"] = data["mapItemReaderData"]
+    return out
+
+
+def redact_sensitive(value: TestStateConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "error_caused_by_state" in value:
+        out["error_caused_by_state"] = "*** Sensitive Data Redacted ***"
+    if "map_item_reader_data" in value:
+        out["map_item_reader_data"] = "*** Sensitive Data Redacted ***"
     return out

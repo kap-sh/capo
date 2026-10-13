@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteTollPassValidityPeriod``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,13 @@ def deserialize_json(data: dict) -> RouteTollPassValidityPeriod:
         raise DeserializationError("RouteTollPassValidityPeriod.period required")
     if data.get("PeriodCount") is not None:
         out["period_count"] = data["PeriodCount"]
+    return out
+
+
+def redact_sensitive(value: RouteTollPassValidityPeriod) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "period" in value:
+        out["period"] = "*** Sensitive Data Redacted ***"
+    if "period_count" in value:
+        out["period_count"] = "*** Sensitive Data Redacted ***"
     return out

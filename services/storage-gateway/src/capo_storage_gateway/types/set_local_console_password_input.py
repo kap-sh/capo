@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.storagegateway#SetLocalConsolePasswordInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -39,4 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> SetLocalConsolePasswordInput:
         raise DeserializationError(
             "SetLocalConsolePasswordInput.local_console_password required"
         )
+    return out
+
+
+def redact_sensitive(value: SetLocalConsolePasswordInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "local_console_password" in value:
+        out["local_console_password"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#PromptFlowNodeInlineConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -95,4 +95,17 @@ def deserialize_json(data: dict) -> PromptFlowNodeInlineConfiguration:
         )
     if data.get("additionalModelRequestFields") is not None:
         out["additional_model_request_fields"] = data["additionalModelRequestFields"]
+    return out
+
+
+def redact_sensitive(value: PromptFlowNodeInlineConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "template_configuration" in value:
+        import capo_bedrock_agent.types.prompt_template_configuration
+
+        out["template_configuration"] = (
+            capo_bedrock_agent.types.prompt_template_configuration.redact_sensitive(
+                value["template_configuration"]
+            )
+        )
     return out

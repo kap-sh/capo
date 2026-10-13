@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chime#CreateRoomRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,13 @@ def deserialize_json(data: dict) -> CreateRoomRequest:
         raise DeserializationError("CreateRoomRequest.name required")
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
+    return out
+
+
+def redact_sensitive(value: CreateRoomRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "client_request_token" in value:
+        out["client_request_token"] = "*** Sensitive Data Redacted ***"
     return out

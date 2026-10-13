@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glue#JobUpdate``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -310,4 +310,11 @@ def deserialize_aws_json_1_1(data: dict) -> JobUpdate:
         )
     if data.get("MaintenanceWindow") is not None:
         out["maintenance_window"] = data["MaintenanceWindow"]
+    return out
+
+
+def redact_sensitive(value: JobUpdate) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "code_gen_configuration_nodes" in value:
+        out["code_gen_configuration_nodes"] = "*** Sensitive Data Redacted ***"
     return out

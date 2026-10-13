@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#OptionSetting``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -93,4 +93,11 @@ def deserialize_query(el: Element) -> OptionSetting:
     child_is_collection = el.find("IsCollection")
     if child_is_collection is not None:
         out["is_collection"] = (child_is_collection.text or "").lower() == "true"
+    return out
+
+
+def redact_sensitive(value: OptionSetting) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        out["value"] = "*** Sensitive Data Redacted ***"
     return out

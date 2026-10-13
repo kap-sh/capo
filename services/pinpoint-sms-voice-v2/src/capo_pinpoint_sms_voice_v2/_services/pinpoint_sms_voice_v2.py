@@ -21,10 +21,12 @@ from capo_pinpoint_sms_voice_v2._auth._zapros_handler import AuthMiddleware
 from capo_pinpoint_sms_voice_v2._services._aws_config import aws_config
 from capo_pinpoint_sms_voice_v2._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -456,7 +458,9 @@ class PinpointSMSVoiceV2Client:
         )
 
     def operation_options(
-        self, config_overrides: Optional[PinpointSMSVoiceV2ClientConfig] = None
+        self,
+        config_overrides: Optional[PinpointSMSVoiceV2ClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: PinpointSMSVoiceV2ClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -464,8 +468,10 @@ class PinpointSMSVoiceV2Client:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -530,7 +536,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateOriginationIdentity")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.associate_origination_identity_request.AssociateOriginationIdentityRequest = {
             "pool_id": pool_id,
             "origination_identity": origination_identity,
@@ -586,7 +594,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateProtectConfiguration")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.associate_protect_configuration_request.AssociateProtectConfigurationRequest = {
             "protect_configuration_id": protect_configuration_id,
             "configuration_set_name": configuration_set_name,
@@ -642,7 +652,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CarrierLookup")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.carrier_lookup_request.CarrierLookupRequest = {
             "phone_number": phone_number
         }
@@ -698,7 +710,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfigurationSet")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.create_configuration_set_request.CreateConfigurationSetRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -772,7 +786,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEventDestination")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.create_event_destination_request.CreateEventDestinationRequest = {
             "configuration_set_name": configuration_set_name,
             "event_destination_name": event_destination_name,
@@ -862,7 +878,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateNotifyConfiguration")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.create_notify_configuration_request.CreateNotifyConfigurationRequest = {
             "display_name": display_name,
             "use_case": use_case,
@@ -931,7 +949,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateOptOutList")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.create_opt_out_list_request.CreateOptOutListRequest = {
             "opt_out_list_name": opt_out_list_name
         }
@@ -999,7 +1019,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePool")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.create_pool_request.CreatePoolRequest = {
             "origination_identity": origination_identity,
             "message_type": message_type,
@@ -1063,7 +1085,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProtectConfiguration")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.create_protect_configuration_request.CreateProtectConfigurationRequest = {}
         if client_token is None:
             client_token = str(uuid.uuid4())
@@ -1129,7 +1153,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRcsAgent")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.create_rcs_agent_request.CreateRcsAgentRequest = {}
         if deletion_protection_enabled is not None:
             input_["deletion_protection_enabled"] = deletion_protection_enabled
@@ -1190,7 +1216,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRegistration")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.create_registration_request.CreateRegistrationRequest = {
             "registration_type": registration_type
         }
@@ -1246,7 +1274,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRegistrationAssociation")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.create_registration_association_request.CreateRegistrationAssociationRequest = {
             "registration_id": registration_id,
             "resource_id": resource_id,
@@ -1307,7 +1337,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRegistrationAttachment")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.create_registration_attachment_request.CreateRegistrationAttachmentRequest = {}
         if attachment_body is not None:
             input_["attachment_body"] = attachment_body
@@ -1363,7 +1395,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRegistrationVersion")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.create_registration_version_request.CreateRegistrationVersionRequest = {
             "registration_id": registration_id
         }
@@ -1422,7 +1456,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVerifiedDestinationNumber")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.create_verified_destination_number_request.CreateVerifiedDestinationNumberRequest = {
             "destination_phone_number": destination_phone_number
         }
@@ -1470,7 +1506,10 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteAccountDefaultProtectConfiguration"),
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_account_default_protect_configuration_request.DeleteAccountDefaultProtectConfigurationRequest = {}
 
         response = execute_pipeline(
@@ -1515,7 +1554,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfigurationSet")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_configuration_set_request.DeleteConfigurationSetRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -1562,7 +1603,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDefaultMessageType")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_default_message_type_request.DeleteDefaultMessageTypeRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -1609,7 +1652,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDefaultSenderId")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_default_sender_id_request.DeleteDefaultSenderIdRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -1658,7 +1703,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEventDestination")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_event_destination_request.DeleteEventDestinationRequest = {
             "configuration_set_name": configuration_set_name,
             "event_destination_name": event_destination_name,
@@ -1709,7 +1756,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteKeyword")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_keyword_request.DeleteKeywordRequest = {
             "origination_identity": origination_identity,
             "keyword": keyword,
@@ -1750,7 +1799,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMediaMessageSpendLimitOverride")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_media_message_spend_limit_override_request.DeleteMediaMessageSpendLimitOverrideRequest = {}
 
         response = execute_pipeline(
@@ -1802,7 +1853,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNotifyConfiguration")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_notify_configuration_request.DeleteNotifyConfigurationRequest = {
             "notify_configuration_id": notify_configuration_id
         }
@@ -1848,7 +1901,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNotifyMessageSpendLimitOverride")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_notify_message_spend_limit_override_request.DeleteNotifyMessageSpendLimitOverrideRequest = {}
 
         response = execute_pipeline(
@@ -1896,7 +1951,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOptedOutNumber")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_opted_out_number_request.DeleteOptedOutNumberRequest = {
             "opt_out_list_name": opt_out_list_name,
             "opted_out_number": opted_out_number,
@@ -1945,7 +2002,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOptOutList")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_opt_out_list_request.DeleteOptOutListRequest = {
             "opt_out_list_name": opt_out_list_name
         }
@@ -1993,7 +2052,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePool")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_pool_request.DeletePoolRequest = {
             "pool_id": pool_id
         }
@@ -2041,7 +2102,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProtectConfiguration")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_protect_configuration_request.DeleteProtectConfigurationRequest = {
             "protect_configuration_id": protect_configuration_id
         }
@@ -2090,7 +2153,10 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteProtectConfigurationRuleSetNumberOverride"),
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_protect_configuration_rule_set_number_override_request.DeleteProtectConfigurationRuleSetNumberOverrideRequest = {
             "protect_configuration_id": protect_configuration_id,
             "destination_phone_number": destination_phone_number,
@@ -2141,7 +2207,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRcsAgent")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_rcs_agent_request.DeleteRcsAgentRequest = {
             "rcs_agent_id": rcs_agent_id
         }
@@ -2181,7 +2249,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRcsMessageSpendLimitOverride")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_rcs_message_spend_limit_override_request.DeleteRcsMessageSpendLimitOverrideRequest = {}
 
         response = execute_pipeline(
@@ -2227,7 +2297,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRegistration")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_registration_request.DeleteRegistrationRequest = {
             "registration_id": registration_id
         }
@@ -2275,7 +2347,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRegistrationAttachment")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_registration_attachment_request.DeleteRegistrationAttachmentRequest = {
             "registration_attachment_id": registration_attachment_id
         }
@@ -2325,7 +2399,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRegistrationFieldValue")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_registration_field_value_request.DeleteRegistrationFieldValueRequest = {
             "registration_id": registration_id,
             "field_path": field_path,
@@ -2373,7 +2449,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -2413,7 +2491,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTextMessageSpendLimitOverride")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_text_message_spend_limit_override_request.DeleteTextMessageSpendLimitOverrideRequest = {}
 
         response = execute_pipeline(
@@ -2459,7 +2539,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVerifiedDestinationNumber")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_verified_destination_number_request.DeleteVerifiedDestinationNumberRequest = {
             "verified_destination_number_id": verified_destination_number_id
         }
@@ -2499,7 +2581,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVoiceMessageSpendLimitOverride")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.delete_voice_message_spend_limit_override_request.DeleteVoiceMessageSpendLimitOverrideRequest = {}
 
         response = execute_pipeline(
@@ -2549,7 +2633,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountAttributes")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_account_attributes_request.DescribeAccountAttributesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2603,7 +2689,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountLimits")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_account_limits_request.DescribeAccountLimitsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2666,7 +2754,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConfigurationSets")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_configuration_sets_request.DescribeConfigurationSetsRequest = {}
         if configuration_set_names is not None:
             input_["configuration_set_names"] = configuration_set_names
@@ -2735,7 +2825,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeKeywords")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_keywords_request.DescribeKeywordsRequest = {
             "origination_identity": origination_identity
         }
@@ -2810,7 +2902,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeNotifyConfigurations")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_notify_configurations_request.DescribeNotifyConfigurationsRequest = {}
         if notify_configuration_ids is not None:
             input_["notify_configuration_ids"] = notify_configuration_ids
@@ -2883,7 +2977,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeNotifyTemplates")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_notify_templates_request.DescribeNotifyTemplatesRequest = {}
         if template_ids is not None:
             input_["template_ids"] = template_ids
@@ -2952,7 +3048,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOptedOutNumbers")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_opted_out_numbers_request.DescribeOptedOutNumbersRequest = {
             "opt_out_list_name": opt_out_list_name
         }
@@ -3019,7 +3117,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOptOutLists")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_opt_out_lists_request.DescribeOptOutListsRequest = {}
         if opt_out_list_names is not None:
             input_["opt_out_list_names"] = opt_out_list_names
@@ -3088,7 +3188,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePhoneNumbers")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_phone_numbers_request.DescribePhoneNumbersRequest = {}
         if phone_number_ids is not None:
             input_["phone_number_ids"] = phone_number_ids
@@ -3159,7 +3261,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePools")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_pools_request.DescribePoolsRequest = {}
         if pool_ids is not None:
             input_["pool_ids"] = pool_ids
@@ -3228,7 +3332,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProtectConfigurations")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_protect_configurations_request.DescribeProtectConfigurationsRequest = {}
         if protect_configuration_ids is not None:
             input_["protect_configuration_ids"] = protect_configuration_ids
@@ -3297,7 +3403,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRcsAgentCountryLaunchStatus")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_rcs_agent_country_launch_status_request.DescribeRcsAgentCountryLaunchStatusRequest = {
             "rcs_agent_id": rcs_agent_id
         }
@@ -3368,7 +3476,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRcsAgents")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_rcs_agents_request.DescribeRcsAgentsRequest = {}
         if rcs_agent_ids is not None:
             input_["rcs_agent_ids"] = rcs_agent_ids
@@ -3437,7 +3547,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRegistrationAttachments")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_registration_attachments_request.DescribeRegistrationAttachmentsRequest = {}
         if registration_attachment_ids is not None:
             input_["registration_attachment_ids"] = registration_attachment_ids
@@ -3505,7 +3617,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRegistrationFieldDefinitions")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_registration_field_definitions_request.DescribeRegistrationFieldDefinitionsRequest = {
             "registration_type": registration_type
         }
@@ -3580,7 +3694,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRegistrationFieldValues")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_registration_field_values_request.DescribeRegistrationFieldValuesRequest = {
             "registration_id": registration_id
         }
@@ -3651,7 +3767,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRegistrations")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_registrations_request.DescribeRegistrationsRequest = {}
         if registration_ids is not None:
             input_["registration_ids"] = registration_ids
@@ -3715,7 +3833,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRegistrationSectionDefinitions")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_registration_section_definitions_request.DescribeRegistrationSectionDefinitionsRequest = {
             "registration_type": registration_type
         }
@@ -3781,7 +3901,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRegistrationTypeDefinitions")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_registration_type_definitions_request.DescribeRegistrationTypeDefinitionsRequest = {}
         if registration_types is not None:
             input_["registration_types"] = registration_types
@@ -3850,7 +3972,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRegistrationVersions")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_registration_versions_request.DescribeRegistrationVersionsRequest = {
             "registration_id": registration_id
         }
@@ -3921,7 +4045,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSenderIds")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_sender_ids_request.DescribeSenderIdsRequest = {}
         if sender_ids is not None:
             input_["sender_ids"] = sender_ids
@@ -3981,7 +4107,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSpendLimits")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_spend_limits_request.DescribeSpendLimitsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4048,7 +4176,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeVerifiedDestinationNumbers")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.describe_verified_destination_numbers_request.DescribeVerifiedDestinationNumbersRequest = {}
         if verified_destination_number_ids is not None:
             input_["verified_destination_number_ids"] = verified_destination_number_ids
@@ -4114,7 +4244,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateOriginationIdentity")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.disassociate_origination_identity_request.DisassociateOriginationIdentityRequest = {
             "pool_id": pool_id,
             "origination_identity": origination_identity,
@@ -4170,7 +4302,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateProtectConfiguration")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.disassociate_protect_configuration_request.DisassociateProtectConfigurationRequest = {
             "protect_configuration_id": protect_configuration_id,
             "configuration_set_name": configuration_set_name,
@@ -4219,7 +4353,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DiscardRegistrationVersion")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.discard_registration_version_request.DiscardRegistrationVersionRequest = {
             "registration_id": registration_id
         }
@@ -4268,7 +4404,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProtectConfigurationCountryRuleSet")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.get_protect_configuration_country_rule_set_request.GetProtectConfigurationCountryRuleSetRequest = {
             "protect_configuration_id": protect_configuration_id,
             "number_capability": number_capability,
@@ -4316,7 +4454,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.get_resource_policy_request.GetResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -4390,7 +4530,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAvailablePhoneNumbers")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.list_available_phone_numbers_request.ListAvailablePhoneNumbersRequest = {
             "iso_country_code": iso_country_code,
             "number_capabilities": number_capabilities,
@@ -4470,7 +4612,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNotifyCountries")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.list_notify_countries_request.ListNotifyCountriesRequest = {}
         if channels is not None:
             input_["channels"] = channels
@@ -4537,7 +4681,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPoolOriginationIdentities")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.list_pool_origination_identities_request.ListPoolOriginationIdentitiesRequest = {
             "pool_id": pool_id
         }
@@ -4602,7 +4748,10 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListProtectConfigurationRuleSetNumberOverrides"),
+        )
         input_: capo_pinpoint_sms_voice_v2.types.list_protect_configuration_rule_set_number_overrides_request.ListProtectConfigurationRuleSetNumberOverridesRequest = {
             "protect_configuration_id": protect_configuration_id
         }
@@ -4667,7 +4816,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRegistrationAssociations")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.list_registration_associations_request.ListRegistrationAssociationsRequest = {
             "registration_id": registration_id
         }
@@ -4720,7 +4871,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -4777,7 +4930,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutKeyword")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.put_keyword_request.PutKeywordRequest = {
             "origination_identity": origination_identity,
             "keyword": keyword,
@@ -4830,7 +4985,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutMessageFeedback")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.put_message_feedback_request.PutMessageFeedbackRequest = {
             "message_id": message_id,
             "message_feedback_status": message_feedback_status,
@@ -4880,7 +5037,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutOptedOutNumber")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.put_opted_out_number_request.PutOptedOutNumberRequest = {
             "opt_out_list_name": opt_out_list_name,
             "opted_out_number": opted_out_number,
@@ -4940,7 +5099,10 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutProtectConfigurationRuleSetNumberOverride"),
+        )
         input_: capo_pinpoint_sms_voice_v2.types.put_protect_configuration_rule_set_number_override_request.PutProtectConfigurationRuleSetNumberOverrideRequest = {
             "protect_configuration_id": protect_configuration_id,
             "destination_phone_number": destination_phone_number,
@@ -5009,7 +5171,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRegistrationFieldValue")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.put_registration_field_value_request.PutRegistrationFieldValueRequest = {
             "registration_id": registration_id,
             "field_path": field_path,
@@ -5065,7 +5229,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.put_resource_policy_request.PutResourcePolicyRequest = {
             "resource_arn": resource_arn,
             "policy": policy,
@@ -5114,7 +5280,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReleasePhoneNumber")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.release_phone_number_request.ReleasePhoneNumberRequest = {
             "phone_number_id": phone_number_id
         }
@@ -5164,7 +5332,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReleaseSenderId")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.release_sender_id_request.ReleaseSenderIdRequest = {
             "sender_id": sender_id,
             "iso_country_code": iso_country_code,
@@ -5246,7 +5416,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RequestPhoneNumber")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.request_phone_number_request.RequestPhoneNumberRequest = {
             "iso_country_code": iso_country_code,
             "message_type": message_type,
@@ -5328,7 +5500,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RequestSenderId")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.request_sender_id_request.RequestSenderIdRequest = {
             "sender_id": sender_id,
             "iso_country_code": iso_country_code,
@@ -5409,7 +5583,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendDestinationNumberVerificationCode")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.send_destination_number_verification_code_request.SendDestinationNumberVerificationCodeRequest = {
             "verified_destination_number_id": verified_destination_number_id,
             "verification_channel": verification_channel,
@@ -5503,7 +5679,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendMediaMessage")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.send_media_message_request.SendMediaMessageRequest = {
             "destination_phone_number": destination_phone_number,
             "origination_identity": origination_identity,
@@ -5601,7 +5779,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendNotifyTextMessage")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.send_notify_text_message_request.SendNotifyTextMessageRequest = {
             "notify_configuration_id": notify_configuration_id,
             "destination_phone_number": destination_phone_number,
@@ -5696,7 +5876,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendNotifyVoiceMessage")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.send_notify_voice_message_request.SendNotifyVoiceMessageRequest = {
             "notify_configuration_id": notify_configuration_id,
             "destination_phone_number": destination_phone_number,
@@ -5801,7 +5983,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendRcsMessage")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.send_rcs_message_request.SendRcsMessageRequest = {
             "destination_phone_number": destination_phone_number,
             "origination_identity": origination_identity,
@@ -5913,7 +6097,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendTextMessage")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.send_text_message_request.SendTextMessageRequest = {
             "destination_phone_number": destination_phone_number
         }
@@ -6022,7 +6208,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendVoiceMessage")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.send_voice_message_request.SendVoiceMessageRequest = {
             "destination_phone_number": destination_phone_number,
             "origination_identity": origination_identity,
@@ -6090,7 +6278,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetAccountDefaultProtectConfiguration")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.set_account_default_protect_configuration_request.SetAccountDefaultProtectConfigurationRequest = {
             "protect_configuration_id": protect_configuration_id
         }
@@ -6139,7 +6329,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetDefaultMessageFeedbackEnabled")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.set_default_message_feedback_enabled_request.SetDefaultMessageFeedbackEnabledRequest = {
             "configuration_set_name": configuration_set_name,
             "message_feedback_enabled": message_feedback_enabled,
@@ -6189,7 +6381,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetDefaultMessageType")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.set_default_message_type_request.SetDefaultMessageTypeRequest = {
             "configuration_set_name": configuration_set_name,
             "message_type": message_type,
@@ -6239,7 +6433,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetDefaultSenderId")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.set_default_sender_id_request.SetDefaultSenderIdRequest = {
             "configuration_set_name": configuration_set_name,
             "sender_id": sender_id,
@@ -6286,7 +6482,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetMediaMessageSpendLimitOverride")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.set_media_message_spend_limit_override_request.SetMediaMessageSpendLimitOverrideRequest = {
             "monthly_limit": monthly_limit
         }
@@ -6338,7 +6536,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetNotifyMessageSpendLimitOverride")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.set_notify_message_spend_limit_override_request.SetNotifyMessageSpendLimitOverrideRequest = {
             "monthly_limit": monthly_limit
         }
@@ -6384,7 +6584,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetRcsMessageSpendLimitOverride")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.set_rcs_message_spend_limit_override_request.SetRcsMessageSpendLimitOverrideRequest = {
             "monthly_limit": monthly_limit
         }
@@ -6430,7 +6632,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetTextMessageSpendLimitOverride")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.set_text_message_spend_limit_override_request.SetTextMessageSpendLimitOverrideRequest = {
             "monthly_limit": monthly_limit
         }
@@ -6476,7 +6680,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetVoiceMessageSpendLimitOverride")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.set_voice_message_spend_limit_override_request.SetVoiceMessageSpendLimitOverrideRequest = {
             "monthly_limit": monthly_limit
         }
@@ -6526,7 +6732,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SubmitRegistrationVersion")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.submit_registration_version_request.SubmitRegistrationVersionRequest = {
             "registration_id": registration_id
         }
@@ -6578,7 +6786,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -6628,7 +6838,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -6697,7 +6909,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEventDestination")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.update_event_destination_request.UpdateEventDestinationRequest = {
             "configuration_set_name": configuration_set_name,
             "event_destination_name": event_destination_name,
@@ -6780,7 +6994,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNotifyConfiguration")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.update_notify_configuration_request.UpdateNotifyConfigurationRequest = {
             "notify_configuration_id": notify_configuration_id
         }
@@ -6858,7 +7074,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePhoneNumber")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.update_phone_number_request.UpdatePhoneNumberRequest = {
             "phone_number_id": phone_number_id
         }
@@ -6940,7 +7158,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePool")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.update_pool_request.UpdatePoolRequest = {
             "pool_id": pool_id
         }
@@ -7003,7 +7223,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProtectConfiguration")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.update_protect_configuration_request.UpdateProtectConfigurationRequest = {
             "protect_configuration_id": protect_configuration_id
         }
@@ -7056,7 +7278,10 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateProtectConfigurationCountryRuleSet"),
+        )
         input_: capo_pinpoint_sms_voice_v2.types.update_protect_configuration_country_rule_set_request.UpdateProtectConfigurationCountryRuleSetRequest = {
             "protect_configuration_id": protect_configuration_id,
             "number_capability": number_capability,
@@ -7142,7 +7367,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRcsAgent")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.update_rcs_agent_request.UpdateRcsAgentRequest = {
             "rcs_agent_id": rcs_agent_id
         }
@@ -7215,7 +7442,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSenderId")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.update_sender_id_request.UpdateSenderIdRequest = {
             "sender_id": sender_id,
             "iso_country_code": iso_country_code,
@@ -7268,7 +7497,9 @@ class PinpointSMSVoiceV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("VerifyDestinationNumber")
+        )
         input_: capo_pinpoint_sms_voice_v2.types.verify_destination_number_request.VerifyDestinationNumberRequest = {
             "verified_destination_number_id": verified_destination_number_id,
             "verification_code": verification_code,

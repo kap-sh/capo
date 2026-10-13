@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#ImportInstanceTaskDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -70,6 +70,19 @@ def deserialize_ec2_query(el: Element) -> ImportInstanceTaskDetails:
         out["volumes"] = (
             capo_ec2.types.import_instance_volume_detail_set.deserialize_ec2_query(
                 child_volumes
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ImportInstanceTaskDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "volumes" in value:
+        import capo_ec2.types.import_instance_volume_detail_set
+
+        out["volumes"] = (
+            capo_ec2.types.import_instance_volume_detail_set.redact_sensitive(
+                value["volumes"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#KnowledgeBaseRetrieveAndGenerateConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -101,6 +101,29 @@ def deserialize_json(data: dict) -> KnowledgeBaseRetrieveAndGenerateConfiguratio
         out["orchestration_configuration"] = (
             capo_bedrock.types.orchestration_configuration.deserialize_json(
                 data["orchestrationConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(
+    value: KnowledgeBaseRetrieveAndGenerateConfiguration,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "retrieval_configuration" in value:
+        import capo_bedrock.types.knowledge_base_retrieval_configuration
+
+        out["retrieval_configuration"] = (
+            capo_bedrock.types.knowledge_base_retrieval_configuration.redact_sensitive(
+                value["retrieval_configuration"]
+            )
+        )
+    if "generation_configuration" in value:
+        import capo_bedrock.types.generation_configuration
+
+        out["generation_configuration"] = (
+            capo_bedrock.types.generation_configuration.redact_sensitive(
+                value["generation_configuration"]
             )
         )
     return out

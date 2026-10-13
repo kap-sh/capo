@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#CalculatedColumn``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -44,4 +44,11 @@ def deserialize_json(data: dict) -> CalculatedColumn:
         out["expression"] = data["Expression"]
     else:
         raise DeserializationError("CalculatedColumn.expression required")
+    return out
+
+
+def redact_sensitive(value: CalculatedColumn) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "expression" in value:
+        out["expression"] = "*** Sensitive Data Redacted ***"
     return out

@@ -25,7 +25,9 @@ from capo_chime_sdk_media_pipelines._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -192,7 +194,9 @@ class AsyncChimeSDKMediaPipelinesClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncChimeSDKMediaPipelinesClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncChimeSDKMediaPipelinesClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncChimeSDKMediaPipelinesClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -200,8 +204,10 @@ class AsyncChimeSDKMediaPipelinesClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -281,7 +287,32 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_media_pipelines.types.create_media_capture_pipeline_request.CreateMediaCapturePipelineRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.create_media_capture_pipeline_request
+
+            return capo_chime_sdk_media_pipelines.types.create_media_capture_pipeline_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_media_pipelines.types.create_media_capture_pipeline_response.CreateMediaCapturePipelineResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.create_media_capture_pipeline_response
+
+            return capo_chime_sdk_media_pipelines.types.create_media_capture_pipeline_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateMediaCapturePipeline",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_media_pipelines.types.create_media_capture_pipeline_request.CreateMediaCapturePipelineRequest = {
             "source_type": source_type,
             "source_arn": source_arn,
@@ -353,7 +384,32 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_media_pipelines.types.create_media_concatenation_pipeline_request.CreateMediaConcatenationPipelineRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.create_media_concatenation_pipeline_request
+
+            return capo_chime_sdk_media_pipelines.types.create_media_concatenation_pipeline_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_media_pipelines.types.create_media_concatenation_pipeline_response.CreateMediaConcatenationPipelineResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.create_media_concatenation_pipeline_response
+
+            return capo_chime_sdk_media_pipelines.types.create_media_concatenation_pipeline_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateMediaConcatenationPipeline",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_media_pipelines.types.create_media_concatenation_pipeline_request.CreateMediaConcatenationPipelineRequest = {
             "sources": sources,
             "sinks": sinks,
@@ -432,7 +488,32 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_media_pipelines.types.create_media_insights_pipeline_request.CreateMediaInsightsPipelineRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.create_media_insights_pipeline_request
+
+            return capo_chime_sdk_media_pipelines.types.create_media_insights_pipeline_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_media_pipelines.types.create_media_insights_pipeline_response.CreateMediaInsightsPipelineResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.create_media_insights_pipeline_response
+
+            return capo_chime_sdk_media_pipelines.types.create_media_insights_pipeline_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateMediaInsightsPipeline",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_media_pipelines.types.create_media_insights_pipeline_request.CreateMediaInsightsPipelineRequest = {
             "media_insights_pipeline_configuration_arn": media_insights_pipeline_configuration_arn
         }
@@ -516,7 +597,32 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_media_pipelines.types.create_media_insights_pipeline_configuration_request.CreateMediaInsightsPipelineConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.create_media_insights_pipeline_configuration_request
+
+            return capo_chime_sdk_media_pipelines.types.create_media_insights_pipeline_configuration_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_media_pipelines.types.create_media_insights_pipeline_configuration_response.CreateMediaInsightsPipelineConfigurationResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.create_media_insights_pipeline_configuration_response
+
+            return capo_chime_sdk_media_pipelines.types.create_media_insights_pipeline_configuration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateMediaInsightsPipelineConfiguration",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_media_pipelines.types.create_media_insights_pipeline_configuration_request.CreateMediaInsightsPipelineConfigurationRequest = {
             "media_insights_pipeline_configuration_name": media_insights_pipeline_configuration_name,
             "resource_access_role_arn": resource_access_role_arn,
@@ -583,7 +689,32 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_media_pipelines.types.create_media_live_connector_pipeline_request.CreateMediaLiveConnectorPipelineRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.create_media_live_connector_pipeline_request
+
+            return capo_chime_sdk_media_pipelines.types.create_media_live_connector_pipeline_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_media_pipelines.types.create_media_live_connector_pipeline_response.CreateMediaLiveConnectorPipelineResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.create_media_live_connector_pipeline_response
+
+            return capo_chime_sdk_media_pipelines.types.create_media_live_connector_pipeline_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateMediaLiveConnectorPipeline",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_media_pipelines.types.create_media_live_connector_pipeline_request.CreateMediaLiveConnectorPipelineRequest = {
             "sources": sources,
             "sinks": sinks,
@@ -648,7 +779,32 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_media_pipelines.types.create_media_pipeline_kinesis_video_stream_pool_request.CreateMediaPipelineKinesisVideoStreamPoolRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.create_media_pipeline_kinesis_video_stream_pool_request
+
+            return capo_chime_sdk_media_pipelines.types.create_media_pipeline_kinesis_video_stream_pool_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_media_pipelines.types.create_media_pipeline_kinesis_video_stream_pool_response.CreateMediaPipelineKinesisVideoStreamPoolResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.create_media_pipeline_kinesis_video_stream_pool_response
+
+            return capo_chime_sdk_media_pipelines.types.create_media_pipeline_kinesis_video_stream_pool_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateMediaPipelineKinesisVideoStreamPool",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_media_pipelines.types.create_media_pipeline_kinesis_video_stream_pool_request.CreateMediaPipelineKinesisVideoStreamPoolRequest = {
             "stream_configuration": stream_configuration,
             "pool_name": pool_name,
@@ -713,7 +869,32 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_media_pipelines.types.create_media_stream_pipeline_request.CreateMediaStreamPipelineRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.create_media_stream_pipeline_request
+
+            return capo_chime_sdk_media_pipelines.types.create_media_stream_pipeline_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_media_pipelines.types.create_media_stream_pipeline_response.CreateMediaStreamPipelineResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.create_media_stream_pipeline_response
+
+            return capo_chime_sdk_media_pipelines.types.create_media_stream_pipeline_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateMediaStreamPipeline",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_media_pipelines.types.create_media_stream_pipeline_request.CreateMediaStreamPipelineRequest = {
             "sources": sources,
             "sinks": sinks,
@@ -767,7 +948,9 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMediaCapturePipeline")
+        )
         input_: capo_chime_sdk_media_pipelines.types.delete_media_capture_pipeline_request.DeleteMediaCapturePipelineRequest = {
             "media_pipeline_id": media_pipeline_id
         }
@@ -816,7 +999,10 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteMediaInsightsPipelineConfiguration"),
+        )
         input_: capo_chime_sdk_media_pipelines.types.delete_media_insights_pipeline_configuration_request.DeleteMediaInsightsPipelineConfigurationRequest = {
             "identifier": identifier
         }
@@ -865,7 +1051,9 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMediaPipeline")
+        )
         input_: capo_chime_sdk_media_pipelines.types.delete_media_pipeline_request.DeleteMediaPipelineRequest = {
             "media_pipeline_id": media_pipeline_id
         }
@@ -914,7 +1102,10 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteMediaPipelineKinesisVideoStreamPool"),
+        )
         input_: capo_chime_sdk_media_pipelines.types.delete_media_pipeline_kinesis_video_stream_pool_request.DeleteMediaPipelineKinesisVideoStreamPoolRequest = {
             "identifier": identifier
         }
@@ -964,7 +1155,19 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_media_pipelines.types.get_media_capture_pipeline_response.GetMediaCapturePipelineResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.get_media_capture_pipeline_response
+
+            return capo_chime_sdk_media_pipelines.types.get_media_capture_pipeline_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetMediaCapturePipeline", redact_output=_redact_output),
+        )
         input_: capo_chime_sdk_media_pipelines.types.get_media_capture_pipeline_request.GetMediaCapturePipelineRequest = {
             "media_pipeline_id": media_pipeline_id
         }
@@ -1014,7 +1217,21 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_media_pipelines.types.get_media_insights_pipeline_configuration_response.GetMediaInsightsPipelineConfigurationResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.get_media_insights_pipeline_configuration_response
+
+            return capo_chime_sdk_media_pipelines.types.get_media_insights_pipeline_configuration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetMediaInsightsPipelineConfiguration", redact_output=_redact_output
+            ),
+        )
         input_: capo_chime_sdk_media_pipelines.types.get_media_insights_pipeline_configuration_request.GetMediaInsightsPipelineConfigurationRequest = {
             "identifier": identifier
         }
@@ -1064,7 +1281,19 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_media_pipelines.types.get_media_pipeline_response.GetMediaPipelineResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.get_media_pipeline_response
+
+            return capo_chime_sdk_media_pipelines.types.get_media_pipeline_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetMediaPipeline", redact_output=_redact_output),
+        )
         input_: capo_chime_sdk_media_pipelines.types.get_media_pipeline_request.GetMediaPipelineRequest = {
             "media_pipeline_id": media_pipeline_id
         }
@@ -1114,7 +1343,21 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_media_pipelines.types.get_media_pipeline_kinesis_video_stream_pool_response.GetMediaPipelineKinesisVideoStreamPoolResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.get_media_pipeline_kinesis_video_stream_pool_response
+
+            return capo_chime_sdk_media_pipelines.types.get_media_pipeline_kinesis_video_stream_pool_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetMediaPipelineKinesisVideoStreamPool", redact_output=_redact_output
+            ),
+        )
         input_: capo_chime_sdk_media_pipelines.types.get_media_pipeline_kinesis_video_stream_pool_request.GetMediaPipelineKinesisVideoStreamPoolRequest = {
             "identifier": identifier
         }
@@ -1166,7 +1409,9 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSpeakerSearchTask")
+        )
         input_: capo_chime_sdk_media_pipelines.types.get_speaker_search_task_request.GetSpeakerSearchTaskRequest = {
             "identifier": identifier,
             "speaker_search_task_id": speaker_search_task_id,
@@ -1219,7 +1464,9 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetVoiceToneAnalysisTask")
+        )
         input_: capo_chime_sdk_media_pipelines.types.get_voice_tone_analysis_task_request.GetVoiceToneAnalysisTaskRequest = {
             "identifier": identifier,
             "voice_tone_analysis_task_id": voice_tone_analysis_task_id,
@@ -1276,7 +1523,9 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMediaCapturePipelines")
+        )
         input_: capo_chime_sdk_media_pipelines.types.list_media_capture_pipelines_request.ListMediaCapturePipelinesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1357,7 +1606,21 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_media_pipelines.types.list_media_insights_pipeline_configurations_response.ListMediaInsightsPipelineConfigurationsResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.list_media_insights_pipeline_configurations_response
+
+            return capo_chime_sdk_media_pipelines.types.list_media_insights_pipeline_configurations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListMediaInsightsPipelineConfigurations", redact_output=_redact_output
+            ),
+        )
         input_: capo_chime_sdk_media_pipelines.types.list_media_insights_pipeline_configurations_request.ListMediaInsightsPipelineConfigurationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1438,7 +1701,21 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_media_pipelines.types.list_media_pipeline_kinesis_video_stream_pools_response.ListMediaPipelineKinesisVideoStreamPoolsResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.list_media_pipeline_kinesis_video_stream_pools_response
+
+            return capo_chime_sdk_media_pipelines.types.list_media_pipeline_kinesis_video_stream_pools_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListMediaPipelineKinesisVideoStreamPools", redact_output=_redact_output
+            ),
+        )
         input_: capo_chime_sdk_media_pipelines.types.list_media_pipeline_kinesis_video_stream_pools_request.ListMediaPipelineKinesisVideoStreamPoolsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1519,7 +1796,9 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMediaPipelines")
+        )
         input_: capo_chime_sdk_media_pipelines.types.list_media_pipelines_request.ListMediaPipelinesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1594,7 +1873,9 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_chime_sdk_media_pipelines.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1655,7 +1936,19 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_media_pipelines.types.start_speaker_search_task_request.StartSpeakerSearchTaskRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.start_speaker_search_task_request
+
+            return capo_chime_sdk_media_pipelines.types.start_speaker_search_task_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartSpeakerSearchTask", redact_input=_redact_input),
+        )
         input_: capo_chime_sdk_media_pipelines.types.start_speaker_search_task_request.StartSpeakerSearchTaskRequest = {
             "identifier": identifier,
             "voice_profile_domain_arn": voice_profile_domain_arn,
@@ -1724,7 +2017,19 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_media_pipelines.types.start_voice_tone_analysis_task_request.StartVoiceToneAnalysisTaskRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.start_voice_tone_analysis_task_request
+
+            return capo_chime_sdk_media_pipelines.types.start_voice_tone_analysis_task_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartVoiceToneAnalysisTask", redact_input=_redact_input),
+        )
         input_: capo_chime_sdk_media_pipelines.types.start_voice_tone_analysis_task_request.StartVoiceToneAnalysisTaskRequest = {
             "identifier": identifier,
             "language_code": language_code,
@@ -1783,7 +2088,9 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopSpeakerSearchTask")
+        )
         input_: capo_chime_sdk_media_pipelines.types.stop_speaker_search_task_request.StopSpeakerSearchTaskRequest = {
             "identifier": identifier,
             "speaker_search_task_id": speaker_search_task_id,
@@ -1835,7 +2142,9 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopVoiceToneAnalysisTask")
+        )
         input_: capo_chime_sdk_media_pipelines.types.stop_voice_tone_analysis_task_request.StopVoiceToneAnalysisTaskRequest = {
             "identifier": identifier,
             "voice_tone_analysis_task_id": voice_tone_analysis_task_id,
@@ -1890,7 +2199,9 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_chime_sdk_media_pipelines.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1943,7 +2254,9 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_chime_sdk_media_pipelines.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2003,7 +2316,32 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_media_pipelines.types.update_media_insights_pipeline_configuration_request.UpdateMediaInsightsPipelineConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.update_media_insights_pipeline_configuration_request
+
+            return capo_chime_sdk_media_pipelines.types.update_media_insights_pipeline_configuration_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_media_pipelines.types.update_media_insights_pipeline_configuration_response.UpdateMediaInsightsPipelineConfigurationResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.update_media_insights_pipeline_configuration_response
+
+            return capo_chime_sdk_media_pipelines.types.update_media_insights_pipeline_configuration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateMediaInsightsPipelineConfiguration",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_media_pipelines.types.update_media_insights_pipeline_configuration_request.UpdateMediaInsightsPipelineConfigurationRequest = {
             "identifier": identifier,
             "resource_access_role_arn": resource_access_role_arn,
@@ -2058,7 +2396,9 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMediaInsightsPipelineStatus")
+        )
         input_: capo_chime_sdk_media_pipelines.types.update_media_insights_pipeline_status_request.UpdateMediaInsightsPipelineStatusRequest = {
             "identifier": identifier,
             "update_status": update_status,
@@ -2114,7 +2454,22 @@ class AsyncChimeSDKMediaPipelinesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_media_pipelines.types.update_media_pipeline_kinesis_video_stream_pool_response.UpdateMediaPipelineKinesisVideoStreamPoolResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_media_pipelines.types.update_media_pipeline_kinesis_video_stream_pool_response
+
+            return capo_chime_sdk_media_pipelines.types.update_media_pipeline_kinesis_video_stream_pool_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateMediaPipelineKinesisVideoStreamPool",
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_media_pipelines.types.update_media_pipeline_kinesis_video_stream_pool_request.UpdateMediaPipelineKinesisVideoStreamPoolRequest = {
             "identifier": identifier
         }

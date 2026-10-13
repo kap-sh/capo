@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.identitystore#AlternateIdentifier``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -65,3 +65,14 @@ def deserialize_aws_json_1_1(data: dict) -> AlternateIdentifier:
         }
     else:
         raise DeserializationError("AlternateIdentifier: no recognized variant key")
+
+
+def redact_sensitive(value: AlternateIdentifier) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ExternalId" in value:
+        import capo_identitystore.types.external_id
+
+        out["ExternalId"] = capo_identitystore.types.external_id.redact_sensitive(
+            value["ExternalId"]
+        )
+    return out

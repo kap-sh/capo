@@ -7,6 +7,7 @@ import capo_controltower._auth._sigv4
 from capo_controltower._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -94,7 +95,9 @@ class EnabledBaselineResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("EnableBaseline")
+        )
         input_: capo_controltower.types.enable_baseline_input.EnableBaselineInput = {
             "baseline_version": baseline_version,
             "baseline_identifier": baseline_identifier,
@@ -147,7 +150,9 @@ class EnabledBaselineResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEnabledBaseline")
+        )
         input_: capo_controltower.types.get_enabled_baseline_input.GetEnabledBaselineInput = {
             "enabled_baseline_identifier": enabled_baseline_identifier
         }
@@ -202,7 +207,9 @@ class EnabledBaselineResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateEnabledBaseline")
+        )
         input_: capo_controltower.types.update_enabled_baseline_input.UpdateEnabledBaselineInput = {
             "baseline_version": baseline_version,
             "enabled_baseline_identifier": enabled_baseline_identifier,
@@ -254,7 +261,9 @@ class EnabledBaselineResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisableBaseline")
+        )
         input_: capo_controltower.types.disable_baseline_input.DisableBaselineInput = {
             "enabled_baseline_identifier": enabled_baseline_identifier
         }
@@ -312,7 +321,9 @@ class EnabledBaselineResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnabledBaselines")
+        )
         input_: capo_controltower.types.list_enabled_baselines_input.ListEnabledBaselinesInput = {}
         if filter is not None:
             input_["filter"] = filter
@@ -367,7 +378,9 @@ class EnabledBaselineResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ResetEnabledBaseline")
+        )
         input_: capo_controltower.types.reset_enabled_baseline_input.ResetEnabledBaselineInput = {
             "enabled_baseline_identifier": enabled_baseline_identifier
         }
@@ -432,7 +445,9 @@ class AsyncEnabledBaselineResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("EnableBaseline")
+        )
         input_: capo_controltower.types.enable_baseline_input.EnableBaselineInput = {
             "baseline_version": baseline_version,
             "baseline_identifier": baseline_identifier,
@@ -486,7 +501,9 @@ class AsyncEnabledBaselineResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEnabledBaseline")
+        )
         input_: capo_controltower.types.get_enabled_baseline_input.GetEnabledBaselineInput = {
             "enabled_baseline_identifier": enabled_baseline_identifier
         }
@@ -542,7 +559,9 @@ class AsyncEnabledBaselineResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateEnabledBaseline")
+        )
         input_: capo_controltower.types.update_enabled_baseline_input.UpdateEnabledBaselineInput = {
             "baseline_version": baseline_version,
             "enabled_baseline_identifier": enabled_baseline_identifier,
@@ -595,7 +614,9 @@ class AsyncEnabledBaselineResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisableBaseline")
+        )
         input_: capo_controltower.types.disable_baseline_input.DisableBaselineInput = {
             "enabled_baseline_identifier": enabled_baseline_identifier
         }
@@ -654,7 +675,9 @@ class AsyncEnabledBaselineResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnabledBaselines")
+        )
         input_: capo_controltower.types.list_enabled_baselines_input.ListEnabledBaselinesInput = {}
         if filter is not None:
             input_["filter"] = filter
@@ -710,7 +733,9 @@ class AsyncEnabledBaselineResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ResetEnabledBaseline")
+        )
         input_: capo_controltower.types.reset_enabled_baseline_input.ResetEnabledBaselineInput = {
             "enabled_baseline_identifier": enabled_baseline_identifier
         }

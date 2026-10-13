@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#DeleteEnvironmentTemplateOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteEnvironmentTemplateOutput:
         out["environment_template"] = (
             capo_proton.types.environment_template.deserialize_aws_json_1_0(
                 data["environmentTemplate"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DeleteEnvironmentTemplateOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "environment_template" in value:
+        import capo_proton.types.environment_template
+
+        out["environment_template"] = (
+            capo_proton.types.environment_template.redact_sensitive(
+                value["environment_template"]
             )
         )
     return out

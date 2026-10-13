@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyWorkflowTypeContent``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -120,3 +120,42 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyWorkflowTypeContent:
         raise DeserializationError(
             "AutomatedReasoningPolicyWorkflowTypeContent: no recognized variant key"
         )
+
+
+def redact_sensitive(
+    value: AutomatedReasoningPolicyWorkflowTypeContent,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "documents" in value:
+        import capo_bedrock.types.automated_reasoning_policy_build_workflow_document_list
+
+        out["documents"] = (
+            capo_bedrock.types.automated_reasoning_policy_build_workflow_document_list.redact_sensitive(
+                value["documents"]
+            )
+        )
+    if "policyRepairAssets" in value:
+        import capo_bedrock.types.automated_reasoning_policy_build_workflow_repair_content
+
+        out["policyRepairAssets"] = (
+            capo_bedrock.types.automated_reasoning_policy_build_workflow_repair_content.redact_sensitive(
+                value["policyRepairAssets"]
+            )
+        )
+    if "generateFidelityReportContent" in value:
+        import capo_bedrock.types.automated_reasoning_policy_generate_fidelity_report_content
+
+        out["generateFidelityReportContent"] = (
+            capo_bedrock.types.automated_reasoning_policy_generate_fidelity_report_content.redact_sensitive(
+                value["generateFidelityReportContent"]
+            )
+        )
+    if "iterativeRefinementContent" in value:
+        import capo_bedrock.types.automated_reasoning_policy_iterative_refinement_content
+
+        out["iterativeRefinementContent"] = (
+            capo_bedrock.types.automated_reasoning_policy_iterative_refinement_content.redact_sensitive(
+                value["iterativeRefinementContent"]
+            )
+        )
+    return out

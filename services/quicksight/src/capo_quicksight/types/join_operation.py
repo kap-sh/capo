@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#JoinOperation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -136,4 +136,11 @@ def deserialize_json(data: dict) -> JoinOperation:
                 data["RightOperandProperties"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: JoinOperation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "on_clause" in value:
+        out["on_clause"] = "*** Sensitive Data Redacted ***"
     return out

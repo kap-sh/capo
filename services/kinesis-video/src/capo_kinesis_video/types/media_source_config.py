@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kinesisvideo#MediaSourceConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -48,4 +48,11 @@ def deserialize_json(data: dict) -> MediaSourceConfig:
         )
     else:
         raise DeserializationError("MediaSourceConfig.media_uri_type required")
+    return out
+
+
+def redact_sensitive(value: MediaSourceConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "media_uri_secret_arn" in value:
+        out["media_uri_secret_arn"] = "*** Sensitive Data Redacted ***"
     return out

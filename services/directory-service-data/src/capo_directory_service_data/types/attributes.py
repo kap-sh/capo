@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.directoryservicedata#Attributes``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_directory_service_data.types.attribute_value
@@ -35,3 +35,12 @@ def deserialize_json(data: dict) -> Attributes:
             value
         )
     return out
+
+
+def redact_sensitive(value: Attributes) -> dict[str, Any]:
+    import capo_directory_service_data.types.attribute_value
+
+    return {
+        key: capo_directory_service_data.types.attribute_value.redact_sensitive(item)
+        for key, item in value.items()
+    }

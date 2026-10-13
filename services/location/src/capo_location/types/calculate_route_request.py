@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#CalculateRouteRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -187,4 +187,47 @@ def deserialize_json(data: dict) -> CalculateRouteRequest:
         )
     if data.get("OptimizeFor") is not None:
         out["optimize_for"] = data["OptimizeFor"]
+    return out
+
+
+def redact_sensitive(value: CalculateRouteRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "departure_position" in value:
+        out["departure_position"] = "*** Sensitive Data Redacted ***"
+    if "destination_position" in value:
+        out["destination_position"] = "*** Sensitive Data Redacted ***"
+    if "waypoint_positions" in value:
+        import capo_location.types.waypoint_position_list
+
+        out["waypoint_positions"] = (
+            capo_location.types.waypoint_position_list.redact_sensitive(
+                value["waypoint_positions"]
+            )
+        )
+    if "departure_time" in value:
+        out["departure_time"] = "*** Sensitive Data Redacted ***"
+    if "depart_now" in value:
+        out["depart_now"] = "*** Sensitive Data Redacted ***"
+    if "include_leg_geometry" in value:
+        out["include_leg_geometry"] = "*** Sensitive Data Redacted ***"
+    if "car_mode_options" in value:
+        import capo_location.types.calculate_route_car_mode_options
+
+        out["car_mode_options"] = (
+            capo_location.types.calculate_route_car_mode_options.redact_sensitive(
+                value["car_mode_options"]
+            )
+        )
+    if "truck_mode_options" in value:
+        import capo_location.types.calculate_route_truck_mode_options
+
+        out["truck_mode_options"] = (
+            capo_location.types.calculate_route_truck_mode_options.redact_sensitive(
+                value["truck_mode_options"]
+            )
+        )
+    if "arrival_time" in value:
+        out["arrival_time"] = "*** Sensitive Data Redacted ***"
+    if "key" in value:
+        out["key"] = "*** Sensitive Data Redacted ***"
     return out

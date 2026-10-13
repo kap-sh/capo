@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.endusermessaging#UpdateVoiceParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -64,4 +64,11 @@ def deserialize_json(data: dict) -> UpdateVoiceParameters:
                 data["voiceMessageBodyTextType"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: UpdateVoiceParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inline_template_body" in value:
+        out["inline_template_body"] = "*** Sensitive Data Redacted ***"
     return out

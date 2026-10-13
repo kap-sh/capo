@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kafkaconnect#UpdateConnectorRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -59,4 +59,11 @@ def deserialize_json(data: dict) -> UpdateConnectorRequest:
                 data["connectorConfiguration"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: UpdateConnectorRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "connector_configuration" in value:
+        out["connector_configuration"] = "*** Sensitive Data Redacted ***"
     return out

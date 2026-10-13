@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#RedactionPlaceHolder``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,4 +41,11 @@ def deserialize_json(data: dict) -> RedactionPlaceHolder:
         )
     if data.get("redactionPlaceHolderText") is not None:
         out["redaction_place_holder_text"] = data["redactionPlaceHolderText"]
+    return out
+
+
+def redact_sensitive(value: RedactionPlaceHolder) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "redaction_place_holder_text" in value:
+        out["redaction_place_holder_text"] = "*** Sensitive Data Redacted ***"
     return out

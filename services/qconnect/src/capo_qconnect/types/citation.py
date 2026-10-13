@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#Citation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -69,4 +69,13 @@ def deserialize_json(data: dict) -> Citation:
         out["reference_type"] = data["referenceType"]
     else:
         raise DeserializationError("Citation.reference_type required")
+    return out
+
+
+def redact_sensitive(value: Citation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "title" in value:
+        out["title"] = "*** Sensitive Data Redacted ***"
+    if "source_url" in value:
+        out["source_url"] = "*** Sensitive Data Redacted ***"
     return out

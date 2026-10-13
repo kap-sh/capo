@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteAvoidanceAreaGeometryList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_routes.types.route_avoidance_area_geometry
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> RouteAvoidanceAreaGeometryList:
             capo_geo_routes.types.route_avoidance_area_geometry.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: RouteAvoidanceAreaGeometryList) -> list[Any]:
+    import capo_geo_routes.types.route_avoidance_area_geometry
+
+    return [
+        capo_geo_routes.types.route_avoidance_area_geometry.redact_sensitive(item)
+        for item in value
+    ]

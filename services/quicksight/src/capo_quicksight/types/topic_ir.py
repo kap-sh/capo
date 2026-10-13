@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TopicIR``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -119,5 +119,16 @@ def deserialize_json(data: dict) -> TopicIR:
 
         out["visual"] = capo_quicksight.types.visual_options.deserialize_json(
             data["Visual"]
+        )
+    return out
+
+
+def redact_sensitive(value: TopicIR) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "metrics" in value:
+        import capo_quicksight.types.topic_ir_metric_list
+
+        out["metrics"] = capo_quicksight.types.topic_ir_metric_list.redact_sensitive(
+            value["metrics"]
         )
     return out

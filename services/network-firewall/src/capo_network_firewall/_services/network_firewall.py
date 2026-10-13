@@ -21,10 +21,12 @@ from capo_network_firewall._pagination import resolve_path as _resolve_path
 from capo_network_firewall._services._aws_config import aws_config
 from capo_network_firewall._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -350,7 +352,9 @@ class NetworkFirewallClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[NetworkFirewallClientConfig] = None
+        self,
+        config_overrides: Optional[NetworkFirewallClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: NetworkFirewallClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -358,8 +362,10 @@ class NetworkFirewallClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -411,7 +417,10 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AcceptNetworkFirewallTransitGatewayAttachment"),
+        )
         input_: capo_network_firewall.types.accept_network_firewall_transit_gateway_attachment_request.AcceptNetworkFirewallTransitGatewayAttachmentRequest = {
             "transit_gateway_attachment_id": transit_gateway_attachment_id
         }
@@ -472,7 +481,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateAvailabilityZones")
+        )
         input_: capo_network_firewall.types.associate_availability_zones_request.AssociateAvailabilityZonesRequest = {
             "availability_zone_mappings": availability_zone_mappings
         }
@@ -538,7 +549,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateFirewallPolicy")
+        )
         input_: capo_network_firewall.types.associate_firewall_policy_request.AssociateFirewallPolicyRequest = {
             "firewall_policy_arn": firewall_policy_arn
         }
@@ -605,7 +618,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateSubnets")
+        )
         input_: capo_network_firewall.types.associate_subnets_request.AssociateSubnetsRequest = {
             "subnet_mappings": subnet_mappings
         }
@@ -667,7 +682,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachRuleGroupsToProxyConfiguration")
+        )
         input_: capo_network_firewall.types.attach_rule_groups_to_proxy_configuration_request.AttachRuleGroupsToProxyConfigurationRequest = {
             "rule_groups": rule_groups,
             "update_token": update_token,
@@ -729,7 +746,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateContainerAssociation")
+        )
         input_: capo_network_firewall.types.create_container_association_request.CreateContainerAssociationRequest = {
             "container_association_name": container_association_name,
             "type": type,
@@ -845,7 +864,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFirewall")
+        )
         input_: capo_network_firewall.types.create_firewall_request.CreateFirewallRequest = {
             "firewall_name": firewall_name,
             "firewall_policy_arn": firewall_policy_arn,
@@ -943,7 +964,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFirewallPolicy")
+        )
         input_: capo_network_firewall.types.create_firewall_policy_request.CreateFirewallPolicyRequest = {
             "firewall_policy_name": firewall_policy_name,
             "firewall_policy": firewall_policy,
@@ -1018,7 +1041,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProxy")
+        )
         input_: capo_network_firewall.types.create_proxy_request.CreateProxyRequest = {
             "proxy_name": proxy_name,
             "nat_gateway_id": nat_gateway_id,
@@ -1091,7 +1116,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProxyConfiguration")
+        )
         input_: capo_network_firewall.types.create_proxy_configuration_request.CreateProxyConfigurationRequest = {
             "proxy_configuration_name": proxy_configuration_name,
             "default_rule_phase_actions": default_rule_phase_actions,
@@ -1156,7 +1183,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProxyRuleGroup")
+        )
         input_: capo_network_firewall.types.create_proxy_rule_group_request.CreateProxyRuleGroupRequest = {
             "proxy_rule_group_name": proxy_rule_group_name
         }
@@ -1215,7 +1244,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProxyRules")
+        )
         input_: capo_network_firewall.types.create_proxy_rules_request.CreateProxyRulesRequest = {
             "rules": rules
         }
@@ -1300,7 +1331,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRuleGroup")
+        )
         input_: capo_network_firewall.types.create_rule_group_request.CreateRuleGroupRequest = {
             "rule_group_name": rule_group_name,
             "type": type,
@@ -1378,7 +1411,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTLSInspectionConfiguration")
+        )
         input_: capo_network_firewall.types.create_tls_inspection_configuration_request.CreateTLSInspectionConfigurationRequest = {
             "tls_inspection_configuration_name": tls_inspection_configuration_name,
             "tls_inspection_configuration": tls_inspection_configuration,
@@ -1443,7 +1478,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVpcEndpointAssociation")
+        )
         input_: capo_network_firewall.types.create_vpc_endpoint_association_request.CreateVpcEndpointAssociationRequest = {
             "firewall_arn": firewall_arn,
             "vpc_id": vpc_id,
@@ -1502,7 +1539,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContainerAssociation")
+        )
         input_: capo_network_firewall.types.delete_container_association_request.DeleteContainerAssociationRequest = {}
         if container_association_name is not None:
             input_["container_association_name"] = container_association_name
@@ -1558,7 +1597,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFirewall")
+        )
         input_: capo_network_firewall.types.delete_firewall_request.DeleteFirewallRequest = {}
         if firewall_name is not None:
             input_["firewall_name"] = firewall_name
@@ -1614,7 +1655,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFirewallPolicy")
+        )
         input_: capo_network_firewall.types.delete_firewall_policy_request.DeleteFirewallPolicyRequest = {}
         if firewall_policy_name is not None:
             input_["firewall_policy_name"] = firewall_policy_name
@@ -1662,7 +1705,10 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteNetworkFirewallTransitGatewayAttachment"),
+        )
         input_: capo_network_firewall.types.delete_network_firewall_transit_gateway_attachment_request.DeleteNetworkFirewallTransitGatewayAttachmentRequest = {
             "transit_gateway_attachment_id": transit_gateway_attachment_id
         }
@@ -1717,7 +1763,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProxy")
+        )
         input_: capo_network_firewall.types.delete_proxy_request.DeleteProxyRequest = {
             "nat_gateway_id": nat_gateway_id
         }
@@ -1773,7 +1821,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProxyConfiguration")
+        )
         input_: capo_network_firewall.types.delete_proxy_configuration_request.DeleteProxyConfigurationRequest = {}
         if proxy_configuration_name is not None:
             input_["proxy_configuration_name"] = proxy_configuration_name
@@ -1827,7 +1877,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProxyRuleGroup")
+        )
         input_: capo_network_firewall.types.delete_proxy_rule_group_request.DeleteProxyRuleGroupRequest = {}
         if proxy_rule_group_name is not None:
             input_["proxy_rule_group_name"] = proxy_rule_group_name
@@ -1883,7 +1935,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProxyRules")
+        )
         input_: capo_network_firewall.types.delete_proxy_rules_request.DeleteProxyRulesRequest = {
             "rules": rules
         }
@@ -1934,7 +1988,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_network_firewall.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -1994,7 +2050,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRuleGroup")
+        )
         input_: capo_network_firewall.types.delete_rule_group_request.DeleteRuleGroupRequest = {}
         if rule_group_name is not None:
             input_["rule_group_name"] = rule_group_name
@@ -2051,7 +2109,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTLSInspectionConfiguration")
+        )
         input_: capo_network_firewall.types.delete_tls_inspection_configuration_request.DeleteTLSInspectionConfigurationRequest = {}
         if tls_inspection_configuration_arn is not None:
             input_["tls_inspection_configuration_arn"] = (
@@ -2104,7 +2164,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVpcEndpointAssociation")
+        )
         input_: capo_network_firewall.types.delete_vpc_endpoint_association_request.DeleteVpcEndpointAssociationRequest = {
             "vpc_endpoint_association_arn": vpc_endpoint_association_arn
         }
@@ -2156,7 +2218,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeContainerAssociation")
+        )
         input_: capo_network_firewall.types.describe_container_association_request.DescribeContainerAssociationRequest = {}
         if container_association_name is not None:
             input_["container_association_name"] = container_association_name
@@ -2210,7 +2274,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFirewall")
+        )
         input_: capo_network_firewall.types.describe_firewall_request.DescribeFirewallRequest = {}
         if firewall_name is not None:
             input_["firewall_name"] = firewall_name
@@ -2260,7 +2326,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFirewallMetadata")
+        )
         input_: capo_network_firewall.types.describe_firewall_metadata_request.DescribeFirewallMetadataRequest = {}
         if firewall_arn is not None:
             input_["firewall_arn"] = firewall_arn
@@ -2312,7 +2380,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFirewallPolicy")
+        )
         input_: capo_network_firewall.types.describe_firewall_policy_request.DescribeFirewallPolicyRequest = {}
         if firewall_policy_name is not None:
             input_["firewall_policy_name"] = firewall_policy_name
@@ -2374,7 +2444,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFlowOperation")
+        )
         input_: capo_network_firewall.types.describe_flow_operation_request.DescribeFlowOperationRequest = {
             "firewall_arn": firewall_arn,
             "flow_operation_id": flow_operation_id,
@@ -2433,7 +2505,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLoggingConfiguration")
+        )
         input_: capo_network_firewall.types.describe_logging_configuration_request.DescribeLoggingConfigurationRequest = {}
         if firewall_arn is not None:
             input_["firewall_arn"] = firewall_arn
@@ -2487,7 +2561,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProxy")
+        )
         input_: capo_network_firewall.types.describe_proxy_request.DescribeProxyRequest = {}
         if proxy_name is not None:
             input_["proxy_name"] = proxy_name
@@ -2541,7 +2617,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProxyConfiguration")
+        )
         input_: capo_network_firewall.types.describe_proxy_configuration_request.DescribeProxyConfigurationRequest = {}
         if proxy_configuration_name is not None:
             input_["proxy_configuration_name"] = proxy_configuration_name
@@ -2597,7 +2675,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProxyRule")
+        )
         input_: capo_network_firewall.types.describe_proxy_rule_request.DescribeProxyRuleRequest = {
             "proxy_rule_name": proxy_rule_name
         }
@@ -2653,7 +2733,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProxyRuleGroup")
+        )
         input_: capo_network_firewall.types.describe_proxy_rule_group_request.DescribeProxyRuleGroupRequest = {}
         if proxy_rule_group_name is not None:
             input_["proxy_rule_group_name"] = proxy_rule_group_name
@@ -2701,7 +2783,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeResourcePolicy")
+        )
         input_: capo_network_firewall.types.describe_resource_policy_request.DescribeResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -2761,7 +2845,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRuleGroup")
+        )
         input_: capo_network_firewall.types.describe_rule_group_request.DescribeRuleGroupRequest = {}
         if rule_group_name is not None:
             input_["rule_group_name"] = rule_group_name
@@ -2823,7 +2909,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRuleGroupMetadata")
+        )
         input_: capo_network_firewall.types.describe_rule_group_metadata_request.DescribeRuleGroupMetadataRequest = {}
         if rule_group_name is not None:
             input_["rule_group_name"] = rule_group_name
@@ -2883,7 +2971,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRuleGroupSummary")
+        )
         input_: capo_network_firewall.types.describe_rule_group_summary_request.DescribeRuleGroupSummaryRequest = {}
         if rule_group_name is not None:
             input_["rule_group_name"] = rule_group_name
@@ -2939,7 +3029,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTLSInspectionConfiguration")
+        )
         input_: capo_network_firewall.types.describe_tls_inspection_configuration_request.DescribeTLSInspectionConfigurationRequest = {}
         if tls_inspection_configuration_arn is not None:
             input_["tls_inspection_configuration_arn"] = (
@@ -2991,7 +3083,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeVpcEndpointAssociation")
+        )
         input_: capo_network_firewall.types.describe_vpc_endpoint_association_request.DescribeVpcEndpointAssociationRequest = {
             "vpc_endpoint_association_arn": vpc_endpoint_association_arn
         }
@@ -3053,7 +3147,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachRuleGroupsFromProxyConfiguration")
+        )
         input_: capo_network_firewall.types.detach_rule_groups_from_proxy_configuration_request.DetachRuleGroupsFromProxyConfigurationRequest = {
             "update_token": update_token
         }
@@ -3121,7 +3217,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateAvailabilityZones")
+        )
         input_: capo_network_firewall.types.disassociate_availability_zones_request.DisassociateAvailabilityZonesRequest = {
             "availability_zone_mappings": availability_zone_mappings
         }
@@ -3187,7 +3285,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateSubnets")
+        )
         input_: capo_network_firewall.types.disassociate_subnets_request.DisassociateSubnetsRequest = {
             "subnet_ids": subnet_ids
         }
@@ -3255,7 +3355,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAnalysisReportResults")
+        )
         input_: capo_network_firewall.types.get_analysis_report_results_request.GetAnalysisReportResultsRequest = {
             "analysis_report_id": analysis_report_id
         }
@@ -3358,7 +3460,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAnalysisReports")
+        )
         input_: capo_network_firewall.types.list_analysis_reports_request.ListAnalysisReportsRequest = {}
         if firewall_name is not None:
             input_["firewall_name"] = firewall_name
@@ -3448,7 +3552,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContainerAssociations")
+        )
         input_: capo_network_firewall.types.list_container_associations_request.ListContainerAssociationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3526,7 +3632,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFirewallPolicies")
+        )
         input_: capo_network_firewall.types.list_firewall_policies_request.ListFirewallPoliciesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3606,7 +3714,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFirewalls")
+        )
         input_: capo_network_firewall.types.list_firewalls_request.ListFirewallsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3705,7 +3815,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFlowOperationResults")
+        )
         input_: capo_network_firewall.types.list_flow_operation_results_request.ListFlowOperationResultsRequest = {
             "firewall_arn": firewall_arn,
             "flow_operation_id": flow_operation_id,
@@ -3827,7 +3939,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFlowOperations")
+        )
         input_: capo_network_firewall.types.list_flow_operations_request.ListFlowOperationsRequest = {
             "firewall_arn": firewall_arn
         }
@@ -3933,7 +4047,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProxies")
+        )
         input_: capo_network_firewall.types.list_proxies_request.ListProxiesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4012,7 +4128,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProxyConfigurations")
+        )
         input_: capo_network_firewall.types.list_proxy_configurations_request.ListProxyConfigurationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4091,7 +4209,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProxyRuleGroups")
+        )
         input_: capo_network_firewall.types.list_proxy_rule_groups_request.ListProxyRuleGroupsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4185,7 +4305,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRuleGroups")
+        )
         input_: capo_network_firewall.types.list_rule_groups_request.ListRuleGroupsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4290,7 +4412,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_network_firewall.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -4372,7 +4496,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTLSInspectionConfigurations")
+        )
         input_: capo_network_firewall.types.list_tls_inspection_configurations_request.ListTLSInspectionConfigurationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4454,7 +4580,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVpcEndpointAssociations")
+        )
         input_: capo_network_firewall.types.list_vpc_endpoint_associations_request.ListVpcEndpointAssociationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4536,7 +4664,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_network_firewall.types.put_resource_policy_request.PutResourcePolicyRequest = {
             "resource_arn": resource_arn,
             "policy": policy,
@@ -4583,7 +4713,10 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RejectNetworkFirewallTransitGatewayAttachment"),
+        )
         input_: capo_network_firewall.types.reject_network_firewall_transit_gateway_attachment_request.RejectNetworkFirewallTransitGatewayAttachmentRequest = {
             "transit_gateway_attachment_id": transit_gateway_attachment_id
         }
@@ -4637,7 +4770,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAnalysisReport")
+        )
         input_: capo_network_firewall.types.start_analysis_report_request.StartAnalysisReportRequest = {
             "analysis_type": analysis_type
         }
@@ -4705,7 +4840,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartFlowCapture")
+        )
         input_: capo_network_firewall.types.start_flow_capture_request.StartFlowCaptureRequest = {
             "firewall_arn": firewall_arn,
             "flow_filters": flow_filters,
@@ -4778,7 +4915,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartFlowFlush")
+        )
         input_: capo_network_firewall.types.start_flow_flush_request.StartFlowFlushRequest = {
             "firewall_arn": firewall_arn,
             "flow_filters": flow_filters,
@@ -4835,7 +4974,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_network_firewall.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -4884,7 +5025,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_network_firewall.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -4945,7 +5088,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAvailabilityZoneChangeProtection")
+        )
         input_: capo_network_firewall.types.update_availability_zone_change_protection_request.UpdateAvailabilityZoneChangeProtectionRequest = {
             "availability_zone_change_protection": availability_zone_change_protection
         }
@@ -5016,7 +5161,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContainerAssociation")
+        )
         input_: capo_network_firewall.types.update_container_association_request.UpdateContainerAssociationRequest = {
             "type": type,
             "container_monitoring_configurations": container_monitoring_configurations,
@@ -5087,7 +5234,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFirewallAnalysisSettings")
+        )
         input_: capo_network_firewall.types.update_firewall_analysis_settings_request.UpdateFirewallAnalysisSettingsRequest = {}
         if enabled_analysis_types is not None:
             input_["enabled_analysis_types"] = enabled_analysis_types
@@ -5153,7 +5302,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFirewallDeleteProtection")
+        )
         input_: capo_network_firewall.types.update_firewall_delete_protection_request.UpdateFirewallDeleteProtectionRequest = {
             "delete_protection": delete_protection
         }
@@ -5220,7 +5371,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFirewallDescription")
+        )
         input_: capo_network_firewall.types.update_firewall_description_request.UpdateFirewallDescriptionRequest = {}
         if update_token is not None:
             input_["update_token"] = update_token
@@ -5287,7 +5440,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFirewallEncryptionConfiguration")
+        )
         input_: capo_network_firewall.types.update_firewall_encryption_configuration_request.UpdateFirewallEncryptionConfigurationRequest = {}
         if update_token is not None:
             input_["update_token"] = update_token
@@ -5360,7 +5515,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFirewallPolicy")
+        )
         input_: capo_network_firewall.types.update_firewall_policy_request.UpdateFirewallPolicyRequest = {
             "update_token": update_token,
             "firewall_policy": firewall_policy,
@@ -5431,7 +5588,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFirewallPolicyChangeProtection")
+        )
         input_: capo_network_firewall.types.update_firewall_policy_change_protection_request.UpdateFirewallPolicyChangeProtectionRequest = {
             "firewall_policy_change_protection": firewall_policy_change_protection
         }
@@ -5499,7 +5658,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLoggingConfiguration")
+        )
         input_: capo_network_firewall.types.update_logging_configuration_request.UpdateLoggingConfigurationRequest = {}
         if firewall_arn is not None:
             input_["firewall_arn"] = firewall_arn
@@ -5574,7 +5735,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProxy")
+        )
         input_: capo_network_firewall.types.update_proxy_request.UpdateProxyRequest = {
             "nat_gateway_id": nat_gateway_id,
             "update_token": update_token,
@@ -5641,7 +5804,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProxyConfiguration")
+        )
         input_: capo_network_firewall.types.update_proxy_configuration_request.UpdateProxyConfigurationRequest = {
             "default_rule_phase_actions": default_rule_phase_actions,
             "update_token": update_token,
@@ -5720,7 +5885,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProxyRule")
+        )
         input_: capo_network_firewall.types.update_proxy_rule_request.UpdateProxyRuleRequest = {
             "proxy_rule_name": proxy_rule_name,
             "update_token": update_token,
@@ -5789,7 +5956,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProxyRuleGroupPriorities")
+        )
         input_: capo_network_firewall.types.update_proxy_rule_group_priorities_request.UpdateProxyRuleGroupPrioritiesRequest = {
             "rule_groups": rule_groups,
             "update_token": update_token,
@@ -5852,7 +6021,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProxyRulePriorities")
+        )
         input_: capo_network_firewall.types.update_proxy_rule_priorities_request.UpdateProxyRulePrioritiesRequest = {
             "rule_group_request_phase": rule_group_request_phase,
             "rules": rules,
@@ -5921,7 +6092,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProxySettings")
+        )
         input_: capo_network_firewall.types.update_proxy_settings_request.UpdateProxySettingsRequest = {}
         if firewall_arn is not None:
             input_["firewall_arn"] = firewall_arn
@@ -6014,7 +6187,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRuleGroup")
+        )
         input_: capo_network_firewall.types.update_rule_group_request.UpdateRuleGroupRequest = {
             "update_token": update_token
         }
@@ -6096,7 +6271,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSubnetChangeProtection")
+        )
         input_: capo_network_firewall.types.update_subnet_change_protection_request.UpdateSubnetChangeProtectionRequest = {
             "subnet_change_protection": subnet_change_protection
         }
@@ -6167,7 +6344,9 @@ class NetworkFirewallClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTLSInspectionConfiguration")
+        )
         input_: capo_network_firewall.types.update_tls_inspection_configuration_request.UpdateTLSInspectionConfigurationRequest = {
             "tls_inspection_configuration": tls_inspection_configuration,
             "update_token": update_token,

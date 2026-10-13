@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#WaterfallChartAggregatedFieldWells``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -65,5 +65,28 @@ def deserialize_json(data: dict) -> WaterfallChartAggregatedFieldWells:
 
         out["breakdowns"] = capo_quicksight.types.dimension_field_list.deserialize_json(
             data["Breakdowns"]
+        )
+    return out
+
+
+def redact_sensitive(value: WaterfallChartAggregatedFieldWells) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "categories" in value:
+        import capo_quicksight.types.dimension_field_list
+
+        out["categories"] = capo_quicksight.types.dimension_field_list.redact_sensitive(
+            value["categories"]
+        )
+    if "values" in value:
+        import capo_quicksight.types.measure_field_list
+
+        out["values"] = capo_quicksight.types.measure_field_list.redact_sensitive(
+            value["values"]
+        )
+    if "breakdowns" in value:
+        import capo_quicksight.types.dimension_field_list
+
+        out["breakdowns"] = capo_quicksight.types.dimension_field_list.redact_sensitive(
+            value["breakdowns"]
         )
     return out

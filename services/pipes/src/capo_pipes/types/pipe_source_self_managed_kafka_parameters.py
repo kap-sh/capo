@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#PipeSourceSelfManagedKafkaParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -136,6 +136,31 @@ def deserialize_json(data: dict) -> PipeSourceSelfManagedKafkaParameters:
         out["vpc"] = (
             capo_pipes.types.self_managed_kafka_access_configuration_vpc.deserialize_json(
                 data["Vpc"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: PipeSourceSelfManagedKafkaParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "topic_name" in value:
+        out["topic_name"] = "*** Sensitive Data Redacted ***"
+    if "additional_bootstrap_servers" in value:
+        import capo_pipes.types.kafka_bootstrap_servers
+
+        out["additional_bootstrap_servers"] = (
+            capo_pipes.types.kafka_bootstrap_servers.redact_sensitive(
+                value["additional_bootstrap_servers"]
+            )
+        )
+    if "consumer_group_id" in value:
+        out["consumer_group_id"] = "*** Sensitive Data Redacted ***"
+    if "vpc" in value:
+        import capo_pipes.types.self_managed_kafka_access_configuration_vpc
+
+        out["vpc"] = (
+            capo_pipes.types.self_managed_kafka_access_configuration_vpc.redact_sensitive(
+                value["vpc"]
             )
         )
     return out

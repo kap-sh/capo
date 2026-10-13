@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.healthlake#CreateDataTransformationProfileSource``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -116,3 +116,10 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDataTransformationProfileSourc
         raise DeserializationError(
             "CreateDataTransformationProfileSource: no recognized variant key"
         )
+
+
+def redact_sensitive(value: CreateDataTransformationProfileSource) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ProfileMapping" in value:
+        out["ProfileMapping"] = "*** Sensitive Data Redacted ***"
+    return out

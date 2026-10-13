@@ -8,6 +8,7 @@ import capo_amplifyuibuilder._auth._sigv4
 from capo_amplifyuibuilder._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -85,7 +86,9 @@ class ThemeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTheme")
+        )
         input_: capo_amplifyuibuilder.types.create_theme_request.CreateThemeRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -139,7 +142,9 @@ class ThemeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTheme")
+        )
         input_: capo_amplifyuibuilder.types.get_theme_request.GetThemeRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -194,7 +199,9 @@ class ThemeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTheme")
+        )
         input_: capo_amplifyuibuilder.types.update_theme_request.UpdateThemeRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -247,7 +254,9 @@ class ThemeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTheme")
+        )
         input_: capo_amplifyuibuilder.types.delete_theme_request.DeleteThemeRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -301,7 +310,9 @@ class ThemeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListThemes")
+        )
         input_: capo_amplifyuibuilder.types.list_themes_request.ListThemesRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -354,7 +365,9 @@ class ThemeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ExportThemes")
+        )
         input_: capo_amplifyuibuilder.types.export_themes_request.ExportThemesRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -415,7 +428,9 @@ class AsyncThemeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTheme")
+        )
         input_: capo_amplifyuibuilder.types.create_theme_request.CreateThemeRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -470,7 +485,9 @@ class AsyncThemeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTheme")
+        )
         input_: capo_amplifyuibuilder.types.get_theme_request.GetThemeRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -526,7 +543,9 @@ class AsyncThemeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTheme")
+        )
         input_: capo_amplifyuibuilder.types.update_theme_request.UpdateThemeRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -580,7 +599,9 @@ class AsyncThemeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTheme")
+        )
         input_: capo_amplifyuibuilder.types.delete_theme_request.DeleteThemeRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -635,7 +656,9 @@ class AsyncThemeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListThemes")
+        )
         input_: capo_amplifyuibuilder.types.list_themes_request.ListThemesRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -689,7 +712,9 @@ class AsyncThemeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ExportThemes")
+        )
         input_: capo_amplifyuibuilder.types.export_themes_request.ExportThemesRequest = {
             "app_id": app_id,
             "environment_name": environment_name,

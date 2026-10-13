@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_rolesanywhere._auth._signers
 import capo_rolesanywhere._auth._sigv4
 from capo_rolesanywhere._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -78,7 +79,16 @@ class Crl:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rolesanywhere.types.import_crl_request.ImportCrlRequest",
+        ) -> dict[str, Any]:
+            import capo_rolesanywhere.types.import_crl_request
+
+            return capo_rolesanywhere.types.import_crl_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ImportCrl", redact_input=_redact_input)
+        )
         input_: capo_rolesanywhere.types.import_crl_request.ImportCrlRequest = {
             "name": name,
             "crl_data": crl_data,
@@ -127,7 +137,9 @@ class Crl:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCrl")
+        )
         input_: capo_rolesanywhere.types.scalar_crl_request.ScalarCrlRequest = {
             "crl_id": crl_id
         }
@@ -176,7 +188,9 @@ class Crl:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCrl")
+        )
         input_: capo_rolesanywhere.types.update_crl_request.UpdateCrlRequest = {
             "crl_id": crl_id
         }
@@ -224,7 +238,9 @@ class Crl:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCrl")
+        )
         input_: capo_rolesanywhere.types.scalar_crl_request.ScalarCrlRequest = {
             "crl_id": crl_id
         }
@@ -270,7 +286,9 @@ class Crl:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCrls")
+        )
         input_: capo_rolesanywhere.types.list_request.ListRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -316,7 +334,9 @@ class Crl:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisableCrl")
+        )
         input_: capo_rolesanywhere.types.scalar_crl_request.ScalarCrlRequest = {
             "crl_id": crl_id
         }
@@ -360,7 +380,9 @@ class Crl:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("EnableCrl")
+        )
         input_: capo_rolesanywhere.types.scalar_crl_request.ScalarCrlRequest = {
             "crl_id": crl_id
         }
@@ -418,7 +440,16 @@ class AsyncCrl:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rolesanywhere.types.import_crl_request.ImportCrlRequest",
+        ) -> dict[str, Any]:
+            import capo_rolesanywhere.types.import_crl_request
+
+            return capo_rolesanywhere.types.import_crl_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ImportCrl", redact_input=_redact_input)
+        )
         input_: capo_rolesanywhere.types.import_crl_request.ImportCrlRequest = {
             "name": name,
             "crl_data": crl_data,
@@ -468,7 +499,9 @@ class AsyncCrl:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCrl")
+        )
         input_: capo_rolesanywhere.types.scalar_crl_request.ScalarCrlRequest = {
             "crl_id": crl_id
         }
@@ -518,7 +551,9 @@ class AsyncCrl:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCrl")
+        )
         input_: capo_rolesanywhere.types.update_crl_request.UpdateCrlRequest = {
             "crl_id": crl_id
         }
@@ -567,7 +602,9 @@ class AsyncCrl:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCrl")
+        )
         input_: capo_rolesanywhere.types.scalar_crl_request.ScalarCrlRequest = {
             "crl_id": crl_id
         }
@@ -614,7 +651,9 @@ class AsyncCrl:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCrls")
+        )
         input_: capo_rolesanywhere.types.list_request.ListRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -661,7 +700,9 @@ class AsyncCrl:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisableCrl")
+        )
         input_: capo_rolesanywhere.types.scalar_crl_request.ScalarCrlRequest = {
             "crl_id": crl_id
         }
@@ -706,7 +747,9 @@ class AsyncCrl:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("EnableCrl")
+        )
         input_: capo_rolesanywhere.types.scalar_crl_request.ScalarCrlRequest = {
             "crl_id": crl_id
         }

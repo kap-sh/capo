@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#Dimension``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -65,3 +65,18 @@ def deserialize_json(data: dict) -> Dimension:
         }
     else:
         raise DeserializationError("Dimension: no recognized variant key")
+
+
+def redact_sensitive(value: Dimension) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ProfileAttributes" in value:
+        out["ProfileAttributes"] = "*** Sensitive Data Redacted ***"
+    if "CalculatedAttributes" in value:
+        import capo_customer_profiles.types.calculated_custom_attributes
+
+        out["CalculatedAttributes"] = (
+            capo_customer_profiles.types.calculated_custom_attributes.redact_sensitive(
+                value["CalculatedAttributes"]
+            )
+        )
+    return out

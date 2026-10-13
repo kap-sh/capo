@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#GetMaintenanceWindowExecutionTaskResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -219,4 +219,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetMaintenanceWindowExecutionTaskRes
                 data["TriggeredAlarms"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: GetMaintenanceWindowExecutionTaskResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "task_parameters" in value:
+        out["task_parameters"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#InvocationStepPayload``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -42,3 +42,16 @@ def deserialize_json(data: dict) -> InvocationStepPayload:
         }
     else:
         raise DeserializationError("InvocationStepPayload: no recognized variant key")
+
+
+def redact_sensitive(value: InvocationStepPayload) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "contentBlocks" in value:
+        import capo_bedrock_agent_runtime.types.bedrock_session_content_blocks
+
+        out["contentBlocks"] = (
+            capo_bedrock_agent_runtime.types.bedrock_session_content_blocks.redact_sensitive(
+                value["contentBlocks"]
+            )
+        )
+    return out

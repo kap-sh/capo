@@ -8,6 +8,7 @@ import capo_bedrock_agentcore._auth._sigv4
 from capo_bedrock_agentcore._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -82,7 +83,9 @@ class CodeInterpreterSessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCodeInterpreterSession")
+        )
         input_: capo_bedrock_agentcore.types.get_code_interpreter_session_request.GetCodeInterpreterSessionRequest = {
             "code_interpreter_identifier": code_interpreter_identifier,
             "session_id": session_id,
@@ -142,7 +145,9 @@ class CodeInterpreterSessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCodeInterpreterSessions")
+        )
         input_: capo_bedrock_agentcore.types.list_code_interpreter_sessions_request.ListCodeInterpreterSessionsRequest = {
             "code_interpreter_identifier": code_interpreter_identifier
         }
@@ -219,7 +224,9 @@ class CodeInterpreterSessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartCodeInterpreterSession")
+        )
         input_: capo_bedrock_agentcore.types.start_code_interpreter_session_request.StartCodeInterpreterSessionRequest = {
             "code_interpreter_identifier": code_interpreter_identifier
         }
@@ -293,7 +300,9 @@ class CodeInterpreterSessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopCodeInterpreterSession")
+        )
         input_: capo_bedrock_agentcore.types.stop_code_interpreter_session_request.StopCodeInterpreterSessionRequest = {
             "code_interpreter_identifier": code_interpreter_identifier,
             "session_id": session_id,
@@ -356,7 +365,9 @@ class AsyncCodeInterpreterSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCodeInterpreterSession")
+        )
         input_: capo_bedrock_agentcore.types.get_code_interpreter_session_request.GetCodeInterpreterSessionRequest = {
             "code_interpreter_identifier": code_interpreter_identifier,
             "session_id": session_id,
@@ -417,7 +428,9 @@ class AsyncCodeInterpreterSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCodeInterpreterSessions")
+        )
         input_: capo_bedrock_agentcore.types.list_code_interpreter_sessions_request.ListCodeInterpreterSessionsRequest = {
             "code_interpreter_identifier": code_interpreter_identifier
         }
@@ -495,7 +508,9 @@ class AsyncCodeInterpreterSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartCodeInterpreterSession")
+        )
         input_: capo_bedrock_agentcore.types.start_code_interpreter_session_request.StartCodeInterpreterSessionRequest = {
             "code_interpreter_identifier": code_interpreter_identifier
         }
@@ -570,7 +585,9 @@ class AsyncCodeInterpreterSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopCodeInterpreterSession")
+        )
         input_: capo_bedrock_agentcore.types.stop_code_interpreter_session_request.StopCodeInterpreterSessionRequest = {
             "code_interpreter_identifier": code_interpreter_identifier,
             "session_id": session_id,

@@ -23,10 +23,12 @@ from capo_marketplace_entitlement_service._pagination import (
 from capo_marketplace_entitlement_service._services._aws_config import aws_config
 from capo_marketplace_entitlement_service._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -114,6 +116,7 @@ class MarketplaceEntitlementServiceClient:
     def operation_options(
         self,
         config_overrides: Optional[MarketplaceEntitlementServiceClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MarketplaceEntitlementServiceClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -121,8 +124,10 @@ class MarketplaceEntitlementServiceClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -185,7 +190,9 @@ class MarketplaceEntitlementServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEntitlements")
+        )
         input_: capo_marketplace_entitlement_service.types.get_entitlements_request.GetEntitlementsRequest = {
             "product_code": product_code
         }

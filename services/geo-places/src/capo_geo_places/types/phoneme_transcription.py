@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#PhonemeTranscription``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,4 +39,13 @@ def deserialize_json(data: dict) -> PhonemeTranscription:
         out["language"] = data["Language"]
     if data.get("Preferred") is not None:
         out["preferred"] = data["Preferred"]
+    return out
+
+
+def redact_sensitive(value: PhonemeTranscription) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        out["value"] = "*** Sensitive Data Redacted ***"
+    if "preferred" in value:
+        out["preferred"] = "*** Sensitive Data Redacted ***"
     return out

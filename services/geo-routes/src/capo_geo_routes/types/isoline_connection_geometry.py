@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#IsolineConnectionGeometry``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,17 @@ def deserialize_json(data: dict) -> IsolineConnectionGeometry:
         )
     if data.get("Polyline") is not None:
         out["polyline"] = data["Polyline"]
+    return out
+
+
+def redact_sensitive(value: IsolineConnectionGeometry) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "line_string" in value:
+        import capo_geo_routes.types.line_string
+
+        out["line_string"] = capo_geo_routes.types.line_string.redact_sensitive(
+            value["line_string"]
+        )
+    if "polyline" in value:
+        out["polyline"] = "*** Sensitive Data Redacted ***"
     return out

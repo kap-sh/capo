@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#Place``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -168,4 +168,61 @@ def deserialize_json(data: dict) -> Place:
         )
     if data.get("SubMunicipality") is not None:
         out["sub_municipality"] = data["SubMunicipality"]
+    return out
+
+
+def redact_sensitive(value: Place) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "label" in value:
+        out["label"] = "*** Sensitive Data Redacted ***"
+    if "geometry" in value:
+        import capo_location.types.place_geometry
+
+        out["geometry"] = capo_location.types.place_geometry.redact_sensitive(
+            value["geometry"]
+        )
+    if "address_number" in value:
+        out["address_number"] = "*** Sensitive Data Redacted ***"
+    if "street" in value:
+        out["street"] = "*** Sensitive Data Redacted ***"
+    if "neighborhood" in value:
+        out["neighborhood"] = "*** Sensitive Data Redacted ***"
+    if "municipality" in value:
+        out["municipality"] = "*** Sensitive Data Redacted ***"
+    if "sub_region" in value:
+        out["sub_region"] = "*** Sensitive Data Redacted ***"
+    if "region" in value:
+        out["region"] = "*** Sensitive Data Redacted ***"
+    if "country" in value:
+        out["country"] = "*** Sensitive Data Redacted ***"
+    if "postal_code" in value:
+        out["postal_code"] = "*** Sensitive Data Redacted ***"
+    if "interpolated" in value:
+        out["interpolated"] = "*** Sensitive Data Redacted ***"
+    if "time_zone" in value:
+        import capo_location.types.time_zone
+
+        out["time_zone"] = capo_location.types.time_zone.redact_sensitive(
+            value["time_zone"]
+        )
+    if "unit_type" in value:
+        out["unit_type"] = "*** Sensitive Data Redacted ***"
+    if "unit_number" in value:
+        out["unit_number"] = "*** Sensitive Data Redacted ***"
+    if "categories" in value:
+        import capo_location.types.place_category_list
+
+        out["categories"] = capo_location.types.place_category_list.redact_sensitive(
+            value["categories"]
+        )
+    if "supplemental_categories" in value:
+        import capo_location.types.place_supplemental_category_list
+
+        out["supplemental_categories"] = (
+            capo_location.types.place_supplemental_category_list.redact_sensitive(
+                value["supplemental_categories"]
+            )
+        )
+    if "sub_municipality" in value:
+        out["sub_municipality"] = "*** Sensitive Data Redacted ***"
     return out

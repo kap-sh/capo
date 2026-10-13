@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#SendManagedThingCommandRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -63,4 +63,17 @@ def deserialize_json(data: dict) -> SendManagedThingCommandRequest:
         out["connector_association_id"] = data["ConnectorAssociationId"]
     if data.get("AccountAssociationId") is not None:
         out["account_association_id"] = data["AccountAssociationId"]
+    return out
+
+
+def redact_sensitive(value: SendManagedThingCommandRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "endpoints" in value:
+        import capo_iot_managed_integrations.types.command_endpoints
+
+        out["endpoints"] = (
+            capo_iot_managed_integrations.types.command_endpoints.redact_sensitive(
+                value["endpoints"]
+            )
+        )
     return out

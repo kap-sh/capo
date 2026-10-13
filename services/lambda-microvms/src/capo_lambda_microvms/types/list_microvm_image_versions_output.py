@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambdamicrovms#ListMicrovmImageVersionsOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,4 +47,17 @@ def deserialize_json(data: dict) -> ListMicrovmImageVersionsOutput:
         )
     else:
         raise DeserializationError("ListMicrovmImageVersionsOutput.items required")
+    return out
+
+
+def redact_sensitive(value: ListMicrovmImageVersionsOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "items" in value:
+        import capo_lambda_microvms.types.microvm_image_version_summary_list
+
+        out["items"] = (
+            capo_lambda_microvms.types.microvm_image_version_summary_list.redact_sensitive(
+                value["items"]
+            )
+        )
     return out

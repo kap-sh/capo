@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.emrserverless#GetSessionEndpointResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -70,4 +70,11 @@ def deserialize_json(data: dict) -> GetSessionEndpointResponse:
         raise DeserializationError(
             "GetSessionEndpointResponse.auth_token_expires_at required"
         )
+    return out
+
+
+def redact_sensitive(value: GetSessionEndpointResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "auth_token" in value:
+        out["auth_token"] = "*** Sensitive Data Redacted ***"
     return out

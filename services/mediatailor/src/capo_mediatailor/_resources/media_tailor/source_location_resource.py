@@ -7,6 +7,7 @@ import capo_mediatailor._auth._sigv4
 from capo_mediatailor._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -93,7 +94,9 @@ class SourceLocationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSourceLocation")
+        )
         input_: capo_mediatailor.types.create_source_location_request.CreateSourceLocationRequest = {
             "http_configuration": http_configuration,
             "source_location_name": source_location_name,
@@ -146,7 +149,9 @@ class SourceLocationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeSourceLocation")
+        )
         input_: capo_mediatailor.types.describe_source_location_request.DescribeSourceLocationRequest = {
             "source_location_name": source_location_name
         }
@@ -202,7 +207,9 @@ class SourceLocationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSourceLocation")
+        )
         input_: capo_mediatailor.types.update_source_location_request.UpdateSourceLocationRequest = {
             "http_configuration": http_configuration,
             "source_location_name": source_location_name,
@@ -253,7 +260,9 @@ class SourceLocationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSourceLocation")
+        )
         input_: capo_mediatailor.types.delete_source_location_request.DeleteSourceLocationRequest = {
             "source_location_name": source_location_name
         }
@@ -297,7 +306,9 @@ class SourceLocationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSourceLocations")
+        )
         input_: capo_mediatailor.types.list_source_locations_request.ListSourceLocationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -365,7 +376,9 @@ class AsyncSourceLocationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSourceLocation")
+        )
         input_: capo_mediatailor.types.create_source_location_request.CreateSourceLocationRequest = {
             "http_configuration": http_configuration,
             "source_location_name": source_location_name,
@@ -419,7 +432,9 @@ class AsyncSourceLocationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeSourceLocation")
+        )
         input_: capo_mediatailor.types.describe_source_location_request.DescribeSourceLocationRequest = {
             "source_location_name": source_location_name
         }
@@ -476,7 +491,9 @@ class AsyncSourceLocationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSourceLocation")
+        )
         input_: capo_mediatailor.types.update_source_location_request.UpdateSourceLocationRequest = {
             "http_configuration": http_configuration,
             "source_location_name": source_location_name,
@@ -528,7 +545,9 @@ class AsyncSourceLocationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSourceLocation")
+        )
         input_: capo_mediatailor.types.delete_source_location_request.DeleteSourceLocationRequest = {
             "source_location_name": source_location_name
         }
@@ -573,7 +592,9 @@ class AsyncSourceLocationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSourceLocations")
+        )
         input_: capo_mediatailor.types.list_source_locations_request.ListSourceLocationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

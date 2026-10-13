@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sts#GetSessionTokenResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -64,4 +64,15 @@ def deserialize_query(el: Element) -> GetSessionTokenResponse:
     child_session_token_size = el.find("SessionTokenSize")
     if child_session_token_size is not None:
         out["session_token_size"] = int(child_session_token_size.text or "")
+    return out
+
+
+def redact_sensitive(value: GetSessionTokenResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "credentials" in value:
+        import capo_sts.types.credentials
+
+        out["credentials"] = capo_sts.types.credentials.redact_sensitive(
+            value["credentials"]
+        )
     return out

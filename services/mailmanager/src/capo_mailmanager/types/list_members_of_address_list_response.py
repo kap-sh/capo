@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mailmanager#ListMembersOfAddressListResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,4 +47,15 @@ def deserialize_aws_json_1_0(data: dict) -> ListMembersOfAddressListResponse:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListMembersOfAddressListResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "addresses" in value:
+        import capo_mailmanager.types.saved_addresses
+
+        out["addresses"] = capo_mailmanager.types.saved_addresses.redact_sensitive(
+            value["addresses"]
+        )
     return out

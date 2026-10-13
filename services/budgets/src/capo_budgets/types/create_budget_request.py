@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.budgets#CreateBudgetRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -80,6 +80,19 @@ def deserialize_aws_json_1_1(data: dict) -> CreateBudgetRequest:
         out["resource_tags"] = (
             capo_budgets.types.resource_tag_list.deserialize_aws_json_1_1(
                 data["ResourceTags"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateBudgetRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "notifications_with_subscribers" in value:
+        import capo_budgets.types.notification_with_subscribers_list
+
+        out["notifications_with_subscribers"] = (
+            capo_budgets.types.notification_with_subscribers_list.redact_sensitive(
+                value["notifications_with_subscribers"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#KnowledgeBaseOrchestrationConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -100,6 +100,19 @@ def deserialize_json(data: dict) -> KnowledgeBaseOrchestrationConfiguration:
         out["performance_config"] = (
             capo_bedrock_agent.types.performance_configuration.deserialize_json(
                 data["performanceConfig"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: KnowledgeBaseOrchestrationConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "prompt_template" in value:
+        import capo_bedrock_agent.types.knowledge_base_prompt_template
+
+        out["prompt_template"] = (
+            capo_bedrock_agent.types.knowledge_base_prompt_template.redact_sensitive(
+                value["prompt_template"]
             )
         )
     return out

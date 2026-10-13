@@ -24,7 +24,9 @@ from capo_api_gateway._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -320,7 +322,9 @@ class AsyncAPIGatewayClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncAPIGatewayClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncAPIGatewayClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncAPIGatewayClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -328,8 +332,10 @@ class AsyncAPIGatewayClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -400,7 +406,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApiKey")
+        )
         input_: capo_api_gateway.types.create_api_key_request.CreateApiKeyRequest = {}
         if name is not None:
             input_["name"] = name
@@ -485,7 +493,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAuthorizer")
+        )
         input_: capo_api_gateway.types.create_authorizer_request.CreateAuthorizerRequest = {
             "rest_api_id": rest_api_id,
             "name": name,
@@ -560,7 +570,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBasePathMapping")
+        )
         input_: capo_api_gateway.types.create_base_path_mapping_request.CreateBasePathMappingRequest = {
             "domain_name": domain_name,
             "rest_api_id": rest_api_id,
@@ -641,7 +653,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDeployment")
+        )
         input_: capo_api_gateway.types.create_deployment_request.CreateDeploymentRequest = {
             "rest_api_id": rest_api_id
         }
@@ -710,7 +724,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDocumentationPart")
+        )
         input_: capo_api_gateway.types.create_documentation_part_request.CreateDocumentationPartRequest = {
             "rest_api_id": rest_api_id,
             "location": location,
@@ -767,7 +783,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDocumentationVersion")
+        )
         input_: capo_api_gateway.types.create_documentation_version_request.CreateDocumentationVersionRequest = {
             "rest_api_id": rest_api_id,
             "documentation_version": documentation_version,
@@ -867,7 +885,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDomainName")
+        )
         input_: capo_api_gateway.types.create_domain_name_request.CreateDomainNameRequest = {
             "domain_name": domain_name
         }
@@ -955,7 +975,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDomainNameAccessAssociation")
+        )
         input_: capo_api_gateway.types.create_domain_name_access_association_request.CreateDomainNameAccessAssociationRequest = {
             "domain_name_arn": domain_name_arn,
             "access_association_source_type": access_association_source_type,
@@ -1014,7 +1036,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateModel")
+        )
         input_: capo_api_gateway.types.create_model_request.CreateModelRequest = {
             "rest_api_id": rest_api_id,
             "name": name,
@@ -1079,7 +1103,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRequestValidator")
+        )
         input_: capo_api_gateway.types.create_request_validator_request.CreateRequestValidatorRequest = {
             "rest_api_id": rest_api_id
         }
@@ -1136,7 +1162,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateResource")
+        )
         input_: capo_api_gateway.types.create_resource_request.CreateResourceRequest = {
             "rest_api_id": rest_api_id,
             "parent_id": parent_id,
@@ -1224,7 +1252,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRestApi")
+        )
         input_: capo_api_gateway.types.create_rest_api_request.CreateRestApiRequest = {
             "name": name
         }
@@ -1325,7 +1355,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStage")
+        )
         input_: capo_api_gateway.types.create_stage_request.CreateStageRequest = {
             "rest_api_id": rest_api_id,
             "stage_name": stage_name,
@@ -1406,7 +1438,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUsagePlan")
+        )
         input_: capo_api_gateway.types.create_usage_plan_request.CreateUsagePlanRequest = {
             "name": name
         }
@@ -1469,7 +1503,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUsagePlanKey")
+        )
         input_: capo_api_gateway.types.create_usage_plan_key_request.CreateUsagePlanKeyRequest = {
             "usage_plan_id": usage_plan_id,
             "key_id": key_id,
@@ -1525,7 +1561,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVpcLink")
+        )
         input_: capo_api_gateway.types.create_vpc_link_request.CreateVpcLinkRequest = {
             "name": name,
             "target_arns": target_arns,
@@ -1576,7 +1614,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApiKey")
+        )
         input_: capo_api_gateway.types.delete_api_key_request.DeleteApiKeyRequest = {
             "api_key": api_key
         }
@@ -1624,7 +1664,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAuthorizer")
+        )
         input_: capo_api_gateway.types.delete_authorizer_request.DeleteAuthorizerRequest = {
             "rest_api_id": rest_api_id,
             "authorizer_id": authorizer_id,
@@ -1675,7 +1717,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBasePathMapping")
+        )
         input_: capo_api_gateway.types.delete_base_path_mapping_request.DeleteBasePathMappingRequest = {
             "domain_name": domain_name,
             "base_path": base_path,
@@ -1724,7 +1768,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteClientCertificate")
+        )
         input_: capo_api_gateway.types.delete_client_certificate_request.DeleteClientCertificateRequest = {
             "client_certificate_id": client_certificate_id
         }
@@ -1773,7 +1819,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDeployment")
+        )
         input_: capo_api_gateway.types.delete_deployment_request.DeleteDeploymentRequest = {
             "rest_api_id": rest_api_id,
             "deployment_id": deployment_id,
@@ -1822,7 +1870,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDocumentationPart")
+        )
         input_: capo_api_gateway.types.delete_documentation_part_request.DeleteDocumentationPartRequest = {
             "rest_api_id": rest_api_id,
             "documentation_part_id": documentation_part_id,
@@ -1871,7 +1921,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDocumentationVersion")
+        )
         input_: capo_api_gateway.types.delete_documentation_version_request.DeleteDocumentationVersionRequest = {
             "rest_api_id": rest_api_id,
             "documentation_version": documentation_version,
@@ -1920,7 +1972,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomainName")
+        )
         input_: capo_api_gateway.types.delete_domain_name_request.DeleteDomainNameRequest = {
             "domain_name": domain_name
         }
@@ -1968,7 +2022,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomainNameAccessAssociation")
+        )
         input_: capo_api_gateway.types.delete_domain_name_access_association_request.DeleteDomainNameAccessAssociationRequest = {
             "domain_name_access_association_arn": domain_name_access_association_arn
         }
@@ -2016,7 +2072,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGatewayResponse")
+        )
         input_: capo_api_gateway.types.delete_gateway_response_request.DeleteGatewayResponseRequest = {
             "rest_api_id": rest_api_id,
             "response_type": response_type,
@@ -2067,7 +2125,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIntegration")
+        )
         input_: capo_api_gateway.types.delete_integration_request.DeleteIntegrationRequest = {
             "rest_api_id": rest_api_id,
             "resource_id": resource_id,
@@ -2121,7 +2181,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIntegrationResponse")
+        )
         input_: capo_api_gateway.types.delete_integration_response_request.DeleteIntegrationResponseRequest = {
             "rest_api_id": rest_api_id,
             "resource_id": resource_id,
@@ -2173,7 +2235,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMethod")
+        )
         input_: capo_api_gateway.types.delete_method_request.DeleteMethodRequest = {
             "rest_api_id": rest_api_id,
             "resource_id": resource_id,
@@ -2227,7 +2291,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMethodResponse")
+        )
         input_: capo_api_gateway.types.delete_method_response_request.DeleteMethodResponseRequest = {
             "rest_api_id": rest_api_id,
             "resource_id": resource_id,
@@ -2278,7 +2344,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteModel")
+        )
         input_: capo_api_gateway.types.delete_model_request.DeleteModelRequest = {
             "rest_api_id": rest_api_id,
             "model_name": model_name,
@@ -2327,7 +2395,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRequestValidator")
+        )
         input_: capo_api_gateway.types.delete_request_validator_request.DeleteRequestValidatorRequest = {
             "rest_api_id": rest_api_id,
             "request_validator_id": request_validator_id,
@@ -2376,7 +2446,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResource")
+        )
         input_: capo_api_gateway.types.delete_resource_request.DeleteResourceRequest = {
             "rest_api_id": rest_api_id,
             "resource_id": resource_id,
@@ -2423,7 +2495,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRestApi")
+        )
         input_: capo_api_gateway.types.delete_rest_api_request.DeleteRestApiRequest = {
             "rest_api_id": rest_api_id
         }
@@ -2472,7 +2546,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStage")
+        )
         input_: capo_api_gateway.types.delete_stage_request.DeleteStageRequest = {
             "rest_api_id": rest_api_id,
             "stage_name": stage_name,
@@ -2519,7 +2595,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUsagePlan")
+        )
         input_: capo_api_gateway.types.delete_usage_plan_request.DeleteUsagePlanRequest = {
             "usage_plan_id": usage_plan_id
         }
@@ -2567,7 +2645,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUsagePlanKey")
+        )
         input_: capo_api_gateway.types.delete_usage_plan_key_request.DeleteUsagePlanKeyRequest = {
             "usage_plan_id": usage_plan_id,
             "key_id": key_id,
@@ -2614,7 +2694,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVpcLink")
+        )
         input_: capo_api_gateway.types.delete_vpc_link_request.DeleteVpcLinkRequest = {
             "vpc_link_id": vpc_link_id
         }
@@ -2663,7 +2745,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("FlushStageAuthorizersCache")
+        )
         input_: capo_api_gateway.types.flush_stage_authorizers_cache_request.FlushStageAuthorizersCacheRequest = {
             "rest_api_id": rest_api_id,
             "stage_name": stage_name,
@@ -2713,7 +2797,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("FlushStageCache")
+        )
         input_: capo_api_gateway.types.flush_stage_cache_request.FlushStageCacheRequest = {
             "rest_api_id": rest_api_id,
             "stage_name": stage_name,
@@ -2766,7 +2852,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GenerateClientCertificate")
+        )
         input_: capo_api_gateway.types.generate_client_certificate_request.GenerateClientCertificateRequest = {}
         if description is not None:
             input_["description"] = description
@@ -2807,7 +2895,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccount")
+        )
         input_: capo_api_gateway.types.get_account_request.GetAccountRequest = {}
 
         response = await aexecute_pipeline(
@@ -2854,7 +2944,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApiKey")
+        )
         input_: capo_api_gateway.types.get_api_key_request.GetApiKeyRequest = {
             "api_key": api_key
         }
@@ -2913,7 +3005,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApiKeys")
+        )
         input_: capo_api_gateway.types.get_api_keys_request.GetApiKeysRequest = {}
         if position is not None:
             input_["position"] = position
@@ -2999,7 +3093,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAuthorizer")
+        )
         input_: capo_api_gateway.types.get_authorizer_request.GetAuthorizerRequest = {
             "rest_api_id": rest_api_id,
             "authorizer_id": authorizer_id,
@@ -3051,7 +3147,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAuthorizers")
+        )
         input_: capo_api_gateway.types.get_authorizers_request.GetAuthorizersRequest = {
             "rest_api_id": rest_api_id
         }
@@ -3106,7 +3204,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBasePathMapping")
+        )
         input_: capo_api_gateway.types.get_base_path_mapping_request.GetBasePathMappingRequest = {
             "domain_name": domain_name,
             "base_path": base_path,
@@ -3164,7 +3264,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBasePathMappings")
+        )
         input_: capo_api_gateway.types.get_base_path_mappings_request.GetBasePathMappingsRequest = {
             "domain_name": domain_name
         }
@@ -3244,7 +3346,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetClientCertificate")
+        )
         input_: capo_api_gateway.types.get_client_certificate_request.GetClientCertificateRequest = {
             "client_certificate_id": client_certificate_id
         }
@@ -3295,7 +3399,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetClientCertificates")
+        )
         input_: capo_api_gateway.types.get_client_certificates_request.GetClientCertificatesRequest = {}
         if position is not None:
             input_["position"] = position
@@ -3370,7 +3476,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeployment")
+        )
         input_: capo_api_gateway.types.get_deployment_request.GetDeploymentRequest = {
             "rest_api_id": rest_api_id,
             "deployment_id": deployment_id,
@@ -3425,7 +3533,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeployments")
+        )
         input_: capo_api_gateway.types.get_deployments_request.GetDeploymentsRequest = {
             "rest_api_id": rest_api_id
         }
@@ -3503,7 +3613,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDocumentationPart")
+        )
         input_: capo_api_gateway.types.get_documentation_part_request.GetDocumentationPartRequest = {
             "rest_api_id": rest_api_id,
             "documentation_part_id": documentation_part_id,
@@ -3569,7 +3681,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDocumentationParts")
+        )
         input_: capo_api_gateway.types.get_documentation_parts_request.GetDocumentationPartsRequest = {
             "rest_api_id": rest_api_id
         }
@@ -3629,7 +3743,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDocumentationVersion")
+        )
         input_: capo_api_gateway.types.get_documentation_version_request.GetDocumentationVersionRequest = {
             "rest_api_id": rest_api_id,
             "documentation_version": documentation_version,
@@ -3683,7 +3799,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDocumentationVersions")
+        )
         input_: capo_api_gateway.types.get_documentation_versions_request.GetDocumentationVersionsRequest = {
             "rest_api_id": rest_api_id
         }
@@ -3734,7 +3852,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomainName")
+        )
         input_: capo_api_gateway.types.get_domain_name_request.GetDomainNameRequest = {
             "domain_name": domain_name
         }
@@ -3791,7 +3911,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomainNameAccessAssociations")
+        )
         input_: capo_api_gateway.types.get_domain_name_access_associations_request.GetDomainNameAccessAssociationsRequest = {}
         if position is not None:
             input_["position"] = position
@@ -3848,7 +3970,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomainNames")
+        )
         input_: capo_api_gateway.types.get_domain_names_request.GetDomainNamesRequest = {}
         if position is not None:
             input_["position"] = position
@@ -3938,7 +4062,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetExport")
+        )
         input_: capo_api_gateway.types.get_export_request.GetExportRequest = {
             "rest_api_id": rest_api_id,
             "stage_name": stage_name,
@@ -3993,7 +4119,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGatewayResponse")
+        )
         input_: capo_api_gateway.types.get_gateway_response_request.GetGatewayResponseRequest = {
             "rest_api_id": rest_api_id,
             "response_type": response_type,
@@ -4047,7 +4175,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGatewayResponses")
+        )
         input_: capo_api_gateway.types.get_gateway_responses_request.GetGatewayResponsesRequest = {
             "rest_api_id": rest_api_id
         }
@@ -4100,7 +4230,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIntegration")
+        )
         input_: capo_api_gateway.types.get_integration_request.GetIntegrationRequest = {
             "rest_api_id": rest_api_id,
             "resource_id": resource_id,
@@ -4155,7 +4287,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIntegrationResponse")
+        )
         input_: capo_api_gateway.types.get_integration_response_request.GetIntegrationResponseRequest = {
             "rest_api_id": rest_api_id,
             "resource_id": resource_id,
@@ -4206,7 +4340,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMethod")
+        )
         input_: capo_api_gateway.types.get_method_request.GetMethodRequest = {
             "rest_api_id": rest_api_id,
             "resource_id": resource_id,
@@ -4260,7 +4396,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMethodResponse")
+        )
         input_: capo_api_gateway.types.get_method_response_request.GetMethodResponseRequest = {
             "rest_api_id": rest_api_id,
             "resource_id": resource_id,
@@ -4312,7 +4450,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetModel")
+        )
         input_: capo_api_gateway.types.get_model_request.GetModelRequest = {
             "rest_api_id": rest_api_id,
             "model_name": model_name,
@@ -4366,7 +4506,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetModels")
+        )
         input_: capo_api_gateway.types.get_models_request.GetModelsRequest = {
             "rest_api_id": rest_api_id
         }
@@ -4442,7 +4584,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetModelTemplate")
+        )
         input_: capo_api_gateway.types.get_model_template_request.GetModelTemplateRequest = {
             "rest_api_id": rest_api_id,
             "model_name": model_name,
@@ -4492,7 +4636,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRequestValidator")
+        )
         input_: capo_api_gateway.types.get_request_validator_request.GetRequestValidatorRequest = {
             "rest_api_id": rest_api_id,
             "request_validator_id": request_validator_id,
@@ -4546,7 +4692,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRequestValidators")
+        )
         input_: capo_api_gateway.types.get_request_validators_request.GetRequestValidatorsRequest = {
             "rest_api_id": rest_api_id
         }
@@ -4598,7 +4746,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResource")
+        )
         input_: capo_api_gateway.types.get_resource_request.GetResourceRequest = {
             "rest_api_id": rest_api_id,
             "resource_id": resource_id,
@@ -4654,7 +4804,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResources")
+        )
         input_: capo_api_gateway.types.get_resources_request.GetResourcesRequest = {
             "rest_api_id": rest_api_id
         }
@@ -4732,7 +4884,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRestApi")
+        )
         input_: capo_api_gateway.types.get_rest_api_request.GetRestApiRequest = {
             "rest_api_id": rest_api_id
         }
@@ -4781,7 +4935,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRestApis")
+        )
         input_: capo_api_gateway.types.get_rest_apis_request.GetRestApisRequest = {}
         if position is not None:
             input_["position"] = position
@@ -4861,7 +5017,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSdk")
+        )
         input_: capo_api_gateway.types.get_sdk_request.GetSdkRequest = {
             "rest_api_id": rest_api_id,
             "stage_name": stage_name,
@@ -4910,7 +5068,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSdkType")
+        )
         input_: capo_api_gateway.types.get_sdk_type_request.GetSdkTypeRequest = {
             "id": id
         }
@@ -4959,7 +5119,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSdkTypes")
+        )
         input_: capo_api_gateway.types.get_sdk_types_request.GetSdkTypesRequest = {}
         if position is not None:
             input_["position"] = position
@@ -5010,7 +5172,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStage")
+        )
         input_: capo_api_gateway.types.get_stage_request.GetStageRequest = {
             "rest_api_id": rest_api_id,
             "stage_name": stage_name,
@@ -5060,7 +5224,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStages")
+        )
         input_: capo_api_gateway.types.get_stages_request.GetStagesRequest = {
             "rest_api_id": rest_api_id
         }
@@ -5113,7 +5279,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTags")
+        )
         input_: capo_api_gateway.types.get_tags_request.GetTagsRequest = {
             "resource_arn": resource_arn
         }
@@ -5174,7 +5342,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUsage")
+        )
         input_: capo_api_gateway.types.get_usage_request.GetUsageRequest = {
             "usage_plan_id": usage_plan_id,
             "start_date": start_date,
@@ -5258,7 +5428,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUsagePlan")
+        )
         input_: capo_api_gateway.types.get_usage_plan_request.GetUsagePlanRequest = {
             "usage_plan_id": usage_plan_id
         }
@@ -5307,7 +5479,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUsagePlanKey")
+        )
         input_: capo_api_gateway.types.get_usage_plan_key_request.GetUsagePlanKeyRequest = {
             "usage_plan_id": usage_plan_id,
             "key_id": key_id,
@@ -5363,7 +5537,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUsagePlanKeys")
+        )
         input_: capo_api_gateway.types.get_usage_plan_keys_request.GetUsagePlanKeysRequest = {
             "usage_plan_id": usage_plan_id
         }
@@ -5447,7 +5623,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUsagePlans")
+        )
         input_: capo_api_gateway.types.get_usage_plans_request.GetUsagePlansRequest = {}
         if position is not None:
             input_["position"] = position
@@ -5521,7 +5699,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetVpcLink")
+        )
         input_: capo_api_gateway.types.get_vpc_link_request.GetVpcLinkRequest = {
             "vpc_link_id": vpc_link_id
         }
@@ -5570,7 +5750,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetVpcLinks")
+        )
         input_: capo_api_gateway.types.get_vpc_links_request.GetVpcLinksRequest = {}
         if position is not None:
             input_["position"] = position
@@ -5646,7 +5828,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportApiKeys")
+        )
         input_: capo_api_gateway.types.import_api_keys_request.ImportApiKeysRequest = {
             "body": body,
             "format": format,
@@ -5704,7 +5888,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportDocumentationParts")
+        )
         input_: capo_api_gateway.types.import_documentation_parts_request.ImportDocumentationPartsRequest = {
             "rest_api_id": rest_api_id,
             "body": body,
@@ -5762,7 +5948,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportRestApi")
+        )
         input_: capo_api_gateway.types.import_rest_api_request.ImportRestApiRequest = {
             "body": body
         }
@@ -5827,7 +6015,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutGatewayResponse")
+        )
         input_: capo_api_gateway.types.put_gateway_response_request.PutGatewayResponseRequest = {
             "rest_api_id": rest_api_id,
             "response_type": response_type,
@@ -5932,7 +6122,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutIntegration")
+        )
         input_: capo_api_gateway.types.put_integration_request.PutIntegrationRequest = {
             "rest_api_id": rest_api_id,
             "resource_id": resource_id,
@@ -6034,7 +6226,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutIntegrationResponse")
+        )
         input_: capo_api_gateway.types.put_integration_response_request.PutIntegrationResponseRequest = {
             "rest_api_id": rest_api_id,
             "resource_id": resource_id,
@@ -6118,7 +6312,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutMethod")
+        )
         input_: capo_api_gateway.types.put_method_request.PutMethodRequest = {
             "rest_api_id": rest_api_id,
             "resource_id": resource_id,
@@ -6198,7 +6394,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutMethodResponse")
+        )
         input_: capo_api_gateway.types.put_method_response_request.PutMethodResponseRequest = {
             "rest_api_id": rest_api_id,
             "resource_id": resource_id,
@@ -6262,7 +6460,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRestApi")
+        )
         input_: capo_api_gateway.types.put_rest_api_request.PutRestApiRequest = {
             "rest_api_id": rest_api_id,
             "body": body,
@@ -6317,7 +6517,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectDomainNameAccessAssociation")
+        )
         input_: capo_api_gateway.types.reject_domain_name_access_association_request.RejectDomainNameAccessAssociationRequest = {
             "domain_name_access_association_arn": domain_name_access_association_arn,
             "domain_name_arn": domain_name_arn,
@@ -6367,7 +6569,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_api_gateway.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -6437,7 +6641,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestInvokeAuthorizer")
+        )
         input_: capo_api_gateway.types.test_invoke_authorizer_request.TestInvokeAuthorizerRequest = {
             "rest_api_id": rest_api_id,
             "authorizer_id": authorizer_id,
@@ -6519,7 +6725,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestInvokeMethod")
+        )
         input_: capo_api_gateway.types.test_invoke_method_request.TestInvokeMethodRequest = {
             "rest_api_id": rest_api_id,
             "resource_id": resource_id,
@@ -6582,7 +6790,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_api_gateway.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -6632,7 +6842,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccount")
+        )
         input_: capo_api_gateway.types.update_account_request.UpdateAccountRequest = {}
         if patch_operations is not None:
             input_["patch_operations"] = patch_operations
@@ -6683,7 +6895,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApiKey")
+        )
         input_: capo_api_gateway.types.update_api_key_request.UpdateApiKeyRequest = {
             "api_key": api_key
         }
@@ -6738,7 +6952,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAuthorizer")
+        )
         input_: capo_api_gateway.types.update_authorizer_request.UpdateAuthorizerRequest = {
             "rest_api_id": rest_api_id,
             "authorizer_id": authorizer_id,
@@ -6798,7 +7014,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBasePathMapping")
+        )
         input_: capo_api_gateway.types.update_base_path_mapping_request.UpdateBasePathMappingRequest = {
             "domain_name": domain_name,
             "base_path": base_path,
@@ -6856,7 +7074,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateClientCertificate")
+        )
         input_: capo_api_gateway.types.update_client_certificate_request.UpdateClientCertificateRequest = {
             "client_certificate_id": client_certificate_id
         }
@@ -6912,7 +7132,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDeployment")
+        )
         input_: capo_api_gateway.types.update_deployment_request.UpdateDeploymentRequest = {
             "rest_api_id": rest_api_id,
             "deployment_id": deployment_id,
@@ -6970,7 +7192,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDocumentationPart")
+        )
         input_: capo_api_gateway.types.update_documentation_part_request.UpdateDocumentationPartRequest = {
             "rest_api_id": rest_api_id,
             "documentation_part_id": documentation_part_id,
@@ -7028,7 +7252,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDocumentationVersion")
+        )
         input_: capo_api_gateway.types.update_documentation_version_request.UpdateDocumentationVersionRequest = {
             "rest_api_id": rest_api_id,
             "documentation_version": documentation_version,
@@ -7084,7 +7310,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDomainName")
+        )
         input_: capo_api_gateway.types.update_domain_name_request.UpdateDomainNameRequest = {
             "domain_name": domain_name
         }
@@ -7143,7 +7371,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGatewayResponse")
+        )
         input_: capo_api_gateway.types.update_gateway_response_request.UpdateGatewayResponseRequest = {
             "rest_api_id": rest_api_id,
             "response_type": response_type,
@@ -7201,7 +7431,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIntegration")
+        )
         input_: capo_api_gateway.types.update_integration_request.UpdateIntegrationRequest = {
             "rest_api_id": rest_api_id,
             "resource_id": resource_id,
@@ -7264,7 +7496,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIntegrationResponse")
+        )
         input_: capo_api_gateway.types.update_integration_response_request.UpdateIntegrationResponseRequest = {
             "rest_api_id": rest_api_id,
             "resource_id": resource_id,
@@ -7323,7 +7557,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMethod")
+        )
         input_: capo_api_gateway.types.update_method_request.UpdateMethodRequest = {
             "rest_api_id": rest_api_id,
             "resource_id": resource_id,
@@ -7386,7 +7622,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMethodResponse")
+        )
         input_: capo_api_gateway.types.update_method_response_request.UpdateMethodResponseRequest = {
             "rest_api_id": rest_api_id,
             "resource_id": resource_id,
@@ -7444,7 +7682,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateModel")
+        )
         input_: capo_api_gateway.types.update_model_request.UpdateModelRequest = {
             "rest_api_id": rest_api_id,
             "model_name": model_name,
@@ -7502,7 +7742,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRequestValidator")
+        )
         input_: capo_api_gateway.types.update_request_validator_request.UpdateRequestValidatorRequest = {
             "rest_api_id": rest_api_id,
             "request_validator_id": request_validator_id,
@@ -7557,7 +7799,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateResource")
+        )
         input_: capo_api_gateway.types.update_resource_request.UpdateResourceRequest = {
             "rest_api_id": rest_api_id,
             "resource_id": resource_id,
@@ -7611,7 +7855,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRestApi")
+        )
         input_: capo_api_gateway.types.update_rest_api_request.UpdateRestApiRequest = {
             "rest_api_id": rest_api_id
         }
@@ -7666,7 +7912,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateStage")
+        )
         input_: capo_api_gateway.types.update_stage_request.UpdateStageRequest = {
             "rest_api_id": rest_api_id,
             "stage_name": stage_name,
@@ -7722,7 +7970,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUsage")
+        )
         input_: capo_api_gateway.types.update_usage_request.UpdateUsageRequest = {
             "usage_plan_id": usage_plan_id,
             "key_id": key_id,
@@ -7776,7 +8026,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUsagePlan")
+        )
         input_: capo_api_gateway.types.update_usage_plan_request.UpdateUsagePlanRequest = {
             "usage_plan_id": usage_plan_id
         }
@@ -7829,7 +8081,9 @@ class AsyncAPIGatewayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateVpcLink")
+        )
         input_: capo_api_gateway.types.update_vpc_link_request.UpdateVpcLinkRequest = {
             "vpc_link_id": vpc_link_id
         }

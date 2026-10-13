@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#CompleteMultipartUploadOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -172,4 +172,11 @@ def deserialize_xml(el: Element) -> CompleteMultipartUploadOutput:
         out["checksum_type"] = capo_s3.types.checksum_type.deserialize_xml(
             child_checksum_type
         )
+    return out
+
+
+def redact_sensitive(value: CompleteMultipartUploadOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ssekms_key_id" in value:
+        out["ssekms_key_id"] = "*** Sensitive Data Redacted ***"
     return out

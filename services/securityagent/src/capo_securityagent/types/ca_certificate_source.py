@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityagent#CaCertificateSource``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -50,3 +50,10 @@ def deserialize_json(data: dict) -> CaCertificateSource:
         return {"s3Location": data["s3Location"]}
     else:
         raise DeserializationError("CaCertificateSource: no recognized variant key")
+
+
+def redact_sensitive(value: CaCertificateSource) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inlinePem" in value:
+        out["inlinePem"] = "*** Sensitive Data Redacted ***"
+    return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.managedblockchain#MemberFabricConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,11 @@ def deserialize_json(data: dict) -> MemberFabricConfiguration:
         out["admin_password"] = data["AdminPassword"]
     else:
         raise DeserializationError("MemberFabricConfiguration.admin_password required")
+    return out
+
+
+def redact_sensitive(value: MemberFabricConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "admin_password" in value:
+        out["admin_password"] = "*** Sensitive Data Redacted ***"
     return out

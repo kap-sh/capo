@@ -8,6 +8,7 @@ import capo_amp._auth._sigv4
 from capo_amp._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -107,7 +108,9 @@ class Scraper:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateScraper")
+        )
         input_: capo_amp.types.create_scraper_request.CreateScraperRequest = {
             "scrape_configuration": scrape_configuration,
             "source": source,
@@ -172,7 +175,9 @@ class Scraper:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeScraper")
+        )
         input_: capo_amp.types.describe_scraper_request.DescribeScraperRequest = {
             "scraper_id": scraper_id
         }
@@ -244,7 +249,9 @@ class Scraper:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateScraper")
+        )
         input_: capo_amp.types.update_scraper_request.UpdateScraperRequest = {
             "scraper_id": scraper_id
         }
@@ -314,7 +321,9 @@ class Scraper:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteScraper")
+        )
         input_: capo_amp.types.delete_scraper_request.DeleteScraperRequest = {
             "scraper_id": scraper_id
         }
@@ -375,7 +384,9 @@ class Scraper:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListScrapers")
+        )
         input_: capo_amp.types.list_scrapers_request.ListScrapersRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -460,7 +471,9 @@ class AsyncScraper:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateScraper")
+        )
         input_: capo_amp.types.create_scraper_request.CreateScraperRequest = {
             "scrape_configuration": scrape_configuration,
             "source": source,
@@ -526,7 +539,9 @@ class AsyncScraper:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeScraper")
+        )
         input_: capo_amp.types.describe_scraper_request.DescribeScraperRequest = {
             "scraper_id": scraper_id
         }
@@ -599,7 +614,9 @@ class AsyncScraper:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateScraper")
+        )
         input_: capo_amp.types.update_scraper_request.UpdateScraperRequest = {
             "scraper_id": scraper_id
         }
@@ -670,7 +687,9 @@ class AsyncScraper:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteScraper")
+        )
         input_: capo_amp.types.delete_scraper_request.DeleteScraperRequest = {
             "scraper_id": scraper_id
         }
@@ -732,7 +751,9 @@ class AsyncScraper:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListScrapers")
+        )
         input_: capo_amp.types.list_scrapers_request.ListScrapersRequest = {}
         if filters is not None:
             input_["filters"] = filters

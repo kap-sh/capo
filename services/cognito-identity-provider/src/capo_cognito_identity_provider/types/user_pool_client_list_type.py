@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#UserPoolClientListType``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.user_pool_client_description
@@ -37,3 +37,14 @@ def deserialize_aws_json_1_1(data: list) -> UserPoolClientListType:
             )
         )
     return out
+
+
+def redact_sensitive(value: UserPoolClientListType) -> list[Any]:
+    import capo_cognito_identity_provider.types.user_pool_client_description
+
+    return [
+        capo_cognito_identity_provider.types.user_pool_client_description.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

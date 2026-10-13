@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteWaypoint``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -121,4 +121,35 @@ def deserialize_json(data: dict) -> RouteWaypoint:
         out["stop_duration"] = data["StopDuration"]
     else:
         out["stop_duration"] = 0
+    return out
+
+
+def redact_sensitive(value: RouteWaypoint) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "avoid_actions_for_distance" in value:
+        out["avoid_actions_for_distance"] = "*** Sensitive Data Redacted ***"
+    if "avoid_u_turns" in value:
+        out["avoid_u_turns"] = "*** Sensitive Data Redacted ***"
+    if "heading" in value:
+        out["heading"] = "*** Sensitive Data Redacted ***"
+    if "matching" in value:
+        import capo_geo_routes.types.route_matching_options
+
+        out["matching"] = capo_geo_routes.types.route_matching_options.redact_sensitive(
+            value["matching"]
+        )
+    if "pass_through" in value:
+        out["pass_through"] = "*** Sensitive Data Redacted ***"
+    if "position" in value:
+        out["position"] = "*** Sensitive Data Redacted ***"
+    if "side_of_street" in value:
+        import capo_geo_routes.types.route_side_of_street_options
+
+        out["side_of_street"] = (
+            capo_geo_routes.types.route_side_of_street_options.redact_sensitive(
+                value["side_of_street"]
+            )
+        )
+    if "stop_duration" in value:
+        out["stop_duration"] = "*** Sensitive Data Redacted ***"
     return out

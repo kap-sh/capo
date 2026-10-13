@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_sso_admin._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -71,7 +72,9 @@ class ApplicationAuthenticationMethodResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutApplicationAuthenticationMethod")
+        )
         input_: capo_sso_admin.types.put_application_authentication_method_request.PutApplicationAuthenticationMethodRequest = {
             "application_arn": application_arn,
             "authentication_method_type": authentication_method_type,
@@ -122,7 +125,9 @@ class ApplicationAuthenticationMethodResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetApplicationAuthenticationMethod")
+        )
         input_: capo_sso_admin.types.get_application_authentication_method_request.GetApplicationAuthenticationMethodRequest = {
             "application_arn": application_arn,
             "authentication_method_type": authentication_method_type,
@@ -171,7 +176,9 @@ class ApplicationAuthenticationMethodResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApplicationAuthenticationMethod")
+        )
         input_: capo_sso_admin.types.delete_application_authentication_method_request.DeleteApplicationAuthenticationMethodRequest = {
             "application_arn": application_arn,
             "authentication_method_type": authentication_method_type,
@@ -221,7 +228,9 @@ class ApplicationAuthenticationMethodResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListApplicationAuthenticationMethods")
+        )
         input_: capo_sso_admin.types.list_application_authentication_methods_request.ListApplicationAuthenticationMethodsRequest = {
             "application_arn": application_arn
         }
@@ -279,7 +288,9 @@ class AsyncApplicationAuthenticationMethodResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutApplicationAuthenticationMethod")
+        )
         input_: capo_sso_admin.types.put_application_authentication_method_request.PutApplicationAuthenticationMethodRequest = {
             "application_arn": application_arn,
             "authentication_method_type": authentication_method_type,
@@ -331,7 +342,9 @@ class AsyncApplicationAuthenticationMethodResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetApplicationAuthenticationMethod")
+        )
         input_: capo_sso_admin.types.get_application_authentication_method_request.GetApplicationAuthenticationMethodRequest = {
             "application_arn": application_arn,
             "authentication_method_type": authentication_method_type,
@@ -381,7 +394,9 @@ class AsyncApplicationAuthenticationMethodResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApplicationAuthenticationMethod")
+        )
         input_: capo_sso_admin.types.delete_application_authentication_method_request.DeleteApplicationAuthenticationMethodRequest = {
             "application_arn": application_arn,
             "authentication_method_type": authentication_method_type,
@@ -432,7 +447,9 @@ class AsyncApplicationAuthenticationMethodResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListApplicationAuthenticationMethods")
+        )
         input_: capo_sso_admin.types.list_application_authentication_methods_request.ListApplicationAuthenticationMethodsRequest = {
             "application_arn": application_arn
         }

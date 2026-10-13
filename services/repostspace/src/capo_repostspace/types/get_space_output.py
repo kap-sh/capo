@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.repostspace#GetSpaceOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -281,6 +281,23 @@ def deserialize_json(data: dict) -> GetSpaceOutput:
         out["supported_email_domains"] = (
             capo_repostspace.types.supported_email_domains_status.deserialize_json(
                 data["supportedEmailDomains"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GetSpaceOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "supported_email_domains" in value:
+        import capo_repostspace.types.supported_email_domains_status
+
+        out["supported_email_domains"] = (
+            capo_repostspace.types.supported_email_domains_status.redact_sensitive(
+                value["supported_email_domains"]
             )
         )
     return out

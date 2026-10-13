@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chime#InviteUsersRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -50,4 +50,15 @@ def deserialize_json(data: dict) -> InviteUsersRequest:
         import capo_chime.types.user_type
 
         out["user_type"] = capo_chime.types.user_type.deserialize_json(data["UserType"])
+    return out
+
+
+def redact_sensitive(value: InviteUsersRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_email_list" in value:
+        import capo_chime.types.user_email_list
+
+        out["user_email_list"] = capo_chime.types.user_email_list.redact_sensitive(
+            value["user_email_list"]
+        )
     return out

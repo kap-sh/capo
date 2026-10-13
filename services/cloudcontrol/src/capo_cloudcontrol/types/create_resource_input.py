@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudcontrol#CreateResourceInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -59,4 +59,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateResourceInput:
         out["desired_state"] = data["DesiredState"]
     else:
         raise DeserializationError("CreateResourceInput.desired_state required")
+    return out
+
+
+def redact_sensitive(value: CreateResourceInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "desired_state" in value:
+        out["desired_state"] = "*** Sensitive Data Redacted ***"
     return out

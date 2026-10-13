@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#McpServerTargetConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -78,4 +78,17 @@ def deserialize_json(data: dict) -> McpServerTargetConfiguration:
         )
     if data.get("resourcePriority") is not None:
         out["resource_priority"] = data["resourcePriority"]
+    return out
+
+
+def redact_sensitive(value: McpServerTargetConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "mcp_tool_schema" in value:
+        import capo_bedrock_agentcore_control.types.mcp_tool_schema_configuration
+
+        out["mcp_tool_schema"] = (
+            capo_bedrock_agentcore_control.types.mcp_tool_schema_configuration.redact_sensitive(
+                value["mcp_tool_schema"]
+            )
+        )
     return out

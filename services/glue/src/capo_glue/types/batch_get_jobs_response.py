@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glue#BatchGetJobsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -44,4 +44,13 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetJobsResponse:
         out["jobs_not_found"] = capo_glue.types.job_name_list.deserialize_aws_json_1_1(
             data["JobsNotFound"]
         )
+    return out
+
+
+def redact_sensitive(value: BatchGetJobsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "jobs" in value:
+        import capo_glue.types.job_list
+
+        out["jobs"] = capo_glue.types.job_list.redact_sensitive(value["jobs"])
     return out

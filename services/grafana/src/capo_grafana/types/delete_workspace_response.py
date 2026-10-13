@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.grafana#DeleteWorkspaceResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,15 @@ def deserialize_json(data: dict) -> DeleteWorkspaceResponse:
         )
     else:
         raise DeserializationError("DeleteWorkspaceResponse.workspace required")
+    return out
+
+
+def redact_sensitive(value: DeleteWorkspaceResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "workspace" in value:
+        import capo_grafana.types.workspace_description
+
+        out["workspace"] = capo_grafana.types.workspace_description.redact_sensitive(
+            value["workspace"]
+        )
     return out

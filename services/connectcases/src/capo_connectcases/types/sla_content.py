@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectcases#SlaContent``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -38,4 +38,17 @@ def deserialize_json(data: dict) -> SlaContent:
         )
     else:
         raise DeserializationError("SlaContent.sla_configuration required")
+    return out
+
+
+def redact_sensitive(value: SlaContent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sla_configuration" in value:
+        import capo_connectcases.types.sla_configuration
+
+        out["sla_configuration"] = (
+            capo_connectcases.types.sla_configuration.redact_sensitive(
+                value["sla_configuration"]
+            )
+        )
     return out

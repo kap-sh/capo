@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#QuickResponseSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -144,4 +144,15 @@ def deserialize_json(data: dict) -> QuickResponseSummary:
         import capo_qconnect.types.tags
 
         out["tags"] = capo_qconnect.types.tags.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: QuickResponseSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "channels" in value:
+        import capo_qconnect.types.channels
+
+        out["channels"] = capo_qconnect.types.channels.redact_sensitive(
+            value["channels"]
+        )
     return out

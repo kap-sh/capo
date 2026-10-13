@@ -21,10 +21,12 @@ from capo_route_53_domains._pagination import resolve_path as _resolve_path
 from capo_route_53_domains._services._aws_config import aws_config
 from capo_route_53_domains._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -204,7 +206,9 @@ class Route53DomainsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[Route53DomainsClientConfig] = None
+        self,
+        config_overrides: Optional[Route53DomainsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: Route53DomainsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -212,8 +216,10 @@ class Route53DomainsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -267,7 +273,21 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_route_53_domains.types.accept_domain_transfer_from_another_aws_account_request.AcceptDomainTransferFromAnotherAwsAccountRequest",
+        ) -> dict[str, Any]:
+            import capo_route_53_domains.types.accept_domain_transfer_from_another_aws_account_request
+
+            return capo_route_53_domains.types.accept_domain_transfer_from_another_aws_account_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AcceptDomainTransferFromAnotherAwsAccount", redact_input=_redact_input
+            ),
+        )
         input_: capo_route_53_domains.types.accept_domain_transfer_from_another_aws_account_request.AcceptDomainTransferFromAnotherAwsAccountRequest = {
             "domain_name": domain_name,
             "password": password,
@@ -318,7 +338,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateDelegationSignerToDomain")
+        )
         input_: capo_route_53_domains.types.associate_delegation_signer_to_domain_request.AssociateDelegationSignerToDomainRequest = {
             "domain_name": domain_name,
             "signing_attributes": signing_attributes,
@@ -364,7 +386,10 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CancelDomainTransferToAnotherAwsAccount"),
+        )
         input_: capo_route_53_domains.types.cancel_domain_transfer_to_another_aws_account_request.CancelDomainTransferToAnotherAwsAccountRequest = {
             "domain_name": domain_name
         }
@@ -413,7 +438,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CheckDomainAvailability")
+        )
         input_: capo_route_53_domains.types.check_domain_availability_request.CheckDomainAvailabilityRequest = {
             "domain_name": domain_name
         }
@@ -464,7 +491,19 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_route_53_domains.types.check_domain_transferability_request.CheckDomainTransferabilityRequest",
+        ) -> dict[str, Any]:
+            import capo_route_53_domains.types.check_domain_transferability_request
+
+            return capo_route_53_domains.types.check_domain_transferability_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CheckDomainTransferability", redact_input=_redact_input),
+        )
         input_: capo_route_53_domains.types.check_domain_transferability_request.CheckDomainTransferabilityRequest = {
             "domain_name": domain_name
         }
@@ -512,7 +551,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomain")
+        )
         input_: capo_route_53_domains.types.delete_domain_request.DeleteDomainRequest = {
             "domain_name": domain_name
         }
@@ -559,7 +600,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTagsForDomain")
+        )
         input_: capo_route_53_domains.types.delete_tags_for_domain_request.DeleteTagsForDomainRequest = {
             "domain_name": domain_name,
             "tags_to_delete": tags_to_delete,
@@ -604,7 +647,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableDomainAutoRenew")
+        )
         input_: capo_route_53_domains.types.disable_domain_auto_renew_request.DisableDomainAutoRenewRequest = {
             "domain_name": domain_name
         }
@@ -651,7 +696,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableDomainTransferLock")
+        )
         input_: capo_route_53_domains.types.disable_domain_transfer_lock_request.DisableDomainTransferLockRequest = {
             "domain_name": domain_name
         }
@@ -700,7 +747,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateDelegationSignerFromDomain")
+        )
         input_: capo_route_53_domains.types.disassociate_delegation_signer_from_domain_request.DisassociateDelegationSignerFromDomainRequest = {
             "domain_name": domain_name,
             "id": id,
@@ -746,7 +795,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableDomainAutoRenew")
+        )
         input_: capo_route_53_domains.types.enable_domain_auto_renew_request.EnableDomainAutoRenewRequest = {
             "domain_name": domain_name
         }
@@ -793,7 +844,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableDomainTransferLock")
+        )
         input_: capo_route_53_domains.types.enable_domain_transfer_lock_request.EnableDomainTransferLockRequest = {
             "domain_name": domain_name
         }
@@ -840,7 +893,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContactReachabilityStatus")
+        )
         input_: capo_route_53_domains.types.get_contact_reachability_status_request.GetContactReachabilityStatusRequest = {}
         if domain_name is not None:
             input_["domain_name"] = domain_name
@@ -886,7 +941,21 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_route_53_domains.types.get_domain_detail_response.GetDomainDetailResponse",
+        ) -> dict[str, Any]:
+            import capo_route_53_domains.types.get_domain_detail_response
+
+            return (
+                capo_route_53_domains.types.get_domain_detail_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDomainDetail", redact_output=_redact_output),
+        )
         input_: capo_route_53_domains.types.get_domain_detail_request.GetDomainDetailRequest = {
             "domain_name": domain_name
         }
@@ -935,7 +1004,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomainSuggestions")
+        )
         input_: capo_route_53_domains.types.get_domain_suggestions_request.GetDomainSuggestionsRequest = {
             "domain_name": domain_name,
             "suggestion_count": suggestion_count,
@@ -980,7 +1051,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOperationDetail")
+        )
         input_: capo_route_53_domains.types.get_operation_detail_request.GetOperationDetailRequest = {
             "operation_id": operation_id
         }
@@ -1035,7 +1108,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomains")
+        )
         input_: capo_route_53_domains.types.list_domains_request.ListDomainsRequest = {}
         if filter_conditions is not None:
             input_["filter_conditions"] = filter_conditions
@@ -1137,7 +1212,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOperations")
+        )
         input_: capo_route_53_domains.types.list_operations_request.ListOperationsRequest = {}
         if submitted_since is not None:
             input_["submitted_since"] = submitted_since
@@ -1240,7 +1317,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPrices")
+        )
         input_: capo_route_53_domains.types.list_prices_request.ListPricesRequest = {}
         if tld is not None:
             input_["tld"] = tld
@@ -1314,7 +1393,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForDomain")
+        )
         input_: capo_route_53_domains.types.list_tags_for_domain_request.ListTagsForDomainRequest = {
             "domain_name": domain_name
         }
@@ -1360,7 +1441,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PushDomain")
+        )
         input_: capo_route_53_domains.types.push_domain_request.PushDomainRequest = {
             "domain_name": domain_name,
             "target": target,
@@ -1443,7 +1526,19 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_route_53_domains.types.register_domain_request.RegisterDomainRequest",
+        ) -> dict[str, Any]:
+            import capo_route_53_domains.types.register_domain_request
+
+            return capo_route_53_domains.types.register_domain_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RegisterDomain", redact_input=_redact_input),
+        )
         input_: capo_route_53_domains.types.register_domain_request.RegisterDomainRequest = {
             "domain_name": domain_name,
             "duration_in_years": duration_in_years,
@@ -1508,7 +1603,10 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RejectDomainTransferFromAnotherAwsAccount"),
+        )
         input_: capo_route_53_domains.types.reject_domain_transfer_from_another_aws_account_request.RejectDomainTransferFromAnotherAwsAccountRequest = {
             "domain_name": domain_name
         }
@@ -1561,7 +1659,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RenewDomain")
+        )
         input_: capo_route_53_domains.types.renew_domain_request.RenewDomainRequest = {
             "domain_name": domain_name,
             "current_expiry_year": current_expiry_year,
@@ -1612,7 +1712,21 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_route_53_domains.types.resend_contact_reachability_email_response.ResendContactReachabilityEmailResponse",
+        ) -> dict[str, Any]:
+            import capo_route_53_domains.types.resend_contact_reachability_email_response
+
+            return capo_route_53_domains.types.resend_contact_reachability_email_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ResendContactReachabilityEmail", redact_output=_redact_output
+            ),
+        )
         input_: capo_route_53_domains.types.resend_contact_reachability_email_request.ResendContactReachabilityEmailRequest = {}
         if domain_name is not None:
             input_["domain_name"] = domain_name
@@ -1654,7 +1768,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResendOperationAuthorization")
+        )
         input_: capo_route_53_domains.types.resend_operation_authorization_request.ResendOperationAuthorizationRequest = {
             "operation_id": operation_id
         }
@@ -1699,7 +1815,19 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_route_53_domains.types.retrieve_domain_auth_code_response.RetrieveDomainAuthCodeResponse",
+        ) -> dict[str, Any]:
+            import capo_route_53_domains.types.retrieve_domain_auth_code_response
+
+            return capo_route_53_domains.types.retrieve_domain_auth_code_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RetrieveDomainAuthCode", redact_output=_redact_output),
+        )
         input_: capo_route_53_domains.types.retrieve_domain_auth_code_request.RetrieveDomainAuthCodeRequest = {
             "domain_name": domain_name
         }
@@ -1791,7 +1919,19 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_route_53_domains.types.transfer_domain_request.TransferDomainRequest",
+        ) -> dict[str, Any]:
+            import capo_route_53_domains.types.transfer_domain_request
+
+            return capo_route_53_domains.types.transfer_domain_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TransferDomain", redact_input=_redact_input),
+        )
         input_: capo_route_53_domains.types.transfer_domain_request.TransferDomainRequest = {
             "domain_name": domain_name,
             "admin_contact": admin_contact,
@@ -1864,7 +2004,21 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_route_53_domains.types.transfer_domain_to_another_aws_account_response.TransferDomainToAnotherAwsAccountResponse",
+        ) -> dict[str, Any]:
+            import capo_route_53_domains.types.transfer_domain_to_another_aws_account_response
+
+            return capo_route_53_domains.types.transfer_domain_to_another_aws_account_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "TransferDomainToAnotherAwsAccount", redact_output=_redact_output
+            ),
+        )
         input_: capo_route_53_domains.types.transfer_domain_to_another_aws_account_request.TransferDomainToAnotherAwsAccountRequest = {
             "domain_name": domain_name,
             "account_id": account_id,
@@ -1930,7 +2084,19 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_route_53_domains.types.update_domain_contact_request.UpdateDomainContactRequest",
+        ) -> dict[str, Any]:
+            import capo_route_53_domains.types.update_domain_contact_request
+
+            return capo_route_53_domains.types.update_domain_contact_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateDomainContact", redact_input=_redact_input),
+        )
         input_: capo_route_53_domains.types.update_domain_contact_request.UpdateDomainContactRequest = {
             "domain_name": domain_name
         }
@@ -1997,7 +2163,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDomainContactPrivacy")
+        )
         input_: capo_route_53_domains.types.update_domain_contact_privacy_request.UpdateDomainContactPrivacyRequest = {
             "domain_name": domain_name
         }
@@ -2058,7 +2226,19 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_route_53_domains.types.update_domain_nameservers_request.UpdateDomainNameserversRequest",
+        ) -> dict[str, Any]:
+            import capo_route_53_domains.types.update_domain_nameservers_request
+
+            return capo_route_53_domains.types.update_domain_nameservers_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateDomainNameservers", redact_input=_redact_input),
+        )
         input_: capo_route_53_domains.types.update_domain_nameservers_request.UpdateDomainNameserversRequest = {
             "domain_name": domain_name,
             "nameservers": nameservers,
@@ -2108,7 +2288,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTagsForDomain")
+        )
         input_: capo_route_53_domains.types.update_tags_for_domain_request.UpdateTagsForDomainRequest = {
             "domain_name": domain_name
         }
@@ -2161,7 +2343,9 @@ class Route53DomainsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ViewBilling")
+        )
         input_: capo_route_53_domains.types.view_billing_request.ViewBillingRequest = {}
         if start is not None:
             input_["start"] = start

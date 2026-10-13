@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_mgn._auth._signers
 import capo_mgn._auth._sigv4
 from capo_mgn._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -174,7 +175,30 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.create_network_migration_definition_request.CreateNetworkMigrationDefinitionRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.create_network_migration_definition_request
+
+            return capo_mgn.types.create_network_migration_definition_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_mgn.types.network_migration_definition.NetworkMigrationDefinition",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.network_migration_definition
+
+            return capo_mgn.types.network_migration_definition.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateNetworkMigrationDefinition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.create_network_migration_definition_request.CreateNetworkMigrationDefinitionRequest = {
             "name": name,
             "target_s3_configuration": target_s3_configuration,
@@ -274,7 +298,30 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.update_network_migration_definition_request.UpdateNetworkMigrationDefinitionRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.update_network_migration_definition_request
+
+            return capo_mgn.types.update_network_migration_definition_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_mgn.types.network_migration_definition.NetworkMigrationDefinition",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.network_migration_definition
+
+            return capo_mgn.types.network_migration_definition.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateNetworkMigrationDefinition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.update_network_migration_definition_request.UpdateNetworkMigrationDefinitionRequest = {
             "network_migration_definition_id": network_migration_definition_id
         }
@@ -342,7 +389,9 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteNetworkMigrationDefinition")
+        )
         input_: capo_mgn.types.delete_network_migration_definition_request.DeleteNetworkMigrationDefinitionRequest = {
             "network_migration_definition_id": network_migration_definition_id
         }
@@ -396,7 +445,21 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_network_migration_definitions_response.ListNetworkMigrationDefinitionsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_network_migration_definitions_response
+
+            return capo_mgn.types.list_network_migration_definitions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListNetworkMigrationDefinitions", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.list_network_migration_definitions_request.ListNetworkMigrationDefinitionsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -449,7 +512,19 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.network_migration_definition.NetworkMigrationDefinition",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.network_migration_definition
+
+            return capo_mgn.types.network_migration_definition.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetNetworkMigrationDefinition", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.get_network_migration_definition_request.GetNetworkMigrationDefinitionRequest = {
             "network_migration_definition_id": network_migration_definition_id
         }
@@ -505,7 +580,10 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetNetworkMigrationMapperSegmentConstruct"),
+        )
         input_: capo_mgn.types.get_network_migration_mapper_segment_construct_request.GetNetworkMigrationMapperSegmentConstructRequest = {
             "network_migration_definition_id": network_migration_definition_id,
             "network_migration_execution_id": network_migration_execution_id,
@@ -569,7 +647,9 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationAnalyses")
+        )
         input_: capo_mgn.types.list_network_migration_analyses_request.ListNetworkMigrationAnalysesRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -637,7 +717,9 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationAnalysisResults")
+        )
         input_: capo_mgn.types.list_network_migration_analysis_results_request.ListNetworkMigrationAnalysisResultsRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -705,7 +787,9 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationCodeGenerations")
+        )
         input_: capo_mgn.types.list_network_migration_code_generations_request.ListNetworkMigrationCodeGenerationsRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -773,7 +857,10 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListNetworkMigrationCodeGenerationSegments"),
+        )
         input_: capo_mgn.types.list_network_migration_code_generation_segments_request.ListNetworkMigrationCodeGenerationSegmentsRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -837,7 +924,9 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationDeployedStacks")
+        )
         input_: capo_mgn.types.list_network_migration_deployed_stacks_request.ListNetworkMigrationDeployedStacksRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -903,7 +992,9 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationDeployments")
+        )
         input_: capo_mgn.types.list_network_migration_deployments_request.ListNetworkMigrationDeploymentsRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -967,7 +1058,21 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_network_migration_executions_response.ListNetworkMigrationExecutionsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_network_migration_executions_response
+
+            return capo_mgn.types.list_network_migration_executions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListNetworkMigrationExecutions", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.list_network_migration_executions_request.ListNetworkMigrationExecutionsRequest = {
             "network_migration_definition_id": network_migration_definition_id
         }
@@ -1039,7 +1144,10 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListNetworkMigrationMapperSegmentConstructs"),
+        )
         input_: capo_mgn.types.list_network_migration_mapper_segment_constructs_request.ListNetworkMigrationMapperSegmentConstructsRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -1108,7 +1216,21 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_network_migration_mapper_segments_response.ListNetworkMigrationMapperSegmentsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_network_migration_mapper_segments_response
+
+            return capo_mgn.types.list_network_migration_mapper_segments_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListNetworkMigrationMapperSegments", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.list_network_migration_mapper_segments_request.ListNetworkMigrationMapperSegmentsRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -1176,7 +1298,9 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationMappings")
+        )
         input_: capo_mgn.types.list_network_migration_mappings_request.ListNetworkMigrationMappingsRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -1244,7 +1368,9 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationMappingUpdates")
+        )
         input_: capo_mgn.types.list_network_migration_mapping_updates_request.ListNetworkMigrationMappingUpdatesRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -1306,7 +1432,9 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartNetworkMigrationAnalysis")
+        )
         input_: capo_mgn.types.start_network_migration_analysis_request.StartNetworkMigrationAnalysisRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -1366,7 +1494,9 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartNetworkMigrationCodeGeneration")
+        )
         input_: capo_mgn.types.start_network_migration_code_generation_request.StartNetworkMigrationCodeGenerationRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -1426,7 +1556,9 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartNetworkMigrationDeployment")
+        )
         input_: capo_mgn.types.start_network_migration_deployment_request.StartNetworkMigrationDeploymentRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -1486,7 +1618,9 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartNetworkMigrationMapping")
+        )
         input_: capo_mgn.types.start_network_migration_mapping_request.StartNetworkMigrationMappingRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -1552,7 +1686,21 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.start_network_migration_mapping_update_request.StartNetworkMigrationMappingUpdateRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_network_migration_mapping_update_request
+
+            return capo_mgn.types.start_network_migration_mapping_update_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartNetworkMigrationMappingUpdate", redact_input=_redact_input
+            ),
+        )
         input_: capo_mgn.types.start_network_migration_mapping_update_request.StartNetworkMigrationMappingUpdateRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -1615,7 +1763,32 @@ class NetworkMigrationDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.update_network_migration_mapper_segment_request.UpdateNetworkMigrationMapperSegmentRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.update_network_migration_mapper_segment_request
+
+            return capo_mgn.types.update_network_migration_mapper_segment_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_mgn.types.network_migration_mapper_segment.NetworkMigrationMapperSegment",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.network_migration_mapper_segment
+
+            return capo_mgn.types.network_migration_mapper_segment.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateNetworkMigrationMapperSegment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.update_network_migration_mapper_segment_request.UpdateNetworkMigrationMapperSegmentRequest = {
             "network_migration_definition_id": network_migration_definition_id,
             "network_migration_execution_id": network_migration_execution_id,
@@ -1702,7 +1875,30 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.create_network_migration_definition_request.CreateNetworkMigrationDefinitionRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.create_network_migration_definition_request
+
+            return capo_mgn.types.create_network_migration_definition_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_mgn.types.network_migration_definition.NetworkMigrationDefinition",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.network_migration_definition
+
+            return capo_mgn.types.network_migration_definition.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateNetworkMigrationDefinition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.create_network_migration_definition_request.CreateNetworkMigrationDefinitionRequest = {
             "name": name,
             "target_s3_configuration": target_s3_configuration,
@@ -1803,7 +1999,30 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.update_network_migration_definition_request.UpdateNetworkMigrationDefinitionRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.update_network_migration_definition_request
+
+            return capo_mgn.types.update_network_migration_definition_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_mgn.types.network_migration_definition.NetworkMigrationDefinition",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.network_migration_definition
+
+            return capo_mgn.types.network_migration_definition.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateNetworkMigrationDefinition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.update_network_migration_definition_request.UpdateNetworkMigrationDefinitionRequest = {
             "network_migration_definition_id": network_migration_definition_id
         }
@@ -1872,7 +2091,9 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteNetworkMigrationDefinition")
+        )
         input_: capo_mgn.types.delete_network_migration_definition_request.DeleteNetworkMigrationDefinitionRequest = {
             "network_migration_definition_id": network_migration_definition_id
         }
@@ -1927,7 +2148,21 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_network_migration_definitions_response.ListNetworkMigrationDefinitionsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_network_migration_definitions_response
+
+            return capo_mgn.types.list_network_migration_definitions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListNetworkMigrationDefinitions", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.list_network_migration_definitions_request.ListNetworkMigrationDefinitionsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1981,7 +2216,19 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.network_migration_definition.NetworkMigrationDefinition",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.network_migration_definition
+
+            return capo_mgn.types.network_migration_definition.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetNetworkMigrationDefinition", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.get_network_migration_definition_request.GetNetworkMigrationDefinitionRequest = {
             "network_migration_definition_id": network_migration_definition_id
         }
@@ -2038,7 +2285,10 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetNetworkMigrationMapperSegmentConstruct"),
+        )
         input_: capo_mgn.types.get_network_migration_mapper_segment_construct_request.GetNetworkMigrationMapperSegmentConstructRequest = {
             "network_migration_definition_id": network_migration_definition_id,
             "network_migration_execution_id": network_migration_execution_id,
@@ -2103,7 +2353,9 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationAnalyses")
+        )
         input_: capo_mgn.types.list_network_migration_analyses_request.ListNetworkMigrationAnalysesRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -2172,7 +2424,9 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationAnalysisResults")
+        )
         input_: capo_mgn.types.list_network_migration_analysis_results_request.ListNetworkMigrationAnalysisResultsRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -2241,7 +2495,9 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationCodeGenerations")
+        )
         input_: capo_mgn.types.list_network_migration_code_generations_request.ListNetworkMigrationCodeGenerationsRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -2310,7 +2566,10 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListNetworkMigrationCodeGenerationSegments"),
+        )
         input_: capo_mgn.types.list_network_migration_code_generation_segments_request.ListNetworkMigrationCodeGenerationSegmentsRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -2375,7 +2634,9 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationDeployedStacks")
+        )
         input_: capo_mgn.types.list_network_migration_deployed_stacks_request.ListNetworkMigrationDeployedStacksRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -2442,7 +2703,9 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationDeployments")
+        )
         input_: capo_mgn.types.list_network_migration_deployments_request.ListNetworkMigrationDeploymentsRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -2507,7 +2770,21 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_network_migration_executions_response.ListNetworkMigrationExecutionsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_network_migration_executions_response
+
+            return capo_mgn.types.list_network_migration_executions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListNetworkMigrationExecutions", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.list_network_migration_executions_request.ListNetworkMigrationExecutionsRequest = {
             "network_migration_definition_id": network_migration_definition_id
         }
@@ -2580,7 +2857,10 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListNetworkMigrationMapperSegmentConstructs"),
+        )
         input_: capo_mgn.types.list_network_migration_mapper_segment_constructs_request.ListNetworkMigrationMapperSegmentConstructsRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -2650,7 +2930,21 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_network_migration_mapper_segments_response.ListNetworkMigrationMapperSegmentsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_network_migration_mapper_segments_response
+
+            return capo_mgn.types.list_network_migration_mapper_segments_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListNetworkMigrationMapperSegments", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.list_network_migration_mapper_segments_request.ListNetworkMigrationMapperSegmentsRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -2719,7 +3013,9 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationMappings")
+        )
         input_: capo_mgn.types.list_network_migration_mappings_request.ListNetworkMigrationMappingsRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -2788,7 +3084,9 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationMappingUpdates")
+        )
         input_: capo_mgn.types.list_network_migration_mapping_updates_request.ListNetworkMigrationMappingUpdatesRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -2851,7 +3149,9 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartNetworkMigrationAnalysis")
+        )
         input_: capo_mgn.types.start_network_migration_analysis_request.StartNetworkMigrationAnalysisRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -2912,7 +3212,9 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartNetworkMigrationCodeGeneration")
+        )
         input_: capo_mgn.types.start_network_migration_code_generation_request.StartNetworkMigrationCodeGenerationRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -2973,7 +3275,9 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartNetworkMigrationDeployment")
+        )
         input_: capo_mgn.types.start_network_migration_deployment_request.StartNetworkMigrationDeploymentRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -3034,7 +3338,9 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartNetworkMigrationMapping")
+        )
         input_: capo_mgn.types.start_network_migration_mapping_request.StartNetworkMigrationMappingRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -3101,7 +3407,21 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.start_network_migration_mapping_update_request.StartNetworkMigrationMappingUpdateRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_network_migration_mapping_update_request
+
+            return capo_mgn.types.start_network_migration_mapping_update_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartNetworkMigrationMappingUpdate", redact_input=_redact_input
+            ),
+        )
         input_: capo_mgn.types.start_network_migration_mapping_update_request.StartNetworkMigrationMappingUpdateRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -3165,7 +3485,32 @@ class AsyncNetworkMigrationDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.update_network_migration_mapper_segment_request.UpdateNetworkMigrationMapperSegmentRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.update_network_migration_mapper_segment_request
+
+            return capo_mgn.types.update_network_migration_mapper_segment_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_mgn.types.network_migration_mapper_segment.NetworkMigrationMapperSegment",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.network_migration_mapper_segment
+
+            return capo_mgn.types.network_migration_mapper_segment.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateNetworkMigrationMapperSegment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.update_network_migration_mapper_segment_request.UpdateNetworkMigrationMapperSegmentRequest = {
             "network_migration_definition_id": network_migration_definition_id,
             "network_migration_execution_id": network_migration_execution_id,

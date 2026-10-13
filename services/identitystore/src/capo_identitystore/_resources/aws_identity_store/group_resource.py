@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_identitystore._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -93,7 +94,19 @@ class GroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_identitystore.types.create_group_request.CreateGroupRequest",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.create_group_request
+
+            return capo_identitystore.types.create_group_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateGroup", redact_input=_redact_input),
+        )
         input_: capo_identitystore.types.create_group_request.CreateGroupRequest = {
             "identity_store_id": identity_store_id
         }
@@ -146,7 +159,19 @@ class GroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_identitystore.types.describe_group_response.DescribeGroupResponse",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.describe_group_response
+
+            return capo_identitystore.types.describe_group_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeGroup", redact_output=_redact_output),
+        )
         input_: capo_identitystore.types.describe_group_request.DescribeGroupRequest = {
             "identity_store_id": identity_store_id,
             "group_id": group_id,
@@ -204,7 +229,9 @@ class GroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateGroup")
+        )
         input_: capo_identitystore.types.update_group_request.UpdateGroupRequest = {
             "identity_store_id": identity_store_id,
             "group_id": group_id,
@@ -262,7 +289,9 @@ class GroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGroup")
+        )
         input_: capo_identitystore.types.delete_group_request.DeleteGroupRequest = {
             "identity_store_id": identity_store_id,
             "group_id": group_id,
@@ -318,7 +347,28 @@ class GroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_identitystore.types.list_groups_request.ListGroupsRequest",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.list_groups_request
+
+            return capo_identitystore.types.list_groups_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_identitystore.types.list_groups_response.ListGroupsResponse",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.list_groups_response
+
+            return capo_identitystore.types.list_groups_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListGroups", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_identitystore.types.list_groups_request.ListGroupsRequest = {
             "identity_store_id": identity_store_id
         }
@@ -373,7 +423,18 @@ class GroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_identitystore.types.get_group_id_request.GetGroupIdRequest",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.get_group_id_request
+
+            return capo_identitystore.types.get_group_id_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetGroupId", redact_input=_redact_input)
+        )
         input_: capo_identitystore.types.get_group_id_request.GetGroupIdRequest = {
             "identity_store_id": identity_store_id,
             "alternate_identifier": alternate_identifier,
@@ -437,7 +498,19 @@ class AsyncGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_identitystore.types.create_group_request.CreateGroupRequest",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.create_group_request
+
+            return capo_identitystore.types.create_group_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateGroup", redact_input=_redact_input),
+        )
         input_: capo_identitystore.types.create_group_request.CreateGroupRequest = {
             "identity_store_id": identity_store_id
         }
@@ -491,7 +564,19 @@ class AsyncGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_identitystore.types.describe_group_response.DescribeGroupResponse",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.describe_group_response
+
+            return capo_identitystore.types.describe_group_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeGroup", redact_output=_redact_output),
+        )
         input_: capo_identitystore.types.describe_group_request.DescribeGroupRequest = {
             "identity_store_id": identity_store_id,
             "group_id": group_id,
@@ -550,7 +635,9 @@ class AsyncGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateGroup")
+        )
         input_: capo_identitystore.types.update_group_request.UpdateGroupRequest = {
             "identity_store_id": identity_store_id,
             "group_id": group_id,
@@ -609,7 +696,9 @@ class AsyncGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGroup")
+        )
         input_: capo_identitystore.types.delete_group_request.DeleteGroupRequest = {
             "identity_store_id": identity_store_id,
             "group_id": group_id,
@@ -666,7 +755,28 @@ class AsyncGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_identitystore.types.list_groups_request.ListGroupsRequest",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.list_groups_request
+
+            return capo_identitystore.types.list_groups_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_identitystore.types.list_groups_response.ListGroupsResponse",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.list_groups_response
+
+            return capo_identitystore.types.list_groups_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListGroups", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_identitystore.types.list_groups_request.ListGroupsRequest = {
             "identity_store_id": identity_store_id
         }
@@ -722,7 +832,18 @@ class AsyncGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_identitystore.types.get_group_id_request.GetGroupIdRequest",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.get_group_id_request
+
+            return capo_identitystore.types.get_group_id_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetGroupId", redact_input=_redact_input)
+        )
         input_: capo_identitystore.types.get_group_id_request.GetGroupIdRequest = {
             "identity_store_id": identity_store_id,
             "alternate_identifier": alternate_identifier,

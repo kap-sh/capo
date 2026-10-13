@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kafkaconnect#DescribeConnectorOperationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -205,4 +205,13 @@ def deserialize_json(data: dict) -> DescribeConnectorOperationResponse:
         out["end_time"] = capo_kafkaconnect.types.__timestamp_iso8601.deserialize_json(
             data["endTime"]
         )
+    return out
+
+
+def redact_sensitive(value: DescribeConnectorOperationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "origin_connector_configuration" in value:
+        out["origin_connector_configuration"] = "*** Sensitive Data Redacted ***"
+    if "target_connector_configuration" in value:
+        out["target_connector_configuration"] = "*** Sensitive Data Redacted ***"
     return out

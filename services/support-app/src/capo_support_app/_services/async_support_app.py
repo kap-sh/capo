@@ -24,7 +24,9 @@ from capo_support_app._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -132,7 +134,9 @@ class AsyncSupportAppClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncSupportAppClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncSupportAppClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSupportAppClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -140,8 +144,10 @@ class AsyncSupportAppClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -217,7 +223,9 @@ class AsyncSupportAppClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSlackChannelConfiguration")
+        )
         input_: capo_support_app.types.create_slack_channel_configuration_request.CreateSlackChannelConfigurationRequest = {
             "team_id": team_id,
             "channel_id": channel_id,
@@ -270,7 +278,9 @@ class AsyncSupportAppClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccountAlias")
+        )
         input_: capo_support_app.types.delete_account_alias_request.DeleteAccountAliasRequest = {}
 
         response = await aexecute_pipeline(
@@ -318,7 +328,9 @@ class AsyncSupportAppClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSlackChannelConfiguration")
+        )
         input_: capo_support_app.types.delete_slack_channel_configuration_request.DeleteSlackChannelConfigurationRequest = {
             "team_id": team_id,
             "channel_id": channel_id,
@@ -367,7 +379,9 @@ class AsyncSupportAppClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSlackWorkspaceConfiguration")
+        )
         input_: capo_support_app.types.delete_slack_workspace_configuration_request.DeleteSlackWorkspaceConfigurationRequest = {
             "team_id": team_id
         }
@@ -405,7 +419,9 @@ class AsyncSupportAppClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountAlias")
+        )
         input_: capo_support_app.types.get_account_alias_request.GetAccountAliasRequest = {}
 
         response = await aexecute_pipeline(
@@ -450,7 +466,9 @@ class AsyncSupportAppClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSlackChannelConfigurations")
+        )
         input_: capo_support_app.types.list_slack_channel_configurations_request.ListSlackChannelConfigurationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -516,7 +534,9 @@ class AsyncSupportAppClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSlackWorkspaceConfigurations")
+        )
         input_: capo_support_app.types.list_slack_workspace_configurations_request.ListSlackWorkspaceConfigurationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -581,7 +601,9 @@ class AsyncSupportAppClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccountAlias")
+        )
         input_: capo_support_app.types.put_account_alias_request.PutAccountAliasRequest = {
             "account_alias": account_alias
         }
@@ -629,7 +651,9 @@ class AsyncSupportAppClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterSlackWorkspaceForOrganization")
+        )
         input_: capo_support_app.types.register_slack_workspace_for_organization_request.RegisterSlackWorkspaceForOrganizationRequest = {
             "team_id": team_id
         }
@@ -701,7 +725,9 @@ class AsyncSupportAppClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSlackChannelConfiguration")
+        )
         input_: capo_support_app.types.update_slack_channel_configuration_request.UpdateSlackChannelConfigurationRequest = {
             "team_id": team_id,
             "channel_id": channel_id,

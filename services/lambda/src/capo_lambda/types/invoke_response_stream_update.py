@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#InvokeResponseStreamUpdate``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -43,4 +43,11 @@ def deserialize_event_json(message: Message) -> InvokeResponseStreamUpdate:
     out: InvokeResponseStreamUpdate = {}  # type: ignore[typeddict-item]
     if payload:
         out["payload"] = payload
+    return out
+
+
+def redact_sensitive(value: InvokeResponseStreamUpdate) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "payload" in value:
+        out["payload"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#GetDocumentVersionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -54,6 +54,19 @@ def deserialize_json(data: dict) -> GetDocumentVersionResponse:
         out["custom_metadata"] = (
             capo_workdocs.types.custom_metadata_map.deserialize_json(
                 data["CustomMetadata"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GetDocumentVersionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "metadata" in value:
+        import capo_workdocs.types.document_version_metadata
+
+        out["metadata"] = (
+            capo_workdocs.types.document_version_metadata.redact_sensitive(
+                value["metadata"]
             )
         )
     return out

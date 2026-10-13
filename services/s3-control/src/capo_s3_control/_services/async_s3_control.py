@@ -24,7 +24,9 @@ from capo_s3_control._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -350,7 +352,9 @@ class AsyncS3ControlClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncS3ControlClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncS3ControlClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncS3ControlClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -358,8 +362,10 @@ class AsyncS3ControlClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -411,7 +417,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateAccessGrantsIdentityCenter")
+        )
         input_: capo_s3_control.types.associate_access_grants_identity_center_request.AssociateAccessGrantsIdentityCenterRequest = {
             "account_id": account_id,
             "identity_center_arn": identity_center_arn,
@@ -475,7 +483,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccessGrant")
+        )
         input_: capo_s3_control.types.create_access_grant_request.CreateAccessGrantRequest = {
             "account_id": account_id,
             "access_grants_location_id": access_grants_location_id,
@@ -537,7 +547,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccessGrantsInstance")
+        )
         input_: capo_s3_control.types.create_access_grants_instance_request.CreateAccessGrantsInstanceRequest = {
             "account_id": account_id
         }
@@ -590,7 +602,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccessGrantsLocation")
+        )
         input_: capo_s3_control.types.create_access_grants_location_request.CreateAccessGrantsLocationRequest = {
             "account_id": account_id,
             "location_scope": location_scope,
@@ -657,7 +671,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccessPoint")
+        )
         input_: capo_s3_control.types.create_access_point_request.CreateAccessPointRequest = {
             "account_id": account_id,
             "name": name,
@@ -718,7 +734,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccessPointForObjectLambda")
+        )
         input_: capo_s3_control.types.create_access_point_for_object_lambda_request.CreateAccessPointForObjectLambdaRequest = {
             "account_id": account_id,
             "name": name,
@@ -795,7 +813,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBucket")
+        )
         input_: capo_s3_control.types.create_bucket_request.CreateBucketRequest = {
             "bucket": bucket
         }
@@ -886,7 +906,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateJob")
+        )
         input_: capo_s3_control.types.create_job_request.CreateJobRequest = {
             "account_id": account_id,
             "operation": operation,
@@ -948,7 +970,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMultiRegionAccessPoint")
+        )
         input_: capo_s3_control.types.create_multi_region_access_point_request.CreateMultiRegionAccessPointRequest = {
             "account_id": account_id,
             "client_token": client_token,
@@ -995,7 +1019,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStorageLensGroup")
+        )
         input_: capo_s3_control.types.create_storage_lens_group_request.CreateStorageLensGroupRequest = {
             "account_id": account_id,
             "storage_lens_group": storage_lens_group,
@@ -1041,7 +1067,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessGrant")
+        )
         input_: capo_s3_control.types.delete_access_grant_request.DeleteAccessGrantRequest = {
             "account_id": account_id,
             "access_grant_id": access_grant_id,
@@ -1083,7 +1111,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessGrantsInstance")
+        )
         input_: capo_s3_control.types.delete_access_grants_instance_request.DeleteAccessGrantsInstanceRequest = {
             "account_id": account_id
         }
@@ -1124,7 +1154,10 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteAccessGrantsInstanceResourcePolicy"),
+        )
         input_: capo_s3_control.types.delete_access_grants_instance_resource_policy_request.DeleteAccessGrantsInstanceResourcePolicyRequest = {
             "account_id": account_id
         }
@@ -1167,7 +1200,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessGrantsLocation")
+        )
         input_: capo_s3_control.types.delete_access_grants_location_request.DeleteAccessGrantsLocationRequest = {
             "account_id": account_id,
             "access_grants_location_id": access_grants_location_id,
@@ -1211,7 +1246,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessPoint")
+        )
         input_: capo_s3_control.types.delete_access_point_request.DeleteAccessPointRequest = {
             "account_id": account_id,
             "name": name,
@@ -1255,7 +1292,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessPointForObjectLambda")
+        )
         input_: capo_s3_control.types.delete_access_point_for_object_lambda_request.DeleteAccessPointForObjectLambdaRequest = {
             "account_id": account_id,
             "name": name,
@@ -1299,7 +1338,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessPointPolicy")
+        )
         input_: capo_s3_control.types.delete_access_point_policy_request.DeleteAccessPointPolicyRequest = {
             "account_id": account_id,
             "name": name,
@@ -1343,7 +1384,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessPointPolicyForObjectLambda")
+        )
         input_: capo_s3_control.types.delete_access_point_policy_for_object_lambda_request.DeleteAccessPointPolicyForObjectLambdaRequest = {
             "account_id": account_id,
             "name": name,
@@ -1387,7 +1430,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessPointScope")
+        )
         input_: capo_s3_control.types.delete_access_point_scope_request.DeleteAccessPointScopeRequest = {
             "account_id": account_id,
             "name": name,
@@ -1431,7 +1476,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBucket")
+        )
         input_: capo_s3_control.types.delete_bucket_request.DeleteBucketRequest = {
             "account_id": account_id,
             "bucket": bucket,
@@ -1475,7 +1522,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBucketLifecycleConfiguration")
+        )
         input_: capo_s3_control.types.delete_bucket_lifecycle_configuration_request.DeleteBucketLifecycleConfigurationRequest = {
             "account_id": account_id,
             "bucket": bucket,
@@ -1519,7 +1568,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBucketPolicy")
+        )
         input_: capo_s3_control.types.delete_bucket_policy_request.DeleteBucketPolicyRequest = {
             "account_id": account_id,
             "bucket": bucket,
@@ -1563,7 +1614,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBucketReplication")
+        )
         input_: capo_s3_control.types.delete_bucket_replication_request.DeleteBucketReplicationRequest = {
             "account_id": account_id,
             "bucket": bucket,
@@ -1607,7 +1660,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBucketTagging")
+        )
         input_: capo_s3_control.types.delete_bucket_tagging_request.DeleteBucketTaggingRequest = {
             "account_id": account_id,
             "bucket": bucket,
@@ -1656,7 +1711,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteJobTagging")
+        )
         input_: capo_s3_control.types.delete_job_tagging_request.DeleteJobTaggingRequest = {
             "account_id": account_id,
             "job_id": job_id,
@@ -1704,7 +1761,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMultiRegionAccessPoint")
+        )
         input_: capo_s3_control.types.delete_multi_region_access_point_request.DeleteMultiRegionAccessPointRequest = {
             "account_id": account_id,
             "client_token": client_token,
@@ -1747,7 +1806,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePublicAccessBlock")
+        )
         input_: capo_s3_control.types.delete_public_access_block_request.DeletePublicAccessBlockRequest = {
             "account_id": account_id
         }
@@ -1790,7 +1851,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStorageLensConfiguration")
+        )
         input_: capo_s3_control.types.delete_storage_lens_configuration_request.DeleteStorageLensConfigurationRequest = {
             "config_id": config_id,
             "account_id": account_id,
@@ -1836,7 +1899,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStorageLensConfigurationTagging")
+        )
         input_: capo_s3_control.types.delete_storage_lens_configuration_tagging_request.DeleteStorageLensConfigurationTaggingRequest = {
             "config_id": config_id,
             "account_id": account_id,
@@ -1880,7 +1945,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStorageLensGroup")
+        )
         input_: capo_s3_control.types.delete_storage_lens_group_request.DeleteStorageLensGroupRequest = {
             "name": name,
             "account_id": account_id,
@@ -1930,7 +1997,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeJob")
+        )
         input_: capo_s3_control.types.describe_job_request.DescribeJobRequest = {
             "account_id": account_id,
             "job_id": job_id,
@@ -1976,7 +2045,10 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeMultiRegionAccessPointOperation"),
+        )
         input_: capo_s3_control.types.describe_multi_region_access_point_operation_request.DescribeMultiRegionAccessPointOperationRequest = {
             "account_id": account_id,
             "request_token_arn": request_token_arn,
@@ -2018,7 +2090,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DissociateAccessGrantsIdentityCenter")
+        )
         input_: capo_s3_control.types.dissociate_access_grants_identity_center_request.DissociateAccessGrantsIdentityCenterRequest = {
             "account_id": account_id
         }
@@ -2063,7 +2137,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessGrant")
+        )
         input_: capo_s3_control.types.get_access_grant_request.GetAccessGrantRequest = {
             "account_id": account_id,
             "access_grant_id": access_grant_id,
@@ -2107,7 +2183,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessGrantsInstance")
+        )
         input_: capo_s3_control.types.get_access_grants_instance_request.GetAccessGrantsInstanceRequest = {
             "account_id": account_id
         }
@@ -2152,7 +2230,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessGrantsInstanceForPrefix")
+        )
         input_: capo_s3_control.types.get_access_grants_instance_for_prefix_request.GetAccessGrantsInstanceForPrefixRequest = {
             "account_id": account_id,
             "s3_prefix": s3_prefix,
@@ -2196,7 +2276,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessGrantsInstanceResourcePolicy")
+        )
         input_: capo_s3_control.types.get_access_grants_instance_resource_policy_request.GetAccessGrantsInstanceResourcePolicyRequest = {
             "account_id": account_id
         }
@@ -2241,7 +2323,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessGrantsLocation")
+        )
         input_: capo_s3_control.types.get_access_grants_location_request.GetAccessGrantsLocationRequest = {
             "account_id": account_id,
             "access_grants_location_id": access_grants_location_id,
@@ -2287,7 +2371,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessPoint")
+        )
         input_: capo_s3_control.types.get_access_point_request.GetAccessPointRequest = {
             "account_id": account_id,
             "name": name,
@@ -2333,7 +2419,10 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAccessPointConfigurationForObjectLambda"),
+        )
         input_: capo_s3_control.types.get_access_point_configuration_for_object_lambda_request.GetAccessPointConfigurationForObjectLambdaRequest = {
             "account_id": account_id,
             "name": name,
@@ -2379,7 +2468,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessPointForObjectLambda")
+        )
         input_: capo_s3_control.types.get_access_point_for_object_lambda_request.GetAccessPointForObjectLambdaRequest = {
             "account_id": account_id,
             "name": name,
@@ -2425,7 +2516,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessPointPolicy")
+        )
         input_: capo_s3_control.types.get_access_point_policy_request.GetAccessPointPolicyRequest = {
             "account_id": account_id,
             "name": name,
@@ -2471,7 +2564,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessPointPolicyForObjectLambda")
+        )
         input_: capo_s3_control.types.get_access_point_policy_for_object_lambda_request.GetAccessPointPolicyForObjectLambdaRequest = {
             "account_id": account_id,
             "name": name,
@@ -2517,7 +2612,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessPointPolicyStatus")
+        )
         input_: capo_s3_control.types.get_access_point_policy_status_request.GetAccessPointPolicyStatusRequest = {
             "account_id": account_id,
             "name": name,
@@ -2563,7 +2660,10 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAccessPointPolicyStatusForObjectLambda"),
+        )
         input_: capo_s3_control.types.get_access_point_policy_status_for_object_lambda_request.GetAccessPointPolicyStatusForObjectLambdaRequest = {
             "account_id": account_id,
             "name": name,
@@ -2611,7 +2711,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessPointScope")
+        )
         input_: capo_s3_control.types.get_access_point_scope_request.GetAccessPointScopeRequest = {
             "account_id": account_id,
             "name": name,
@@ -2657,7 +2759,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucket")
+        )
         input_: capo_s3_control.types.get_bucket_request.GetBucketRequest = {
             "account_id": account_id,
             "bucket": bucket,
@@ -2703,7 +2807,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketLifecycleConfiguration")
+        )
         input_: capo_s3_control.types.get_bucket_lifecycle_configuration_request.GetBucketLifecycleConfigurationRequest = {
             "account_id": account_id,
             "bucket": bucket,
@@ -2749,7 +2855,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketPolicy")
+        )
         input_: capo_s3_control.types.get_bucket_policy_request.GetBucketPolicyRequest = {
             "account_id": account_id,
             "bucket": bucket,
@@ -2797,7 +2905,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketReplication")
+        )
         input_: capo_s3_control.types.get_bucket_replication_request.GetBucketReplicationRequest = {
             "account_id": account_id,
             "bucket": bucket,
@@ -2843,7 +2953,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketTagging")
+        )
         input_: capo_s3_control.types.get_bucket_tagging_request.GetBucketTaggingRequest = {
             "account_id": account_id,
             "bucket": bucket,
@@ -2889,7 +3001,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketVersioning")
+        )
         input_: capo_s3_control.types.get_bucket_versioning_request.GetBucketVersioningRequest = {
             "account_id": account_id,
             "bucket": bucket,
@@ -2951,7 +3065,17 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_s3_control.types.get_data_access_result.GetDataAccessResult",
+        ) -> dict[str, Any]:
+            import capo_s3_control.types.get_data_access_result
+
+            return capo_s3_control.types.get_data_access_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDataAccess", redact_output=_redact_output),
+        )
         input_: capo_s3_control.types.get_data_access_request.GetDataAccessRequest = {
             "account_id": account_id,
             "target": target,
@@ -3009,7 +3133,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJobTagging")
+        )
         input_: capo_s3_control.types.get_job_tagging_request.GetJobTaggingRequest = {
             "account_id": account_id,
             "job_id": job_id,
@@ -3055,7 +3181,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMultiRegionAccessPoint")
+        )
         input_: capo_s3_control.types.get_multi_region_access_point_request.GetMultiRegionAccessPointRequest = {
             "account_id": account_id,
             "name": name,
@@ -3101,7 +3229,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMultiRegionAccessPointPolicy")
+        )
         input_: capo_s3_control.types.get_multi_region_access_point_policy_request.GetMultiRegionAccessPointPolicyRequest = {
             "account_id": account_id,
             "name": name,
@@ -3147,7 +3277,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMultiRegionAccessPointPolicyStatus")
+        )
         input_: capo_s3_control.types.get_multi_region_access_point_policy_status_request.GetMultiRegionAccessPointPolicyStatusRequest = {
             "account_id": account_id,
             "name": name,
@@ -3193,7 +3325,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMultiRegionAccessPointRoutes")
+        )
         input_: capo_s3_control.types.get_multi_region_access_point_routes_request.GetMultiRegionAccessPointRoutesRequest = {
             "account_id": account_id,
             "mrap": mrap,
@@ -3238,7 +3372,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPublicAccessBlock")
+        )
         input_: capo_s3_control.types.get_public_access_block_request.GetPublicAccessBlockRequest = {
             "account_id": account_id
         }
@@ -3283,7 +3419,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStorageLensConfiguration")
+        )
         input_: capo_s3_control.types.get_storage_lens_configuration_request.GetStorageLensConfigurationRequest = {
             "config_id": config_id,
             "account_id": account_id,
@@ -3329,7 +3467,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStorageLensConfigurationTagging")
+        )
         input_: capo_s3_control.types.get_storage_lens_configuration_tagging_request.GetStorageLensConfigurationTaggingRequest = {
             "config_id": config_id,
             "account_id": account_id,
@@ -3377,7 +3517,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStorageLensGroup")
+        )
         input_: capo_s3_control.types.get_storage_lens_group_request.GetStorageLensGroupRequest = {
             "name": name,
             "account_id": account_id,
@@ -3441,7 +3583,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessGrants")
+        )
         input_: capo_s3_control.types.list_access_grants_request.ListAccessGrantsRequest = {
             "account_id": account_id
         }
@@ -3541,7 +3685,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessGrantsInstances")
+        )
         input_: capo_s3_control.types.list_access_grants_instances_request.ListAccessGrantsInstancesRequest = {
             "account_id": account_id
         }
@@ -3619,7 +3765,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessGrantsLocations")
+        )
         input_: capo_s3_control.types.list_access_grants_locations_request.ListAccessGrantsLocationsRequest = {
             "account_id": account_id
         }
@@ -3709,7 +3857,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessPoints")
+        )
         input_: capo_s3_control.types.list_access_points_request.ListAccessPointsRequest = {
             "account_id": account_id
         }
@@ -3805,7 +3955,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessPointsForDirectoryBuckets")
+        )
         input_: capo_s3_control.types.list_access_points_for_directory_buckets_request.ListAccessPointsForDirectoryBucketsRequest = {
             "account_id": account_id
         }
@@ -3889,7 +4041,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessPointsForObjectLambda")
+        )
         input_: capo_s3_control.types.list_access_points_for_object_lambda_request.ListAccessPointsForObjectLambdaRequest = {
             "account_id": account_id
         }
@@ -3973,7 +4127,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCallerAccessGrants")
+        )
         input_: capo_s3_control.types.list_caller_access_grants_request.ListCallerAccessGrantsRequest = {
             "account_id": account_id
         }
@@ -4068,7 +4224,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobs")
+        )
         input_: capo_s3_control.types.list_jobs_request.ListJobsRequest = {
             "account_id": account_id
         }
@@ -4150,7 +4308,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMultiRegionAccessPoints")
+        )
         input_: capo_s3_control.types.list_multi_region_access_points_request.ListMultiRegionAccessPointsRequest = {
             "account_id": account_id
         }
@@ -4230,7 +4390,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRegionalBuckets")
+        )
         input_: capo_s3_control.types.list_regional_buckets_request.ListRegionalBucketsRequest = {
             "account_id": account_id
         }
@@ -4310,7 +4472,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStorageLensConfigurations")
+        )
         input_: capo_s3_control.types.list_storage_lens_configurations_request.ListStorageLensConfigurationsRequest = {
             "account_id": account_id
         }
@@ -4380,7 +4544,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStorageLensGroups")
+        )
         input_: capo_s3_control.types.list_storage_lens_groups_request.ListStorageLensGroupsRequest = {
             "account_id": account_id
         }
@@ -4450,7 +4616,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_s3_control.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "account_id": account_id,
             "resource_arn": resource_arn,
@@ -4500,7 +4668,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccessGrantsInstanceResourcePolicy")
+        )
         input_: capo_s3_control.types.put_access_grants_instance_resource_policy_request.PutAccessGrantsInstanceResourcePolicyRequest = {
             "account_id": account_id,
             "policy": policy,
@@ -4548,7 +4718,10 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutAccessPointConfigurationForObjectLambda"),
+        )
         input_: capo_s3_control.types.put_access_point_configuration_for_object_lambda_request.PutAccessPointConfigurationForObjectLambdaRequest = {
             "account_id": account_id,
             "name": name,
@@ -4595,7 +4768,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccessPointPolicy")
+        )
         input_: capo_s3_control.types.put_access_point_policy_request.PutAccessPointPolicyRequest = {
             "account_id": account_id,
             "name": name,
@@ -4642,7 +4817,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccessPointPolicyForObjectLambda")
+        )
         input_: capo_s3_control.types.put_access_point_policy_for_object_lambda_request.PutAccessPointPolicyForObjectLambdaRequest = {
             "account_id": account_id,
             "name": name,
@@ -4689,7 +4866,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccessPointScope")
+        )
         input_: capo_s3_control.types.put_access_point_scope_request.PutAccessPointScopeRequest = {
             "account_id": account_id,
             "name": name,
@@ -4738,7 +4917,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBucketLifecycleConfiguration")
+        )
         input_: capo_s3_control.types.put_bucket_lifecycle_configuration_request.PutBucketLifecycleConfigurationRequest = {
             "account_id": account_id,
             "bucket": bucket,
@@ -4790,7 +4971,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBucketPolicy")
+        )
         input_: capo_s3_control.types.put_bucket_policy_request.PutBucketPolicyRequest = {
             "account_id": account_id,
             "bucket": bucket,
@@ -4841,7 +5024,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBucketReplication")
+        )
         input_: capo_s3_control.types.put_bucket_replication_request.PutBucketReplicationRequest = {
             "account_id": account_id,
             "bucket": bucket,
@@ -4888,7 +5073,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBucketTagging")
+        )
         input_: capo_s3_control.types.put_bucket_tagging_request.PutBucketTaggingRequest = {
             "account_id": account_id,
             "bucket": bucket,
@@ -4937,7 +5124,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBucketVersioning")
+        )
         input_: capo_s3_control.types.put_bucket_versioning_request.PutBucketVersioningRequest = {
             "account_id": account_id,
             "bucket": bucket,
@@ -4992,7 +5181,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutJobTagging")
+        )
         input_: capo_s3_control.types.put_job_tagging_request.PutJobTaggingRequest = {
             "account_id": account_id,
             "job_id": job_id,
@@ -5041,7 +5232,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutMultiRegionAccessPointPolicy")
+        )
         input_: capo_s3_control.types.put_multi_region_access_point_policy_request.PutMultiRegionAccessPointPolicyRequest = {
             "account_id": account_id,
             "client_token": client_token,
@@ -5086,7 +5279,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutPublicAccessBlock")
+        )
         input_: capo_s3_control.types.put_public_access_block_request.PutPublicAccessBlockRequest = {
             "public_access_block_configuration": public_access_block_configuration,
             "account_id": account_id,
@@ -5136,7 +5331,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutStorageLensConfiguration")
+        )
         input_: capo_s3_control.types.put_storage_lens_configuration_request.PutStorageLensConfigurationRequest = {
             "config_id": config_id,
             "account_id": account_id,
@@ -5187,7 +5384,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutStorageLensConfigurationTagging")
+        )
         input_: capo_s3_control.types.put_storage_lens_configuration_tagging_request.PutStorageLensConfigurationTaggingRequest = {
             "config_id": config_id,
             "account_id": account_id,
@@ -5236,7 +5435,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SubmitMultiRegionAccessPointRoutes")
+        )
         input_: capo_s3_control.types.submit_multi_region_access_point_routes_request.SubmitMultiRegionAccessPointRoutesRequest = {
             "account_id": account_id,
             "mrap": mrap,
@@ -5285,7 +5486,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_s3_control.types.tag_resource_request.TagResourceRequest = {
             "account_id": account_id,
             "resource_arn": resource_arn,
@@ -5334,7 +5537,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_s3_control.types.untag_resource_request.UntagResourceRequest = {
             "account_id": account_id,
             "resource_arn": resource_arn,
@@ -5383,7 +5588,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccessGrantsLocation")
+        )
         input_: capo_s3_control.types.update_access_grants_location_request.UpdateAccessGrantsLocationRequest = {
             "account_id": account_id,
             "access_grants_location_id": access_grants_location_id,
@@ -5436,7 +5643,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateJobPriority")
+        )
         input_: capo_s3_control.types.update_job_priority_request.UpdateJobPriorityRequest = {
             "account_id": account_id,
             "job_id": job_id,
@@ -5494,7 +5703,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateJobStatus")
+        )
         input_: capo_s3_control.types.update_job_status_request.UpdateJobStatusRequest = {
             "account_id": account_id,
             "job_id": job_id,
@@ -5543,7 +5754,9 @@ class AsyncS3ControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateStorageLensGroup")
+        )
         input_: capo_s3_control.types.update_storage_lens_group_request.UpdateStorageLensGroupRequest = {
             "name": name,
             "account_id": account_id,

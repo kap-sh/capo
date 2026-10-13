@@ -24,7 +24,9 @@ from capo_s3outposts._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -123,7 +125,9 @@ class AsyncS3OutpostsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncS3OutpostsClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncS3OutpostsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncS3OutpostsClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -131,8 +135,10 @@ class AsyncS3OutpostsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -200,7 +206,9 @@ class AsyncS3OutpostsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEndpoint")
+        )
         input_: capo_s3outposts.types.create_endpoint_request.CreateEndpointRequest = {
             "outpost_id": outpost_id,
             "subnet_id": subnet_id,
@@ -255,7 +263,9 @@ class AsyncS3OutpostsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEndpoint")
+        )
         input_: capo_s3outposts.types.delete_endpoint_request.DeleteEndpointRequest = {
             "endpoint_id": endpoint_id,
             "outpost_id": outpost_id,
@@ -306,7 +316,9 @@ class AsyncS3OutpostsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEndpoints")
+        )
         input_: capo_s3outposts.types.list_endpoints_request.ListEndpointsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -378,7 +390,9 @@ class AsyncS3OutpostsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOutpostsWithS3")
+        )
         input_: capo_s3outposts.types.list_outposts_with_s3_request.ListOutpostsWithS3Request = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -453,7 +467,9 @@ class AsyncS3OutpostsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSharedEndpoints")
+        )
         input_: capo_s3outposts.types.list_shared_endpoints_request.ListSharedEndpointsRequest = {
             "outpost_id": outpost_id
         }

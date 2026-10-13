@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#QAResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -73,6 +73,19 @@ def deserialize_json(data: dict) -> QAResult:
         out["generated_answer"] = (
             capo_quicksight.types.generated_answer_result.deserialize_json(
                 data["GeneratedAnswer"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: QAResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "generated_answer" in value:
+        import capo_quicksight.types.generated_answer_result
+
+        out["generated_answer"] = (
+            capo_quicksight.types.generated_answer_result.redact_sensitive(
+                value["generated_answer"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devicefarm#TestGridSessionArtifacts``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_device_farm.types.test_grid_session_artifact
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_1(data: list) -> TestGridSessionArtifacts:
             )
         )
     return out
+
+
+def redact_sensitive(value: TestGridSessionArtifacts) -> list[Any]:
+    import capo_device_farm.types.test_grid_session_artifact
+
+    return [
+        capo_device_farm.types.test_grid_session_artifact.redact_sensitive(item)
+        for item in value
+    ]

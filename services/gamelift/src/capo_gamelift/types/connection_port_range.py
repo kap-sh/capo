@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#ConnectionPortRange``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -31,4 +31,13 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectionPortRange:
         out["from_port"] = data["FromPort"]
     if data.get("ToPort") is not None:
         out["to_port"] = data["ToPort"]
+    return out
+
+
+def redact_sensitive(value: ConnectionPortRange) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "from_port" in value:
+        out["from_port"] = "*** Sensitive Data Redacted ***"
+    if "to_port" in value:
+        out["to_port"] = "*** Sensitive Data Redacted ***"
     return out

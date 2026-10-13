@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agentcore_control._auth._signers
 import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -118,7 +119,19 @@ class ConfigurationBundle:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_configuration_bundle_request.CreateConfigurationBundleRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_configuration_bundle_request
+
+            return capo_bedrock_agentcore_control.types.create_configuration_bundle_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateConfigurationBundle", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.create_configuration_bundle_request.CreateConfigurationBundleRequest = {
             "bundle_name": bundle_name,
             "components": components,
@@ -185,7 +198,19 @@ class ConfigurationBundle:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_configuration_bundle_response.GetConfigurationBundleResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_configuration_bundle_response
+
+            return capo_bedrock_agentcore_control.types.get_configuration_bundle_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetConfigurationBundle", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_configuration_bundle_request.GetConfigurationBundleRequest = {
             "bundle_id": bundle_id
         }
@@ -267,7 +292,19 @@ class ConfigurationBundle:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_configuration_bundle_request.UpdateConfigurationBundleRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_configuration_bundle_request
+
+            return capo_bedrock_agentcore_control.types.update_configuration_bundle_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateConfigurationBundle", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.update_configuration_bundle_request.UpdateConfigurationBundleRequest = {
             "bundle_id": bundle_id,
             "parent_version_ids": parent_version_ids,
@@ -332,7 +369,9 @@ class ConfigurationBundle:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConfigurationBundle")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_configuration_bundle_request.DeleteConfigurationBundleRequest = {
             "bundle_id": bundle_id
         }
@@ -380,7 +419,19 @@ class ConfigurationBundle:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_configuration_bundles_response.ListConfigurationBundlesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_configuration_bundles_response
+
+            return capo_bedrock_agentcore_control.types.list_configuration_bundles_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListConfigurationBundles", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_configuration_bundles_request.ListConfigurationBundlesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -431,7 +482,21 @@ class ConfigurationBundle:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_configuration_bundle_version_response.GetConfigurationBundleVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_configuration_bundle_version_response
+
+            return capo_bedrock_agentcore_control.types.get_configuration_bundle_version_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetConfigurationBundleVersion", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.get_configuration_bundle_version_request.GetConfigurationBundleVersionRequest = {
             "bundle_id": bundle_id,
             "version_id": version_id,
@@ -487,7 +552,9 @@ class ConfigurationBundle:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConfigurationBundleVersions")
+        )
         input_: capo_bedrock_agentcore_control.types.list_configuration_bundle_versions_request.ListConfigurationBundleVersionsRequest = {
             "bundle_id": bundle_id
         }
@@ -573,7 +640,19 @@ class AsyncConfigurationBundle:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_configuration_bundle_request.CreateConfigurationBundleRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_configuration_bundle_request
+
+            return capo_bedrock_agentcore_control.types.create_configuration_bundle_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateConfigurationBundle", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.create_configuration_bundle_request.CreateConfigurationBundleRequest = {
             "bundle_name": bundle_name,
             "components": components,
@@ -641,7 +720,19 @@ class AsyncConfigurationBundle:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_configuration_bundle_response.GetConfigurationBundleResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_configuration_bundle_response
+
+            return capo_bedrock_agentcore_control.types.get_configuration_bundle_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetConfigurationBundle", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_configuration_bundle_request.GetConfigurationBundleRequest = {
             "bundle_id": bundle_id
         }
@@ -724,7 +815,19 @@ class AsyncConfigurationBundle:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_configuration_bundle_request.UpdateConfigurationBundleRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_configuration_bundle_request
+
+            return capo_bedrock_agentcore_control.types.update_configuration_bundle_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateConfigurationBundle", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.update_configuration_bundle_request.UpdateConfigurationBundleRequest = {
             "bundle_id": bundle_id,
             "parent_version_ids": parent_version_ids,
@@ -790,7 +893,9 @@ class AsyncConfigurationBundle:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConfigurationBundle")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_configuration_bundle_request.DeleteConfigurationBundleRequest = {
             "bundle_id": bundle_id
         }
@@ -839,7 +944,19 @@ class AsyncConfigurationBundle:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_configuration_bundles_response.ListConfigurationBundlesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_configuration_bundles_response
+
+            return capo_bedrock_agentcore_control.types.list_configuration_bundles_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListConfigurationBundles", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_configuration_bundles_request.ListConfigurationBundlesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -891,7 +1008,21 @@ class AsyncConfigurationBundle:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_configuration_bundle_version_response.GetConfigurationBundleVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_configuration_bundle_version_response
+
+            return capo_bedrock_agentcore_control.types.get_configuration_bundle_version_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetConfigurationBundleVersion", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.get_configuration_bundle_version_request.GetConfigurationBundleVersionRequest = {
             "bundle_id": bundle_id,
             "version_id": version_id,
@@ -948,7 +1079,9 @@ class AsyncConfigurationBundle:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConfigurationBundleVersions")
+        )
         input_: capo_bedrock_agentcore_control.types.list_configuration_bundle_versions_request.ListConfigurationBundleVersionsRequest = {
             "bundle_id": bundle_id
         }

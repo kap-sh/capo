@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.organizations#InviteOrganizationToTransferResponsibilityRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -118,4 +118,21 @@ def deserialize_aws_json_1_1(
         out["tags"] = capo_organizations.types.tags.deserialize_aws_json_1_1(
             data["Tags"]
         )
+    return out
+
+
+def redact_sensitive(
+    value: InviteOrganizationToTransferResponsibilityRequest,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "target" in value:
+        import capo_organizations.types.handshake_party
+
+        out["target"] = capo_organizations.types.handshake_party.redact_sensitive(
+            value["target"]
+        )
+    if "notes" in value:
+        out["notes"] = "*** Sensitive Data Redacted ***"
+    if "source_name" in value:
+        out["source_name"] = "*** Sensitive Data Redacted ***"
     return out

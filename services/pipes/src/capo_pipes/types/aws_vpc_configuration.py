@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#AwsVpcConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -54,4 +54,19 @@ def deserialize_json(data: dict) -> AwsVpcConfiguration:
         )
     if data.get("AssignPublicIp") is not None:
         out["assign_public_ip"] = data["AssignPublicIp"]
+    return out
+
+
+def redact_sensitive(value: AwsVpcConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "subnets" in value:
+        import capo_pipes.types.subnets
+
+        out["subnets"] = capo_pipes.types.subnets.redact_sensitive(value["subnets"])
+    if "security_groups" in value:
+        import capo_pipes.types.security_groups
+
+        out["security_groups"] = capo_pipes.types.security_groups.redact_sensitive(
+            value["security_groups"]
+        )
     return out

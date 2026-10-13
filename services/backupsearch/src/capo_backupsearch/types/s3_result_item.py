@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.backupsearch#S3ResultItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,4 +79,11 @@ def deserialize_json(data: dict) -> S3ResultItem:
         out["e_tag"] = data["ETag"]
     if data.get("VersionId") is not None:
         out["version_id"] = data["VersionId"]
+    return out
+
+
+def redact_sensitive(value: S3ResultItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "object_key" in value:
+        out["object_key"] = "*** Sensitive Data Redacted ***"
     return out

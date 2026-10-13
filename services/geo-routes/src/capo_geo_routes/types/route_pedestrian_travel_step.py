@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RoutePedestrianTravelStep``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -258,4 +258,91 @@ def deserialize_json(data: dict) -> RoutePedestrianTravelStep:
         )
     else:
         raise DeserializationError("RoutePedestrianTravelStep.type required")
+    return out
+
+
+def redact_sensitive(value: RoutePedestrianTravelStep) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "continue_step_details" in value:
+        import capo_geo_routes.types.route_continue_step_details
+
+        out["continue_step_details"] = (
+            capo_geo_routes.types.route_continue_step_details.redact_sensitive(
+                value["continue_step_details"]
+            )
+        )
+    if "current_road" in value:
+        import capo_geo_routes.types.route_road
+
+        out["current_road"] = capo_geo_routes.types.route_road.redact_sensitive(
+            value["current_road"]
+        )
+    if "distance" in value:
+        out["distance"] = "*** Sensitive Data Redacted ***"
+    if "duration" in value:
+        out["duration"] = "*** Sensitive Data Redacted ***"
+    if "exit_number" in value:
+        import capo_geo_routes.types.localized_string_list
+
+        out["exit_number"] = (
+            capo_geo_routes.types.localized_string_list.redact_sensitive(
+                value["exit_number"]
+            )
+        )
+    if "instruction" in value:
+        out["instruction"] = "*** Sensitive Data Redacted ***"
+    if "keep_step_details" in value:
+        import capo_geo_routes.types.route_keep_step_details
+
+        out["keep_step_details"] = (
+            capo_geo_routes.types.route_keep_step_details.redact_sensitive(
+                value["keep_step_details"]
+            )
+        )
+    if "next_road" in value:
+        import capo_geo_routes.types.route_road
+
+        out["next_road"] = capo_geo_routes.types.route_road.redact_sensitive(
+            value["next_road"]
+        )
+    if "roundabout_enter_step_details" in value:
+        import capo_geo_routes.types.route_roundabout_enter_step_details
+
+        out["roundabout_enter_step_details"] = (
+            capo_geo_routes.types.route_roundabout_enter_step_details.redact_sensitive(
+                value["roundabout_enter_step_details"]
+            )
+        )
+    if "roundabout_exit_step_details" in value:
+        import capo_geo_routes.types.route_roundabout_exit_step_details
+
+        out["roundabout_exit_step_details"] = (
+            capo_geo_routes.types.route_roundabout_exit_step_details.redact_sensitive(
+                value["roundabout_exit_step_details"]
+            )
+        )
+    if "roundabout_pass_step_details" in value:
+        import capo_geo_routes.types.route_roundabout_pass_step_details
+
+        out["roundabout_pass_step_details"] = (
+            capo_geo_routes.types.route_roundabout_pass_step_details.redact_sensitive(
+                value["roundabout_pass_step_details"]
+            )
+        )
+    if "signpost" in value:
+        import capo_geo_routes.types.route_signpost
+
+        out["signpost"] = capo_geo_routes.types.route_signpost.redact_sensitive(
+            value["signpost"]
+        )
+    if "turn_step_details" in value:
+        import capo_geo_routes.types.route_turn_step_details
+
+        out["turn_step_details"] = (
+            capo_geo_routes.types.route_turn_step_details.redact_sensitive(
+                value["turn_step_details"]
+            )
+        )
+    if "type" in value:
+        out["type"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteVehicleSpanList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_routes.types.route_vehicle_span
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> RouteVehicleSpanList:
             continue
         out.append(capo_geo_routes.types.route_vehicle_span.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: RouteVehicleSpanList) -> list[Any]:
+    import capo_geo_routes.types.route_vehicle_span
+
+    return [
+        capo_geo_routes.types.route_vehicle_span.redact_sensitive(item)
+        for item in value
+    ]

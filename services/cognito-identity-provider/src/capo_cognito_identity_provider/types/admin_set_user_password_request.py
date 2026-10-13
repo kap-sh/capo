@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#AdminSetUserPasswordRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -54,4 +54,13 @@ def deserialize_aws_json_1_1(data: dict) -> AdminSetUserPasswordRequest:
         out["permanent"] = data["Permanent"]
     else:
         out["permanent"] = False
+    return out
+
+
+def redact_sensitive(value: AdminSetUserPasswordRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "username" in value:
+        out["username"] = "*** Sensitive Data Redacted ***"
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
     return out

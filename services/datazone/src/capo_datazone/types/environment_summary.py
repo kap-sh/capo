@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#EnvironmentSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -159,4 +159,17 @@ def deserialize_json(data: dict) -> EnvironmentSummary:
         out["environment_configuration_id"] = data["environmentConfigurationId"]
     if data.get("environmentConfigurationName") is not None:
         out["environment_configuration_name"] = data["environmentConfigurationName"]
+    return out
+
+
+def redact_sensitive(value: EnvironmentSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "environment_configuration_id" in value:
+        out["environment_configuration_id"] = "*** Sensitive Data Redacted ***"
+    if "environment_configuration_name" in value:
+        out["environment_configuration_name"] = "*** Sensitive Data Redacted ***"
     return out

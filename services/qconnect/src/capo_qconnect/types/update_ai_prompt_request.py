@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#UpdateAIPromptRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -97,6 +97,27 @@ def deserialize_json(data: dict) -> UpdateAIPromptRequest:
         out["inference_configuration"] = (
             capo_qconnect.types.ai_prompt_inference_configuration.deserialize_json(
                 data["inferenceConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateAIPromptRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "template_configuration" in value:
+        import capo_qconnect.types.ai_prompt_template_configuration
+
+        out["template_configuration"] = (
+            capo_qconnect.types.ai_prompt_template_configuration.redact_sensitive(
+                value["template_configuration"]
+            )
+        )
+    if "inference_configuration" in value:
+        import capo_qconnect.types.ai_prompt_inference_configuration
+
+        out["inference_configuration"] = (
+            capo_qconnect.types.ai_prompt_inference_configuration.redact_sensitive(
+                value["inference_configuration"]
             )
         )
     return out

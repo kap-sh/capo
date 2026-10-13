@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#CustomPromptInputParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -55,4 +55,19 @@ def deserialize_json(data: dict) -> CustomPromptInputParameters:
         out["tone"] = data["Tone"]
     if data.get("CustomInstructions") is not None:
         out["custom_instructions"] = data["CustomInstructions"]
+    return out
+
+
+def redact_sensitive(value: CustomPromptInputParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "response_length" in value:
+        out["response_length"] = "*** Sensitive Data Redacted ***"
+    if "output_style" in value:
+        out["output_style"] = "*** Sensitive Data Redacted ***"
+    if "identity" in value:
+        out["identity"] = "*** Sensitive Data Redacted ***"
+    if "tone" in value:
+        out["tone"] = "*** Sensitive Data Redacted ***"
+    if "custom_instructions" in value:
+        out["custom_instructions"] = "*** Sensitive Data Redacted ***"
     return out

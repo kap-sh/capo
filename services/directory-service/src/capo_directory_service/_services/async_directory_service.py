@@ -24,7 +24,9 @@ from capo_directory_service._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -357,7 +359,9 @@ class AsyncDirectoryServiceClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncDirectoryServiceClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncDirectoryServiceClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncDirectoryServiceClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -365,8 +369,10 @@ class AsyncDirectoryServiceClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -420,7 +426,19 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_directory_service.types.accept_shared_directory_result.AcceptSharedDirectoryResult",
+        ) -> dict[str, Any]:
+            import capo_directory_service.types.accept_shared_directory_result
+
+            return capo_directory_service.types.accept_shared_directory_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AcceptSharedDirectory", redact_output=_redact_output),
+        )
         input_: capo_directory_service.types.accept_shared_directory_request.AcceptSharedDirectoryRequest = {
             "shared_directory_id": shared_directory_id
         }
@@ -482,7 +500,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddIpRoutes")
+        )
         input_: capo_directory_service.types.add_ip_routes_request.AddIpRoutesRequest = {
             "directory_id": directory_id,
             "ip_routes": ip_routes,
@@ -543,7 +563,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddRegion")
+        )
         input_: capo_directory_service.types.add_region_request.AddRegionRequest = {
             "directory_id": directory_id,
             "region_name": region_name,
@@ -601,7 +623,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTagsToResource")
+        )
         input_: capo_directory_service.types.add_tags_to_resource_request.AddTagsToResourceRequest = {
             "resource_id": resource_id,
             "tags": tags,
@@ -656,7 +680,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelSchemaExtension")
+        )
         input_: capo_directory_service.types.cancel_schema_extension_request.CancelSchemaExtensionRequest = {
             "directory_id": directory_id,
             "schema_extension_id": schema_extension_id,
@@ -730,7 +756,21 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_directory_service.types.connect_directory_request.ConnectDirectoryRequest",
+        ) -> dict[str, Any]:
+            import capo_directory_service.types.connect_directory_request
+
+            return (
+                capo_directory_service.types.connect_directory_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ConnectDirectory", redact_input=_redact_input),
+        )
         input_: capo_directory_service.types.connect_directory_request.ConnectDirectoryRequest = {
             "name": name,
             "password": password,
@@ -797,7 +837,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAlias")
+        )
         input_: capo_directory_service.types.create_alias_request.CreateAliasRequest = {
             "directory_id": directory_id,
             "alias": alias,
@@ -867,7 +909,21 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_directory_service.types.create_computer_request.CreateComputerRequest",
+        ) -> dict[str, Any]:
+            import capo_directory_service.types.create_computer_request
+
+            return (
+                capo_directory_service.types.create_computer_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateComputer", redact_input=_redact_input),
+        )
         input_: capo_directory_service.types.create_computer_request.CreateComputerRequest = {
             "directory_id": directory_id,
             "computer_name": computer_name,
@@ -941,7 +997,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConditionalForwarder")
+        )
         input_: capo_directory_service.types.create_conditional_forwarder_request.CreateConditionalForwarderRequest = {
             "directory_id": directory_id,
             "remote_domain_name": remote_domain_name,
@@ -1021,7 +1079,21 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_directory_service.types.create_directory_request.CreateDirectoryRequest",
+        ) -> dict[str, Any]:
+            import capo_directory_service.types.create_directory_request
+
+            return (
+                capo_directory_service.types.create_directory_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDirectory", redact_input=_redact_input),
+        )
         input_: capo_directory_service.types.create_directory_request.CreateDirectoryRequest = {
             "name": name,
             "password": password,
@@ -1087,7 +1159,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHybridAD")
+        )
         input_: capo_directory_service.types.create_hybrid_ad_request.CreateHybridADRequest = {
             "secret_arn": secret_arn,
             "assessment_id": assessment_id,
@@ -1141,7 +1215,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLogSubscription")
+        )
         input_: capo_directory_service.types.create_log_subscription_request.CreateLogSubscriptionRequest = {
             "directory_id": directory_id,
             "log_group_name": log_group_name,
@@ -1218,7 +1294,19 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_directory_service.types.create_microsoft_ad_request.CreateMicrosoftADRequest",
+        ) -> dict[str, Any]:
+            import capo_directory_service.types.create_microsoft_ad_request
+
+            return capo_directory_service.types.create_microsoft_ad_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateMicrosoftAD", redact_input=_redact_input),
+        )
         input_: capo_directory_service.types.create_microsoft_ad_request.CreateMicrosoftADRequest = {
             "name": name,
             "password": password,
@@ -1288,7 +1376,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSnapshot")
+        )
         input_: capo_directory_service.types.create_snapshot_request.CreateSnapshotRequest = {
             "directory_id": directory_id
         }
@@ -1367,7 +1457,19 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_directory_service.types.create_trust_request.CreateTrustRequest",
+        ) -> dict[str, Any]:
+            import capo_directory_service.types.create_trust_request
+
+            return capo_directory_service.types.create_trust_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateTrust", redact_input=_redact_input),
+        )
         input_: capo_directory_service.types.create_trust_request.CreateTrustRequest = {
             "directory_id": directory_id,
             "remote_domain_name": remote_domain_name,
@@ -1428,7 +1530,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteADAssessment")
+        )
         input_: capo_directory_service.types.delete_ad_assessment_request.DeleteADAssessmentRequest = {
             "assessment_id": assessment_id
         }
@@ -1485,7 +1589,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConditionalForwarder")
+        )
         input_: capo_directory_service.types.delete_conditional_forwarder_request.DeleteConditionalForwarderRequest = {
             "directory_id": directory_id,
             "remote_domain_name": remote_domain_name,
@@ -1538,7 +1644,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDirectory")
+        )
         input_: capo_directory_service.types.delete_directory_request.DeleteDirectoryRequest = {
             "directory_id": directory_id
         }
@@ -1585,7 +1693,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLogSubscription")
+        )
         input_: capo_directory_service.types.delete_log_subscription_request.DeleteLogSubscriptionRequest = {
             "directory_id": directory_id
         }
@@ -1638,7 +1748,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSnapshot")
+        )
         input_: capo_directory_service.types.delete_snapshot_request.DeleteSnapshotRequest = {
             "snapshot_id": snapshot_id
         }
@@ -1696,7 +1808,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTrust")
+        )
         input_: capo_directory_service.types.delete_trust_request.DeleteTrustRequest = {
             "trust_id": trust_id
         }
@@ -1753,7 +1867,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterCertificate")
+        )
         input_: capo_directory_service.types.deregister_certificate_request.DeregisterCertificateRequest = {
             "directory_id": directory_id,
             "certificate_id": certificate_id,
@@ -1809,7 +1925,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterEventTopic")
+        )
         input_: capo_directory_service.types.deregister_event_topic_request.DeregisterEventTopicRequest = {
             "directory_id": directory_id,
             "topic_name": topic_name,
@@ -1858,7 +1976,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeADAssessment")
+        )
         input_: capo_directory_service.types.describe_ad_assessment_request.DescribeADAssessmentRequest = {
             "assessment_id": assessment_id
         }
@@ -1905,7 +2025,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCAEnrollmentPolicy")
+        )
         input_: capo_directory_service.types.describe_ca_enrollment_policy_request.DescribeCAEnrollmentPolicyRequest = {
             "directory_id": directory_id
         }
@@ -1956,7 +2078,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCertificate")
+        )
         input_: capo_directory_service.types.describe_certificate_request.DescribeCertificateRequest = {
             "directory_id": directory_id,
             "certificate_id": certificate_id,
@@ -2016,7 +2140,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClientAuthenticationSettings")
+        )
         input_: capo_directory_service.types.describe_client_authentication_settings_request.DescribeClientAuthenticationSettingsRequest = {
             "directory_id": directory_id
         }
@@ -2110,7 +2236,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConditionalForwarders")
+        )
         input_: capo_directory_service.types.describe_conditional_forwarders_request.DescribeConditionalForwardersRequest = {
             "directory_id": directory_id
         }
@@ -2174,7 +2302,19 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_directory_service.types.describe_directories_result.DescribeDirectoriesResult",
+        ) -> dict[str, Any]:
+            import capo_directory_service.types.describe_directories_result
+
+            return capo_directory_service.types.describe_directories_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeDirectories", redact_output=_redact_output),
+        )
         input_: capo_directory_service.types.describe_directories_request.DescribeDirectoriesRequest = {}
         if directory_ids is not None:
             input_["directory_ids"] = directory_ids
@@ -2253,7 +2393,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDirectoryDataAccess")
+        )
         input_: capo_directory_service.types.describe_directory_data_access_request.DescribeDirectoryDataAccessRequest = {
             "directory_id": directory_id
         }
@@ -2312,7 +2454,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDomainControllers")
+        )
         input_: capo_directory_service.types.describe_domain_controllers_request.DescribeDomainControllersRequest = {
             "directory_id": directory_id
         }
@@ -2404,7 +2548,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEventTopics")
+        )
         input_: capo_directory_service.types.describe_event_topics_request.DescribeEventTopicsRequest = {}
         if directory_id is not None:
             input_["directory_id"] = directory_id
@@ -2463,7 +2609,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeHybridADUpdate")
+        )
         input_: capo_directory_service.types.describe_hybrid_ad_update_request.DescribeHybridADUpdateRequest = {
             "directory_id": directory_id
         }
@@ -2524,7 +2672,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLDAPSSettings")
+        )
         input_: capo_directory_service.types.describe_ldaps_settings_request.DescribeLDAPSSettingsRequest = {
             "directory_id": directory_id
         }
@@ -2615,7 +2765,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRegions")
+        )
         input_: capo_directory_service.types.describe_regions_request.DescribeRegionsRequest = {
             "directory_id": directory_id
         }
@@ -2703,7 +2855,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSettings")
+        )
         input_: capo_directory_service.types.describe_settings_request.DescribeSettingsRequest = {
             "directory_id": directory_id
         }
@@ -2766,7 +2920,19 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_directory_service.types.describe_shared_directories_result.DescribeSharedDirectoriesResult",
+        ) -> dict[str, Any]:
+            import capo_directory_service.types.describe_shared_directories_result
+
+            return capo_directory_service.types.describe_shared_directories_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeSharedDirectories", redact_output=_redact_output),
+        )
         input_: capo_directory_service.types.describe_shared_directories_request.DescribeSharedDirectoriesRequest = {
             "owner_directory_id": owner_directory_id
         }
@@ -2869,7 +3035,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSnapshots")
+        )
         input_: capo_directory_service.types.describe_snapshots_request.DescribeSnapshotsRequest = {}
         if directory_id is not None:
             input_["directory_id"] = directory_id
@@ -2971,7 +3139,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTrusts")
+        )
         input_: capo_directory_service.types.describe_trusts_request.DescribeTrustsRequest = {}
         if directory_id is not None:
             input_["directory_id"] = directory_id
@@ -3065,7 +3235,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeUpdateDirectory")
+        )
         input_: capo_directory_service.types.describe_update_directory_request.DescribeUpdateDirectoryRequest = {
             "directory_id": directory_id,
             "update_type": update_type,
@@ -3152,7 +3324,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableCAEnrollmentPolicy")
+        )
         input_: capo_directory_service.types.disable_ca_enrollment_policy_request.DisableCAEnrollmentPolicyRequest = {
             "directory_id": directory_id
         }
@@ -3203,7 +3377,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableClientAuthentication")
+        )
         input_: capo_directory_service.types.disable_client_authentication_request.DisableClientAuthenticationRequest = {
             "directory_id": directory_id,
             "type": type,
@@ -3254,7 +3430,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableDirectoryDataAccess")
+        )
         input_: capo_directory_service.types.disable_directory_data_access_request.DisableDirectoryDataAccessRequest = {
             "directory_id": directory_id
         }
@@ -3306,7 +3484,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableLDAPS")
+        )
         input_: capo_directory_service.types.disable_ldaps_request.DisableLDAPSRequest = {
             "directory_id": directory_id,
             "type": type,
@@ -3359,7 +3539,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableRadius")
+        )
         input_: capo_directory_service.types.disable_radius_request.DisableRadiusRequest = {
             "directory_id": directory_id
         }
@@ -3419,7 +3601,18 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_directory_service.types.disable_sso_request.DisableSsoRequest",
+        ) -> dict[str, Any]:
+            import capo_directory_service.types.disable_sso_request
+
+            return capo_directory_service.types.disable_sso_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableSso", redact_input=_redact_input)
+        )
         input_: capo_directory_service.types.disable_sso_request.DisableSsoRequest = {
             "directory_id": directory_id
         }
@@ -3477,7 +3670,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableCAEnrollmentPolicy")
+        )
         input_: capo_directory_service.types.enable_ca_enrollment_policy_request.EnableCAEnrollmentPolicyRequest = {
             "directory_id": directory_id,
             "pca_connector_arn": pca_connector_arn,
@@ -3530,7 +3725,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableClientAuthentication")
+        )
         input_: capo_directory_service.types.enable_client_authentication_request.EnableClientAuthenticationRequest = {
             "directory_id": directory_id,
             "type": type,
@@ -3581,7 +3778,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableDirectoryDataAccess")
+        )
         input_: capo_directory_service.types.enable_directory_data_access_request.EnableDirectoryDataAccessRequest = {
             "directory_id": directory_id
         }
@@ -3634,7 +3833,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableLDAPS")
+        )
         input_: capo_directory_service.types.enable_ldaps_request.EnableLDAPSRequest = {
             "directory_id": directory_id,
             "type": type,
@@ -3691,7 +3892,19 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_directory_service.types.enable_radius_request.EnableRadiusRequest",
+        ) -> dict[str, Any]:
+            import capo_directory_service.types.enable_radius_request
+
+            return capo_directory_service.types.enable_radius_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("EnableRadius", redact_input=_redact_input),
+        )
         input_: capo_directory_service.types.enable_radius_request.EnableRadiusRequest = {
             "directory_id": directory_id,
             "radius_settings": radius_settings,
@@ -3752,7 +3965,18 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_directory_service.types.enable_sso_request.EnableSsoRequest",
+        ) -> dict[str, Any]:
+            import capo_directory_service.types.enable_sso_request
+
+            return capo_directory_service.types.enable_sso_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableSso", redact_input=_redact_input)
+        )
         input_: capo_directory_service.types.enable_sso_request.EnableSsoRequest = {
             "directory_id": directory_id
         }
@@ -3802,7 +4026,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDirectoryLimits")
+        )
         input_: capo_directory_service.types.get_directory_limits_request.GetDirectoryLimitsRequest = {}
 
         response = await aexecute_pipeline(
@@ -3852,7 +4078,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSnapshotLimits")
+        )
         input_: capo_directory_service.types.get_snapshot_limits_request.GetSnapshotLimitsRequest = {
             "directory_id": directory_id
         }
@@ -3910,7 +4138,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListADAssessments")
+        )
         input_: capo_directory_service.types.list_ad_assessments_request.ListADAssessmentsRequest = {}
         if directory_id is not None:
             input_["directory_id"] = directory_id
@@ -3998,7 +4228,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCertificates")
+        )
         input_: capo_directory_service.types.list_certificates_request.ListCertificatesRequest = {
             "directory_id": directory_id
         }
@@ -4087,7 +4319,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIpRoutes")
+        )
         input_: capo_directory_service.types.list_ip_routes_request.ListIpRoutesRequest = {
             "directory_id": directory_id
         }
@@ -4171,7 +4405,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLogSubscriptions")
+        )
         input_: capo_directory_service.types.list_log_subscriptions_request.ListLogSubscriptionsRequest = {}
         if directory_id is not None:
             input_["directory_id"] = directory_id
@@ -4261,7 +4497,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSchemaExtensions")
+        )
         input_: capo_directory_service.types.list_schema_extensions_request.ListSchemaExtensionsRequest = {
             "directory_id": directory_id
         }
@@ -4350,7 +4588,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_directory_service.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_id": resource_id
         }
@@ -4441,7 +4681,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterCertificate")
+        )
         input_: capo_directory_service.types.register_certificate_request.RegisterCertificateRequest = {
             "directory_id": directory_id,
             "certificate_data": certificate_data,
@@ -4501,7 +4743,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterEventTopic")
+        )
         input_: capo_directory_service.types.register_event_topic_request.RegisterEventTopicRequest = {
             "directory_id": directory_id,
             "topic_name": topic_name,
@@ -4550,7 +4794,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectSharedDirectory")
+        )
         input_: capo_directory_service.types.reject_shared_directory_request.RejectSharedDirectoryRequest = {
             "shared_directory_id": shared_directory_id
         }
@@ -4610,7 +4856,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveIpRoutes")
+        )
         input_: capo_directory_service.types.remove_ip_routes_request.RemoveIpRoutesRequest = {
             "directory_id": directory_id
         }
@@ -4663,7 +4911,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveRegion")
+        )
         input_: capo_directory_service.types.remove_region_request.RemoveRegionRequest = {
             "directory_id": directory_id
         }
@@ -4718,7 +4968,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTagsFromResource")
+        )
         input_: capo_directory_service.types.remove_tags_from_resource_request.RemoveTagsFromResourceRequest = {
             "resource_id": resource_id,
             "tag_keys": tag_keys,
@@ -4773,7 +5025,19 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_directory_service.types.reset_user_password_request.ResetUserPasswordRequest",
+        ) -> dict[str, Any]:
+            import capo_directory_service.types.reset_user_password_request
+
+            return capo_directory_service.types.reset_user_password_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ResetUserPassword", redact_input=_redact_input),
+        )
         input_: capo_directory_service.types.reset_user_password_request.ResetUserPasswordRequest = {
             "directory_id": directory_id,
             "user_name": user_name,
@@ -4828,7 +5092,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreFromSnapshot")
+        )
         input_: capo_directory_service.types.restore_from_snapshot_request.RestoreFromSnapshotRequest = {
             "snapshot_id": snapshot_id
         }
@@ -4887,7 +5153,21 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_directory_service.types.share_directory_request.ShareDirectoryRequest",
+        ) -> dict[str, Any]:
+            import capo_directory_service.types.share_directory_request
+
+            return (
+                capo_directory_service.types.share_directory_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ShareDirectory", redact_input=_redact_input),
+        )
         input_: capo_directory_service.types.share_directory_request.ShareDirectoryRequest = {
             "directory_id": directory_id,
             "share_target": share_target,
@@ -4946,7 +5226,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartADAssessment")
+        )
         input_: capo_directory_service.types.start_ad_assessment_request.StartADAssessmentRequest = {}
         if assessment_configuration is not None:
             input_["assessment_configuration"] = assessment_configuration
@@ -5009,7 +5291,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartSchemaExtension")
+        )
         input_: capo_directory_service.types.start_schema_extension_request.StartSchemaExtensionRequest = {
             "directory_id": directory_id,
             "create_snapshot_before_schema_extension": create_snapshot_before_schema_extension,
@@ -5062,7 +5346,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UnshareDirectory")
+        )
         input_: capo_directory_service.types.unshare_directory_request.UnshareDirectoryRequest = {
             "directory_id": directory_id,
             "unshare_target": unshare_target,
@@ -5128,7 +5414,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConditionalForwarder")
+        )
         input_: capo_directory_service.types.update_conditional_forwarder_request.UpdateConditionalForwarderRequest = {
             "directory_id": directory_id,
             "remote_domain_name": remote_domain_name,
@@ -5203,7 +5491,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDirectorySetup")
+        )
         input_: capo_directory_service.types.update_directory_setup_request.UpdateDirectorySetupRequest = {
             "directory_id": directory_id,
             "update_type": update_type,
@@ -5269,7 +5559,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateHybridAD")
+        )
         input_: capo_directory_service.types.update_hybrid_ad_request.UpdateHybridADRequest = {
             "directory_id": directory_id
         }
@@ -5327,7 +5619,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNumberOfDomainControllers")
+        )
         input_: capo_directory_service.types.update_number_of_domain_controllers_request.UpdateNumberOfDomainControllersRequest = {
             "directory_id": directory_id,
             "desired_number": desired_number,
@@ -5383,7 +5677,19 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_directory_service.types.update_radius_request.UpdateRadiusRequest",
+        ) -> dict[str, Any]:
+            import capo_directory_service.types.update_radius_request
+
+            return capo_directory_service.types.update_radius_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateRadius", redact_input=_redact_input),
+        )
         input_: capo_directory_service.types.update_radius_request.UpdateRadiusRequest = {
             "directory_id": directory_id,
             "radius_settings": radius_settings,
@@ -5437,7 +5743,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSettings")
+        )
         input_: capo_directory_service.types.update_settings_request.UpdateSettingsRequest = {
             "directory_id": directory_id,
             "settings": settings,
@@ -5489,7 +5797,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTrust")
+        )
         input_: capo_directory_service.types.update_trust_request.UpdateTrustRequest = {
             "trust_id": trust_id
         }
@@ -5545,7 +5855,9 @@ class AsyncDirectoryServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("VerifyTrust")
+        )
         input_: capo_directory_service.types.verify_trust_request.VerifyTrustRequest = {
             "trust_id": trust_id
         }

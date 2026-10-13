@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#RetrieveResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -51,4 +51,13 @@ def deserialize_json(data: dict) -> RetrieveResult:
         out["content_text"] = data["contentText"]
     else:
         raise DeserializationError("RetrieveResult.content_text required")
+    return out
+
+
+def redact_sensitive(value: RetrieveResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "source_id" in value:
+        out["source_id"] = "*** Sensitive Data Redacted ***"
+    if "content_text" in value:
+        out["content_text"] = "*** Sensitive Data Redacted ***"
     return out

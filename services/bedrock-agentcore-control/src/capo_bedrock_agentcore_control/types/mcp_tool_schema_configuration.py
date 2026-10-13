@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#McpToolSchemaConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -58,3 +58,10 @@ def deserialize_json(data: dict) -> McpToolSchemaConfiguration:
         raise DeserializationError(
             "McpToolSchemaConfiguration: no recognized variant key"
         )
+
+
+def redact_sensitive(value: McpToolSchemaConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inlinePayload" in value:
+        out["inlinePayload"] = "*** Sensitive Data Redacted ***"
+    return out

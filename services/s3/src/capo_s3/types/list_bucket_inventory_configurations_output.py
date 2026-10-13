@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#ListBucketInventoryConfigurationsOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -68,4 +68,17 @@ def deserialize_xml(el: Element) -> ListBucketInventoryConfigurationsOutput:
     child_next_continuation_token = el.find("NextContinuationToken")
     if child_next_continuation_token is not None:
         out["next_continuation_token"] = str(child_next_continuation_token.text or "")
+    return out
+
+
+def redact_sensitive(value: ListBucketInventoryConfigurationsOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inventory_configuration_list" in value:
+        import capo_s3.types.inventory_configuration_list
+
+        out["inventory_configuration_list"] = (
+            capo_s3.types.inventory_configuration_list.redact_sensitive(
+                value["inventory_configuration_list"]
+            )
+        )
     return out

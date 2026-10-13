@@ -28,10 +28,12 @@ from capo_medical_imaging._resources.ahi_gateway_service.image_set_resource impo
 from capo_medical_imaging._services._aws_config import aws_config
 from capo_medical_imaging._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -179,7 +181,9 @@ class MedicalImagingClient:
         self.image_set_resource = ImageSetResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[MedicalImagingClientConfig] = None
+        self,
+        config_overrides: Optional[MedicalImagingClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MedicalImagingClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -187,8 +191,10 @@ class MedicalImagingClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -251,7 +257,19 @@ class MedicalImagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_medical_imaging.types.copy_image_set_request.CopyImageSetRequest",
+        ) -> dict[str, Any]:
+            import capo_medical_imaging.types.copy_image_set_request
+
+            return capo_medical_imaging.types.copy_image_set_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CopyImageSet", redact_input=_redact_input),
+        )
         input_: capo_medical_imaging.types.copy_image_set_request.CopyImageSetRequest = {
             "datastore_id": datastore_id,
             "source_image_set_id": source_image_set_id,
@@ -307,7 +325,9 @@ class MedicalImagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteImageSet")
+        )
         input_: capo_medical_imaging.types.delete_image_set_request.DeleteImageSetRequest = {
             "datastore_id": datastore_id,
             "image_set_id": image_set_id,
@@ -358,7 +378,19 @@ class MedicalImagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_medical_imaging.types.get_dicom_import_job_response.GetDICOMImportJobResponse",
+        ) -> dict[str, Any]:
+            import capo_medical_imaging.types.get_dicom_import_job_response
+
+            return capo_medical_imaging.types.get_dicom_import_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDICOMImportJob", redact_output=_redact_output),
+        )
         input_: capo_medical_imaging.types.get_dicom_import_job_request.GetDICOMImportJobRequest = {
             "datastore_id": datastore_id,
             "job_id": job_id,
@@ -414,7 +446,19 @@ class MedicalImagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_medical_imaging.types.get_image_frame_response.GetImageFrameResponse",
+        ) -> dict[str, Any]:
+            import capo_medical_imaging.types.get_image_frame_response
+
+            return capo_medical_imaging.types.get_image_frame_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetImageFrame", redact_output=_redact_output),
+        )
         input_: capo_medical_imaging.types.get_image_frame_request.GetImageFrameRequest = {
             "datastore_id": datastore_id,
             "image_set_id": image_set_id,
@@ -472,7 +516,9 @@ class MedicalImagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetImageSet")
+        )
         input_: capo_medical_imaging.types.get_image_set_request.GetImageSetRequest = {
             "datastore_id": datastore_id,
             "image_set_id": image_set_id,
@@ -530,7 +576,19 @@ class MedicalImagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_medical_imaging.types.get_image_set_metadata_response.GetImageSetMetadataResponse",
+        ) -> dict[str, Any]:
+            import capo_medical_imaging.types.get_image_set_metadata_response
+
+            return capo_medical_imaging.types.get_image_set_metadata_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetImageSetMetadata", redact_output=_redact_output),
+        )
         input_: capo_medical_imaging.types.get_image_set_metadata_request.GetImageSetMetadataRequest = {
             "datastore_id": datastore_id,
             "image_set_id": image_set_id,
@@ -589,7 +647,9 @@ class MedicalImagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDICOMImportJobs")
+        )
         input_: capo_medical_imaging.types.list_dicom_import_jobs_request.ListDICOMImportJobsRequest = {
             "datastore_id": datastore_id
         }
@@ -674,7 +734,9 @@ class MedicalImagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImageSetVersions")
+        )
         input_: capo_medical_imaging.types.list_image_set_versions_request.ListImageSetVersionsRequest = {
             "datastore_id": datastore_id,
             "image_set_id": image_set_id,
@@ -751,7 +813,9 @@ class MedicalImagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_medical_imaging.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -809,7 +873,36 @@ class MedicalImagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_medical_imaging.types.search_image_sets_request.SearchImageSetsRequest",
+        ) -> dict[str, Any]:
+            import capo_medical_imaging.types.search_image_sets_request
+
+            return (
+                capo_medical_imaging.types.search_image_sets_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_medical_imaging.types.search_image_sets_response.SearchImageSetsResponse",
+        ) -> dict[str, Any]:
+            import capo_medical_imaging.types.search_image_sets_response
+
+            return (
+                capo_medical_imaging.types.search_image_sets_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchImageSets",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_medical_imaging.types.search_image_sets_request.SearchImageSetsRequest = {
             "datastore_id": datastore_id
         }
@@ -909,7 +1002,19 @@ class MedicalImagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_medical_imaging.types.start_dicom_import_job_request.StartDICOMImportJobRequest",
+        ) -> dict[str, Any]:
+            import capo_medical_imaging.types.start_dicom_import_job_request
+
+            return capo_medical_imaging.types.start_dicom_import_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartDICOMImportJob", redact_input=_redact_input),
+        )
         input_: capo_medical_imaging.types.start_dicom_import_job_request.StartDICOMImportJobRequest = {
             "data_access_role_arn": data_access_role_arn,
             "client_token": client_token,
@@ -968,7 +1073,9 @@ class MedicalImagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_medical_imaging.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1018,7 +1125,9 @@ class MedicalImagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_medical_imaging.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1078,7 +1187,19 @@ class MedicalImagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_medical_imaging.types.update_image_set_metadata_request.UpdateImageSetMetadataRequest",
+        ) -> dict[str, Any]:
+            import capo_medical_imaging.types.update_image_set_metadata_request
+
+            return capo_medical_imaging.types.update_image_set_metadata_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateImageSetMetadata", redact_input=_redact_input),
+        )
         input_: capo_medical_imaging.types.update_image_set_metadata_request.UpdateImageSetMetadataRequest = {
             "datastore_id": datastore_id,
             "image_set_id": image_set_id,
@@ -1152,7 +1273,9 @@ class MedicalImagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDatastore")
+        )
         input_: capo_medical_imaging.types.create_datastore_request.CreateDatastoreRequest = {
             "client_token": client_token
         }
@@ -1209,7 +1332,9 @@ class MedicalImagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDatastore")
+        )
         input_: capo_medical_imaging.types.get_datastore_request.GetDatastoreRequest = {
             "datastore_id": datastore_id
         }
@@ -1257,7 +1382,9 @@ class MedicalImagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDatastore")
+        )
         input_: capo_medical_imaging.types.delete_datastore_request.DeleteDatastoreRequest = {
             "datastore_id": datastore_id
         }
@@ -1309,7 +1436,9 @@ class MedicalImagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatastores")
+        )
         input_: capo_medical_imaging.types.list_datastores_request.ListDatastoresRequest = {}
         if datastore_status is not None:
             input_["datastore_status"] = datastore_status

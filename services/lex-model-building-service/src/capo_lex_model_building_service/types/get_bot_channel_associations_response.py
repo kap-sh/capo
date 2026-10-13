@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexmodelbuildingservice#GetBotChannelAssociationsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -48,4 +48,17 @@ def deserialize_json(data: dict) -> GetBotChannelAssociationsResponse:
         )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: GetBotChannelAssociationsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "bot_channel_associations" in value:
+        import capo_lex_model_building_service.types.bot_channel_association_list
+
+        out["bot_channel_associations"] = (
+            capo_lex_model_building_service.types.bot_channel_association_list.redact_sensitive(
+                value["bot_channel_associations"]
+            )
+        )
     return out

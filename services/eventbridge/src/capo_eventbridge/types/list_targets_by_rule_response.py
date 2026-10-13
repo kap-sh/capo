@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridge#ListTargetsByRuleResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,15 @@ def deserialize_aws_json_1_1(data: dict) -> ListTargetsByRuleResponse:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListTargetsByRuleResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "targets" in value:
+        import capo_eventbridge.types.target_list
+
+        out["targets"] = capo_eventbridge.types.target_list.redact_sensitive(
+            value["targets"]
+        )
     return out

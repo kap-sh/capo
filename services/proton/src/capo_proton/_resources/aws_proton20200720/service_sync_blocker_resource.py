@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_proton._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -66,7 +67,9 @@ class ServiceSyncBlockerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetServiceSyncBlockerSummary")
+        )
         input_: capo_proton.types.get_service_sync_blocker_summary_input.GetServiceSyncBlockerSummaryInput = {
             "service_name": service_name
         }
@@ -118,7 +121,9 @@ class ServiceSyncBlockerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateServiceSyncBlocker")
+        )
         input_: capo_proton.types.update_service_sync_blocker_input.UpdateServiceSyncBlockerInput = {
             "id": id,
             "resolved_reason": resolved_reason,
@@ -176,7 +181,9 @@ class AsyncServiceSyncBlockerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetServiceSyncBlockerSummary")
+        )
         input_: capo_proton.types.get_service_sync_blocker_summary_input.GetServiceSyncBlockerSummaryInput = {
             "service_name": service_name
         }
@@ -229,7 +236,9 @@ class AsyncServiceSyncBlockerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateServiceSyncBlocker")
+        )
         input_: capo_proton.types.update_service_sync_blocker_input.UpdateServiceSyncBlockerInput = {
             "id": id,
             "resolved_reason": resolved_reason,

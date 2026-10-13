@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DescribeDashboardDefinitionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -121,6 +121,19 @@ def deserialize_json(data: dict) -> DescribeDashboardDefinitionResponse:
         out["dashboard_publish_options"] = (
             capo_quicksight.types.dashboard_publish_options.deserialize_json(
                 data["DashboardPublishOptions"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeDashboardDefinitionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "definition" in value:
+        import capo_quicksight.types.dashboard_version_definition
+
+        out["definition"] = (
+            capo_quicksight.types.dashboard_version_definition.redact_sensitive(
+                value["definition"]
             )
         )
     return out

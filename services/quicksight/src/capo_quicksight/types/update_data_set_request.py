@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#UpdateDataSetRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -286,6 +286,51 @@ def deserialize_json(data: dict) -> UpdateDataSetRequest:
         out["semantic_model_configuration"] = (
             capo_quicksight.types.semantic_model_configuration.deserialize_json(
                 data["SemanticModelConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateDataSetRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "physical_table_map" in value:
+        import capo_quicksight.types.physical_table_map
+
+        out["physical_table_map"] = (
+            capo_quicksight.types.physical_table_map.redact_sensitive(
+                value["physical_table_map"]
+            )
+        )
+    if "logical_table_map" in value:
+        import capo_quicksight.types.logical_table_map
+
+        out["logical_table_map"] = (
+            capo_quicksight.types.logical_table_map.redact_sensitive(
+                value["logical_table_map"]
+            )
+        )
+    if "row_level_permission_tag_configuration" in value:
+        import capo_quicksight.types.row_level_permission_tag_configuration
+
+        out["row_level_permission_tag_configuration"] = (
+            capo_quicksight.types.row_level_permission_tag_configuration.redact_sensitive(
+                value["row_level_permission_tag_configuration"]
+            )
+        )
+    if "data_prep_configuration" in value:
+        import capo_quicksight.types.data_prep_configuration
+
+        out["data_prep_configuration"] = (
+            capo_quicksight.types.data_prep_configuration.redact_sensitive(
+                value["data_prep_configuration"]
+            )
+        )
+    if "semantic_model_configuration" in value:
+        import capo_quicksight.types.semantic_model_configuration
+
+        out["semantic_model_configuration"] = (
+            capo_quicksight.types.semantic_model_configuration.redact_sensitive(
+                value["semantic_model_configuration"]
             )
         )
     return out

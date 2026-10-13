@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesinstances#CreateVolumeRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -124,4 +124,13 @@ def deserialize_aws_json_1_0(data: dict) -> CreateVolumeRequest:
                 data["VolumeType"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: CreateVolumeRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_token" in value:
+        out["client_token"] = "*** Sensitive Data Redacted ***"
+    if "kms_key_id" in value:
+        out["kms_key_id"] = "*** Sensitive Data Redacted ***"
     return out

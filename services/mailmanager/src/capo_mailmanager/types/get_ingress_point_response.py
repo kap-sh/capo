@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mailmanager#GetIngressPointResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -203,6 +203,19 @@ def deserialize_aws_json_1_0(data: dict) -> GetIngressPointResponse:
         out["last_updated_timestamp"] = (
             capo_mailmanager.types._prelude.timestamp.deserialize_aws_json_1_0(
                 data["LastUpdatedTimestamp"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GetIngressPointResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ingress_point_auth_configuration" in value:
+        import capo_mailmanager.types.ingress_point_auth_configuration
+
+        out["ingress_point_auth_configuration"] = (
+            capo_mailmanager.types.ingress_point_auth_configuration.redact_sensitive(
+                value["ingress_point_auth_configuration"]
             )
         )
     return out

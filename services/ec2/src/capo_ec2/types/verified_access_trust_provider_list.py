@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#VerifiedAccessTrustProviderList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from capo_ec2._protocol.xml import Element
 
@@ -48,3 +48,12 @@ def deserialize_ec2_query_flat(
             capo_ec2.types.verified_access_trust_provider.deserialize_ec2_query(child)
         )
     return out
+
+
+def redact_sensitive(value: VerifiedAccessTrustProviderList) -> list[Any]:
+    import capo_ec2.types.verified_access_trust_provider
+
+    return [
+        capo_ec2.types.verified_access_trust_provider.redact_sensitive(item)
+        for item in value
+    ]

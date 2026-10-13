@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_payment_cryptography._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -80,7 +81,9 @@ class AliasResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAlias")
+        )
         input_: capo_payment_cryptography.types.create_alias_input.CreateAliasInput = {
             "alias_name": alias_name
         }
@@ -130,7 +133,9 @@ class AliasResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAlias")
+        )
         input_: capo_payment_cryptography.types.get_alias_input.GetAliasInput = {
             "alias_name": alias_name
         }
@@ -181,7 +186,9 @@ class AliasResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAlias")
+        )
         input_: capo_payment_cryptography.types.update_alias_input.UpdateAliasInput = {
             "alias_name": alias_name
         }
@@ -232,7 +239,9 @@ class AliasResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAlias")
+        )
         input_: capo_payment_cryptography.types.delete_alias_input.DeleteAliasInput = {
             "alias_name": alias_name
         }
@@ -288,7 +297,9 @@ class AliasResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAliases")
+        )
         input_: capo_payment_cryptography.types.list_aliases_input.ListAliasesInput = {}
         if key_arn is not None:
             input_["key_arn"] = key_arn
@@ -350,7 +361,9 @@ class AsyncAliasResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAlias")
+        )
         input_: capo_payment_cryptography.types.create_alias_input.CreateAliasInput = {
             "alias_name": alias_name
         }
@@ -401,7 +414,9 @@ class AsyncAliasResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAlias")
+        )
         input_: capo_payment_cryptography.types.get_alias_input.GetAliasInput = {
             "alias_name": alias_name
         }
@@ -453,7 +468,9 @@ class AsyncAliasResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAlias")
+        )
         input_: capo_payment_cryptography.types.update_alias_input.UpdateAliasInput = {
             "alias_name": alias_name
         }
@@ -505,7 +522,9 @@ class AsyncAliasResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAlias")
+        )
         input_: capo_payment_cryptography.types.delete_alias_input.DeleteAliasInput = {
             "alias_name": alias_name
         }
@@ -562,7 +581,9 @@ class AsyncAliasResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAliases")
+        )
         input_: capo_payment_cryptography.types.list_aliases_input.ListAliasesInput = {}
         if key_arn is not None:
             input_["key_arn"] = key_arn

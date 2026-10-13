@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#StartAsyncInvokeRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -78,4 +78,11 @@ def deserialize_json(data: dict) -> StartAsyncInvokeRequest:
         import capo_bedrock_runtime.types.tag_list
 
         out["tags"] = capo_bedrock_runtime.types.tag_list.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: StartAsyncInvokeRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "model_input" in value:
+        out["model_input"] = "*** Sensitive Data Redacted ***"
     return out

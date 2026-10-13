@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_iot_managed_integrations._auth._signers
 import capo_iot_managed_integrations._auth._sigv4
 from capo_iot_managed_integrations._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -67,7 +68,19 @@ class ManagedThingStateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_managed_thing_state_response.GetManagedThingStateResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_managed_thing_state_response
+
+            return capo_iot_managed_integrations.types.get_managed_thing_state_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetManagedThingState", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_managed_thing_state_request.GetManagedThingStateRequest = {
             "managed_thing_id": managed_thing_id
         }
@@ -122,7 +135,19 @@ class AsyncManagedThingStateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_managed_thing_state_response.GetManagedThingStateResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_managed_thing_state_response
+
+            return capo_iot_managed_integrations.types.get_managed_thing_state_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetManagedThingState", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_managed_thing_state_request.GetManagedThingStateRequest = {
             "managed_thing_id": managed_thing_id
         }

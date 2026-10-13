@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#DetailedGlossaryTerms``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_datazone.types.detailed_glossary_term
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> DetailedGlossaryTerms:
             continue
         out.append(capo_datazone.types.detailed_glossary_term.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: DetailedGlossaryTerms) -> list[Any]:
+    import capo_datazone.types.detailed_glossary_term
+
+    return [
+        capo_datazone.types.detailed_glossary_term.redact_sensitive(item)
+        for item in value
+    ]

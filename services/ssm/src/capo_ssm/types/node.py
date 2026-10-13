@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#Node``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -77,4 +77,13 @@ def deserialize_aws_json_1_1(data: dict) -> Node:
         out["node_type"] = capo_ssm.types.node_type.deserialize_aws_json_1_1(
             data["NodeType"]
         )
+    return out
+
+
+def redact_sensitive(value: Node) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "node_type" in value:
+        import capo_ssm.types.node_type
+
+        out["node_type"] = capo_ssm.types.node_type.redact_sensitive(value["node_type"])
     return out

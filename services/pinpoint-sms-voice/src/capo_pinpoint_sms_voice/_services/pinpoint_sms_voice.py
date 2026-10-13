@@ -19,10 +19,12 @@ from capo_pinpoint_sms_voice._auth._zapros_handler import AuthMiddleware
 from capo_pinpoint_sms_voice._services._aws_config import aws_config
 from capo_pinpoint_sms_voice._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -124,7 +126,9 @@ class PinpointSMSVoiceClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[PinpointSMSVoiceClientConfig] = None
+        self,
+        config_overrides: Optional[PinpointSMSVoiceClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: PinpointSMSVoiceClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -132,8 +136,10 @@ class PinpointSMSVoiceClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -188,7 +194,9 @@ class PinpointSMSVoiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfigurationSet")
+        )
         input_: capo_pinpoint_sms_voice.types.create_configuration_set_request.CreateConfigurationSetRequest = {}
         if configuration_set_name is not None:
             input_["configuration_set_name"] = configuration_set_name
@@ -243,7 +251,9 @@ class PinpointSMSVoiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfigurationSetEventDestination")
+        )
         input_: capo_pinpoint_sms_voice.types.create_configuration_set_event_destination_request.CreateConfigurationSetEventDestinationRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -293,7 +303,9 @@ class PinpointSMSVoiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfigurationSet")
+        )
         input_: capo_pinpoint_sms_voice.types.delete_configuration_set_request.DeleteConfigurationSetRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -341,7 +353,9 @@ class PinpointSMSVoiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfigurationSetEventDestination")
+        )
         input_: capo_pinpoint_sms_voice.types.delete_configuration_set_event_destination_request.DeleteConfigurationSetEventDestinationRequest = {
             "configuration_set_name": configuration_set_name,
             "event_destination_name": event_destination_name,
@@ -388,7 +402,9 @@ class PinpointSMSVoiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConfigurationSetEventDestinations")
+        )
         input_: capo_pinpoint_sms_voice.types.get_configuration_set_event_destinations_request.GetConfigurationSetEventDestinationsRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -435,7 +451,9 @@ class PinpointSMSVoiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfigurationSets")
+        )
         input_: capo_pinpoint_sms_voice.types.list_configuration_sets_request.ListConfigurationSetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -497,7 +515,9 @@ class PinpointSMSVoiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendVoiceMessage")
+        )
         input_: capo_pinpoint_sms_voice.types.send_voice_message_request.SendVoiceMessageRequest = {}
         if caller_id is not None:
             input_["caller_id"] = caller_id
@@ -556,7 +576,9 @@ class PinpointSMSVoiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConfigurationSetEventDestination")
+        )
         input_: capo_pinpoint_sms_voice.types.update_configuration_set_event_destination_request.UpdateConfigurationSetEventDestinationRequest = {
             "configuration_set_name": configuration_set_name,
             "event_destination_name": event_destination_name,

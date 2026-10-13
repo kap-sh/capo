@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glue#OAuth2Credentials``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -52,4 +52,19 @@ def deserialize_aws_json_1_1(data: dict) -> OAuth2Credentials:
         out["refresh_token"] = data["RefreshToken"]
     if data.get("JwtToken") is not None:
         out["jwt_token"] = data["JwtToken"]
+    return out
+
+
+def redact_sensitive(value: OAuth2Credentials) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_managed_client_application_client_secret" in value:
+        out["user_managed_client_application_client_secret"] = (
+            "*** Sensitive Data Redacted ***"
+        )
+    if "access_token" in value:
+        out["access_token"] = "*** Sensitive Data Redacted ***"
+    if "refresh_token" in value:
+        out["refresh_token"] = "*** Sensitive Data Redacted ***"
+    if "jwt_token" in value:
+        out["jwt_token"] = "*** Sensitive Data Redacted ***"
     return out

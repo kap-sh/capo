@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iam#virtualMFADeviceListType``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from capo_iam._protocol.xml import Element
 
@@ -55,3 +55,9 @@ def deserialize_query_flat(parent: Element, tag: str) -> virtualMFADeviceListTyp
     for child in parent.findall(tag):
         out.append(capo_iam.types.virtual_mfa_device.deserialize_query(child))
     return out
+
+
+def redact_sensitive(value: virtualMFADeviceListType) -> list[Any]:
+    import capo_iam.types.virtual_mfa_device
+
+    return [capo_iam.types.virtual_mfa_device.redact_sensitive(item) for item in value]

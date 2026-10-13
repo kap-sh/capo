@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.snowball#UpdateJobRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -163,5 +163,16 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateJobRequest:
             capo_snowball.types.pickup_details.deserialize_aws_json_1_1(
                 data["PickupDetails"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateJobRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "pickup_details" in value:
+        import capo_snowball.types.pickup_details
+
+        out["pickup_details"] = capo_snowball.types.pickup_details.redact_sensitive(
+            value["pickup_details"]
         )
     return out

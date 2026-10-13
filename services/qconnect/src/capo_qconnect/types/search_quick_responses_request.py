@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#SearchQuickResponsesRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -66,4 +66,11 @@ def deserialize_json(data: dict) -> SearchQuickResponsesRequest:
         out["attributes"] = capo_qconnect.types.contact_attributes.deserialize_json(
             data["attributes"]
         )
+    return out
+
+
+def redact_sensitive(value: SearchQuickResponsesRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "attributes" in value:
+        out["attributes"] = "*** Sensitive Data Redacted ***"
     return out

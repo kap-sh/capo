@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rekognition#GetFaceLivenessSessionResultsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -151,5 +151,22 @@ def deserialize_aws_json_1_1(data: dict) -> GetFaceLivenessSessionResultsRespons
             capo_rekognition.types.session_metadata.deserialize_aws_json_1_1(
                 data["Metadata"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: GetFaceLivenessSessionResultsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "reference_image" in value:
+        import capo_rekognition.types.audit_image
+
+        out["reference_image"] = capo_rekognition.types.audit_image.redact_sensitive(
+            value["reference_image"]
+        )
+    if "audit_images" in value:
+        import capo_rekognition.types.audit_images
+
+        out["audit_images"] = capo_rekognition.types.audit_images.redact_sensitive(
+            value["audit_images"]
         )
     return out

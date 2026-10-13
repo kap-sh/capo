@@ -22,10 +22,12 @@ from capo_devops_guru._pagination import resolve_path as _resolve_path
 from capo_devops_guru._services._aws_config import aws_config
 from capo_devops_guru._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -208,7 +210,9 @@ class DevOpsGuruClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[DevOpsGuruClientConfig] = None
+        self,
+        config_overrides: Optional[DevOpsGuruClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: DevOpsGuruClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -216,8 +220,10 @@ class DevOpsGuruClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -272,7 +278,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddNotificationChannel")
+        )
         input_: capo_devops_guru.types.add_notification_channel_request.AddNotificationChannelRequest = {
             "config": config
         }
@@ -320,7 +328,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInsight")
+        )
         input_: capo_devops_guru.types.delete_insight_request.DeleteInsightRequest = {
             "id": id
         }
@@ -360,7 +370,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountHealth")
+        )
         input_: capo_devops_guru.types.describe_account_health_request.DescribeAccountHealthRequest = {}
 
         response = execute_pipeline(
@@ -406,7 +418,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountOverview")
+        )
         input_: capo_devops_guru.types.describe_account_overview_request.DescribeAccountOverviewRequest = {
             "from_time": from_time
         }
@@ -459,7 +473,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAnomaly")
+        )
         input_: capo_devops_guru.types.describe_anomaly_request.DescribeAnomalyRequest = {
             "id": id
         }
@@ -501,7 +517,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEventSourcesConfig")
+        )
         input_: capo_devops_guru.types.describe_event_sources_config_request.DescribeEventSourcesConfigRequest = {}
 
         response = execute_pipeline(
@@ -546,7 +564,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFeedback")
+        )
         input_: capo_devops_guru.types.describe_feedback_request.DescribeFeedbackRequest = {}
         if insight_id is not None:
             input_["insight_id"] = insight_id
@@ -597,7 +617,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInsight")
+        )
         input_: capo_devops_guru.types.describe_insight_request.DescribeInsightRequest = {
             "id": id
         }
@@ -651,7 +673,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOrganizationHealth")
+        )
         input_: capo_devops_guru.types.describe_organization_health_request.DescribeOrganizationHealthRequest = {}
         if account_ids is not None:
             input_["account_ids"] = account_ids
@@ -709,7 +733,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOrganizationOverview")
+        )
         input_: capo_devops_guru.types.describe_organization_overview_request.DescribeOrganizationOverviewRequest = {
             "from_time": from_time
         }
@@ -777,7 +803,10 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeOrganizationResourceCollectionHealth"),
+        )
         input_: capo_devops_guru.types.describe_organization_resource_collection_health_request.DescribeOrganizationResourceCollectionHealthRequest = {
             "organization_resource_collection_type": organization_resource_collection_type
         }
@@ -868,7 +897,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeResourceCollectionHealth")
+        )
         input_: capo_devops_guru.types.describe_resource_collection_health_request.DescribeResourceCollectionHealthRequest = {
             "resource_collection_type": resource_collection_type
         }
@@ -932,7 +963,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeServiceIntegration")
+        )
         input_: capo_devops_guru.types.describe_service_integration_request.DescribeServiceIntegrationRequest = {}
 
         response = execute_pipeline(
@@ -981,7 +1014,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCostEstimation")
+        )
         input_: capo_devops_guru.types.get_cost_estimation_request.GetCostEstimationRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1051,7 +1086,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourceCollection")
+        )
         input_: capo_devops_guru.types.get_resource_collection_request.GetResourceCollectionRequest = {
             "resource_collection_type": resource_collection_type
         }
@@ -1141,7 +1178,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAnomaliesForInsight")
+        )
         input_: capo_devops_guru.types.list_anomalies_for_insight_request.ListAnomaliesForInsightRequest = {
             "insight_id": insight_id
         }
@@ -1243,7 +1282,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAnomalousLogGroups")
+        )
         input_: capo_devops_guru.types.list_anomalous_log_groups_request.ListAnomalousLogGroupsRequest = {
             "insight_id": insight_id
         }
@@ -1331,7 +1372,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEvents")
+        )
         input_: capo_devops_guru.types.list_events_request.ListEventsRequest = {
             "filters": filters
         }
@@ -1422,7 +1465,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInsights")
+        )
         input_: capo_devops_guru.types.list_insights_request.ListInsightsRequest = {
             "status_filter": status_filter
         }
@@ -1507,7 +1552,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMonitoredResources")
+        )
         input_: capo_devops_guru.types.list_monitored_resources_request.ListMonitoredResourcesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1586,7 +1633,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNotificationChannels")
+        )
         input_: capo_devops_guru.types.list_notification_channels_request.ListNotificationChannelsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1668,7 +1717,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOrganizationInsights")
+        )
         input_: capo_devops_guru.types.list_organization_insights_request.ListOrganizationInsightsRequest = {
             "status_filter": status_filter
         }
@@ -1766,7 +1817,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecommendations")
+        )
         input_: capo_devops_guru.types.list_recommendations_request.ListRecommendationsRequest = {
             "insight_id": insight_id
         }
@@ -1851,7 +1904,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutFeedback")
+        )
         input_: capo_devops_guru.types.put_feedback_request.PutFeedbackRequest = {}
         if insight_feedback is not None:
             input_["insight_feedback"] = insight_feedback
@@ -1899,7 +1954,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveNotificationChannel")
+        )
         input_: capo_devops_guru.types.remove_notification_channel_request.RemoveNotificationChannelRequest = {
             "id": id
         }
@@ -1959,7 +2016,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchInsights")
+        )
         input_: capo_devops_guru.types.search_insights_request.SearchInsightsRequest = {
             "start_time_range": start_time_range,
             "type": type,
@@ -2058,7 +2117,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchOrganizationInsights")
+        )
         input_: capo_devops_guru.types.search_organization_insights_request.SearchOrganizationInsightsRequest = {
             "account_ids": account_ids,
             "start_time_range": start_time_range,
@@ -2151,7 +2212,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCostEstimation")
+        )
         input_: capo_devops_guru.types.start_cost_estimation_request.StartCostEstimationRequest = {
             "resource_collection": resource_collection
         }
@@ -2202,7 +2265,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEventSourcesConfig")
+        )
         input_: capo_devops_guru.types.update_event_sources_config_request.UpdateEventSourcesConfigRequest = {}
         if event_sources is not None:
             input_["event_sources"] = event_sources
@@ -2250,7 +2315,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateResourceCollection")
+        )
         input_: capo_devops_guru.types.update_resource_collection_request.UpdateResourceCollectionRequest = {
             "action": action,
             "resource_collection": resource_collection,
@@ -2298,7 +2365,9 @@ class DevOpsGuruClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateServiceIntegration")
+        )
         input_: capo_devops_guru.types.update_service_integration_request.UpdateServiceIntegrationRequest = {
             "service_integration": service_integration
         }

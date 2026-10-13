@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.guardduty#NetworkInterface``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -115,4 +115,19 @@ def deserialize_json(data: dict) -> NetworkInterface:
         out["subnet_id"] = data["subnetId"]
     if data.get("vpcId") is not None:
         out["vpc_id"] = data["vpcId"]
+    return out
+
+
+def redact_sensitive(value: NetworkInterface) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "private_ip_address" in value:
+        out["private_ip_address"] = "*** Sensitive Data Redacted ***"
+    if "private_ip_addresses" in value:
+        import capo_guardduty.types.private_ip_addresses
+
+        out["private_ip_addresses"] = (
+            capo_guardduty.types.private_ip_addresses.redact_sensitive(
+                value["private_ip_addresses"]
+            )
+        )
     return out

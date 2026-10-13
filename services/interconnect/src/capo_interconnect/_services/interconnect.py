@@ -28,10 +28,12 @@ from capo_interconnect._resources.interconnect.environment_resource import (
 from capo_interconnect._services._aws_config import aws_config
 from capo_interconnect._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -155,7 +157,9 @@ class InterconnectClient:
         self.environment_resource = EnvironmentResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[InterconnectClientConfig] = None
+        self,
+        config_overrides: Optional[InterconnectClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: InterconnectClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -163,8 +167,10 @@ class InterconnectClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -231,7 +237,32 @@ class InterconnectClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_interconnect.types.accept_connection_proposal_request.AcceptConnectionProposalRequest",
+        ) -> dict[str, Any]:
+            import capo_interconnect.types.accept_connection_proposal_request
+
+            return capo_interconnect.types.accept_connection_proposal_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_interconnect.types.accept_connection_proposal_response.AcceptConnectionProposalResponse",
+        ) -> dict[str, Any]:
+            import capo_interconnect.types.accept_connection_proposal_response
+
+            return capo_interconnect.types.accept_connection_proposal_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AcceptConnectionProposal",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_interconnect.types.accept_connection_proposal_request.AcceptConnectionProposalRequest = {
             "attach_point": attach_point,
             "activation_key": activation_key,
@@ -293,7 +324,19 @@ class InterconnectClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_interconnect.types.describe_connection_proposal_request.DescribeConnectionProposalRequest",
+        ) -> dict[str, Any]:
+            import capo_interconnect.types.describe_connection_proposal_request
+
+            return capo_interconnect.types.describe_connection_proposal_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeConnectionProposal", redact_input=_redact_input),
+        )
         input_: capo_interconnect.types.describe_connection_proposal_request.DescribeConnectionProposalRequest = {
             "activation_key": activation_key
         }
@@ -351,7 +394,9 @@ class InterconnectClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAttachPoints")
+        )
         input_: capo_interconnect.types.list_attach_points_request.ListAttachPointsRequest = {
             "environment_id": environment_id
         }
@@ -432,7 +477,9 @@ class InterconnectClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_interconnect.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "arn": arn
         }
@@ -488,7 +535,9 @@ class InterconnectClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_interconnect.types.tag_resource_request.TagResourceRequest = {
             "arn": arn,
             "tags": tags,
@@ -545,7 +594,9 @@ class InterconnectClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_interconnect.types.untag_resource_request.UntagResourceRequest = {
             "arn": arn,
             "tag_keys": tag_keys,
@@ -616,7 +667,19 @@ class InterconnectClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_interconnect.types.create_connection_response.CreateConnectionResponse",
+        ) -> dict[str, Any]:
+            import capo_interconnect.types.create_connection_response
+
+            return capo_interconnect.types.create_connection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateConnection", redact_output=_redact_output),
+        )
         input_: capo_interconnect.types.create_connection_request.CreateConnectionRequest = {
             "bandwidth": bandwidth,
             "attach_point": attach_point,
@@ -681,7 +744,19 @@ class InterconnectClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_interconnect.types.get_connection_response.GetConnectionResponse",
+        ) -> dict[str, Any]:
+            import capo_interconnect.types.get_connection_response
+
+            return capo_interconnect.types.get_connection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetConnection", redact_output=_redact_output),
+        )
         input_: capo_interconnect.types.get_connection_request.GetConnectionRequest = {
             "identifier": identifier
         }
@@ -748,7 +823,19 @@ class InterconnectClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_interconnect.types.update_connection_response.UpdateConnectionResponse",
+        ) -> dict[str, Any]:
+            import capo_interconnect.types.update_connection_response
+
+            return capo_interconnect.types.update_connection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateConnection", redact_output=_redact_output),
+        )
         input_: capo_interconnect.types.update_connection_request.UpdateConnectionRequest = {
             "identifier": identifier
         }
@@ -811,7 +898,19 @@ class InterconnectClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_interconnect.types.delete_connection_response.DeleteConnectionResponse",
+        ) -> dict[str, Any]:
+            import capo_interconnect.types.delete_connection_response
+
+            return capo_interconnect.types.delete_connection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteConnection", redact_output=_redact_output),
+        )
         input_: capo_interconnect.types.delete_connection_request.DeleteConnectionRequest = {
             "identifier": identifier
         }
@@ -890,7 +989,9 @@ class InterconnectClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConnections")
+        )
         input_: capo_interconnect.types.list_connections_request.ListConnectionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -989,7 +1090,9 @@ class InterconnectClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEnvironment")
+        )
         input_: capo_interconnect.types.get_environment_request.GetEnvironmentRequest = {
             "id": id
         }
@@ -1049,7 +1152,9 @@ class InterconnectClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEnvironments")
+        )
         input_: capo_interconnect.types.list_environments_request.ListEnvironmentsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

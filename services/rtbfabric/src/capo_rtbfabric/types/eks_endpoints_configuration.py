@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rtbfabric#EksEndpointsConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -81,4 +81,13 @@ def deserialize_json(data: dict) -> EksEndpointsConfiguration:
         out["role_arn"] = data["roleArn"]
     else:
         raise DeserializationError("EksEndpointsConfiguration.role_arn required")
+    return out
+
+
+def redact_sensitive(value: EksEndpointsConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "cluster_api_server_ca_certificate_chain" in value:
+        out["cluster_api_server_ca_certificate_chain"] = (
+            "*** Sensitive Data Redacted ***"
+        )
     return out

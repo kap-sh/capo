@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#RequestSpotInstancesRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -189,4 +189,17 @@ def deserialize_ec2_query(el: Element) -> RequestSpotInstancesRequest:
     child_block_duration_minutes = el.find("blockDurationMinutes")
     if child_block_duration_minutes is not None:
         out["block_duration_minutes"] = int(child_block_duration_minutes.text or "")
+    return out
+
+
+def redact_sensitive(value: RequestSpotInstancesRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "launch_specification" in value:
+        import capo_ec2.types.request_spot_launch_specification
+
+        out["launch_specification"] = (
+            capo_ec2.types.request_spot_launch_specification.redact_sensitive(
+                value["launch_specification"]
+            )
+        )
     return out

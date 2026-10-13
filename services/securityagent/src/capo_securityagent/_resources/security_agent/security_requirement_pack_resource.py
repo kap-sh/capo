@@ -7,6 +7,7 @@ import capo_securityagent._auth._sigv4
 from capo_securityagent._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -92,7 +93,9 @@ class SecurityRequirementPackResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSecurityRequirementPack")
+        )
         input_: capo_securityagent.types.create_security_requirement_pack_input.CreateSecurityRequirementPackInput = {
             "name": name
         }
@@ -147,7 +150,9 @@ class SecurityRequirementPackResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSecurityRequirementPack")
+        )
         input_: capo_securityagent.types.get_security_requirement_pack_input.GetSecurityRequirementPackInput = {
             "pack_id": pack_id
         }
@@ -205,7 +210,9 @@ class SecurityRequirementPackResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSecurityRequirementPack")
+        )
         input_: capo_securityagent.types.update_security_requirement_pack_input.UpdateSecurityRequirementPackInput = {
             "pack_id": pack_id
         }
@@ -259,7 +266,9 @@ class SecurityRequirementPackResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSecurityRequirementPack")
+        )
         input_: capo_securityagent.types.delete_security_requirement_pack_input.DeleteSecurityRequirementPackInput = {
             "pack_id": pack_id
         }
@@ -311,7 +320,9 @@ class SecurityRequirementPackResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSecurityRequirementPacks")
+        )
         input_: capo_securityagent.types.list_security_requirement_packs_input.ListSecurityRequirementPacksInput = {}
         if filter is not None:
             input_["filter"] = filter
@@ -379,7 +390,9 @@ class AsyncSecurityRequirementPackResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSecurityRequirementPack")
+        )
         input_: capo_securityagent.types.create_security_requirement_pack_input.CreateSecurityRequirementPackInput = {
             "name": name
         }
@@ -435,7 +448,9 @@ class AsyncSecurityRequirementPackResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSecurityRequirementPack")
+        )
         input_: capo_securityagent.types.get_security_requirement_pack_input.GetSecurityRequirementPackInput = {
             "pack_id": pack_id
         }
@@ -494,7 +509,9 @@ class AsyncSecurityRequirementPackResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSecurityRequirementPack")
+        )
         input_: capo_securityagent.types.update_security_requirement_pack_input.UpdateSecurityRequirementPackInput = {
             "pack_id": pack_id
         }
@@ -549,7 +566,9 @@ class AsyncSecurityRequirementPackResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSecurityRequirementPack")
+        )
         input_: capo_securityagent.types.delete_security_requirement_pack_input.DeleteSecurityRequirementPackInput = {
             "pack_id": pack_id
         }
@@ -602,7 +621,9 @@ class AsyncSecurityRequirementPackResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSecurityRequirementPacks")
+        )
         input_: capo_securityagent.types.list_security_requirement_packs_input.ListSecurityRequirementPacksInput = {}
         if filter is not None:
             input_["filter"] = filter

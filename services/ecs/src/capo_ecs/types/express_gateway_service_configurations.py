@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ecs#ExpressGatewayServiceConfigurations``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_ecs.types.express_gateway_service_configuration
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_1(data: list) -> ExpressGatewayServiceConfigurations:
             )
         )
     return out
+
+
+def redact_sensitive(value: ExpressGatewayServiceConfigurations) -> list[Any]:
+    import capo_ecs.types.express_gateway_service_configuration
+
+    return [
+        capo_ecs.types.express_gateway_service_configuration.redact_sensitive(item)
+        for item in value
+    ]

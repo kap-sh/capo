@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agentcore_control._auth._signers
 import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -104,7 +105,19 @@ class CapacityProviderResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_capacity_provider_input.CreateCapacityProviderInput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_capacity_provider_input
+
+            return capo_bedrock_agentcore_control.types.create_capacity_provider_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateCapacityProvider", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.create_capacity_provider_input.CreateCapacityProviderInput = {
             "name": name,
             "permissions_configuration": permissions_configuration,
@@ -160,7 +173,19 @@ class CapacityProviderResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_capacity_provider_output.GetCapacityProviderOutput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_capacity_provider_output
+
+            return capo_bedrock_agentcore_control.types.get_capacity_provider_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetCapacityProvider", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_capacity_provider_input.GetCapacityProviderInput = {
             "capacity_provider_id": capacity_provider_id
         }
@@ -217,7 +242,19 @@ class CapacityProviderResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_capacity_provider_input.UpdateCapacityProviderInput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_capacity_provider_input
+
+            return capo_bedrock_agentcore_control.types.update_capacity_provider_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateCapacityProvider", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.update_capacity_provider_input.UpdateCapacityProviderInput = {
             "capacity_provider_id": capacity_provider_id
         }
@@ -275,7 +312,9 @@ class CapacityProviderResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCapacityProvider")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_capacity_provider_input.DeleteCapacityProviderInput = {
             "capacity_provider_id": capacity_provider_id
         }
@@ -330,7 +369,9 @@ class CapacityProviderResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCapacityProviders")
+        )
         input_: capo_bedrock_agentcore_control.types.list_capacity_providers_input.ListCapacityProvidersInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -386,7 +427,10 @@ class CapacityProviderResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListAgentRuntimeVersionsByCapacityProvider"),
+        )
         input_: capo_bedrock_agentcore_control.types.list_agent_runtime_versions_by_capacity_provider_input.ListAgentRuntimeVersionsByCapacityProviderInput = {
             "capacity_provider_id": capacity_provider_id
         }
@@ -460,7 +504,19 @@ class AsyncCapacityProviderResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_capacity_provider_input.CreateCapacityProviderInput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_capacity_provider_input
+
+            return capo_bedrock_agentcore_control.types.create_capacity_provider_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateCapacityProvider", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.create_capacity_provider_input.CreateCapacityProviderInput = {
             "name": name,
             "permissions_configuration": permissions_configuration,
@@ -517,7 +573,19 @@ class AsyncCapacityProviderResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_capacity_provider_output.GetCapacityProviderOutput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_capacity_provider_output
+
+            return capo_bedrock_agentcore_control.types.get_capacity_provider_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetCapacityProvider", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_capacity_provider_input.GetCapacityProviderInput = {
             "capacity_provider_id": capacity_provider_id
         }
@@ -575,7 +643,19 @@ class AsyncCapacityProviderResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_capacity_provider_input.UpdateCapacityProviderInput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_capacity_provider_input
+
+            return capo_bedrock_agentcore_control.types.update_capacity_provider_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateCapacityProvider", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.update_capacity_provider_input.UpdateCapacityProviderInput = {
             "capacity_provider_id": capacity_provider_id
         }
@@ -634,7 +714,9 @@ class AsyncCapacityProviderResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCapacityProvider")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_capacity_provider_input.DeleteCapacityProviderInput = {
             "capacity_provider_id": capacity_provider_id
         }
@@ -690,7 +772,9 @@ class AsyncCapacityProviderResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCapacityProviders")
+        )
         input_: capo_bedrock_agentcore_control.types.list_capacity_providers_input.ListCapacityProvidersInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -747,7 +831,10 @@ class AsyncCapacityProviderResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListAgentRuntimeVersionsByCapacityProvider"),
+        )
         input_: capo_bedrock_agentcore_control.types.list_agent_runtime_versions_by_capacity_provider_input.ListAgentRuntimeVersionsByCapacityProviderInput = {
             "capacity_provider_id": capacity_provider_id
         }

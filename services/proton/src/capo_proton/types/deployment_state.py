@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#DeploymentState``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -110,3 +110,36 @@ def deserialize_aws_json_1_0(data: dict) -> DeploymentState:
         }
     else:
         raise DeserializationError("DeploymentState: no recognized variant key")
+
+
+def redact_sensitive(value: DeploymentState) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "serviceInstance" in value:
+        import capo_proton.types.service_instance_state
+
+        out["serviceInstance"] = (
+            capo_proton.types.service_instance_state.redact_sensitive(
+                value["serviceInstance"]
+            )
+        )
+    if "environment" in value:
+        import capo_proton.types.environment_state
+
+        out["environment"] = capo_proton.types.environment_state.redact_sensitive(
+            value["environment"]
+        )
+    if "servicePipeline" in value:
+        import capo_proton.types.service_pipeline_state
+
+        out["servicePipeline"] = (
+            capo_proton.types.service_pipeline_state.redact_sensitive(
+                value["servicePipeline"]
+            )
+        )
+    if "component" in value:
+        import capo_proton.types.component_state
+
+        out["component"] = capo_proton.types.component_state.redact_sensitive(
+            value["component"]
+        )
+    return out

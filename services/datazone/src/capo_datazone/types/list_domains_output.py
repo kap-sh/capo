@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#ListDomainsOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,4 +41,15 @@ def deserialize_json(data: dict) -> ListDomainsOutput:
         raise DeserializationError("ListDomainsOutput.items required")
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListDomainsOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "items" in value:
+        import capo_datazone.types.domain_summaries
+
+        out["items"] = capo_datazone.types.domain_summaries.redact_sensitive(
+            value["items"]
+        )
     return out

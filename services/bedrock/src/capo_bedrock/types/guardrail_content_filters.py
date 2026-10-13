@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#GuardrailContentFilters``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock.types.guardrail_content_filter
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> GuardrailContentFilters:
             continue
         out.append(capo_bedrock.types.guardrail_content_filter.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: GuardrailContentFilters) -> list[Any]:
+    import capo_bedrock.types.guardrail_content_filter
+
+    return [
+        capo_bedrock.types.guardrail_content_filter.redact_sensitive(item)
+        for item in value
+    ]

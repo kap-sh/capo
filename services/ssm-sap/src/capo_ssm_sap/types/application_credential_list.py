@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssmsap#ApplicationCredentialList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_ssm_sap.types.application_credential
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> ApplicationCredentialList:
             continue
         out.append(capo_ssm_sap.types.application_credential.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ApplicationCredentialList) -> list[Any]:
+    import capo_ssm_sap.types.application_credential
+
+    return [
+        capo_ssm_sap.types.application_credential.redact_sensitive(item)
+        for item in value
+    ]

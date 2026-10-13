@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityagent#BatchGetThreatModelsOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -54,6 +54,19 @@ def deserialize_json(data: dict) -> BatchGetThreatModelsOutput:
         out["not_found"] = (
             capo_securityagent.types.threat_model_id_list.deserialize_json(
                 data["notFound"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: BatchGetThreatModelsOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "threat_models" in value:
+        import capo_securityagent.types.threat_model_list
+
+        out["threat_models"] = (
+            capo_securityagent.types.threat_model_list.redact_sensitive(
+                value["threat_models"]
             )
         )
     return out

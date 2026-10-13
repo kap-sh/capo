@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.databasemigrationservice#DescribeEndpointsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -44,6 +44,19 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEndpointsResponse:
         out["endpoints"] = (
             capo_database_migration_service.types.endpoint_list.deserialize_aws_json_1_1(
                 data["Endpoints"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeEndpointsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "endpoints" in value:
+        import capo_database_migration_service.types.endpoint_list
+
+        out["endpoints"] = (
+            capo_database_migration_service.types.endpoint_list.redact_sensitive(
+                value["endpoints"]
             )
         )
     return out

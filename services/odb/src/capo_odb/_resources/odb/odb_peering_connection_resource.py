@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_odb._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -93,7 +94,9 @@ class OdbPeeringConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateOdbPeeringConnection")
+        )
         input_: capo_odb.types.create_odb_peering_connection_input.CreateOdbPeeringConnectionInput = {
             "odb_network_id": odb_network_id,
             "peer_network_id": peer_network_id,
@@ -154,7 +157,9 @@ class OdbPeeringConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetOdbPeeringConnection")
+        )
         input_: capo_odb.types.get_odb_peering_connection_input.GetOdbPeeringConnectionInput = {
             "odb_peering_connection_id": odb_peering_connection_id
         }
@@ -214,7 +219,9 @@ class OdbPeeringConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateOdbPeeringConnection")
+        )
         input_: capo_odb.types.update_odb_peering_connection_input.UpdateOdbPeeringConnectionInput = {
             "odb_peering_connection_id": odb_peering_connection_id
         }
@@ -269,7 +276,9 @@ class OdbPeeringConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteOdbPeeringConnection")
+        )
         input_: capo_odb.types.delete_odb_peering_connection_input.DeleteOdbPeeringConnectionInput = {
             "odb_peering_connection_id": odb_peering_connection_id
         }
@@ -322,7 +331,9 @@ class OdbPeeringConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListOdbPeeringConnections")
+        )
         input_: capo_odb.types.list_odb_peering_connections_input.ListOdbPeeringConnectionsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -400,7 +411,9 @@ class AsyncOdbPeeringConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateOdbPeeringConnection")
+        )
         input_: capo_odb.types.create_odb_peering_connection_input.CreateOdbPeeringConnectionInput = {
             "odb_network_id": odb_network_id,
             "peer_network_id": peer_network_id,
@@ -462,7 +475,9 @@ class AsyncOdbPeeringConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetOdbPeeringConnection")
+        )
         input_: capo_odb.types.get_odb_peering_connection_input.GetOdbPeeringConnectionInput = {
             "odb_peering_connection_id": odb_peering_connection_id
         }
@@ -523,7 +538,9 @@ class AsyncOdbPeeringConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateOdbPeeringConnection")
+        )
         input_: capo_odb.types.update_odb_peering_connection_input.UpdateOdbPeeringConnectionInput = {
             "odb_peering_connection_id": odb_peering_connection_id
         }
@@ -579,7 +596,9 @@ class AsyncOdbPeeringConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteOdbPeeringConnection")
+        )
         input_: capo_odb.types.delete_odb_peering_connection_input.DeleteOdbPeeringConnectionInput = {
             "odb_peering_connection_id": odb_peering_connection_id
         }
@@ -633,7 +652,9 @@ class AsyncOdbPeeringConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListOdbPeeringConnections")
+        )
         input_: capo_odb.types.list_odb_peering_connections_input.ListOdbPeeringConnectionsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results

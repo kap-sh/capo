@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#BoxPlotChartConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -242,5 +242,32 @@ def deserialize_json(data: dict) -> BoxPlotChartConfiguration:
             capo_quicksight.types.visual_interaction_options.deserialize_json(
                 data["Interactions"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: BoxPlotChartConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "field_wells" in value:
+        import capo_quicksight.types.box_plot_field_wells
+
+        out["field_wells"] = (
+            capo_quicksight.types.box_plot_field_wells.redact_sensitive(
+                value["field_wells"]
+            )
+        )
+    if "reference_lines" in value:
+        import capo_quicksight.types.reference_line_list
+
+        out["reference_lines"] = (
+            capo_quicksight.types.reference_line_list.redact_sensitive(
+                value["reference_lines"]
+            )
+        )
+    if "visual_palette" in value:
+        import capo_quicksight.types.visual_palette
+
+        out["visual_palette"] = capo_quicksight.types.visual_palette.redact_sensitive(
+            value["visual_palette"]
         )
     return out

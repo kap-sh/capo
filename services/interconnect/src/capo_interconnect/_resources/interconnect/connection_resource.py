@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_interconnect._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -106,7 +107,19 @@ class ConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_interconnect.types.create_connection_response.CreateConnectionResponse",
+        ) -> dict[str, Any]:
+            import capo_interconnect.types.create_connection_response
+
+            return capo_interconnect.types.create_connection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateConnection", redact_output=_redact_output),
+        )
         input_: capo_interconnect.types.create_connection_request.CreateConnectionRequest = {
             "bandwidth": bandwidth,
             "attach_point": attach_point,
@@ -171,7 +184,19 @@ class ConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_interconnect.types.get_connection_response.GetConnectionResponse",
+        ) -> dict[str, Any]:
+            import capo_interconnect.types.get_connection_response
+
+            return capo_interconnect.types.get_connection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetConnection", redact_output=_redact_output),
+        )
         input_: capo_interconnect.types.get_connection_request.GetConnectionRequest = {
             "identifier": identifier
         }
@@ -238,7 +263,19 @@ class ConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_interconnect.types.update_connection_response.UpdateConnectionResponse",
+        ) -> dict[str, Any]:
+            import capo_interconnect.types.update_connection_response
+
+            return capo_interconnect.types.update_connection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateConnection", redact_output=_redact_output),
+        )
         input_: capo_interconnect.types.update_connection_request.UpdateConnectionRequest = {
             "identifier": identifier
         }
@@ -301,7 +338,19 @@ class ConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_interconnect.types.delete_connection_response.DeleteConnectionResponse",
+        ) -> dict[str, Any]:
+            import capo_interconnect.types.delete_connection_response
+
+            return capo_interconnect.types.delete_connection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteConnection", redact_output=_redact_output),
+        )
         input_: capo_interconnect.types.delete_connection_request.DeleteConnectionRequest = {
             "identifier": identifier
         }
@@ -380,7 +429,9 @@ class ConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConnections")
+        )
         input_: capo_interconnect.types.list_connections_request.ListConnectionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -466,7 +517,19 @@ class AsyncConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_interconnect.types.create_connection_response.CreateConnectionResponse",
+        ) -> dict[str, Any]:
+            import capo_interconnect.types.create_connection_response
+
+            return capo_interconnect.types.create_connection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateConnection", redact_output=_redact_output),
+        )
         input_: capo_interconnect.types.create_connection_request.CreateConnectionRequest = {
             "bandwidth": bandwidth,
             "attach_point": attach_point,
@@ -532,7 +595,19 @@ class AsyncConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_interconnect.types.get_connection_response.GetConnectionResponse",
+        ) -> dict[str, Any]:
+            import capo_interconnect.types.get_connection_response
+
+            return capo_interconnect.types.get_connection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetConnection", redact_output=_redact_output),
+        )
         input_: capo_interconnect.types.get_connection_request.GetConnectionRequest = {
             "identifier": identifier
         }
@@ -600,7 +675,19 @@ class AsyncConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_interconnect.types.update_connection_response.UpdateConnectionResponse",
+        ) -> dict[str, Any]:
+            import capo_interconnect.types.update_connection_response
+
+            return capo_interconnect.types.update_connection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateConnection", redact_output=_redact_output),
+        )
         input_: capo_interconnect.types.update_connection_request.UpdateConnectionRequest = {
             "identifier": identifier
         }
@@ -664,7 +751,19 @@ class AsyncConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_interconnect.types.delete_connection_response.DeleteConnectionResponse",
+        ) -> dict[str, Any]:
+            import capo_interconnect.types.delete_connection_response
+
+            return capo_interconnect.types.delete_connection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteConnection", redact_output=_redact_output),
+        )
         input_: capo_interconnect.types.delete_connection_request.DeleteConnectionRequest = {
             "identifier": identifier
         }
@@ -744,7 +843,9 @@ class AsyncConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConnections")
+        )
         input_: capo_interconnect.types.list_connections_request.ListConnectionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

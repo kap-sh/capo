@@ -21,10 +21,12 @@ from capo_synthetics._pagination import resolve_path as _resolve_path
 from capo_synthetics._services._aws_config import aws_config
 from capo_synthetics._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -182,7 +184,9 @@ class syntheticsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[syntheticsClientConfig] = None
+        self,
+        config_overrides: Optional[syntheticsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: syntheticsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -190,8 +194,10 @@ class syntheticsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -246,7 +252,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateResource")
+        )
         input_: capo_synthetics.types.associate_resource_request.AssociateResourceRequest = {
             "group_identifier": group_identifier,
             "resource_arn": resource_arn,
@@ -342,7 +350,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCanary")
+        )
         input_: capo_synthetics.types.create_canary_request.CreateCanaryRequest = {
             "name": name,
             "code": code,
@@ -421,7 +431,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGroup")
+        )
         input_: capo_synthetics.types.create_group_request.CreateGroupRequest = {
             "name": name
         }
@@ -471,7 +483,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCanary")
+        )
         input_: capo_synthetics.types.delete_canary_request.DeleteCanaryRequest = {
             "name": name
         }
@@ -519,7 +533,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGroup")
+        )
         input_: capo_synthetics.types.delete_group_request.DeleteGroupRequest = {
             "group_identifier": group_identifier
         }
@@ -571,7 +587,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCanaries")
+        )
         input_: capo_synthetics.types.describe_canaries_request.DescribeCanariesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -652,7 +670,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCanariesLastRun")
+        )
         input_: capo_synthetics.types.describe_canaries_last_run_request.DescribeCanariesLastRunRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -729,7 +749,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRuntimeVersions")
+        )
         input_: capo_synthetics.types.describe_runtime_versions_request.DescribeRuntimeVersionsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -798,7 +820,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateResource")
+        )
         input_: capo_synthetics.types.disassociate_resource_request.DisassociateResourceRequest = {
             "group_identifier": group_identifier,
             "resource_arn": resource_arn,
@@ -845,7 +869,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCanary")
+        )
         input_: capo_synthetics.types.get_canary_request.GetCanaryRequest = {
             "name": name
         }
@@ -900,7 +926,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCanaryRuns")
+        )
         input_: capo_synthetics.types.get_canary_runs_request.GetCanaryRunsRequest = {
             "name": name
         }
@@ -981,7 +1009,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGroup")
+        )
         input_: capo_synthetics.types.get_group_request.GetGroupRequest = {
             "group_identifier": group_identifier
         }
@@ -1034,7 +1064,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssociatedGroups")
+        )
         input_: capo_synthetics.types.list_associated_groups_request.ListAssociatedGroupsRequest = {
             "resource_arn": resource_arn
         }
@@ -1119,7 +1151,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroupResources")
+        )
         input_: capo_synthetics.types.list_group_resources_request.ListGroupResourcesRequest = {
             "group_identifier": group_identifier
         }
@@ -1198,7 +1232,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroups")
+        )
         input_: capo_synthetics.types.list_groups_request.ListGroupsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1270,7 +1306,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_synthetics.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1316,7 +1354,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCanary")
+        )
         input_: capo_synthetics.types.start_canary_request.StartCanaryRequest = {
             "name": name
         }
@@ -1406,7 +1446,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCanaryDryRun")
+        )
         input_: capo_synthetics.types.start_canary_dry_run_request.StartCanaryDryRunRequest = {
             "name": name
         }
@@ -1482,7 +1524,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopCanary")
+        )
         input_: capo_synthetics.types.stop_canary_request.StopCanaryRequest = {
             "name": name
         }
@@ -1531,7 +1575,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_synthetics.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1581,7 +1627,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_synthetics.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1692,7 +1740,9 @@ class syntheticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCanary")
+        )
         input_: capo_synthetics.types.update_canary_request.UpdateCanaryRequest = {
             "name": name
         }

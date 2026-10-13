@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#S3Destination``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -25,4 +25,11 @@ def deserialize_json(data: dict) -> S3Destination:
     out: S3Destination = {}  # type: ignore[typeddict-item]
     if data.get("uri") is not None:
         out["uri"] = data["uri"]
+    return out
+
+
+def redact_sensitive(value: S3Destination) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "uri" in value:
+        out["uri"] = "*** Sensitive Data Redacted ***"
     return out

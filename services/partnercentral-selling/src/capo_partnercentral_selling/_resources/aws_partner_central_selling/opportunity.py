@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_partnercentral_selling._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -148,7 +149,19 @@ class Opportunity:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.create_opportunity_request.CreateOpportunityRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.create_opportunity_request
+
+            return capo_partnercentral_selling.types.create_opportunity_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateOpportunity", redact_input=_redact_input),
+        )
         input_: capo_partnercentral_selling.types.create_opportunity_request.CreateOpportunityRequest = {
             "catalog": catalog,
             "client_token": client_token,
@@ -222,7 +235,19 @@ class Opportunity:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.get_opportunity_response.GetOpportunityResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.get_opportunity_response
+
+            return capo_partnercentral_selling.types.get_opportunity_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetOpportunity", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_selling.types.get_opportunity_request.GetOpportunityRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -307,7 +332,19 @@ class Opportunity:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.update_opportunity_request.UpdateOpportunityRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.update_opportunity_request
+
+            return capo_partnercentral_selling.types.update_opportunity_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateOpportunity", redact_input=_redact_input),
+        )
         input_: capo_partnercentral_selling.types.update_opportunity_request.UpdateOpportunityRequest = {
             "catalog": catalog,
             "last_modified_date": last_modified_date,
@@ -412,7 +449,19 @@ class Opportunity:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.list_opportunities_response.ListOpportunitiesResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_opportunities_response
+
+            return capo_partnercentral_selling.types.list_opportunities_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListOpportunities", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_selling.types.list_opportunities_request.ListOpportunitiesRequest = {
             "catalog": catalog
         }
@@ -481,7 +530,19 @@ class Opportunity:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.assign_opportunity_request.AssignOpportunityRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.assign_opportunity_request
+
+            return capo_partnercentral_selling.types.assign_opportunity_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("AssignOpportunity", redact_input=_redact_input),
+        )
         input_: capo_partnercentral_selling.types.assign_opportunity_request.AssignOpportunityRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -534,7 +595,9 @@ class Opportunity:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateOpportunity")
+        )
         input_: capo_partnercentral_selling.types.associate_opportunity_request.AssociateOpportunityRequest = {
             "catalog": catalog,
             "opportunity_identifier": opportunity_identifier,
@@ -588,7 +651,9 @@ class Opportunity:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateOpportunity")
+        )
         input_: capo_partnercentral_selling.types.disassociate_opportunity_request.DisassociateOpportunityRequest = {
             "catalog": catalog,
             "opportunity_identifier": opportunity_identifier,
@@ -640,7 +705,19 @@ class Opportunity:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.get_aws_opportunity_summary_response.GetAwsOpportunitySummaryResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.get_aws_opportunity_summary_response
+
+            return capo_partnercentral_selling.types.get_aws_opportunity_summary_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAwsOpportunitySummary", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_selling.types.get_aws_opportunity_summary_request.GetAwsOpportunitySummaryRequest = {
             "catalog": catalog,
             "related_opportunity_identifier": related_opportunity_identifier,
@@ -694,7 +771,9 @@ class Opportunity:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SubmitOpportunity")
+        )
         input_: capo_partnercentral_selling.types.submit_opportunity_request.SubmitOpportunityRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -796,7 +875,19 @@ class AsyncOpportunity:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.create_opportunity_request.CreateOpportunityRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.create_opportunity_request
+
+            return capo_partnercentral_selling.types.create_opportunity_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateOpportunity", redact_input=_redact_input),
+        )
         input_: capo_partnercentral_selling.types.create_opportunity_request.CreateOpportunityRequest = {
             "catalog": catalog,
             "client_token": client_token,
@@ -871,7 +962,19 @@ class AsyncOpportunity:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.get_opportunity_response.GetOpportunityResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.get_opportunity_response
+
+            return capo_partnercentral_selling.types.get_opportunity_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetOpportunity", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_selling.types.get_opportunity_request.GetOpportunityRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -957,7 +1060,19 @@ class AsyncOpportunity:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.update_opportunity_request.UpdateOpportunityRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.update_opportunity_request
+
+            return capo_partnercentral_selling.types.update_opportunity_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateOpportunity", redact_input=_redact_input),
+        )
         input_: capo_partnercentral_selling.types.update_opportunity_request.UpdateOpportunityRequest = {
             "catalog": catalog,
             "last_modified_date": last_modified_date,
@@ -1063,7 +1178,19 @@ class AsyncOpportunity:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.list_opportunities_response.ListOpportunitiesResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_opportunities_response
+
+            return capo_partnercentral_selling.types.list_opportunities_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListOpportunities", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_selling.types.list_opportunities_request.ListOpportunitiesRequest = {
             "catalog": catalog
         }
@@ -1133,7 +1260,19 @@ class AsyncOpportunity:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.assign_opportunity_request.AssignOpportunityRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.assign_opportunity_request
+
+            return capo_partnercentral_selling.types.assign_opportunity_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("AssignOpportunity", redact_input=_redact_input),
+        )
         input_: capo_partnercentral_selling.types.assign_opportunity_request.AssignOpportunityRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1187,7 +1326,9 @@ class AsyncOpportunity:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateOpportunity")
+        )
         input_: capo_partnercentral_selling.types.associate_opportunity_request.AssociateOpportunityRequest = {
             "catalog": catalog,
             "opportunity_identifier": opportunity_identifier,
@@ -1242,7 +1383,9 @@ class AsyncOpportunity:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateOpportunity")
+        )
         input_: capo_partnercentral_selling.types.disassociate_opportunity_request.DisassociateOpportunityRequest = {
             "catalog": catalog,
             "opportunity_identifier": opportunity_identifier,
@@ -1295,7 +1438,19 @@ class AsyncOpportunity:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.get_aws_opportunity_summary_response.GetAwsOpportunitySummaryResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.get_aws_opportunity_summary_response
+
+            return capo_partnercentral_selling.types.get_aws_opportunity_summary_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAwsOpportunitySummary", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_selling.types.get_aws_opportunity_summary_request.GetAwsOpportunitySummaryRequest = {
             "catalog": catalog,
             "related_opportunity_identifier": related_opportunity_identifier,
@@ -1350,7 +1505,9 @@ class AsyncOpportunity:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SubmitOpportunity")
+        )
         input_: capo_partnercentral_selling.types.submit_opportunity_request.SubmitOpportunityRequest = {
             "catalog": catalog,
             "identifier": identifier,

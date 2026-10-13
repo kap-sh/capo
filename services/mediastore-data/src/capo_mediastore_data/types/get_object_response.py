@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mediastoredata#GetObjectResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -38,3 +38,10 @@ class GetObjectResponse(TypedDict, closed=True):
     """<p>The date and time that the object was last modified.</p>"""
     status_code: "capo_mediastore_data.types.status_code.statusCode"
     """<p>The HTML status code of the request. Status codes ranging from 200 to 299 indicate success. All other status codes indicate the type of error that occurred.</p>"""
+
+
+def redact_sensitive(value: GetObjectResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "body" in value:
+        out["body"] = "*** Streaming Data Redacted ***"
+    return out

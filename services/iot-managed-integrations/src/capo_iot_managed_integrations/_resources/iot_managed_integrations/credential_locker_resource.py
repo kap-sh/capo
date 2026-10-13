@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_iot_managed_integrations._auth._signers
 import capo_iot_managed_integrations._auth._sigv4
 from capo_iot_managed_integrations._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -87,7 +88,19 @@ class CredentialLockerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.create_credential_locker_request.CreateCredentialLockerRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_credential_locker_request
+
+            return capo_iot_managed_integrations.types.create_credential_locker_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateCredentialLocker", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.create_credential_locker_request.CreateCredentialLockerRequest = {}
         if name is not None:
             input_["name"] = name
@@ -140,7 +153,19 @@ class CredentialLockerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_credential_locker_response.GetCredentialLockerResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_credential_locker_response
+
+            return capo_iot_managed_integrations.types.get_credential_locker_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetCredentialLocker", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_credential_locker_request.GetCredentialLockerRequest = {
             "identifier": identifier
         }
@@ -186,7 +211,9 @@ class CredentialLockerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCredentialLocker")
+        )
         input_: capo_iot_managed_integrations.types.delete_credential_locker_request.DeleteCredentialLockerRequest = {
             "identifier": identifier
         }
@@ -239,7 +266,19 @@ class CredentialLockerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.list_credential_lockers_response.ListCredentialLockersResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.list_credential_lockers_response
+
+            return capo_iot_managed_integrations.types.list_credential_lockers_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListCredentialLockers", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.list_credential_lockers_request.ListCredentialLockersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -304,7 +343,19 @@ class AsyncCredentialLockerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.create_credential_locker_request.CreateCredentialLockerRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_credential_locker_request
+
+            return capo_iot_managed_integrations.types.create_credential_locker_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateCredentialLocker", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.create_credential_locker_request.CreateCredentialLockerRequest = {}
         if name is not None:
             input_["name"] = name
@@ -358,7 +409,19 @@ class AsyncCredentialLockerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_credential_locker_response.GetCredentialLockerResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_credential_locker_response
+
+            return capo_iot_managed_integrations.types.get_credential_locker_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetCredentialLocker", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_credential_locker_request.GetCredentialLockerRequest = {
             "identifier": identifier
         }
@@ -405,7 +468,9 @@ class AsyncCredentialLockerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCredentialLocker")
+        )
         input_: capo_iot_managed_integrations.types.delete_credential_locker_request.DeleteCredentialLockerRequest = {
             "identifier": identifier
         }
@@ -459,7 +524,19 @@ class AsyncCredentialLockerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.list_credential_lockers_response.ListCredentialLockersResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.list_credential_lockers_response
+
+            return capo_iot_managed_integrations.types.list_credential_lockers_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListCredentialLockers", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.list_credential_lockers_request.ListCredentialLockersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

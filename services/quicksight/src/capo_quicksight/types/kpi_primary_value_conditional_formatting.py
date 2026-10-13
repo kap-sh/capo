@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#KPIPrimaryValueConditionalFormatting``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,6 +56,27 @@ def deserialize_json(data: dict) -> KPIPrimaryValueConditionalFormatting:
         out["icon"] = (
             capo_quicksight.types.conditional_formatting_icon.deserialize_json(
                 data["Icon"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: KPIPrimaryValueConditionalFormatting) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text_color" in value:
+        import capo_quicksight.types.conditional_formatting_color
+
+        out["text_color"] = (
+            capo_quicksight.types.conditional_formatting_color.redact_sensitive(
+                value["text_color"]
+            )
+        )
+    if "icon" in value:
+        import capo_quicksight.types.conditional_formatting_icon
+
+        out["icon"] = (
+            capo_quicksight.types.conditional_formatting_icon.redact_sensitive(
+                value["icon"]
             )
         )
     return out

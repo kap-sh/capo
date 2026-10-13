@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DimensionField``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,6 +79,35 @@ def deserialize_json(data: dict) -> DimensionField:
         out["date_dimension_field"] = (
             capo_quicksight.types.date_dimension_field.deserialize_json(
                 data["DateDimensionField"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DimensionField) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "numerical_dimension_field" in value:
+        import capo_quicksight.types.numerical_dimension_field
+
+        out["numerical_dimension_field"] = (
+            capo_quicksight.types.numerical_dimension_field.redact_sensitive(
+                value["numerical_dimension_field"]
+            )
+        )
+    if "categorical_dimension_field" in value:
+        import capo_quicksight.types.categorical_dimension_field
+
+        out["categorical_dimension_field"] = (
+            capo_quicksight.types.categorical_dimension_field.redact_sensitive(
+                value["categorical_dimension_field"]
+            )
+        )
+    if "date_dimension_field" in value:
+        import capo_quicksight.types.date_dimension_field
+
+        out["date_dimension_field"] = (
+            capo_quicksight.types.date_dimension_field.redact_sensitive(
+                value["date_dimension_field"]
             )
         )
     return out

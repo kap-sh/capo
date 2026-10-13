@@ -7,6 +7,7 @@ import capo_omics._auth._sigv4
 from capo_omics._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -87,7 +88,9 @@ class VariantStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateVariantStore")
+        )
         input_: capo_omics.types.create_variant_store_request.CreateVariantStoreRequest = {
             "reference": reference
         }
@@ -139,7 +142,9 @@ class VariantStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetVariantStore")
+        )
         input_: capo_omics.types.get_variant_store_request.GetVariantStoreRequest = {
             "name": name
         }
@@ -188,7 +193,9 @@ class VariantStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateVariantStore")
+        )
         input_: capo_omics.types.update_variant_store_request.UpdateVariantStoreRequest = {
             "name": name
         }
@@ -240,7 +247,9 @@ class VariantStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteVariantStore")
+        )
         input_: capo_omics.types.delete_variant_store_request.DeleteVariantStoreRequest = {
             "name": name
         }
@@ -297,7 +306,9 @@ class VariantStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListVariantStores")
+        )
         input_: capo_omics.types.list_variant_stores_request.ListVariantStoresRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -366,7 +377,9 @@ class AsyncVariantStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateVariantStore")
+        )
         input_: capo_omics.types.create_variant_store_request.CreateVariantStoreRequest = {
             "reference": reference
         }
@@ -419,7 +432,9 @@ class AsyncVariantStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetVariantStore")
+        )
         input_: capo_omics.types.get_variant_store_request.GetVariantStoreRequest = {
             "name": name
         }
@@ -469,7 +484,9 @@ class AsyncVariantStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateVariantStore")
+        )
         input_: capo_omics.types.update_variant_store_request.UpdateVariantStoreRequest = {
             "name": name
         }
@@ -522,7 +539,9 @@ class AsyncVariantStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteVariantStore")
+        )
         input_: capo_omics.types.delete_variant_store_request.DeleteVariantStoreRequest = {
             "name": name
         }
@@ -580,7 +599,9 @@ class AsyncVariantStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListVariantStores")
+        )
         input_: capo_omics.types.list_variant_stores_request.ListVariantStoresRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

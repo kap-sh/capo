@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_cleanroomsml._auth._signers
 import capo_cleanroomsml._auth._sigv4
 from capo_cleanroomsml._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -94,7 +95,19 @@ class AudienceGenerationJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cleanroomsml.types.start_audience_generation_job_request.StartAudienceGenerationJobRequest",
+        ) -> dict[str, Any]:
+            import capo_cleanroomsml.types.start_audience_generation_job_request
+
+            return capo_cleanroomsml.types.start_audience_generation_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartAudienceGenerationJob", redact_input=_redact_input),
+        )
         input_: capo_cleanroomsml.types.start_audience_generation_job_request.StartAudienceGenerationJobRequest = {
             "name": name,
             "configured_audience_model_arn": configured_audience_model_arn,
@@ -150,7 +163,19 @@ class AudienceGenerationJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanroomsml.types.get_audience_generation_job_response.GetAudienceGenerationJobResponse",
+        ) -> dict[str, Any]:
+            import capo_cleanroomsml.types.get_audience_generation_job_response
+
+            return capo_cleanroomsml.types.get_audience_generation_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAudienceGenerationJob", redact_output=_redact_output),
+        )
         input_: capo_cleanroomsml.types.get_audience_generation_job_request.GetAudienceGenerationJobRequest = {
             "audience_generation_job_arn": audience_generation_job_arn
         }
@@ -195,7 +220,9 @@ class AudienceGenerationJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAudienceGenerationJob")
+        )
         input_: capo_cleanroomsml.types.delete_audience_generation_job_request.DeleteAudienceGenerationJobRequest = {
             "audience_generation_job_arn": audience_generation_job_arn
         }
@@ -248,7 +275,9 @@ class AudienceGenerationJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAudienceGenerationJobs")
+        )
         input_: capo_cleanroomsml.types.list_audience_generation_jobs_request.ListAudienceGenerationJobsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -322,7 +351,19 @@ class AsyncAudienceGenerationJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cleanroomsml.types.start_audience_generation_job_request.StartAudienceGenerationJobRequest",
+        ) -> dict[str, Any]:
+            import capo_cleanroomsml.types.start_audience_generation_job_request
+
+            return capo_cleanroomsml.types.start_audience_generation_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartAudienceGenerationJob", redact_input=_redact_input),
+        )
         input_: capo_cleanroomsml.types.start_audience_generation_job_request.StartAudienceGenerationJobRequest = {
             "name": name,
             "configured_audience_model_arn": configured_audience_model_arn,
@@ -379,7 +420,19 @@ class AsyncAudienceGenerationJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanroomsml.types.get_audience_generation_job_response.GetAudienceGenerationJobResponse",
+        ) -> dict[str, Any]:
+            import capo_cleanroomsml.types.get_audience_generation_job_response
+
+            return capo_cleanroomsml.types.get_audience_generation_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAudienceGenerationJob", redact_output=_redact_output),
+        )
         input_: capo_cleanroomsml.types.get_audience_generation_job_request.GetAudienceGenerationJobRequest = {
             "audience_generation_job_arn": audience_generation_job_arn
         }
@@ -425,7 +478,9 @@ class AsyncAudienceGenerationJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAudienceGenerationJob")
+        )
         input_: capo_cleanroomsml.types.delete_audience_generation_job_request.DeleteAudienceGenerationJobRequest = {
             "audience_generation_job_arn": audience_generation_job_arn
         }
@@ -479,7 +534,9 @@ class AsyncAudienceGenerationJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAudienceGenerationJobs")
+        )
         input_: capo_cleanroomsml.types.list_audience_generation_jobs_request.ListAudienceGenerationJobsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

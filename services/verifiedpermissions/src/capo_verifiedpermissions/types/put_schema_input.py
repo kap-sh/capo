@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#PutSchemaInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -48,4 +48,17 @@ def deserialize_aws_json_1_0(data: dict) -> PutSchemaInput:
         )
     else:
         raise DeserializationError("PutSchemaInput.definition required")
+    return out
+
+
+def redact_sensitive(value: PutSchemaInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "definition" in value:
+        import capo_verifiedpermissions.types.schema_definition
+
+        out["definition"] = (
+            capo_verifiedpermissions.types.schema_definition.redact_sensitive(
+                value["definition"]
+            )
+        )
     return out

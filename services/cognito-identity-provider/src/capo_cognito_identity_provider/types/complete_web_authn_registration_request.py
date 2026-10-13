@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#CompleteWebAuthnRegistrationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -40,4 +40,11 @@ def deserialize_aws_json_1_1(data: dict) -> CompleteWebAuthnRegistrationRequest:
         raise DeserializationError(
             "CompleteWebAuthnRegistrationRequest.credential required"
         )
+    return out
+
+
+def redact_sensitive(value: CompleteWebAuthnRegistrationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "access_token" in value:
+        out["access_token"] = "*** Sensitive Data Redacted ***"
     return out

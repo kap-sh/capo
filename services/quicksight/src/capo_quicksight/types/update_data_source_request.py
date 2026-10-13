@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#UpdateDataSourceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -112,4 +112,11 @@ def deserialize_json(data: dict) -> UpdateDataSourceRequest:
         out["ssl_properties"] = capo_quicksight.types.ssl_properties.deserialize_json(
             data["SslProperties"]
         )
+    return out
+
+
+def redact_sensitive(value: UpdateDataSourceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "credentials" in value:
+        out["credentials"] = "*** Sensitive Data Redacted ***"
     return out

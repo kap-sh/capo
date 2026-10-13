@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#GetProvisioningProfileResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -111,4 +111,13 @@ def deserialize_json(data: dict) -> GetProvisioningProfileResponse:
         out["tags"] = capo_iot_managed_integrations.types.tags_map.deserialize_json(
             data["Tags"]
         )
+    return out
+
+
+def redact_sensitive(value: GetProvisioningProfileResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "claim_certificate" in value:
+        out["claim_certificate"] = "*** Sensitive Data Redacted ***"
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
     return out

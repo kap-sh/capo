@@ -65,7 +65,9 @@ from capo_mediaconnect._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -402,7 +404,9 @@ class AsyncMediaConnectClient:
         self.router_output_resource = AsyncRouterOutputResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncMediaConnectClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncMediaConnectClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncMediaConnectClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -410,8 +414,10 @@ class AsyncMediaConnectClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -466,7 +472,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEntitlements")
+        )
         input_: capo_mediaconnect.types.list_entitlements_request.ListEntitlementsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -535,7 +543,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForGlobalResource")
+        )
         input_: capo_mediaconnect.types.list_tags_for_global_resource_request.ListTagsForGlobalResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -581,7 +591,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_mediaconnect.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -627,7 +639,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagGlobalResource")
+        )
         input_: capo_mediaconnect.types.tag_global_resource_request.TagGlobalResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -675,7 +689,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_mediaconnect.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -725,7 +741,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagGlobalResource")
+        )
         input_: capo_mediaconnect.types.untag_global_resource_request.UntagGlobalResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -775,7 +793,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_mediaconnect.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -849,7 +869,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBridge")
+        )
         input_: capo_mediaconnect.types.create_bridge_request.CreateBridgeRequest = {}
         if egress_gateway_bridge is not None:
             input_["egress_gateway_bridge"] = egress_gateway_bridge
@@ -911,7 +933,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBridge")
+        )
         input_: capo_mediaconnect.types.describe_bridge_request.DescribeBridgeRequest = {
             "bridge_arn": bridge_arn
         }
@@ -973,7 +997,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBridge")
+        )
         input_: capo_mediaconnect.types.update_bridge_request.UpdateBridgeRequest = {
             "bridge_arn": bridge_arn
         }
@@ -1029,7 +1055,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBridge")
+        )
         input_: capo_mediaconnect.types.delete_bridge_request.DeleteBridgeRequest = {
             "bridge_arn": bridge_arn
         }
@@ -1081,7 +1109,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBridges")
+        )
         input_: capo_mediaconnect.types.list_bridges_request.ListBridgesRequest = {}
         if filter_arn is not None:
             input_["filter_arn"] = filter_arn
@@ -1162,7 +1192,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddBridgeOutputs")
+        )
         input_: capo_mediaconnect.types.add_bridge_outputs_request.AddBridgeOutputsRequest = {
             "bridge_arn": bridge_arn
         }
@@ -1218,7 +1250,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddBridgeSources")
+        )
         input_: capo_mediaconnect.types.add_bridge_sources_request.AddBridgeSourcesRequest = {
             "bridge_arn": bridge_arn
         }
@@ -1272,7 +1306,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveBridgeOutput")
+        )
         input_: capo_mediaconnect.types.remove_bridge_output_request.RemoveBridgeOutputRequest = {
             "bridge_arn": bridge_arn,
             "output_name": output_name,
@@ -1325,7 +1361,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveBridgeSource")
+        )
         input_: capo_mediaconnect.types.remove_bridge_source_request.RemoveBridgeSourceRequest = {
             "bridge_arn": bridge_arn,
             "source_name": source_name,
@@ -1382,7 +1420,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBridgeOutput")
+        )
         input_: capo_mediaconnect.types.update_bridge_output_request.UpdateBridgeOutputRequest = {
             "bridge_arn": bridge_arn,
             "output_name": output_name,
@@ -1445,7 +1485,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBridgeSource")
+        )
         input_: capo_mediaconnect.types.update_bridge_source_request.UpdateBridgeSourceRequest = {
             "bridge_arn": bridge_arn,
             "source_name": source_name,
@@ -1506,7 +1548,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBridgeState")
+        )
         input_: capo_mediaconnect.types.update_bridge_state_request.UpdateBridgeStateRequest = {
             "bridge_arn": bridge_arn
         }
@@ -1606,7 +1650,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFlow")
+        )
         input_: capo_mediaconnect.types.create_flow_request.CreateFlowRequest = {}
         if availability_zone is not None:
             input_["availability_zone"] = availability_zone
@@ -1683,7 +1729,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFlow")
+        )
         input_: capo_mediaconnect.types.describe_flow_request.DescribeFlowRequest = {
             "flow_arn": flow_arn
         }
@@ -1751,7 +1799,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFlow")
+        )
         input_: capo_mediaconnect.types.update_flow_request.UpdateFlowRequest = {
             "flow_arn": flow_arn
         }
@@ -1812,7 +1862,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFlow")
+        )
         input_: capo_mediaconnect.types.delete_flow_request.DeleteFlowRequest = {
             "flow_arn": flow_arn
         }
@@ -1861,7 +1913,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFlows")
+        )
         input_: capo_mediaconnect.types.list_flows_request.ListFlowsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1937,7 +1991,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddFlowMediaStreams")
+        )
         input_: capo_mediaconnect.types.add_flow_media_streams_request.AddFlowMediaStreamsRequest = {
             "flow_arn": flow_arn
         }
@@ -1993,7 +2049,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddFlowOutputs")
+        )
         input_: capo_mediaconnect.types.add_flow_outputs_request.AddFlowOutputsRequest = {
             "flow_arn": flow_arn
         }
@@ -2048,7 +2106,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddFlowSources")
+        )
         input_: capo_mediaconnect.types.add_flow_sources_request.AddFlowSourcesRequest = {
             "flow_arn": flow_arn
         }
@@ -2103,7 +2163,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddFlowVpcInterfaces")
+        )
         input_: capo_mediaconnect.types.add_flow_vpc_interfaces_request.AddFlowVpcInterfacesRequest = {
             "flow_arn": flow_arn
         }
@@ -2154,7 +2216,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFlowSourceMetadata")
+        )
         input_: capo_mediaconnect.types.describe_flow_source_metadata_request.DescribeFlowSourceMetadataRequest = {
             "flow_arn": flow_arn
         }
@@ -2203,7 +2267,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFlowSourceThumbnail")
+        )
         input_: capo_mediaconnect.types.describe_flow_source_thumbnail_request.DescribeFlowSourceThumbnailRequest = {
             "flow_arn": flow_arn
         }
@@ -2257,7 +2323,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GrantFlowEntitlements")
+        )
         input_: capo_mediaconnect.types.grant_flow_entitlements_request.GrantFlowEntitlementsRequest = {
             "flow_arn": flow_arn
         }
@@ -2310,7 +2378,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveFlowMediaStream")
+        )
         input_: capo_mediaconnect.types.remove_flow_media_stream_request.RemoveFlowMediaStreamRequest = {
             "flow_arn": flow_arn,
             "media_stream_name": media_stream_name,
@@ -2362,7 +2432,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveFlowOutput")
+        )
         input_: capo_mediaconnect.types.remove_flow_output_request.RemoveFlowOutputRequest = {
             "flow_arn": flow_arn,
             "output_arn": output_arn,
@@ -2414,7 +2486,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveFlowSource")
+        )
         input_: capo_mediaconnect.types.remove_flow_source_request.RemoveFlowSourceRequest = {
             "flow_arn": flow_arn,
             "source_arn": source_arn,
@@ -2466,7 +2540,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveFlowVpcInterface")
+        )
         input_: capo_mediaconnect.types.remove_flow_vpc_interface_request.RemoveFlowVpcInterfaceRequest = {
             "flow_arn": flow_arn,
             "vpc_interface_name": vpc_interface_name,
@@ -2518,7 +2594,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokeFlowEntitlement")
+        )
         input_: capo_mediaconnect.types.revoke_flow_entitlement_request.RevokeFlowEntitlementRequest = {
             "entitlement_arn": entitlement_arn,
             "flow_arn": flow_arn,
@@ -2568,7 +2646,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartFlow")
+        )
         input_: capo_mediaconnect.types.start_flow_request.StartFlowRequest = {
             "flow_arn": flow_arn
         }
@@ -2617,7 +2697,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopFlow")
+        )
         input_: capo_mediaconnect.types.stop_flow_request.StopFlowRequest = {
             "flow_arn": flow_arn
         }
@@ -2682,7 +2764,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFlowEntitlement")
+        )
         input_: capo_mediaconnect.types.update_flow_entitlement_request.UpdateFlowEntitlementRequest = {
             "entitlement_arn": entitlement_arn,
             "flow_arn": flow_arn,
@@ -2756,7 +2840,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFlowMediaStream")
+        )
         input_: capo_mediaconnect.types.update_flow_media_stream_request.UpdateFlowMediaStreamRequest = {
             "flow_arn": flow_arn,
             "media_stream_name": media_stream_name,
@@ -2875,7 +2961,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFlowOutput")
+        )
         input_: capo_mediaconnect.types.update_flow_output_request.UpdateFlowOutputRequest = {
             "flow_arn": flow_arn,
             "output_arn": output_arn,
@@ -3027,7 +3115,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFlowSource")
+        )
         input_: capo_mediaconnect.types.update_flow_source_request.UpdateFlowSourceRequest = {
             "flow_arn": flow_arn,
             "source_arn": source_arn,
@@ -3124,7 +3214,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeGatewayInstance")
+        )
         input_: capo_mediaconnect.types.describe_gateway_instance_request.DescribeGatewayInstanceRequest = {
             "gateway_instance_arn": gateway_instance_arn
         }
@@ -3178,7 +3270,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGatewayInstance")
+        )
         input_: capo_mediaconnect.types.update_gateway_instance_request.UpdateGatewayInstanceRequest = {
             "gateway_instance_arn": gateway_instance_arn
         }
@@ -3232,7 +3326,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterGatewayInstance")
+        )
         input_: capo_mediaconnect.types.deregister_gateway_instance_request.DeregisterGatewayInstanceRequest = {
             "gateway_instance_arn": gateway_instance_arn
         }
@@ -3286,7 +3382,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGatewayInstances")
+        )
         input_: capo_mediaconnect.types.list_gateway_instances_request.ListGatewayInstancesRequest = {}
         if filter_arn is not None:
             input_["filter_arn"] = filter_arn
@@ -3371,7 +3469,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGateway")
+        )
         input_: capo_mediaconnect.types.create_gateway_request.CreateGatewayRequest = {}
         if egress_cidr_blocks is not None:
             input_["egress_cidr_blocks"] = egress_cidr_blocks
@@ -3425,7 +3525,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeGateway")
+        )
         input_: capo_mediaconnect.types.describe_gateway_request.DescribeGatewayRequest = {
             "gateway_arn": gateway_arn
         }
@@ -3475,7 +3577,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGateway")
+        )
         input_: capo_mediaconnect.types.delete_gateway_request.DeleteGatewayRequest = {
             "gateway_arn": gateway_arn
         }
@@ -3525,7 +3629,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGateways")
+        )
         input_: capo_mediaconnect.types.list_gateways_request.ListGatewaysRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3596,7 +3702,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOffering")
+        )
         input_: capo_mediaconnect.types.describe_offering_request.DescribeOfferingRequest = {
             "offering_arn": offering_arn
         }
@@ -3645,7 +3753,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOfferings")
+        )
         input_: capo_mediaconnect.types.list_offerings_request.ListOfferingsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3721,7 +3831,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PurchaseOffering")
+        )
         input_: capo_mediaconnect.types.purchase_offering_request.PurchaseOfferingRequest = {
             "offering_arn": offering_arn
         }
@@ -3773,7 +3885,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReservation")
+        )
         input_: capo_mediaconnect.types.describe_reservation_request.DescribeReservationRequest = {
             "reservation_arn": reservation_arn
         }
@@ -3822,7 +3936,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReservations")
+        )
         input_: capo_mediaconnect.types.list_reservations_request.ListReservationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3927,7 +4043,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRouterInput")
+        )
         input_: capo_mediaconnect.types.create_router_input_request.CreateRouterInputRequest = {
             "name": name,
             "configuration": configuration,
@@ -3998,7 +4116,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRouterInput")
+        )
         input_: capo_mediaconnect.types.get_router_input_request.GetRouterInputRequest = {
             "arn": arn
         }
@@ -4078,7 +4198,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRouterInput")
+        )
         input_: capo_mediaconnect.types.update_router_input_request.UpdateRouterInputRequest = {
             "arn": arn
         }
@@ -4148,7 +4270,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRouterInput")
+        )
         input_: capo_mediaconnect.types.delete_router_input_request.DeleteRouterInputRequest = {
             "arn": arn
         }
@@ -4202,7 +4326,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRouterInputs")
+        )
         input_: capo_mediaconnect.types.list_router_inputs_request.ListRouterInputsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4280,7 +4406,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRouterInputSourceMetadata")
+        )
         input_: capo_mediaconnect.types.get_router_input_source_metadata_request.GetRouterInputSourceMetadataRequest = {
             "arn": arn
         }
@@ -4329,7 +4457,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRouterInputThumbnail")
+        )
         input_: capo_mediaconnect.types.get_router_input_thumbnail_request.GetRouterInputThumbnailRequest = {
             "arn": arn
         }
@@ -4379,7 +4509,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestartRouterInput")
+        )
         input_: capo_mediaconnect.types.restart_router_input_request.RestartRouterInputRequest = {
             "arn": arn
         }
@@ -4429,7 +4561,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartRouterInput")
+        )
         input_: capo_mediaconnect.types.start_router_input_request.StartRouterInputRequest = {
             "arn": arn
         }
@@ -4479,7 +4613,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopRouterInput")
+        )
         input_: capo_mediaconnect.types.stop_router_input_request.StopRouterInputRequest = {
             "arn": arn
         }
@@ -4527,7 +4663,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetRouterInput")
+        )
         input_: capo_mediaconnect.types.batch_get_router_input_request.BatchGetRouterInputRequest = {
             "arns": arns
         }
@@ -4587,7 +4725,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRouterNetworkInterface")
+        )
         input_: capo_mediaconnect.types.create_router_network_interface_request.CreateRouterNetworkInterfaceRequest = {
             "name": name,
             "configuration": configuration,
@@ -4645,7 +4785,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRouterNetworkInterface")
+        )
         input_: capo_mediaconnect.types.get_router_network_interface_request.GetRouterNetworkInterfaceRequest = {
             "arn": arn
         }
@@ -4700,7 +4842,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRouterNetworkInterface")
+        )
         input_: capo_mediaconnect.types.update_router_network_interface_request.UpdateRouterNetworkInterfaceRequest = {
             "arn": arn
         }
@@ -4754,7 +4898,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRouterNetworkInterface")
+        )
         input_: capo_mediaconnect.types.delete_router_network_interface_request.DeleteRouterNetworkInterfaceRequest = {
             "arn": arn
         }
@@ -4808,7 +4954,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRouterNetworkInterfaces")
+        )
         input_: capo_mediaconnect.types.list_router_network_interfaces_request.ListRouterNetworkInterfacesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4885,7 +5033,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetRouterNetworkInterface")
+        )
         input_: capo_mediaconnect.types.batch_get_router_network_interface_request.BatchGetRouterNetworkInterfaceRequest = {
             "arns": arns
         }
@@ -4961,7 +5111,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRouterOutput")
+        )
         input_: capo_mediaconnect.types.create_router_output_request.CreateRouterOutputRequest = {
             "name": name,
             "configuration": configuration,
@@ -5028,7 +5180,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRouterOutput")
+        )
         input_: capo_mediaconnect.types.get_router_output_request.GetRouterOutputRequest = {
             "arn": arn
         }
@@ -5102,7 +5256,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRouterOutput")
+        )
         input_: capo_mediaconnect.types.update_router_output_request.UpdateRouterOutputRequest = {
             "arn": arn
         }
@@ -5166,7 +5322,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRouterOutput")
+        )
         input_: capo_mediaconnect.types.delete_router_output_request.DeleteRouterOutputRequest = {
             "arn": arn
         }
@@ -5222,7 +5380,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRouterOutputs")
+        )
         input_: capo_mediaconnect.types.list_router_outputs_request.ListRouterOutputsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -5303,7 +5463,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestartRouterOutput")
+        )
         input_: capo_mediaconnect.types.restart_router_output_request.RestartRouterOutputRequest = {
             "arn": arn
         }
@@ -5355,7 +5517,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartRouterOutput")
+        )
         input_: capo_mediaconnect.types.start_router_output_request.StartRouterOutputRequest = {
             "arn": arn
         }
@@ -5405,7 +5569,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopRouterOutput")
+        )
         input_: capo_mediaconnect.types.stop_router_output_request.StopRouterOutputRequest = {
             "arn": arn
         }
@@ -5459,7 +5625,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TakeRouterInput")
+        )
         input_: capo_mediaconnect.types.take_router_input_request.TakeRouterInputRequest = {
             "router_output_arn": router_output_arn
         }
@@ -5509,7 +5677,9 @@ class AsyncMediaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetRouterOutput")
+        )
         input_: capo_mediaconnect.types.batch_get_router_output_request.BatchGetRouterOutputRequest = {
             "arns": arns
         }

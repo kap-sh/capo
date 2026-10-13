@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_data_automation._auth._signers
 import capo_bedrock_data_automation._auth._sigv4
 from capo_bedrock_data_automation._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -116,7 +117,19 @@ class DataAutomationProjectResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_data_automation.types.create_data_automation_project_request.CreateDataAutomationProjectRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.create_data_automation_project_request
+
+            return capo_bedrock_data_automation.types.create_data_automation_project_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateDataAutomationProject", redact_input=_redact_input),
+        )
         input_: capo_bedrock_data_automation.types.create_data_automation_project_request.CreateDataAutomationProjectRequest = {
             "project_name": project_name,
             "standard_output_configuration": standard_output_configuration,
@@ -189,7 +202,19 @@ class DataAutomationProjectResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.get_data_automation_project_response.GetDataAutomationProjectResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.get_data_automation_project_response
+
+            return capo_bedrock_data_automation.types.get_data_automation_project_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDataAutomationProject", redact_output=_redact_output),
+        )
         input_: capo_bedrock_data_automation.types.get_data_automation_project_request.GetDataAutomationProjectRequest = {
             "project_arn": project_arn
         }
@@ -259,7 +284,19 @@ class DataAutomationProjectResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_data_automation.types.update_data_automation_project_request.UpdateDataAutomationProjectRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.update_data_automation_project_request
+
+            return capo_bedrock_data_automation.types.update_data_automation_project_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateDataAutomationProject", redact_input=_redact_input),
+        )
         input_: capo_bedrock_data_automation.types.update_data_automation_project_request.UpdateDataAutomationProjectRequest = {
             "project_arn": project_arn,
             "standard_output_configuration": standard_output_configuration,
@@ -321,7 +358,9 @@ class DataAutomationProjectResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDataAutomationProject")
+        )
         input_: capo_bedrock_data_automation.types.delete_data_automation_project_request.DeleteDataAutomationProjectRequest = {
             "project_arn": project_arn
         }
@@ -382,7 +421,21 @@ class DataAutomationProjectResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.list_data_automation_projects_response.ListDataAutomationProjectsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.list_data_automation_projects_response
+
+            return capo_bedrock_data_automation.types.list_data_automation_projects_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListDataAutomationProjects", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_data_automation.types.list_data_automation_projects_request.ListDataAutomationProjectsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -469,7 +522,19 @@ class AsyncDataAutomationProjectResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_data_automation.types.create_data_automation_project_request.CreateDataAutomationProjectRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.create_data_automation_project_request
+
+            return capo_bedrock_data_automation.types.create_data_automation_project_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateDataAutomationProject", redact_input=_redact_input),
+        )
         input_: capo_bedrock_data_automation.types.create_data_automation_project_request.CreateDataAutomationProjectRequest = {
             "project_name": project_name,
             "standard_output_configuration": standard_output_configuration,
@@ -543,7 +608,19 @@ class AsyncDataAutomationProjectResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.get_data_automation_project_response.GetDataAutomationProjectResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.get_data_automation_project_response
+
+            return capo_bedrock_data_automation.types.get_data_automation_project_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDataAutomationProject", redact_output=_redact_output),
+        )
         input_: capo_bedrock_data_automation.types.get_data_automation_project_request.GetDataAutomationProjectRequest = {
             "project_arn": project_arn
         }
@@ -614,7 +691,19 @@ class AsyncDataAutomationProjectResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_data_automation.types.update_data_automation_project_request.UpdateDataAutomationProjectRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.update_data_automation_project_request
+
+            return capo_bedrock_data_automation.types.update_data_automation_project_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateDataAutomationProject", redact_input=_redact_input),
+        )
         input_: capo_bedrock_data_automation.types.update_data_automation_project_request.UpdateDataAutomationProjectRequest = {
             "project_arn": project_arn,
             "standard_output_configuration": standard_output_configuration,
@@ -677,7 +766,9 @@ class AsyncDataAutomationProjectResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDataAutomationProject")
+        )
         input_: capo_bedrock_data_automation.types.delete_data_automation_project_request.DeleteDataAutomationProjectRequest = {
             "project_arn": project_arn
         }
@@ -739,7 +830,21 @@ class AsyncDataAutomationProjectResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.list_data_automation_projects_response.ListDataAutomationProjectsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.list_data_automation_projects_response
+
+            return capo_bedrock_data_automation.types.list_data_automation_projects_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListDataAutomationProjects", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_data_automation.types.list_data_automation_projects_request.ListDataAutomationProjectsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

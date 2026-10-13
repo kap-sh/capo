@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_timestream_influxdb._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -102,7 +103,9 @@ class DbBackupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDbBackup")
+        )
         input_: capo_timestream_influxdb.types.create_db_backup_input.CreateDbBackupInput = {
             "name": name,
             "db_resource_id": db_resource_id,
@@ -154,7 +157,9 @@ class DbBackupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDbBackup")
+        )
         input_: capo_timestream_influxdb.types.get_db_backup_input.GetDbBackupInput = {
             "identifier": identifier
         }
@@ -202,7 +207,9 @@ class DbBackupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDbBackup")
+        )
         input_: capo_timestream_influxdb.types.delete_db_backup_input.DeleteDbBackupInput = {
             "identifier": identifier
         }
@@ -259,7 +266,9 @@ class DbBackupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDbBackups")
+        )
         input_: capo_timestream_influxdb.types.list_db_backups_input.ListDbBackupsInput = {}
         if db_resource_id is not None:
             input_["db_resource_id"] = db_resource_id
@@ -360,7 +369,9 @@ class DbBackupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RestoreFromDbBackup")
+        )
         input_: capo_timestream_influxdb.types.restore_from_db_backup_input.RestoreFromDbBackupInput = {
             "name": name,
             "db_backup_id": db_backup_id,
@@ -452,7 +463,9 @@ class AsyncDbBackupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDbBackup")
+        )
         input_: capo_timestream_influxdb.types.create_db_backup_input.CreateDbBackupInput = {
             "name": name,
             "db_resource_id": db_resource_id,
@@ -505,7 +518,9 @@ class AsyncDbBackupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDbBackup")
+        )
         input_: capo_timestream_influxdb.types.get_db_backup_input.GetDbBackupInput = {
             "identifier": identifier
         }
@@ -554,7 +569,9 @@ class AsyncDbBackupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDbBackup")
+        )
         input_: capo_timestream_influxdb.types.delete_db_backup_input.DeleteDbBackupInput = {
             "identifier": identifier
         }
@@ -612,7 +629,9 @@ class AsyncDbBackupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDbBackups")
+        )
         input_: capo_timestream_influxdb.types.list_db_backups_input.ListDbBackupsInput = {}
         if db_resource_id is not None:
             input_["db_resource_id"] = db_resource_id
@@ -714,7 +733,9 @@ class AsyncDbBackupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RestoreFromDbBackup")
+        )
         input_: capo_timestream_influxdb.types.restore_from_db_backup_input.RestoreFromDbBackupInput = {
             "name": name,
             "db_backup_id": db_backup_id,

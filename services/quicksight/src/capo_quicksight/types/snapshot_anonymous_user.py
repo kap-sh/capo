@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SnapshotAnonymousUser``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> SnapshotAnonymousUser:
         out["row_level_permission_tags"] = (
             capo_quicksight.types.session_tag_list.deserialize_json(
                 data["RowLevelPermissionTags"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SnapshotAnonymousUser) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "row_level_permission_tags" in value:
+        import capo_quicksight.types.session_tag_list
+
+        out["row_level_permission_tags"] = (
+            capo_quicksight.types.session_tag_list.redact_sensitive(
+                value["row_level_permission_tags"]
             )
         )
     return out

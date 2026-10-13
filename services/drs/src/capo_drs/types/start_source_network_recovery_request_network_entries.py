@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.drs#StartSourceNetworkRecoveryRequestNetworkEntries``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_drs.types.start_source_network_recovery_request_network_entry
@@ -37,3 +37,16 @@ def deserialize_json(data: list) -> StartSourceNetworkRecoveryRequestNetworkEntr
             )
         )
     return out
+
+
+def redact_sensitive(
+    value: StartSourceNetworkRecoveryRequestNetworkEntries,
+) -> list[Any]:
+    import capo_drs.types.start_source_network_recovery_request_network_entry
+
+    return [
+        capo_drs.types.start_source_network_recovery_request_network_entry.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

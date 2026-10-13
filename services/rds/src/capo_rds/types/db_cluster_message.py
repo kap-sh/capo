@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#DBClusterMessage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -44,5 +44,16 @@ def deserialize_query(el: Element) -> DBClusterMessage:
 
         out["db_clusters"] = capo_rds.types.db_cluster_list.deserialize_query(
             child_db_clusters
+        )
+    return out
+
+
+def redact_sensitive(value: DBClusterMessage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "db_clusters" in value:
+        import capo_rds.types.db_cluster_list
+
+        out["db_clusters"] = capo_rds.types.db_cluster_list.redact_sensitive(
+            value["db_clusters"]
         )
     return out

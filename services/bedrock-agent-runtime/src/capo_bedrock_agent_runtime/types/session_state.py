@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#SessionState``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -142,6 +142,41 @@ def deserialize_json(data: dict) -> SessionState:
         out["conversation_history"] = (
             capo_bedrock_agent_runtime.types.conversation_history.deserialize_json(
                 data["conversationHistory"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SessionState) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "return_control_invocation_results" in value:
+        import capo_bedrock_agent_runtime.types.return_control_invocation_results
+
+        out["return_control_invocation_results"] = (
+            capo_bedrock_agent_runtime.types.return_control_invocation_results.redact_sensitive(
+                value["return_control_invocation_results"]
+            )
+        )
+    if "files" in value:
+        import capo_bedrock_agent_runtime.types.input_files
+
+        out["files"] = capo_bedrock_agent_runtime.types.input_files.redact_sensitive(
+            value["files"]
+        )
+    if "knowledge_base_configurations" in value:
+        import capo_bedrock_agent_runtime.types.knowledge_base_configurations
+
+        out["knowledge_base_configurations"] = (
+            capo_bedrock_agent_runtime.types.knowledge_base_configurations.redact_sensitive(
+                value["knowledge_base_configurations"]
+            )
+        )
+    if "conversation_history" in value:
+        import capo_bedrock_agent_runtime.types.conversation_history
+
+        out["conversation_history"] = (
+            capo_bedrock_agent_runtime.types.conversation_history.redact_sensitive(
+                value["conversation_history"]
             )
         )
     return out

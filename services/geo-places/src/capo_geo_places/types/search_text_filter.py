@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#SearchTextFilter``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -66,6 +66,23 @@ def deserialize_json(data: dict) -> SearchTextFilter:
         out["include_countries"] = (
             capo_geo_places.types.country_code_list.deserialize_json(
                 data["IncludeCountries"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SearchTextFilter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "bounding_box" in value:
+        out["bounding_box"] = "*** Sensitive Data Redacted ***"
+    if "circle" in value:
+        out["circle"] = "*** Sensitive Data Redacted ***"
+    if "include_countries" in value:
+        import capo_geo_places.types.country_code_list
+
+        out["include_countries"] = (
+            capo_geo_places.types.country_code_list.redact_sensitive(
+                value["include_countries"]
             )
         )
     return out

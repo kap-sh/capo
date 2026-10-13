@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityir#UpdateCaseRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -299,5 +299,42 @@ def deserialize_json(data: dict) -> UpdateCaseRequest:
 
         out["case_metadata"] = capo_security_ir.types.case_metadata.deserialize_json(
             data["caseMetadata"]
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateCaseRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "title" in value:
+        out["title"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "watchers_to_add" in value:
+        import capo_security_ir.types.watchers
+
+        out["watchers_to_add"] = capo_security_ir.types.watchers.redact_sensitive(
+            value["watchers_to_add"]
+        )
+    if "watchers_to_delete" in value:
+        import capo_security_ir.types.watchers
+
+        out["watchers_to_delete"] = capo_security_ir.types.watchers.redact_sensitive(
+            value["watchers_to_delete"]
+        )
+    if "threat_actor_ip_addresses_to_add" in value:
+        import capo_security_ir.types.threat_actor_ip_list
+
+        out["threat_actor_ip_addresses_to_add"] = (
+            capo_security_ir.types.threat_actor_ip_list.redact_sensitive(
+                value["threat_actor_ip_addresses_to_add"]
+            )
+        )
+    if "threat_actor_ip_addresses_to_delete" in value:
+        import capo_security_ir.types.threat_actor_ip_list
+
+        out["threat_actor_ip_addresses_to_delete"] = (
+            capo_security_ir.types.threat_actor_ip_list.redact_sensitive(
+                value["threat_actor_ip_addresses_to_delete"]
+            )
         )
     return out

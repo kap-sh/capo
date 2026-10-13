@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.odb#UpdateAutonomousDatabaseInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -578,6 +578,21 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateAutonomousDatabaseInput:
         out["admin_password_source_configuration"] = (
             capo_odb.types.admin_password_source_configuration_input.deserialize_aws_json_1_0(
                 data["adminPasswordSourceConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateAutonomousDatabaseInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "admin_password" in value:
+        out["admin_password"] = "*** Sensitive Data Redacted ***"
+    if "customer_contacts_to_send_to_oci" in value:
+        import capo_odb.types.customer_contacts
+
+        out["customer_contacts_to_send_to_oci"] = (
+            capo_odb.types.customer_contacts.redact_sensitive(
+                value["customer_contacts_to_send_to_oci"]
             )
         )
     return out

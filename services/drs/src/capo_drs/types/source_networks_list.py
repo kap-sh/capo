@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.drs#SourceNetworksList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_drs.types.source_network
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> SourceNetworksList:
             continue
         out.append(capo_drs.types.source_network.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: SourceNetworksList) -> list[Any]:
+    import capo_drs.types.source_network
+
+    return [capo_drs.types.source_network.redact_sensitive(item) for item in value]

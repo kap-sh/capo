@@ -8,6 +8,7 @@ import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -100,7 +101,9 @@ class HarnessEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateHarnessEndpoint")
+        )
         input_: capo_bedrock_agentcore_control.types.create_harness_endpoint_request.CreateHarnessEndpointRequest = {
             "harness_id": harness_id,
             "endpoint_name": endpoint_name,
@@ -164,7 +167,9 @@ class HarnessEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteHarnessEndpoint")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_harness_endpoint_request.DeleteHarnessEndpointRequest = {
             "harness_id": harness_id,
             "endpoint_name": endpoint_name,
@@ -217,7 +222,9 @@ class HarnessEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetHarnessEndpoint")
+        )
         input_: capo_bedrock_agentcore_control.types.get_harness_endpoint_request.GetHarnessEndpointRequest = {
             "harness_id": harness_id,
             "endpoint_name": endpoint_name,
@@ -273,7 +280,9 @@ class HarnessEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListHarnessEndpoints")
+        )
         input_: capo_bedrock_agentcore_control.types.list_harness_endpoints_request.ListHarnessEndpointsRequest = {
             "harness_id": harness_id
         }
@@ -340,7 +349,9 @@ class HarnessEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateHarnessEndpoint")
+        )
         input_: capo_bedrock_agentcore_control.types.update_harness_endpoint_request.UpdateHarnessEndpointRequest = {
             "harness_id": harness_id,
             "endpoint_name": endpoint_name,
@@ -419,7 +430,9 @@ class AsyncHarnessEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateHarnessEndpoint")
+        )
         input_: capo_bedrock_agentcore_control.types.create_harness_endpoint_request.CreateHarnessEndpointRequest = {
             "harness_id": harness_id,
             "endpoint_name": endpoint_name,
@@ -484,7 +497,9 @@ class AsyncHarnessEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteHarnessEndpoint")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_harness_endpoint_request.DeleteHarnessEndpointRequest = {
             "harness_id": harness_id,
             "endpoint_name": endpoint_name,
@@ -538,7 +553,9 @@ class AsyncHarnessEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetHarnessEndpoint")
+        )
         input_: capo_bedrock_agentcore_control.types.get_harness_endpoint_request.GetHarnessEndpointRequest = {
             "harness_id": harness_id,
             "endpoint_name": endpoint_name,
@@ -595,7 +612,9 @@ class AsyncHarnessEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListHarnessEndpoints")
+        )
         input_: capo_bedrock_agentcore_control.types.list_harness_endpoints_request.ListHarnessEndpointsRequest = {
             "harness_id": harness_id
         }
@@ -663,7 +682,9 @@ class AsyncHarnessEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateHarnessEndpoint")
+        )
         input_: capo_bedrock_agentcore_control.types.update_harness_endpoint_request.UpdateHarnessEndpointRequest = {
             "harness_id": harness_id,
             "endpoint_name": endpoint_name,

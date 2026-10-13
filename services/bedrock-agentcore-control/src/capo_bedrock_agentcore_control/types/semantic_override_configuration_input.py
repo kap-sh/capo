@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#SemanticOverrideConfigurationInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,6 +58,27 @@ def deserialize_json(data: dict) -> SemanticOverrideConfigurationInput:
         out["consolidation"] = (
             capo_bedrock_agentcore_control.types.semantic_override_consolidation_configuration_input.deserialize_json(
                 data["consolidation"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SemanticOverrideConfigurationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "extraction" in value:
+        import capo_bedrock_agentcore_control.types.semantic_override_extraction_configuration_input
+
+        out["extraction"] = (
+            capo_bedrock_agentcore_control.types.semantic_override_extraction_configuration_input.redact_sensitive(
+                value["extraction"]
+            )
+        )
+    if "consolidation" in value:
+        import capo_bedrock_agentcore_control.types.semantic_override_consolidation_configuration_input
+
+        out["consolidation"] = (
+            capo_bedrock_agentcore_control.types.semantic_override_consolidation_configuration_input.redact_sensitive(
+                value["consolidation"]
             )
         )
     return out

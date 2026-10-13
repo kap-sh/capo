@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#UpdateIpAccessSettingsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -41,5 +41,18 @@ def deserialize_json(data: dict) -> UpdateIpAccessSettingsResponse:
     else:
         raise DeserializationError(
             "UpdateIpAccessSettingsResponse.ip_access_settings required"
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateIpAccessSettingsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ip_access_settings" in value:
+        import capo_workspaces_web.types.ip_access_settings
+
+        out["ip_access_settings"] = (
+            capo_workspaces_web.types.ip_access_settings.redact_sensitive(
+                value["ip_access_settings"]
+            )
         )
     return out

@@ -7,6 +7,7 @@ import capo_controltower._auth._sigv4
 from capo_controltower._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -69,7 +70,9 @@ class BaselineResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetBaseline")
+        )
         input_: capo_controltower.types.get_baseline_input.GetBaselineInput = {
             "baseline_identifier": baseline_identifier
         }
@@ -119,7 +122,9 @@ class BaselineResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListBaselines")
+        )
         input_: capo_controltower.types.list_baselines_input.ListBaselinesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -174,7 +179,9 @@ class AsyncBaselineResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetBaseline")
+        )
         input_: capo_controltower.types.get_baseline_input.GetBaselineInput = {
             "baseline_identifier": baseline_identifier
         }
@@ -225,7 +232,9 @@ class AsyncBaselineResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListBaselines")
+        )
         input_: capo_controltower.types.list_baselines_input.ListBaselinesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token

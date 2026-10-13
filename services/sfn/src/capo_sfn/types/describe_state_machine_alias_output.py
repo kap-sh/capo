@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#DescribeStateMachineAliasOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -89,4 +89,11 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeStateMachineAliasOutput:
         out["update_date"] = capo_sfn.types.timestamp.deserialize_aws_json_1_0(
             data["updateDate"]
         )
+    return out
+
+
+def redact_sensitive(value: DescribeStateMachineAliasOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

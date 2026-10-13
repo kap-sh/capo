@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#Environment``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -235,4 +235,15 @@ def deserialize_aws_json_1_0(data: dict) -> Environment:
         out["last_attempted_deployment_id"] = data["lastAttemptedDeploymentId"]
     if data.get("lastSucceededDeploymentId") is not None:
         out["last_succeeded_deployment_id"] = data["lastSucceededDeploymentId"]
+    return out
+
+
+def redact_sensitive(value: Environment) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "deployment_status_message" in value:
+        out["deployment_status_message"] = "*** Sensitive Data Redacted ***"
+    if "spec" in value:
+        out["spec"] = "*** Sensitive Data Redacted ***"
     return out

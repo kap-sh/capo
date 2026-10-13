@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#CapabilityAction``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -55,4 +55,11 @@ def deserialize_json(data: dict) -> CapabilityAction:
         out["action_trace_id"] = data["actionTraceId"]
     if data.get("parameters") is not None:
         out["parameters"] = data["parameters"]
+    return out
+
+
+def redact_sensitive(value: CapabilityAction) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "parameters" in value:
+        out["parameters"] = "*** Sensitive Data Redacted ***"
     return out

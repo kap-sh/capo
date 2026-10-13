@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#TranslationDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -74,5 +74,34 @@ def deserialize_json(data: dict) -> TranslationDetails:
 
         out["sub_region"] = capo_geo_places.types.admin_names_list.deserialize_json(
             data["SubRegion"]
+        )
+    return out
+
+
+def redact_sensitive(value: TranslationDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "locality" in value:
+        import capo_geo_places.types.admin_names_list
+
+        out["locality"] = capo_geo_places.types.admin_names_list.redact_sensitive(
+            value["locality"]
+        )
+    if "region" in value:
+        import capo_geo_places.types.admin_names_list
+
+        out["region"] = capo_geo_places.types.admin_names_list.redact_sensitive(
+            value["region"]
+        )
+    if "district" in value:
+        import capo_geo_places.types.admin_names_list
+
+        out["district"] = capo_geo_places.types.admin_names_list.redact_sensitive(
+            value["district"]
+        )
+    if "sub_region" in value:
+        import capo_geo_places.types.admin_names_list
+
+        out["sub_region"] = capo_geo_places.types.admin_names_list.redact_sensitive(
+            value["sub_region"]
         )
     return out

@@ -24,7 +24,9 @@ from capo_migrationhub_config._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -118,7 +120,9 @@ class AsyncMigrationHubConfigClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncMigrationHubConfigClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncMigrationHubConfigClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncMigrationHubConfigClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -126,8 +130,10 @@ class AsyncMigrationHubConfigClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -186,7 +192,9 @@ class AsyncMigrationHubConfigClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHomeRegionControl")
+        )
         input_: capo_migrationhub_config.types.create_home_region_control_request.CreateHomeRegionControlRequest = {
             "home_region": home_region,
             "target": target,
@@ -237,7 +245,9 @@ class AsyncMigrationHubConfigClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteHomeRegionControl")
+        )
         input_: capo_migrationhub_config.types.delete_home_region_control_request.DeleteHomeRegionControlRequest = {
             "control_id": control_id
         }
@@ -299,7 +309,9 @@ class AsyncMigrationHubConfigClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeHomeRegionControls")
+        )
         input_: capo_migrationhub_config.types.describe_home_region_controls_request.DescribeHomeRegionControlsRequest = {}
         if control_id is not None:
             input_["control_id"] = control_id
@@ -380,7 +392,9 @@ class AsyncMigrationHubConfigClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetHomeRegion")
+        )
         input_: capo_migrationhub_config.types.get_home_region_request.GetHomeRegionRequest = {}
 
         response = await aexecute_pipeline(

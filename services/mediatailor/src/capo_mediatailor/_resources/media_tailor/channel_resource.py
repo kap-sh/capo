@@ -7,6 +7,7 @@ import capo_mediatailor._auth._sigv4
 from capo_mediatailor._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -107,7 +108,9 @@ class ChannelResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateChannel")
+        )
         input_: capo_mediatailor.types.create_channel_request.CreateChannelRequest = {
             "channel_name": channel_name,
             "outputs": outputs,
@@ -161,7 +164,9 @@ class ChannelResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeChannel")
+        )
         input_: capo_mediatailor.types.describe_channel_request.DescribeChannelRequest = {
             "channel_name": channel_name
         }
@@ -215,7 +220,9 @@ class ChannelResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateChannel")
+        )
         input_: capo_mediatailor.types.update_channel_request.UpdateChannelRequest = {
             "channel_name": channel_name,
             "outputs": outputs,
@@ -264,7 +271,9 @@ class ChannelResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteChannel")
+        )
         input_: capo_mediatailor.types.delete_channel_request.DeleteChannelRequest = {
             "channel_name": channel_name
         }
@@ -308,7 +317,9 @@ class ChannelResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListChannels")
+        )
         input_: capo_mediatailor.types.list_channels_request.ListChannelsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -354,7 +365,9 @@ class ChannelResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ConfigureLogsForChannel")
+        )
         input_: capo_mediatailor.types.configure_logs_for_channel_request.ConfigureLogsForChannelRequest = {
             "channel_name": channel_name,
             "log_types": log_types,
@@ -417,7 +430,9 @@ class ChannelResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateChannel")
+        )
         input_: capo_mediatailor.types.create_channel_request.CreateChannelRequest = {
             "channel_name": channel_name,
             "outputs": outputs,
@@ -479,7 +494,9 @@ class ChannelResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetChannelSchedule")
+        )
         input_: capo_mediatailor.types.get_channel_schedule_request.GetChannelScheduleRequest = {
             "channel_name": channel_name
         }
@@ -529,7 +546,9 @@ class ChannelResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartChannel")
+        )
         input_: capo_mediatailor.types.start_channel_request.StartChannelRequest = {
             "channel_name": channel_name
         }
@@ -571,7 +590,9 @@ class ChannelResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopChannel")
+        )
         input_: capo_mediatailor.types.stop_channel_request.StopChannelRequest = {
             "channel_name": channel_name
         }
@@ -639,7 +660,9 @@ class AsyncChannelResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateChannel")
+        )
         input_: capo_mediatailor.types.create_channel_request.CreateChannelRequest = {
             "channel_name": channel_name,
             "outputs": outputs,
@@ -694,7 +717,9 @@ class AsyncChannelResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeChannel")
+        )
         input_: capo_mediatailor.types.describe_channel_request.DescribeChannelRequest = {
             "channel_name": channel_name
         }
@@ -749,7 +774,9 @@ class AsyncChannelResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateChannel")
+        )
         input_: capo_mediatailor.types.update_channel_request.UpdateChannelRequest = {
             "channel_name": channel_name,
             "outputs": outputs,
@@ -799,7 +826,9 @@ class AsyncChannelResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteChannel")
+        )
         input_: capo_mediatailor.types.delete_channel_request.DeleteChannelRequest = {
             "channel_name": channel_name
         }
@@ -844,7 +873,9 @@ class AsyncChannelResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListChannels")
+        )
         input_: capo_mediatailor.types.list_channels_request.ListChannelsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -891,7 +922,9 @@ class AsyncChannelResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ConfigureLogsForChannel")
+        )
         input_: capo_mediatailor.types.configure_logs_for_channel_request.ConfigureLogsForChannelRequest = {
             "channel_name": channel_name,
             "log_types": log_types,
@@ -955,7 +988,9 @@ class AsyncChannelResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateChannel")
+        )
         input_: capo_mediatailor.types.create_channel_request.CreateChannelRequest = {
             "channel_name": channel_name,
             "outputs": outputs,
@@ -1018,7 +1053,9 @@ class AsyncChannelResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetChannelSchedule")
+        )
         input_: capo_mediatailor.types.get_channel_schedule_request.GetChannelScheduleRequest = {
             "channel_name": channel_name
         }
@@ -1069,7 +1106,9 @@ class AsyncChannelResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartChannel")
+        )
         input_: capo_mediatailor.types.start_channel_request.StartChannelRequest = {
             "channel_name": channel_name
         }
@@ -1112,7 +1151,9 @@ class AsyncChannelResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopChannel")
+        )
         input_: capo_mediatailor.types.stop_channel_request.StopChannelRequest = {
             "channel_name": channel_name
         }

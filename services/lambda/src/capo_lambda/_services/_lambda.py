@@ -50,10 +50,12 @@ from capo_lambda._resources.aws_gir_api_service.provisioned_concurrency_config i
 from capo_lambda._services._aws_config import aws_config
 from capo_lambda._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 from capo_lambda.errors import ServiceError, WaiterTimeoutError
@@ -446,7 +448,9 @@ class LambdaClient:
         self.provisioned_concurrency_config = ProvisionedConcurrencyConfig(self)
 
     def operation_options(
-        self, config_overrides: Optional[LambdaClientConfig] = None
+        self,
+        config_overrides: Optional[LambdaClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: LambdaClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -454,8 +458,10 @@ class LambdaClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -518,7 +524,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFunction")
+        )
         input_: capo_lambda.types.delete_function_request.DeleteFunctionRequest = {
             "function_name": function_name
         }
@@ -575,7 +583,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFunctionEventInvokeConfig")
+        )
         input_: capo_lambda.types.delete_function_event_invoke_config_request.DeleteFunctionEventInvokeConfigRequest = {
             "function_name": function_name
         }
@@ -625,7 +635,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_lambda.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -671,7 +683,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountSettings")
+        )
         input_: capo_lambda.types.get_account_settings_request.GetAccountSettingsRequest = {}
 
         response = execute_pipeline(
@@ -725,7 +739,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFunctionEventInvokeConfig")
+        )
         input_: capo_lambda.types.get_function_event_invoke_config_request.GetFunctionEventInvokeConfigRequest = {
             "function_name": function_name
         }
@@ -773,7 +789,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_lambda.types.get_resource_policy_request.GetResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -831,7 +849,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFunctionEventInvokeConfigs")
+        )
         input_: capo_lambda.types.list_function_event_invoke_configs_request.ListFunctionEventInvokeConfigsRequest = {
             "function_name": function_name
         }
@@ -885,7 +905,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTags")
+        )
         input_: capo_lambda.types.list_tags_request.ListTagsRequest = {
             "resource": resource
         }
@@ -954,7 +976,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutFunctionEventInvokeConfig")
+        )
         input_: capo_lambda.types.put_function_event_invoke_config_request.PutFunctionEventInvokeConfigRequest = {
             "function_name": function_name
         }
@@ -1016,7 +1040,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_lambda.types.put_resource_policy_request.PutResourcePolicyRequest = {
             "resource_arn": resource_arn,
             "policy": policy,
@@ -1072,7 +1098,21 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.send_durable_execution_callback_failure_request.SendDurableExecutionCallbackFailureRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.send_durable_execution_callback_failure_request
+
+            return capo_lambda.types.send_durable_execution_callback_failure_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SendDurableExecutionCallbackFailure", redact_input=_redact_input
+            ),
+        )
         input_: capo_lambda.types.send_durable_execution_callback_failure_request.SendDurableExecutionCallbackFailureRequest = {
             "callback_id": callback_id
         }
@@ -1121,7 +1161,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendDurableExecutionCallbackHeartbeat")
+        )
         input_: capo_lambda.types.send_durable_execution_callback_heartbeat_request.SendDurableExecutionCallbackHeartbeatRequest = {
             "callback_id": callback_id
         }
@@ -1176,7 +1218,21 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.send_durable_execution_callback_success_request.SendDurableExecutionCallbackSuccessRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.send_durable_execution_callback_success_request
+
+            return capo_lambda.types.send_durable_execution_callback_success_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SendDurableExecutionCallbackSuccess", redact_input=_redact_input
+            ),
+        )
         input_: capo_lambda.types.send_durable_execution_callback_success_request.SendDurableExecutionCallbackSuccessRequest = {
             "callback_id": callback_id
         }
@@ -1231,7 +1287,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_lambda.types.tag_resource_request.TagResourceRequest = {
             "resource": resource,
             "tags": tags,
@@ -1285,7 +1343,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_lambda.types.untag_resource_request.UntagResourceRequest = {
             "resource": resource,
             "tag_keys": tag_keys,
@@ -1355,7 +1415,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFunctionEventInvokeConfig")
+        )
         input_: capo_lambda.types.update_function_event_invoke_config_request.UpdateFunctionEventInvokeConfigRequest = {
             "function_name": function_name
         }
@@ -1436,7 +1498,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCapacityProvider")
+        )
         input_: capo_lambda.types.create_capacity_provider_request.CreateCapacityProviderRequest = {
             "capacity_provider_name": capacity_provider_name,
             "vpc_config": vpc_config,
@@ -1498,7 +1562,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCapacityProvider")
+        )
         input_: capo_lambda.types.get_capacity_provider_request.GetCapacityProviderRequest = {
             "capacity_provider_name": capacity_provider_name
         }
@@ -1556,7 +1622,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCapacityProvider")
+        )
         input_: capo_lambda.types.update_capacity_provider_request.UpdateCapacityProviderRequest = {
             "capacity_provider_name": capacity_provider_name
         }
@@ -1611,7 +1679,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCapacityProvider")
+        )
         input_: capo_lambda.types.delete_capacity_provider_request.DeleteCapacityProviderRequest = {
             "capacity_provider_name": capacity_provider_name
         }
@@ -1664,7 +1734,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCapacityProviders")
+        )
         input_: capo_lambda.types.list_capacity_providers_request.ListCapacityProvidersRequest = {}
         if state is not None:
             input_["state"] = state
@@ -1747,7 +1819,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFunctionVersionsByCapacityProvider")
+        )
         input_: capo_lambda.types.list_function_versions_by_capacity_provider_request.ListFunctionVersionsByCapacityProviderRequest = {
             "capacity_provider_name": capacity_provider_name
         }
@@ -1828,7 +1902,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCodeSigningConfig")
+        )
         input_: capo_lambda.types.create_code_signing_config_request.CreateCodeSigningConfigRequest = {
             "allowed_publishers": allowed_publishers
         }
@@ -1880,7 +1956,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCodeSigningConfigs")
+        )
         input_: capo_lambda.types.list_code_signing_configs_request.ListCodeSigningConfigsRequest = {}
         if marker is not None:
             input_["marker"] = marker
@@ -1928,7 +2006,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCodeSigningConfig")
+        )
         input_: capo_lambda.types.delete_code_signing_config_request.DeleteCodeSigningConfigRequest = {
             "code_signing_config_arn": code_signing_config_arn
         }
@@ -1973,7 +2053,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCodeSigningConfig")
+        )
         input_: capo_lambda.types.get_code_signing_config_request.GetCodeSigningConfigRequest = {
             "code_signing_config_arn": code_signing_config_arn
         }
@@ -2022,7 +2104,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFunctionsByCodeSigningConfig")
+        )
         input_: capo_lambda.types.list_functions_by_code_signing_config_request.ListFunctionsByCodeSigningConfigRequest = {
             "code_signing_config_arn": code_signing_config_arn
         }
@@ -2081,7 +2165,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCodeSigningConfig")
+        )
         input_: capo_lambda.types.update_code_signing_config_request.UpdateCodeSigningConfigRequest = {
             "code_signing_config_arn": code_signing_config_arn
         }
@@ -2141,7 +2227,19 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.get_durable_execution_response.GetDurableExecutionResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.get_durable_execution_response
+
+            return capo_lambda.types.get_durable_execution_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDurableExecution", redact_output=_redact_output),
+        )
         input_: capo_lambda.types.get_durable_execution_request.GetDurableExecutionRequest = {
             "durable_execution_arn": durable_execution_arn
         }
@@ -2200,7 +2298,34 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.checkpoint_durable_execution_request.CheckpointDurableExecutionRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.checkpoint_durable_execution_request
+
+            return (
+                capo_lambda.types.checkpoint_durable_execution_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_lambda.types.checkpoint_durable_execution_response.CheckpointDurableExecutionResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.checkpoint_durable_execution_response
+
+            return capo_lambda.types.checkpoint_durable_execution_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CheckpointDurableExecution",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_lambda.types.checkpoint_durable_execution_request.CheckpointDurableExecutionRequest = {
             "durable_execution_arn": durable_execution_arn,
             "checkpoint_token": checkpoint_token,
@@ -2266,7 +2391,21 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.get_durable_execution_history_response.GetDurableExecutionHistoryResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.get_durable_execution_history_response
+
+            return capo_lambda.types.get_durable_execution_history_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetDurableExecutionHistory", redact_output=_redact_output
+            ),
+        )
         input_: capo_lambda.types.get_durable_execution_history_request.GetDurableExecutionHistoryRequest = {
             "durable_execution_arn": durable_execution_arn
         }
@@ -2358,7 +2497,21 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.get_durable_execution_state_response.GetDurableExecutionStateResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.get_durable_execution_state_response
+
+            return (
+                capo_lambda.types.get_durable_execution_state_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDurableExecutionState", redact_output=_redact_output),
+        )
         input_: capo_lambda.types.get_durable_execution_state_request.GetDurableExecutionStateRequest = {
             "durable_execution_arn": durable_execution_arn,
             "checkpoint_token": checkpoint_token,
@@ -2442,7 +2595,19 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.stop_durable_execution_request.StopDurableExecutionRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.stop_durable_execution_request
+
+            return capo_lambda.types.stop_durable_execution_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StopDurableExecution", redact_input=_redact_input),
+        )
         input_: capo_lambda.types.stop_durable_execution_request.StopDurableExecutionRequest = {
             "durable_execution_arn": durable_execution_arn
         }
@@ -2589,7 +2754,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEventSourceMapping")
+        )
         input_: capo_lambda.types.create_event_source_mapping_request.CreateEventSourceMappingRequest = {
             "function_name": function_name
         }
@@ -2701,7 +2868,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEventSourceMapping")
+        )
         input_: capo_lambda.types.get_event_source_mapping_request.GetEventSourceMappingRequest = {
             "uuid": uuid
         }
@@ -2830,7 +2999,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEventSourceMapping")
+        )
         input_: capo_lambda.types.update_event_source_mapping_request.UpdateEventSourceMappingRequest = {
             "uuid": uuid
         }
@@ -2932,7 +3103,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEventSourceMapping")
+        )
         input_: capo_lambda.types.delete_event_source_mapping_request.DeleteEventSourceMappingRequest = {
             "uuid": uuid
         }
@@ -2992,7 +3165,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEventSourceMappings")
+        )
         input_: capo_lambda.types.list_event_source_mappings_request.ListEventSourceMappingsRequest = {}
         if event_source_arn is not None:
             input_["event_source_arn"] = event_source_arn
@@ -3132,7 +3307,28 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.create_function_request.CreateFunctionRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.create_function_request
+
+            return capo_lambda.types.create_function_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_lambda.types.function_configuration.FunctionConfiguration",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.function_configuration
+
+            return capo_lambda.types.function_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateFunction",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_lambda.types.create_function_request.CreateFunctionRequest = {
             "function_name": function_name,
             "role": role,
@@ -3243,7 +3439,17 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.list_functions_response.ListFunctionsResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.list_functions_response
+
+            return capo_lambda.types.list_functions_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListFunctions", redact_output=_redact_output),
+        )
         input_: capo_lambda.types.list_functions_request.ListFunctionsRequest = {}
         if master_region is not None:
             input_["master_region"] = master_region
@@ -3300,7 +3506,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFunctionConcurrency")
+        )
         input_: capo_lambda.types.delete_function_concurrency_request.DeleteFunctionConcurrencyRequest = {
             "function_name": function_name
         }
@@ -3352,7 +3560,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFunctionConcurrency")
+        )
         input_: capo_lambda.types.get_function_concurrency_request.GetFunctionConcurrencyRequest = {
             "function_name": function_name
         }
@@ -3410,7 +3620,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProvisionedConcurrencyConfigs")
+        )
         input_: capo_lambda.types.list_provisioned_concurrency_configs_request.ListProvisionedConcurrencyConfigsRequest = {
             "function_name": function_name
         }
@@ -3467,7 +3679,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutFunctionConcurrency")
+        )
         input_: capo_lambda.types.put_function_concurrency_request.PutFunctionConcurrencyRequest = {
             "function_name": function_name,
             "reserved_concurrent_executions": reserved_concurrent_executions,
@@ -3558,7 +3772,30 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.update_function_code_request.UpdateFunctionCodeRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.update_function_code_request
+
+            return capo_lambda.types.update_function_code_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_lambda.types.function_configuration.FunctionConfiguration",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.function_configuration
+
+            return capo_lambda.types.function_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateFunctionCode",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_lambda.types.update_function_code_request.UpdateFunctionCodeRequest = {
             "function_name": function_name
         }
@@ -3693,7 +3930,30 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.update_function_configuration_request.UpdateFunctionConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.update_function_configuration_request
+
+            return capo_lambda.types.update_function_configuration_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_lambda.types.function_configuration.FunctionConfiguration",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.function_configuration
+
+            return capo_lambda.types.function_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateFunctionConfiguration",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_lambda.types.update_function_configuration_request.UpdateFunctionConfigurationRequest = {
             "function_name": function_name
         }
@@ -3790,7 +4050,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFunctionUrlConfig")
+        )
         input_: capo_lambda.types.create_function_url_config_request.CreateFunctionUrlConfigRequest = {
             "function_name": function_name,
             "auth_type": auth_type,
@@ -3843,7 +4105,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFunctionCodeSigningConfig")
+        )
         input_: capo_lambda.types.delete_function_code_signing_config_request.DeleteFunctionCodeSigningConfigRequest = {
             "function_name": function_name
         }
@@ -3892,7 +4156,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFunctionUrlConfig")
+        )
         input_: capo_lambda.types.delete_function_url_config_request.DeleteFunctionUrlConfigRequest = {
             "function_name": function_name
         }
@@ -3950,7 +4216,17 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.get_function_response.GetFunctionResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.get_function_response
+
+            return capo_lambda.types.get_function_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetFunction", redact_output=_redact_output),
+        )
         input_: capo_lambda.types.get_function_request.GetFunctionRequest = {
             "function_name": function_name
         }
@@ -4050,7 +4326,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFunctionCodeSigningConfig")
+        )
         input_: capo_lambda.types.get_function_code_signing_config_request.GetFunctionCodeSigningConfigRequest = {
             "function_name": function_name
         }
@@ -4106,7 +4384,17 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.function_configuration.FunctionConfiguration",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.function_configuration
+
+            return capo_lambda.types.function_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetFunctionConfiguration", redact_output=_redact_output),
+        )
         input_: capo_lambda.types.get_function_configuration_request.GetFunctionConfigurationRequest = {
             "function_name": function_name
         }
@@ -4154,7 +4442,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFunctionRecursionConfig")
+        )
         input_: capo_lambda.types.get_function_recursion_config_request.GetFunctionRecursionConfigRequest = {
             "function_name": function_name
         }
@@ -4202,7 +4492,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFunctionScalingConfig")
+        )
         input_: capo_lambda.types.get_function_scaling_config_request.GetFunctionScalingConfigRequest = {
             "function_name": function_name,
             "qualifier": qualifier,
@@ -4253,7 +4545,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFunctionUrlConfig")
+        )
         input_: capo_lambda.types.get_function_url_config_request.GetFunctionUrlConfigRequest = {
             "function_name": function_name
         }
@@ -4311,7 +4605,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPolicy")
+        )
         input_: capo_lambda.types.get_policy_request.GetPolicyRequest = {
             "function_name": function_name
         }
@@ -4363,7 +4659,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRuntimeManagementConfig")
+        )
         input_: capo_lambda.types.get_runtime_management_config_request.GetRuntimeManagementConfigRequest = {
             "function_name": function_name
         }
@@ -4480,7 +4778,26 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.invocation_request.InvocationRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.invocation_request
+
+            return capo_lambda.types.invocation_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_lambda.types.invocation_response.InvocationResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.invocation_response
+
+            return capo_lambda.types.invocation_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "Invoke", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_lambda.types.invocation_request.InvocationRequest = {
             "function_name": function_name
         }
@@ -4573,7 +4890,17 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.invoke_async_request.InvokeAsyncRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.invoke_async_request
+
+            return capo_lambda.types.invoke_async_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("InvokeAsync", redact_input=_redact_input),
+        )
         input_: capo_lambda.types.invoke_async_request.InvokeAsyncRequest = {
             "function_name": function_name,
             "invoke_args": ensure_sync_iterator(invoke_args),
@@ -4674,7 +5001,36 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.invoke_with_response_stream_request.InvokeWithResponseStreamRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.invoke_with_response_stream_request
+
+            return (
+                capo_lambda.types.invoke_with_response_stream_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_lambda.types.invoke_with_response_stream_response.InvokeWithResponseStreamResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.invoke_with_response_stream_response
+
+            return (
+                capo_lambda.types.invoke_with_response_stream_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeWithResponseStream",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_lambda.types.invoke_with_response_stream_request.InvokeWithResponseStreamRequest = {
             "function_name": function_name
         }
@@ -4760,7 +5116,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDurableExecutionsByFunction")
+        )
         input_: capo_lambda.types.list_durable_executions_by_function_request.ListDurableExecutionsByFunctionRequest = {
             "function_name": function_name
         }
@@ -4871,7 +5229,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFunctionUrlConfigs")
+        )
         input_: capo_lambda.types.list_function_url_configs_request.ListFunctionUrlConfigsRequest = {
             "function_name": function_name
         }
@@ -4925,7 +5285,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutFunctionCodeSigningConfig")
+        )
         input_: capo_lambda.types.put_function_code_signing_config_request.PutFunctionCodeSigningConfigRequest = {
             "code_signing_config_arn": code_signing_config_arn,
             "function_name": function_name,
@@ -4975,7 +5337,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutFunctionRecursionConfig")
+        )
         input_: capo_lambda.types.put_function_recursion_config_request.PutFunctionRecursionConfigRequest = {
             "function_name": function_name,
             "recursive_loop": recursive_loop,
@@ -5029,7 +5393,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutFunctionScalingConfig")
+        )
         input_: capo_lambda.types.put_function_scaling_config_request.PutFunctionScalingConfigRequest = {
             "function_name": function_name,
             "qualifier": qualifier,
@@ -5089,7 +5455,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRuntimeManagementConfig")
+        )
         input_: capo_lambda.types.put_runtime_management_config_request.PutRuntimeManagementConfigRequest = {
             "function_name": function_name,
             "update_runtime_on": update_runtime_on,
@@ -5153,7 +5521,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFunctionUrlConfig")
+        )
         input_: capo_lambda.types.update_function_url_config_request.UpdateFunctionUrlConfigRequest = {
             "function_name": function_name
         }
@@ -5225,7 +5595,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAlias")
+        )
         input_: capo_lambda.types.create_alias_request.CreateAliasRequest = {
             "function_name": function_name,
             "name": name,
@@ -5285,7 +5657,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAlias")
+        )
         input_: capo_lambda.types.get_alias_request.GetAliasRequest = {
             "function_name": function_name,
             "name": name,
@@ -5354,7 +5728,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAlias")
+        )
         input_: capo_lambda.types.update_alias_request.UpdateAliasRequest = {
             "function_name": function_name,
             "name": name,
@@ -5416,7 +5792,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAlias")
+        )
         input_: capo_lambda.types.delete_alias_request.DeleteAliasRequest = {
             "function_name": function_name,
             "name": name,
@@ -5477,7 +5855,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAliases")
+        )
         input_: capo_lambda.types.list_aliases_request.ListAliasesRequest = {
             "function_name": function_name
         }
@@ -5549,7 +5929,17 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.function_configuration.FunctionConfiguration",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.function_configuration
+
+            return capo_lambda.types.function_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PublishVersion", redact_output=_redact_output),
+        )
         input_: capo_lambda.types.publish_version_request.PublishVersionRequest = {
             "function_name": function_name
         }
@@ -5613,7 +6003,21 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.list_versions_by_function_response.ListVersionsByFunctionResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.list_versions_by_function_response
+
+            return (
+                capo_lambda.types.list_versions_by_function_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListVersionsByFunction", redact_output=_redact_output),
+        )
         input_: capo_lambda.types.list_versions_by_function_request.ListVersionsByFunctionRequest = {
             "function_name": function_name
         }
@@ -5701,7 +6105,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLayers")
+        )
         input_: capo_lambda.types.list_layers_request.ListLayersRequest = {}
         if compatible_architecture is not None:
             input_["compatible_architecture"] = compatible_architecture
@@ -5771,7 +6177,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLayerVersions")
+        )
         input_: capo_lambda.types.list_layer_versions_request.ListLayerVersionsRequest = {
             "layer_name": layer_name
         }
@@ -5848,7 +6256,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddLayerVersionPermission")
+        )
         input_: capo_lambda.types.add_layer_version_permission_request.AddLayerVersionPermissionRequest = {
             "layer_name": layer_name,
             "version_number": version_number,
@@ -5908,7 +6318,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLayerVersion")
+        )
         input_: capo_lambda.types.delete_layer_version_request.DeleteLayerVersionRequest = {
             "layer_name": layer_name,
             "version_number": version_number,
@@ -5963,7 +6375,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLayerVersion")
+        )
         input_: capo_lambda.types.get_layer_version_request.GetLayerVersionRequest = {
             "layer_name": layer_name,
             "version_number": version_number,
@@ -6016,7 +6430,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLayerVersionByArn")
+        )
         input_: capo_lambda.types.get_layer_version_by_arn_request.GetLayerVersionByArnRequest = {
             "arn": arn
         }
@@ -6064,7 +6480,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLayerVersionPolicy")
+        )
         input_: capo_lambda.types.get_layer_version_policy_request.GetLayerVersionPolicyRequest = {
             "layer_name": layer_name,
             "version_number": version_number,
@@ -6132,7 +6550,19 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.publish_layer_version_request.PublishLayerVersionRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.publish_layer_version_request
+
+            return capo_lambda.types.publish_layer_version_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PublishLayerVersion", redact_input=_redact_input),
+        )
         input_: capo_lambda.types.publish_layer_version_request.PublishLayerVersionRequest = {
             "layer_name": layer_name,
             "content": content,
@@ -6198,7 +6628,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveLayerVersionPermission")
+        )
         input_: capo_lambda.types.remove_layer_version_permission_request.RemoveLayerVersionPermissionRequest = {
             "layer_name": layer_name,
             "version_number": version_number,
@@ -6294,7 +6726,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddPermission")
+        )
         input_: capo_lambda.types.add_permission_request.AddPermissionRequest = {
             "function_name": function_name,
             "statement_id": statement_id,
@@ -6373,7 +6807,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemovePermission")
+        )
         input_: capo_lambda.types.remove_permission_request.RemovePermissionRequest = {
             "function_name": function_name,
             "statement_id": statement_id,
@@ -6435,7 +6871,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutProvisionedConcurrencyConfig")
+        )
         input_: capo_lambda.types.put_provisioned_concurrency_config_request.PutProvisionedConcurrencyConfigRequest = {
             "function_name": function_name,
             "qualifier": qualifier,
@@ -6496,7 +6934,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProvisionedConcurrencyConfig")
+        )
         input_: capo_lambda.types.get_provisioned_concurrency_config_request.GetProvisionedConcurrencyConfigRequest = {
             "function_name": function_name,
             "qualifier": qualifier,
@@ -6550,7 +6990,9 @@ class LambdaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProvisionedConcurrencyConfig")
+        )
         input_: capo_lambda.types.delete_provisioned_concurrency_config_request.DeleteProvisionedConcurrencyConfigRequest = {
             "function_name": function_name,
             "qualifier": qualifier,

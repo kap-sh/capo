@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralaccount#PutAllianceLeadContactRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -69,4 +69,19 @@ def deserialize_aws_json_1_0(data: dict) -> PutAllianceLeadContactRequest:
         )
     if data.get("EmailVerificationCode") is not None:
         out["email_verification_code"] = data["EmailVerificationCode"]
+    return out
+
+
+def redact_sensitive(value: PutAllianceLeadContactRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "alliance_lead_contact" in value:
+        import capo_partnercentral_account.types.alliance_lead_contact
+
+        out["alliance_lead_contact"] = (
+            capo_partnercentral_account.types.alliance_lead_contact.redact_sensitive(
+                value["alliance_lead_contact"]
+            )
+        )
+    if "email_verification_code" in value:
+        out["email_verification_code"] = "*** Sensitive Data Redacted ***"
     return out

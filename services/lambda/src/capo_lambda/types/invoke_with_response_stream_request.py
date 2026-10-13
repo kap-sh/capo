@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#InvokeWithResponseStreamRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -51,4 +51,11 @@ def deserialize_json(data: dict) -> InvokeWithResponseStreamRequest:
         import capo_lambda.types.blob
 
         out["payload"] = capo_lambda.types.blob.deserialize_json(data["Payload"])
+    return out
+
+
+def redact_sensitive(value: InvokeWithResponseStreamRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "payload" in value:
+        out["payload"] = "*** Sensitive Data Redacted ***"
     return out

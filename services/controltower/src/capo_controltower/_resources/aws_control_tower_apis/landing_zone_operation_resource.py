@@ -7,6 +7,7 @@ import capo_controltower._auth._sigv4
 from capo_controltower._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -70,7 +71,9 @@ class LandingZoneOperationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetLandingZoneOperation")
+        )
         input_: capo_controltower.types.get_landing_zone_operation_input.GetLandingZoneOperationInput = {
             "operation_identifier": operation_identifier
         }
@@ -124,7 +127,9 @@ class LandingZoneOperationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListLandingZoneOperations")
+        )
         input_: capo_controltower.types.list_landing_zone_operations_input.ListLandingZoneOperationsInput = {}
         if filter is not None:
             input_["filter"] = filter
@@ -181,7 +186,9 @@ class AsyncLandingZoneOperationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetLandingZoneOperation")
+        )
         input_: capo_controltower.types.get_landing_zone_operation_input.GetLandingZoneOperationInput = {
             "operation_identifier": operation_identifier
         }
@@ -236,7 +243,9 @@ class AsyncLandingZoneOperationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListLandingZoneOperations")
+        )
         input_: capo_controltower.types.list_landing_zone_operations_input.ListLandingZoneOperationsInput = {}
         if filter is not None:
             input_["filter"] = filter

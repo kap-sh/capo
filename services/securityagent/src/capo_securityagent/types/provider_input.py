@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityagent#ProviderInput``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -156,3 +156,16 @@ def deserialize_json(data: dict) -> ProviderInput:
         }
     else:
         raise DeserializationError("ProviderInput: no recognized variant key")
+
+
+def redact_sensitive(value: ProviderInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "gitlab" in value:
+        import capo_securityagent.types.git_lab_integration_input
+
+        out["gitlab"] = (
+            capo_securityagent.types.git_lab_integration_input.redact_sensitive(
+                value["gitlab"]
+            )
+        )
+    return out

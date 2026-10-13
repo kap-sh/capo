@@ -7,6 +7,7 @@ import capo_neptune_graph._auth._sigv4
 from capo_neptune_graph._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -82,7 +83,9 @@ class SnapshotResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateGraphSnapshot")
+        )
         input_: capo_neptune_graph.types.create_graph_snapshot_input.CreateGraphSnapshotInput = {
             "graph_identifier": graph_identifier,
             "snapshot_name": snapshot_name,
@@ -132,7 +135,9 @@ class SnapshotResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGraphSnapshot")
+        )
         input_: capo_neptune_graph.types.delete_graph_snapshot_input.DeleteGraphSnapshotInput = {
             "snapshot_identifier": snapshot_identifier
         }
@@ -178,7 +183,9 @@ class SnapshotResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetGraphSnapshot")
+        )
         input_: capo_neptune_graph.types.get_graph_snapshot_input.GetGraphSnapshotInput = {
             "snapshot_identifier": snapshot_identifier
         }
@@ -234,7 +241,9 @@ class SnapshotResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGraphSnapshots")
+        )
         input_: capo_neptune_graph.types.list_graph_snapshots_input.ListGraphSnapshotsInput = {}
         if graph_identifier is not None:
             input_["graph_identifier"] = graph_identifier
@@ -296,7 +305,9 @@ class AsyncSnapshotResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateGraphSnapshot")
+        )
         input_: capo_neptune_graph.types.create_graph_snapshot_input.CreateGraphSnapshotInput = {
             "graph_identifier": graph_identifier,
             "snapshot_name": snapshot_name,
@@ -347,7 +358,9 @@ class AsyncSnapshotResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGraphSnapshot")
+        )
         input_: capo_neptune_graph.types.delete_graph_snapshot_input.DeleteGraphSnapshotInput = {
             "snapshot_identifier": snapshot_identifier
         }
@@ -394,7 +407,9 @@ class AsyncSnapshotResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetGraphSnapshot")
+        )
         input_: capo_neptune_graph.types.get_graph_snapshot_input.GetGraphSnapshotInput = {
             "snapshot_identifier": snapshot_identifier
         }
@@ -451,7 +466,9 @@ class AsyncSnapshotResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGraphSnapshots")
+        )
         input_: capo_neptune_graph.types.list_graph_snapshots_input.ListGraphSnapshotsInput = {}
         if graph_identifier is not None:
             input_["graph_identifier"] = graph_identifier

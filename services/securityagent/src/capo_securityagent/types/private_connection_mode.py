@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityagent#PrivateConnectionMode``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -65,3 +65,24 @@ def deserialize_json(data: dict) -> PrivateConnectionMode:
         }
     else:
         raise DeserializationError("PrivateConnectionMode: no recognized variant key")
+
+
+def redact_sensitive(value: PrivateConnectionMode) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "serviceManaged" in value:
+        import capo_securityagent.types.service_managed_input
+
+        out["serviceManaged"] = (
+            capo_securityagent.types.service_managed_input.redact_sensitive(
+                value["serviceManaged"]
+            )
+        )
+    if "selfManaged" in value:
+        import capo_securityagent.types.self_managed_input
+
+        out["selfManaged"] = (
+            capo_securityagent.types.self_managed_input.redact_sensitive(
+                value["selfManaged"]
+            )
+        )
+    return out

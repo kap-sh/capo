@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_odb._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -114,7 +115,21 @@ class CloudExadataInfrastructureResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_odb.types.create_cloud_exadata_infrastructure_input.CreateCloudExadataInfrastructureInput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.create_cloud_exadata_infrastructure_input
+
+            return capo_odb.types.create_cloud_exadata_infrastructure_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateCloudExadataInfrastructure", redact_input=_redact_input
+            ),
+        )
         input_: capo_odb.types.create_cloud_exadata_infrastructure_input.CreateCloudExadataInfrastructureInput = {
             "display_name": display_name,
             "shape": shape,
@@ -183,7 +198,23 @@ class CloudExadataInfrastructureResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_odb.types.get_cloud_exadata_infrastructure_output.GetCloudExadataInfrastructureOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.get_cloud_exadata_infrastructure_output
+
+            return (
+                capo_odb.types.get_cloud_exadata_infrastructure_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetCloudExadataInfrastructure", redact_output=_redact_output
+            ),
+        )
         input_: capo_odb.types.get_cloud_exadata_infrastructure_input.GetCloudExadataInfrastructureInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id
         }
@@ -234,7 +265,9 @@ class CloudExadataInfrastructureResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCloudExadataInfrastructure")
+        )
         input_: capo_odb.types.update_cloud_exadata_infrastructure_input.UpdateCloudExadataInfrastructureInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id
         }
@@ -284,7 +317,9 @@ class CloudExadataInfrastructureResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCloudExadataInfrastructure")
+        )
         input_: capo_odb.types.delete_cloud_exadata_infrastructure_input.DeleteCloudExadataInfrastructureInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id
         }
@@ -332,7 +367,21 @@ class CloudExadataInfrastructureResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_odb.types.list_cloud_exadata_infrastructures_output.ListCloudExadataInfrastructuresOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.list_cloud_exadata_infrastructures_output
+
+            return capo_odb.types.list_cloud_exadata_infrastructures_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListCloudExadataInfrastructures", redact_output=_redact_output
+            ),
+        )
         input_: capo_odb.types.list_cloud_exadata_infrastructures_input.ListCloudExadataInfrastructuresInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -383,7 +432,10 @@ class CloudExadataInfrastructureResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetCloudExadataInfrastructureUnallocatedResources"),
+        )
         input_: capo_odb.types.get_cloud_exadata_infrastructure_unallocated_resources_input.GetCloudExadataInfrastructureUnallocatedResourcesInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id
         }
@@ -432,7 +484,9 @@ class CloudExadataInfrastructureResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDbServer")
+        )
         input_: capo_odb.types.get_db_server_input.GetDbServerInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id,
             "db_server_id": db_server_id,
@@ -484,7 +538,9 @@ class CloudExadataInfrastructureResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDbServers")
+        )
         input_: capo_odb.types.list_db_servers_input.ListDbServersInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id
         }
@@ -574,7 +630,21 @@ class AsyncCloudExadataInfrastructureResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_odb.types.create_cloud_exadata_infrastructure_input.CreateCloudExadataInfrastructureInput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.create_cloud_exadata_infrastructure_input
+
+            return capo_odb.types.create_cloud_exadata_infrastructure_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateCloudExadataInfrastructure", redact_input=_redact_input
+            ),
+        )
         input_: capo_odb.types.create_cloud_exadata_infrastructure_input.CreateCloudExadataInfrastructureInput = {
             "display_name": display_name,
             "shape": shape,
@@ -644,7 +714,23 @@ class AsyncCloudExadataInfrastructureResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_odb.types.get_cloud_exadata_infrastructure_output.GetCloudExadataInfrastructureOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.get_cloud_exadata_infrastructure_output
+
+            return (
+                capo_odb.types.get_cloud_exadata_infrastructure_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetCloudExadataInfrastructure", redact_output=_redact_output
+            ),
+        )
         input_: capo_odb.types.get_cloud_exadata_infrastructure_input.GetCloudExadataInfrastructureInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id
         }
@@ -696,7 +782,9 @@ class AsyncCloudExadataInfrastructureResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCloudExadataInfrastructure")
+        )
         input_: capo_odb.types.update_cloud_exadata_infrastructure_input.UpdateCloudExadataInfrastructureInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id
         }
@@ -747,7 +835,9 @@ class AsyncCloudExadataInfrastructureResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCloudExadataInfrastructure")
+        )
         input_: capo_odb.types.delete_cloud_exadata_infrastructure_input.DeleteCloudExadataInfrastructureInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id
         }
@@ -796,7 +886,21 @@ class AsyncCloudExadataInfrastructureResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_odb.types.list_cloud_exadata_infrastructures_output.ListCloudExadataInfrastructuresOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.list_cloud_exadata_infrastructures_output
+
+            return capo_odb.types.list_cloud_exadata_infrastructures_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListCloudExadataInfrastructures", redact_output=_redact_output
+            ),
+        )
         input_: capo_odb.types.list_cloud_exadata_infrastructures_input.ListCloudExadataInfrastructuresInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -848,7 +952,10 @@ class AsyncCloudExadataInfrastructureResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetCloudExadataInfrastructureUnallocatedResources"),
+        )
         input_: capo_odb.types.get_cloud_exadata_infrastructure_unallocated_resources_input.GetCloudExadataInfrastructureUnallocatedResourcesInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id
         }
@@ -900,7 +1007,9 @@ class AsyncCloudExadataInfrastructureResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDbServer")
+        )
         input_: capo_odb.types.get_db_server_input.GetDbServerInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id,
             "db_server_id": db_server_id,
@@ -953,7 +1062,9 @@ class AsyncCloudExadataInfrastructureResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDbServers")
+        )
         input_: capo_odb.types.list_db_servers_input.ListDbServersInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id
         }

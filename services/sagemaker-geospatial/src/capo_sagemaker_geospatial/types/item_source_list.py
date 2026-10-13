@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemakergeospatial#ItemSourceList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.item_source
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> ItemSourceList:
             continue
         out.append(capo_sagemaker_geospatial.types.item_source.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ItemSourceList) -> list[Any]:
+    import capo_sagemaker_geospatial.types.item_source
+
+    return [
+        capo_sagemaker_geospatial.types.item_source.redact_sensitive(item)
+        for item in value
+    ]

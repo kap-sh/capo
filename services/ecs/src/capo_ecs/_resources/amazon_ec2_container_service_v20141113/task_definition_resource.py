@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_ecs._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -85,7 +86,19 @@ class TaskDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.delete_task_definitions_response.DeleteTaskDefinitionsResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.delete_task_definitions_response
+
+            return capo_ecs.types.delete_task_definitions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteTaskDefinitions", redact_output=_redact_output),
+        )
         input_: capo_ecs.types.delete_task_definitions_request.DeleteTaskDefinitionsRequest = {
             "task_definitions": task_definitions
         }
@@ -151,7 +164,9 @@ class TaskDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTaskDefinitions")
+        )
         input_: capo_ecs.types.list_task_definitions_request.ListTaskDefinitionsRequest = {}
         if family_prefix is not None:
             input_["family_prefix"] = family_prefix
@@ -260,7 +275,32 @@ class TaskDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ecs.types.register_task_definition_request.RegisterTaskDefinitionRequest",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.register_task_definition_request
+
+            return capo_ecs.types.register_task_definition_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_ecs.types.register_task_definition_response.RegisterTaskDefinitionResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.register_task_definition_response
+
+            return capo_ecs.types.register_task_definition_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RegisterTaskDefinition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_ecs.types.register_task_definition_request.RegisterTaskDefinitionRequest = {
             "family": family,
             "container_definitions": container_definitions,
@@ -353,7 +393,19 @@ class AsyncTaskDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.delete_task_definitions_response.DeleteTaskDefinitionsResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.delete_task_definitions_response
+
+            return capo_ecs.types.delete_task_definitions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteTaskDefinitions", redact_output=_redact_output),
+        )
         input_: capo_ecs.types.delete_task_definitions_request.DeleteTaskDefinitionsRequest = {
             "task_definitions": task_definitions
         }
@@ -420,7 +472,9 @@ class AsyncTaskDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTaskDefinitions")
+        )
         input_: capo_ecs.types.list_task_definitions_request.ListTaskDefinitionsRequest = {}
         if family_prefix is not None:
             input_["family_prefix"] = family_prefix
@@ -530,7 +584,32 @@ class AsyncTaskDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ecs.types.register_task_definition_request.RegisterTaskDefinitionRequest",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.register_task_definition_request
+
+            return capo_ecs.types.register_task_definition_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_ecs.types.register_task_definition_response.RegisterTaskDefinitionResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.register_task_definition_response
+
+            return capo_ecs.types.register_task_definition_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RegisterTaskDefinition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_ecs.types.register_task_definition_request.RegisterTaskDefinitionRequest = {
             "family": family,
             "container_definitions": container_definitions,

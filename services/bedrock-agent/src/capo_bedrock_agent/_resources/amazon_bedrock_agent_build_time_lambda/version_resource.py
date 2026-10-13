@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agent._auth._signers
 import capo_bedrock_agent._auth._sigv4
 from capo_bedrock_agent._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -78,7 +79,9 @@ class VersionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAgentVersion")
+        )
         input_: capo_bedrock_agent.types.delete_agent_version_request.DeleteAgentVersionRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -130,7 +133,19 @@ class VersionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agent.types.get_agent_version_response.GetAgentVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.get_agent_version_response
+
+            return capo_bedrock_agent.types.get_agent_version_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAgentVersion", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agent.types.get_agent_version_request.GetAgentVersionRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -182,7 +197,9 @@ class VersionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAgentVersions")
+        )
         input_: capo_bedrock_agent.types.list_agent_versions_request.ListAgentVersionsRequest = {
             "agent_id": agent_id
         }
@@ -244,7 +261,9 @@ class AsyncVersionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAgentVersion")
+        )
         input_: capo_bedrock_agent.types.delete_agent_version_request.DeleteAgentVersionRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -297,7 +316,19 @@ class AsyncVersionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agent.types.get_agent_version_response.GetAgentVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.get_agent_version_response
+
+            return capo_bedrock_agent.types.get_agent_version_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAgentVersion", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agent.types.get_agent_version_request.GetAgentVersionRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -350,7 +381,9 @@ class AsyncVersionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAgentVersions")
+        )
         input_: capo_bedrock_agent.types.list_agent_versions_request.ListAgentVersionsRequest = {
             "agent_id": agent_id
         }

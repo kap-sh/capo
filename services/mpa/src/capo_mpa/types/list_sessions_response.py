@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mpa#ListSessionsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,6 +42,19 @@ def deserialize_json(data: dict) -> ListSessionsResponse:
         out["sessions"] = (
             capo_mpa.types.list_sessions_response_sessions.deserialize_json(
                 data["Sessions"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ListSessionsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sessions" in value:
+        import capo_mpa.types.list_sessions_response_sessions
+
+        out["sessions"] = (
+            capo_mpa.types.list_sessions_response_sessions.redact_sensitive(
+                value["sessions"]
             )
         )
     return out

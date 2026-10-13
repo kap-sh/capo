@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.taxsettings#ConflictException``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -56,3 +56,10 @@ class ConflictException(ServiceError):
     @classmethod
     def from_json(cls, data: dict, message: str | None = None) -> "ConflictException":
         return cls(deserialize_json(data), message)
+
+
+def redact_sensitive(value: ConflictException_) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "message" in value:
+        out["message"] = "*** Sensitive Data Redacted ***"
+    return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#CreateAssessmentReportRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,11 @@ def deserialize_json(data: dict) -> CreateAssessmentReportRequest:
         out["description"] = data["description"]
     if data.get("queryStatement") is not None:
         out["query_statement"] = data["queryStatement"]
+    return out
+
+
+def redact_sensitive(value: CreateAssessmentReportRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

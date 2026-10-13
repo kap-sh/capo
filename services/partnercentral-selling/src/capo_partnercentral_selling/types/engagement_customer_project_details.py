@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#EngagementCustomerProjectDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -47,4 +47,11 @@ def deserialize_aws_json_1_0(data: dict) -> EngagementCustomerProjectDetails:
         raise DeserializationError(
             "EngagementCustomerProjectDetails.target_completion_date required"
         )
+    return out
+
+
+def redact_sensitive(value: EngagementCustomerProjectDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "business_problem" in value:
+        out["business_problem"] = "*** Sensitive Data Redacted ***"
     return out

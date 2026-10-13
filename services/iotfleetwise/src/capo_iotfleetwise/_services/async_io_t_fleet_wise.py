@@ -45,7 +45,9 @@ from capo_iotfleetwise._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -315,7 +317,9 @@ class AsyncIoTFleetWiseClient:
         self.vehicle_resource = AsyncVehicleResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncIoTFleetWiseClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncIoTFleetWiseClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncIoTFleetWiseClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -323,8 +327,10 @@ class AsyncIoTFleetWiseClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -378,7 +384,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchCreateVehicle")
+        )
         input_: capo_iotfleetwise.types.batch_create_vehicle_request.BatchCreateVehicleRequest = {
             "vehicles": vehicles
         }
@@ -426,7 +434,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchUpdateVehicle")
+        )
         input_: capo_iotfleetwise.types.batch_update_vehicle_request.BatchUpdateVehicleRequest = {
             "vehicles": vehicles
         }
@@ -468,7 +478,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEncryptionConfiguration")
+        )
         input_: capo_iotfleetwise.types.get_encryption_configuration_request.GetEncryptionConfigurationRequest = {}
 
         response = await aexecute_pipeline(
@@ -508,7 +520,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLoggingOptions")
+        )
         input_: capo_iotfleetwise.types.get_logging_options_request.GetLoggingOptionsRequest = {}
 
         response = await aexecute_pipeline(
@@ -548,7 +562,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRegisterAccountStatus")
+        )
         input_: capo_iotfleetwise.types.get_register_account_status_request.GetRegisterAccountStatusRequest = {}
 
         response = await aexecute_pipeline(
@@ -598,7 +614,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetVehicleStatus")
+        )
         input_: capo_iotfleetwise.types.get_vehicle_status_request.GetVehicleStatusRequest = {
             "vehicle_name": vehicle_name
         }
@@ -673,7 +691,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_iotfleetwise.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -724,7 +744,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutEncryptionConfiguration")
+        )
         input_: capo_iotfleetwise.types.put_encryption_configuration_request.PutEncryptionConfigurationRequest = {
             "encryption_type": encryption_type
         }
@@ -777,7 +799,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutLoggingOptions")
+        )
         input_: capo_iotfleetwise.types.put_logging_options_request.PutLoggingOptionsRequest = {
             "cloud_watch_log_delivery": cloud_watch_log_delivery
         }
@@ -831,7 +855,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterAccount")
+        )
         input_: capo_iotfleetwise.types.register_account_request.RegisterAccountRequest = {}
         if timestream_resources is not None:
             input_["timestream_resources"] = timestream_resources
@@ -883,7 +909,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_iotfleetwise.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -934,7 +962,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_iotfleetwise.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1035,7 +1065,19 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iotfleetwise.types.create_campaign_request.CreateCampaignRequest",
+        ) -> dict[str, Any]:
+            import capo_iotfleetwise.types.create_campaign_request
+
+            return capo_iotfleetwise.types.create_campaign_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateCampaign", redact_input=_redact_input),
+        )
         input_: capo_iotfleetwise.types.create_campaign_request.CreateCampaignRequest = {
             "name": name,
             "signal_catalog_arn": signal_catalog_arn,
@@ -1116,7 +1158,19 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iotfleetwise.types.get_campaign_response.GetCampaignResponse",
+        ) -> dict[str, Any]:
+            import capo_iotfleetwise.types.get_campaign_response
+
+            return capo_iotfleetwise.types.get_campaign_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetCampaign", redact_output=_redact_output),
+        )
         input_: capo_iotfleetwise.types.get_campaign_request.GetCampaignRequest = {
             "name": name
         }
@@ -1173,7 +1227,19 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iotfleetwise.types.update_campaign_request.UpdateCampaignRequest",
+        ) -> dict[str, Any]:
+            import capo_iotfleetwise.types.update_campaign_request
+
+            return capo_iotfleetwise.types.update_campaign_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateCampaign", redact_input=_redact_input),
+        )
         input_: capo_iotfleetwise.types.update_campaign_request.UpdateCampaignRequest = {
             "name": name,
             "action": action,
@@ -1226,7 +1292,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCampaign")
+        )
         input_: capo_iotfleetwise.types.delete_campaign_request.DeleteCampaignRequest = {
             "name": name
         }
@@ -1281,7 +1349,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCampaigns")
+        )
         input_: capo_iotfleetwise.types.list_campaigns_request.ListCampaignsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1383,7 +1453,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDecoderManifest")
+        )
         input_: capo_iotfleetwise.types.create_decoder_manifest_request.CreateDecoderManifestRequest = {
             "name": name,
             "model_manifest_arn": model_manifest_arn,
@@ -1442,7 +1514,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDecoderManifest")
+        )
         input_: capo_iotfleetwise.types.get_decoder_manifest_request.GetDecoderManifestRequest = {
             "name": name
         }
@@ -1525,7 +1599,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDecoderManifest")
+        )
         input_: capo_iotfleetwise.types.update_decoder_manifest_request.UpdateDecoderManifestRequest = {
             "name": name
         }
@@ -1591,7 +1667,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDecoderManifest")
+        )
         input_: capo_iotfleetwise.types.delete_decoder_manifest_request.DeleteDecoderManifestRequest = {
             "name": name
         }
@@ -1646,7 +1724,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDecoderManifests")
+        )
         input_: capo_iotfleetwise.types.list_decoder_manifests_request.ListDecoderManifestsRequest = {}
         if model_manifest_arn is not None:
             input_["model_manifest_arn"] = model_manifest_arn
@@ -1732,7 +1812,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportDecoderManifest")
+        )
         input_: capo_iotfleetwise.types.import_decoder_manifest_request.ImportDecoderManifestRequest = {
             "name": name,
             "network_file_definitions": network_file_definitions,
@@ -1785,7 +1867,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDecoderManifestNetworkInterfaces")
+        )
         input_: capo_iotfleetwise.types.list_decoder_manifest_network_interfaces_request.ListDecoderManifestNetworkInterfacesRequest = {
             "name": name
         }
@@ -1864,7 +1948,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDecoderManifestSignals")
+        )
         input_: capo_iotfleetwise.types.list_decoder_manifest_signals_request.ListDecoderManifestSignalsRequest = {
             "name": name
         }
@@ -1947,7 +2033,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFleet")
+        )
         input_: capo_iotfleetwise.types.create_fleet_request.CreateFleetRequest = {
             "fleet_id": fleet_id,
             "signal_catalog_arn": signal_catalog_arn,
@@ -2000,7 +2088,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFleet")
+        )
         input_: capo_iotfleetwise.types.get_fleet_request.GetFleetRequest = {
             "fleet_id": fleet_id
         }
@@ -2051,7 +2141,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFleet")
+        )
         input_: capo_iotfleetwise.types.update_fleet_request.UpdateFleetRequest = {
             "fleet_id": fleet_id
         }
@@ -2100,7 +2192,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFleet")
+        )
         input_: capo_iotfleetwise.types.delete_fleet_request.DeleteFleetRequest = {
             "fleet_id": fleet_id
         }
@@ -2154,7 +2248,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFleets")
+        )
         input_: capo_iotfleetwise.types.list_fleets_request.ListFleetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2235,7 +2331,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVehiclesInFleet")
+        )
         input_: capo_iotfleetwise.types.list_vehicles_in_fleet_request.ListVehiclesInFleetRequest = {
             "fleet_id": fleet_id
         }
@@ -2321,7 +2419,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateModelManifest")
+        )
         input_: capo_iotfleetwise.types.create_model_manifest_request.CreateModelManifestRequest = {
             "name": name,
             "nodes": nodes,
@@ -2375,7 +2475,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetModelManifest")
+        )
         input_: capo_iotfleetwise.types.get_model_manifest_request.GetModelManifestRequest = {
             "name": name
         }
@@ -2437,7 +2539,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateModelManifest")
+        )
         input_: capo_iotfleetwise.types.update_model_manifest_request.UpdateModelManifestRequest = {
             "name": name
         }
@@ -2493,7 +2597,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteModelManifest")
+        )
         input_: capo_iotfleetwise.types.delete_model_manifest_request.DeleteModelManifestRequest = {
             "name": name
         }
@@ -2548,7 +2654,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListModelManifests")
+        )
         input_: capo_iotfleetwise.types.list_model_manifests_request.ListModelManifestsRequest = {}
         if signal_catalog_arn is not None:
             input_["signal_catalog_arn"] = signal_catalog_arn
@@ -2634,7 +2742,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListModelManifestNodes")
+        )
         input_: capo_iotfleetwise.types.list_model_manifest_nodes_request.ListModelManifestNodesRequest = {
             "name": name
         }
@@ -2718,7 +2828,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSignalCatalog")
+        )
         input_: capo_iotfleetwise.types.create_signal_catalog_request.CreateSignalCatalogRequest = {
             "name": name
         }
@@ -2772,7 +2884,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSignalCatalog")
+        )
         input_: capo_iotfleetwise.types.get_signal_catalog_request.GetSignalCatalogRequest = {
             "name": name
         }
@@ -2834,7 +2948,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSignalCatalog")
+        )
         input_: capo_iotfleetwise.types.update_signal_catalog_request.UpdateSignalCatalogRequest = {
             "name": name
         }
@@ -2890,7 +3006,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSignalCatalog")
+        )
         input_: capo_iotfleetwise.types.delete_signal_catalog_request.DeleteSignalCatalogRequest = {
             "name": name
         }
@@ -2939,7 +3057,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSignalCatalogs")
+        )
         input_: capo_iotfleetwise.types.list_signal_catalogs_request.ListSignalCatalogsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3019,7 +3139,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportSignalCatalog")
+        )
         input_: capo_iotfleetwise.types.import_signal_catalog_request.ImportSignalCatalogRequest = {
             "name": name
         }
@@ -3082,7 +3204,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSignalCatalogNodes")
+        )
         input_: capo_iotfleetwise.types.list_signal_catalog_nodes_request.ListSignalCatalogNodesRequest = {
             "name": name
         }
@@ -3182,7 +3306,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStateTemplate")
+        )
         input_: capo_iotfleetwise.types.create_state_template_request.CreateStateTemplateRequest = {
             "name": name,
             "signal_catalog_arn": signal_catalog_arn,
@@ -3240,7 +3366,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStateTemplate")
+        )
         input_: capo_iotfleetwise.types.get_state_template_request.GetStateTemplateRequest = {
             "identifier": identifier
         }
@@ -3308,7 +3436,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateStateTemplate")
+        )
         input_: capo_iotfleetwise.types.update_state_template_request.UpdateStateTemplateRequest = {
             "identifier": identifier
         }
@@ -3369,7 +3499,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStateTemplate")
+        )
         input_: capo_iotfleetwise.types.delete_state_template_request.DeleteStateTemplateRequest = {
             "identifier": identifier
         }
@@ -3422,7 +3554,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStateTemplates")
+        )
         input_: capo_iotfleetwise.types.list_state_templates_request.ListStateTemplatesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3519,7 +3653,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVehicle")
+        )
         input_: capo_iotfleetwise.types.create_vehicle_request.CreateVehicleRequest = {
             "vehicle_name": vehicle_name,
             "model_manifest_arn": model_manifest_arn,
@@ -3577,7 +3713,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetVehicle")
+        )
         input_: capo_iotfleetwise.types.get_vehicle_request.GetVehicleRequest = {
             "vehicle_name": vehicle_name
         }
@@ -3651,7 +3789,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateVehicle")
+        )
         input_: capo_iotfleetwise.types.update_vehicle_request.UpdateVehicleRequest = {
             "vehicle_name": vehicle_name
         }
@@ -3712,7 +3852,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVehicle")
+        )
         input_: capo_iotfleetwise.types.delete_vehicle_request.DeleteVehicleRequest = {
             "vehicle_name": vehicle_name
         }
@@ -3777,7 +3919,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVehicles")
+        )
         input_: capo_iotfleetwise.types.list_vehicles_request.ListVehiclesRequest = {}
         if model_manifest_arn is not None:
             input_["model_manifest_arn"] = model_manifest_arn
@@ -3875,7 +4019,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateVehicleFleet")
+        )
         input_: capo_iotfleetwise.types.associate_vehicle_fleet_request.AssociateVehicleFleetRequest = {
             "vehicle_name": vehicle_name,
             "fleet_id": fleet_id,
@@ -3926,7 +4072,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateVehicleFleet")
+        )
         input_: capo_iotfleetwise.types.disassociate_vehicle_fleet_request.DisassociateVehicleFleetRequest = {
             "vehicle_name": vehicle_name,
             "fleet_id": fleet_id,
@@ -3979,7 +4127,9 @@ class AsyncIoTFleetWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFleetsForVehicle")
+        )
         input_: capo_iotfleetwise.types.list_fleets_for_vehicle_request.ListFleetsForVehicleRequest = {
             "vehicle_name": vehicle_name
         }

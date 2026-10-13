@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.odb#CreateCloudExadataInfrastructureInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -149,4 +149,17 @@ def deserialize_aws_json_1_0(data: dict) -> CreateCloudExadataInfrastructureInpu
         out["database_server_type"] = data["databaseServerType"]
     if data.get("storageServerType") is not None:
         out["storage_server_type"] = data["storageServerType"]
+    return out
+
+
+def redact_sensitive(value: CreateCloudExadataInfrastructureInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "customer_contacts_to_send_to_oci" in value:
+        import capo_odb.types.customer_contacts
+
+        out["customer_contacts_to_send_to_oci"] = (
+            capo_odb.types.customer_contacts.redact_sensitive(
+                value["customer_contacts_to_send_to_oci"]
+            )
+        )
     return out

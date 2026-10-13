@@ -1,7 +1,7 @@
 """Generated from Smithy shape ``com.amazonaws.lexruntimev2#IntentResultEvent``."""
 
 import json
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -143,4 +143,15 @@ def deserialize_event_json(message: Message) -> IntentResultEvent:
     out: IntentResultEvent = {}  # type: ignore[typeddict-item]
     if payload:
         out = deserialize_json(json.loads(payload))
+    return out
+
+
+def redact_sensitive(value: IntentResultEvent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "session_state" in value:
+        import capo_lex_runtime_v2.types.session_state
+
+        out["session_state"] = capo_lex_runtime_v2.types.session_state.redact_sensitive(
+            value["session_state"]
+        )
     return out

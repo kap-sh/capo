@@ -61,10 +61,12 @@ from capo_cleanroomsml._resources.aws_stark_control_service.training_dataset imp
 from capo_cleanroomsml._services._aws_config import aws_config
 from capo_cleanroomsml._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -331,7 +333,9 @@ class CleanRoomsMLClient:
         self.training_dataset = TrainingDataset(self)
 
     def operation_options(
-        self, config_overrides: Optional[CleanRoomsMLClientConfig] = None
+        self,
+        config_overrides: Optional[CleanRoomsMLClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: CleanRoomsMLClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -339,8 +343,10 @@ class CleanRoomsMLClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -395,7 +401,10 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListCollaborationConfiguredModelAlgorithmAssociations"),
+        )
         input_: capo_cleanroomsml.types.list_collaboration_configured_model_algorithm_associations_request.ListCollaborationConfiguredModelAlgorithmAssociationsRequest = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -473,7 +482,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCollaborationMLInputChannels")
+        )
         input_: capo_cleanroomsml.types.list_collaboration_ml_input_channels_request.ListCollaborationMLInputChannelsRequest = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -555,7 +566,10 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListCollaborationTrainedModelExportJobs"),
+        )
         input_: capo_cleanroomsml.types.list_collaboration_trained_model_export_jobs_request.ListCollaborationTrainedModelExportJobsRequest = {
             "collaboration_identifier": collaboration_identifier,
             "trained_model_arn": trained_model_arn,
@@ -652,7 +666,10 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListCollaborationTrainedModelInferenceJobs"),
+        )
         input_: capo_cleanroomsml.types.list_collaboration_trained_model_inference_jobs_request.ListCollaborationTrainedModelInferenceJobsRequest = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -744,7 +761,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCollaborationTrainedModels")
+        )
         input_: capo_cleanroomsml.types.list_collaboration_trained_models_request.ListCollaborationTrainedModelsRequest = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -816,7 +835,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_cleanroomsml.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -863,7 +884,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_cleanroomsml.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -911,7 +934,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_cleanroomsml.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -965,7 +990,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAudienceExportJob")
+        )
         input_: capo_cleanroomsml.types.start_audience_export_job_request.StartAudienceExportJobRequest = {
             "name": name,
             "audience_generation_job_arn": audience_generation_job_arn,
@@ -1020,7 +1047,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAudienceExportJobs")
+        )
         input_: capo_cleanroomsml.types.list_audience_export_jobs_request.ListAudienceExportJobsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1111,7 +1140,19 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cleanroomsml.types.start_audience_generation_job_request.StartAudienceGenerationJobRequest",
+        ) -> dict[str, Any]:
+            import capo_cleanroomsml.types.start_audience_generation_job_request
+
+            return capo_cleanroomsml.types.start_audience_generation_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartAudienceGenerationJob", redact_input=_redact_input),
+        )
         input_: capo_cleanroomsml.types.start_audience_generation_job_request.StartAudienceGenerationJobRequest = {
             "name": name,
             "configured_audience_model_arn": configured_audience_model_arn,
@@ -1167,7 +1208,19 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanroomsml.types.get_audience_generation_job_response.GetAudienceGenerationJobResponse",
+        ) -> dict[str, Any]:
+            import capo_cleanroomsml.types.get_audience_generation_job_response
+
+            return capo_cleanroomsml.types.get_audience_generation_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAudienceGenerationJob", redact_output=_redact_output),
+        )
         input_: capo_cleanroomsml.types.get_audience_generation_job_request.GetAudienceGenerationJobRequest = {
             "audience_generation_job_arn": audience_generation_job_arn
         }
@@ -1212,7 +1265,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAudienceGenerationJob")
+        )
         input_: capo_cleanroomsml.types.delete_audience_generation_job_request.DeleteAudienceGenerationJobRequest = {
             "audience_generation_job_arn": audience_generation_job_arn
         }
@@ -1265,7 +1320,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAudienceGenerationJobs")
+        )
         input_: capo_cleanroomsml.types.list_audience_generation_jobs_request.ListAudienceGenerationJobsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1360,7 +1417,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAudienceModel")
+        )
         input_: capo_cleanroomsml.types.create_audience_model_request.CreateAudienceModelRequest = {
             "name": name,
             "training_dataset_arn": training_dataset_arn,
@@ -1417,7 +1476,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAudienceModel")
+        )
         input_: capo_cleanroomsml.types.get_audience_model_request.GetAudienceModelRequest = {
             "audience_model_arn": audience_model_arn
         }
@@ -1462,7 +1523,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAudienceModel")
+        )
         input_: capo_cleanroomsml.types.delete_audience_model_request.DeleteAudienceModelRequest = {
             "audience_model_arn": audience_model_arn
         }
@@ -1509,7 +1572,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAudienceModels")
+        )
         input_: capo_cleanroomsml.types.list_audience_models_request.ListAudienceModelsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1606,7 +1671,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfiguredAudienceModel")
+        )
         input_: capo_cleanroomsml.types.create_configured_audience_model_request.CreateConfiguredAudienceModelRequest = {
             "name": name,
             "audience_model_arn": audience_model_arn,
@@ -1667,7 +1734,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConfiguredAudienceModel")
+        )
         input_: capo_cleanroomsml.types.get_configured_audience_model_request.GetConfiguredAudienceModelRequest = {
             "configured_audience_model_arn": configured_audience_model_arn
         }
@@ -1738,7 +1807,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConfiguredAudienceModel")
+        )
         input_: capo_cleanroomsml.types.update_configured_audience_model_request.UpdateConfiguredAudienceModelRequest = {
             "configured_audience_model_arn": configured_audience_model_arn
         }
@@ -1795,7 +1866,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguredAudienceModel")
+        )
         input_: capo_cleanroomsml.types.delete_configured_audience_model_request.DeleteConfiguredAudienceModelRequest = {
             "configured_audience_model_arn": configured_audience_model_arn
         }
@@ -1842,7 +1915,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfiguredAudienceModels")
+        )
         input_: capo_cleanroomsml.types.list_configured_audience_models_request.ListConfiguredAudienceModelsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1919,7 +1994,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutConfiguredAudienceModelPolicy")
+        )
         input_: capo_cleanroomsml.types.put_configured_audience_model_policy_request.PutConfiguredAudienceModelPolicyRequest = {
             "configured_audience_model_arn": configured_audience_model_arn,
             "configured_audience_model_policy": configured_audience_model_policy,
@@ -1970,7 +2047,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConfiguredAudienceModelPolicy")
+        )
         input_: capo_cleanroomsml.types.get_configured_audience_model_policy_request.GetConfiguredAudienceModelPolicyRequest = {
             "configured_audience_model_arn": configured_audience_model_arn
         }
@@ -2014,7 +2093,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguredAudienceModelPolicy")
+        )
         input_: capo_cleanroomsml.types.delete_configured_audience_model_policy_request.DeleteConfiguredAudienceModelPolicyRequest = {
             "configured_audience_model_arn": configured_audience_model_arn
         }
@@ -2079,7 +2160,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfiguredModelAlgorithm")
+        )
         input_: capo_cleanroomsml.types.create_configured_model_algorithm_request.CreateConfiguredModelAlgorithmRequest = {
             "name": name,
             "role_arn": role_arn,
@@ -2136,7 +2219,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConfiguredModelAlgorithm")
+        )
         input_: capo_cleanroomsml.types.get_configured_model_algorithm_request.GetConfiguredModelAlgorithmRequest = {
             "configured_model_algorithm_arn": configured_model_algorithm_arn
         }
@@ -2181,7 +2266,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguredModelAlgorithm")
+        )
         input_: capo_cleanroomsml.types.delete_configured_model_algorithm_request.DeleteConfiguredModelAlgorithmRequest = {
             "configured_model_algorithm_arn": configured_model_algorithm_arn
         }
@@ -2228,7 +2315,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfiguredModelAlgorithms")
+        )
         input_: capo_cleanroomsml.types.list_configured_model_algorithms_request.ListConfiguredModelAlgorithmsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2313,7 +2402,10 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateConfiguredModelAlgorithmAssociation"),
+        )
         input_: capo_cleanroomsml.types.create_configured_model_algorithm_association_request.CreateConfiguredModelAlgorithmAssociationRequest = {
             "membership_identifier": membership_identifier,
             "configured_model_algorithm_arn": configured_model_algorithm_arn,
@@ -2369,7 +2461,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConfiguredModelAlgorithmAssociation")
+        )
         input_: capo_cleanroomsml.types.get_configured_model_algorithm_association_request.GetConfiguredModelAlgorithmAssociationRequest = {
             "configured_model_algorithm_association_arn": configured_model_algorithm_association_arn,
             "membership_identifier": membership_identifier,
@@ -2417,7 +2511,10 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteConfiguredModelAlgorithmAssociation"),
+        )
         input_: capo_cleanroomsml.types.delete_configured_model_algorithm_association_request.DeleteConfiguredModelAlgorithmAssociationRequest = {
             "configured_model_algorithm_association_arn": configured_model_algorithm_association_arn,
             "membership_identifier": membership_identifier,
@@ -2467,7 +2564,10 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListConfiguredModelAlgorithmAssociations"),
+        )
         input_: capo_cleanroomsml.types.list_configured_model_algorithm_associations_request.ListConfiguredModelAlgorithmAssociationsRequest = {
             "membership_identifier": membership_identifier
         }
@@ -2544,7 +2644,10 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetCollaborationConfiguredModelAlgorithmAssociation"),
+        )
         input_: capo_cleanroomsml.types.get_collaboration_configured_model_algorithm_association_request.GetCollaborationConfiguredModelAlgorithmAssociationRequest = {
             "configured_model_algorithm_association_arn": configured_model_algorithm_association_arn,
             "collaboration_identifier": collaboration_identifier,
@@ -2590,7 +2693,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutMLConfiguration")
+        )
         input_: capo_cleanroomsml.types.put_ml_configuration_request.PutMLConfigurationRequest = {
             "membership_identifier": membership_identifier,
             "default_output_location": default_output_location,
@@ -2637,7 +2742,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMLConfiguration")
+        )
         input_: capo_cleanroomsml.types.get_ml_configuration_request.GetMLConfigurationRequest = {
             "membership_identifier": membership_identifier
         }
@@ -2681,7 +2788,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMLConfiguration")
+        )
         input_: capo_cleanroomsml.types.delete_ml_configuration_request.DeleteMLConfigurationRequest = {
             "membership_identifier": membership_identifier
         }
@@ -2749,7 +2858,19 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cleanroomsml.types.create_ml_input_channel_request.CreateMLInputChannelRequest",
+        ) -> dict[str, Any]:
+            import capo_cleanroomsml.types.create_ml_input_channel_request
+
+            return capo_cleanroomsml.types.create_ml_input_channel_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateMLInputChannel", redact_input=_redact_input),
+        )
         input_: capo_cleanroomsml.types.create_ml_input_channel_request.CreateMLInputChannelRequest = {
             "membership_identifier": membership_identifier,
             "configured_model_algorithm_associations": configured_model_algorithm_associations,
@@ -2809,7 +2930,21 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanroomsml.types.get_ml_input_channel_response.GetMLInputChannelResponse",
+        ) -> dict[str, Any]:
+            import capo_cleanroomsml.types.get_ml_input_channel_response
+
+            return (
+                capo_cleanroomsml.types.get_ml_input_channel_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetMLInputChannel", redact_output=_redact_output),
+        )
         input_: capo_cleanroomsml.types.get_ml_input_channel_request.GetMLInputChannelRequest = {
             "ml_input_channel_arn": ml_input_channel_arn,
             "membership_identifier": membership_identifier,
@@ -2857,7 +2992,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMLInputChannelData")
+        )
         input_: capo_cleanroomsml.types.delete_ml_input_channel_data_request.DeleteMLInputChannelDataRequest = {
             "ml_input_channel_arn": ml_input_channel_arn,
             "membership_identifier": membership_identifier,
@@ -2907,7 +3044,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMLInputChannels")
+        )
         input_: capo_cleanroomsml.types.list_ml_input_channels_request.ListMLInputChannelsRequest = {
             "membership_identifier": membership_identifier
         }
@@ -2982,7 +3121,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCollaborationMLInputChannel")
+        )
         input_: capo_cleanroomsml.types.get_collaboration_ml_input_channel_request.GetCollaborationMLInputChannelRequest = {
             "ml_input_channel_arn": ml_input_channel_arn,
             "collaboration_identifier": collaboration_identifier,
@@ -3070,7 +3211,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTrainedModel")
+        )
         input_: capo_cleanroomsml.types.create_trained_model_request.CreateTrainedModelRequest = {
             "membership_identifier": membership_identifier,
             "name": name,
@@ -3146,7 +3289,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTrainedModel")
+        )
         input_: capo_cleanroomsml.types.get_trained_model_request.GetTrainedModelRequest = {
             "trained_model_arn": trained_model_arn,
             "membership_identifier": membership_identifier,
@@ -3198,7 +3343,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTrainedModelOutput")
+        )
         input_: capo_cleanroomsml.types.delete_trained_model_output_request.DeleteTrainedModelOutputRequest = {
             "trained_model_arn": trained_model_arn,
             "membership_identifier": membership_identifier,
@@ -3252,7 +3399,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTrainedModels")
+        )
         input_: capo_cleanroomsml.types.list_trained_models_request.ListTrainedModelsRequest = {
             "membership_identifier": membership_identifier
         }
@@ -3328,7 +3477,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelTrainedModel")
+        )
         input_: capo_cleanroomsml.types.cancel_trained_model_request.CancelTrainedModelRequest = {
             "membership_identifier": membership_identifier,
             "trained_model_arn": trained_model_arn,
@@ -3381,7 +3532,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCollaborationTrainedModel")
+        )
         input_: capo_cleanroomsml.types.get_collaboration_trained_model_request.GetCollaborationTrainedModelRequest = {
             "trained_model_arn": trained_model_arn,
             "collaboration_identifier": collaboration_identifier,
@@ -3440,7 +3593,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTrainedModelVersions")
+        )
         input_: capo_cleanroomsml.types.list_trained_model_versions_request.ListTrainedModelVersionsRequest = {
             "membership_identifier": membership_identifier,
             "trained_model_arn": trained_model_arn,
@@ -3535,7 +3690,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartTrainedModelExportJob")
+        )
         input_: capo_cleanroomsml.types.start_trained_model_export_job_request.StartTrainedModelExportJobRequest = {
             "name": name,
             "trained_model_arn": trained_model_arn,
@@ -3630,7 +3787,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartTrainedModelInferenceJob")
+        )
         input_: capo_cleanroomsml.types.start_trained_model_inference_job_request.StartTrainedModelInferenceJobRequest = {
             "membership_identifier": membership_identifier,
             "name": name,
@@ -3705,7 +3864,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTrainedModelInferenceJob")
+        )
         input_: capo_cleanroomsml.types.get_trained_model_inference_job_request.GetTrainedModelInferenceJobRequest = {
             "membership_identifier": membership_identifier,
             "trained_model_inference_job_arn": trained_model_inference_job_arn,
@@ -3763,7 +3924,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTrainedModelInferenceJobs")
+        )
         input_: capo_cleanroomsml.types.list_trained_model_inference_jobs_request.ListTrainedModelInferenceJobsRequest = {
             "membership_identifier": membership_identifier
         }
@@ -3851,7 +4014,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelTrainedModelInferenceJob")
+        )
         input_: capo_cleanroomsml.types.cancel_trained_model_inference_job_request.CancelTrainedModelInferenceJobRequest = {
             "membership_identifier": membership_identifier,
             "trained_model_inference_job_arn": trained_model_inference_job_arn,
@@ -3908,7 +4073,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTrainingDataset")
+        )
         input_: capo_cleanroomsml.types.create_training_dataset_request.CreateTrainingDatasetRequest = {
             "name": name,
             "role_arn": role_arn,
@@ -3960,7 +4127,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTrainingDataset")
+        )
         input_: capo_cleanroomsml.types.get_training_dataset_request.GetTrainingDatasetRequest = {
             "training_dataset_arn": training_dataset_arn
         }
@@ -4005,7 +4174,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTrainingDataset")
+        )
         input_: capo_cleanroomsml.types.delete_training_dataset_request.DeleteTrainingDatasetRequest = {
             "training_dataset_arn": training_dataset_arn
         }
@@ -4052,7 +4223,9 @@ class CleanRoomsMLClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTrainingDatasets")
+        )
         input_: capo_cleanroomsml.types.list_training_datasets_request.ListTrainingDatasetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

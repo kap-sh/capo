@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chime#AlexaForBusinessMetadata``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -34,4 +34,11 @@ def deserialize_json(data: dict) -> AlexaForBusinessMetadata:
         out["is_alexa_for_business_enabled"] = data["IsAlexaForBusinessEnabled"]
     if data.get("AlexaForBusinessRoomArn") is not None:
         out["alexa_for_business_room_arn"] = data["AlexaForBusinessRoomArn"]
+    return out
+
+
+def redact_sensitive(value: AlexaForBusinessMetadata) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "alexa_for_business_room_arn" in value:
+        out["alexa_for_business_room_arn"] = "*** Sensitive Data Redacted ***"
     return out

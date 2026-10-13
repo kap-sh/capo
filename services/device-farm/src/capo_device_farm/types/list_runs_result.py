@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devicefarm#ListRunsResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -36,4 +36,13 @@ def deserialize_aws_json_1_1(data: dict) -> ListRunsResult:
         out["runs"] = capo_device_farm.types.runs.deserialize_aws_json_1_1(data["runs"])
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListRunsResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "runs" in value:
+        import capo_device_farm.types.runs
+
+        out["runs"] = capo_device_farm.types.runs.redact_sensitive(value["runs"])
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesinstances#InstanceNetworkInterfaceSpecification``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -289,4 +289,27 @@ def deserialize_aws_json_1_0(data: dict) -> InstanceNetworkInterfaceSpecificatio
         )
     if data.get("SubnetId") is not None:
         out["subnet_id"] = data["SubnetId"]
+    return out
+
+
+def redact_sensitive(value: InstanceNetworkInterfaceSpecification) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ipv6_addresses" in value:
+        import capo_workspaces_instances.types.ipv6_addresses
+
+        out["ipv6_addresses"] = (
+            capo_workspaces_instances.types.ipv6_addresses.redact_sensitive(
+                value["ipv6_addresses"]
+            )
+        )
+    if "private_ip_address" in value:
+        out["private_ip_address"] = "*** Sensitive Data Redacted ***"
+    if "private_ip_addresses" in value:
+        import capo_workspaces_instances.types.private_ip_addresses
+
+        out["private_ip_addresses"] = (
+            capo_workspaces_instances.types.private_ip_addresses.redact_sensitive(
+                value["private_ip_addresses"]
+            )
+        )
     return out

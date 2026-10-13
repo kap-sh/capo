@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agent._auth._signers
 import capo_bedrock_agent._auth._sigv4
 from capo_bedrock_agent._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -112,7 +113,30 @@ class PromptResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.create_prompt_request.CreatePromptRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_prompt_request
+
+            return capo_bedrock_agent.types.create_prompt_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.create_prompt_response.CreatePromptResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_prompt_response
+
+            return capo_bedrock_agent.types.create_prompt_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreatePrompt", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agent.types.create_prompt_request.CreatePromptRequest = {
             "name": name
         }
@@ -178,7 +202,17 @@ class PromptResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agent.types.get_prompt_response.GetPromptResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.get_prompt_response
+
+            return capo_bedrock_agent.types.get_prompt_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetPrompt", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agent.types.get_prompt_request.GetPromptRequest = {
             "prompt_identifier": prompt_identifier
         }
@@ -249,7 +283,30 @@ class PromptResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.update_prompt_request.UpdatePromptRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_prompt_request
+
+            return capo_bedrock_agent.types.update_prompt_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.update_prompt_response.UpdatePromptResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_prompt_response
+
+            return capo_bedrock_agent.types.update_prompt_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdatePrompt", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agent.types.update_prompt_request.UpdatePromptRequest = {
             "name": name,
             "prompt_identifier": prompt_identifier,
@@ -310,7 +367,9 @@ class PromptResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePrompt")
+        )
         input_: capo_bedrock_agent.types.delete_prompt_request.DeletePromptRequest = {
             "prompt_identifier": prompt_identifier
         }
@@ -365,7 +424,9 @@ class PromptResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPrompts")
+        )
         input_: capo_bedrock_agent.types.list_prompts_request.ListPromptsRequest = {}
         if prompt_identifier is not None:
             input_["prompt_identifier"] = prompt_identifier
@@ -428,7 +489,19 @@ class PromptResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agent.types.create_prompt_version_response.CreatePromptVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_prompt_version_response
+
+            return capo_bedrock_agent.types.create_prompt_version_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreatePromptVersion", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agent.types.create_prompt_version_request.CreatePromptVersionRequest = {
             "prompt_identifier": prompt_identifier
         }
@@ -511,7 +584,30 @@ class AsyncPromptResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.create_prompt_request.CreatePromptRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_prompt_request
+
+            return capo_bedrock_agent.types.create_prompt_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.create_prompt_response.CreatePromptResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_prompt_response
+
+            return capo_bedrock_agent.types.create_prompt_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreatePrompt", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agent.types.create_prompt_request.CreatePromptRequest = {
             "name": name
         }
@@ -578,7 +674,17 @@ class AsyncPromptResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agent.types.get_prompt_response.GetPromptResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.get_prompt_response
+
+            return capo_bedrock_agent.types.get_prompt_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetPrompt", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agent.types.get_prompt_request.GetPromptRequest = {
             "prompt_identifier": prompt_identifier
         }
@@ -650,7 +756,30 @@ class AsyncPromptResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.update_prompt_request.UpdatePromptRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_prompt_request
+
+            return capo_bedrock_agent.types.update_prompt_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.update_prompt_response.UpdatePromptResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_prompt_response
+
+            return capo_bedrock_agent.types.update_prompt_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdatePrompt", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agent.types.update_prompt_request.UpdatePromptRequest = {
             "name": name,
             "prompt_identifier": prompt_identifier,
@@ -712,7 +841,9 @@ class AsyncPromptResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePrompt")
+        )
         input_: capo_bedrock_agent.types.delete_prompt_request.DeletePromptRequest = {
             "prompt_identifier": prompt_identifier
         }
@@ -768,7 +899,9 @@ class AsyncPromptResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPrompts")
+        )
         input_: capo_bedrock_agent.types.list_prompts_request.ListPromptsRequest = {}
         if prompt_identifier is not None:
             input_["prompt_identifier"] = prompt_identifier
@@ -832,7 +965,19 @@ class AsyncPromptResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agent.types.create_prompt_version_response.CreatePromptVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_prompt_version_response
+
+            return capo_bedrock_agent.types.create_prompt_version_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreatePromptVersion", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agent.types.create_prompt_version_request.CreatePromptVersionRequest = {
             "prompt_identifier": prompt_identifier
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.account#GetContactInformationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -48,4 +48,17 @@ def deserialize_json(data: dict) -> GetContactInformationResponse:
         )
     if data.get("VerificationStatus") is not None:
         out["verification_status"] = data["VerificationStatus"]
+    return out
+
+
+def redact_sensitive(value: GetContactInformationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "contact_information" in value:
+        import capo_account.types.contact_information
+
+        out["contact_information"] = (
+            capo_account.types.contact_information.redact_sensitive(
+                value["contact_information"]
+            )
+        )
     return out

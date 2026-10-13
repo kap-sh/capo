@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#EvaluateRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -85,4 +85,19 @@ def deserialize_json(data: dict) -> EvaluateRequest:
                 data["evaluationReferenceInputs"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: EvaluateRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "evaluation_input" in value:
+        import capo_bedrock_agentcore.types.evaluation_input
+
+        out["evaluation_input"] = (
+            capo_bedrock_agentcore.types.evaluation_input.redact_sensitive(
+                value["evaluation_input"]
+            )
+        )
+    if "evaluation_reference_inputs" in value:
+        out["evaluation_reference_inputs"] = "*** Sensitive Data Redacted ***"
     return out

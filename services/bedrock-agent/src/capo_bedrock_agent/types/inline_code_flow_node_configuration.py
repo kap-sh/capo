@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#InlineCodeFlowNodeConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -42,4 +42,11 @@ def deserialize_json(data: dict) -> InlineCodeFlowNodeConfiguration:
         )
     else:
         out["language"] = "Python_3"
+    return out
+
+
+def redact_sensitive(value: InlineCodeFlowNodeConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "code" in value:
+        out["code"] = "*** Sensitive Data Redacted ***"
     return out

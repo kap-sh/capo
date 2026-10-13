@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#ImportInstanceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -88,5 +88,24 @@ def deserialize_ec2_query(el: Element) -> ImportInstanceRequest:
 
         out["platform"] = capo_ec2.types.platform_values.deserialize_ec2_query(
             child_platform
+        )
+    return out
+
+
+def redact_sensitive(value: ImportInstanceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "launch_specification" in value:
+        import capo_ec2.types.import_instance_launch_specification
+
+        out["launch_specification"] = (
+            capo_ec2.types.import_instance_launch_specification.redact_sensitive(
+                value["launch_specification"]
+            )
+        )
+    if "disk_images" in value:
+        import capo_ec2.types.disk_image_list
+
+        out["disk_images"] = capo_ec2.types.disk_image_list.redact_sensitive(
+            value["disk_images"]
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.outposts#GetSiteAddressOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -50,4 +50,11 @@ def deserialize_json(data: dict) -> GetSiteAddressOutput:
         import capo_outposts.types.address
 
         out["address"] = capo_outposts.types.address.deserialize_json(data["Address"])
+    return out
+
+
+def redact_sensitive(value: GetSiteAddressOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "address" in value:
+        out["address"] = "*** Sensitive Data Redacted ***"
     return out

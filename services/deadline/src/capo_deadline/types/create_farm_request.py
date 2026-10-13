@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#CreateFarmRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -73,4 +73,11 @@ def deserialize_json(data: dict) -> CreateFarmRequest:
         import capo_deadline.types.tags
 
         out["tags"] = capo_deadline.types.tags.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: CreateFarmRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

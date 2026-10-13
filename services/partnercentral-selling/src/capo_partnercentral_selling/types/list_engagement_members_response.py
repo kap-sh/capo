@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#ListEngagementMembersResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -50,4 +50,17 @@ def deserialize_aws_json_1_0(data: dict) -> ListEngagementMembersResponse:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListEngagementMembersResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "engagement_member_list" in value:
+        import capo_partnercentral_selling.types.engagement_members
+
+        out["engagement_member_list"] = (
+            capo_partnercentral_selling.types.engagement_members.redact_sensitive(
+                value["engagement_member_list"]
+            )
+        )
     return out

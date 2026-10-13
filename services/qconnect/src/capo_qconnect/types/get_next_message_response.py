@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#GetNextMessageResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -104,4 +104,23 @@ def deserialize_json(data: dict) -> GetNextMessageResponse:
         )
     if data.get("chunkedResponseTerminated") is not None:
         out["chunked_response_terminated"] = data["chunkedResponseTerminated"]
+    return out
+
+
+def redact_sensitive(value: GetNextMessageResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "response" in value:
+        import capo_qconnect.types.message_output
+
+        out["response"] = capo_qconnect.types.message_output.redact_sensitive(
+            value["response"]
+        )
+    if "conversation_session_data" in value:
+        import capo_qconnect.types.runtime_session_data_list
+
+        out["conversation_session_data"] = (
+            capo_qconnect.types.runtime_session_data_list.redact_sensitive(
+                value["conversation_session_data"]
+            )
+        )
     return out

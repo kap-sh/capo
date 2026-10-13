@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geomaps#GetStyleDescriptorRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -51,4 +51,13 @@ def serialize_json(value: GetStyleDescriptorRequest) -> dict:
 
 def deserialize_json(data: dict) -> GetStyleDescriptorRequest:
     out: GetStyleDescriptorRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: GetStyleDescriptorRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "political_view" in value:
+        out["political_view"] = "*** Sensitive Data Redacted ***"
+    if "key" in value:
+        out["key"] = "*** Sensitive Data Redacted ***"
     return out

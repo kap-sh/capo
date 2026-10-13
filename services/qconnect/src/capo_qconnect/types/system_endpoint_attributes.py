@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#SystemEndpointAttributes``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -27,4 +27,11 @@ def deserialize_json(data: dict) -> SystemEndpointAttributes:
     out: SystemEndpointAttributes = {}  # type: ignore[typeddict-item]
     if data.get("address") is not None:
         out["address"] = data["address"]
+    return out
+
+
+def redact_sensitive(value: SystemEndpointAttributes) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "address" in value:
+        out["address"] = "*** Sensitive Data Redacted ***"
     return out

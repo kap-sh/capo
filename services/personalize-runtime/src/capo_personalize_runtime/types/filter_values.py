@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.personalizeruntime#FilterValues``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_personalize_runtime.types.filter_attribute_name
@@ -27,3 +27,7 @@ def deserialize_json(data: dict) -> FilterValues:
             continue
         out[key] = value
     return out
+
+
+def redact_sensitive(value: FilterValues) -> dict[str, Any]:
+    return dict.fromkeys(value, "*** Sensitive Data Redacted ***")

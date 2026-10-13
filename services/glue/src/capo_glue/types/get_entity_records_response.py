@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glue#GetEntityRecordsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetEntityRecordsResponse:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: GetEntityRecordsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "records" in value:
+        out["records"] = "*** Sensitive Data Redacted ***"
     return out

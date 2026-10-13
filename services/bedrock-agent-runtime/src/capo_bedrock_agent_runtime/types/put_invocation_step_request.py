@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#PutInvocationStepRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -90,4 +90,17 @@ def deserialize_json(data: dict) -> PutInvocationStepRequest:
         raise DeserializationError("PutInvocationStepRequest.payload required")
     if data.get("invocationStepId") is not None:
         out["invocation_step_id"] = data["invocationStepId"]
+    return out
+
+
+def redact_sensitive(value: PutInvocationStepRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "payload" in value:
+        import capo_bedrock_agent_runtime.types.invocation_step_payload
+
+        out["payload"] = (
+            capo_bedrock_agent_runtime.types.invocation_step_payload.redact_sensitive(
+                value["payload"]
+            )
+        )
     return out

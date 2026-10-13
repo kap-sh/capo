@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ecs#DaemonContainerDefinition``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -378,4 +378,13 @@ def deserialize_aws_json_1_1(data: dict) -> DaemonContainerDefinition:
                 data["restartPolicy"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: DaemonContainerDefinition) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "repository_credentials" in value:
+        out["repository_credentials"] = "*** Sensitive Data Redacted ***"
+    if "environment" in value:
+        out["environment"] = "*** Sensitive Data Redacted ***"
     return out

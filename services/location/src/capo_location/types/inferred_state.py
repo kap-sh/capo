@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#InferredState``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -69,4 +69,17 @@ def deserialize_json(data: dict) -> InferredState:
         out["proxy_detected"] = data["ProxyDetected"]
     else:
         raise DeserializationError("InferredState.proxy_detected required")
+    return out
+
+
+def redact_sensitive(value: InferredState) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "position" in value:
+        out["position"] = "*** Sensitive Data Redacted ***"
+    if "accuracy" in value:
+        import capo_location.types.positional_accuracy
+
+        out["accuracy"] = capo_location.types.positional_accuracy.redact_sensitive(
+            value["accuracy"]
+        )
     return out

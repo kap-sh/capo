@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RoadSnapTrailerOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -27,4 +27,11 @@ def deserialize_json(data: dict) -> RoadSnapTrailerOptions:
     out: RoadSnapTrailerOptions = {}  # type: ignore[typeddict-item]
     if data.get("TrailerCount") is not None:
         out["trailer_count"] = data["TrailerCount"]
+    return out
+
+
+def redact_sensitive(value: RoadSnapTrailerOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "trailer_count" in value:
+        out["trailer_count"] = "*** Sensitive Data Redacted ***"
     return out

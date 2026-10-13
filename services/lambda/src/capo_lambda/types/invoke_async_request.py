@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#InvokeAsyncRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -14,3 +14,10 @@ class InvokeAsyncRequest(TypedDict, closed=True):
     """<p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>"""
     invoke_args: "capo_lambda.types.blob_stream.BlobStream"
     """<p>The JSON that you want to provide to your Lambda function as input.</p>"""
+
+
+def redact_sensitive(value: InvokeAsyncRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "invoke_args" in value:
+        out["invoke_args"] = "*** Streaming Data Redacted ***"
+    return out

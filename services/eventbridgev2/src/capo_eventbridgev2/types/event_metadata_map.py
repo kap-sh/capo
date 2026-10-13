@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridgev2#EventMetadataMap``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_eventbridgev2.types.event_metadata_key
@@ -27,3 +27,7 @@ def deserialize_cbor(data: dict) -> EventMetadataMap:
             continue
         out[key] = value
     return out
+
+
+def redact_sensitive(value: EventMetadataMap) -> dict[str, Any]:
+    return dict.fromkeys(value, "*** Sensitive Data Redacted ***")

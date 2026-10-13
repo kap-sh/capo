@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#Computation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -223,5 +223,88 @@ def deserialize_json(data: dict) -> Computation:
 
         out["forecast"] = capo_quicksight.types.forecast_computation.deserialize_json(
             data["Forecast"]
+        )
+    return out
+
+
+def redact_sensitive(value: Computation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "top_bottom_ranked" in value:
+        import capo_quicksight.types.top_bottom_ranked_computation
+
+        out["top_bottom_ranked"] = (
+            capo_quicksight.types.top_bottom_ranked_computation.redact_sensitive(
+                value["top_bottom_ranked"]
+            )
+        )
+    if "top_bottom_movers" in value:
+        import capo_quicksight.types.top_bottom_movers_computation
+
+        out["top_bottom_movers"] = (
+            capo_quicksight.types.top_bottom_movers_computation.redact_sensitive(
+                value["top_bottom_movers"]
+            )
+        )
+    if "total_aggregation" in value:
+        import capo_quicksight.types.total_aggregation_computation
+
+        out["total_aggregation"] = (
+            capo_quicksight.types.total_aggregation_computation.redact_sensitive(
+                value["total_aggregation"]
+            )
+        )
+    if "maximum_minimum" in value:
+        import capo_quicksight.types.maximum_minimum_computation
+
+        out["maximum_minimum"] = (
+            capo_quicksight.types.maximum_minimum_computation.redact_sensitive(
+                value["maximum_minimum"]
+            )
+        )
+    if "metric_comparison" in value:
+        import capo_quicksight.types.metric_comparison_computation
+
+        out["metric_comparison"] = (
+            capo_quicksight.types.metric_comparison_computation.redact_sensitive(
+                value["metric_comparison"]
+            )
+        )
+    if "period_over_period" in value:
+        import capo_quicksight.types.period_over_period_computation
+
+        out["period_over_period"] = (
+            capo_quicksight.types.period_over_period_computation.redact_sensitive(
+                value["period_over_period"]
+            )
+        )
+    if "period_to_date" in value:
+        import capo_quicksight.types.period_to_date_computation
+
+        out["period_to_date"] = (
+            capo_quicksight.types.period_to_date_computation.redact_sensitive(
+                value["period_to_date"]
+            )
+        )
+    if "growth_rate" in value:
+        import capo_quicksight.types.growth_rate_computation
+
+        out["growth_rate"] = (
+            capo_quicksight.types.growth_rate_computation.redact_sensitive(
+                value["growth_rate"]
+            )
+        )
+    if "unique_values" in value:
+        import capo_quicksight.types.unique_values_computation
+
+        out["unique_values"] = (
+            capo_quicksight.types.unique_values_computation.redact_sensitive(
+                value["unique_values"]
+            )
+        )
+    if "forecast" in value:
+        import capo_quicksight.types.forecast_computation
+
+        out["forecast"] = capo_quicksight.types.forecast_computation.redact_sensitive(
+            value["forecast"]
         )
     return out

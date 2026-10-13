@@ -24,7 +24,9 @@ from capo_organizations._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -250,7 +252,9 @@ class AsyncOrganizationsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncOrganizationsClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncOrganizationsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncOrganizationsClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -258,8 +262,10 @@ class AsyncOrganizationsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -321,7 +327,19 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_organizations.types.accept_handshake_response.AcceptHandshakeResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.accept_handshake_response
+
+            return capo_organizations.types.accept_handshake_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AcceptHandshake", redact_output=_redact_output),
+        )
         input_: capo_organizations.types.accept_handshake_request.AcceptHandshakeRequest = {
             "handshake_id": handshake_id
         }
@@ -389,7 +407,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachPolicy")
+        )
         input_: capo_organizations.types.attach_policy_request.AttachPolicyRequest = {
             "policy_id": policy_id,
             "target_id": target_id,
@@ -441,7 +461,19 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_organizations.types.cancel_handshake_response.CancelHandshakeResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.cancel_handshake_response
+
+            return capo_organizations.types.cancel_handshake_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CancelHandshake", redact_output=_redact_output),
+        )
         input_: capo_organizations.types.cancel_handshake_request.CancelHandshakeRequest = {
             "handshake_id": handshake_id
         }
@@ -493,7 +525,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CloseAccount")
+        )
         input_: capo_organizations.types.close_account_request.CloseAccountRequest = {
             "account_id": account_id
         }
@@ -563,7 +597,32 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_organizations.types.create_account_request.CreateAccountRequest",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.create_account_request
+
+            return capo_organizations.types.create_account_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_organizations.types.create_account_response.CreateAccountResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.create_account_response
+
+            return capo_organizations.types.create_account_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAccount",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_organizations.types.create_account_request.CreateAccountRequest = {
             "email": email,
             "account_name": account_name,
@@ -632,7 +691,32 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_organizations.types.create_gov_cloud_account_request.CreateGovCloudAccountRequest",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.create_gov_cloud_account_request
+
+            return capo_organizations.types.create_gov_cloud_account_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_organizations.types.create_gov_cloud_account_response.CreateGovCloudAccountResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.create_gov_cloud_account_response
+
+            return capo_organizations.types.create_gov_cloud_account_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateGovCloudAccount",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_organizations.types.create_gov_cloud_account_request.CreateGovCloudAccountRequest = {
             "email": email,
             "account_name": account_name,
@@ -706,7 +790,21 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_organizations.types.create_organization_response.CreateOrganizationResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.create_organization_response
+
+            return (
+                capo_organizations.types.create_organization_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateOrganization", redact_output=_redact_output),
+        )
         input_: capo_organizations.types.create_organization_request.CreateOrganizationRequest = {}
         if feature_set is not None:
             input_["feature_set"] = feature_set
@@ -770,7 +868,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateOrganizationalUnit")
+        )
         input_: capo_organizations.types.create_organizational_unit_request.CreateOrganizationalUnitRequest = {
             "parent_id": parent_id,
             "name": name,
@@ -843,7 +943,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePolicy")
+        )
         input_: capo_organizations.types.create_policy_request.CreatePolicyRequest = {
             "content": content,
             "description": description,
@@ -905,7 +1007,19 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_organizations.types.decline_handshake_response.DeclineHandshakeResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.decline_handshake_response
+
+            return capo_organizations.types.decline_handshake_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeclineHandshake", redact_output=_redact_output),
+        )
         input_: capo_organizations.types.decline_handshake_request.DeclineHandshakeRequest = {
             "handshake_id": handshake_id
         }
@@ -948,7 +1062,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOrganization")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -1002,7 +1118,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOrganizationalUnit")
+        )
         input_: capo_organizations.types.delete_organizational_unit_request.DeleteOrganizationalUnitRequest = {
             "organizational_unit_id": organizational_unit_id
         }
@@ -1060,7 +1178,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePolicy")
+        )
         input_: capo_organizations.types.delete_policy_request.DeletePolicyRequest = {
             "policy_id": policy_id
         }
@@ -1103,7 +1223,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -1153,7 +1275,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterDelegatedAdministrator")
+        )
         input_: capo_organizations.types.deregister_delegated_administrator_request.DeregisterDelegatedAdministratorRequest = {
             "account_id": account_id,
             "service_principal": service_principal,
@@ -1209,7 +1333,19 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_organizations.types.describe_account_response.DescribeAccountResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.describe_account_response
+
+            return capo_organizations.types.describe_account_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeAccount", redact_output=_redact_output),
+        )
         input_: capo_organizations.types.describe_account_request.DescribeAccountRequest = {
             "account_id": account_id
         }
@@ -1265,7 +1401,21 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_organizations.types.describe_create_account_status_response.DescribeCreateAccountStatusResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.describe_create_account_status_response
+
+            return capo_organizations.types.describe_create_account_status_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeCreateAccountStatus", redact_output=_redact_output
+            ),
+        )
         input_: capo_organizations.types.describe_create_account_status_request.DescribeCreateAccountStatusRequest = {
             "create_account_request_id": create_account_request_id
         }
@@ -1321,7 +1471,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEffectivePolicy")
+        )
         input_: capo_organizations.types.describe_effective_policy_request.DescribeEffectivePolicyRequest = {
             "policy_type": policy_type
         }
@@ -1380,7 +1532,21 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_organizations.types.describe_handshake_response.DescribeHandshakeResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.describe_handshake_response
+
+            return (
+                capo_organizations.types.describe_handshake_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeHandshake", redact_output=_redact_output),
+        )
         input_: capo_organizations.types.describe_handshake_request.DescribeHandshakeRequest = {
             "handshake_id": handshake_id
         }
@@ -1428,7 +1594,19 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_organizations.types.describe_organization_response.DescribeOrganizationResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.describe_organization_response
+
+            return capo_organizations.types.describe_organization_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeOrganization", redact_output=_redact_output),
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -1480,7 +1658,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOrganizationalUnit")
+        )
         input_: capo_organizations.types.describe_organizational_unit_request.DescribeOrganizationalUnitRequest = {
             "organizational_unit_id": organizational_unit_id
         }
@@ -1536,7 +1716,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePolicy")
+        )
         input_: capo_organizations.types.describe_policy_request.DescribePolicyRequest = {
             "policy_id": policy_id
         }
@@ -1580,7 +1762,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeResourcePolicy")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -1627,7 +1811,21 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_organizations.types.describe_responsibility_transfer_response.DescribeResponsibilityTransferResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.describe_responsibility_transfer_response
+
+            return capo_organizations.types.describe_responsibility_transfer_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeResponsibilityTransfer", redact_output=_redact_output
+            ),
+        )
         input_: capo_organizations.types.describe_responsibility_transfer_request.DescribeResponsibilityTransferRequest = {
             "id": id
         }
@@ -1688,7 +1886,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachPolicy")
+        )
         input_: capo_organizations.types.detach_policy_request.DetachPolicyRequest = {
             "policy_id": policy_id,
             "target_id": target_id,
@@ -1738,7 +1938,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableAWSServiceAccess")
+        )
         input_: capo_organizations.types.disable_aws_service_access_request.DisableAWSServiceAccessRequest = {
             "service_principal": service_principal
         }
@@ -1800,7 +2002,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisablePolicyType")
+        )
         input_: capo_organizations.types.disable_policy_type_request.DisablePolicyTypeRequest = {
             "root_id": root_id,
             "policy_type": policy_type,
@@ -1852,7 +2056,21 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_organizations.types.enable_all_features_response.EnableAllFeaturesResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.enable_all_features_response
+
+            return (
+                capo_organizations.types.enable_all_features_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("EnableAllFeatures", redact_output=_redact_output),
+        )
         input_: capo_organizations.types.enable_all_features_request.EnableAllFeaturesRequest = {}
 
         response = await aexecute_pipeline(
@@ -1899,7 +2117,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableAWSServiceAccess")
+        )
         input_: capo_organizations.types.enable_aws_service_access_request.EnableAWSServiceAccessRequest = {
             "service_principal": service_principal
         }
@@ -1964,7 +2184,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnablePolicyType")
+        )
         input_: capo_organizations.types.enable_policy_type_request.EnablePolicyTypeRequest = {
             "root_id": root_id,
             "policy_type": policy_type,
@@ -2031,7 +2253,32 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_organizations.types.invite_account_to_organization_request.InviteAccountToOrganizationRequest",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.invite_account_to_organization_request
+
+            return capo_organizations.types.invite_account_to_organization_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_organizations.types.invite_account_to_organization_response.InviteAccountToOrganizationResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.invite_account_to_organization_response
+
+            return capo_organizations.types.invite_account_to_organization_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InviteAccountToOrganization",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_organizations.types.invite_account_to_organization_request.InviteAccountToOrganizationRequest = {
             "target": target
         }
@@ -2100,7 +2347,32 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_organizations.types.invite_organization_to_transfer_responsibility_request.InviteOrganizationToTransferResponsibilityRequest",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.invite_organization_to_transfer_responsibility_request
+
+            return capo_organizations.types.invite_organization_to_transfer_responsibility_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_organizations.types.invite_organization_to_transfer_responsibility_response.InviteOrganizationToTransferResponsibilityResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.invite_organization_to_transfer_responsibility_response
+
+            return capo_organizations.types.invite_organization_to_transfer_responsibility_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InviteOrganizationToTransferResponsibility",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_organizations.types.invite_organization_to_transfer_responsibility_request.InviteOrganizationToTransferResponsibilityRequest = {
             "type": type,
             "target": target,
@@ -2157,7 +2429,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("LeaveOrganization")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -2204,7 +2478,19 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_organizations.types.list_accounts_response.ListAccountsResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.list_accounts_response
+
+            return capo_organizations.types.list_accounts_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAccounts", redact_output=_redact_output),
+        )
         input_: capo_organizations.types.list_accounts_request.ListAccountsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2284,7 +2570,19 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_organizations.types.list_accounts_for_parent_response.ListAccountsForParentResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.list_accounts_for_parent_response
+
+            return capo_organizations.types.list_accounts_for_parent_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAccountsForParent", redact_output=_redact_output),
+        )
         input_: capo_organizations.types.list_accounts_for_parent_request.ListAccountsForParentRequest = {
             "parent_id": parent_id
         }
@@ -2370,7 +2668,21 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_organizations.types.list_accounts_with_invalid_effective_policy_response.ListAccountsWithInvalidEffectivePolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.list_accounts_with_invalid_effective_policy_response
+
+            return capo_organizations.types.list_accounts_with_invalid_effective_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListAccountsWithInvalidEffectivePolicy", redact_output=_redact_output
+            ),
+        )
         input_: capo_organizations.types.list_accounts_with_invalid_effective_policy_request.ListAccountsWithInvalidEffectivePolicyRequest = {
             "policy_type": policy_type
         }
@@ -2449,7 +2761,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAWSServiceAccessForOrganization")
+        )
         input_: capo_organizations.types.list_aws_service_access_for_organization_request.ListAWSServiceAccessForOrganizationRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2531,7 +2845,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListChildren")
+        )
         input_: capo_organizations.types.list_children_request.ListChildrenRequest = {
             "parent_id": parent_id,
             "child_type": child_type,
@@ -2624,7 +2940,19 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_organizations.types.list_create_account_status_response.ListCreateAccountStatusResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.list_create_account_status_response
+
+            return capo_organizations.types.list_create_account_status_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListCreateAccountStatus", redact_output=_redact_output),
+        )
         input_: capo_organizations.types.list_create_account_status_request.ListCreateAccountStatusRequest = {}
         if states is not None:
             input_["states"] = states
@@ -2707,7 +3035,21 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_organizations.types.list_delegated_administrators_response.ListDelegatedAdministratorsResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.list_delegated_administrators_response
+
+            return capo_organizations.types.list_delegated_administrators_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListDelegatedAdministrators", redact_output=_redact_output
+            ),
+        )
         input_: capo_organizations.types.list_delegated_administrators_request.ListDelegatedAdministratorsRequest = {}
         if service_principal is not None:
             input_["service_principal"] = service_principal
@@ -2792,7 +3134,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDelegatedServicesForAccount")
+        )
         input_: capo_organizations.types.list_delegated_services_for_account_request.ListDelegatedServicesForAccountRequest = {
             "account_id": account_id
         }
@@ -2877,7 +3221,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEffectivePolicyValidationErrors")
+        )
         input_: capo_organizations.types.list_effective_policy_validation_errors_request.ListEffectivePolicyValidationErrorsRequest = {
             "account_id": account_id,
             "policy_type": policy_type,
@@ -2967,7 +3313,19 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_organizations.types.list_handshakes_for_account_response.ListHandshakesForAccountResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.list_handshakes_for_account_response
+
+            return capo_organizations.types.list_handshakes_for_account_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListHandshakesForAccount", redact_output=_redact_output),
+        )
         input_: capo_organizations.types.list_handshakes_for_account_request.ListHandshakesForAccountRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -3055,7 +3413,21 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_organizations.types.list_handshakes_for_organization_response.ListHandshakesForOrganizationResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.list_handshakes_for_organization_response
+
+            return capo_organizations.types.list_handshakes_for_organization_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListHandshakesForOrganization", redact_output=_redact_output
+            ),
+        )
         input_: capo_organizations.types.list_handshakes_for_organization_request.ListHandshakesForOrganizationRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -3141,7 +3513,21 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_organizations.types.list_inbound_responsibility_transfers_response.ListInboundResponsibilityTransfersResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.list_inbound_responsibility_transfers_response
+
+            return capo_organizations.types.list_inbound_responsibility_transfers_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListInboundResponsibilityTransfers", redact_output=_redact_output
+            ),
+        )
         input_: capo_organizations.types.list_inbound_responsibility_transfers_request.ListInboundResponsibilityTransfersRequest = {
             "type": type
         }
@@ -3206,7 +3592,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOrganizationalUnitsForParent")
+        )
         input_: capo_organizations.types.list_organizational_units_for_parent_request.ListOrganizationalUnitsForParentRequest = {
             "parent_id": parent_id
         }
@@ -3285,7 +3673,21 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_organizations.types.list_outbound_responsibility_transfers_response.ListOutboundResponsibilityTransfersResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.list_outbound_responsibility_transfers_response
+
+            return capo_organizations.types.list_outbound_responsibility_transfers_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListOutboundResponsibilityTransfers", redact_output=_redact_output
+            ),
+        )
         input_: capo_organizations.types.list_outbound_responsibility_transfers_request.ListOutboundResponsibilityTransfersRequest = {
             "type": type
         }
@@ -3348,7 +3750,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListParents")
+        )
         input_: capo_organizations.types.list_parents_request.ListParentsRequest = {
             "child_id": child_id
         }
@@ -3432,7 +3836,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPolicies")
+        )
         input_: capo_organizations.types.list_policies_request.ListPoliciesRequest = {
             "filter": filter
         }
@@ -3519,7 +3925,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPoliciesForTarget")
+        )
         input_: capo_organizations.types.list_policies_for_target_request.ListPoliciesForTargetRequest = {
             "target_id": target_id,
             "filter": filter,
@@ -3603,7 +4011,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRoots")
+        )
         input_: capo_organizations.types.list_roots_request.ListRootsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3677,7 +4087,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_organizations.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_id": resource_id
         }
@@ -3760,7 +4172,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTargetsForPolicy")
+        )
         input_: capo_organizations.types.list_targets_for_policy_request.ListTargetsForPolicyRequest = {
             "policy_id": policy_id
         }
@@ -3846,7 +4260,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("MoveAccount")
+        )
         input_: capo_organizations.types.move_account_request.MoveAccountRequest = {
             "account_id": account_id,
             "source_parent_id": source_parent_id,
@@ -3901,7 +4317,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_organizations.types.put_resource_policy_request.PutResourcePolicyRequest = {
             "content": content
         }
@@ -3956,7 +4374,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterDelegatedAdministrator")
+        )
         input_: capo_organizations.types.register_delegated_administrator_request.RegisterDelegatedAdministratorRequest = {
             "account_id": account_id,
             "service_principal": service_principal,
@@ -4013,7 +4433,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveAccountFromOrganization")
+        )
         input_: capo_organizations.types.remove_account_from_organization_request.RemoveAccountFromOrganizationRequest = {
             "account_id": account_id
         }
@@ -4064,7 +4486,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_organizations.types.tag_resource_request.TagResourceRequest = {
             "resource_id": resource_id,
             "tags": tags,
@@ -4121,7 +4545,21 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_organizations.types.terminate_responsibility_transfer_response.TerminateResponsibilityTransferResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.terminate_responsibility_transfer_response
+
+            return capo_organizations.types.terminate_responsibility_transfer_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "TerminateResponsibilityTransfer", redact_output=_redact_output
+            ),
+        )
         input_: capo_organizations.types.terminate_responsibility_transfer_request.TerminateResponsibilityTransferRequest = {
             "id": id
         }
@@ -4174,7 +4612,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_organizations.types.untag_resource_request.UntagResourceRequest = {
             "resource_id": resource_id,
             "tag_keys": tag_keys,
@@ -4236,7 +4676,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateOrganizationalUnit")
+        )
         input_: capo_organizations.types.update_organizational_unit_request.UpdateOrganizationalUnitRequest = {
             "organizational_unit_id": organizational_unit_id
         }
@@ -4313,7 +4755,9 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePolicy")
+        )
         input_: capo_organizations.types.update_policy_request.UpdatePolicyRequest = {
             "policy_id": policy_id
         }
@@ -4372,7 +4816,32 @@ class AsyncOrganizationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_organizations.types.update_responsibility_transfer_request.UpdateResponsibilityTransferRequest",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.update_responsibility_transfer_request
+
+            return capo_organizations.types.update_responsibility_transfer_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_organizations.types.update_responsibility_transfer_response.UpdateResponsibilityTransferResponse",
+        ) -> dict[str, Any]:
+            import capo_organizations.types.update_responsibility_transfer_response
+
+            return capo_organizations.types.update_responsibility_transfer_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateResponsibilityTransfer",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_organizations.types.update_responsibility_transfer_request.UpdateResponsibilityTransferRequest = {
             "id": id,
             "name": name,

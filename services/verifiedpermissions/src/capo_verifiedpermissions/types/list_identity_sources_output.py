@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#ListIdentitySourcesOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -48,5 +48,18 @@ def deserialize_aws_json_1_0(data: dict) -> ListIdentitySourcesOutput:
     else:
         raise DeserializationError(
             "ListIdentitySourcesOutput.identity_sources required"
+        )
+    return out
+
+
+def redact_sensitive(value: ListIdentitySourcesOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "identity_sources" in value:
+        import capo_verifiedpermissions.types.identity_sources
+
+        out["identity_sources"] = (
+            capo_verifiedpermissions.types.identity_sources.redact_sensitive(
+                value["identity_sources"]
+            )
         )
     return out

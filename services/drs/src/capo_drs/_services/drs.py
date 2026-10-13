@@ -46,10 +46,12 @@ from capo_drs._resources.elastic_disaster_recovery_service.source_server_resourc
 from capo_drs._services._aws_config import aws_config
 from capo_drs._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -358,7 +360,9 @@ class drsClient:
         self.source_server_resource = SourceServerResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[drsClientConfig] = None
+        self,
+        config_overrides: Optional[drsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: drsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -366,8 +370,10 @@ class drsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -422,7 +428,23 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.cancel_recovery_plan_execution_response.CancelRecoveryPlanExecutionResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.cancel_recovery_plan_execution_response
+
+            return (
+                capo_drs.types.cancel_recovery_plan_execution_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CancelRecoveryPlanExecution", redact_output=_redact_output
+            ),
+        )
         input_: capo_drs.types.cancel_recovery_plan_execution_request.CancelRecoveryPlanExecutionRequest = {
             "recovery_plan_execution_arn": recovery_plan_execution_arn
         }
@@ -473,7 +495,36 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.create_extended_source_server_request.CreateExtendedSourceServerRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.create_extended_source_server_request
+
+            return (
+                capo_drs.types.create_extended_source_server_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_drs.types.create_extended_source_server_response.CreateExtendedSourceServerResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.create_extended_source_server_response
+
+            return (
+                capo_drs.types.create_extended_source_server_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateExtendedSourceServer",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.create_extended_source_server_request.CreateExtendedSourceServerRequest = {
             "source_server_arn": source_server_arn
         }
@@ -534,7 +585,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRecoveryPlanStep")
+        )
         input_: capo_drs.types.create_recovery_plan_step_request.CreateRecoveryPlanStepRequest = {
             "recovery_plan_arn": recovery_plan_arn,
             "step_name": step_name,
@@ -586,7 +639,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLaunchAction")
+        )
         input_: capo_drs.types.delete_launch_action_request.DeleteLaunchActionRequest = {
             "resource_id": resource_id,
             "action_id": action_id,
@@ -636,7 +691,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRecoveryPlan")
+        )
         input_: capo_drs.types.delete_recovery_plan_request.DeleteRecoveryPlanRequest = {
             "recovery_plan_arn": recovery_plan_arn
         }
@@ -685,7 +742,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRecoveryPlanExecution")
+        )
         input_: capo_drs.types.delete_recovery_plan_execution_request.DeleteRecoveryPlanExecutionRequest = {
             "recovery_plan_execution_arn": recovery_plan_execution_arn
         }
@@ -734,7 +793,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRecoveryPlanStep")
+        )
         input_: capo_drs.types.delete_recovery_plan_step_request.DeleteRecoveryPlanStepRequest = {
             "recovery_plan_step_arn": recovery_plan_step_arn
         }
@@ -782,7 +843,17 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.get_recovery_plan_response.GetRecoveryPlanResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.get_recovery_plan_response
+
+            return capo_drs.types.get_recovery_plan_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetRecoveryPlan", redact_output=_redact_output),
+        )
         input_: capo_drs.types.get_recovery_plan_request.GetRecoveryPlanRequest = {
             "recovery_plan_arn": recovery_plan_arn
         }
@@ -830,7 +901,19 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.get_recovery_plan_execution_response.GetRecoveryPlanExecutionResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.get_recovery_plan_execution_response
+
+            return capo_drs.types.get_recovery_plan_execution_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetRecoveryPlanExecution", redact_output=_redact_output),
+        )
         input_: capo_drs.types.get_recovery_plan_execution_request.GetRecoveryPlanExecutionRequest = {
             "recovery_plan_execution_arn": recovery_plan_execution_arn
         }
@@ -878,7 +961,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRecoveryPlanExecutionStep")
+        )
         input_: capo_drs.types.get_recovery_plan_execution_step_request.GetRecoveryPlanExecutionStepRequest = {
             "recovery_plan_execution_step_arn": recovery_plan_execution_step_arn
         }
@@ -926,7 +1011,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRecoveryPlanStep")
+        )
         input_: capo_drs.types.get_recovery_plan_step_request.GetRecoveryPlanStepRequest = {
             "recovery_plan_step_arn": recovery_plan_step_arn
         }
@@ -966,7 +1053,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InitializeService")
+        )
         input_: capo_drs.types.initialize_service_request.InitializeServiceRequest = {}
 
         response = execute_pipeline(
@@ -1017,7 +1106,23 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.list_extensible_source_servers_response.ListExtensibleSourceServersResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.list_extensible_source_servers_response
+
+            return (
+                capo_drs.types.list_extensible_source_servers_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListExtensibleSourceServers", redact_output=_redact_output
+            ),
+        )
         input_: capo_drs.types.list_extensible_source_servers_request.ListExtensibleSourceServersRequest = {
             "staging_account_id": staging_account_id
         }
@@ -1100,7 +1205,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLaunchActions")
+        )
         input_: capo_drs.types.list_launch_actions_request.ListLaunchActionsRequest = {
             "resource_id": resource_id
         }
@@ -1188,7 +1295,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecoveryPlanExecutions")
+        )
         input_: capo_drs.types.list_recovery_plan_executions_request.ListRecoveryPlanExecutionsRequest = {}
         if recovery_plan_arn is not None:
             input_["recovery_plan_arn"] = recovery_plan_arn
@@ -1277,7 +1386,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecoveryPlanExecutionSteps")
+        )
         input_: capo_drs.types.list_recovery_plan_execution_steps_request.ListRecoveryPlanExecutionStepsRequest = {
             "recovery_plan_execution_arn": recovery_plan_execution_arn
         }
@@ -1359,7 +1470,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecoveryPlans")
+        )
         input_: capo_drs.types.list_recovery_plans_request.ListRecoveryPlansRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1436,7 +1549,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecoveryPlanSteps")
+        )
         input_: capo_drs.types.list_recovery_plan_steps_request.ListRecoveryPlanStepsRequest = {
             "recovery_plan_arn": recovery_plan_arn
         }
@@ -1512,7 +1627,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStagingAccounts")
+        )
         input_: capo_drs.types.list_staging_accounts_request.ListStagingAccountsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1582,7 +1699,19 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.list_tags_for_resource_response.ListTagsForResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.list_tags_for_resource_response
+
+            return capo_drs.types.list_tags_for_resource_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_drs.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1644,7 +1773,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutLaunchAction")
+        )
         input_: capo_drs.types.put_launch_action_request.PutLaunchActionRequest = {
             "resource_id": resource_id,
             "action_code": action_code,
@@ -1706,7 +1837,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReorderRecoveryPlanSteps")
+        )
         input_: capo_drs.types.reorder_recovery_plan_steps_request.ReorderRecoveryPlanStepsRequest = {
             "recovery_plan_arn": recovery_plan_arn,
             "ordered_step_arns": ordered_step_arns,
@@ -1756,7 +1889,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RetryRecoveryPlanExecutionStep")
+        )
         input_: capo_drs.types.retry_recovery_plan_execution_step_request.RetryRecoveryPlanExecutionStepRequest = {
             "recovery_plan_execution_step_arn": recovery_plan_execution_step_arn
         }
@@ -1803,7 +1938,17 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.tag_resource_request.TagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.tag_resource_request
+
+            return capo_drs.types.tag_resource_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_drs.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1851,7 +1996,17 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.untag_resource_request.UntagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.untag_resource_request
+
+            return capo_drs.types.untag_resource_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UntagResource", redact_input=_redact_input),
+        )
         input_: capo_drs.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1905,7 +2060,17 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.update_recovery_plan_response.UpdateRecoveryPlanResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.update_recovery_plan_response
+
+            return capo_drs.types.update_recovery_plan_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateRecoveryPlan", redact_output=_redact_output),
+        )
         input_: capo_drs.types.update_recovery_plan_request.UpdateRecoveryPlanRequest = {
             "recovery_plan_arn": recovery_plan_arn
         }
@@ -1970,7 +2135,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRecoveryPlanExecutionStep")
+        )
         input_: capo_drs.types.update_recovery_plan_execution_step_request.UpdateRecoveryPlanExecutionStepRequest = {
             "recovery_plan_execution_step_arn": recovery_plan_execution_step_arn
         }
@@ -2031,7 +2198,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRecoveryPlanStep")
+        )
         input_: capo_drs.types.update_recovery_plan_step_request.UpdateRecoveryPlanStepRequest = {
             "recovery_plan_step_arn": recovery_plan_step_arn
         }
@@ -2080,7 +2249,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteJob")
+        )
         input_: capo_drs.types.delete_job_request.DeleteJobRequest = {"job_id": job_id}
 
         response = execute_pipeline(
@@ -2132,7 +2303,17 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.describe_jobs_response.DescribeJobsResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.describe_jobs_response
+
+            return capo_drs.types.describe_jobs_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeJobs", redact_output=_redact_output),
+        )
         input_: capo_drs.types.describe_jobs_request.DescribeJobsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -2215,7 +2396,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeJobLogItems")
+        )
         input_: capo_drs.types.describe_job_log_items_request.DescribeJobLogItemsRequest = {
             "job_id": job_id
         }
@@ -2314,7 +2497,32 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.create_launch_configuration_template_request.CreateLaunchConfigurationTemplateRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.create_launch_configuration_template_request
+
+            return capo_drs.types.create_launch_configuration_template_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_drs.types.create_launch_configuration_template_response.CreateLaunchConfigurationTemplateResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.create_launch_configuration_template_response
+
+            return capo_drs.types.create_launch_configuration_template_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateLaunchConfigurationTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.create_launch_configuration_template_request.CreateLaunchConfigurationTemplateRequest = {}
         if tags is not None:
             input_["tags"] = tags
@@ -2404,7 +2612,21 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.update_launch_configuration_template_response.UpdateLaunchConfigurationTemplateResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.update_launch_configuration_template_response
+
+            return capo_drs.types.update_launch_configuration_template_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateLaunchConfigurationTemplate", redact_output=_redact_output
+            ),
+        )
         input_: capo_drs.types.update_launch_configuration_template_request.UpdateLaunchConfigurationTemplateRequest = {
             "launch_configuration_template_id": launch_configuration_template_id
         }
@@ -2471,7 +2693,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLaunchConfigurationTemplate")
+        )
         input_: capo_drs.types.delete_launch_configuration_template_request.DeleteLaunchConfigurationTemplateRequest = {
             "launch_configuration_template_id": launch_configuration_template_id
         }
@@ -2524,7 +2748,21 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.describe_launch_configuration_templates_response.DescribeLaunchConfigurationTemplatesResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.describe_launch_configuration_templates_response
+
+            return capo_drs.types.describe_launch_configuration_templates_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeLaunchConfigurationTemplates", redact_output=_redact_output
+            ),
+        )
         input_: capo_drs.types.describe_launch_configuration_templates_request.DescribeLaunchConfigurationTemplatesRequest = {}
         if launch_configuration_template_i_ds is not None:
             input_["launch_configuration_template_i_ds"] = (
@@ -2609,7 +2847,19 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.describe_recovery_instances_response.DescribeRecoveryInstancesResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.describe_recovery_instances_response
+
+            return capo_drs.types.describe_recovery_instances_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeRecoveryInstances", redact_output=_redact_output),
+        )
         input_: capo_drs.types.describe_recovery_instances_request.DescribeRecoveryInstancesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -2685,7 +2935,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRecoveryInstance")
+        )
         input_: capo_drs.types.delete_recovery_instance_request.DeleteRecoveryInstanceRequest = {
             "recovery_instance_id": recovery_instance_id
         }
@@ -2731,7 +2983,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisconnectRecoveryInstance")
+        )
         input_: capo_drs.types.disconnect_recovery_instance_request.DisconnectRecoveryInstanceRequest = {
             "recovery_instance_id": recovery_instance_id
         }
@@ -2777,7 +3031,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFailbackReplicationConfiguration")
+        )
         input_: capo_drs.types.get_failback_replication_configuration_request.GetFailbackReplicationConfigurationRequest = {
             "recovery_instance_id": recovery_instance_id
         }
@@ -2826,7 +3082,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReverseReplication")
+        )
         input_: capo_drs.types.reverse_replication_request.ReverseReplicationRequest = {
             "recovery_instance_id": recovery_instance_id
         }
@@ -2870,7 +3128,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopFailback")
+        )
         input_: capo_drs.types.stop_failback_request.StopFailbackRequest = {
             "recovery_instance_id": recovery_instance_id
         }
@@ -2927,7 +3187,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFailbackReplicationConfiguration")
+        )
         input_: capo_drs.types.update_failback_replication_configuration_request.UpdateFailbackReplicationConfigurationRequest = {
             "recovery_instance_id": recovery_instance_id
         }
@@ -2985,7 +3247,30 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.start_failback_launch_request.StartFailbackLaunchRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_failback_launch_request
+
+            return capo_drs.types.start_failback_launch_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_drs.types.start_failback_launch_response.StartFailbackLaunchResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_failback_launch_response
+
+            return capo_drs.types.start_failback_launch_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartFailbackLaunch",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.start_failback_launch_request.StartFailbackLaunchRequest = {
             "recovery_instance_i_ds": recovery_instance_i_ds
         }
@@ -3034,7 +3319,23 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.terminate_recovery_instances_response.TerminateRecoveryInstancesResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.terminate_recovery_instances_response
+
+            return (
+                capo_drs.types.terminate_recovery_instances_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "TerminateRecoveryInstances", redact_output=_redact_output
+            ),
+        )
         input_: capo_drs.types.terminate_recovery_instances_request.TerminateRecoveryInstancesRequest = {
             "recovery_instance_i_ds": recovery_instance_i_ds
         }
@@ -3091,7 +3392,28 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.create_recovery_plan_request.CreateRecoveryPlanRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.create_recovery_plan_request
+
+            return capo_drs.types.create_recovery_plan_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_drs.types.create_recovery_plan_response.CreateRecoveryPlanResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.create_recovery_plan_response
+
+            return capo_drs.types.create_recovery_plan_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateRecoveryPlan",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.create_recovery_plan_request.CreateRecoveryPlanRequest = {
             "name": name
         }
@@ -3160,7 +3482,36 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.start_recovery_plan_execution_request.StartRecoveryPlanExecutionRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_recovery_plan_execution_request
+
+            return (
+                capo_drs.types.start_recovery_plan_execution_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_drs.types.start_recovery_plan_execution_response.StartRecoveryPlanExecutionResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_recovery_plan_execution_response
+
+            return (
+                capo_drs.types.start_recovery_plan_execution_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartRecoveryPlanExecution",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.start_recovery_plan_execution_request.StartRecoveryPlanExecutionRequest = {
             "recovery_plan_arn": recovery_plan_arn,
             "mode": mode,
@@ -3254,7 +3605,32 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.create_replication_configuration_template_request.CreateReplicationConfigurationTemplateRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.create_replication_configuration_template_request
+
+            return capo_drs.types.create_replication_configuration_template_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_drs.types.replication_configuration_template.ReplicationConfigurationTemplate",
+        ) -> dict[str, Any]:
+            import capo_drs.types.replication_configuration_template
+
+            return capo_drs.types.replication_configuration_template.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateReplicationConfigurationTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.create_replication_configuration_template_request.CreateReplicationConfigurationTemplateRequest = {
             "staging_area_subnet_id": staging_area_subnet_id,
             "replication_servers_security_groups_i_ds": replication_servers_security_groups_i_ds,
@@ -3379,7 +3755,32 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.update_replication_configuration_template_request.UpdateReplicationConfigurationTemplateRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.update_replication_configuration_template_request
+
+            return capo_drs.types.update_replication_configuration_template_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_drs.types.replication_configuration_template.ReplicationConfigurationTemplate",
+        ) -> dict[str, Any]:
+            import capo_drs.types.replication_configuration_template
+
+            return capo_drs.types.replication_configuration_template.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateReplicationConfigurationTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.update_replication_configuration_template_request.UpdateReplicationConfigurationTemplateRequest = {
             "replication_configuration_template_id": replication_configuration_template_id
         }
@@ -3466,7 +3867,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReplicationConfigurationTemplate")
+        )
         input_: capo_drs.types.delete_replication_configuration_template_request.DeleteReplicationConfigurationTemplateRequest = {
             "replication_configuration_template_id": replication_configuration_template_id
         }
@@ -3521,7 +3924,22 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.describe_replication_configuration_templates_response.DescribeReplicationConfigurationTemplatesResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.describe_replication_configuration_templates_response
+
+            return capo_drs.types.describe_replication_configuration_templates_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeReplicationConfigurationTemplates",
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.describe_replication_configuration_templates_request.DescribeReplicationConfigurationTemplatesRequest = {}
         if replication_configuration_template_i_ds is not None:
             input_["replication_configuration_template_i_ds"] = (
@@ -3609,7 +4027,17 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.create_source_network_request.CreateSourceNetworkRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.create_source_network_request
+
+            return capo_drs.types.create_source_network_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateSourceNetwork", redact_input=_redact_input),
+        )
         input_: capo_drs.types.create_source_network_request.CreateSourceNetworkRequest = {
             "vpc_id": vpc_id,
             "origin_account_id": origin_account_id,
@@ -3660,7 +4088,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSourceNetwork")
+        )
         input_: capo_drs.types.delete_source_network_request.DeleteSourceNetworkRequest = {
             "source_network_id": source_network_id
         }
@@ -3714,7 +4144,19 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.describe_source_networks_response.DescribeSourceNetworksResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.describe_source_networks_response
+
+            return capo_drs.types.describe_source_networks_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeSourceNetworks", redact_output=_redact_output),
+        )
         input_: capo_drs.types.describe_source_networks_request.DescribeSourceNetworksRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -3796,7 +4238,36 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.associate_source_network_stack_request.AssociateSourceNetworkStackRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.associate_source_network_stack_request
+
+            return (
+                capo_drs.types.associate_source_network_stack_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_drs.types.associate_source_network_stack_response.AssociateSourceNetworkStackResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.associate_source_network_stack_response
+
+            return (
+                capo_drs.types.associate_source_network_stack_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AssociateSourceNetworkStack",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.associate_source_network_stack_request.AssociateSourceNetworkStackRequest = {
             "source_network_id": source_network_id,
             "cfn_stack_name": cfn_stack_name,
@@ -3845,7 +4316,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportSourceNetworkCfnTemplate")
+        )
         input_: capo_drs.types.export_source_network_cfn_template_request.ExportSourceNetworkCfnTemplateRequest = {
             "source_network_id": source_network_id
         }
@@ -3892,7 +4365,21 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.start_source_network_replication_response.StartSourceNetworkReplicationResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_source_network_replication_response
+
+            return capo_drs.types.start_source_network_replication_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartSourceNetworkReplication", redact_output=_redact_output
+            ),
+        )
         input_: capo_drs.types.start_source_network_replication_request.StartSourceNetworkReplicationRequest = {
             "source_network_id": source_network_id
         }
@@ -3940,7 +4427,21 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.stop_source_network_replication_response.StopSourceNetworkReplicationResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.stop_source_network_replication_response
+
+            return capo_drs.types.stop_source_network_replication_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StopSourceNetworkReplication", redact_output=_redact_output
+            ),
+        )
         input_: capo_drs.types.stop_source_network_replication_request.StopSourceNetworkReplicationRequest = {
             "source_network_id": source_network_id
         }
@@ -3992,7 +4493,36 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.start_source_network_recovery_request.StartSourceNetworkRecoveryRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_source_network_recovery_request
+
+            return (
+                capo_drs.types.start_source_network_recovery_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_drs.types.start_source_network_recovery_response.StartSourceNetworkRecoveryResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_source_network_recovery_response
+
+            return (
+                capo_drs.types.start_source_network_recovery_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartSourceNetworkRecovery",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.start_source_network_recovery_request.StartSourceNetworkRecoveryRequest = {
             "source_networks": source_networks
         }
@@ -4043,7 +4573,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSourceServer")
+        )
         input_: capo_drs.types.delete_source_server_request.DeleteSourceServerRequest = {
             "source_server_id": source_server_id
         }
@@ -4099,7 +4631,19 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.describe_source_servers_response.DescribeSourceServersResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.describe_source_servers_response
+
+            return capo_drs.types.describe_source_servers_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeSourceServers", redact_output=_redact_output),
+        )
         input_: capo_drs.types.describe_source_servers_request.DescribeSourceServersRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -4191,7 +4735,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRecoverySnapshots")
+        )
         input_: capo_drs.types.describe_recovery_snapshots_request.DescribeRecoverySnapshotsRequest = {
             "source_server_id": source_server_id
         }
@@ -4277,7 +4823,17 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_drs.types.source_server
+
+            return capo_drs.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisconnectSourceServer", redact_output=_redact_output),
+        )
         input_: capo_drs.types.disconnect_source_server_request.DisconnectSourceServerRequest = {
             "source_server_id": source_server_id
         }
@@ -4323,7 +4879,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLaunchConfiguration")
+        )
         input_: capo_drs.types.get_launch_configuration_request.GetLaunchConfigurationRequest = {
             "source_server_id": source_server_id
         }
@@ -4370,7 +4928,19 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.replication_configuration.ReplicationConfiguration",
+        ) -> dict[str, Any]:
+            import capo_drs.types.replication_configuration
+
+            return capo_drs.types.replication_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetReplicationConfiguration", redact_output=_redact_output
+            ),
+        )
         input_: capo_drs.types.get_replication_configuration_request.GetReplicationConfigurationRequest = {
             "source_server_id": source_server_id
         }
@@ -4415,7 +4985,17 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_drs.types.source_server
+
+            return capo_drs.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RetryDataReplication", redact_output=_redact_output),
+        )
         input_: capo_drs.types.retry_data_replication_request.RetryDataReplicationRequest = {
             "source_server_id": source_server_id
         }
@@ -4462,7 +5042,17 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.start_replication_response.StartReplicationResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_replication_response
+
+            return capo_drs.types.start_replication_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartReplication", redact_output=_redact_output),
+        )
         input_: capo_drs.types.start_replication_request.StartReplicationRequest = {
             "source_server_id": source_server_id
         }
@@ -4509,7 +5099,17 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.stop_replication_response.StopReplicationResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.stop_replication_response
+
+            return capo_drs.types.stop_replication_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StopReplication", redact_output=_redact_output),
+        )
         input_: capo_drs.types.stop_replication_request.StopReplicationRequest = {
             "source_server_id": source_server_id
         }
@@ -4581,7 +5181,9 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLaunchConfiguration")
+        )
         input_: capo_drs.types.update_launch_configuration_request.UpdateLaunchConfigurationRequest = {
             "source_server_id": source_server_id
         }
@@ -4700,7 +5302,30 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.update_replication_configuration_request.UpdateReplicationConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.update_replication_configuration_request
+
+            return capo_drs.types.update_replication_configuration_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_drs.types.replication_configuration.ReplicationConfiguration",
+        ) -> dict[str, Any]:
+            import capo_drs.types.replication_configuration
+
+            return capo_drs.types.replication_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateReplicationConfiguration",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.update_replication_configuration_request.UpdateReplicationConfigurationRequest = {
             "source_server_id": source_server_id
         }
@@ -4793,7 +5418,28 @@ class drsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.start_recovery_request.StartRecoveryRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_recovery_request
+
+            return capo_drs.types.start_recovery_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_drs.types.start_recovery_response.StartRecoveryResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_recovery_response
+
+            return capo_drs.types.start_recovery_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartRecovery",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.start_recovery_request.StartRecoveryRequest = {
             "source_servers": source_servers
         }

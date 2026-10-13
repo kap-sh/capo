@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#CodeInterpreterInvocationOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -66,4 +66,11 @@ def deserialize_json(data: dict) -> CodeInterpreterInvocationOutput:
         out["metadata"] = capo_bedrock_agent_runtime.types.metadata.deserialize_json(
             data["metadata"]
         )
+    return out
+
+
+def redact_sensitive(value: CodeInterpreterInvocationOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "metadata" in value:
+        out["metadata"] = "*** Sensitive Data Redacted ***"
     return out

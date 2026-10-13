@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.emrserverless#ConfigurationOverrides``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,6 +79,19 @@ def deserialize_json(data: dict) -> ConfigurationOverrides:
         out["disk_encryption_configuration"] = (
             capo_emr_serverless.types.disk_encryption_configuration.deserialize_json(
                 data["diskEncryptionConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ConfigurationOverrides) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "application_configuration" in value:
+        import capo_emr_serverless.types.configuration_list
+
+        out["application_configuration"] = (
+            capo_emr_serverless.types.configuration_list.redact_sensitive(
+                value["application_configuration"]
             )
         )
     return out

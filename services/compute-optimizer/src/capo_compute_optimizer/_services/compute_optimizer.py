@@ -21,10 +21,12 @@ from capo_compute_optimizer._pagination import resolve_path as _resolve_path
 from capo_compute_optimizer._services._aws_config import aws_config
 from capo_compute_optimizer._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -215,7 +217,9 @@ class ComputeOptimizerClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ComputeOptimizerClientConfig] = None
+        self,
+        config_overrides: Optional[ComputeOptimizerClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ComputeOptimizerClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -223,8 +227,10 @@ class ComputeOptimizerClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -284,7 +290,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRecommendationPreferences")
+        )
         input_: capo_compute_optimizer.types.delete_recommendation_preferences_request.DeleteRecommendationPreferencesRequest = {
             "resource_type": resource_type,
             "recommendation_preference_names": recommendation_preference_names,
@@ -347,7 +355,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRecommendationExportJobs")
+        )
         input_: capo_compute_optimizer.types.describe_recommendation_export_jobs_request.DescribeRecommendationExportJobsRequest = {}
         if job_ids is not None:
             input_["job_ids"] = job_ids
@@ -454,7 +464,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportAutoScalingGroupRecommendations")
+        )
         input_: capo_compute_optimizer.types.export_auto_scaling_group_recommendations_request.ExportAutoScalingGroupRecommendationsRequest = {
             "s3_destination_config": s3_destination_config
         }
@@ -533,7 +545,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportEBSVolumeRecommendations")
+        )
         input_: capo_compute_optimizer.types.export_ebs_volume_recommendations_request.ExportEBSVolumeRecommendationsRequest = {
             "s3_destination_config": s3_destination_config
         }
@@ -615,7 +629,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportEC2InstanceRecommendations")
+        )
         input_: capo_compute_optimizer.types.export_ec2_instance_recommendations_request.ExportEC2InstanceRecommendationsRequest = {
             "s3_destination_config": s3_destination_config
         }
@@ -696,7 +712,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportECSServiceRecommendations")
+        )
         input_: capo_compute_optimizer.types.export_ecs_service_recommendations_request.ExportECSServiceRecommendationsRequest = {
             "s3_destination_config": s3_destination_config
         }
@@ -775,7 +793,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportIdleRecommendations")
+        )
         input_: capo_compute_optimizer.types.export_idle_recommendations_request.ExportIdleRecommendationsRequest = {
             "s3_destination_config": s3_destination_config
         }
@@ -854,7 +874,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportLambdaFunctionRecommendations")
+        )
         input_: capo_compute_optimizer.types.export_lambda_function_recommendations_request.ExportLambdaFunctionRecommendationsRequest = {
             "s3_destination_config": s3_destination_config
         }
@@ -933,7 +955,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportLicenseRecommendations")
+        )
         input_: capo_compute_optimizer.types.export_license_recommendations_request.ExportLicenseRecommendationsRequest = {
             "s3_destination_config": s3_destination_config
         }
@@ -1015,7 +1039,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportRDSDatabaseRecommendations")
+        )
         input_: capo_compute_optimizer.types.export_rds_database_recommendations_request.ExportRDSDatabaseRecommendationsRequest = {
             "s3_destination_config": s3_destination_config
         }
@@ -1097,7 +1123,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAutoScalingGroupRecommendations")
+        )
         input_: capo_compute_optimizer.types.get_auto_scaling_group_recommendations_request.GetAutoScalingGroupRecommendationsRequest = {}
         if account_ids is not None:
             input_["account_ids"] = account_ids
@@ -1173,7 +1201,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEBSVolumeRecommendations")
+        )
         input_: capo_compute_optimizer.types.get_ebs_volume_recommendations_request.GetEBSVolumeRecommendationsRequest = {}
         if volume_arns is not None:
             input_["volume_arns"] = volume_arns
@@ -1251,7 +1281,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEC2InstanceRecommendations")
+        )
         input_: capo_compute_optimizer.types.get_ec2_instance_recommendations_request.GetEC2InstanceRecommendationsRequest = {}
         if instance_arns is not None:
             input_["instance_arns"] = instance_arns
@@ -1323,7 +1355,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEC2RecommendationProjectedMetrics")
+        )
         input_: capo_compute_optimizer.types.get_ec2_recommendation_projected_metrics_request.GetEC2RecommendationProjectedMetricsRequest = {
             "instance_arn": instance_arn,
             "stat": stat,
@@ -1387,7 +1421,10 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetECSServiceRecommendationProjectedMetrics"),
+        )
         input_: capo_compute_optimizer.types.get_ecs_service_recommendation_projected_metrics_request.GetECSServiceRecommendationProjectedMetricsRequest = {
             "service_arn": service_arn,
             "stat": stat,
@@ -1459,7 +1496,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetECSServiceRecommendations")
+        )
         input_: capo_compute_optimizer.types.get_ecs_service_recommendations_request.GetECSServiceRecommendationsRequest = {}
         if service_arns is not None:
             input_["service_arns"] = service_arns
@@ -1517,7 +1556,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEffectiveRecommendationPreferences")
+        )
         input_: capo_compute_optimizer.types.get_effective_recommendation_preferences_request.GetEffectiveRecommendationPreferencesRequest = {
             "resource_arn": resource_arn
         }
@@ -1559,7 +1600,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEnrollmentStatus")
+        )
         input_: capo_compute_optimizer.types.get_enrollment_status_request.GetEnrollmentStatusRequest = {}
 
         response = execute_pipeline(
@@ -1615,7 +1658,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEnrollmentStatusesForOrganization")
+        )
         input_: capo_compute_optimizer.types.get_enrollment_statuses_for_organization_request.GetEnrollmentStatusesForOrganizationRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1718,7 +1763,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIdleRecommendations")
+        )
         input_: capo_compute_optimizer.types.get_idle_recommendations_request.GetIdleRecommendationsRequest = {}
         if resource_arns is not None:
             input_["resource_arns"] = resource_arns
@@ -1796,7 +1843,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLambdaFunctionRecommendations")
+        )
         input_: capo_compute_optimizer.types.get_lambda_function_recommendations_request.GetLambdaFunctionRecommendationsRequest = {}
         if function_arns is not None:
             input_["function_arns"] = function_arns
@@ -1909,7 +1958,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLicenseRecommendations")
+        )
         input_: capo_compute_optimizer.types.get_license_recommendations_request.GetLicenseRecommendationsRequest = {}
         if resource_arns is not None:
             input_["resource_arns"] = resource_arns
@@ -1978,7 +2029,10 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetRDSDatabaseRecommendationProjectedMetrics"),
+        )
         input_: capo_compute_optimizer.types.get_rds_database_recommendation_projected_metrics_request.GetRDSDatabaseRecommendationProjectedMetricsRequest = {
             "resource_arn": resource_arn,
             "stat": stat,
@@ -2055,7 +2109,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRDSDatabaseRecommendations")
+        )
         input_: capo_compute_optimizer.types.get_rds_database_recommendations_request.GetRDSDatabaseRecommendationsRequest = {}
         if resource_arns is not None:
             input_["resource_arns"] = resource_arns
@@ -2125,7 +2181,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRecommendationPreferences")
+        )
         input_: capo_compute_optimizer.types.get_recommendation_preferences_request.GetRecommendationPreferencesRequest = {
             "resource_type": resource_type
         }
@@ -2219,7 +2277,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRecommendationSummaries")
+        )
         input_: capo_compute_optimizer.types.get_recommendation_summaries_request.GetRecommendationSummariesRequest = {}
         if account_ids is not None:
             input_["account_ids"] = account_ids
@@ -2332,7 +2392,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRecommendationPreferences")
+        )
         input_: capo_compute_optimizer.types.put_recommendation_preferences_request.PutRecommendationPreferencesRequest = {
             "resource_type": resource_type
         }
@@ -2400,7 +2462,9 @@ class ComputeOptimizerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEnrollmentStatus")
+        )
         input_: capo_compute_optimizer.types.update_enrollment_status_request.UpdateEnrollmentStatusRequest = {
             "status": status
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iot#CreatePackageVersionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -87,4 +87,13 @@ def deserialize_json(data: dict) -> CreatePackageVersionResponse:
         )
     if data.get("errorReason") is not None:
         out["error_reason"] = data["errorReason"]
+    return out
+
+
+def redact_sensitive(value: CreatePackageVersionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "attributes" in value:
+        out["attributes"] = "*** Sensitive Data Redacted ***"
     return out

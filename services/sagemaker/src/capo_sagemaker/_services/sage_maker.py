@@ -22,10 +22,12 @@ from capo_sagemaker._pagination import resolve_path as _resolve_path
 from capo_sagemaker._services._aws_config import aws_config
 from capo_sagemaker._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -1536,7 +1538,9 @@ class SageMakerClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[SageMakerClientConfig] = None
+        self,
+        config_overrides: Optional[SageMakerClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: SageMakerClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -1544,8 +1548,10 @@ class SageMakerClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -1605,7 +1611,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddAssociation")
+        )
         input_: capo_sagemaker.types.add_association_request.AddAssociationRequest = {}
         if source_arn is not None:
             input_["source_arn"] = source_arn
@@ -1651,7 +1659,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTags")
+        )
         input_: capo_sagemaker.types.add_tags_input.AddTagsInput = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -1703,7 +1713,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateTrialComponent")
+        )
         input_: capo_sagemaker.types.associate_trial_component_request.AssociateTrialComponentRequest = {}
         if trial_component_name is not None:
             input_["trial_component_name"] = trial_component_name
@@ -1757,7 +1769,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachClusterNodeNetworkInterface")
+        )
         input_: capo_sagemaker.types.attach_cluster_node_network_interface_request.AttachClusterNodeNetworkInterfaceRequest = {}
         if cluster_name is not None:
             input_["cluster_name"] = cluster_name
@@ -1808,7 +1822,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachClusterNodeVolume")
+        )
         input_: capo_sagemaker.types.attach_cluster_node_volume_request.AttachClusterNodeVolumeRequest = {}
         if cluster_arn is not None:
             input_["cluster_arn"] = cluster_arn
@@ -1862,7 +1878,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchAddClusterNodes")
+        )
         input_: capo_sagemaker.types.batch_add_cluster_nodes_request.BatchAddClusterNodesRequest = {
             "cluster_name": cluster_name
         }
@@ -1920,7 +1938,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteClusterNodes")
+        )
         input_: capo_sagemaker.types.batch_delete_cluster_nodes_request.BatchDeleteClusterNodesRequest = {}
         if cluster_name is not None:
             input_["cluster_name"] = cluster_name
@@ -1968,7 +1988,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDescribeModelPackage")
+        )
         input_: capo_sagemaker.types.batch_describe_model_package_input.BatchDescribeModelPackageInput = {}
         if model_package_arn_list is not None:
             input_["model_package_arn_list"] = model_package_arn_list
@@ -2021,7 +2043,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchRebootClusterNodes")
+        )
         input_: capo_sagemaker.types.batch_reboot_cluster_nodes_request.BatchRebootClusterNodesRequest = {}
         if cluster_name is not None:
             input_["cluster_name"] = cluster_name
@@ -2078,7 +2102,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchReplaceClusterNodes")
+        )
         input_: capo_sagemaker.types.batch_replace_cluster_nodes_request.BatchReplaceClusterNodesRequest = {}
         if cluster_name is not None:
             input_["cluster_name"] = cluster_name
@@ -2146,7 +2172,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAction")
+        )
         input_: capo_sagemaker.types.create_action_request.CreateActionRequest = {}
         if action_name is not None:
             input_["action_name"] = action_name
@@ -2227,7 +2255,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAIBenchmarkJob")
+        )
         input_: capo_sagemaker.types.create_ai_benchmark_job_request.CreateAIBenchmarkJobRequest = {}
         if ai_benchmark_job_name is not None:
             input_["ai_benchmark_job_name"] = ai_benchmark_job_name
@@ -2322,7 +2352,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAIRecommendationJob")
+        )
         input_: capo_sagemaker.types.create_ai_recommendation_job_request.CreateAIRecommendationJobRequest = {}
         if ai_recommendation_job_name is not None:
             input_["ai_recommendation_job_name"] = ai_recommendation_job_name
@@ -2398,7 +2430,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAIWorkloadConfig")
+        )
         input_: capo_sagemaker.types.create_ai_workload_config_request.CreateAIWorkloadConfigRequest = {}
         if ai_workload_config_name is not None:
             input_["ai_workload_config_name"] = ai_workload_config_name
@@ -2468,7 +2502,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAlgorithm")
+        )
         input_: capo_sagemaker.types.create_algorithm_input.CreateAlgorithmInput = {}
         if algorithm_name is not None:
             input_["algorithm_name"] = algorithm_name
@@ -2542,7 +2578,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApp")
+        )
         input_: capo_sagemaker.types.create_app_request.CreateAppRequest = {}
         if domain_id is not None:
             input_["domain_id"] = domain_id
@@ -2615,7 +2653,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAppImageConfig")
+        )
         input_: capo_sagemaker.types.create_app_image_config_request.CreateAppImageConfigRequest = {}
         if app_image_config_name is not None:
             input_["app_image_config_name"] = app_image_config_name
@@ -2681,7 +2721,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateArtifact")
+        )
         input_: capo_sagemaker.types.create_artifact_request.CreateArtifactRequest = {}
         if artifact_name is not None:
             input_["artifact_name"] = artifact_name
@@ -2767,7 +2809,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAutoMLJob")
+        )
         input_: capo_sagemaker.types.create_auto_ml_job_request.CreateAutoMLJobRequest = {}
         if auto_ml_job_name is not None:
             input_["auto_ml_job_name"] = auto_ml_job_name
@@ -2871,7 +2915,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAutoMLJobV2")
+        )
         input_: capo_sagemaker.types.create_auto_ml_job_v2_request.CreateAutoMLJobV2Request = {}
         if auto_ml_job_name is not None:
             input_["auto_ml_job_name"] = auto_ml_job_name
@@ -2973,7 +3019,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCluster")
+        )
         input_: capo_sagemaker.types.create_cluster_request.CreateClusterRequest = {}
         if cluster_name is not None:
             input_["cluster_name"] = cluster_name
@@ -3053,7 +3101,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateClusterSchedulerConfig")
+        )
         input_: capo_sagemaker.types.create_cluster_scheduler_config_request.CreateClusterSchedulerConfigRequest = {}
         if name is not None:
             input_["name"] = name
@@ -3111,7 +3161,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCodeRepository")
+        )
         input_: capo_sagemaker.types.create_code_repository_input.CreateCodeRepositoryInput = {}
         if code_repository_name is not None:
             input_["code_repository_name"] = code_repository_name
@@ -3181,7 +3233,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCompilationJob")
+        )
         input_: capo_sagemaker.types.create_compilation_job_request.CreateCompilationJobRequest = {}
         if compilation_job_name is not None:
             input_["compilation_job_name"] = compilation_job_name
@@ -3261,7 +3315,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateComputeQuota")
+        )
         input_: capo_sagemaker.types.create_compute_quota_request.CreateComputeQuotaRequest = {}
         if name is not None:
             input_["name"] = name
@@ -3330,7 +3386,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateContext")
+        )
         input_: capo_sagemaker.types.create_context_request.CreateContextRequest = {}
         if context_name is not None:
             input_["context_name"] = context_name
@@ -3415,7 +3473,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataQualityJobDefinition")
+        )
         input_: capo_sagemaker.types.create_data_quality_job_definition_request.CreateDataQualityJobDefinitionRequest = {}
         if job_definition_name is not None:
             input_["job_definition_name"] = job_definition_name
@@ -3493,7 +3553,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDeviceFleet")
+        )
         input_: capo_sagemaker.types.create_device_fleet_request.CreateDeviceFleetRequest = {}
         if device_fleet_name is not None:
             input_["device_fleet_name"] = device_fleet_name
@@ -3589,7 +3651,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDomain")
+        )
         input_: capo_sagemaker.types.create_domain_request.CreateDomainRequest = {}
         if domain_name is not None:
             input_["domain_name"] = domain_name
@@ -3674,7 +3738,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEdgeDeploymentPlan")
+        )
         input_: capo_sagemaker.types.create_edge_deployment_plan_request.CreateEdgeDeploymentPlanRequest = {}
         if edge_deployment_plan_name is not None:
             input_["edge_deployment_plan_name"] = edge_deployment_plan_name
@@ -3729,7 +3795,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEdgeDeploymentStage")
+        )
         input_: capo_sagemaker.types.create_edge_deployment_stage_request.CreateEdgeDeploymentStageRequest = {}
         if edge_deployment_plan_name is not None:
             input_["edge_deployment_plan_name"] = edge_deployment_plan_name
@@ -3792,7 +3860,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEdgePackagingJob")
+        )
         input_: capo_sagemaker.types.create_edge_packaging_job_request.CreateEdgePackagingJobRequest = {}
         if edge_packaging_job_name is not None:
             input_["edge_packaging_job_name"] = edge_packaging_job_name
@@ -3860,7 +3930,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEndpoint")
+        )
         input_: capo_sagemaker.types.create_endpoint_input.CreateEndpointInput = {}
         if endpoint_name is not None:
             input_["endpoint_name"] = endpoint_name
@@ -3947,7 +4019,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEndpointConfig")
+        )
         input_: capo_sagemaker.types.create_endpoint_config_input.CreateEndpointConfigInput = {}
         if endpoint_config_name is not None:
             input_["endpoint_config_name"] = endpoint_config_name
@@ -4024,7 +4098,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateExperiment")
+        )
         input_: capo_sagemaker.types.create_experiment_request.CreateExperimentRequest = {}
         if experiment_name is not None:
             input_["experiment_name"] = experiment_name
@@ -4107,7 +4183,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFeatureGroup")
+        )
         input_: capo_sagemaker.types.create_feature_group_request.CreateFeatureGroupRequest = {}
         if feature_group_name is not None:
             input_["feature_group_name"] = feature_group_name
@@ -4191,7 +4269,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFlowDefinition")
+        )
         input_: capo_sagemaker.types.create_flow_definition_request.CreateFlowDefinitionRequest = {}
         if flow_definition_name is not None:
             input_["flow_definition_name"] = flow_definition_name
@@ -4265,7 +4345,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHub")
+        )
         input_: capo_sagemaker.types.create_hub_request.CreateHubRequest = {}
         if hub_name is not None:
             input_["hub_name"] = hub_name
@@ -4337,7 +4419,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHubContentPresignedUrls")
+        )
         input_: capo_sagemaker.types.create_hub_content_presigned_urls_request.CreateHubContentPresignedUrlsRequest = {}
         if hub_name is not None:
             input_["hub_name"] = hub_name
@@ -4447,7 +4531,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHubContentReference")
+        )
         input_: capo_sagemaker.types.create_hub_content_reference_request.CreateHubContentReferenceRequest = {}
         if hub_name is not None:
             input_["hub_name"] = hub_name
@@ -4506,7 +4592,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHumanTaskUi")
+        )
         input_: capo_sagemaker.types.create_human_task_ui_request.CreateHumanTaskUiRequest = {}
         if human_task_ui_name is not None:
             input_["human_task_ui_name"] = human_task_ui_name
@@ -4576,7 +4664,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHyperParameterTuningJob")
+        )
         input_: capo_sagemaker.types.create_hyper_parameter_tuning_job_request.CreateHyperParameterTuningJobRequest = {}
         if hyper_parameter_tuning_job_name is not None:
             input_["hyper_parameter_tuning_job_name"] = hyper_parameter_tuning_job_name
@@ -4646,7 +4736,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateImage")
+        )
         input_: capo_sagemaker.types.create_image_request.CreateImageRequest = {}
         if description is not None:
             input_["description"] = description
@@ -4731,7 +4823,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateImageVersion")
+        )
         input_: capo_sagemaker.types.create_image_version_request.CreateImageVersionRequest = {}
         if base_image is not None:
             input_["base_image"] = base_image
@@ -4817,7 +4911,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInferenceComponent")
+        )
         input_: capo_sagemaker.types.create_inference_component_input.CreateInferenceComponentInput = {}
         if inference_component_name is not None:
             input_["inference_component_name"] = inference_component_name
@@ -4909,7 +5005,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInferenceExperiment")
+        )
         input_: capo_sagemaker.types.create_inference_experiment_request.CreateInferenceExperimentRequest = {}
         if name is not None:
             input_["name"] = name
@@ -4999,7 +5097,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInferenceRecommendationsJob")
+        )
         input_: capo_sagemaker.types.create_inference_recommendations_job_request.CreateInferenceRecommendationsJobRequest = {}
         if job_name is not None:
             input_["job_name"] = job_name
@@ -5072,7 +5172,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateJob")
+        )
         input_: capo_sagemaker.types.create_job_request.CreateJobRequest = {}
         if job_name is not None:
             input_["job_name"] = job_name
@@ -5160,7 +5262,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLabelingJob")
+        )
         input_: capo_sagemaker.types.create_labeling_job_request.CreateLabelingJobRequest = {}
         if labeling_job_name is not None:
             input_["labeling_job_name"] = labeling_job_name
@@ -5245,7 +5349,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMlflowApp")
+        )
         input_: capo_sagemaker.types.create_mlflow_app_request.CreateMlflowAppRequest = {}
         if name is not None:
             input_["name"] = name
@@ -5336,7 +5442,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMlflowTrackingServer")
+        )
         input_: capo_sagemaker.types.create_mlflow_tracking_server_request.CreateMlflowTrackingServerRequest = {}
         if tracking_server_name is not None:
             input_["tracking_server_name"] = tracking_server_name
@@ -5419,7 +5527,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateModel")
+        )
         input_: capo_sagemaker.types.create_model_input.CreateModelInput = {}
         if model_name is not None:
             input_["model_name"] = model_name
@@ -5508,7 +5618,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateModelBiasJobDefinition")
+        )
         input_: capo_sagemaker.types.create_model_bias_job_definition_request.CreateModelBiasJobDefinitionRequest = {}
         if job_definition_name is not None:
             input_["job_definition_name"] = job_definition_name
@@ -5584,7 +5696,19 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker.types.create_model_card_request.CreateModelCardRequest",
+        ) -> dict[str, Any]:
+            import capo_sagemaker.types.create_model_card_request
+
+            return capo_sagemaker.types.create_model_card_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateModelCard", redact_input=_redact_input),
+        )
         input_: capo_sagemaker.types.create_model_card_request.CreateModelCardRequest = {}
         if model_card_name is not None:
             input_["model_card_name"] = model_card_name
@@ -5649,7 +5773,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateModelCardExportJob")
+        )
         input_: capo_sagemaker.types.create_model_card_export_job_request.CreateModelCardExportJobRequest = {}
         if model_card_name is not None:
             input_["model_card_name"] = model_card_name
@@ -5730,7 +5856,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateModelExplainabilityJobDefinition")
+        )
         input_: capo_sagemaker.types.create_model_explainability_job_definition_request.CreateModelExplainabilityJobDefinitionRequest = {}
         if job_definition_name is not None:
             input_["job_definition_name"] = job_definition_name
@@ -5885,7 +6013,19 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker.types.create_model_package_input.CreateModelPackageInput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker.types.create_model_package_input
+
+            return capo_sagemaker.types.create_model_package_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateModelPackage", redact_input=_redact_input),
+        )
         input_: capo_sagemaker.types.create_model_package_input.CreateModelPackageInput = {}
         if model_package_name is not None:
             input_["model_package_name"] = model_package_name
@@ -5991,7 +6131,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateModelPackageGroup")
+        )
         input_: capo_sagemaker.types.create_model_package_group_input.CreateModelPackageGroupInput = {}
         if model_package_group_name is not None:
             input_["model_package_group_name"] = model_package_group_name
@@ -6072,7 +6214,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateModelQualityJobDefinition")
+        )
         input_: capo_sagemaker.types.create_model_quality_job_definition_request.CreateModelQualityJobDefinitionRequest = {}
         if job_definition_name is not None:
             input_["job_definition_name"] = job_definition_name
@@ -6142,7 +6286,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMonitoringSchedule")
+        )
         input_: capo_sagemaker.types.create_monitoring_schedule_request.CreateMonitoringScheduleRequest = {}
         if monitoring_schedule_name is not None:
             input_["monitoring_schedule_name"] = monitoring_schedule_name
@@ -6245,7 +6391,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateNotebookInstance")
+        )
         input_: capo_sagemaker.types.create_notebook_instance_input.CreateNotebookInstanceInput = {}
         if notebook_instance_name is not None:
             input_["notebook_instance_name"] = notebook_instance_name
@@ -6334,7 +6482,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateNotebookInstanceLifecycleConfig")
+        )
         input_: capo_sagemaker.types.create_notebook_instance_lifecycle_config_input.CreateNotebookInstanceLifecycleConfigInput = {}
         if notebook_instance_lifecycle_config_name is not None:
             input_["notebook_instance_lifecycle_config_name"] = (
@@ -6427,7 +6577,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateOptimizationJob")
+        )
         input_: capo_sagemaker.types.create_optimization_job_request.CreateOptimizationJobRequest = {}
         if optimization_job_name is not None:
             input_["optimization_job_name"] = optimization_job_name
@@ -6531,7 +6683,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePartnerApp")
+        )
         input_: capo_sagemaker.types.create_partner_app_request.CreatePartnerAppRequest = {}
         if name is not None:
             input_["name"] = name
@@ -6611,7 +6765,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePartnerAppPresignedUrl")
+        )
         input_: capo_sagemaker.types.create_partner_app_presigned_url_request.CreatePartnerAppPresignedUrlRequest = {}
         if arn is not None:
             input_["arn"] = arn
@@ -6692,7 +6848,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePipeline")
+        )
         input_: capo_sagemaker.types.create_pipeline_request.CreatePipelineRequest = {}
         if pipeline_name is not None:
             input_["pipeline_name"] = pipeline_name
@@ -6768,7 +6926,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePresignedDomainUrl")
+        )
         input_: capo_sagemaker.types.create_presigned_domain_url_request.CreatePresignedDomainUrlRequest = {}
         if domain_id is not None:
             input_["domain_id"] = domain_id
@@ -6831,7 +6991,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePresignedMlflowAppUrl")
+        )
         input_: capo_sagemaker.types.create_presigned_mlflow_app_url_request.CreatePresignedMlflowAppUrlRequest = {}
         if arn is not None:
             input_["arn"] = arn
@@ -6890,7 +7052,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePresignedMlflowTrackingServerUrl")
+        )
         input_: capo_sagemaker.types.create_presigned_mlflow_tracking_server_url_request.CreatePresignedMlflowTrackingServerUrlRequest = {}
         if tracking_server_name is not None:
             input_["tracking_server_name"] = tracking_server_name
@@ -6944,7 +7108,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePresignedNotebookInstanceUrl")
+        )
         input_: capo_sagemaker.types.create_presigned_notebook_instance_url_input.CreatePresignedNotebookInstanceUrlInput = {}
         if notebook_instance_name is not None:
             input_["notebook_instance_name"] = notebook_instance_name
@@ -7030,7 +7196,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProcessingJob")
+        )
         input_: capo_sagemaker.types.create_processing_job_request.CreateProcessingJobRequest = {}
         if processing_inputs is not None:
             input_["processing_inputs"] = processing_inputs
@@ -7109,7 +7277,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProject")
+        )
         input_: capo_sagemaker.types.create_project_input.CreateProjectInput = {}
         if project_name is not None:
             input_["project_name"] = project_name
@@ -7183,7 +7353,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSpace")
+        )
         input_: capo_sagemaker.types.create_space_request.CreateSpaceRequest = {}
         if domain_id is not None:
             input_["domain_id"] = domain_id
@@ -7250,7 +7422,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStudioLifecycleConfig")
+        )
         input_: capo_sagemaker.types.create_studio_lifecycle_config_request.CreateStudioLifecycleConfigRequest = {}
         if studio_lifecycle_config_name is not None:
             input_["studio_lifecycle_config_name"] = studio_lifecycle_config_name
@@ -7403,7 +7577,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTrainingJob")
+        )
         input_: capo_sagemaker.types.create_training_job_request.CreateTrainingJobRequest = {}
         if training_job_name is not None:
             input_["training_job_name"] = training_job_name
@@ -7518,7 +7694,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTrainingPlan")
+        )
         input_: capo_sagemaker.types.create_training_plan_request.CreateTrainingPlanRequest = {}
         if training_plan_name is not None:
             input_["training_plan_name"] = training_plan_name
@@ -7622,7 +7800,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTransformJob")
+        )
         input_: capo_sagemaker.types.create_transform_job_request.CreateTransformJobRequest = {}
         if transform_job_name is not None:
             input_["transform_job_name"] = transform_job_name
@@ -7707,7 +7887,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTrial")
+        )
         input_: capo_sagemaker.types.create_trial_request.CreateTrialRequest = {}
         if trial_name is not None:
             input_["trial_name"] = trial_name
@@ -7789,7 +7971,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTrialComponent")
+        )
         input_: capo_sagemaker.types.create_trial_component_request.CreateTrialComponentRequest = {}
         if trial_component_name is not None:
             input_["trial_component_name"] = trial_component_name
@@ -7869,7 +8053,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUserProfile")
+        )
         input_: capo_sagemaker.types.create_user_profile_request.CreateUserProfileRequest = {}
         if domain_id is not None:
             input_["domain_id"] = domain_id
@@ -7942,7 +8128,19 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker.types.create_workforce_request.CreateWorkforceRequest",
+        ) -> dict[str, Any]:
+            import capo_sagemaker.types.create_workforce_request
+
+            return capo_sagemaker.types.create_workforce_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateWorkforce", redact_input=_redact_input),
+        )
         input_: capo_sagemaker.types.create_workforce_request.CreateWorkforceRequest = {}
         if cognito_config is not None:
             input_["cognito_config"] = cognito_config
@@ -8020,7 +8218,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkteam")
+        )
         input_: capo_sagemaker.types.create_workteam_request.CreateWorkteamRequest = {}
         if workteam_name is not None:
             input_["workteam_name"] = workteam_name
@@ -8077,7 +8277,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAction")
+        )
         input_: capo_sagemaker.types.delete_action_request.DeleteActionRequest = {}
         if action_name is not None:
             input_["action_name"] = action_name
@@ -8122,7 +8324,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAIBenchmarkJob")
+        )
         input_: capo_sagemaker.types.delete_ai_benchmark_job_request.DeleteAIBenchmarkJobRequest = {}
         if ai_benchmark_job_name is not None:
             input_["ai_benchmark_job_name"] = ai_benchmark_job_name
@@ -8167,7 +8371,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAIRecommendationJob")
+        )
         input_: capo_sagemaker.types.delete_ai_recommendation_job_request.DeleteAIRecommendationJobRequest = {}
         if ai_recommendation_job_name is not None:
             input_["ai_recommendation_job_name"] = ai_recommendation_job_name
@@ -8213,7 +8419,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAIWorkloadConfig")
+        )
         input_: capo_sagemaker.types.delete_ai_workload_config_request.DeleteAIWorkloadConfigRequest = {}
         if ai_workload_config_name is not None:
             input_["ai_workload_config_name"] = ai_workload_config_name
@@ -8254,7 +8462,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAlgorithm")
+        )
         input_: capo_sagemaker.types.delete_algorithm_input.DeleteAlgorithmInput = {}
         if algorithm_name is not None:
             input_["algorithm_name"] = algorithm_name
@@ -8306,7 +8516,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApp")
+        )
         input_: capo_sagemaker.types.delete_app_request.DeleteAppRequest = {}
         if domain_id is not None:
             input_["domain_id"] = domain_id
@@ -8357,7 +8569,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAppImageConfig")
+        )
         input_: capo_sagemaker.types.delete_app_image_config_request.DeleteAppImageConfigRequest = {}
         if app_image_config_name is not None:
             input_["app_image_config_name"] = app_image_config_name
@@ -8402,7 +8616,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteArtifact")
+        )
         input_: capo_sagemaker.types.delete_artifact_request.DeleteArtifactRequest = {}
         if artifact_arn is not None:
             input_["artifact_arn"] = artifact_arn
@@ -8453,7 +8669,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAssociation")
+        )
         input_: capo_sagemaker.types.delete_association_request.DeleteAssociationRequest = {}
         if source_arn is not None:
             input_["source_arn"] = source_arn
@@ -8501,7 +8719,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCluster")
+        )
         input_: capo_sagemaker.types.delete_cluster_request.DeleteClusterRequest = {}
         if cluster_name is not None:
             input_["cluster_name"] = cluster_name
@@ -8544,7 +8764,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteClusterSchedulerConfig")
+        )
         input_: capo_sagemaker.types.delete_cluster_scheduler_config_request.DeleteClusterSchedulerConfigRequest = {}
         if cluster_scheduler_config_id is not None:
             input_["cluster_scheduler_config_id"] = cluster_scheduler_config_id
@@ -8586,7 +8808,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCodeRepository")
+        )
         input_: capo_sagemaker.types.delete_code_repository_input.DeleteCodeRepositoryInput = {}
         if code_repository_name is not None:
             input_["code_repository_name"] = code_repository_name
@@ -8629,7 +8853,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCompilationJob")
+        )
         input_: capo_sagemaker.types.delete_compilation_job_request.DeleteCompilationJobRequest = {}
         if compilation_job_name is not None:
             input_["compilation_job_name"] = compilation_job_name
@@ -8672,7 +8898,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteComputeQuota")
+        )
         input_: capo_sagemaker.types.delete_compute_quota_request.DeleteComputeQuotaRequest = {}
         if compute_quota_id is not None:
             input_["compute_quota_id"] = compute_quota_id
@@ -8715,7 +8943,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContext")
+        )
         input_: capo_sagemaker.types.delete_context_request.DeleteContextRequest = {}
         if context_name is not None:
             input_["context_name"] = context_name
@@ -8758,7 +8988,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataQualityJobDefinition")
+        )
         input_: capo_sagemaker.types.delete_data_quality_job_definition_request.DeleteDataQualityJobDefinitionRequest = {}
         if job_definition_name is not None:
             input_["job_definition_name"] = job_definition_name
@@ -8801,7 +9033,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDeviceFleet")
+        )
         input_: capo_sagemaker.types.delete_device_fleet_request.DeleteDeviceFleetRequest = {}
         if device_fleet_name is not None:
             input_["device_fleet_name"] = device_fleet_name
@@ -8847,7 +9081,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomain")
+        )
         input_: capo_sagemaker.types.delete_domain_request.DeleteDomainRequest = {}
         if domain_id is not None:
             input_["domain_id"] = domain_id
@@ -8892,7 +9128,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEdgeDeploymentPlan")
+        )
         input_: capo_sagemaker.types.delete_edge_deployment_plan_request.DeleteEdgeDeploymentPlanRequest = {}
         if edge_deployment_plan_name is not None:
             input_["edge_deployment_plan_name"] = edge_deployment_plan_name
@@ -8937,7 +9175,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEdgeDeploymentStage")
+        )
         input_: capo_sagemaker.types.delete_edge_deployment_stage_request.DeleteEdgeDeploymentStageRequest = {}
         if edge_deployment_plan_name is not None:
             input_["edge_deployment_plan_name"] = edge_deployment_plan_name
@@ -8981,7 +9221,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEndpoint")
+        )
         input_: capo_sagemaker.types.delete_endpoint_input.DeleteEndpointInput = {}
         if endpoint_name is not None:
             input_["endpoint_name"] = endpoint_name
@@ -9023,7 +9265,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEndpointConfig")
+        )
         input_: capo_sagemaker.types.delete_endpoint_config_input.DeleteEndpointConfigInput = {}
         if endpoint_config_name is not None:
             input_["endpoint_config_name"] = endpoint_config_name
@@ -9068,7 +9312,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteExperiment")
+        )
         input_: capo_sagemaker.types.delete_experiment_request.DeleteExperimentRequest = {}
         if experiment_name is not None:
             input_["experiment_name"] = experiment_name
@@ -9111,7 +9357,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFeatureGroup")
+        )
         input_: capo_sagemaker.types.delete_feature_group_request.DeleteFeatureGroupRequest = {}
         if feature_group_name is not None:
             input_["feature_group_name"] = feature_group_name
@@ -9157,7 +9405,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFlowDefinition")
+        )
         input_: capo_sagemaker.types.delete_flow_definition_request.DeleteFlowDefinitionRequest = {}
         if flow_definition_name is not None:
             input_["flow_definition_name"] = flow_definition_name
@@ -9199,7 +9449,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteHub")
+        )
         input_: capo_sagemaker.types.delete_hub_request.DeleteHubRequest = {}
         if hub_name is not None:
             input_["hub_name"] = hub_name
@@ -9253,7 +9505,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteHubContent")
+        )
         input_: capo_sagemaker.types.delete_hub_content_request.DeleteHubContentRequest = {}
         if hub_name is not None:
             input_["hub_name"] = hub_name
@@ -9308,7 +9562,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteHubContentReference")
+        )
         input_: capo_sagemaker.types.delete_hub_content_reference_request.DeleteHubContentReferenceRequest = {}
         if hub_name is not None:
             input_["hub_name"] = hub_name
@@ -9357,7 +9613,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteHumanTaskUi")
+        )
         input_: capo_sagemaker.types.delete_human_task_ui_request.DeleteHumanTaskUiRequest = {}
         if human_task_ui_name is not None:
             input_["human_task_ui_name"] = human_task_ui_name
@@ -9399,7 +9657,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteHyperParameterTuningJob")
+        )
         input_: capo_sagemaker.types.delete_hyper_parameter_tuning_job_request.DeleteHyperParameterTuningJobRequest = {}
         if hyper_parameter_tuning_job_name is not None:
             input_["hyper_parameter_tuning_job_name"] = hyper_parameter_tuning_job_name
@@ -9443,7 +9703,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteImage")
+        )
         input_: capo_sagemaker.types.delete_image_request.DeleteImageRequest = {}
         if image_name is not None:
             input_["image_name"] = image_name
@@ -9497,7 +9759,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteImageVersion")
+        )
         input_: capo_sagemaker.types.delete_image_version_request.DeleteImageVersionRequest = {}
         if image_name is not None:
             input_["image_name"] = image_name
@@ -9543,7 +9807,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInferenceComponent")
+        )
         input_: capo_sagemaker.types.delete_inference_component_input.DeleteInferenceComponentInput = {}
         if inference_component_name is not None:
             input_["inference_component_name"] = inference_component_name
@@ -9589,7 +9855,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInferenceExperiment")
+        )
         input_: capo_sagemaker.types.delete_inference_experiment_request.DeleteInferenceExperimentRequest = {}
         if name is not None:
             input_["name"] = name
@@ -9635,7 +9903,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteJob")
+        )
         input_: capo_sagemaker.types.delete_job_request.DeleteJobRequest = {}
         if job_name is not None:
             input_["job_name"] = job_name
@@ -9680,7 +9950,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMlflowApp")
+        )
         input_: capo_sagemaker.types.delete_mlflow_app_request.DeleteMlflowAppRequest = {}
         if arn is not None:
             input_["arn"] = arn
@@ -9725,7 +9997,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMlflowTrackingServer")
+        )
         input_: capo_sagemaker.types.delete_mlflow_tracking_server_request.DeleteMlflowTrackingServerRequest = {}
         if tracking_server_name is not None:
             input_["tracking_server_name"] = tracking_server_name
@@ -9765,7 +10039,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteModel")
+        )
         input_: capo_sagemaker.types.delete_model_input.DeleteModelInput = {}
         if model_name is not None:
             input_["model_name"] = model_name
@@ -9808,7 +10084,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteModelBiasJobDefinition")
+        )
         input_: capo_sagemaker.types.delete_model_bias_job_definition_request.DeleteModelBiasJobDefinitionRequest = {}
         if job_definition_name is not None:
             input_["job_definition_name"] = job_definition_name
@@ -9850,7 +10128,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteModelCard")
+        )
         input_: capo_sagemaker.types.delete_model_card_request.DeleteModelCardRequest = {}
         if model_card_name is not None:
             input_["model_card_name"] = model_card_name
@@ -9893,7 +10173,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteModelExplainabilityJobDefinition")
+        )
         input_: capo_sagemaker.types.delete_model_explainability_job_definition_request.DeleteModelExplainabilityJobDefinitionRequest = {}
         if job_definition_name is not None:
             input_["job_definition_name"] = job_definition_name
@@ -9936,7 +10218,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteModelPackage")
+        )
         input_: capo_sagemaker.types.delete_model_package_input.DeleteModelPackageInput = {}
         if model_package_name is not None:
             input_["model_package_name"] = model_package_name
@@ -9979,7 +10263,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteModelPackageGroup")
+        )
         input_: capo_sagemaker.types.delete_model_package_group_input.DeleteModelPackageGroupInput = {}
         if model_package_group_name is not None:
             input_["model_package_group_name"] = model_package_group_name
@@ -10021,7 +10307,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteModelPackageGroupPolicy")
+        )
         input_: capo_sagemaker.types.delete_model_package_group_policy_input.DeleteModelPackageGroupPolicyInput = {}
         if model_package_group_name is not None:
             input_["model_package_group_name"] = model_package_group_name
@@ -10064,7 +10352,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteModelQualityJobDefinition")
+        )
         input_: capo_sagemaker.types.delete_model_quality_job_definition_request.DeleteModelQualityJobDefinitionRequest = {}
         if job_definition_name is not None:
             input_["job_definition_name"] = job_definition_name
@@ -10107,7 +10397,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMonitoringSchedule")
+        )
         input_: capo_sagemaker.types.delete_monitoring_schedule_request.DeleteMonitoringScheduleRequest = {}
         if monitoring_schedule_name is not None:
             input_["monitoring_schedule_name"] = monitoring_schedule_name
@@ -10149,7 +10441,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNotebookInstance")
+        )
         input_: capo_sagemaker.types.delete_notebook_instance_input.DeleteNotebookInstanceInput = {}
         if notebook_instance_name is not None:
             input_["notebook_instance_name"] = notebook_instance_name
@@ -10191,7 +10485,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNotebookInstanceLifecycleConfig")
+        )
         input_: capo_sagemaker.types.delete_notebook_instance_lifecycle_config_input.DeleteNotebookInstanceLifecycleConfigInput = {}
         if notebook_instance_lifecycle_config_name is not None:
             input_["notebook_instance_lifecycle_config_name"] = (
@@ -10236,7 +10532,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOptimizationJob")
+        )
         input_: capo_sagemaker.types.delete_optimization_job_request.DeleteOptimizationJobRequest = {}
         if optimization_job_name is not None:
             input_["optimization_job_name"] = optimization_job_name
@@ -10282,7 +10580,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePartnerApp")
+        )
         input_: capo_sagemaker.types.delete_partner_app_request.DeletePartnerAppRequest = {}
         if arn is not None:
             input_["arn"] = arn
@@ -10335,7 +10635,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePipeline")
+        )
         input_: capo_sagemaker.types.delete_pipeline_request.DeletePipelineRequest = {}
         if pipeline_name is not None:
             input_["pipeline_name"] = pipeline_name
@@ -10382,7 +10684,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProcessingJob")
+        )
         input_: capo_sagemaker.types.delete_processing_job_request.DeleteProcessingJobRequest = {}
         if processing_job_name is not None:
             input_["processing_job_name"] = processing_job_name
@@ -10425,7 +10729,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProject")
+        )
         input_: capo_sagemaker.types.delete_project_input.DeleteProjectInput = {}
         if project_name is not None:
             input_["project_name"] = project_name
@@ -10469,7 +10775,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSpace")
+        )
         input_: capo_sagemaker.types.delete_space_request.DeleteSpaceRequest = {}
         if domain_id is not None:
             input_["domain_id"] = domain_id
@@ -10515,7 +10823,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStudioLifecycleConfig")
+        )
         input_: capo_sagemaker.types.delete_studio_lifecycle_config_request.DeleteStudioLifecycleConfigRequest = {}
         if studio_lifecycle_config_name is not None:
             input_["studio_lifecycle_config_name"] = studio_lifecycle_config_name
@@ -10559,7 +10869,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTags")
+        )
         input_: capo_sagemaker.types.delete_tags_input.DeleteTagsInput = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -10605,7 +10917,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTrainingJob")
+        )
         input_: capo_sagemaker.types.delete_training_job_request.DeleteTrainingJobRequest = {}
         if training_job_name is not None:
             input_["training_job_name"] = training_job_name
@@ -10650,7 +10964,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTrial")
+        )
         input_: capo_sagemaker.types.delete_trial_request.DeleteTrialRequest = {}
         if trial_name is not None:
             input_["trial_name"] = trial_name
@@ -10695,7 +11011,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTrialComponent")
+        )
         input_: capo_sagemaker.types.delete_trial_component_request.DeleteTrialComponentRequest = {}
         if trial_component_name is not None:
             input_["trial_component_name"] = trial_component_name
@@ -10741,7 +11059,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUserProfile")
+        )
         input_: capo_sagemaker.types.delete_user_profile_request.DeleteUserProfileRequest = {}
         if domain_id is not None:
             input_["domain_id"] = domain_id
@@ -10787,7 +11107,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkforce")
+        )
         input_: capo_sagemaker.types.delete_workforce_request.DeleteWorkforceRequest = {}
         if workforce_name is not None:
             input_["workforce_name"] = workforce_name
@@ -10832,7 +11154,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkteam")
+        )
         input_: capo_sagemaker.types.delete_workteam_request.DeleteWorkteamRequest = {}
         if workteam_name is not None:
             input_["workteam_name"] = workteam_name
@@ -10876,7 +11200,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterDevices")
+        )
         input_: capo_sagemaker.types.deregister_devices_request.DeregisterDevicesRequest = {}
         if device_fleet_name is not None:
             input_["device_fleet_name"] = device_fleet_name
@@ -10923,7 +11249,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAction")
+        )
         input_: capo_sagemaker.types.describe_action_request.DescribeActionRequest = {}
         if action_name is not None:
             input_["action_name"] = action_name
@@ -10968,7 +11296,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAIBenchmarkJob")
+        )
         input_: capo_sagemaker.types.describe_ai_benchmark_job_request.DescribeAIBenchmarkJobRequest = {}
         if ai_benchmark_job_name is not None:
             input_["ai_benchmark_job_name"] = ai_benchmark_job_name
@@ -11013,7 +11343,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAIRecommendationJob")
+        )
         input_: capo_sagemaker.types.describe_ai_recommendation_job_request.DescribeAIRecommendationJobRequest = {}
         if ai_recommendation_job_name is not None:
             input_["ai_recommendation_job_name"] = ai_recommendation_job_name
@@ -11058,7 +11390,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAIWorkloadConfig")
+        )
         input_: capo_sagemaker.types.describe_ai_workload_config_request.DescribeAIWorkloadConfigRequest = {}
         if ai_workload_config_name is not None:
             input_["ai_workload_config_name"] = ai_workload_config_name
@@ -11100,7 +11434,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAlgorithm")
+        )
         input_: capo_sagemaker.types.describe_algorithm_input.DescribeAlgorithmInput = {}
         if algorithm_name is not None:
             input_["algorithm_name"] = algorithm_name
@@ -11153,7 +11489,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeApp")
+        )
         input_: capo_sagemaker.types.describe_app_request.DescribeAppRequest = {}
         if domain_id is not None:
             input_["domain_id"] = domain_id
@@ -11206,7 +11544,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAppImageConfig")
+        )
         input_: capo_sagemaker.types.describe_app_image_config_request.DescribeAppImageConfigRequest = {}
         if app_image_config_name is not None:
             input_["app_image_config_name"] = app_image_config_name
@@ -11249,7 +11589,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeArtifact")
+        )
         input_: capo_sagemaker.types.describe_artifact_request.DescribeArtifactRequest = {}
         if artifact_arn is not None:
             input_["artifact_arn"] = artifact_arn
@@ -11294,7 +11636,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAutoMLJob")
+        )
         input_: capo_sagemaker.types.describe_auto_ml_job_request.DescribeAutoMLJobRequest = {}
         if auto_ml_job_name is not None:
             input_["auto_ml_job_name"] = auto_ml_job_name
@@ -11339,7 +11683,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAutoMLJobV2")
+        )
         input_: capo_sagemaker.types.describe_auto_ml_job_v2_request.DescribeAutoMLJobV2Request = {}
         if auto_ml_job_name is not None:
             input_["auto_ml_job_name"] = auto_ml_job_name
@@ -11384,7 +11730,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCluster")
+        )
         input_: capo_sagemaker.types.describe_cluster_request.DescribeClusterRequest = {}
         if cluster_name is not None:
             input_["cluster_name"] = cluster_name
@@ -11431,7 +11779,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClusterEvent")
+        )
         input_: capo_sagemaker.types.describe_cluster_event_request.DescribeClusterEventRequest = {}
         if event_id is not None:
             input_["event_id"] = event_id
@@ -11484,7 +11834,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClusterNode")
+        )
         input_: capo_sagemaker.types.describe_cluster_node_request.DescribeClusterNodeRequest = {}
         if cluster_name is not None:
             input_["cluster_name"] = cluster_name
@@ -11537,7 +11889,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClusterSchedulerConfig")
+        )
         input_: capo_sagemaker.types.describe_cluster_scheduler_config_request.DescribeClusterSchedulerConfigRequest = {}
         if cluster_scheduler_config_id is not None:
             input_["cluster_scheduler_config_id"] = cluster_scheduler_config_id
@@ -11585,7 +11939,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCodeRepository")
+        )
         input_: capo_sagemaker.types.describe_code_repository_input.DescribeCodeRepositoryInput = {}
         if code_repository_name is not None:
             input_["code_repository_name"] = code_repository_name
@@ -11630,7 +11986,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCompilationJob")
+        )
         input_: capo_sagemaker.types.describe_compilation_job_request.DescribeCompilationJobRequest = {}
         if compilation_job_name is not None:
             input_["compilation_job_name"] = compilation_job_name
@@ -11677,7 +12035,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeComputeQuota")
+        )
         input_: capo_sagemaker.types.describe_compute_quota_request.DescribeComputeQuotaRequest = {}
         if compute_quota_id is not None:
             input_["compute_quota_id"] = compute_quota_id
@@ -11724,7 +12084,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeContext")
+        )
         input_: capo_sagemaker.types.describe_context_request.DescribeContextRequest = {}
         if context_name is not None:
             input_["context_name"] = context_name
@@ -11769,7 +12131,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataQualityJobDefinition")
+        )
         input_: capo_sagemaker.types.describe_data_quality_job_definition_request.DescribeDataQualityJobDefinitionRequest = {}
         if job_definition_name is not None:
             input_["job_definition_name"] = job_definition_name
@@ -11818,7 +12182,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDevice")
+        )
         input_: capo_sagemaker.types.describe_device_request.DescribeDeviceRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -11867,7 +12233,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDeviceFleet")
+        )
         input_: capo_sagemaker.types.describe_device_fleet_request.DescribeDeviceFleetRequest = {}
         if device_fleet_name is not None:
             input_["device_fleet_name"] = device_fleet_name
@@ -11910,7 +12278,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDomain")
+        )
         input_: capo_sagemaker.types.describe_domain_request.DescribeDomainRequest = {}
         if domain_id is not None:
             input_["domain_id"] = domain_id
@@ -11961,7 +12331,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEdgeDeploymentPlan")
+        )
         input_: capo_sagemaker.types.describe_edge_deployment_plan_request.DescribeEdgeDeploymentPlanRequest = {}
         if edge_deployment_plan_name is not None:
             input_["edge_deployment_plan_name"] = edge_deployment_plan_name
@@ -12010,7 +12382,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEdgePackagingJob")
+        )
         input_: capo_sagemaker.types.describe_edge_packaging_job_request.DescribeEdgePackagingJobRequest = {}
         if edge_packaging_job_name is not None:
             input_["edge_packaging_job_name"] = edge_packaging_job_name
@@ -12054,7 +12428,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEndpoint")
+        )
         input_: capo_sagemaker.types.describe_endpoint_input.DescribeEndpointInput = {}
         if endpoint_name is not None:
             input_["endpoint_name"] = endpoint_name
@@ -12098,7 +12474,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEndpointConfig")
+        )
         input_: capo_sagemaker.types.describe_endpoint_config_input.DescribeEndpointConfigInput = {}
         if endpoint_config_name is not None:
             input_["endpoint_config_name"] = endpoint_config_name
@@ -12143,7 +12521,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeExperiment")
+        )
         input_: capo_sagemaker.types.describe_experiment_request.DescribeExperimentRequest = {}
         if experiment_name is not None:
             input_["experiment_name"] = experiment_name
@@ -12190,7 +12570,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFeatureGroup")
+        )
         input_: capo_sagemaker.types.describe_feature_group_request.DescribeFeatureGroupRequest = {}
         if feature_group_name is not None:
             input_["feature_group_name"] = feature_group_name
@@ -12239,7 +12621,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFeatureMetadata")
+        )
         input_: capo_sagemaker.types.describe_feature_metadata_request.DescribeFeatureMetadataRequest = {}
         if feature_group_name is not None:
             input_["feature_group_name"] = feature_group_name
@@ -12286,7 +12670,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFlowDefinition")
+        )
         input_: capo_sagemaker.types.describe_flow_definition_request.DescribeFlowDefinitionRequest = {}
         if flow_definition_name is not None:
             input_["flow_definition_name"] = flow_definition_name
@@ -12329,7 +12715,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeHub")
+        )
         input_: capo_sagemaker.types.describe_hub_request.DescribeHubRequest = {}
         if hub_name is not None:
             input_["hub_name"] = hub_name
@@ -12386,7 +12774,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeHubContent")
+        )
         input_: capo_sagemaker.types.describe_hub_content_request.DescribeHubContentRequest = {}
         if hub_name is not None:
             input_["hub_name"] = hub_name
@@ -12437,7 +12827,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeHumanTaskUi")
+        )
         input_: capo_sagemaker.types.describe_human_task_ui_request.DescribeHumanTaskUiRequest = {}
         if human_task_ui_name is not None:
             input_["human_task_ui_name"] = human_task_ui_name
@@ -12482,7 +12874,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeHyperParameterTuningJob")
+        )
         input_: capo_sagemaker.types.describe_hyper_parameter_tuning_job_request.DescribeHyperParameterTuningJobRequest = {}
         if hyper_parameter_tuning_job_name is not None:
             input_["hyper_parameter_tuning_job_name"] = hyper_parameter_tuning_job_name
@@ -12525,7 +12919,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeImage")
+        )
         input_: capo_sagemaker.types.describe_image_request.DescribeImageRequest = {}
         if image_name is not None:
             input_["image_name"] = image_name
@@ -12576,7 +12972,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeImageVersion")
+        )
         input_: capo_sagemaker.types.describe_image_version_request.DescribeImageVersionRequest = {}
         if image_name is not None:
             input_["image_name"] = image_name
@@ -12624,7 +13022,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInferenceComponent")
+        )
         input_: capo_sagemaker.types.describe_inference_component_input.DescribeInferenceComponentInput = {}
         if inference_component_name is not None:
             input_["inference_component_name"] = inference_component_name
@@ -12669,7 +13069,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInferenceExperiment")
+        )
         input_: capo_sagemaker.types.describe_inference_experiment_request.DescribeInferenceExperimentRequest = {}
         if name is not None:
             input_["name"] = name
@@ -12714,7 +13116,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInferenceRecommendationsJob")
+        )
         input_: capo_sagemaker.types.describe_inference_recommendations_job_request.DescribeInferenceRecommendationsJobRequest = {}
         if job_name is not None:
             input_["job_name"] = job_name
@@ -12759,7 +13163,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeJob")
+        )
         input_: capo_sagemaker.types.describe_job_request.DescribeJobRequest = {}
         if job_name is not None:
             input_["job_name"] = job_name
@@ -12808,7 +13214,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeJobSchemaVersion")
+        )
         input_: capo_sagemaker.types.describe_job_schema_version_request.DescribeJobSchemaVersionRequest = {}
         if job_category is not None:
             input_["job_category"] = job_category
@@ -12855,7 +13263,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLabelingJob")
+        )
         input_: capo_sagemaker.types.describe_labeling_job_request.DescribeLabelingJobRequest = {}
         if labeling_job_name is not None:
             input_["labeling_job_name"] = labeling_job_name
@@ -12900,7 +13310,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLineageGroup")
+        )
         input_: capo_sagemaker.types.describe_lineage_group_request.DescribeLineageGroupRequest = {}
         if lineage_group_name is not None:
             input_["lineage_group_name"] = lineage_group_name
@@ -12943,7 +13355,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMlflowApp")
+        )
         input_: capo_sagemaker.types.describe_mlflow_app_request.DescribeMlflowAppRequest = {}
         if arn is not None:
             input_["arn"] = arn
@@ -12988,7 +13402,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMlflowTrackingServer")
+        )
         input_: capo_sagemaker.types.describe_mlflow_tracking_server_request.DescribeMlflowTrackingServerRequest = {}
         if tracking_server_name is not None:
             input_["tracking_server_name"] = tracking_server_name
@@ -13030,7 +13446,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeModel")
+        )
         input_: capo_sagemaker.types.describe_model_input.DescribeModelInput = {}
         if model_name is not None:
             input_["model_name"] = model_name
@@ -13075,7 +13493,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeModelBiasJobDefinition")
+        )
         input_: capo_sagemaker.types.describe_model_bias_job_definition_request.DescribeModelBiasJobDefinitionRequest = {}
         if job_definition_name is not None:
             input_["job_definition_name"] = job_definition_name
@@ -13126,7 +13546,19 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sagemaker.types.describe_model_card_response.DescribeModelCardResponse",
+        ) -> dict[str, Any]:
+            import capo_sagemaker.types.describe_model_card_response
+
+            return capo_sagemaker.types.describe_model_card_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeModelCard", redact_output=_redact_output),
+        )
         input_: capo_sagemaker.types.describe_model_card_request.DescribeModelCardRequest = {}
         if model_card_name is not None:
             input_["model_card_name"] = model_card_name
@@ -13175,7 +13607,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeModelCardExportJob")
+        )
         input_: capo_sagemaker.types.describe_model_card_export_job_request.DescribeModelCardExportJobRequest = {}
         if model_card_export_job_arn is not None:
             input_["model_card_export_job_arn"] = model_card_export_job_arn
@@ -13220,7 +13654,10 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeModelExplainabilityJobDefinition"),
+        )
         input_: capo_sagemaker.types.describe_model_explainability_job_definition_request.DescribeModelExplainabilityJobDefinitionRequest = {}
         if job_definition_name is not None:
             input_["job_definition_name"] = job_definition_name
@@ -13270,7 +13707,19 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sagemaker.types.describe_model_package_output.DescribeModelPackageOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker.types.describe_model_package_output
+
+            return capo_sagemaker.types.describe_model_package_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeModelPackage", redact_output=_redact_output),
+        )
         input_: capo_sagemaker.types.describe_model_package_input.DescribeModelPackageInput = {}
         if model_package_name is not None:
             input_["model_package_name"] = model_package_name
@@ -13316,7 +13765,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeModelPackageGroup")
+        )
         input_: capo_sagemaker.types.describe_model_package_group_input.DescribeModelPackageGroupInput = {}
         if model_package_group_name is not None:
             input_["model_package_group_name"] = model_package_group_name
@@ -13361,7 +13812,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeModelQualityJobDefinition")
+        )
         input_: capo_sagemaker.types.describe_model_quality_job_definition_request.DescribeModelQualityJobDefinitionRequest = {}
         if job_definition_name is not None:
             input_["job_definition_name"] = job_definition_name
@@ -13406,7 +13859,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMonitoringSchedule")
+        )
         input_: capo_sagemaker.types.describe_monitoring_schedule_request.DescribeMonitoringScheduleRequest = {}
         if monitoring_schedule_name is not None:
             input_["monitoring_schedule_name"] = monitoring_schedule_name
@@ -13450,7 +13905,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeNotebookInstance")
+        )
         input_: capo_sagemaker.types.describe_notebook_instance_input.DescribeNotebookInstanceInput = {}
         if notebook_instance_name is not None:
             input_["notebook_instance_name"] = notebook_instance_name
@@ -13494,7 +13951,10 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeNotebookInstanceLifecycleConfig"),
+        )
         input_: capo_sagemaker.types.describe_notebook_instance_lifecycle_config_input.DescribeNotebookInstanceLifecycleConfigInput = {}
         if notebook_instance_lifecycle_config_name is not None:
             input_["notebook_instance_lifecycle_config_name"] = (
@@ -13541,7 +14001,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOptimizationJob")
+        )
         input_: capo_sagemaker.types.describe_optimization_job_request.DescribeOptimizationJobRequest = {}
         if optimization_job_name is not None:
             input_["optimization_job_name"] = optimization_job_name
@@ -13590,7 +14052,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePartnerApp")
+        )
         input_: capo_sagemaker.types.describe_partner_app_request.DescribePartnerAppRequest = {}
         if arn is not None:
             input_["arn"] = arn
@@ -13641,7 +14105,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePipeline")
+        )
         input_: capo_sagemaker.types.describe_pipeline_request.DescribePipelineRequest = {}
         if pipeline_name is not None:
             input_["pipeline_name"] = pipeline_name
@@ -13688,7 +14154,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePipelineDefinitionForExecution")
+        )
         input_: capo_sagemaker.types.describe_pipeline_definition_for_execution_request.DescribePipelineDefinitionForExecutionRequest = {}
         if pipeline_execution_arn is not None:
             input_["pipeline_execution_arn"] = pipeline_execution_arn
@@ -13733,7 +14201,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePipelineExecution")
+        )
         input_: capo_sagemaker.types.describe_pipeline_execution_request.DescribePipelineExecutionRequest = {}
         if pipeline_execution_arn is not None:
             input_["pipeline_execution_arn"] = pipeline_execution_arn
@@ -13778,7 +14248,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProcessingJob")
+        )
         input_: capo_sagemaker.types.describe_processing_job_request.DescribeProcessingJobRequest = {}
         if processing_job_name is not None:
             input_["processing_job_name"] = processing_job_name
@@ -13822,7 +14294,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProject")
+        )
         input_: capo_sagemaker.types.describe_project_input.DescribeProjectInput = {}
         if project_name is not None:
             input_["project_name"] = project_name
@@ -13867,7 +14341,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReservedCapacity")
+        )
         input_: capo_sagemaker.types.describe_reserved_capacity_request.DescribeReservedCapacityRequest = {}
         if reserved_capacity_arn is not None:
             input_["reserved_capacity_arn"] = reserved_capacity_arn
@@ -13912,7 +14388,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSpace")
+        )
         input_: capo_sagemaker.types.describe_space_request.DescribeSpaceRequest = {}
         if domain_id is not None:
             input_["domain_id"] = domain_id
@@ -13959,7 +14437,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStudioLifecycleConfig")
+        )
         input_: capo_sagemaker.types.describe_studio_lifecycle_config_request.DescribeStudioLifecycleConfigRequest = {}
         if studio_lifecycle_config_name is not None:
             input_["studio_lifecycle_config_name"] = studio_lifecycle_config_name
@@ -14001,7 +14481,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSubscribedWorkteam")
+        )
         input_: capo_sagemaker.types.describe_subscribed_workteam_request.DescribeSubscribedWorkteamRequest = {}
         if workteam_arn is not None:
             input_["workteam_arn"] = workteam_arn
@@ -14046,7 +14528,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTrainingJob")
+        )
         input_: capo_sagemaker.types.describe_training_job_request.DescribeTrainingJobRequest = {}
         if training_job_name is not None:
             input_["training_job_name"] = training_job_name
@@ -14091,7 +14575,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTrainingPlan")
+        )
         input_: capo_sagemaker.types.describe_training_plan_request.DescribeTrainingPlanRequest = {}
         if training_plan_name is not None:
             input_["training_plan_name"] = training_plan_name
@@ -14140,7 +14626,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTrainingPlanExtensionHistory")
+        )
         input_: capo_sagemaker.types.describe_training_plan_extension_history_request.DescribeTrainingPlanExtensionHistoryRequest = {}
         if training_plan_arn is not None:
             input_["training_plan_arn"] = training_plan_arn
@@ -14214,7 +14702,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTransformJob")
+        )
         input_: capo_sagemaker.types.describe_transform_job_request.DescribeTransformJobRequest = {}
         if transform_job_name is not None:
             input_["transform_job_name"] = transform_job_name
@@ -14259,7 +14749,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTrial")
+        )
         input_: capo_sagemaker.types.describe_trial_request.DescribeTrialRequest = {}
         if trial_name is not None:
             input_["trial_name"] = trial_name
@@ -14304,7 +14796,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTrialComponent")
+        )
         input_: capo_sagemaker.types.describe_trial_component_request.DescribeTrialComponentRequest = {}
         if trial_component_name is not None:
             input_["trial_component_name"] = trial_component_name
@@ -14352,7 +14846,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeUserProfile")
+        )
         input_: capo_sagemaker.types.describe_user_profile_request.DescribeUserProfileRequest = {}
         if domain_id is not None:
             input_["domain_id"] = domain_id
@@ -14398,7 +14894,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkforce")
+        )
         input_: capo_sagemaker.types.describe_workforce_request.DescribeWorkforceRequest = {}
         if workforce_name is not None:
             input_["workforce_name"] = workforce_name
@@ -14442,7 +14940,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkteam")
+        )
         input_: capo_sagemaker.types.describe_workteam_request.DescribeWorkteamRequest = {}
         if workteam_name is not None:
             input_["workteam_name"] = workteam_name
@@ -14489,7 +14989,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachClusterNodeVolume")
+        )
         input_: capo_sagemaker.types.detach_cluster_node_volume_request.DetachClusterNodeVolumeRequest = {}
         if cluster_arn is not None:
             input_["cluster_arn"] = cluster_arn
@@ -14529,7 +15031,10 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisableSagemakerServicecatalogPortfolio"),
+        )
         input_: capo_sagemaker.types.disable_sagemaker_servicecatalog_portfolio_input.DisableSagemakerServicecatalogPortfolioInput = {}
 
         response = execute_pipeline(
@@ -14576,7 +15081,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateTrialComponent")
+        )
         input_: capo_sagemaker.types.disassociate_trial_component_request.DisassociateTrialComponentRequest = {}
         if trial_component_name is not None:
             input_["trial_component_name"] = trial_component_name
@@ -14614,7 +15121,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableSagemakerServicecatalogPortfolio")
+        )
         input_: capo_sagemaker.types.enable_sagemaker_servicecatalog_portfolio_input.EnableSagemakerServicecatalogPortfolioInput = {}
 
         response = execute_pipeline(
@@ -14659,7 +15168,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExtendTrainingPlan")
+        )
         input_: capo_sagemaker.types.extend_training_plan_request.ExtendTrainingPlanRequest = {}
         if training_plan_extension_offering_id is not None:
             input_["training_plan_extension_offering_id"] = (
@@ -14705,7 +15216,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeviceFleetReport")
+        )
         input_: capo_sagemaker.types.get_device_fleet_report_request.GetDeviceFleetReportRequest = {}
         if device_fleet_name is not None:
             input_["device_fleet_name"] = device_fleet_name
@@ -14750,7 +15263,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLineageGroupPolicy")
+        )
         input_: capo_sagemaker.types.get_lineage_group_policy_request.GetLineageGroupPolicyRequest = {}
         if lineage_group_name is not None:
             input_["lineage_group_name"] = lineage_group_name
@@ -14794,7 +15309,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetModelPackageGroupPolicy")
+        )
         input_: capo_sagemaker.types.get_model_package_group_policy_input.GetModelPackageGroupPolicyInput = {}
         if model_package_group_name is not None:
             input_["model_package_group_name"] = model_package_group_name
@@ -14830,7 +15347,10 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSagemakerServicecatalogPortfolioStatus"),
+        )
         input_: capo_sagemaker.types.get_sagemaker_servicecatalog_portfolio_status_input.GetSagemakerServicecatalogPortfolioStatusInput = {}
 
         response = execute_pipeline(
@@ -14887,7 +15407,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetScalingConfigurationRecommendation")
+        )
         input_: capo_sagemaker.types.get_scaling_configuration_recommendation_request.GetScalingConfigurationRecommendationRequest = {}
         if inference_recommendations_job_name is not None:
             input_["inference_recommendations_job_name"] = (
@@ -14943,7 +15465,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSearchSuggestions")
+        )
         input_: capo_sagemaker.types.get_search_suggestions_request.GetSearchSuggestionsRequest = {}
         if resource is not None:
             input_["resource"] = resource
@@ -15032,7 +15556,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportHubContent")
+        )
         input_: capo_sagemaker.types.import_hub_content_request.ImportHubContentRequest = {}
         if hub_content_name is not None:
             input_["hub_content_name"] = hub_content_name
@@ -15111,7 +15637,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListActions")
+        )
         input_: capo_sagemaker.types.list_actions_request.ListActionsRequest = {}
         if source_uri is not None:
             input_["source_uri"] = source_uri
@@ -15224,7 +15752,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAIBenchmarkJobs")
+        )
         input_: capo_sagemaker.types.list_ai_benchmark_jobs_request.ListAIBenchmarkJobsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -15349,7 +15879,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAIRecommendationJobs")
+        )
         input_: capo_sagemaker.types.list_ai_recommendation_jobs_request.ListAIRecommendationJobsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -15468,7 +16000,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAIWorkloadConfigs")
+        )
         input_: capo_sagemaker.types.list_ai_workload_configs_request.ListAIWorkloadConfigsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -15581,7 +16115,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAlgorithms")
+        )
         input_: capo_sagemaker.types.list_algorithms_input.ListAlgorithmsInput = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -15687,7 +16223,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAliases")
+        )
         input_: capo_sagemaker.types.list_aliases_request.ListAliasesRequest = {}
         if image_name is not None:
             input_["image_name"] = image_name
@@ -15796,7 +16334,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAppImageConfigs")
+        )
         input_: capo_sagemaker.types.list_app_image_configs_request.ListAppImageConfigsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -15917,7 +16457,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApps")
+        )
         input_: capo_sagemaker.types.list_apps_request.ListAppsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -16021,7 +16563,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListArtifacts")
+        )
         input_: capo_sagemaker.types.list_artifacts_request.ListArtifactsRequest = {}
         if source_uri is not None:
             input_["source_uri"] = source_uri
@@ -16141,7 +16685,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssociations")
+        )
         input_: capo_sagemaker.types.list_associations_request.ListAssociationsRequest = {}
         if source_arn is not None:
             input_["source_arn"] = source_arn
@@ -16284,7 +16830,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAutoMLJobs")
+        )
         input_: capo_sagemaker.types.list_auto_ml_jobs_request.ListAutoMLJobsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -16422,7 +16970,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCandidatesForAutoMLJob")
+        )
         input_: capo_sagemaker.types.list_candidates_for_auto_ml_job_request.ListCandidatesForAutoMLJobRequest = {}
         if auto_ml_job_name is not None:
             input_["auto_ml_job_name"] = auto_ml_job_name
@@ -16546,7 +17096,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusterEvents")
+        )
         input_: capo_sagemaker.types.list_cluster_events_request.ListClusterEventsRequest = {}
         if cluster_name is not None:
             input_["cluster_name"] = cluster_name
@@ -16678,7 +17230,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusterNodes")
+        )
         input_: capo_sagemaker.types.list_cluster_nodes_request.ListClusterNodesRequest = {}
         if cluster_name is not None:
             input_["cluster_name"] = cluster_name
@@ -16803,7 +17357,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusters")
+        )
         input_: capo_sagemaker.types.list_clusters_request.ListClustersRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -16920,7 +17476,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusterSchedulerConfigs")
+        )
         input_: capo_sagemaker.types.list_cluster_scheduler_configs_request.ListClusterSchedulerConfigsRequest = {}
         if created_after is not None:
             input_["created_after"] = created_after
@@ -17049,7 +17607,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCodeRepositories")
+        )
         input_: capo_sagemaker.types.list_code_repositories_input.ListCodeRepositoriesInput = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -17188,7 +17748,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCompilationJobs")
+        )
         input_: capo_sagemaker.types.list_compilation_jobs_request.ListCompilationJobsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -17317,7 +17879,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListComputeQuotas")
+        )
         input_: capo_sagemaker.types.list_compute_quotas_request.ListComputeQuotasRequest = {}
         if created_after is not None:
             input_["created_after"] = created_after
@@ -17429,7 +17993,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContexts")
+        )
         input_: capo_sagemaker.types.list_contexts_request.ListContextsRequest = {}
         if source_uri is not None:
             input_["source_uri"] = source_uri
@@ -17544,7 +18110,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataQualityJobDefinitions")
+        )
         input_: capo_sagemaker.types.list_data_quality_job_definitions_request.ListDataQualityJobDefinitionsRequest = {}
         if endpoint_name is not None:
             input_["endpoint_name"] = endpoint_name
@@ -17673,7 +18241,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeviceFleets")
+        )
         input_: capo_sagemaker.types.list_device_fleets_request.ListDeviceFleetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -17794,7 +18364,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDevices")
+        )
         input_: capo_sagemaker.types.list_devices_request.ListDevicesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -17879,7 +18451,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomains")
+        )
         input_: capo_sagemaker.types.list_domains_request.ListDomainsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -17978,7 +18552,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEdgeDeploymentPlans")
+        )
         input_: capo_sagemaker.types.list_edge_deployment_plans_request.ListEdgeDeploymentPlansRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -18129,7 +18705,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEdgePackagingJobs")
+        )
         input_: capo_sagemaker.types.list_edge_packaging_jobs_request.ListEdgePackagingJobsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -18270,7 +18848,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEndpointConfigs")
+        )
         input_: capo_sagemaker.types.list_endpoint_configs_input.ListEndpointConfigsInput = {}
         if sort_by is not None:
             input_["sort_by"] = sort_by
@@ -18399,7 +18979,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEndpoints")
+        )
         input_: capo_sagemaker.types.list_endpoints_input.ListEndpointsInput = {}
         if sort_by is not None:
             input_["sort_by"] = sort_by
@@ -18524,7 +19106,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExperiments")
+        )
         input_: capo_sagemaker.types.list_experiments_request.ListExperimentsRequest = {}
         if created_after is not None:
             input_["created_after"] = created_after
@@ -18639,7 +19223,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFeatureGroups")
+        )
         input_: capo_sagemaker.types.list_feature_groups_request.ListFeatureGroupsRequest = {}
         if name_contains is not None:
             input_["name_contains"] = name_contains
@@ -18760,7 +19346,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFlowDefinitions")
+        )
         input_: capo_sagemaker.types.list_flow_definitions_request.ListFlowDefinitionsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -18872,7 +19460,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHubContents")
+        )
         input_: capo_sagemaker.types.list_hub_contents_request.ListHubContentsRequest = {}
         if hub_name is not None:
             input_["hub_name"] = hub_name
@@ -18967,7 +19557,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHubContentVersions")
+        )
         input_: capo_sagemaker.types.list_hub_content_versions_request.ListHubContentVersionsRequest = {}
         if hub_name is not None:
             input_["hub_name"] = hub_name
@@ -19055,7 +19647,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHubs")
+        )
         input_: capo_sagemaker.types.list_hubs_request.ListHubsRequest = {}
         if name_contains is not None:
             input_["name_contains"] = name_contains
@@ -19125,7 +19719,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHumanTaskUis")
+        )
         input_: capo_sagemaker.types.list_human_task_uis_request.ListHumanTaskUisRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -19238,7 +19834,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHyperParameterTuningJobs")
+        )
         input_: capo_sagemaker.types.list_hyper_parameter_tuning_jobs_request.ListHyperParameterTuningJobsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -19377,7 +19975,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImages")
+        )
         input_: capo_sagemaker.types.list_images_request.ListImagesRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -19511,7 +20111,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImageVersions")
+        )
         input_: capo_sagemaker.types.list_image_versions_request.ListImageVersionsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -19658,7 +20260,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInferenceComponents")
+        )
         input_: capo_sagemaker.types.list_inference_components_input.ListInferenceComponentsInput = {}
         if sort_by is not None:
             input_["sort_by"] = sort_by
@@ -19819,7 +20423,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInferenceExperiments")
+        )
         input_: capo_sagemaker.types.list_inference_experiments_request.ListInferenceExperimentsRequest = {}
         if name_contains is not None:
             input_["name_contains"] = name_contains
@@ -19974,7 +20580,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInferenceRecommendationsJobs")
+        )
         input_: capo_sagemaker.types.list_inference_recommendations_jobs_request.ListInferenceRecommendationsJobsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -20112,7 +20720,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInferenceRecommendationsJobSteps")
+        )
         input_: capo_sagemaker.types.list_inference_recommendations_job_steps_request.ListInferenceRecommendationsJobStepsRequest = {}
         if job_name is not None:
             input_["job_name"] = job_name
@@ -20225,7 +20835,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobs")
+        )
         input_: capo_sagemaker.types.list_jobs_request.ListJobsRequest = {}
         if job_category is not None:
             input_["job_category"] = job_category
@@ -20341,7 +20953,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobSchemaVersions")
+        )
         input_: capo_sagemaker.types.list_job_schema_versions_request.ListJobSchemaVersionsRequest = {}
         if job_category is not None:
             input_["job_category"] = job_category
@@ -20440,7 +21054,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLabelingJobs")
+        )
         input_: capo_sagemaker.types.list_labeling_jobs_request.ListLabelingJobsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -20572,7 +21188,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLabelingJobsForWorkteam")
+        )
         input_: capo_sagemaker.types.list_labeling_jobs_for_workteam_request.ListLabelingJobsForWorkteamRequest = {}
         if workteam_arn is not None:
             input_["workteam_arn"] = workteam_arn
@@ -20681,7 +21299,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLineageGroups")
+        )
         input_: capo_sagemaker.types.list_lineage_groups_request.ListLineageGroupsRequest = {}
         if created_after is not None:
             input_["created_after"] = created_after
@@ -20790,7 +21410,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMlflowApps")
+        )
         input_: capo_sagemaker.types.list_mlflow_apps_request.ListMlflowAppsRequest = {}
         if created_after is not None:
             input_["created_after"] = created_after
@@ -20915,7 +21537,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMlflowTrackingServers")
+        )
         input_: capo_sagemaker.types.list_mlflow_tracking_servers_request.ListMlflowTrackingServersRequest = {}
         if created_after is not None:
             input_["created_after"] = created_after
@@ -21034,7 +21658,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListModelBiasJobDefinitions")
+        )
         input_: capo_sagemaker.types.list_model_bias_job_definitions_request.ListModelBiasJobDefinitionsRequest = {}
         if endpoint_name is not None:
             input_["endpoint_name"] = endpoint_name
@@ -21163,7 +21789,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListModelCardExportJobs")
+        )
         input_: capo_sagemaker.types.list_model_card_export_jobs_request.ListModelCardExportJobsRequest = {}
         if model_card_name is not None:
             input_["model_card_name"] = model_card_name
@@ -21298,7 +21926,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListModelCards")
+        )
         input_: capo_sagemaker.types.list_model_cards_request.ListModelCardsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -21424,7 +22054,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListModelCardVersions")
+        )
         input_: capo_sagemaker.types.list_model_card_versions_request.ListModelCardVersionsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -21549,7 +22181,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListModelExplainabilityJobDefinitions")
+        )
         input_: capo_sagemaker.types.list_model_explainability_job_definitions_request.ListModelExplainabilityJobDefinitionsRequest = {}
         if endpoint_name is not None:
             input_["endpoint_name"] = endpoint_name
@@ -21654,7 +22288,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListModelMetadata")
+        )
         input_: capo_sagemaker.types.list_model_metadata_request.ListModelMetadataRequest = {}
         if search_expression is not None:
             input_["search_expression"] = search_expression
@@ -21749,7 +22385,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListModelPackageGroups")
+        )
         input_: capo_sagemaker.types.list_model_package_groups_input.ListModelPackageGroupsInput = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -21880,7 +22518,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListModelPackages")
+        )
         input_: capo_sagemaker.types.list_model_packages_input.ListModelPackagesInput = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -22015,7 +22655,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListModelQualityJobDefinitions")
+        )
         input_: capo_sagemaker.types.list_model_quality_job_definitions_request.ListModelQualityJobDefinitionsRequest = {}
         if endpoint_name is not None:
             input_["endpoint_name"] = endpoint_name
@@ -22134,7 +22776,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListModels")
+        )
         input_: capo_sagemaker.types.list_models_input.ListModelsInput = {}
         if sort_by is not None:
             input_["sort_by"] = sort_by
@@ -22256,7 +22900,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMonitoringAlertHistory")
+        )
         input_: capo_sagemaker.types.list_monitoring_alert_history_request.ListMonitoringAlertHistoryRequest = {}
         if monitoring_schedule_name is not None:
             input_["monitoring_schedule_name"] = monitoring_schedule_name
@@ -22368,7 +23014,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMonitoringAlerts")
+        )
         input_: capo_sagemaker.types.list_monitoring_alerts_request.ListMonitoringAlertsRequest = {}
         if monitoring_schedule_name is not None:
             input_["monitoring_schedule_name"] = monitoring_schedule_name
@@ -22493,7 +23141,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMonitoringExecutions")
+        )
         input_: capo_sagemaker.types.list_monitoring_executions_request.ListMonitoringExecutionsRequest = {}
         if monitoring_schedule_name is not None:
             input_["monitoring_schedule_name"] = monitoring_schedule_name
@@ -22678,7 +23328,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMonitoringSchedules")
+        )
         input_: capo_sagemaker.types.list_monitoring_schedules_request.ListMonitoringSchedulesRequest = {}
         if endpoint_name is not None:
             input_["endpoint_name"] = endpoint_name
@@ -22837,7 +23489,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNotebookInstanceLifecycleConfigs")
+        )
         input_: capo_sagemaker.types.list_notebook_instance_lifecycle_configs_input.ListNotebookInstanceLifecycleConfigsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -22990,7 +23644,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNotebookInstances")
+        )
         input_: capo_sagemaker.types.list_notebook_instances_input.ListNotebookInstancesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -23163,7 +23819,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOptimizationJobs")
+        )
         input_: capo_sagemaker.types.list_optimization_jobs_request.ListOptimizationJobsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -23284,7 +23942,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPartnerApps")
+        )
         input_: capo_sagemaker.types.list_partner_apps_request.ListPartnerAppsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -23366,7 +24026,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPipelineExecutions")
+        )
         input_: capo_sagemaker.types.list_pipeline_executions_request.ListPipelineExecutionsRequest = {}
         if pipeline_name is not None:
             input_["pipeline_name"] = pipeline_name
@@ -23464,7 +24126,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPipelineExecutionSteps")
+        )
         input_: capo_sagemaker.types.list_pipeline_execution_steps_request.ListPipelineExecutionStepsRequest = {}
         if pipeline_execution_arn is not None:
             input_["pipeline_execution_arn"] = pipeline_execution_arn
@@ -23546,7 +24210,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPipelineParametersForExecution")
+        )
         input_: capo_sagemaker.types.list_pipeline_parameters_for_execution_request.ListPipelineParametersForExecutionRequest = {}
         if pipeline_execution_arn is not None:
             input_["pipeline_execution_arn"] = pipeline_execution_arn
@@ -23633,7 +24299,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPipelines")
+        )
         input_: capo_sagemaker.types.list_pipelines_request.ListPipelinesRequest = {}
         if pipeline_name_prefix is not None:
             input_["pipeline_name_prefix"] = pipeline_name_prefix
@@ -23735,7 +24403,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPipelineVersions")
+        )
         input_: capo_sagemaker.types.list_pipeline_versions_request.ListPipelineVersionsRequest = {}
         if pipeline_name is not None:
             input_["pipeline_name"] = pipeline_name
@@ -23850,7 +24520,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProcessingJobs")
+        )
         input_: capo_sagemaker.types.list_processing_jobs_request.ListProcessingJobsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -23977,7 +24649,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProjects")
+        )
         input_: capo_sagemaker.types.list_projects_input.ListProjectsInput = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -24090,7 +24764,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceCatalogs")
+        )
         input_: capo_sagemaker.types.list_resource_catalogs_request.ListResourceCatalogsRequest = {}
         if name_contains is not None:
             input_["name_contains"] = name_contains
@@ -24197,7 +24873,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSpaces")
+        )
         input_: capo_sagemaker.types.list_spaces_request.ListSpacesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -24294,7 +24972,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStageDevices")
+        )
         input_: capo_sagemaker.types.list_stage_devices_request.ListStageDevicesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -24412,7 +25092,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStudioLifecycleConfigs")
+        )
         input_: capo_sagemaker.types.list_studio_lifecycle_configs_request.ListStudioLifecycleConfigsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -24529,7 +25211,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSubscribedWorkteams")
+        )
         input_: capo_sagemaker.types.list_subscribed_workteams_request.ListSubscribedWorkteamsRequest = {}
         if name_contains is not None:
             input_["name_contains"] = name_contains
@@ -24604,7 +25288,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTags")
+        )
         input_: capo_sagemaker.types.list_tags_input.ListTagsInput = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -24713,7 +25399,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTrainingJobs")
+        )
         input_: capo_sagemaker.types.list_training_jobs_request.ListTrainingJobsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -24851,7 +25539,10 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTrainingJobsForHyperParameterTuningJob"),
+        )
         input_: capo_sagemaker.types.list_training_jobs_for_hyper_parameter_tuning_job_request.ListTrainingJobsForHyperParameterTuningJobRequest = {}
         if hyper_parameter_tuning_job_name is not None:
             input_["hyper_parameter_tuning_job_name"] = hyper_parameter_tuning_job_name
@@ -24956,7 +25647,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTrainingPlans")
+        )
         input_: capo_sagemaker.types.list_training_plans_request.ListTrainingPlansRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -25077,7 +25770,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTransformJobs")
+        )
         input_: capo_sagemaker.types.list_transform_jobs_request.ListTransformJobsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -25209,7 +25904,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTrialComponents")
+        )
         input_: capo_sagemaker.types.list_trial_components_request.ListTrialComponentsRequest = {}
         if experiment_name is not None:
             input_["experiment_name"] = experiment_name
@@ -25327,7 +26024,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTrials")
+        )
         input_: capo_sagemaker.types.list_trials_request.ListTrialsRequest = {}
         if experiment_name is not None:
             input_["experiment_name"] = experiment_name
@@ -25427,7 +26126,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUltraServersByReservedCapacity")
+        )
         input_: capo_sagemaker.types.list_ultra_servers_by_reserved_capacity_request.ListUltraServersByReservedCapacityRequest = {}
         if reserved_capacity_arn is not None:
             input_["reserved_capacity_arn"] = reserved_capacity_arn
@@ -25512,7 +26213,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUserProfiles")
+        )
         input_: capo_sagemaker.types.list_user_profiles_request.ListUserProfilesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -25609,7 +26312,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkforces")
+        )
         input_: capo_sagemaker.types.list_workforces_request.ListWorkforcesRequest = {}
         if sort_by is not None:
             input_["sort_by"] = sort_by
@@ -25702,7 +26407,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkteams")
+        )
         input_: capo_sagemaker.types.list_workteams_request.ListWorkteamsRequest = {}
         if sort_by is not None:
             input_["sort_by"] = sort_by
@@ -25790,7 +26497,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutModelPackageGroupPolicy")
+        )
         input_: capo_sagemaker.types.put_model_package_group_policy_input.PutModelPackageGroupPolicyInput = {}
         if model_package_group_name is not None:
             input_["model_package_group_name"] = model_package_group_name
@@ -25853,7 +26562,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("QueryLineage")
+        )
         input_: capo_sagemaker.types.query_lineage_request.QueryLineageRequest = {}
         if start_arns is not None:
             input_["start_arns"] = start_arns
@@ -25947,7 +26658,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterDevices")
+        )
         input_: capo_sagemaker.types.register_devices_request.RegisterDevicesRequest = {}
         if device_fleet_name is not None:
             input_["device_fleet_name"] = device_fleet_name
@@ -26002,7 +26715,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RenderUiTemplate")
+        )
         input_: capo_sagemaker.types.render_ui_template_request.RenderUiTemplateRequest = {}
         if ui_template is not None:
             input_["ui_template"] = ui_template
@@ -26063,7 +26778,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RetryPipelineExecution")
+        )
         input_: capo_sagemaker.types.retry_pipeline_execution_request.RetryPipelineExecutionRequest = {}
         if pipeline_execution_arn is not None:
             input_["pipeline_execution_arn"] = pipeline_execution_arn
@@ -26130,7 +26847,16 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sagemaker.types.search_response.SearchResponse",
+        ) -> dict[str, Any]:
+            import capo_sagemaker.types.search_response
+
+            return capo_sagemaker.types.search_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Search", redact_output=_redact_output)
+        )
         input_: capo_sagemaker.types.search_request.SearchRequest = {}
         if resource is not None:
             input_["resource"] = resource
@@ -26258,7 +26984,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchTrainingPlanOfferings")
+        )
         input_: capo_sagemaker.types.search_training_plan_offerings_request.SearchTrainingPlanOfferingsRequest = {}
         if instance_type is not None:
             input_["instance_type"] = instance_type
@@ -26327,7 +27055,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendPipelineExecutionStepFailure")
+        )
         input_: capo_sagemaker.types.send_pipeline_execution_step_failure_request.SendPipelineExecutionStepFailureRequest = {}
         if callback_token is not None:
             input_["callback_token"] = callback_token
@@ -26387,7 +27117,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendPipelineExecutionStepSuccess")
+        )
         input_: capo_sagemaker.types.send_pipeline_execution_step_success_request.SendPipelineExecutionStepSuccessRequest = {}
         if callback_token is not None:
             input_["callback_token"] = callback_token
@@ -26437,7 +27169,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartClusterHealthCheck")
+        )
         input_: capo_sagemaker.types.start_cluster_health_check_request.StartClusterHealthCheckRequest = {
             "cluster_name": cluster_name,
             "deep_health_check_configurations": deep_health_check_configurations,
@@ -26482,7 +27216,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartEdgeDeploymentStage")
+        )
         input_: capo_sagemaker.types.start_edge_deployment_stage_request.StartEdgeDeploymentStageRequest = {}
         if edge_deployment_plan_name is not None:
             input_["edge_deployment_plan_name"] = edge_deployment_plan_name
@@ -26530,7 +27266,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartInferenceExperiment")
+        )
         input_: capo_sagemaker.types.start_inference_experiment_request.StartInferenceExperimentRequest = {}
         if name is not None:
             input_["name"] = name
@@ -26576,7 +27314,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMlflowTrackingServer")
+        )
         input_: capo_sagemaker.types.start_mlflow_tracking_server_request.StartMlflowTrackingServerRequest = {}
         if tracking_server_name is not None:
             input_["tracking_server_name"] = tracking_server_name
@@ -26619,7 +27359,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMonitoringSchedule")
+        )
         input_: capo_sagemaker.types.start_monitoring_schedule_request.StartMonitoringScheduleRequest = {}
         if monitoring_schedule_name is not None:
             input_["monitoring_schedule_name"] = monitoring_schedule_name
@@ -26662,7 +27404,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartNotebookInstance")
+        )
         input_: capo_sagemaker.types.start_notebook_instance_input.StartNotebookInstanceInput = {}
         if notebook_instance_name is not None:
             input_["notebook_instance_name"] = notebook_instance_name
@@ -26741,7 +27485,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartPipelineExecution")
+        )
         input_: capo_sagemaker.types.start_pipeline_execution_request.StartPipelineExecutionRequest = {}
         if pipeline_name is not None:
             input_["pipeline_name"] = pipeline_name
@@ -26804,7 +27550,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartSession")
+        )
         input_: capo_sagemaker.types.start_session_request.StartSessionRequest = {}
         if resource_identifier is not None:
             input_["resource_identifier"] = resource_identifier
@@ -26851,7 +27599,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopAIBenchmarkJob")
+        )
         input_: capo_sagemaker.types.stop_ai_benchmark_job_request.StopAIBenchmarkJobRequest = {}
         if ai_benchmark_job_name is not None:
             input_["ai_benchmark_job_name"] = ai_benchmark_job_name
@@ -26896,7 +27646,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopAIRecommendationJob")
+        )
         input_: capo_sagemaker.types.stop_ai_recommendation_job_request.StopAIRecommendationJobRequest = {}
         if ai_recommendation_job_name is not None:
             input_["ai_recommendation_job_name"] = ai_recommendation_job_name
@@ -26939,7 +27691,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopAutoMLJob")
+        )
         input_: capo_sagemaker.types.stop_auto_ml_job_request.StopAutoMLJobRequest = {}
         if auto_ml_job_name is not None:
             input_["auto_ml_job_name"] = auto_ml_job_name
@@ -26982,7 +27736,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopCompilationJob")
+        )
         input_: capo_sagemaker.types.stop_compilation_job_request.StopCompilationJobRequest = {}
         if compilation_job_name is not None:
             input_["compilation_job_name"] = compilation_job_name
@@ -27026,7 +27782,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopEdgeDeploymentStage")
+        )
         input_: capo_sagemaker.types.stop_edge_deployment_stage_request.StopEdgeDeploymentStageRequest = {}
         if edge_deployment_plan_name is not None:
             input_["edge_deployment_plan_name"] = edge_deployment_plan_name
@@ -27070,7 +27828,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopEdgePackagingJob")
+        )
         input_: capo_sagemaker.types.stop_edge_packaging_job_request.StopEdgePackagingJobRequest = {}
         if edge_packaging_job_name is not None:
             input_["edge_packaging_job_name"] = edge_packaging_job_name
@@ -27113,7 +27873,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopHyperParameterTuningJob")
+        )
         input_: capo_sagemaker.types.stop_hyper_parameter_tuning_job_request.StopHyperParameterTuningJobRequest = {}
         if hyper_parameter_tuning_job_name is not None:
             input_["hyper_parameter_tuning_job_name"] = hyper_parameter_tuning_job_name
@@ -27175,7 +27937,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopInferenceExperiment")
+        )
         input_: capo_sagemaker.types.stop_inference_experiment_request.StopInferenceExperimentRequest = {}
         if name is not None:
             input_["name"] = name
@@ -27226,7 +27990,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopInferenceRecommendationsJob")
+        )
         input_: capo_sagemaker.types.stop_inference_recommendations_job_request.StopInferenceRecommendationsJobRequest = {}
         if job_name is not None:
             input_["job_name"] = job_name
@@ -27271,7 +28037,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopJob")
+        )
         input_: capo_sagemaker.types.stop_job_request.StopJobRequest = {}
         if job_name is not None:
             input_["job_name"] = job_name
@@ -27316,7 +28084,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopLabelingJob")
+        )
         input_: capo_sagemaker.types.stop_labeling_job_request.StopLabelingJobRequest = {}
         if labeling_job_name is not None:
             input_["labeling_job_name"] = labeling_job_name
@@ -27362,7 +28132,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopMlflowTrackingServer")
+        )
         input_: capo_sagemaker.types.stop_mlflow_tracking_server_request.StopMlflowTrackingServerRequest = {}
         if tracking_server_name is not None:
             input_["tracking_server_name"] = tracking_server_name
@@ -27405,7 +28177,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopMonitoringSchedule")
+        )
         input_: capo_sagemaker.types.stop_monitoring_schedule_request.StopMonitoringScheduleRequest = {}
         if monitoring_schedule_name is not None:
             input_["monitoring_schedule_name"] = monitoring_schedule_name
@@ -27447,7 +28221,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopNotebookInstance")
+        )
         input_: capo_sagemaker.types.stop_notebook_instance_input.StopNotebookInstanceInput = {}
         if notebook_instance_name is not None:
             input_["notebook_instance_name"] = notebook_instance_name
@@ -27490,7 +28266,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopOptimizationJob")
+        )
         input_: capo_sagemaker.types.stop_optimization_job_request.StopOptimizationJobRequest = {}
         if optimization_job_name is not None:
             input_["optimization_job_name"] = optimization_job_name
@@ -27540,7 +28318,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopPipelineExecution")
+        )
         input_: capo_sagemaker.types.stop_pipeline_execution_request.StopPipelineExecutionRequest = {}
         if pipeline_execution_arn is not None:
             input_["pipeline_execution_arn"] = pipeline_execution_arn
@@ -27586,7 +28366,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopProcessingJob")
+        )
         input_: capo_sagemaker.types.stop_processing_job_request.StopProcessingJobRequest = {}
         if processing_job_name is not None:
             input_["processing_job_name"] = processing_job_name
@@ -27629,7 +28411,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopTrainingJob")
+        )
         input_: capo_sagemaker.types.stop_training_job_request.StopTrainingJobRequest = {}
         if training_job_name is not None:
             input_["training_job_name"] = training_job_name
@@ -27672,7 +28456,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopTransformJob")
+        )
         input_: capo_sagemaker.types.stop_transform_job_request.StopTransformJobRequest = {}
         if transform_job_name is not None:
             input_["transform_job_name"] = transform_job_name
@@ -27732,7 +28518,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAction")
+        )
         input_: capo_sagemaker.types.update_action_request.UpdateActionRequest = {}
         if action_name is not None:
             input_["action_name"] = action_name
@@ -27797,7 +28585,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAppImageConfig")
+        )
         input_: capo_sagemaker.types.update_app_image_config_request.UpdateAppImageConfigRequest = {}
         if app_image_config_name is not None:
             input_["app_image_config_name"] = app_image_config_name
@@ -27859,7 +28649,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateArtifact")
+        )
         input_: capo_sagemaker.types.update_artifact_request.UpdateArtifactRequest = {}
         if artifact_arn is not None:
             input_["artifact_arn"] = artifact_arn
@@ -27949,7 +28741,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCluster")
+        )
         input_: capo_sagemaker.types.update_cluster_request.UpdateClusterRequest = {}
         if cluster_name is not None:
             input_["cluster_name"] = cluster_name
@@ -28028,7 +28822,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateClusterSchedulerConfig")
+        )
         input_: capo_sagemaker.types.update_cluster_scheduler_config_request.UpdateClusterSchedulerConfigRequest = {}
         if cluster_scheduler_config_id is not None:
             input_["cluster_scheduler_config_id"] = cluster_scheduler_config_id
@@ -28090,7 +28886,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateClusterSoftware")
+        )
         input_: capo_sagemaker.types.update_cluster_software_request.UpdateClusterSoftwareRequest = {}
         if cluster_name is not None:
             input_["cluster_name"] = cluster_name
@@ -28147,7 +28945,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCodeRepository")
+        )
         input_: capo_sagemaker.types.update_code_repository_input.UpdateCodeRepositoryInput = {}
         if code_repository_name is not None:
             input_["code_repository_name"] = code_repository_name
@@ -28216,7 +29016,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateComputeQuota")
+        )
         input_: capo_sagemaker.types.update_compute_quota_request.UpdateComputeQuotaRequest = {}
         if compute_quota_id is not None:
             input_["compute_quota_id"] = compute_quota_id
@@ -28282,7 +29084,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContext")
+        )
         input_: capo_sagemaker.types.update_context_request.UpdateContextRequest = {}
         if context_name is not None:
             input_["context_name"] = context_name
@@ -28345,7 +29149,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDeviceFleet")
+        )
         input_: capo_sagemaker.types.update_device_fleet_request.UpdateDeviceFleetRequest = {}
         if device_fleet_name is not None:
             input_["device_fleet_name"] = device_fleet_name
@@ -28397,7 +29203,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDevices")
+        )
         input_: capo_sagemaker.types.update_devices_request.UpdateDevicesRequest = {}
         if device_fleet_name is not None:
             input_["device_fleet_name"] = device_fleet_name
@@ -28476,7 +29284,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDomain")
+        )
         input_: capo_sagemaker.types.update_domain_request.UpdateDomainRequest = {}
         if domain_id is not None:
             input_["domain_id"] = domain_id
@@ -28559,7 +29369,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEndpoint")
+        )
         input_: capo_sagemaker.types.update_endpoint_input.UpdateEndpointInput = {}
         if endpoint_name is not None:
             input_["endpoint_name"] = endpoint_name
@@ -28620,7 +29432,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEndpointWeightsAndCapacities")
+        )
         input_: capo_sagemaker.types.update_endpoint_weights_and_capacities_input.UpdateEndpointWeightsAndCapacitiesInput = {}
         if endpoint_name is not None:
             input_["endpoint_name"] = endpoint_name
@@ -28676,7 +29490,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateExperiment")
+        )
         input_: capo_sagemaker.types.update_experiment_request.UpdateExperimentRequest = {}
         if experiment_name is not None:
             input_["experiment_name"] = experiment_name
@@ -28739,7 +29555,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFeatureGroup")
+        )
         input_: capo_sagemaker.types.update_feature_group_request.UpdateFeatureGroupRequest = {}
         if feature_group_name is not None:
             input_["feature_group_name"] = feature_group_name
@@ -28802,7 +29620,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFeatureMetadata")
+        )
         input_: capo_sagemaker.types.update_feature_metadata_request.UpdateFeatureMetadataRequest = {}
         if feature_group_name is not None:
             input_["feature_group_name"] = feature_group_name
@@ -28865,7 +29685,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateHub")
+        )
         input_: capo_sagemaker.types.update_hub_request.UpdateHubRequest = {}
         if hub_name is not None:
             input_["hub_name"] = hub_name
@@ -28947,7 +29769,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateHubContent")
+        )
         input_: capo_sagemaker.types.update_hub_content_request.UpdateHubContentRequest = {}
         if hub_name is not None:
             input_["hub_name"] = hub_name
@@ -29019,7 +29843,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateHubContentReference")
+        )
         input_: capo_sagemaker.types.update_hub_content_reference_request.UpdateHubContentReferenceRequest = {}
         if hub_name is not None:
             input_["hub_name"] = hub_name
@@ -29083,7 +29909,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateImage")
+        )
         input_: capo_sagemaker.types.update_image_request.UpdateImageRequest = {}
         if delete_properties is not None:
             input_["delete_properties"] = delete_properties
@@ -29173,7 +30001,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateImageVersion")
+        )
         input_: capo_sagemaker.types.update_image_version_request.UpdateImageVersionRequest = {}
         if image_name is not None:
             input_["image_name"] = image_name
@@ -29256,7 +30086,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateInferenceComponent")
+        )
         input_: capo_sagemaker.types.update_inference_component_input.UpdateInferenceComponentInput = {}
         if inference_component_name is not None:
             input_["inference_component_name"] = inference_component_name
@@ -29313,7 +30145,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateInferenceComponentRuntimeConfig")
+        )
         input_: capo_sagemaker.types.update_inference_component_runtime_config_input.UpdateInferenceComponentRuntimeConfigInput = {}
         if inference_component_name is not None:
             input_["inference_component_name"] = inference_component_name
@@ -29381,7 +30215,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateInferenceExperiment")
+        )
         input_: capo_sagemaker.types.update_inference_experiment_request.UpdateInferenceExperimentRequest = {}
         if name is not None:
             input_["name"] = name
@@ -29455,7 +30291,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMlflowApp")
+        )
         input_: capo_sagemaker.types.update_mlflow_app_request.UpdateMlflowAppRequest = {}
         if arn is not None:
             input_["arn"] = arn
@@ -29536,7 +30374,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMlflowTrackingServer")
+        )
         input_: capo_sagemaker.types.update_mlflow_tracking_server_request.UpdateMlflowTrackingServerRequest = {}
         if tracking_server_name is not None:
             input_["tracking_server_name"] = tracking_server_name
@@ -29603,7 +30443,19 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker.types.update_model_card_request.UpdateModelCardRequest",
+        ) -> dict[str, Any]:
+            import capo_sagemaker.types.update_model_card_request
+
+            return capo_sagemaker.types.update_model_card_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateModelCard", redact_input=_redact_input),
+        )
         input_: capo_sagemaker.types.update_model_card_request.UpdateModelCardRequest = {}
         if model_card_name is not None:
             input_["model_card_name"] = model_card_name
@@ -29694,7 +30546,19 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker.types.update_model_package_input.UpdateModelPackageInput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker.types.update_model_package_input
+
+            return capo_sagemaker.types.update_model_package_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateModelPackage", redact_input=_redact_input),
+        )
         input_: capo_sagemaker.types.update_model_package_input.UpdateModelPackageInput = {}
         if model_package_arn is not None:
             input_["model_package_arn"] = model_package_arn
@@ -29778,7 +30642,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMonitoringAlert")
+        )
         input_: capo_sagemaker.types.update_monitoring_alert_request.UpdateMonitoringAlertRequest = {}
         if monitoring_schedule_name is not None:
             input_["monitoring_schedule_name"] = monitoring_schedule_name
@@ -29834,7 +30700,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMonitoringSchedule")
+        )
         input_: capo_sagemaker.types.update_monitoring_schedule_request.UpdateMonitoringScheduleRequest = {}
         if monitoring_schedule_name is not None:
             input_["monitoring_schedule_name"] = monitoring_schedule_name
@@ -29937,7 +30805,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNotebookInstance")
+        )
         input_: capo_sagemaker.types.update_notebook_instance_input.UpdateNotebookInstanceInput = {}
         if notebook_instance_name is not None:
             input_["notebook_instance_name"] = notebook_instance_name
@@ -30026,7 +30896,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNotebookInstanceLifecycleConfig")
+        )
         input_: capo_sagemaker.types.update_notebook_instance_lifecycle_config_input.UpdateNotebookInstanceLifecycleConfigInput = {}
         if notebook_instance_lifecycle_config_name is not None:
             input_["notebook_instance_lifecycle_config_name"] = (
@@ -30112,7 +30984,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePartnerApp")
+        )
         input_: capo_sagemaker.types.update_partner_app_request.UpdatePartnerAppRequest = {}
         if arn is not None:
             input_["arn"] = arn
@@ -30205,7 +31079,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePipeline")
+        )
         input_: capo_sagemaker.types.update_pipeline_request.UpdatePipelineRequest = {}
         if pipeline_name is not None:
             input_["pipeline_name"] = pipeline_name
@@ -30275,7 +31151,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePipelineExecution")
+        )
         input_: capo_sagemaker.types.update_pipeline_execution_request.UpdatePipelineExecutionRequest = {}
         if pipeline_execution_arn is not None:
             input_["pipeline_execution_arn"] = pipeline_execution_arn
@@ -30337,7 +31215,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePipelineVersion")
+        )
         input_: capo_sagemaker.types.update_pipeline_version_request.UpdatePipelineVersionRequest = {}
         if pipeline_arn is not None:
             input_["pipeline_arn"] = pipeline_arn
@@ -30402,7 +31282,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProject")
+        )
         input_: capo_sagemaker.types.update_project_input.UpdateProjectInput = {}
         if project_name is not None:
             input_["project_name"] = project_name
@@ -30467,7 +31349,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSpace")
+        )
         input_: capo_sagemaker.types.update_space_request.UpdateSpaceRequest = {}
         if domain_id is not None:
             input_["domain_id"] = domain_id
@@ -30535,7 +31419,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTrainingJob")
+        )
         input_: capo_sagemaker.types.update_training_job_request.UpdateTrainingJobRequest = {}
         if training_job_name is not None:
             input_["training_job_name"] = training_job_name
@@ -30593,7 +31479,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTrial")
+        )
         input_: capo_sagemaker.types.update_trial_request.UpdateTrialRequest = {}
         if trial_name is not None:
             input_["trial_name"] = trial_name
@@ -30677,7 +31565,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTrialComponent")
+        )
         input_: capo_sagemaker.types.update_trial_component_request.UpdateTrialComponentRequest = {}
         if trial_component_name is not None:
             input_["trial_component_name"] = trial_component_name
@@ -30750,7 +31640,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUserProfile")
+        )
         input_: capo_sagemaker.types.update_user_profile_request.UpdateUserProfileRequest = {}
         if domain_id is not None:
             input_["domain_id"] = domain_id
@@ -30813,7 +31705,19 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker.types.update_workforce_request.UpdateWorkforceRequest",
+        ) -> dict[str, Any]:
+            import capo_sagemaker.types.update_workforce_request
+
+            return capo_sagemaker.types.update_workforce_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateWorkforce", redact_input=_redact_input),
+        )
         input_: capo_sagemaker.types.update_workforce_request.UpdateWorkforceRequest = {}
         if workforce_name is not None:
             input_["workforce_name"] = workforce_name
@@ -30880,7 +31784,9 @@ class SageMakerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkteam")
+        )
         input_: capo_sagemaker.types.update_workteam_request.UpdateWorkteamRequest = {}
         if workteam_name is not None:
             input_["workteam_name"] = workteam_name

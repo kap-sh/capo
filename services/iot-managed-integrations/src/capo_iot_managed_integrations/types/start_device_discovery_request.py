@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#StartDeviceDiscoveryRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -196,4 +196,21 @@ def deserialize_json(data: dict) -> StartDeviceDiscoveryRequest:
         )
     if data.get("EndDeviceIdentifier") is not None:
         out["end_device_identifier"] = data["EndDeviceIdentifier"]
+    return out
+
+
+def redact_sensitive(value: StartDeviceDiscoveryRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "authentication_material" in value:
+        out["authentication_material"] = "*** Sensitive Data Redacted ***"
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
+    if "connector_device_id_list" in value:
+        import capo_iot_managed_integrations.types.connector_device_id_list
+
+        out["connector_device_id_list"] = (
+            capo_iot_managed_integrations.types.connector_device_id_list.redact_sensitive(
+                value["connector_device_id_list"]
+            )
+        )
     return out

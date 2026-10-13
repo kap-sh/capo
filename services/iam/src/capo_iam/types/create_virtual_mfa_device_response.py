@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iam#CreateVirtualMFADeviceResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -40,5 +40,16 @@ def deserialize_query(el: Element) -> CreateVirtualMFADeviceResponse:
     else:
         raise DeserializationError(
             "CreateVirtualMFADeviceResponse.virtual_mfa_device required"
+        )
+    return out
+
+
+def redact_sensitive(value: CreateVirtualMFADeviceResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "virtual_mfa_device" in value:
+        import capo_iam.types.virtual_mfa_device
+
+        out["virtual_mfa_device"] = capo_iam.types.virtual_mfa_device.redact_sensitive(
+            value["virtual_mfa_device"]
         )
     return out

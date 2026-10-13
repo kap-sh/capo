@@ -24,7 +24,9 @@ from capo_elastic_transcoder._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -164,7 +166,9 @@ class AsyncElasticTranscoderClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncElasticTranscoderClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncElasticTranscoderClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncElasticTranscoderClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -172,8 +176,10 @@ class AsyncElasticTranscoderClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -228,7 +234,9 @@ class AsyncElasticTranscoderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelJob")
+        )
         input_: capo_elastic_transcoder.types.cancel_job_request.CancelJobRequest = {
             "id": id
         }
@@ -299,7 +307,9 @@ class AsyncElasticTranscoderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateJob")
+        )
         input_: capo_elastic_transcoder.types.create_job_request.CreateJobRequest = {
             "pipeline_id": pipeline_id
         }
@@ -388,7 +398,9 @@ class AsyncElasticTranscoderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePipeline")
+        )
         input_: capo_elastic_transcoder.types.create_pipeline_request.CreatePipelineRequest = {
             "name": name,
             "input_bucket": input_bucket,
@@ -466,7 +478,9 @@ class AsyncElasticTranscoderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePreset")
+        )
         input_: capo_elastic_transcoder.types.create_preset_request.CreatePresetRequest = {
             "name": name,
             "container": container,
@@ -526,7 +540,9 @@ class AsyncElasticTranscoderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePipeline")
+        )
         input_: capo_elastic_transcoder.types.delete_pipeline_request.DeletePipelineRequest = {
             "id": id
         }
@@ -574,7 +590,9 @@ class AsyncElasticTranscoderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePreset")
+        )
         input_: capo_elastic_transcoder.types.delete_preset_request.DeletePresetRequest = {
             "id": id
         }
@@ -626,7 +644,9 @@ class AsyncElasticTranscoderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobsByPipeline")
+        )
         input_: capo_elastic_transcoder.types.list_jobs_by_pipeline_request.ListJobsByPipelineRequest = {
             "pipeline_id": pipeline_id
         }
@@ -705,7 +725,9 @@ class AsyncElasticTranscoderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobsByStatus")
+        )
         input_: capo_elastic_transcoder.types.list_jobs_by_status_request.ListJobsByStatusRequest = {
             "status": status
         }
@@ -781,7 +803,9 @@ class AsyncElasticTranscoderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPipelines")
+        )
         input_: capo_elastic_transcoder.types.list_pipelines_request.ListPipelinesRequest = {}
         if ascending is not None:
             input_["ascending"] = ascending
@@ -853,7 +877,9 @@ class AsyncElasticTranscoderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPresets")
+        )
         input_: capo_elastic_transcoder.types.list_presets_request.ListPresetsRequest = {}
         if ascending is not None:
             input_["ascending"] = ascending
@@ -924,7 +950,9 @@ class AsyncElasticTranscoderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReadJob")
+        )
         input_: capo_elastic_transcoder.types.read_job_request.ReadJobRequest = {
             "id": id
         }
@@ -972,7 +1000,9 @@ class AsyncElasticTranscoderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReadPipeline")
+        )
         input_: capo_elastic_transcoder.types.read_pipeline_request.ReadPipelineRequest = {
             "id": id
         }
@@ -1020,7 +1050,9 @@ class AsyncElasticTranscoderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReadPreset")
+        )
         input_: capo_elastic_transcoder.types.read_preset_request.ReadPresetRequest = {
             "id": id
         }
@@ -1074,7 +1106,9 @@ class AsyncElasticTranscoderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestRole")
+        )
         input_: capo_elastic_transcoder.types.test_role_request.TestRoleRequest = {
             "role": role,
             "input_bucket": input_bucket,
@@ -1152,7 +1186,9 @@ class AsyncElasticTranscoderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePipeline")
+        )
         input_: capo_elastic_transcoder.types.update_pipeline_request.UpdatePipelineRequest = {
             "id": id
         }
@@ -1217,7 +1253,9 @@ class AsyncElasticTranscoderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePipelineNotifications")
+        )
         input_: capo_elastic_transcoder.types.update_pipeline_notifications_request.UpdatePipelineNotificationsRequest = {
             "id": id,
             "notifications": notifications,
@@ -1269,7 +1307,9 @@ class AsyncElasticTranscoderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePipelineStatus")
+        )
         input_: capo_elastic_transcoder.types.update_pipeline_status_request.UpdatePipelineStatusRequest = {
             "id": id,
             "status": status,

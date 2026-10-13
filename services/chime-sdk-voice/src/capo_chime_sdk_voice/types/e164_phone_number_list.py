@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#E164PhoneNumberList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.e164_phone_number
@@ -17,3 +17,7 @@ def serialize_json(value: E164PhoneNumberList) -> list:
 
 def deserialize_json(data: list) -> E164PhoneNumberList:
     return [item for item in data if item is not None]
+
+
+def redact_sensitive(value: E164PhoneNumberList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

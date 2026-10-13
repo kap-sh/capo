@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.guardduty#Service``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -194,5 +194,20 @@ def deserialize_json(data: dict) -> Service:
             capo_guardduty.types.malware_scan_details.deserialize_json(
                 data["malwareScanDetails"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: Service) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "action" in value:
+        import capo_guardduty.types.action
+
+        out["action"] = capo_guardduty.types.action.redact_sensitive(value["action"])
+    if "detection" in value:
+        import capo_guardduty.types.detection
+
+        out["detection"] = capo_guardduty.types.detection.redact_sensitive(
+            value["detection"]
         )
     return out

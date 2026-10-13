@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssooidc#CreateTokenWithIAMRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -102,4 +102,17 @@ def deserialize_json(data: dict) -> CreateTokenWithIAMRequest:
         out["requested_token_type"] = data["requestedTokenType"]
     if data.get("codeVerifier") is not None:
         out["code_verifier"] = data["codeVerifier"]
+    return out
+
+
+def redact_sensitive(value: CreateTokenWithIAMRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "refresh_token" in value:
+        out["refresh_token"] = "*** Sensitive Data Redacted ***"
+    if "assertion" in value:
+        out["assertion"] = "*** Sensitive Data Redacted ***"
+    if "subject_token" in value:
+        out["subject_token"] = "*** Sensitive Data Redacted ***"
+    if "code_verifier" in value:
+        out["code_verifier"] = "*** Sensitive Data Redacted ***"
     return out

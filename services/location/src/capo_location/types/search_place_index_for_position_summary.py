@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#SearchPlaceIndexForPositionSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -61,4 +61,11 @@ def deserialize_json(data: dict) -> SearchPlaceIndexForPositionSummary:
         )
     if data.get("Language") is not None:
         out["language"] = data["Language"]
+    return out
+
+
+def redact_sensitive(value: SearchPlaceIndexForPositionSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "position" in value:
+        out["position"] = "*** Sensitive Data Redacted ***"
     return out

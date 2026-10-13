@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#AwsAccountList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.aws_account
@@ -17,3 +17,7 @@ def serialize_aws_json_1_0(value: AwsAccountList) -> list:
 
 def deserialize_aws_json_1_0(data: list) -> AwsAccountList:
     return [item for item in data if item is not None]
+
+
+def redact_sensitive(value: AwsAccountList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

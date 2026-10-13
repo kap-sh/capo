@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.medicalimaging#DICOMUpdates``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -59,4 +59,13 @@ def deserialize_json(data: dict) -> DICOMUpdates:
                 data["updatableAttributes"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: DICOMUpdates) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "removable_attributes" in value:
+        out["removable_attributes"] = "*** Sensitive Data Redacted ***"
+    if "updatable_attributes" in value:
+        out["updatable_attributes"] = "*** Sensitive Data Redacted ***"
     return out

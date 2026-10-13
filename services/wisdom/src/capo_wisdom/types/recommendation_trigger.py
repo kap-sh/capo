@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wisdom#RecommendationTrigger``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -78,4 +78,15 @@ def deserialize_json(data: dict) -> RecommendationTrigger:
         )
     else:
         raise DeserializationError("RecommendationTrigger.recommendation_ids required")
+    return out
+
+
+def redact_sensitive(value: RecommendationTrigger) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "data" in value:
+        import capo_wisdom.types.recommendation_trigger_data
+
+        out["data"] = capo_wisdom.types.recommendation_trigger_data.redact_sensitive(
+            value["data"]
+        )
     return out

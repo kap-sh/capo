@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appflow#RedshiftConnectorProfileCredentials``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,4 +32,11 @@ def deserialize_json(data: dict) -> RedshiftConnectorProfileCredentials:
         out["username"] = data["username"]
     if data.get("password") is not None:
         out["password"] = data["password"]
+    return out
+
+
+def redact_sensitive(value: RedshiftConnectorProfileCredentials) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.comprehend#ClassifyDocumentRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -77,4 +77,11 @@ def deserialize_aws_json_1_1(data: dict) -> ClassifyDocumentRequest:
                 data["DocumentReaderConfig"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: ClassifyDocumentRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text" in value:
+        out["text"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyDisjointRuleSet``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -63,5 +63,18 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyDisjointRuleSet:
     else:
         raise DeserializationError(
             "AutomatedReasoningPolicyDisjointRuleSet.rules required"
+        )
+    return out
+
+
+def redact_sensitive(value: AutomatedReasoningPolicyDisjointRuleSet) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "variables" in value:
+        import capo_bedrock.types.automated_reasoning_policy_definition_variable_name_list
+
+        out["variables"] = (
+            capo_bedrock.types.automated_reasoning_policy_definition_variable_name_list.redact_sensitive(
+                value["variables"]
+            )
         )
     return out

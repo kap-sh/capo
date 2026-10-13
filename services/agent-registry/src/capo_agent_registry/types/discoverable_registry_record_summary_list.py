@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.agentregistry#DiscoverableRegistryRecordSummaryList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_agent_registry.types.discoverable_registry_record_summary
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> DiscoverableRegistryRecordSummaryList:
             )
         )
     return out
+
+
+def redact_sensitive(value: DiscoverableRegistryRecordSummaryList) -> list[Any]:
+    import capo_agent_registry.types.discoverable_registry_record_summary
+
+    return [
+        capo_agent_registry.types.discoverable_registry_record_summary.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

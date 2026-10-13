@@ -26,10 +26,12 @@ from capo_glacier._pagination import resolve_path as _resolve_path
 from capo_glacier._services._aws_config import aws_config
 from capo_glacier._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 from capo_glacier.errors import ServiceError, WaiterTimeoutError
@@ -174,7 +176,9 @@ class GlacierClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[GlacierClientConfig] = None
+        self,
+        config_overrides: Optional[GlacierClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: GlacierClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -182,8 +186,10 @@ class GlacierClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -244,7 +250,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AbortMultipartUpload")
+        )
         input_: capo_glacier.types.abort_multipart_upload_input.AbortMultipartUploadInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -299,7 +307,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AbortVaultLock")
+        )
         input_: capo_glacier.types.abort_vault_lock_input.AbortVaultLockInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -356,7 +366,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTagsToVault")
+        )
         input_: capo_glacier.types.add_tags_to_vault_input.AddTagsToVaultInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -420,7 +432,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CompleteMultipartUpload")
+        )
         input_: capo_glacier.types.complete_multipart_upload_input.CompleteMultipartUploadInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -481,7 +495,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CompleteVaultLock")
+        )
         input_: capo_glacier.types.complete_vault_lock_input.CompleteVaultLockInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -538,7 +554,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVault")
+        )
         input_: capo_glacier.types.create_vault_input.CreateVaultInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -594,7 +612,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteArchive")
+        )
         input_: capo_glacier.types.delete_archive_input.DeleteArchiveInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -649,7 +669,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVault")
+        )
         input_: capo_glacier.types.delete_vault_input.DeleteVaultInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -703,7 +725,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVaultAccessPolicy")
+        )
         input_: capo_glacier.types.delete_vault_access_policy_input.DeleteVaultAccessPolicyInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -757,7 +781,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVaultNotifications")
+        )
         input_: capo_glacier.types.delete_vault_notifications_input.DeleteVaultNotificationsInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -815,7 +841,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeJob")
+        )
         input_: capo_glacier.types.describe_job_input.DescribeJobInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -872,7 +900,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeVault")
+        )
         input_: capo_glacier.types.describe_vault_input.DescribeVaultInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -1019,7 +1049,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataRetrievalPolicy")
+        )
         input_: capo_glacier.types.get_data_retrieval_policy_input.GetDataRetrievalPolicyInput = {
             "account_id": account_id
         }
@@ -1079,7 +1111,17 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_glacier.types.get_job_output_output.GetJobOutputOutput",
+        ) -> dict[str, Any]:
+            import capo_glacier.types.get_job_output_output
+
+            return capo_glacier.types.get_job_output_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetJobOutput", redact_output=_redact_output),
+        )
         input_: capo_glacier.types.get_job_output_input.GetJobOutputInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -1140,7 +1182,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetVaultAccessPolicy")
+        )
         input_: capo_glacier.types.get_vault_access_policy_input.GetVaultAccessPolicyInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -1196,7 +1240,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetVaultLock")
+        )
         input_: capo_glacier.types.get_vault_lock_input.GetVaultLockInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -1254,7 +1300,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetVaultNotifications")
+        )
         input_: capo_glacier.types.get_vault_notifications_input.GetVaultNotificationsInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -1316,7 +1364,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InitiateJob")
+        )
         input_: capo_glacier.types.initiate_job_input.InitiateJobInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -1378,7 +1428,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InitiateMultipartUpload")
+        )
         input_: capo_glacier.types.initiate_multipart_upload_input.InitiateMultipartUploadInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -1440,7 +1492,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InitiateVaultLock")
+        )
         input_: capo_glacier.types.initiate_vault_lock_input.InitiateVaultLockInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -1504,7 +1558,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobs")
+        )
         input_: capo_glacier.types.list_jobs_input.ListJobsInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -1601,7 +1657,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMultipartUploads")
+        )
         input_: capo_glacier.types.list_multipart_uploads_input.ListMultipartUploadsInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -1690,7 +1748,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListParts")
+        )
         input_: capo_glacier.types.list_parts_input.ListPartsInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -1775,7 +1835,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProvisionedCapacity")
+        )
         input_: capo_glacier.types.list_provisioned_capacity_input.ListProvisionedCapacityInput = {
             "account_id": account_id
         }
@@ -1830,7 +1892,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForVault")
+        )
         input_: capo_glacier.types.list_tags_for_vault_input.ListTagsForVaultInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -1888,7 +1952,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVaults")
+        )
         input_: capo_glacier.types.list_vaults_input.ListVaultsInput = {
             "account_id": account_id
         }
@@ -1968,7 +2034,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PurchaseProvisionedCapacity")
+        )
         input_: capo_glacier.types.purchase_provisioned_capacity_input.PurchaseProvisionedCapacityInput = {
             "account_id": account_id
         }
@@ -2023,7 +2091,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTagsFromVault")
+        )
         input_: capo_glacier.types.remove_tags_from_vault_input.RemoveTagsFromVaultInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -2080,7 +2150,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetDataRetrievalPolicy")
+        )
         input_: capo_glacier.types.set_data_retrieval_policy_input.SetDataRetrievalPolicyInput = {
             "account_id": account_id
         }
@@ -2139,7 +2211,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetVaultAccessPolicy")
+        )
         input_: capo_glacier.types.set_vault_access_policy_input.SetVaultAccessPolicyInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -2199,7 +2273,9 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetVaultNotifications")
+        )
         input_: capo_glacier.types.set_vault_notifications_input.SetVaultNotificationsInput = {
             "account_id": account_id,
             "vault_name": vault_name,
@@ -2264,7 +2340,17 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_glacier.types.upload_archive_input.UploadArchiveInput",
+        ) -> dict[str, Any]:
+            import capo_glacier.types.upload_archive_input
+
+            return capo_glacier.types.upload_archive_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UploadArchive", redact_input=_redact_input),
+        )
         input_: capo_glacier.types.upload_archive_input.UploadArchiveInput = {
             "vault_name": vault_name,
             "account_id": account_id,
@@ -2336,7 +2422,19 @@ class GlacierClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_glacier.types.upload_multipart_part_input.UploadMultipartPartInput",
+        ) -> dict[str, Any]:
+            import capo_glacier.types.upload_multipart_part_input
+
+            return capo_glacier.types.upload_multipart_part_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UploadMultipartPart", redact_input=_redact_input),
+        )
         input_: capo_glacier.types.upload_multipart_part_input.UploadMultipartPartInput = {
             "account_id": account_id,
             "vault_name": vault_name,

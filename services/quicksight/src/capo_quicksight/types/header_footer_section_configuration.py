@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#HeaderFooterSectionConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -66,5 +66,18 @@ def deserialize_json(data: dict) -> HeaderFooterSectionConfiguration:
 
         out["style"] = capo_quicksight.types.section_style.deserialize_json(
             data["Style"]
+        )
+    return out
+
+
+def redact_sensitive(value: HeaderFooterSectionConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "layout" in value:
+        import capo_quicksight.types.section_layout_configuration
+
+        out["layout"] = (
+            capo_quicksight.types.section_layout_configuration.redact_sensitive(
+                value["layout"]
+            )
         )
     return out

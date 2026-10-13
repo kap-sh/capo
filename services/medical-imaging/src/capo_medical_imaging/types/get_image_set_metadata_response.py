@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.medicalimaging#GetImageSetMetadataResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -17,3 +17,10 @@ class GetImageSetMetadataResponse(TypedDict, closed=True):
     """<p>The format in which the study metadata is returned to the customer. Default is <code>text/plain</code>.</p>"""
     content_encoding: NotRequired["str"]
     """<p>The compression format in which image set metadata attributes are returned.</p>"""
+
+
+def redact_sensitive(value: GetImageSetMetadataResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "image_set_metadata_blob" in value:
+        out["image_set_metadata_blob"] = "*** Streaming Data Redacted ***"
+    return out

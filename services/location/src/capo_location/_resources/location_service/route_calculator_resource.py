@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_location._auth._signers
 import capo_location._auth._sigv4
 from capo_location._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -101,7 +102,21 @@ class RouteCalculatorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.create_route_calculator_response.CreateRouteCalculatorResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_route_calculator_response
+
+            return (
+                capo_location.types.create_route_calculator_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateRouteCalculator", redact_output=_redact_output),
+        )
         input_: capo_location.types.create_route_calculator_request.CreateRouteCalculatorRequest = {
             "calculator_name": calculator_name,
             "data_source": data_source,
@@ -155,7 +170,21 @@ class RouteCalculatorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.describe_route_calculator_response.DescribeRouteCalculatorResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.describe_route_calculator_response
+
+            return (
+                capo_location.types.describe_route_calculator_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeRouteCalculator", redact_output=_redact_output),
+        )
         input_: capo_location.types.describe_route_calculator_request.DescribeRouteCalculatorRequest = {
             "calculator_name": calculator_name
         }
@@ -208,7 +237,21 @@ class RouteCalculatorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.update_route_calculator_response.UpdateRouteCalculatorResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_route_calculator_response
+
+            return (
+                capo_location.types.update_route_calculator_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateRouteCalculator", redact_output=_redact_output),
+        )
         input_: capo_location.types.update_route_calculator_request.UpdateRouteCalculatorRequest = {
             "calculator_name": calculator_name
         }
@@ -259,7 +302,9 @@ class RouteCalculatorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRouteCalculator")
+        )
         input_: capo_location.types.delete_route_calculator_request.DeleteRouteCalculatorRequest = {
             "calculator_name": calculator_name
         }
@@ -307,7 +352,19 @@ class RouteCalculatorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_route_calculators_response.ListRouteCalculatorsResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_route_calculators_response
+
+            return capo_location.types.list_route_calculators_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListRouteCalculators", redact_output=_redact_output),
+        )
         input_: capo_location.types.list_route_calculators_request.ListRouteCalculatorsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -396,7 +453,28 @@ class RouteCalculatorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.calculate_route_request.CalculateRouteRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.calculate_route_request
+
+            return capo_location.types.calculate_route_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_location.types.calculate_route_response.CalculateRouteResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.calculate_route_response
+
+            return capo_location.types.calculate_route_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CalculateRoute",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.calculate_route_request.CalculateRouteRequest = {
             "calculator_name": calculator_name,
             "departure_position": departure_position,
@@ -493,7 +571,32 @@ class RouteCalculatorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.calculate_route_matrix_request.CalculateRouteMatrixRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.calculate_route_matrix_request
+
+            return capo_location.types.calculate_route_matrix_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.calculate_route_matrix_response.CalculateRouteMatrixResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.calculate_route_matrix_response
+
+            return capo_location.types.calculate_route_matrix_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CalculateRouteMatrix",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.calculate_route_matrix_request.CalculateRouteMatrixRequest = {
             "calculator_name": calculator_name,
             "departure_positions": departure_positions,
@@ -573,7 +676,21 @@ class AsyncRouteCalculatorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.create_route_calculator_response.CreateRouteCalculatorResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_route_calculator_response
+
+            return (
+                capo_location.types.create_route_calculator_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateRouteCalculator", redact_output=_redact_output),
+        )
         input_: capo_location.types.create_route_calculator_request.CreateRouteCalculatorRequest = {
             "calculator_name": calculator_name,
             "data_source": data_source,
@@ -628,7 +745,21 @@ class AsyncRouteCalculatorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.describe_route_calculator_response.DescribeRouteCalculatorResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.describe_route_calculator_response
+
+            return (
+                capo_location.types.describe_route_calculator_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeRouteCalculator", redact_output=_redact_output),
+        )
         input_: capo_location.types.describe_route_calculator_request.DescribeRouteCalculatorRequest = {
             "calculator_name": calculator_name
         }
@@ -682,7 +813,21 @@ class AsyncRouteCalculatorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.update_route_calculator_response.UpdateRouteCalculatorResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_route_calculator_response
+
+            return (
+                capo_location.types.update_route_calculator_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateRouteCalculator", redact_output=_redact_output),
+        )
         input_: capo_location.types.update_route_calculator_request.UpdateRouteCalculatorRequest = {
             "calculator_name": calculator_name
         }
@@ -734,7 +879,9 @@ class AsyncRouteCalculatorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRouteCalculator")
+        )
         input_: capo_location.types.delete_route_calculator_request.DeleteRouteCalculatorRequest = {
             "calculator_name": calculator_name
         }
@@ -783,7 +930,19 @@ class AsyncRouteCalculatorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_route_calculators_response.ListRouteCalculatorsResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_route_calculators_response
+
+            return capo_location.types.list_route_calculators_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListRouteCalculators", redact_output=_redact_output),
+        )
         input_: capo_location.types.list_route_calculators_request.ListRouteCalculatorsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -873,7 +1032,28 @@ class AsyncRouteCalculatorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.calculate_route_request.CalculateRouteRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.calculate_route_request
+
+            return capo_location.types.calculate_route_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_location.types.calculate_route_response.CalculateRouteResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.calculate_route_response
+
+            return capo_location.types.calculate_route_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CalculateRoute",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.calculate_route_request.CalculateRouteRequest = {
             "calculator_name": calculator_name,
             "departure_position": departure_position,
@@ -971,7 +1151,32 @@ class AsyncRouteCalculatorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.calculate_route_matrix_request.CalculateRouteMatrixRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.calculate_route_matrix_request
+
+            return capo_location.types.calculate_route_matrix_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.calculate_route_matrix_response.CalculateRouteMatrixResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.calculate_route_matrix_response
+
+            return capo_location.types.calculate_route_matrix_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CalculateRouteMatrix",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.calculate_route_matrix_request.CalculateRouteMatrixRequest = {
             "calculator_name": calculator_name,
             "departure_positions": departure_positions,

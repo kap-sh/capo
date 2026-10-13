@@ -28,10 +28,12 @@ from capo_pca_connector_scep._resources.pca_connector_scep.connector_resource im
 from capo_pca_connector_scep._services._aws_config import aws_config
 from capo_pca_connector_scep._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -147,7 +149,9 @@ class PcaConnectorScepClient:
         self.connector_resource = ConnectorResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[PcaConnectorScepClientConfig] = None
+        self,
+        config_overrides: Optional[PcaConnectorScepClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: PcaConnectorScepClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -155,8 +159,10 @@ class PcaConnectorScepClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -209,7 +215,9 @@ class PcaConnectorScepClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_pca_connector_scep.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -256,7 +264,9 @@ class PcaConnectorScepClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_pca_connector_scep.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -304,7 +314,9 @@ class PcaConnectorScepClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_pca_connector_scep.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -361,7 +373,19 @@ class PcaConnectorScepClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_pca_connector_scep.types.create_challenge_response.CreateChallengeResponse",
+        ) -> dict[str, Any]:
+            import capo_pca_connector_scep.types.create_challenge_response
+
+            return capo_pca_connector_scep.types.create_challenge_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateChallenge", redact_output=_redact_output),
+        )
         input_: capo_pca_connector_scep.types.create_challenge_request.CreateChallengeRequest = {
             "connector_arn": connector_arn
         }
@@ -413,7 +437,9 @@ class PcaConnectorScepClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetChallengeMetadata")
+        )
         input_: capo_pca_connector_scep.types.get_challenge_metadata_request.GetChallengeMetadataRequest = {
             "challenge_arn": challenge_arn
         }
@@ -459,7 +485,9 @@ class PcaConnectorScepClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChallenge")
+        )
         input_: capo_pca_connector_scep.types.delete_challenge_request.DeleteChallengeRequest = {
             "challenge_arn": challenge_arn
         }
@@ -514,7 +542,9 @@ class PcaConnectorScepClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListChallengeMetadata")
+        )
         input_: capo_pca_connector_scep.types.list_challenge_metadata_request.ListChallengeMetadataRequest = {
             "connector_arn": connector_arn
         }
@@ -592,7 +622,19 @@ class PcaConnectorScepClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_pca_connector_scep.types.get_challenge_password_response.GetChallengePasswordResponse",
+        ) -> dict[str, Any]:
+            import capo_pca_connector_scep.types.get_challenge_password_response
+
+            return capo_pca_connector_scep.types.get_challenge_password_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetChallengePassword", redact_output=_redact_output),
+        )
         input_: capo_pca_connector_scep.types.get_challenge_password_request.GetChallengePasswordRequest = {
             "challenge_arn": challenge_arn
         }
@@ -655,7 +697,9 @@ class PcaConnectorScepClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConnector")
+        )
         input_: capo_pca_connector_scep.types.create_connector_request.CreateConnectorRequest = {
             "certificate_authority_arn": certificate_authority_arn
         }
@@ -711,7 +755,9 @@ class PcaConnectorScepClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnector")
+        )
         input_: capo_pca_connector_scep.types.get_connector_request.GetConnectorRequest = {
             "connector_arn": connector_arn
         }
@@ -757,7 +803,9 @@ class PcaConnectorScepClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnector")
+        )
         input_: capo_pca_connector_scep.types.delete_connector_request.DeleteConnectorRequest = {
             "connector_arn": connector_arn
         }
@@ -811,7 +859,9 @@ class PcaConnectorScepClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConnectors")
+        )
         input_: capo_pca_connector_scep.types.list_connectors_request.ListConnectorsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

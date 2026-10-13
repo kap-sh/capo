@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.machinelearning#CreateDataSourceFromRDSInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -73,4 +73,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDataSourceFromRDSInput:
         out["compute_statistics"] = data["ComputeStatistics"]
     else:
         out["compute_statistics"] = False
+    return out
+
+
+def redact_sensitive(value: CreateDataSourceFromRDSInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "rds_data" in value:
+        import capo_machine_learning.types.rds_data_spec
+
+        out["rds_data"] = capo_machine_learning.types.rds_data_spec.redact_sensitive(
+            value["rds_data"]
+        )
     return out

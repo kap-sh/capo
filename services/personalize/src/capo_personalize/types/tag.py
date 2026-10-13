@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.personalize#Tag``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,13 @@ def deserialize_aws_json_1_1(data: dict) -> Tag:
         out["tag_value"] = data["tagValue"]
     else:
         raise DeserializationError("Tag.tag_value required")
+    return out
+
+
+def redact_sensitive(value: Tag) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tag_key" in value:
+        out["tag_key"] = "*** Sensitive Data Redacted ***"
+    if "tag_value" in value:
+        out["tag_value"] = "*** Sensitive Data Redacted ***"
     return out

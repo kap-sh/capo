@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#PivotTableConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -196,6 +196,35 @@ def deserialize_json(data: dict) -> PivotTableConfiguration:
         out["interactions"] = (
             capo_quicksight.types.visual_interaction_options.deserialize_json(
                 data["Interactions"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: PivotTableConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "field_wells" in value:
+        import capo_quicksight.types.pivot_table_field_wells
+
+        out["field_wells"] = (
+            capo_quicksight.types.pivot_table_field_wells.redact_sensitive(
+                value["field_wells"]
+            )
+        )
+    if "sort_configuration" in value:
+        import capo_quicksight.types.pivot_table_sort_configuration
+
+        out["sort_configuration"] = (
+            capo_quicksight.types.pivot_table_sort_configuration.redact_sensitive(
+                value["sort_configuration"]
+            )
+        )
+    if "field_options" in value:
+        import capo_quicksight.types.pivot_table_field_options
+
+        out["field_options"] = (
+            capo_quicksight.types.pivot_table_field_options.redact_sensitive(
+                value["field_options"]
             )
         )
     return out

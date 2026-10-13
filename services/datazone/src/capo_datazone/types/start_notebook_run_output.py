@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#StartNotebookRunOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -340,4 +340,17 @@ def deserialize_json(data: dict) -> StartNotebookRunOutput:
         out["completed_at"] = capo_datazone.types._prelude.timestamp.deserialize_json(
             data["completedAt"]
         )
+    return out
+
+
+def redact_sensitive(value: StartNotebookRunOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "metadata" in value:
+        import capo_datazone.types.metadata
+
+        out["metadata"] = capo_datazone.types.metadata.redact_sensitive(
+            value["metadata"]
+        )
+    if "parameters" in value:
+        out["parameters"] = "*** Sensitive Data Redacted ***"
     return out

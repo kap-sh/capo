@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_migrationhuborchestrator._auth._signers
 import capo_migrationhuborchestrator._auth._sigv4
 from capo_migrationhuborchestrator._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -101,7 +102,32 @@ class MigrationWorkflow:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_migrationhuborchestrator.types.create_migration_workflow_request.CreateMigrationWorkflowRequest",
+        ) -> dict[str, Any]:
+            import capo_migrationhuborchestrator.types.create_migration_workflow_request
+
+            return capo_migrationhuborchestrator.types.create_migration_workflow_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_migrationhuborchestrator.types.create_migration_workflow_response.CreateMigrationWorkflowResponse",
+        ) -> dict[str, Any]:
+            import capo_migrationhuborchestrator.types.create_migration_workflow_response
+
+            return capo_migrationhuborchestrator.types.create_migration_workflow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateWorkflow",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_migrationhuborchestrator.types.create_migration_workflow_request.CreateMigrationWorkflowRequest = {
             "name": name,
             "template_id": template_id,
@@ -158,7 +184,19 @@ class MigrationWorkflow:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_migrationhuborchestrator.types.get_migration_workflow_response.GetMigrationWorkflowResponse",
+        ) -> dict[str, Any]:
+            import capo_migrationhuborchestrator.types.get_migration_workflow_response
+
+            return capo_migrationhuborchestrator.types.get_migration_workflow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetWorkflow", redact_output=_redact_output),
+        )
         input_: capo_migrationhuborchestrator.types.get_migration_workflow_request.GetMigrationWorkflowRequest = {
             "id": id
         }
@@ -217,7 +255,32 @@ class MigrationWorkflow:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_migrationhuborchestrator.types.update_migration_workflow_request.UpdateMigrationWorkflowRequest",
+        ) -> dict[str, Any]:
+            import capo_migrationhuborchestrator.types.update_migration_workflow_request
+
+            return capo_migrationhuborchestrator.types.update_migration_workflow_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_migrationhuborchestrator.types.update_migration_workflow_response.UpdateMigrationWorkflowResponse",
+        ) -> dict[str, Any]:
+            import capo_migrationhuborchestrator.types.update_migration_workflow_response
+
+            return capo_migrationhuborchestrator.types.update_migration_workflow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateWorkflow",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_migrationhuborchestrator.types.update_migration_workflow_request.UpdateMigrationWorkflowRequest = {
             "id": id
         }
@@ -272,7 +335,9 @@ class MigrationWorkflow:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflow")
+        )
         input_: capo_migrationhuborchestrator.types.delete_migration_workflow_request.DeleteMigrationWorkflowRequest = {
             "id": id
         }
@@ -339,7 +404,9 @@ class MigrationWorkflow:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkflows")
+        )
         input_: capo_migrationhuborchestrator.types.list_migration_workflows_request.ListMigrationWorkflowsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -398,7 +465,9 @@ class MigrationWorkflow:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartWorkflow")
+        )
         input_: capo_migrationhuborchestrator.types.start_migration_workflow_request.StartMigrationWorkflowRequest = {
             "id": id
         }
@@ -445,7 +514,9 @@ class MigrationWorkflow:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopWorkflow")
+        )
         input_: capo_migrationhuborchestrator.types.stop_migration_workflow_request.StopMigrationWorkflowRequest = {
             "id": id
         }
@@ -513,7 +584,32 @@ class AsyncMigrationWorkflow:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_migrationhuborchestrator.types.create_migration_workflow_request.CreateMigrationWorkflowRequest",
+        ) -> dict[str, Any]:
+            import capo_migrationhuborchestrator.types.create_migration_workflow_request
+
+            return capo_migrationhuborchestrator.types.create_migration_workflow_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_migrationhuborchestrator.types.create_migration_workflow_response.CreateMigrationWorkflowResponse",
+        ) -> dict[str, Any]:
+            import capo_migrationhuborchestrator.types.create_migration_workflow_response
+
+            return capo_migrationhuborchestrator.types.create_migration_workflow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateWorkflow",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_migrationhuborchestrator.types.create_migration_workflow_request.CreateMigrationWorkflowRequest = {
             "name": name,
             "template_id": template_id,
@@ -571,7 +667,19 @@ class AsyncMigrationWorkflow:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_migrationhuborchestrator.types.get_migration_workflow_response.GetMigrationWorkflowResponse",
+        ) -> dict[str, Any]:
+            import capo_migrationhuborchestrator.types.get_migration_workflow_response
+
+            return capo_migrationhuborchestrator.types.get_migration_workflow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetWorkflow", redact_output=_redact_output),
+        )
         input_: capo_migrationhuborchestrator.types.get_migration_workflow_request.GetMigrationWorkflowRequest = {
             "id": id
         }
@@ -631,7 +739,32 @@ class AsyncMigrationWorkflow:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_migrationhuborchestrator.types.update_migration_workflow_request.UpdateMigrationWorkflowRequest",
+        ) -> dict[str, Any]:
+            import capo_migrationhuborchestrator.types.update_migration_workflow_request
+
+            return capo_migrationhuborchestrator.types.update_migration_workflow_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_migrationhuborchestrator.types.update_migration_workflow_response.UpdateMigrationWorkflowResponse",
+        ) -> dict[str, Any]:
+            import capo_migrationhuborchestrator.types.update_migration_workflow_response
+
+            return capo_migrationhuborchestrator.types.update_migration_workflow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateWorkflow",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_migrationhuborchestrator.types.update_migration_workflow_request.UpdateMigrationWorkflowRequest = {
             "id": id
         }
@@ -687,7 +820,9 @@ class AsyncMigrationWorkflow:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflow")
+        )
         input_: capo_migrationhuborchestrator.types.delete_migration_workflow_request.DeleteMigrationWorkflowRequest = {
             "id": id
         }
@@ -755,7 +890,9 @@ class AsyncMigrationWorkflow:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkflows")
+        )
         input_: capo_migrationhuborchestrator.types.list_migration_workflows_request.ListMigrationWorkflowsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -815,7 +952,9 @@ class AsyncMigrationWorkflow:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartWorkflow")
+        )
         input_: capo_migrationhuborchestrator.types.start_migration_workflow_request.StartMigrationWorkflowRequest = {
             "id": id
         }
@@ -863,7 +1002,9 @@ class AsyncMigrationWorkflow:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopWorkflow")
+        )
         input_: capo_migrationhuborchestrator.types.stop_migration_workflow_request.StopMigrationWorkflowRequest = {
             "id": id
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.agentregistrycontrol#UpdatedAgentSkillsAdditionalData``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> UpdatedAgentSkillsAdditionalData:
         out["optional_value"] = (
             capo_agent_registry_control.types.updated_agent_skills_additional_data_fields.deserialize_json(
                 data["optionalValue"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdatedAgentSkillsAdditionalData) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "optional_value" in value:
+        import capo_agent_registry_control.types.updated_agent_skills_additional_data_fields
+
+        out["optional_value"] = (
+            capo_agent_registry_control.types.updated_agent_skills_additional_data_fields.redact_sensitive(
+                value["optional_value"]
             )
         )
     return out

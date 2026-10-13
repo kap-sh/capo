@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#CreateAgentRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -159,4 +159,15 @@ def deserialize_json(data: dict) -> CreateAgentRequest:
                 data["CustomPromptInput"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: CreateAgentRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "starter_prompts" in value:
+        out["starter_prompts"] = "*** Sensitive Data Redacted ***"
+    if "welcome_message" in value:
+        out["welcome_message"] = "*** Sensitive Data Redacted ***"
+    if "custom_prompt_input" in value:
+        out["custom_prompt_input"] = "*** Sensitive Data Redacted ***"
     return out

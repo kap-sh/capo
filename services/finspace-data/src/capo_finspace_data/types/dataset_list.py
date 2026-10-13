@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.finspacedata#DatasetList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_finspace_data.types.dataset
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> DatasetList:
             continue
         out.append(capo_finspace_data.types.dataset.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: DatasetList) -> list[Any]:
+    import capo_finspace_data.types.dataset
+
+    return [capo_finspace_data.types.dataset.redact_sensitive(item) for item in value]

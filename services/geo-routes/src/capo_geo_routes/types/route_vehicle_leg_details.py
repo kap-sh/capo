@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteVehicleLegDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -251,4 +251,103 @@ def deserialize_json(data: dict) -> RouteVehicleLegDetails:
         )
     else:
         raise DeserializationError("RouteVehicleLegDetails.zones required")
+    return out
+
+
+def redact_sensitive(value: RouteVehicleLegDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "after_travel_steps" in value:
+        import capo_geo_routes.types.route_vehicle_after_travel_step_list
+
+        out["after_travel_steps"] = (
+            capo_geo_routes.types.route_vehicle_after_travel_step_list.redact_sensitive(
+                value["after_travel_steps"]
+            )
+        )
+    if "arrival" in value:
+        import capo_geo_routes.types.route_vehicle_arrival
+
+        out["arrival"] = capo_geo_routes.types.route_vehicle_arrival.redact_sensitive(
+            value["arrival"]
+        )
+    if "departure" in value:
+        import capo_geo_routes.types.route_vehicle_departure
+
+        out["departure"] = (
+            capo_geo_routes.types.route_vehicle_departure.redact_sensitive(
+                value["departure"]
+            )
+        )
+    if "incidents" in value:
+        import capo_geo_routes.types.route_vehicle_incident_list
+
+        out["incidents"] = (
+            capo_geo_routes.types.route_vehicle_incident_list.redact_sensitive(
+                value["incidents"]
+            )
+        )
+    if "notices" in value:
+        import capo_geo_routes.types.route_vehicle_notice_list
+
+        out["notices"] = (
+            capo_geo_routes.types.route_vehicle_notice_list.redact_sensitive(
+                value["notices"]
+            )
+        )
+    if "pass_through_waypoints" in value:
+        import capo_geo_routes.types.route_pass_through_waypoint_list
+
+        out["pass_through_waypoints"] = (
+            capo_geo_routes.types.route_pass_through_waypoint_list.redact_sensitive(
+                value["pass_through_waypoints"]
+            )
+        )
+    if "spans" in value:
+        import capo_geo_routes.types.route_vehicle_span_list
+
+        out["spans"] = capo_geo_routes.types.route_vehicle_span_list.redact_sensitive(
+            value["spans"]
+        )
+    if "summary" in value:
+        import capo_geo_routes.types.route_vehicle_summary
+
+        out["summary"] = capo_geo_routes.types.route_vehicle_summary.redact_sensitive(
+            value["summary"]
+        )
+    if "tolls" in value:
+        import capo_geo_routes.types.route_toll_list
+
+        out["tolls"] = capo_geo_routes.types.route_toll_list.redact_sensitive(
+            value["tolls"]
+        )
+    if "toll_systems" in value:
+        import capo_geo_routes.types.route_toll_system_list
+
+        out["toll_systems"] = (
+            capo_geo_routes.types.route_toll_system_list.redact_sensitive(
+                value["toll_systems"]
+            )
+        )
+    if "travel_steps" in value:
+        import capo_geo_routes.types.route_vehicle_travel_step_list
+
+        out["travel_steps"] = (
+            capo_geo_routes.types.route_vehicle_travel_step_list.redact_sensitive(
+                value["travel_steps"]
+            )
+        )
+    if "truck_road_types" in value:
+        import capo_geo_routes.types.truck_road_type_list
+
+        out["truck_road_types"] = (
+            capo_geo_routes.types.truck_road_type_list.redact_sensitive(
+                value["truck_road_types"]
+            )
+        )
+    if "zones" in value:
+        import capo_geo_routes.types.route_zone_list
+
+        out["zones"] = capo_geo_routes.types.route_zone_list.redact_sensitive(
+            value["zones"]
+        )
     return out

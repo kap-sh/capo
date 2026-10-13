@@ -8,6 +8,7 @@ import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -93,7 +94,9 @@ class GatewayRateLimitResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchPutGatewayRateLimits")
+        )
         input_: capo_bedrock_agentcore_control.types.batch_put_gateway_rate_limits_request.BatchPutGatewayRateLimitsRequest = {
             "gateway_identifier": gateway_identifier,
             "rate_limits": rate_limits,
@@ -162,7 +165,9 @@ class GatewayRateLimitResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateGatewayRateLimit")
+        )
         input_: capo_bedrock_agentcore_control.types.create_gateway_rate_limit_request.CreateGatewayRateLimitRequest = {
             "gateway_identifier": gateway_identifier,
             "dimension_keys": dimension_keys,
@@ -221,7 +226,9 @@ class GatewayRateLimitResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGatewayRateLimit")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_gateway_rate_limit_request.DeleteGatewayRateLimitRequest = {
             "gateway_identifier": gateway_identifier,
             "rate_limit_id": rate_limit_id,
@@ -271,7 +278,9 @@ class GatewayRateLimitResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetGatewayRateLimit")
+        )
         input_: capo_bedrock_agentcore_control.types.get_gateway_rate_limit_request.GetGatewayRateLimitRequest = {
             "gateway_identifier": gateway_identifier,
             "rate_limit_id": rate_limit_id,
@@ -327,7 +336,9 @@ class GatewayRateLimitResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGatewayRateLimits")
+        )
         input_: capo_bedrock_agentcore_control.types.list_gateway_rate_limits_request.ListGatewayRateLimitsRequest = {
             "gateway_identifier": gateway_identifier
         }
@@ -387,7 +398,9 @@ class GatewayRateLimitResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateGatewayRateLimit")
+        )
         input_: capo_bedrock_agentcore_control.types.update_gateway_rate_limit_request.UpdateGatewayRateLimitRequest = {
             "gateway_identifier": gateway_identifier,
             "rate_limit_id": rate_limit_id,
@@ -452,7 +465,9 @@ class AsyncGatewayRateLimitResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchPutGatewayRateLimits")
+        )
         input_: capo_bedrock_agentcore_control.types.batch_put_gateway_rate_limits_request.BatchPutGatewayRateLimitsRequest = {
             "gateway_identifier": gateway_identifier,
             "rate_limits": rate_limits,
@@ -522,7 +537,9 @@ class AsyncGatewayRateLimitResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateGatewayRateLimit")
+        )
         input_: capo_bedrock_agentcore_control.types.create_gateway_rate_limit_request.CreateGatewayRateLimitRequest = {
             "gateway_identifier": gateway_identifier,
             "dimension_keys": dimension_keys,
@@ -582,7 +599,9 @@ class AsyncGatewayRateLimitResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGatewayRateLimit")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_gateway_rate_limit_request.DeleteGatewayRateLimitRequest = {
             "gateway_identifier": gateway_identifier,
             "rate_limit_id": rate_limit_id,
@@ -633,7 +652,9 @@ class AsyncGatewayRateLimitResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetGatewayRateLimit")
+        )
         input_: capo_bedrock_agentcore_control.types.get_gateway_rate_limit_request.GetGatewayRateLimitRequest = {
             "gateway_identifier": gateway_identifier,
             "rate_limit_id": rate_limit_id,
@@ -690,7 +711,9 @@ class AsyncGatewayRateLimitResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGatewayRateLimits")
+        )
         input_: capo_bedrock_agentcore_control.types.list_gateway_rate_limits_request.ListGatewayRateLimitsRequest = {
             "gateway_identifier": gateway_identifier
         }
@@ -751,7 +774,9 @@ class AsyncGatewayRateLimitResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateGatewayRateLimit")
+        )
         input_: capo_bedrock_agentcore_control.types.update_gateway_rate_limit_request.UpdateGatewayRateLimitRequest = {
             "gateway_identifier": gateway_identifier,
             "rate_limit_id": rate_limit_id,

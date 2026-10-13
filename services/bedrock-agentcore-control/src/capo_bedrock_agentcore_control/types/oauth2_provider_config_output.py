@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#Oauth2ProviderConfigOutput``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -227,3 +227,16 @@ def deserialize_json(data: dict) -> Oauth2ProviderConfigOutput:
         raise DeserializationError(
             "Oauth2ProviderConfigOutput: no recognized variant key"
         )
+
+
+def redact_sensitive(value: Oauth2ProviderConfigOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "customOauth2ProviderConfig" in value:
+        import capo_bedrock_agentcore_control.types.custom_oauth2_provider_config_output
+
+        out["customOauth2ProviderConfig"] = (
+            capo_bedrock_agentcore_control.types.custom_oauth2_provider_config_output.redact_sensitive(
+                value["customOauth2ProviderConfig"]
+            )
+        )
+    return out

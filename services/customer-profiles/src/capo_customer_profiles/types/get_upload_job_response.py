@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#GetUploadJobResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -149,4 +149,11 @@ def deserialize_json(data: dict) -> GetUploadJobResponse:
         )
     if data.get("DataExpiry") is not None:
         out["data_expiry"] = data["DataExpiry"]
+    return out
+
+
+def redact_sensitive(value: GetUploadJobResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "fields" in value:
+        out["fields"] = "*** Sensitive Data Redacted ***"
     return out

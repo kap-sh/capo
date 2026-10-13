@@ -23,10 +23,12 @@ from capo_lex_runtime_service._iter import ensure_sync_iterator
 from capo_lex_runtime_service._services._aws_config import aws_config
 from capo_lex_runtime_service._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -130,7 +132,9 @@ class LexRuntimeServiceClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[LexRuntimeServiceClientConfig] = None
+        self,
+        config_overrides: Optional[LexRuntimeServiceClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: LexRuntimeServiceClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -138,8 +142,10 @@ class LexRuntimeServiceClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -196,7 +202,9 @@ class LexRuntimeServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSession")
+        )
         input_: capo_lex_runtime_service.types.delete_session_request.DeleteSessionRequest = {
             "bot_name": bot_name,
             "bot_alias": bot_alias,
@@ -252,7 +260,19 @@ class LexRuntimeServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lex_runtime_service.types.get_session_response.GetSessionResponse",
+        ) -> dict[str, Any]:
+            import capo_lex_runtime_service.types.get_session_response
+
+            return capo_lex_runtime_service.types.get_session_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSession", redact_output=_redact_output),
+        )
         input_: capo_lex_runtime_service.types.get_session_request.GetSessionRequest = {
             "bot_name": bot_name,
             "bot_alias": bot_alias,
@@ -332,7 +352,32 @@ class LexRuntimeServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lex_runtime_service.types.post_content_request.PostContentRequest",
+        ) -> dict[str, Any]:
+            import capo_lex_runtime_service.types.post_content_request
+
+            return capo_lex_runtime_service.types.post_content_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_lex_runtime_service.types.post_content_response.PostContentResponse",
+        ) -> dict[str, Any]:
+            import capo_lex_runtime_service.types.post_content_response
+
+            return (
+                capo_lex_runtime_service.types.post_content_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PostContent", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_lex_runtime_service.types.post_content_request.PostContentRequest = {
             "bot_name": bot_name,
             "bot_alias": bot_alias,
@@ -414,7 +459,30 @@ class LexRuntimeServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lex_runtime_service.types.post_text_request.PostTextRequest",
+        ) -> dict[str, Any]:
+            import capo_lex_runtime_service.types.post_text_request
+
+            return capo_lex_runtime_service.types.post_text_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_lex_runtime_service.types.post_text_response.PostTextResponse",
+        ) -> dict[str, Any]:
+            import capo_lex_runtime_service.types.post_text_response
+
+            return capo_lex_runtime_service.types.post_text_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PostText", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_lex_runtime_service.types.post_text_request.PostTextRequest = {
             "bot_name": bot_name,
             "bot_alias": bot_alias,
@@ -496,7 +564,30 @@ class LexRuntimeServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lex_runtime_service.types.put_session_request.PutSessionRequest",
+        ) -> dict[str, Any]:
+            import capo_lex_runtime_service.types.put_session_request
+
+            return capo_lex_runtime_service.types.put_session_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_lex_runtime_service.types.put_session_response.PutSessionResponse",
+        ) -> dict[str, Any]:
+            import capo_lex_runtime_service.types.put_session_response
+
+            return capo_lex_runtime_service.types.put_session_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutSession", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_lex_runtime_service.types.put_session_request.PutSessionRequest = {
             "bot_name": bot_name,
             "bot_alias": bot_alias,

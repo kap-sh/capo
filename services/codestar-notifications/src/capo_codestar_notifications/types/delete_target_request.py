@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.codestarnotifications#DeleteTargetRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -38,4 +38,11 @@ def deserialize_json(data: dict) -> DeleteTargetRequest:
         out["force_unsubscribe_all"] = data["ForceUnsubscribeAll"]
     else:
         out["force_unsubscribe_all"] = False
+    return out
+
+
+def redact_sensitive(value: DeleteTargetRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "target_address" in value:
+        out["target_address"] = "*** Sensitive Data Redacted ***"
     return out

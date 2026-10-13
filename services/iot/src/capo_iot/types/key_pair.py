@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iot#KeyPair``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,4 +32,11 @@ def deserialize_json(data: dict) -> KeyPair:
         out["public_key"] = data["PublicKey"]
     if data.get("PrivateKey") is not None:
         out["private_key"] = data["PrivateKey"]
+    return out
+
+
+def redact_sensitive(value: KeyPair) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "private_key" in value:
+        out["private_key"] = "*** Sensitive Data Redacted ***"
     return out

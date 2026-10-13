@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.emrcontainers#CreateJobTemplateRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -74,4 +74,17 @@ def deserialize_json(data: dict) -> CreateJobTemplateRequest:
         out["tags"] = capo_emr_containers.types.tag_map.deserialize_json(data["tags"])
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
+    return out
+
+
+def redact_sensitive(value: CreateJobTemplateRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "job_template_data" in value:
+        import capo_emr_containers.types.job_template_data
+
+        out["job_template_data"] = (
+            capo_emr_containers.types.job_template_data.redact_sensitive(
+                value["job_template_data"]
+            )
+        )
     return out

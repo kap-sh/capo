@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kms#GenerateDataKeyResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -84,4 +84,11 @@ def deserialize_aws_json_1_1(data: dict) -> GenerateDataKeyResponse:
         )
     if data.get("KeyMaterialId") is not None:
         out["key_material_id"] = data["KeyMaterialId"]
+    return out
+
+
+def redact_sensitive(value: GenerateDataKeyResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "plaintext" in value:
+        out["plaintext"] = "*** Sensitive Data Redacted ***"
     return out

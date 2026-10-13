@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotsitewise#ComputeNodeList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_iotsitewise.types.compute_node
@@ -27,3 +27,11 @@ def deserialize_json(data: list) -> ComputeNodeList:
             continue
         out.append(capo_iotsitewise.types.compute_node.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ComputeNodeList) -> list[Any]:
+    import capo_iotsitewise.types.compute_node
+
+    return [
+        capo_iotsitewise.types.compute_node.redact_sensitive(item) for item in value
+    ]

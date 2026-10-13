@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#ImageConfigResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,5 +47,16 @@ def deserialize_json(data: dict) -> ImageConfigResponse:
 
         out["error"] = capo_lambda.types.image_config_error.deserialize_json(
             data["Error"]
+        )
+    return out
+
+
+def redact_sensitive(value: ImageConfigResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "error" in value:
+        import capo_lambda.types.image_config_error
+
+        out["error"] = capo_lambda.types.image_config_error.redact_sensitive(
+            value["error"]
         )
     return out

@@ -7,6 +7,7 @@ import capo_securitylake._auth._sigv4
 from capo_securitylake._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -105,7 +106,9 @@ class DataLake:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAwsLogSource")
+        )
         input_: capo_securitylake.types.create_aws_log_source_request.CreateAwsLogSourceRequest = {
             "sources": sources
         }
@@ -163,7 +166,9 @@ class DataLake:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCustomLogSource")
+        )
         input_: capo_securitylake.types.create_custom_log_source_request.CreateCustomLogSourceRequest = {
             "source_name": source_name,
             "configuration": configuration,
@@ -220,7 +225,9 @@ class DataLake:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDataLake")
+        )
         input_: capo_securitylake.types.create_data_lake_request.CreateDataLakeRequest = {
             "configurations": configurations,
             "meta_store_manager_role_arn": meta_store_manager_role_arn,
@@ -273,7 +280,10 @@ class DataLake:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateDataLakeOrganizationConfiguration"),
+        )
         input_: capo_securitylake.types.create_data_lake_organization_configuration_request.CreateDataLakeOrganizationConfigurationRequest = {}
         if auto_enable_new_account is not None:
             input_["auto_enable_new_account"] = auto_enable_new_account
@@ -321,7 +331,9 @@ class DataLake:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAwsLogSource")
+        )
         input_: capo_securitylake.types.delete_aws_log_source_request.DeleteAwsLogSourceRequest = {
             "sources": sources
         }
@@ -373,7 +385,9 @@ class DataLake:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCustomLogSource")
+        )
         input_: capo_securitylake.types.delete_custom_log_source_request.DeleteCustomLogSourceRequest = {
             "source_name": source_name
         }
@@ -423,7 +437,9 @@ class DataLake:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDataLake")
+        )
         input_: capo_securitylake.types.delete_data_lake_request.DeleteDataLakeRequest = {
             "regions": regions
         }
@@ -473,7 +489,10 @@ class DataLake:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteDataLakeOrganizationConfiguration"),
+        )
         input_: capo_securitylake.types.delete_data_lake_organization_configuration_request.DeleteDataLakeOrganizationConfigurationRequest = {}
         if auto_enable_new_account is not None:
             input_["auto_enable_new_account"] = auto_enable_new_account
@@ -515,7 +534,9 @@ class DataLake:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataLakeOrganizationConfiguration")
+        )
         input_: capo_securitylake.types.get_data_lake_organization_configuration_request.GetDataLakeOrganizationConfigurationRequest = {}
 
         response = execute_pipeline(
@@ -565,7 +586,9 @@ class DataLake:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataLakeSources")
+        )
         input_: capo_securitylake.types.get_data_lake_sources_request.GetDataLakeSourcesRequest = {}
         if accounts is not None:
             input_["accounts"] = accounts
@@ -617,7 +640,9 @@ class DataLake:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDataLakes")
+        )
         input_: capo_securitylake.types.list_data_lakes_request.ListDataLakesRequest = {}
         if regions is not None:
             input_["regions"] = regions
@@ -675,7 +700,9 @@ class DataLake:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListLogSources")
+        )
         input_: capo_securitylake.types.list_log_sources_request.ListLogSourcesRequest = {}
         if accounts is not None:
             input_["accounts"] = accounts
@@ -735,7 +762,9 @@ class DataLake:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDataLake")
+        )
         input_: capo_securitylake.types.update_data_lake_request.UpdateDataLakeRequest = {
             "configurations": configurations
         }
@@ -791,7 +820,9 @@ class AsyncDataLake:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAwsLogSource")
+        )
         input_: capo_securitylake.types.create_aws_log_source_request.CreateAwsLogSourceRequest = {
             "sources": sources
         }
@@ -850,7 +881,9 @@ class AsyncDataLake:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCustomLogSource")
+        )
         input_: capo_securitylake.types.create_custom_log_source_request.CreateCustomLogSourceRequest = {
             "source_name": source_name,
             "configuration": configuration,
@@ -908,7 +941,9 @@ class AsyncDataLake:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDataLake")
+        )
         input_: capo_securitylake.types.create_data_lake_request.CreateDataLakeRequest = {
             "configurations": configurations,
             "meta_store_manager_role_arn": meta_store_manager_role_arn,
@@ -962,7 +997,10 @@ class AsyncDataLake:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateDataLakeOrganizationConfiguration"),
+        )
         input_: capo_securitylake.types.create_data_lake_organization_configuration_request.CreateDataLakeOrganizationConfigurationRequest = {}
         if auto_enable_new_account is not None:
             input_["auto_enable_new_account"] = auto_enable_new_account
@@ -1011,7 +1049,9 @@ class AsyncDataLake:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAwsLogSource")
+        )
         input_: capo_securitylake.types.delete_aws_log_source_request.DeleteAwsLogSourceRequest = {
             "sources": sources
         }
@@ -1064,7 +1104,9 @@ class AsyncDataLake:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCustomLogSource")
+        )
         input_: capo_securitylake.types.delete_custom_log_source_request.DeleteCustomLogSourceRequest = {
             "source_name": source_name
         }
@@ -1115,7 +1157,9 @@ class AsyncDataLake:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDataLake")
+        )
         input_: capo_securitylake.types.delete_data_lake_request.DeleteDataLakeRequest = {
             "regions": regions
         }
@@ -1166,7 +1210,10 @@ class AsyncDataLake:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteDataLakeOrganizationConfiguration"),
+        )
         input_: capo_securitylake.types.delete_data_lake_organization_configuration_request.DeleteDataLakeOrganizationConfigurationRequest = {}
         if auto_enable_new_account is not None:
             input_["auto_enable_new_account"] = auto_enable_new_account
@@ -1209,7 +1256,9 @@ class AsyncDataLake:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataLakeOrganizationConfiguration")
+        )
         input_: capo_securitylake.types.get_data_lake_organization_configuration_request.GetDataLakeOrganizationConfigurationRequest = {}
 
         response = await aexecute_pipeline(
@@ -1260,7 +1309,9 @@ class AsyncDataLake:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataLakeSources")
+        )
         input_: capo_securitylake.types.get_data_lake_sources_request.GetDataLakeSourcesRequest = {}
         if accounts is not None:
             input_["accounts"] = accounts
@@ -1313,7 +1364,9 @@ class AsyncDataLake:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDataLakes")
+        )
         input_: capo_securitylake.types.list_data_lakes_request.ListDataLakesRequest = {}
         if regions is not None:
             input_["regions"] = regions
@@ -1372,7 +1425,9 @@ class AsyncDataLake:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListLogSources")
+        )
         input_: capo_securitylake.types.list_log_sources_request.ListLogSourcesRequest = {}
         if accounts is not None:
             input_["accounts"] = accounts
@@ -1433,7 +1488,9 @@ class AsyncDataLake:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDataLake")
+        )
         input_: capo_securitylake.types.update_data_lake_request.UpdateDataLakeRequest = {
             "configurations": configurations
         }

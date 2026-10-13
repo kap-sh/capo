@@ -21,10 +21,12 @@ from capo_kinesis_video._pagination import resolve_path as _resolve_path
 from capo_kinesis_video._services._aws_config import aws_config
 from capo_kinesis_video._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -202,7 +204,9 @@ class KinesisVideoClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[KinesisVideoClientConfig] = None
+        self,
+        config_overrides: Optional[KinesisVideoClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: KinesisVideoClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -210,8 +214,10 @@ class KinesisVideoClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -277,7 +283,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSignalingChannel")
+        )
         input_: capo_kinesis_video.types.create_signaling_channel_input.CreateSignalingChannelInput = {
             "channel_name": channel_name
         }
@@ -348,7 +356,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStream")
+        )
         input_: capo_kinesis_video.types.create_stream_input.CreateStreamInput = {
             "stream_name": stream_name
         }
@@ -411,7 +421,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEdgeConfiguration")
+        )
         input_: capo_kinesis_video.types.delete_edge_configuration_input.DeleteEdgeConfigurationInput = {}
         if stream_name is not None:
             input_["stream_name"] = stream_name
@@ -463,7 +475,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSignalingChannel")
+        )
         input_: capo_kinesis_video.types.delete_signaling_channel_input.DeleteSignalingChannelInput = {
             "channel_arn": channel_arn
         }
@@ -515,7 +529,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStream")
+        )
         input_: capo_kinesis_video.types.delete_stream_input.DeleteStreamInput = {
             "stream_arn": stream_arn
         }
@@ -568,7 +584,19 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_kinesis_video.types.describe_edge_configuration_output.DescribeEdgeConfigurationOutput",
+        ) -> dict[str, Any]:
+            import capo_kinesis_video.types.describe_edge_configuration_output
+
+            return capo_kinesis_video.types.describe_edge_configuration_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeEdgeConfiguration", redact_output=_redact_output),
+        )
         input_: capo_kinesis_video.types.describe_edge_configuration_input.DescribeEdgeConfigurationInput = {}
         if stream_name is not None:
             input_["stream_name"] = stream_name
@@ -620,7 +648,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeImageGenerationConfiguration")
+        )
         input_: capo_kinesis_video.types.describe_image_generation_configuration_input.DescribeImageGenerationConfigurationInput = {}
         if stream_name is not None:
             input_["stream_name"] = stream_name
@@ -678,7 +708,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMappedResourceConfiguration")
+        )
         input_: capo_kinesis_video.types.describe_mapped_resource_configuration_input.DescribeMappedResourceConfigurationInput = {}
         if stream_name is not None:
             input_["stream_name"] = stream_name
@@ -765,7 +797,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMediaStorageConfiguration")
+        )
         input_: capo_kinesis_video.types.describe_media_storage_configuration_input.DescribeMediaStorageConfigurationInput = {}
         if channel_name is not None:
             input_["channel_name"] = channel_name
@@ -817,7 +851,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeNotificationConfiguration")
+        )
         input_: capo_kinesis_video.types.describe_notification_configuration_input.DescribeNotificationConfigurationInput = {}
         if stream_name is not None:
             input_["stream_name"] = stream_name
@@ -871,7 +907,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSignalingChannel")
+        )
         input_: capo_kinesis_video.types.describe_signaling_channel_input.DescribeSignalingChannelInput = {}
         if channel_name is not None:
             input_["channel_name"] = channel_name
@@ -923,7 +961,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStream")
+        )
         input_: capo_kinesis_video.types.describe_stream_input.DescribeStreamInput = {}
         if stream_name is not None:
             input_["stream_name"] = stream_name
@@ -975,7 +1015,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStreamStorageConfiguration")
+        )
         input_: capo_kinesis_video.types.describe_stream_storage_configuration_input.DescribeStreamStorageConfigurationInput = {}
         if stream_name is not None:
             input_["stream_name"] = stream_name
@@ -1029,7 +1071,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataEndpoint")
+        )
         input_: capo_kinesis_video.types.get_data_endpoint_input.GetDataEndpointInput = {
             "api_name": api_name
         }
@@ -1084,7 +1128,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSignalingChannelEndpoint")
+        )
         input_: capo_kinesis_video.types.get_signaling_channel_endpoint_input.GetSignalingChannelEndpointInput = {
             "channel_arn": channel_arn
         }
@@ -1139,7 +1185,21 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_kinesis_video.types.list_edge_agent_configurations_output.ListEdgeAgentConfigurationsOutput",
+        ) -> dict[str, Any]:
+            import capo_kinesis_video.types.list_edge_agent_configurations_output
+
+            return capo_kinesis_video.types.list_edge_agent_configurations_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListEdgeAgentConfigurations", redact_output=_redact_output
+            ),
+        )
         input_: capo_kinesis_video.types.list_edge_agent_configurations_input.ListEdgeAgentConfigurationsInput = {
             "hub_device_arn": hub_device_arn
         }
@@ -1221,7 +1281,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSignalingChannels")
+        )
         input_: capo_kinesis_video.types.list_signaling_channels_input.ListSignalingChannelsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1304,7 +1366,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStreams")
+        )
         input_: capo_kinesis_video.types.list_streams_input.ListStreamsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1383,7 +1447,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_kinesis_video.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -1438,7 +1504,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForStream")
+        )
         input_: capo_kinesis_video.types.list_tags_for_stream_input.ListTagsForStreamInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1496,7 +1564,32 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_kinesis_video.types.start_edge_configuration_update_input.StartEdgeConfigurationUpdateInput",
+        ) -> dict[str, Any]:
+            import capo_kinesis_video.types.start_edge_configuration_update_input
+
+            return capo_kinesis_video.types.start_edge_configuration_update_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_kinesis_video.types.start_edge_configuration_update_output.StartEdgeConfigurationUpdateOutput",
+        ) -> dict[str, Any]:
+            import capo_kinesis_video.types.start_edge_configuration_update_output
+
+            return capo_kinesis_video.types.start_edge_configuration_update_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartEdgeConfigurationUpdate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_kinesis_video.types.start_edge_configuration_update_input.StartEdgeConfigurationUpdateInput = {
             "edge_config": edge_config
         }
@@ -1549,7 +1642,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_kinesis_video.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1604,7 +1699,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagStream")
+        )
         input_: capo_kinesis_video.types.tag_stream_input.TagStreamInput = {
             "tags": tags
         }
@@ -1656,7 +1753,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_kinesis_video.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_key_list": tag_key_list,
@@ -1710,7 +1809,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagStream")
+        )
         input_: capo_kinesis_video.types.untag_stream_input.UntagStreamInput = {
             "tag_key_list": tag_key_list
         }
@@ -1772,7 +1873,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataRetention")
+        )
         input_: capo_kinesis_video.types.update_data_retention_input.UpdateDataRetentionInput = {
             "current_version": current_version,
             "operation": operation,
@@ -1834,7 +1937,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateImageGenerationConfiguration")
+        )
         input_: capo_kinesis_video.types.update_image_generation_configuration_input.UpdateImageGenerationConfigurationInput = {}
         if stream_name is not None:
             input_["stream_name"] = stream_name
@@ -1888,7 +1993,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMediaStorageConfiguration")
+        )
         input_: capo_kinesis_video.types.update_media_storage_configuration_input.UpdateMediaStorageConfigurationInput = {
             "channel_arn": channel_arn,
             "media_storage_configuration": media_storage_configuration,
@@ -1945,7 +2052,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNotificationConfiguration")
+        )
         input_: capo_kinesis_video.types.update_notification_configuration_input.UpdateNotificationConfigurationInput = {}
         if stream_name is not None:
             input_["stream_name"] = stream_name
@@ -2003,7 +2112,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSignalingChannel")
+        )
         input_: capo_kinesis_video.types.update_signaling_channel_input.UpdateSignalingChannelInput = {
             "channel_arn": channel_arn,
             "current_version": current_version,
@@ -2064,7 +2175,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateStream")
+        )
         input_: capo_kinesis_video.types.update_stream_input.UpdateStreamInput = {
             "current_version": current_version
         }
@@ -2128,7 +2241,9 @@ class KinesisVideoClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateStreamStorageConfiguration")
+        )
         input_: capo_kinesis_video.types.update_stream_storage_configuration_input.UpdateStreamStorageConfigurationInput = {
             "current_version": current_version,
             "stream_storage_configuration": stream_storage_configuration,

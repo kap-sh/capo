@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#PipeTargetEventBridgeEventBusParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -73,4 +73,15 @@ def deserialize_json(data: dict) -> PipeTargetEventBridgeEventBusParameters:
         )
     if data.get("Time") is not None:
         out["time"] = data["Time"]
+    return out
+
+
+def redact_sensitive(value: PipeTargetEventBridgeEventBusParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "endpoint_id" in value:
+        out["endpoint_id"] = "*** Sensitive Data Redacted ***"
+    if "detail_type" in value:
+        out["detail_type"] = "*** Sensitive Data Redacted ***"
+    if "source" in value:
+        out["source"] = "*** Sensitive Data Redacted ***"
     return out

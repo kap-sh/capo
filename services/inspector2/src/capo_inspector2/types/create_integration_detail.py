@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.inspector2#CreateIntegrationDetail``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -42,3 +42,16 @@ def deserialize_json(data: dict) -> CreateIntegrationDetail:
         }
     else:
         raise DeserializationError("CreateIntegrationDetail: no recognized variant key")
+
+
+def redact_sensitive(value: CreateIntegrationDetail) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "gitlabSelfManaged" in value:
+        import capo_inspector2.types.create_git_lab_self_managed_integration_detail
+
+        out["gitlabSelfManaged"] = (
+            capo_inspector2.types.create_git_lab_self_managed_integration_detail.redact_sensitive(
+                value["gitlabSelfManaged"]
+            )
+        )
+    return out

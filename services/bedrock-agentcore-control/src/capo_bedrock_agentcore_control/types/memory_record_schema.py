@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#MemoryRecordSchema``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> MemoryRecordSchema:
         out["metadata_schema"] = (
             capo_bedrock_agentcore_control.types.metadata_schema_list.deserialize_json(
                 data["metadataSchema"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: MemoryRecordSchema) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "metadata_schema" in value:
+        import capo_bedrock_agentcore_control.types.metadata_schema_list
+
+        out["metadata_schema"] = (
+            capo_bedrock_agentcore_control.types.metadata_schema_list.redact_sensitive(
+                value["metadata_schema"]
             )
         )
     return out

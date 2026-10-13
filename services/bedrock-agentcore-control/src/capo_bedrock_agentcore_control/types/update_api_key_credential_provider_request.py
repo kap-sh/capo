@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#UpdateApiKeyCredentialProviderRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -82,4 +82,11 @@ def deserialize_json(data: dict) -> UpdateApiKeyCredentialProviderRequest:
                 data["apiKeySecretSource"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: UpdateApiKeyCredentialProviderRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "api_key" in value:
+        out["api_key"] = "*** Sensitive Data Redacted ***"
     return out

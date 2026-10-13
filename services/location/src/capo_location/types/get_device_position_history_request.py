@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#GetDevicePositionHistoryRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -66,4 +66,13 @@ def deserialize_json(data: dict) -> GetDevicePositionHistoryRequest:
         )
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
+    return out
+
+
+def redact_sensitive(value: GetDevicePositionHistoryRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "start_time_inclusive" in value:
+        out["start_time_inclusive"] = "*** Sensitive Data Redacted ***"
+    if "end_time_exclusive" in value:
+        out["end_time_exclusive"] = "*** Sensitive Data Redacted ***"
     return out

@@ -22,10 +22,12 @@ from capo_timestream_query._pagination import resolve_path as _resolve_path
 from capo_timestream_query._services._aws_config import aws_config
 from capo_timestream_query._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -162,7 +164,9 @@ class TimestreamQueryClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[TimestreamQueryClientConfig] = None
+        self,
+        config_overrides: Optional[TimestreamQueryClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: TimestreamQueryClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -170,8 +174,10 @@ class TimestreamQueryClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -224,7 +230,9 @@ class TimestreamQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelQuery")
+        )
         input_: capo_timestream_query.types.cancel_query_request.CancelQueryRequest = {
             "query_id": query_id
         }
@@ -297,7 +305,19 @@ class TimestreamQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_timestream_query.types.create_scheduled_query_request.CreateScheduledQueryRequest",
+        ) -> dict[str, Any]:
+            import capo_timestream_query.types.create_scheduled_query_request
+
+            return capo_timestream_query.types.create_scheduled_query_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateScheduledQuery", redact_input=_redact_input),
+        )
         input_: capo_timestream_query.types.create_scheduled_query_request.CreateScheduledQueryRequest = {
             "name": name,
             "query_string": query_string,
@@ -357,7 +377,9 @@ class TimestreamQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteScheduledQuery")
+        )
         input_: capo_timestream_query.types.delete_scheduled_query_request.DeleteScheduledQueryRequest = {
             "scheduled_query_arn": scheduled_query_arn
         }
@@ -397,7 +419,9 @@ class TimestreamQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountSettings")
+        )
         input_: capo_timestream_query.types.describe_account_settings_request.DescribeAccountSettingsRequest = {}
 
         response = execute_pipeline(
@@ -434,7 +458,9 @@ class TimestreamQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEndpoints")
+        )
         input_: capo_timestream_query.types.describe_endpoints_request.DescribeEndpointsRequest = {}
 
         response = execute_pipeline(
@@ -480,7 +506,19 @@ class TimestreamQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_timestream_query.types.describe_scheduled_query_response.DescribeScheduledQueryResponse",
+        ) -> dict[str, Any]:
+            import capo_timestream_query.types.describe_scheduled_query_response
+
+            return capo_timestream_query.types.describe_scheduled_query_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeScheduledQuery", redact_output=_redact_output),
+        )
         input_: capo_timestream_query.types.describe_scheduled_query_request.DescribeScheduledQueryRequest = {
             "scheduled_query_arn": scheduled_query_arn
         }
@@ -536,7 +574,19 @@ class TimestreamQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_timestream_query.types.execute_scheduled_query_request.ExecuteScheduledQueryRequest",
+        ) -> dict[str, Any]:
+            import capo_timestream_query.types.execute_scheduled_query_request
+
+            return capo_timestream_query.types.execute_scheduled_query_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ExecuteScheduledQuery", redact_input=_redact_input),
+        )
         input_: capo_timestream_query.types.execute_scheduled_query_request.ExecuteScheduledQueryRequest = {
             "scheduled_query_arn": scheduled_query_arn,
             "invocation_time": invocation_time,
@@ -595,7 +645,9 @@ class TimestreamQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListScheduledQueries")
+        )
         input_: capo_timestream_query.types.list_scheduled_queries_request.ListScheduledQueriesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -676,7 +728,9 @@ class TimestreamQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_timestream_query.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -758,7 +812,30 @@ class TimestreamQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_timestream_query.types.prepare_query_request.PrepareQueryRequest",
+        ) -> dict[str, Any]:
+            import capo_timestream_query.types.prepare_query_request
+
+            return capo_timestream_query.types.prepare_query_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_timestream_query.types.prepare_query_response.PrepareQueryResponse",
+        ) -> dict[str, Any]:
+            import capo_timestream_query.types.prepare_query_response
+
+            return capo_timestream_query.types.prepare_query_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PrepareQuery", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_timestream_query.types.prepare_query_request.PrepareQueryRequest = {
             "query_string": query_string
         }
@@ -825,7 +902,16 @@ class TimestreamQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_timestream_query.types.query_request.QueryRequest",
+        ) -> dict[str, Any]:
+            import capo_timestream_query.types.query_request
+
+            return capo_timestream_query.types.query_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Query", redact_input=_redact_input)
+        )
         input_: capo_timestream_query.types.query_request.QueryRequest = {
             "query_string": query_string
         }
@@ -918,7 +1004,9 @@ class TimestreamQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_timestream_query.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -967,7 +1055,9 @@ class TimestreamQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_timestream_query.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1025,7 +1115,9 @@ class TimestreamQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccountSettings")
+        )
         input_: capo_timestream_query.types.update_account_settings_request.UpdateAccountSettingsRequest = {}
         if max_query_tcu is not None:
             input_["max_query_tcu"] = max_query_tcu
@@ -1077,7 +1169,9 @@ class TimestreamQueryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateScheduledQuery")
+        )
         input_: capo_timestream_query.types.update_scheduled_query_request.UpdateScheduledQueryRequest = {
             "scheduled_query_arn": scheduled_query_arn,
             "state": state,

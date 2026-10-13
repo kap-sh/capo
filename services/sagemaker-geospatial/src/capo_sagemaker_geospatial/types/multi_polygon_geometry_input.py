@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemakergeospatial#MultiPolygonGeometryInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -40,4 +40,17 @@ def deserialize_json(data: dict) -> MultiPolygonGeometryInput:
         )
     else:
         raise DeserializationError("MultiPolygonGeometryInput.coordinates required")
+    return out
+
+
+def redact_sensitive(value: MultiPolygonGeometryInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "coordinates" in value:
+        import capo_sagemaker_geospatial.types.linear_rings_list
+
+        out["coordinates"] = (
+            capo_sagemaker_geospatial.types.linear_rings_list.redact_sensitive(
+                value["coordinates"]
+            )
+        )
     return out

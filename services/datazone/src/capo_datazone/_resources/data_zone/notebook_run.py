@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_datazone._auth._signers
 import capo_datazone._auth._sigv4
 from capo_datazone._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -123,7 +124,30 @@ class NotebookRun:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.start_notebook_run_input.StartNotebookRunInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.start_notebook_run_input
+
+            return capo_datazone.types.start_notebook_run_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.start_notebook_run_output.StartNotebookRunOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.start_notebook_run_output
+
+            return capo_datazone.types.start_notebook_run_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartNotebookRun",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.start_notebook_run_input.StartNotebookRunInput = {
             "domain_identifier": domain_identifier,
             "owning_project_identifier": owning_project_identifier,
@@ -194,7 +218,17 @@ class NotebookRun:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_notebook_run_output.GetNotebookRunOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_notebook_run_output
+
+            return capo_datazone.types.get_notebook_run_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetNotebookRun", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_notebook_run_input.GetNotebookRunInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -264,7 +298,9 @@ class NotebookRun:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNotebookRuns")
+        )
         input_: capo_datazone.types.list_notebook_runs_input.ListNotebookRunsInput = {
             "domain_identifier": domain_identifier,
             "owning_project_identifier": owning_project_identifier,
@@ -330,7 +366,9 @@ class NotebookRun:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopNotebookRun")
+        )
         input_: capo_datazone.types.stop_notebook_run_input.StopNotebookRunInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -424,7 +462,30 @@ class AsyncNotebookRun:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.start_notebook_run_input.StartNotebookRunInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.start_notebook_run_input
+
+            return capo_datazone.types.start_notebook_run_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.start_notebook_run_output.StartNotebookRunOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.start_notebook_run_output
+
+            return capo_datazone.types.start_notebook_run_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartNotebookRun",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.start_notebook_run_input.StartNotebookRunInput = {
             "domain_identifier": domain_identifier,
             "owning_project_identifier": owning_project_identifier,
@@ -496,7 +557,17 @@ class AsyncNotebookRun:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_notebook_run_output.GetNotebookRunOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_notebook_run_output
+
+            return capo_datazone.types.get_notebook_run_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetNotebookRun", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_notebook_run_input.GetNotebookRunInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -567,7 +638,9 @@ class AsyncNotebookRun:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNotebookRuns")
+        )
         input_: capo_datazone.types.list_notebook_runs_input.ListNotebookRunsInput = {
             "domain_identifier": domain_identifier,
             "owning_project_identifier": owning_project_identifier,
@@ -634,7 +707,9 @@ class AsyncNotebookRun:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopNotebookRun")
+        )
         input_: capo_datazone.types.stop_notebook_run_input.StopNotebookRunInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,

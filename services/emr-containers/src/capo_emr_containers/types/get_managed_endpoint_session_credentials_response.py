@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.emrcontainers#GetManagedEndpointSessionCredentialsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -74,5 +74,26 @@ def deserialize_json(data: dict) -> GetManagedEndpointSessionCredentialsResponse
 
         out["expires_at"] = capo_emr_containers.types.date.deserialize_json(
             data["expiresAt"]
+        )
+    return out
+
+
+def redact_sensitive(
+    value: GetManagedEndpointSessionCredentialsResponse,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "credentials" in value:
+        import capo_emr_containers.types.credentials
+
+        out["credentials"] = capo_emr_containers.types.credentials.redact_sensitive(
+            value["credentials"]
+        )
+    if "endpoint_credentials" in value:
+        import capo_emr_containers.types.credentials
+
+        out["endpoint_credentials"] = (
+            capo_emr_containers.types.credentials.redact_sensitive(
+                value["endpoint_credentials"]
+            )
         )
     return out

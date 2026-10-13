@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DataPathSort``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -52,4 +52,15 @@ def deserialize_json(data: dict) -> DataPathSort:
         )
     else:
         raise DeserializationError("DataPathSort.sort_paths required")
+    return out
+
+
+def redact_sensitive(value: DataPathSort) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sort_paths" in value:
+        import capo_quicksight.types.data_path_value_list
+
+        out["sort_paths"] = capo_quicksight.types.data_path_value_list.redact_sensitive(
+            value["sort_paths"]
+        )
     return out

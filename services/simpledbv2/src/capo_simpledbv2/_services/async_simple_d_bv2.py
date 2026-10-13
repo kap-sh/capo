@@ -25,7 +25,9 @@ from capo_simpledbv2._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -122,7 +124,9 @@ class AsyncSimpleDBv2Client:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncSimpleDBv2ClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncSimpleDBv2ClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSimpleDBv2ClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -130,8 +134,10 @@ class AsyncSimpleDBv2Client:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -187,7 +193,9 @@ class AsyncSimpleDBv2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetExport")
+        )
         input_: capo_simpledbv2.types.get_export_request.GetExportRequest = {
             "export_arn": export_arn
         }
@@ -242,7 +250,9 @@ class AsyncSimpleDBv2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExports")
+        )
         input_: capo_simpledbv2.types.list_exports_request.ListExportsRequest = {}
         if domain_name is not None:
             input_["domain_name"] = domain_name
@@ -344,7 +354,9 @@ class AsyncSimpleDBv2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDomainExport")
+        )
         input_: capo_simpledbv2.types.start_domain_export_request.StartDomainExportRequest = {
             "domain_name": domain_name,
             "s3_bucket": s3_bucket,

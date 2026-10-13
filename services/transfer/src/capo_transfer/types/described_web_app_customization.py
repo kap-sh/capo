@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.transfer#DescribedWebAppCustomization``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -81,4 +81,13 @@ def deserialize_aws_json_1_1(data: dict) -> DescribedWebAppCustomization:
                 data["FaviconFile"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: DescribedWebAppCustomization) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "logo_file" in value:
+        out["logo_file"] = "*** Sensitive Data Redacted ***"
+    if "favicon_file" in value:
+        out["favicon_file"] = "*** Sensitive Data Redacted ***"
     return out

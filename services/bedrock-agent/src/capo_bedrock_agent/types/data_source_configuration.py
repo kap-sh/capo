@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#DataSourceConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -160,6 +160,51 @@ def deserialize_json(data: dict) -> DataSourceConfiguration:
         out["share_point_configuration"] = (
             capo_bedrock_agent.types.share_point_data_source_configuration.deserialize_json(
                 data["sharePointConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DataSourceConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "s3_configuration" in value:
+        import capo_bedrock_agent.types.s3_data_source_configuration
+
+        out["s3_configuration"] = (
+            capo_bedrock_agent.types.s3_data_source_configuration.redact_sensitive(
+                value["s3_configuration"]
+            )
+        )
+    if "web_configuration" in value:
+        import capo_bedrock_agent.types.web_data_source_configuration
+
+        out["web_configuration"] = (
+            capo_bedrock_agent.types.web_data_source_configuration.redact_sensitive(
+                value["web_configuration"]
+            )
+        )
+    if "confluence_configuration" in value:
+        import capo_bedrock_agent.types.confluence_data_source_configuration
+
+        out["confluence_configuration"] = (
+            capo_bedrock_agent.types.confluence_data_source_configuration.redact_sensitive(
+                value["confluence_configuration"]
+            )
+        )
+    if "salesforce_configuration" in value:
+        import capo_bedrock_agent.types.salesforce_data_source_configuration
+
+        out["salesforce_configuration"] = (
+            capo_bedrock_agent.types.salesforce_data_source_configuration.redact_sensitive(
+                value["salesforce_configuration"]
+            )
+        )
+    if "share_point_configuration" in value:
+        import capo_bedrock_agent.types.share_point_data_source_configuration
+
+        out["share_point_configuration"] = (
+            capo_bedrock_agent.types.share_point_data_source_configuration.redact_sensitive(
+                value["share_point_configuration"]
             )
         )
     return out

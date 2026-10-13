@@ -24,7 +24,9 @@ from capo_sns._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -216,7 +218,9 @@ class AsyncSNSClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncSNSClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncSNSClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSNSClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -224,8 +228,10 @@ class AsyncSNSClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -282,7 +288,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddPermission")
+        )
         input_: capo_sns.types.add_permission_input.AddPermissionInput = {
             "topic_arn": topic_arn,
             "label": label,
@@ -332,7 +340,21 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sns.types.check_if_phone_number_is_opted_out_input.CheckIfPhoneNumberIsOptedOutInput",
+        ) -> dict[str, Any]:
+            import capo_sns.types.check_if_phone_number_is_opted_out_input
+
+            return capo_sns.types.check_if_phone_number_is_opted_out_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CheckIfPhoneNumberIsOptedOut", redact_input=_redact_input
+            ),
+        )
         input_: capo_sns.types.check_if_phone_number_is_opted_out_input.CheckIfPhoneNumberIsOptedOutInput = {
             "phone_number": phone_number
         }
@@ -388,7 +410,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ConfirmSubscription")
+        )
         input_: capo_sns.types.confirm_subscription_input.ConfirmSubscriptionInput = {
             "topic_arn": topic_arn,
             "token": token,
@@ -441,7 +465,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePlatformApplication")
+        )
         input_: capo_sns.types.create_platform_application_input.CreatePlatformApplicationInput = {
             "name": name,
             "platform": platform,
@@ -498,7 +524,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePlatformEndpoint")
+        )
         input_: capo_sns.types.create_platform_endpoint_input.CreatePlatformEndpointInput = {
             "platform_application_arn": platform_application_arn,
             "token": token,
@@ -556,7 +584,21 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sns.types.create_sms_sandbox_phone_number_input.CreateSMSSandboxPhoneNumberInput",
+        ) -> dict[str, Any]:
+            import capo_sns.types.create_sms_sandbox_phone_number_input
+
+            return (
+                capo_sns.types.create_sms_sandbox_phone_number_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateSMSSandboxPhoneNumber", redact_input=_redact_input),
+        )
         input_: capo_sns.types.create_sms_sandbox_phone_number_input.CreateSMSSandboxPhoneNumberInput = {
             "phone_number": phone_number
         }
@@ -620,7 +662,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTopic")
+        )
         input_: capo_sns.types.create_topic_input.CreateTopicInput = {"name": name}
         if attributes is not None:
             input_["attributes"] = attributes
@@ -668,7 +712,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEndpoint")
+        )
         input_: capo_sns.types.delete_endpoint_input.DeleteEndpointInput = {
             "endpoint_arn": endpoint_arn
         }
@@ -712,7 +758,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePlatformApplication")
+        )
         input_: capo_sns.types.delete_platform_application_input.DeletePlatformApplicationInput = {
             "platform_application_arn": platform_application_arn
         }
@@ -761,7 +809,21 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sns.types.delete_sms_sandbox_phone_number_input.DeleteSMSSandboxPhoneNumberInput",
+        ) -> dict[str, Any]:
+            import capo_sns.types.delete_sms_sandbox_phone_number_input
+
+            return (
+                capo_sns.types.delete_sms_sandbox_phone_number_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteSMSSandboxPhoneNumber", redact_input=_redact_input),
+        )
         input_: capo_sns.types.delete_sms_sandbox_phone_number_input.DeleteSMSSandboxPhoneNumberInput = {
             "phone_number": phone_number
         }
@@ -810,7 +872,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTopic")
+        )
         input_: capo_sns.types.delete_topic_input.DeleteTopicInput = {
             "topic_arn": topic_arn
         }
@@ -858,7 +922,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataProtectionPolicy")
+        )
         input_: capo_sns.types.get_data_protection_policy_input.GetDataProtectionPolicyInput = {
             "resource_arn": resource_arn
         }
@@ -907,7 +973,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEndpointAttributes")
+        )
         input_: capo_sns.types.get_endpoint_attributes_input.GetEndpointAttributesInput = {
             "endpoint_arn": endpoint_arn
         }
@@ -954,7 +1022,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPlatformApplicationAttributes")
+        )
         input_: capo_sns.types.get_platform_application_attributes_input.GetPlatformApplicationAttributesInput = {
             "platform_application_arn": platform_application_arn
         }
@@ -1001,7 +1071,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSMSAttributes")
+        )
         input_: capo_sns.types.get_sms_attributes_input.GetSMSAttributesInput = {}
         if attributes is not None:
             input_["attributes"] = attributes
@@ -1041,7 +1113,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSMSSandboxAccountStatus")
+        )
         input_: capo_sns.types.get_sms_sandbox_account_status_input.GetSMSSandboxAccountStatusInput = {}
 
         response = await aexecute_pipeline(
@@ -1086,7 +1160,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSubscriptionAttributes")
+        )
         input_: capo_sns.types.get_subscription_attributes_input.GetSubscriptionAttributesInput = {
             "subscription_arn": subscription_arn
         }
@@ -1134,7 +1210,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTopicAttributes")
+        )
         input_: capo_sns.types.get_topic_attributes_input.GetTopicAttributesInput = {
             "topic_arn": topic_arn
         }
@@ -1183,7 +1261,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEndpointsByPlatformApplication")
+        )
         input_: capo_sns.types.list_endpoints_by_platform_application_input.ListEndpointsByPlatformApplicationInput = {
             "platform_application_arn": platform_application_arn
         }
@@ -1258,7 +1338,19 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sns.types.list_origination_numbers_result.ListOriginationNumbersResult",
+        ) -> dict[str, Any]:
+            import capo_sns.types.list_origination_numbers_result
+
+            return capo_sns.types.list_origination_numbers_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListOriginationNumbers", redact_output=_redact_output),
+        )
         input_: capo_sns.types.list_origination_numbers_request.ListOriginationNumbersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1332,7 +1424,21 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sns.types.list_phone_numbers_opted_out_response.ListPhoneNumbersOptedOutResponse",
+        ) -> dict[str, Any]:
+            import capo_sns.types.list_phone_numbers_opted_out_response
+
+            return (
+                capo_sns.types.list_phone_numbers_opted_out_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListPhoneNumbersOptedOut", redact_output=_redact_output),
+        )
         input_: capo_sns.types.list_phone_numbers_opted_out_input.ListPhoneNumbersOptedOutInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1397,7 +1503,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPlatformApplications")
+        )
         input_: capo_sns.types.list_platform_applications_input.ListPlatformApplicationsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1466,7 +1574,23 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sns.types.list_sms_sandbox_phone_numbers_result.ListSMSSandboxPhoneNumbersResult",
+        ) -> dict[str, Any]:
+            import capo_sns.types.list_sms_sandbox_phone_numbers_result
+
+            return (
+                capo_sns.types.list_sms_sandbox_phone_numbers_result.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListSMSSandboxPhoneNumbers", redact_output=_redact_output
+            ),
+        )
         input_: capo_sns.types.list_sms_sandbox_phone_numbers_input.ListSMSSandboxPhoneNumbersInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1535,7 +1659,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSubscriptions")
+        )
         input_: capo_sns.types.list_subscriptions_input.ListSubscriptionsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1603,7 +1729,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSubscriptionsByTopic")
+        )
         input_: capo_sns.types.list_subscriptions_by_topic_input.ListSubscriptionsByTopicInput = {
             "topic_arn": topic_arn
         }
@@ -1674,7 +1802,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_sns.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1720,7 +1850,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTopics")
+        )
         input_: capo_sns.types.list_topics_input.ListTopicsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1786,7 +1918,17 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sns.types.opt_in_phone_number_input.OptInPhoneNumberInput",
+        ) -> dict[str, Any]:
+            import capo_sns.types.opt_in_phone_number_input
+
+            return capo_sns.types.opt_in_phone_number_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("OptInPhoneNumber", redact_input=_redact_input),
+        )
         input_: capo_sns.types.opt_in_phone_number_input.OptInPhoneNumberInput = {
             "phone_number": phone_number
         }
@@ -1862,7 +2004,16 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sns.types.publish_input.PublishInput",
+        ) -> dict[str, Any]:
+            import capo_sns.types.publish_input
+
+            return capo_sns.types.publish_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Publish", redact_input=_redact_input)
+        )
         input_: capo_sns.types.publish_input.PublishInput = {"message": message}
         if topic_arn is not None:
             input_["topic_arn"] = topic_arn
@@ -1941,7 +2092,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PublishBatch")
+        )
         input_: capo_sns.types.publish_batch_input.PublishBatchInput = {
             "topic_arn": topic_arn,
             "publish_batch_request_entries": publish_batch_request_entries,
@@ -1990,7 +2143,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDataProtectionPolicy")
+        )
         input_: capo_sns.types.put_data_protection_policy_input.PutDataProtectionPolicyInput = {
             "resource_arn": resource_arn,
             "data_protection_policy": data_protection_policy,
@@ -2038,7 +2193,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemovePermission")
+        )
         input_: capo_sns.types.remove_permission_input.RemovePermissionInput = {
             "topic_arn": topic_arn,
             "label": label,
@@ -2086,7 +2243,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetEndpointAttributes")
+        )
         input_: capo_sns.types.set_endpoint_attributes_input.SetEndpointAttributesInput = {
             "endpoint_arn": endpoint_arn,
             "attributes": attributes,
@@ -2134,7 +2293,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetPlatformApplicationAttributes")
+        )
         input_: capo_sns.types.set_platform_application_attributes_input.SetPlatformApplicationAttributesInput = {
             "platform_application_arn": platform_application_arn,
             "attributes": attributes,
@@ -2182,7 +2343,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetSMSAttributes")
+        )
         input_: capo_sns.types.set_sms_attributes_input.SetSMSAttributesInput = {
             "attributes": attributes
         }
@@ -2235,7 +2398,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetSubscriptionAttributes")
+        )
         input_: capo_sns.types.set_subscription_attributes_input.SetSubscriptionAttributesInput = {
             "subscription_arn": subscription_arn,
             "attribute_name": attribute_name,
@@ -2290,7 +2455,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetTopicAttributes")
+        )
         input_: capo_sns.types.set_topic_attributes_input.SetTopicAttributesInput = {
             "topic_arn": topic_arn,
             "attribute_name": attribute_name,
@@ -2354,7 +2521,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Subscribe")
+        )
         input_: capo_sns.types.subscribe_input.SubscribeInput = {
             "topic_arn": topic_arn,
             "protocol": protocol,
@@ -2413,7 +2582,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_sns.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2460,7 +2631,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Unsubscribe")
+        )
         input_: capo_sns.types.unsubscribe_input.UnsubscribeInput = {
             "subscription_arn": subscription_arn
         }
@@ -2512,7 +2685,9 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_sns.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2564,7 +2739,21 @@ class AsyncSNSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sns.types.verify_sms_sandbox_phone_number_input.VerifySMSSandboxPhoneNumberInput",
+        ) -> dict[str, Any]:
+            import capo_sns.types.verify_sms_sandbox_phone_number_input
+
+            return (
+                capo_sns.types.verify_sms_sandbox_phone_number_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("VerifySMSSandboxPhoneNumber", redact_input=_redact_input),
+        )
         input_: capo_sns.types.verify_sms_sandbox_phone_number_input.VerifySMSSandboxPhoneNumberInput = {
             "phone_number": phone_number,
             "one_time_password": one_time_password,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.voiceid#ListDomainsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,15 @@ def deserialize_aws_json_1_0(data: dict) -> ListDomainsResponse:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListDomainsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "domain_summaries" in value:
+        import capo_voice_id.types.domain_summaries
+
+        out["domain_summaries"] = capo_voice_id.types.domain_summaries.redact_sensitive(
+            value["domain_summaries"]
+        )
     return out

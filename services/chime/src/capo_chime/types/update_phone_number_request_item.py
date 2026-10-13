@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chime#UpdatePhoneNumberRequestItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,4 +56,11 @@ def deserialize_json(data: dict) -> UpdatePhoneNumberRequestItem:
         )
     if data.get("CallingName") is not None:
         out["calling_name"] = data["CallingName"]
+    return out
+
+
+def redact_sensitive(value: UpdatePhoneNumberRequestItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "calling_name" in value:
+        out["calling_name"] = "*** Sensitive Data Redacted ***"
     return out

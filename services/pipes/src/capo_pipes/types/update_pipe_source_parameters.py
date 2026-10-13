@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#UpdatePipeSourceParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -178,6 +178,25 @@ def deserialize_json(data: dict) -> UpdatePipeSourceParameters:
         out["self_managed_kafka_parameters"] = (
             capo_pipes.types.update_pipe_source_self_managed_kafka_parameters.deserialize_json(
                 data["SelfManagedKafkaParameters"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdatePipeSourceParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "filter_criteria" in value:
+        import capo_pipes.types.filter_criteria
+
+        out["filter_criteria"] = capo_pipes.types.filter_criteria.redact_sensitive(
+            value["filter_criteria"]
+        )
+    if "self_managed_kafka_parameters" in value:
+        import capo_pipes.types.update_pipe_source_self_managed_kafka_parameters
+
+        out["self_managed_kafka_parameters"] = (
+            capo_pipes.types.update_pipe_source_self_managed_kafka_parameters.redact_sensitive(
+                value["self_managed_kafka_parameters"]
             )
         )
     return out

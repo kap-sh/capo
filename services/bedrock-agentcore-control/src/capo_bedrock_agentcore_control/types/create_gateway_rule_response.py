@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#CreateGatewayRuleResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -152,5 +152,16 @@ def deserialize_json(data: dict) -> CreateGatewayRuleResponse:
             capo_bedrock_agentcore_control.types.system_managed_block.deserialize_json(
                 data["system"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateGatewayRuleResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "actions" in value:
+        import capo_bedrock_agentcore_control.types.actions
+
+        out["actions"] = capo_bedrock_agentcore_control.types.actions.redact_sensitive(
+            value["actions"]
         )
     return out

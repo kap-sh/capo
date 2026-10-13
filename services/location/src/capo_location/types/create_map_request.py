@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#CreateMapRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -71,4 +71,15 @@ def deserialize_json(data: dict) -> CreateMapRequest:
         import capo_location.types.tag_map
 
         out["tags"] = capo_location.types.tag_map.deserialize_json(data["Tags"])
+    return out
+
+
+def redact_sensitive(value: CreateMapRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "configuration" in value:
+        import capo_location.types.map_configuration
+
+        out["configuration"] = capo_location.types.map_configuration.redact_sensitive(
+            value["configuration"]
+        )
     return out

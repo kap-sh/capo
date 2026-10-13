@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#OutputConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,4 +39,15 @@ def deserialize_json(data: dict) -> OutputConfig:
         )
     if data.get("effort") is not None:
         out["effort"] = data["effort"]
+    return out
+
+
+def redact_sensitive(value: OutputConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text_format" in value:
+        import capo_bedrock_runtime.types.output_format
+
+        out["text_format"] = capo_bedrock_runtime.types.output_format.redact_sensitive(
+            value["text_format"]
+        )
     return out

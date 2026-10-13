@@ -41,7 +41,9 @@ from capo_supplychain._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -234,7 +236,9 @@ class AsyncSupplyChainClient:
         self.instance_resource = AsyncInstanceResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncSupplyChainClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncSupplyChainClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSupplyChainClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -242,8 +246,10 @@ class AsyncSupplyChainClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -306,7 +312,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataIntegrationEvent")
+        )
         input_: capo_supplychain.types.get_data_integration_event_request.GetDataIntegrationEventRequest = {
             "instance_id": instance_id,
             "event_id": event_id,
@@ -369,7 +377,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataIntegrationFlowExecution")
+        )
         input_: capo_supplychain.types.get_data_integration_flow_execution_request.GetDataIntegrationFlowExecutionRequest = {
             "instance_id": instance_id,
             "flow_name": flow_name,
@@ -438,7 +448,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataIntegrationEvents")
+        )
         input_: capo_supplychain.types.list_data_integration_events_request.ListDataIntegrationEventsRequest = {
             "instance_id": instance_id
         }
@@ -540,7 +552,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataIntegrationFlowExecutions")
+        )
         input_: capo_supplychain.types.list_data_integration_flow_executions_request.ListDataIntegrationFlowExecutionsRequest = {
             "instance_id": instance_id,
             "flow_name": flow_name,
@@ -629,7 +643,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_supplychain.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -745,7 +761,19 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_supplychain.types.send_data_integration_event_request.SendDataIntegrationEventRequest",
+        ) -> dict[str, Any]:
+            import capo_supplychain.types.send_data_integration_event_request
+
+            return capo_supplychain.types.send_data_integration_event_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SendDataIntegrationEvent", redact_input=_redact_input),
+        )
         input_: capo_supplychain.types.send_data_integration_event_request.SendDataIntegrationEventRequest = {
             "instance_id": instance_id,
             "event_type": event_type,
@@ -812,7 +840,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_supplychain.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -870,7 +900,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_supplychain.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -932,7 +964,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBillOfMaterialsImportJob")
+        )
         input_: capo_supplychain.types.create_bill_of_materials_import_job_request.CreateBillOfMaterialsImportJobRequest = {
             "instance_id": instance_id,
             "s3uri": s3uri,
@@ -996,7 +1030,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBillOfMaterialsImportJob")
+        )
         input_: capo_supplychain.types.get_bill_of_materials_import_job_request.GetBillOfMaterialsImportJobRequest = {
             "instance_id": instance_id,
             "job_id": job_id,
@@ -1065,7 +1101,19 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_supplychain.types.create_data_integration_flow_request.CreateDataIntegrationFlowRequest",
+        ) -> dict[str, Any]:
+            import capo_supplychain.types.create_data_integration_flow_request
+
+            return capo_supplychain.types.create_data_integration_flow_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDataIntegrationFlow", redact_input=_redact_input),
+        )
         input_: capo_supplychain.types.create_data_integration_flow_request.CreateDataIntegrationFlowRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -1128,7 +1176,19 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_supplychain.types.get_data_integration_flow_response.GetDataIntegrationFlowResponse",
+        ) -> dict[str, Any]:
+            import capo_supplychain.types.get_data_integration_flow_response
+
+            return capo_supplychain.types.get_data_integration_flow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDataIntegrationFlow", redact_output=_redact_output),
+        )
         input_: capo_supplychain.types.get_data_integration_flow_request.GetDataIntegrationFlowRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -1201,7 +1261,32 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_supplychain.types.update_data_integration_flow_request.UpdateDataIntegrationFlowRequest",
+        ) -> dict[str, Any]:
+            import capo_supplychain.types.update_data_integration_flow_request
+
+            return capo_supplychain.types.update_data_integration_flow_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_supplychain.types.update_data_integration_flow_response.UpdateDataIntegrationFlowResponse",
+        ) -> dict[str, Any]:
+            import capo_supplychain.types.update_data_integration_flow_response
+
+            return capo_supplychain.types.update_data_integration_flow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDataIntegrationFlow",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_supplychain.types.update_data_integration_flow_request.UpdateDataIntegrationFlowRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -1265,7 +1350,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataIntegrationFlow")
+        )
         input_: capo_supplychain.types.delete_data_integration_flow_request.DeleteDataIntegrationFlowRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -1329,7 +1416,19 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_supplychain.types.list_data_integration_flows_response.ListDataIntegrationFlowsResponse",
+        ) -> dict[str, Any]:
+            import capo_supplychain.types.list_data_integration_flows_response
+
+            return capo_supplychain.types.list_data_integration_flows_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListDataIntegrationFlows", redact_output=_redact_output),
+        )
         input_: capo_supplychain.types.list_data_integration_flows_request.ListDataIntegrationFlowsRequest = {
             "instance_id": instance_id
         }
@@ -1436,7 +1535,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataLakeDataset")
+        )
         input_: capo_supplychain.types.create_data_lake_dataset_request.CreateDataLakeDatasetRequest = {
             "instance_id": instance_id,
             "namespace": namespace,
@@ -1508,7 +1609,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataLakeDataset")
+        )
         input_: capo_supplychain.types.get_data_lake_dataset_request.GetDataLakeDatasetRequest = {
             "instance_id": instance_id,
             "namespace": namespace,
@@ -1576,7 +1679,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataLakeDataset")
+        )
         input_: capo_supplychain.types.update_data_lake_dataset_request.UpdateDataLakeDatasetRequest = {
             "instance_id": instance_id,
             "namespace": namespace,
@@ -1642,7 +1747,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataLakeDataset")
+        )
         input_: capo_supplychain.types.delete_data_lake_dataset_request.DeleteDataLakeDatasetRequest = {
             "instance_id": instance_id,
             "namespace": namespace,
@@ -1712,7 +1819,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataLakeDatasets")
+        )
         input_: capo_supplychain.types.list_data_lake_datasets_request.ListDataLakeDatasetsRequest = {
             "instance_id": instance_id,
             "namespace": namespace,
@@ -1809,7 +1918,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataLakeNamespace")
+        )
         input_: capo_supplychain.types.create_data_lake_namespace_request.CreateDataLakeNamespaceRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -1874,7 +1985,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataLakeNamespace")
+        )
         input_: capo_supplychain.types.get_data_lake_namespace_request.GetDataLakeNamespaceRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -1936,7 +2049,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataLakeNamespace")
+        )
         input_: capo_supplychain.types.update_data_lake_namespace_request.UpdateDataLakeNamespaceRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -1996,7 +2111,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataLakeNamespace")
+        )
         input_: capo_supplychain.types.delete_data_lake_namespace_request.DeleteDataLakeNamespaceRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -2063,7 +2180,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataLakeNamespaces")
+        )
         input_: capo_supplychain.types.list_data_lake_namespaces_request.ListDataLakeNamespacesRequest = {
             "instance_id": instance_id
         }
@@ -2170,7 +2289,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInstance")
+        )
         input_: capo_supplychain.types.create_instance_request.CreateInstanceRequest = {}
         if instance_name is not None:
             input_["instance_name"] = instance_name
@@ -2239,7 +2360,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInstance")
+        )
         input_: capo_supplychain.types.get_instance_request.GetInstanceRequest = {
             "instance_id": instance_id
         }
@@ -2302,7 +2425,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateInstance")
+        )
         input_: capo_supplychain.types.update_instance_request.UpdateInstanceRequest = {
             "instance_id": instance_id
         }
@@ -2361,7 +2486,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInstance")
+        )
         input_: capo_supplychain.types.delete_instance_request.DeleteInstanceRequest = {
             "instance_id": instance_id
         }
@@ -2439,7 +2566,9 @@ class AsyncSupplyChainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInstances")
+        )
         input_: capo_supplychain.types.list_instances_request.ListInstancesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

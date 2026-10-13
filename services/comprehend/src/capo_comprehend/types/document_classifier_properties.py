@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.comprehend#DocumentClassifierProperties``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -274,4 +274,11 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentClassifierProperties:
         out["source_model_arn"] = data["SourceModelArn"]
     if data.get("FlywheelArn") is not None:
         out["flywheel_arn"] = data["FlywheelArn"]
+    return out
+
+
+def redact_sensitive(value: DocumentClassifierProperties) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "classifier_metadata" in value:
+        out["classifier_metadata"] = "*** Sensitive Data Redacted ***"
     return out

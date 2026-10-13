@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.socialmessaging#WabaPhoneNumberSetupFinalization``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,4 +58,11 @@ def deserialize_json(data: dict) -> WabaPhoneNumberSetupFinalization:
         import capo_socialmessaging.types.tag_list
 
         out["tags"] = capo_socialmessaging.types.tag_list.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: WabaPhoneNumberSetupFinalization) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "two_factor_pin" in value:
+        out["two_factor_pin"] = "*** Sensitive Data Redacted ***"
     return out

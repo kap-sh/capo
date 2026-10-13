@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workmailmessageflow#GetRawMessageContentResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -13,3 +13,10 @@ class GetRawMessageContentResponse(TypedDict, closed=True):
         "capo_workmailmessageflow.types.message_content_blob.messageContentBlob"
     )
     """<p>The raw content of the email message, in MIME format.</p>"""
+
+
+def redact_sensitive(value: GetRawMessageContentResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "message_content" in value:
+        out["message_content"] = "*** Streaming Data Redacted ***"
+    return out

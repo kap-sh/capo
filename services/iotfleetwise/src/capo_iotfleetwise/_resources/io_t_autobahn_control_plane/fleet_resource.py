@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_iotfleetwise._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -86,7 +87,9 @@ class FleetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateFleet")
+        )
         input_: capo_iotfleetwise.types.create_fleet_request.CreateFleetRequest = {
             "fleet_id": fleet_id,
             "signal_catalog_arn": signal_catalog_arn,
@@ -138,7 +141,9 @@ class FleetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFleet")
+        )
         input_: capo_iotfleetwise.types.get_fleet_request.GetFleetRequest = {
             "fleet_id": fleet_id
         }
@@ -188,7 +193,9 @@ class FleetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFleet")
+        )
         input_: capo_iotfleetwise.types.update_fleet_request.UpdateFleetRequest = {
             "fleet_id": fleet_id
         }
@@ -236,7 +243,9 @@ class FleetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFleet")
+        )
         input_: capo_iotfleetwise.types.delete_fleet_request.DeleteFleetRequest = {
             "fleet_id": fleet_id
         }
@@ -289,7 +298,9 @@ class FleetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFleets")
+        )
         input_: capo_iotfleetwise.types.list_fleets_request.ListFleetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -354,7 +365,9 @@ class AsyncFleetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateFleet")
+        )
         input_: capo_iotfleetwise.types.create_fleet_request.CreateFleetRequest = {
             "fleet_id": fleet_id,
             "signal_catalog_arn": signal_catalog_arn,
@@ -407,7 +420,9 @@ class AsyncFleetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFleet")
+        )
         input_: capo_iotfleetwise.types.get_fleet_request.GetFleetRequest = {
             "fleet_id": fleet_id
         }
@@ -458,7 +473,9 @@ class AsyncFleetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFleet")
+        )
         input_: capo_iotfleetwise.types.update_fleet_request.UpdateFleetRequest = {
             "fleet_id": fleet_id
         }
@@ -507,7 +524,9 @@ class AsyncFleetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFleet")
+        )
         input_: capo_iotfleetwise.types.delete_fleet_request.DeleteFleetRequest = {
             "fleet_id": fleet_id
         }
@@ -561,7 +580,9 @@ class AsyncFleetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFleets")
+        )
         input_: capo_iotfleetwise.types.list_fleets_request.ListFleetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

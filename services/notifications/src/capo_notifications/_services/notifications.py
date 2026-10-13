@@ -52,10 +52,12 @@ from capo_notifications._resources.notifications.organizational_unit import (
 from capo_notifications._services._aws_config import aws_config
 from capo_notifications._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -269,7 +271,9 @@ class NotificationsClient:
         self.organizational_unit = OrganizationalUnit(self)
 
     def operation_options(
-        self, config_overrides: Optional[NotificationsClientConfig] = None
+        self,
+        config_overrides: Optional[NotificationsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: NotificationsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -277,8 +281,10 @@ class NotificationsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -332,7 +338,10 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListManagedNotificationChannelAssociations"),
+        )
         input_: capo_notifications.types.list_managed_notification_channel_associations_request.ListManagedNotificationChannelAssociationsRequest = {
             "managed_notification_configuration_arn": managed_notification_configuration_arn
         }
@@ -422,7 +431,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMemberAccounts")
+        )
         input_: capo_notifications.types.list_member_accounts_request.ListMemberAccountsRequest = {
             "notification_configuration_arn": notification_configuration_arn
         }
@@ -514,7 +525,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_notifications.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "arn": arn
         }
@@ -563,7 +576,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_notifications.types.tag_resource_request.TagResourceRequest = {
             "arn": arn,
             "tags": tags,
@@ -613,7 +628,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_notifications.types.untag_resource_request.UntagResourceRequest = {
             "arn": arn,
             "tag_keys": tag_keys,
@@ -666,7 +683,10 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateManagedNotificationChannelAssociation"),
+        )
         input_: capo_notifications.types.update_managed_notification_channel_association_request.UpdateManagedNotificationChannelAssociationRequest = {
             "managed_notification_configuration_arn": managed_notification_configuration_arn,
             "channel_identifier": channel_identifier,
@@ -720,7 +740,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateChannel")
+        )
         input_: capo_notifications.types.associate_channel_request.AssociateChannelRequest = {
             "arn": arn,
             "notification_configuration_arn": notification_configuration_arn,
@@ -770,7 +792,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateChannel")
+        )
         input_: capo_notifications.types.disassociate_channel_request.DisassociateChannelRequest = {
             "arn": arn,
             "notification_configuration_arn": notification_configuration_arn,
@@ -822,7 +846,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListChannels")
+        )
         input_: capo_notifications.types.list_channels_request.ListChannelsRequest = {
             "notification_configuration_arn": notification_configuration_arn
         }
@@ -908,7 +934,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEventRule")
+        )
         input_: capo_notifications.types.create_event_rule_request.CreateEventRuleRequest = {
             "notification_configuration_arn": notification_configuration_arn,
             "source": source,
@@ -967,7 +995,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEventRule")
+        )
         input_: capo_notifications.types.update_event_rule_request.UpdateEventRuleRequest = {
             "arn": arn
         }
@@ -1018,7 +1048,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEventRule")
+        )
         input_: capo_notifications.types.get_event_rule_request.GetEventRuleRequest = {
             "arn": arn
         }
@@ -1066,7 +1098,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEventRule")
+        )
         input_: capo_notifications.types.delete_event_rule_request.DeleteEventRuleRequest = {
             "arn": arn
         }
@@ -1117,7 +1151,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEventRules")
+        )
         input_: capo_notifications.types.list_event_rules_request.ListEventRulesRequest = {
             "notification_configuration_arn": notification_configuration_arn
         }
@@ -1197,7 +1233,10 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AssociateManagedNotificationAccountContact"),
+        )
         input_: capo_notifications.types.associate_managed_notification_account_contact_request.AssociateManagedNotificationAccountContactRequest = {
             "contact_identifier": contact_identifier,
             "managed_notification_configuration_arn": managed_notification_configuration_arn,
@@ -1250,7 +1289,10 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateManagedNotificationAccountContact"),
+        )
         input_: capo_notifications.types.disassociate_managed_notification_account_contact_request.DisassociateManagedNotificationAccountContactRequest = {
             "contact_identifier": contact_identifier,
             "managed_notification_configuration_arn": managed_notification_configuration_arn,
@@ -1304,7 +1346,10 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AssociateManagedNotificationAdditionalChannel"),
+        )
         input_: capo_notifications.types.associate_managed_notification_additional_channel_request.AssociateManagedNotificationAdditionalChannelRequest = {
             "channel_arn": channel_arn,
             "managed_notification_configuration_arn": managed_notification_configuration_arn,
@@ -1356,7 +1401,10 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateManagedNotificationAdditionalChannel"),
+        )
         input_: capo_notifications.types.disassociate_managed_notification_additional_channel_request.DisassociateManagedNotificationAdditionalChannelRequest = {
             "channel_arn": channel_arn,
             "managed_notification_configuration_arn": managed_notification_configuration_arn,
@@ -1406,7 +1454,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetManagedNotificationChildEvent")
+        )
         input_: capo_notifications.types.get_managed_notification_child_event_request.GetManagedNotificationChildEventRequest = {
             "arn": arn
         }
@@ -1472,7 +1522,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListManagedNotificationChildEvents")
+        )
         input_: capo_notifications.types.list_managed_notification_child_events_request.ListManagedNotificationChildEventsRequest = {
             "aggregate_managed_notification_event_arn": aggregate_managed_notification_event_arn
         }
@@ -1570,7 +1622,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetManagedNotificationConfiguration")
+        )
         input_: capo_notifications.types.get_managed_notification_configuration_request.GetManagedNotificationConfigurationRequest = {
             "arn": arn
         }
@@ -1622,7 +1676,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListManagedNotificationConfigurations")
+        )
         input_: capo_notifications.types.list_managed_notification_configurations_request.ListManagedNotificationConfigurationsRequest = {}
         if channel_identifier is not None:
             input_["channel_identifier"] = channel_identifier
@@ -1700,7 +1756,21 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_notifications.types.get_managed_notification_event_response.GetManagedNotificationEventResponse",
+        ) -> dict[str, Any]:
+            import capo_notifications.types.get_managed_notification_event_response
+
+            return capo_notifications.types.get_managed_notification_event_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetManagedNotificationEvent", redact_output=_redact_output
+            ),
+        )
         input_: capo_notifications.types.get_managed_notification_event_request.GetManagedNotificationEventRequest = {
             "arn": arn
         }
@@ -1768,7 +1838,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListManagedNotificationEvents")
+        )
         input_: capo_notifications.types.list_managed_notification_events_request.ListManagedNotificationEventsRequest = {}
         if start_time is not None:
             input_["start_time"] = start_time
@@ -1879,7 +1951,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateNotificationConfiguration")
+        )
         input_: capo_notifications.types.create_notification_configuration_request.CreateNotificationConfigurationRequest = {
             "name": name,
             "description": description,
@@ -1944,7 +2018,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNotificationConfiguration")
+        )
         input_: capo_notifications.types.update_notification_configuration_request.UpdateNotificationConfigurationRequest = {
             "arn": arn
         }
@@ -1997,7 +2073,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNotificationConfiguration")
+        )
         input_: capo_notifications.types.get_notification_configuration_request.GetNotificationConfigurationRequest = {
             "arn": arn
         }
@@ -2045,7 +2123,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNotificationConfiguration")
+        )
         input_: capo_notifications.types.delete_notification_configuration_request.DeleteNotificationConfigurationRequest = {
             "arn": arn
         }
@@ -2105,7 +2185,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNotificationConfigurations")
+        )
         input_: capo_notifications.types.list_notification_configurations_request.ListNotificationConfigurationsRequest = {}
         if event_rule_source is not None:
             input_["event_rule_source"] = event_rule_source
@@ -2197,7 +2279,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNotificationEvent")
+        )
         input_: capo_notifications.types.get_notification_event_request.GetNotificationEventRequest = {
             "arn": arn
         }
@@ -2265,7 +2349,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNotificationEvents")
+        )
         input_: capo_notifications.types.list_notification_events_request.ListNotificationEventsRequest = {}
         if start_time is not None:
             input_["start_time"] = start_time
@@ -2370,7 +2456,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterNotificationHub")
+        )
         input_: capo_notifications.types.register_notification_hub_request.RegisterNotificationHubRequest = {
             "notification_hub_region": notification_hub_region
         }
@@ -2418,7 +2506,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterNotificationHub")
+        )
         input_: capo_notifications.types.deregister_notification_hub_request.DeregisterNotificationHubRequest = {
             "notification_hub_region": notification_hub_region
         }
@@ -2466,7 +2556,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNotificationHubs")
+        )
         input_: capo_notifications.types.list_notification_hubs_request.ListNotificationHubsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2532,7 +2624,10 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("EnableNotificationsAccessForOrganization"),
+        )
         input_: capo_notifications.types.enable_notifications_access_for_organization_request.EnableNotificationsAccessForOrganizationRequest = {}
 
         response = execute_pipeline(
@@ -2570,7 +2665,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNotificationsAccessForOrganization")
+        )
         input_: capo_notifications.types.get_notifications_access_for_organization_request.GetNotificationsAccessForOrganizationRequest = {}
 
         response = execute_pipeline(
@@ -2611,7 +2708,10 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisableNotificationsAccessForOrganization"),
+        )
         input_: capo_notifications.types.disable_notifications_access_for_organization_request.DisableNotificationsAccessForOrganizationRequest = {}
 
         response = execute_pipeline(
@@ -2660,7 +2760,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateOrganizationalUnit")
+        )
         input_: capo_notifications.types.associate_organizational_unit_request.AssociateOrganizationalUnitRequest = {
             "organizational_unit_id": organizational_unit_id,
             "notification_configuration_arn": notification_configuration_arn,
@@ -2710,7 +2812,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateOrganizationalUnit")
+        )
         input_: capo_notifications.types.disassociate_organizational_unit_request.DisassociateOrganizationalUnitRequest = {
             "organizational_unit_id": organizational_unit_id,
             "notification_configuration_arn": notification_configuration_arn,
@@ -2762,7 +2866,9 @@ class NotificationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOrganizationalUnits")
+        )
         input_: capo_notifications.types.list_organizational_units_request.ListOrganizationalUnitsRequest = {
             "notification_configuration_arn": notification_configuration_arn
         }

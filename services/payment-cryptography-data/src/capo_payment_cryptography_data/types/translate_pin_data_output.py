@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#TranslatePinDataOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -46,4 +46,11 @@ def deserialize_json(data: dict) -> TranslatePinDataOutput:
         out["key_check_value"] = data["KeyCheckValue"]
     else:
         raise DeserializationError("TranslatePinDataOutput.key_check_value required")
+    return out
+
+
+def redact_sensitive(value: TranslatePinDataOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "pin_block" in value:
+        out["pin_block"] = "*** Sensitive Data Redacted ***"
     return out

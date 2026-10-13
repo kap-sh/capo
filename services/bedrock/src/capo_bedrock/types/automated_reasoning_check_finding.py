@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningCheckFinding``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -178,3 +178,48 @@ def deserialize_json(data: dict) -> AutomatedReasoningCheckFinding:
         raise DeserializationError(
             "AutomatedReasoningCheckFinding: no recognized variant key"
         )
+
+
+def redact_sensitive(value: AutomatedReasoningCheckFinding) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "valid" in value:
+        import capo_bedrock.types.automated_reasoning_check_valid_finding
+
+        out["valid"] = (
+            capo_bedrock.types.automated_reasoning_check_valid_finding.redact_sensitive(
+                value["valid"]
+            )
+        )
+    if "invalid" in value:
+        import capo_bedrock.types.automated_reasoning_check_invalid_finding
+
+        out["invalid"] = (
+            capo_bedrock.types.automated_reasoning_check_invalid_finding.redact_sensitive(
+                value["invalid"]
+            )
+        )
+    if "satisfiable" in value:
+        import capo_bedrock.types.automated_reasoning_check_satisfiable_finding
+
+        out["satisfiable"] = (
+            capo_bedrock.types.automated_reasoning_check_satisfiable_finding.redact_sensitive(
+                value["satisfiable"]
+            )
+        )
+    if "impossible" in value:
+        import capo_bedrock.types.automated_reasoning_check_impossible_finding
+
+        out["impossible"] = (
+            capo_bedrock.types.automated_reasoning_check_impossible_finding.redact_sensitive(
+                value["impossible"]
+            )
+        )
+    if "translationAmbiguous" in value:
+        import capo_bedrock.types.automated_reasoning_check_translation_ambiguous_finding
+
+        out["translationAmbiguous"] = (
+            capo_bedrock.types.automated_reasoning_check_translation_ambiguous_finding.redact_sensitive(
+                value["translationAmbiguous"]
+            )
+        )
+    return out

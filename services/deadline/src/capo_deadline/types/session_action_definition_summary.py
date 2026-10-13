@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#SessionActionDefinitionSummary``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -112,3 +112,16 @@ def deserialize_json(data: dict) -> SessionActionDefinitionSummary:
         raise DeserializationError(
             "SessionActionDefinitionSummary: no recognized variant key"
         )
+
+
+def redact_sensitive(value: SessionActionDefinitionSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "taskRun" in value:
+        import capo_deadline.types.task_run_session_action_definition_summary
+
+        out["taskRun"] = (
+            capo_deadline.types.task_run_session_action_definition_summary.redact_sensitive(
+                value["taskRun"]
+            )
+        )
+    return out

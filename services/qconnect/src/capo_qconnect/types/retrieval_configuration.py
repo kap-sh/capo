@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#RetrievalConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -76,4 +76,17 @@ def deserialize_json(data: dict) -> RetrievalConfiguration:
         out["override_knowledge_base_search_type"] = data[
             "overrideKnowledgeBaseSearchType"
         ]
+    return out
+
+
+def redact_sensitive(value: RetrievalConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "filter" in value:
+        import capo_qconnect.types.retrieval_filter_configuration
+
+        out["filter"] = (
+            capo_qconnect.types.retrieval_filter_configuration.redact_sensitive(
+                value["filter"]
+            )
+        )
     return out

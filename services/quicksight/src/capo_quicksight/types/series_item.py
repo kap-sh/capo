@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SeriesItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,6 +56,19 @@ def deserialize_json(data: dict) -> SeriesItem:
         out["data_field_series_item"] = (
             capo_quicksight.types.data_field_series_item.deserialize_json(
                 data["DataFieldSeriesItem"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SeriesItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "data_field_series_item" in value:
+        import capo_quicksight.types.data_field_series_item
+
+        out["data_field_series_item"] = (
+            capo_quicksight.types.data_field_series_item.redact_sensitive(
+                value["data_field_series_item"]
             )
         )
     return out

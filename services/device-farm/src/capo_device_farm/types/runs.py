@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devicefarm#Runs``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_device_farm.types.run
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> Runs:
             continue
         out.append(capo_device_farm.types.run.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: Runs) -> list[Any]:
+    import capo_device_farm.types.run
+
+    return [capo_device_farm.types.run.redact_sensitive(item) for item in value]

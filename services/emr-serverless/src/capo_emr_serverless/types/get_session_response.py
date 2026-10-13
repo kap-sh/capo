@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.emrserverless#GetSessionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -34,4 +34,15 @@ def deserialize_json(data: dict) -> GetSessionResponse:
         )
     else:
         raise DeserializationError("GetSessionResponse.session required")
+    return out
+
+
+def redact_sensitive(value: GetSessionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "session" in value:
+        import capo_emr_serverless.types.session
+
+        out["session"] = capo_emr_serverless.types.session.redact_sensitive(
+            value["session"]
+        )
     return out

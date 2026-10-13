@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#Metadata``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_datazone.types.metadata_key
@@ -27,3 +27,7 @@ def deserialize_json(data: dict) -> Metadata:
             continue
         out[key] = value
     return out
+
+
+def redact_sensitive(value: Metadata) -> dict[str, Any]:
+    return dict.fromkeys(value, "*** Sensitive Data Redacted ***")

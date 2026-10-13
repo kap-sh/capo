@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmessaging#UpdateChannelMessageRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -59,4 +59,15 @@ def deserialize_json(data: dict) -> UpdateChannelMessageRequest:
         out["sub_channel_id"] = data["SubChannelId"]
     if data.get("ContentType") is not None:
         out["content_type"] = data["ContentType"]
+    return out
+
+
+def redact_sensitive(value: UpdateChannelMessageRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        out["content"] = "*** Sensitive Data Redacted ***"
+    if "metadata" in value:
+        out["metadata"] = "*** Sensitive Data Redacted ***"
+    if "content_type" in value:
+        out["content_type"] = "*** Sensitive Data Redacted ***"
     return out

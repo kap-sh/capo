@@ -1,10 +1,19 @@
 from __future__ import annotations
 
+import logging
 import random
 import time
 from collections.abc import AsyncIterator, Iterator, Sequence
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, Awaitable, Callable, Generic, TypeVar, cast
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Awaitable,
+    Callable,
+    Generic,
+    TypeVar,
+    cast,
+)
 
 from typing_extensions import Never
 from zapros import (
@@ -26,6 +35,8 @@ from capo_omics.errors import ServiceError
 if TYPE_CHECKING:
     from capo_omics._auth._identity import Credentials
     from capo_omics._auth._providers import IdentityProvider
+
+logger = logging.getLogger("capo_omics.operation")
 
 TInput = TypeVar("TInput")
 TOutput = TypeVar("TOutput")
@@ -98,6 +109,16 @@ AsyncInterceptor = Callable[
     [AsyncOperationRequest[TInput], AsyncNextFn[TInput, TOutput]],
     Awaitable[AsyncOperationResponse[TOutput]],
 ]
+
+
+@dataclass
+class OperationLogging:
+    """What the logging interceptor needs to know about one operation call."""
+
+    operation: str
+    # Return a copy that is safe to log; None when the shape has nothing to hide.
+    redact_input: Callable[[Any], dict[str, Any]] | None = None
+    redact_output: Callable[[Any], dict[str, Any]] | None = None
 
 
 def execute_pipeline(
@@ -225,11 +246,36 @@ def retry() -> Interceptor[TInput, TOutput]:
                     if not _is_pre_transmission(exc) and not _prepare_retry(
                         request.input
                     ):
+                        logger.debug(
+                            "attempt %d/%d failed: %r, not retrying because the request body cannot be replayed",
+                            attempt,
+                            max_attempts,
+                            exc,
+                            extra={
+                                "attempt": attempt,
+                                "max_attempts": max_attempts,
+                                "error": exc,
+                            },
+                        )
                         raise
                     is_throttling = (
                         isinstance(exc, ServiceError) and exc.is_throttling_error
                     )
-                    time.sleep(_retry_delay(attempt, is_throttling))
+                    delay = _retry_delay(attempt, is_throttling)
+                    logger.debug(
+                        "attempt %d/%d failed: %r, retrying in %.2fs",
+                        attempt,
+                        max_attempts,
+                        exc,
+                        delay,
+                        extra={
+                            "attempt": attempt,
+                            "max_attempts": max_attempts,
+                            "error": exc,
+                            "delay": delay,
+                        },
+                    )
+                    time.sleep(delay)
 
         assert last_exc
         raise last_exc
@@ -254,13 +300,132 @@ def aretry() -> AsyncInterceptor[TInput, TOutput]:
                     if not _is_pre_transmission(exc) and not await _aprepare_retry(
                         request.input
                     ):
+                        logger.debug(
+                            "attempt %d/%d failed: %r, not retrying because the request body cannot be replayed",
+                            attempt,
+                            max_attempts,
+                            exc,
+                            extra={
+                                "attempt": attempt,
+                                "max_attempts": max_attempts,
+                                "error": exc,
+                            },
+                        )
                         raise
                     is_throttling = (
                         isinstance(exc, ServiceError) and exc.is_throttling_error
                     )
-                    await anysleep(_retry_delay(attempt, is_throttling))
+                    delay = _retry_delay(attempt, is_throttling)
+                    logger.debug(
+                        "attempt %d/%d failed: %r, retrying in %.2fs",
+                        attempt,
+                        max_attempts,
+                        exc,
+                        delay,
+                        extra={
+                            "attempt": attempt,
+                            "max_attempts": max_attempts,
+                            "error": exc,
+                            "delay": delay,
+                        },
+                    )
+                    await anysleep(delay)
 
         assert last_exc
         raise last_exc
+
+    return interceptor
+
+
+def log_operation(operation_logging: OperationLogging) -> Interceptor[TInput, TOutput]:
+    operation = operation_logging.operation
+    redact_input = operation_logging.redact_input
+    redact_output = operation_logging.redact_output
+
+    def interceptor(
+        request: OperationRequest[TInput], next: NextFn[TInput, TOutput]
+    ) -> OperationResponse[TOutput]:
+        debug = logger.isEnabledFor(logging.DEBUG)
+        if debug:
+            input_ = (
+                request.input if redact_input is None else redact_input(request.input)
+            )
+            logger.debug(
+                "%s input: %r",
+                operation,
+                input_,
+                extra={"operation": operation, "input": input_},
+            )
+        try:
+            response = next(request)
+        except Exception as exc:
+            logger.debug(
+                "%s failed: %r",
+                operation,
+                exc,
+                extra={"operation": operation, "error": exc},
+            )
+            raise
+        if debug:
+            output = (
+                response.output
+                if redact_output is None
+                else redact_output(response.output)
+            )
+            logger.debug(
+                "%s output: %r",
+                operation,
+                output,
+                extra={"operation": operation, "output": output},
+            )
+        return response
+
+    return interceptor
+
+
+def alog_operation(
+    operation_logging: OperationLogging,
+) -> AsyncInterceptor[TInput, TOutput]:
+    operation = operation_logging.operation
+    redact_input = operation_logging.redact_input
+    redact_output = operation_logging.redact_output
+
+    async def interceptor(
+        request: AsyncOperationRequest[TInput], next: AsyncNextFn[TInput, TOutput]
+    ) -> AsyncOperationResponse[TOutput]:
+        debug = logger.isEnabledFor(logging.DEBUG)
+        if debug:
+            input_ = (
+                request.input if redact_input is None else redact_input(request.input)
+            )
+            logger.debug(
+                "%s input: %r",
+                operation,
+                input_,
+                extra={"operation": operation, "input": input_},
+            )
+        try:
+            response = await next(request)
+        except Exception as exc:
+            logger.debug(
+                "%s failed: %r",
+                operation,
+                exc,
+                extra={"operation": operation, "error": exc},
+            )
+            raise
+        if debug:
+            output = (
+                response.output
+                if redact_output is None
+                else redact_output(response.output)
+            )
+            logger.debug(
+                "%s output: %r",
+                operation,
+                output,
+                extra={"operation": operation, "output": output},
+            )
+        return response
 
     return interceptor

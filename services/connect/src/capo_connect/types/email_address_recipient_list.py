@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#EmailAddressRecipientList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_connect.types.email_address_info
@@ -29,3 +29,11 @@ def deserialize_json(data: list) -> EmailAddressRecipientList:
             continue
         out.append(capo_connect.types.email_address_info.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: EmailAddressRecipientList) -> list[Any]:
+    import capo_connect.types.email_address_info
+
+    return [
+        capo_connect.types.email_address_info.redact_sensitive(item) for item in value
+    ]

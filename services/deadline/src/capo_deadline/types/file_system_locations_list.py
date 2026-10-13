@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#FileSystemLocationsList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_deadline.types.file_system_location
@@ -29,3 +29,7 @@ def deserialize_json(data: list) -> FileSystemLocationsList:
             continue
         out.append(capo_deadline.types.file_system_location.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: FileSystemLocationsList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

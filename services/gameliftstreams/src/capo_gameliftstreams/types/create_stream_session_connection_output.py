@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gameliftstreams#CreateStreamSessionConnectionOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -27,4 +27,11 @@ def deserialize_json(data: dict) -> CreateStreamSessionConnectionOutput:
     out: CreateStreamSessionConnectionOutput = {}  # type: ignore[typeddict-item]
     if data.get("SignalResponse") is not None:
         out["signal_response"] = data["SignalResponse"]
+    return out
+
+
+def redact_sensitive(value: CreateStreamSessionConnectionOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "signal_response" in value:
+        out["signal_response"] = "*** Sensitive Data Redacted ***"
     return out

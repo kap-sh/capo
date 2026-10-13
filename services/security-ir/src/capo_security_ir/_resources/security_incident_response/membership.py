@@ -2,13 +2,14 @@ from __future__ import annotations
 
 import datetime
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_security_ir._auth._signers
 import capo_security_ir._auth._sigv4
 from capo_security_ir._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -107,7 +108,19 @@ class Membership:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_security_ir.types.create_membership_request.CreateMembershipRequest",
+        ) -> dict[str, Any]:
+            import capo_security_ir.types.create_membership_request
+
+            return capo_security_ir.types.create_membership_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateMembership", redact_input=_redact_input),
+        )
         input_: capo_security_ir.types.create_membership_request.CreateMembershipRequest = {
             "membership_name": membership_name,
             "incident_response_team": incident_response_team,
@@ -173,7 +186,19 @@ class Membership:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_security_ir.types.get_membership_response.GetMembershipResponse",
+        ) -> dict[str, Any]:
+            import capo_security_ir.types.get_membership_response
+
+            return capo_security_ir.types.get_membership_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetMembership", redact_output=_redact_output),
+        )
         input_: capo_security_ir.types.get_membership_request.GetMembershipRequest = {
             "membership_id": membership_id
         }
@@ -247,7 +272,19 @@ class Membership:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_security_ir.types.update_membership_request.UpdateMembershipRequest",
+        ) -> dict[str, Any]:
+            import capo_security_ir.types.update_membership_request
+
+            return capo_security_ir.types.update_membership_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateMembership", redact_input=_redact_input),
+        )
         input_: capo_security_ir.types.update_membership_request.UpdateMembershipRequest = {
             "membership_id": membership_id
         }
@@ -317,7 +354,9 @@ class Membership:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMemberships")
+        )
         input_: capo_security_ir.types.list_memberships_request.ListMembershipsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -377,7 +416,9 @@ class Membership:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchGetMemberAccountDetails")
+        )
         input_: capo_security_ir.types.batch_get_member_account_details_request.BatchGetMemberAccountDetailsRequest = {
             "membership_id": membership_id,
             "account_ids": account_ids,
@@ -434,7 +475,9 @@ class Membership:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelMembership")
+        )
         input_: capo_security_ir.types.cancel_membership_request.CancelMembershipRequest = {
             "membership_id": membership_id
         }
@@ -496,7 +539,9 @@ class Membership:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFindingMetrics")
+        )
         input_: capo_security_ir.types.get_finding_metrics_request.GetFindingMetricsRequest = {
             "membership_id": membership_id,
             "start_date": start_date,
@@ -572,7 +617,19 @@ class AsyncMembership:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_security_ir.types.create_membership_request.CreateMembershipRequest",
+        ) -> dict[str, Any]:
+            import capo_security_ir.types.create_membership_request
+
+            return capo_security_ir.types.create_membership_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateMembership", redact_input=_redact_input),
+        )
         input_: capo_security_ir.types.create_membership_request.CreateMembershipRequest = {
             "membership_name": membership_name,
             "incident_response_team": incident_response_team,
@@ -639,7 +696,19 @@ class AsyncMembership:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_security_ir.types.get_membership_response.GetMembershipResponse",
+        ) -> dict[str, Any]:
+            import capo_security_ir.types.get_membership_response
+
+            return capo_security_ir.types.get_membership_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetMembership", redact_output=_redact_output),
+        )
         input_: capo_security_ir.types.get_membership_request.GetMembershipRequest = {
             "membership_id": membership_id
         }
@@ -714,7 +783,19 @@ class AsyncMembership:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_security_ir.types.update_membership_request.UpdateMembershipRequest",
+        ) -> dict[str, Any]:
+            import capo_security_ir.types.update_membership_request
+
+            return capo_security_ir.types.update_membership_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateMembership", redact_input=_redact_input),
+        )
         input_: capo_security_ir.types.update_membership_request.UpdateMembershipRequest = {
             "membership_id": membership_id
         }
@@ -785,7 +866,9 @@ class AsyncMembership:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMemberships")
+        )
         input_: capo_security_ir.types.list_memberships_request.ListMembershipsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -846,7 +929,9 @@ class AsyncMembership:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchGetMemberAccountDetails")
+        )
         input_: capo_security_ir.types.batch_get_member_account_details_request.BatchGetMemberAccountDetailsRequest = {
             "membership_id": membership_id,
             "account_ids": account_ids,
@@ -904,7 +989,9 @@ class AsyncMembership:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelMembership")
+        )
         input_: capo_security_ir.types.cancel_membership_request.CancelMembershipRequest = {
             "membership_id": membership_id
         }
@@ -967,7 +1054,9 @@ class AsyncMembership:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFindingMetrics")
+        )
         input_: capo_security_ir.types.get_finding_metrics_request.GetFindingMetricsRequest = {
             "membership_id": membership_id,
             "start_date": start_date,

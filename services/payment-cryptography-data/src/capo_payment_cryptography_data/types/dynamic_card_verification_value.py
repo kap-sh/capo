@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#DynamicCardVerificationValue``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -64,4 +64,13 @@ def deserialize_json(data: dict) -> DynamicCardVerificationValue:
         raise DeserializationError(
             "DynamicCardVerificationValue.application_transaction_counter required"
         )
+    return out
+
+
+def redact_sensitive(value: DynamicCardVerificationValue) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "card_expiry_date" in value:
+        out["card_expiry_date"] = "*** Sensitive Data Redacted ***"
+    if "service_code" in value:
+        out["service_code"] = "*** Sensitive Data Redacted ***"
     return out

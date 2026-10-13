@@ -24,7 +24,9 @@ from capo_datasync._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -297,7 +299,9 @@ class AsyncDataSyncClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncDataSyncClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncDataSyncClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncDataSyncClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -305,8 +309,10 @@ class AsyncDataSyncClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -359,7 +365,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelTaskExecution")
+        )
         input_: capo_datasync.types.cancel_task_execution_request.CancelTaskExecutionRequest = {
             "task_execution_arn": task_execution_arn
         }
@@ -420,7 +428,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAgent")
+        )
         input_: capo_datasync.types.create_agent_request.CreateAgentRequest = {
             "activation_key": activation_key
         }
@@ -503,7 +513,21 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datasync.types.create_location_azure_blob_request.CreateLocationAzureBlobRequest",
+        ) -> dict[str, Any]:
+            import capo_datasync.types.create_location_azure_blob_request
+
+            return (
+                capo_datasync.types.create_location_azure_blob_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateLocationAzureBlob", redact_input=_redact_input),
+        )
         input_: capo_datasync.types.create_location_azure_blob_request.CreateLocationAzureBlobRequest = {
             "container_url": container_url,
             "authentication_type": authentication_type,
@@ -585,7 +609,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLocationEfs")
+        )
         input_: capo_datasync.types.create_location_efs_request.CreateLocationEfsRequest = {
             "efs_filesystem_arn": efs_filesystem_arn,
             "ec2_config": ec2_config,
@@ -649,7 +675,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLocationFsxLustre")
+        )
         input_: capo_datasync.types.create_location_fsx_lustre_request.CreateLocationFsxLustreRequest = {
             "fsx_filesystem_arn": fsx_filesystem_arn,
             "security_group_arns": security_group_arns,
@@ -708,7 +736,21 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datasync.types.create_location_fsx_ontap_request.CreateLocationFsxOntapRequest",
+        ) -> dict[str, Any]:
+            import capo_datasync.types.create_location_fsx_ontap_request
+
+            return (
+                capo_datasync.types.create_location_fsx_ontap_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateLocationFsxOntap", redact_input=_redact_input),
+        )
         input_: capo_datasync.types.create_location_fsx_ontap_request.CreateLocationFsxOntapRequest = {
             "protocol": protocol,
             "security_group_arns": security_group_arns,
@@ -769,7 +811,19 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datasync.types.create_location_fsx_open_zfs_request.CreateLocationFsxOpenZfsRequest",
+        ) -> dict[str, Any]:
+            import capo_datasync.types.create_location_fsx_open_zfs_request
+
+            return capo_datasync.types.create_location_fsx_open_zfs_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateLocationFsxOpenZfs", redact_input=_redact_input),
+        )
         input_: capo_datasync.types.create_location_fsx_open_zfs_request.CreateLocationFsxOpenZfsRequest = {
             "fsx_filesystem_arn": fsx_filesystem_arn,
             "protocol": protocol,
@@ -842,7 +896,19 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datasync.types.create_location_fsx_windows_request.CreateLocationFsxWindowsRequest",
+        ) -> dict[str, Any]:
+            import capo_datasync.types.create_location_fsx_windows_request
+
+            return capo_datasync.types.create_location_fsx_windows_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateLocationFsxWindows", redact_input=_redact_input),
+        )
         input_: capo_datasync.types.create_location_fsx_windows_request.CreateLocationFsxWindowsRequest = {
             "fsx_filesystem_arn": fsx_filesystem_arn,
             "security_group_arns": security_group_arns,
@@ -949,7 +1015,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLocationHdfs")
+        )
         input_: capo_datasync.types.create_location_hdfs_request.CreateLocationHdfsRequest = {
             "name_nodes": name_nodes,
             "authentication_type": authentication_type,
@@ -1030,7 +1098,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLocationNfs")
+        )
         input_: capo_datasync.types.create_location_nfs_request.CreateLocationNfsRequest = {
             "subdirectory": subdirectory,
             "server_hostname": server_hostname,
@@ -1119,7 +1189,19 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datasync.types.create_location_object_storage_request.CreateLocationObjectStorageRequest",
+        ) -> dict[str, Any]:
+            import capo_datasync.types.create_location_object_storage_request
+
+            return capo_datasync.types.create_location_object_storage_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateLocationObjectStorage", redact_input=_redact_input),
+        )
         input_: capo_datasync.types.create_location_object_storage_request.CreateLocationObjectStorageRequest = {
             "server_hostname": server_hostname,
             "bucket_name": bucket_name,
@@ -1198,7 +1280,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLocationS3")
+        )
         input_: capo_datasync.types.create_location_s3_request.CreateLocationS3Request = {
             "s3_bucket_arn": s3_bucket_arn,
             "s3_config": s3_config,
@@ -1294,7 +1378,19 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datasync.types.create_location_smb_request.CreateLocationSmbRequest",
+        ) -> dict[str, Any]:
+            import capo_datasync.types.create_location_smb_request
+
+            return capo_datasync.types.create_location_smb_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateLocationSmb", redact_input=_redact_input),
+        )
         input_: capo_datasync.types.create_location_smb_request.CreateLocationSmbRequest = {
             "subdirectory": subdirectory,
             "server_hostname": server_hostname,
@@ -1393,7 +1489,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTask")
+        )
         input_: capo_datasync.types.create_task_request.CreateTaskRequest = {
             "source_location_arn": source_location_arn,
             "destination_location_arn": destination_location_arn,
@@ -1459,7 +1557,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAgent")
+        )
         input_: capo_datasync.types.delete_agent_request.DeleteAgentRequest = {
             "agent_arn": agent_arn
         }
@@ -1504,7 +1604,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLocation")
+        )
         input_: capo_datasync.types.delete_location_request.DeleteLocationRequest = {
             "location_arn": location_arn
         }
@@ -1549,7 +1651,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTask")
+        )
         input_: capo_datasync.types.delete_task_request.DeleteTaskRequest = {
             "task_arn": task_arn
         }
@@ -1594,7 +1698,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAgent")
+        )
         input_: capo_datasync.types.describe_agent_request.DescribeAgentRequest = {
             "agent_arn": agent_arn
         }
@@ -1639,7 +1745,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLocationAzureBlob")
+        )
         input_: capo_datasync.types.describe_location_azure_blob_request.DescribeLocationAzureBlobRequest = {
             "location_arn": location_arn
         }
@@ -1686,7 +1794,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLocationEfs")
+        )
         input_: capo_datasync.types.describe_location_efs_request.DescribeLocationEfsRequest = {
             "location_arn": location_arn
         }
@@ -1731,7 +1841,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLocationFsxLustre")
+        )
         input_: capo_datasync.types.describe_location_fsx_lustre_request.DescribeLocationFsxLustreRequest = {
             "location_arn": location_arn
         }
@@ -1776,7 +1888,19 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datasync.types.describe_location_fsx_ontap_response.DescribeLocationFsxOntapResponse",
+        ) -> dict[str, Any]:
+            import capo_datasync.types.describe_location_fsx_ontap_response
+
+            return capo_datasync.types.describe_location_fsx_ontap_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeLocationFsxOntap", redact_output=_redact_output),
+        )
         input_: capo_datasync.types.describe_location_fsx_ontap_request.DescribeLocationFsxOntapRequest = {
             "location_arn": location_arn
         }
@@ -1821,7 +1945,21 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datasync.types.describe_location_fsx_open_zfs_response.DescribeLocationFsxOpenZfsResponse",
+        ) -> dict[str, Any]:
+            import capo_datasync.types.describe_location_fsx_open_zfs_response
+
+            return capo_datasync.types.describe_location_fsx_open_zfs_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeLocationFsxOpenZfs", redact_output=_redact_output
+            ),
+        )
         input_: capo_datasync.types.describe_location_fsx_open_zfs_request.DescribeLocationFsxOpenZfsRequest = {
             "location_arn": location_arn
         }
@@ -1866,7 +2004,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLocationFsxWindows")
+        )
         input_: capo_datasync.types.describe_location_fsx_windows_request.DescribeLocationFsxWindowsRequest = {
             "location_arn": location_arn
         }
@@ -1911,7 +2051,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLocationHdfs")
+        )
         input_: capo_datasync.types.describe_location_hdfs_request.DescribeLocationHdfsRequest = {
             "location_arn": location_arn
         }
@@ -1958,7 +2100,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLocationNfs")
+        )
         input_: capo_datasync.types.describe_location_nfs_request.DescribeLocationNfsRequest = {
             "location_arn": location_arn
         }
@@ -2003,7 +2147,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLocationObjectStorage")
+        )
         input_: capo_datasync.types.describe_location_object_storage_request.DescribeLocationObjectStorageRequest = {
             "location_arn": location_arn
         }
@@ -2048,7 +2194,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLocationS3")
+        )
         input_: capo_datasync.types.describe_location_s3_request.DescribeLocationS3Request = {
             "location_arn": location_arn
         }
@@ -2095,7 +2243,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLocationSmb")
+        )
         input_: capo_datasync.types.describe_location_smb_request.DescribeLocationSmbRequest = {
             "location_arn": location_arn
         }
@@ -2140,7 +2290,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTask")
+        )
         input_: capo_datasync.types.describe_task_request.DescribeTaskRequest = {
             "task_arn": task_arn
         }
@@ -2185,7 +2337,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTaskExecution")
+        )
         input_: capo_datasync.types.describe_task_execution_request.DescribeTaskExecutionRequest = {
             "task_execution_arn": task_execution_arn
         }
@@ -2232,7 +2386,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAgents")
+        )
         input_: capo_datasync.types.list_agents_request.ListAgentsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2306,7 +2462,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLocations")
+        )
         input_: capo_datasync.types.list_locations_request.ListLocationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2384,7 +2542,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_datasync.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2460,7 +2620,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTaskExecutions")
+        )
         input_: capo_datasync.types.list_task_executions_request.ListTaskExecutionsRequest = {}
         if task_arn is not None:
             input_["task_arn"] = task_arn
@@ -2536,7 +2698,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTasks")
+        )
         input_: capo_datasync.types.list_tasks_request.ListTasksRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2623,7 +2787,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartTaskExecution")
+        )
         input_: capo_datasync.types.start_task_execution_request.StartTaskExecutionRequest = {
             "task_arn": task_arn
         }
@@ -2682,7 +2848,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_datasync.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2730,7 +2898,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_datasync.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "keys": keys,
@@ -2778,7 +2948,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAgent")
+        )
         input_: capo_datasync.types.update_agent_request.UpdateAgentRequest = {
             "agent_arn": agent_arn
         }
@@ -2853,7 +3025,21 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datasync.types.update_location_azure_blob_request.UpdateLocationAzureBlobRequest",
+        ) -> dict[str, Any]:
+            import capo_datasync.types.update_location_azure_blob_request
+
+            return (
+                capo_datasync.types.update_location_azure_blob_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateLocationAzureBlob", redact_input=_redact_input),
+        )
         input_: capo_datasync.types.update_location_azure_blob_request.UpdateLocationAzureBlobRequest = {
             "location_arn": location_arn
         }
@@ -2930,7 +3116,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLocationEfs")
+        )
         input_: capo_datasync.types.update_location_efs_request.UpdateLocationEfsRequest = {
             "location_arn": location_arn
         }
@@ -2987,7 +3175,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLocationFsxLustre")
+        )
         input_: capo_datasync.types.update_location_fsx_lustre_request.UpdateLocationFsxLustreRequest = {
             "location_arn": location_arn
         }
@@ -3042,7 +3232,21 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datasync.types.update_location_fsx_ontap_request.UpdateLocationFsxOntapRequest",
+        ) -> dict[str, Any]:
+            import capo_datasync.types.update_location_fsx_ontap_request
+
+            return (
+                capo_datasync.types.update_location_fsx_ontap_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateLocationFsxOntap", redact_input=_redact_input),
+        )
         input_: capo_datasync.types.update_location_fsx_ontap_request.UpdateLocationFsxOntapRequest = {
             "location_arn": location_arn
         }
@@ -3096,7 +3300,19 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datasync.types.update_location_fsx_open_zfs_request.UpdateLocationFsxOpenZfsRequest",
+        ) -> dict[str, Any]:
+            import capo_datasync.types.update_location_fsx_open_zfs_request
+
+            return capo_datasync.types.update_location_fsx_open_zfs_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateLocationFsxOpenZfs", redact_input=_redact_input),
+        )
         input_: capo_datasync.types.update_location_fsx_open_zfs_request.UpdateLocationFsxOpenZfsRequest = {
             "location_arn": location_arn
         }
@@ -3165,7 +3381,19 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datasync.types.update_location_fsx_windows_request.UpdateLocationFsxWindowsRequest",
+        ) -> dict[str, Any]:
+            import capo_datasync.types.update_location_fsx_windows_request
+
+            return capo_datasync.types.update_location_fsx_windows_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateLocationFsxWindows", redact_input=_redact_input),
+        )
         input_: capo_datasync.types.update_location_fsx_windows_request.UpdateLocationFsxWindowsRequest = {
             "location_arn": location_arn
         }
@@ -3274,7 +3502,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLocationHdfs")
+        )
         input_: capo_datasync.types.update_location_hdfs_request.UpdateLocationHdfsRequest = {
             "location_arn": location_arn
         }
@@ -3361,7 +3591,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLocationNfs")
+        )
         input_: capo_datasync.types.update_location_nfs_request.UpdateLocationNfsRequest = {
             "location_arn": location_arn
         }
@@ -3452,7 +3684,19 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datasync.types.update_location_object_storage_request.UpdateLocationObjectStorageRequest",
+        ) -> dict[str, Any]:
+            import capo_datasync.types.update_location_object_storage_request
+
+            return capo_datasync.types.update_location_object_storage_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateLocationObjectStorage", redact_input=_redact_input),
+        )
         input_: capo_datasync.types.update_location_object_storage_request.UpdateLocationObjectStorageRequest = {
             "location_arn": location_arn
         }
@@ -3526,7 +3770,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLocationS3")
+        )
         input_: capo_datasync.types.update_location_s3_request.UpdateLocationS3Request = {
             "location_arn": location_arn
         }
@@ -3622,7 +3868,19 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datasync.types.update_location_smb_request.UpdateLocationSmbRequest",
+        ) -> dict[str, Any]:
+            import capo_datasync.types.update_location_smb_request
+
+            return capo_datasync.types.update_location_smb_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateLocationSmb", redact_input=_redact_input),
+        )
         input_: capo_datasync.types.update_location_smb_request.UpdateLocationSmbRequest = {
             "location_arn": location_arn
         }
@@ -3716,7 +3974,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTask")
+        )
         input_: capo_datasync.types.update_task_request.UpdateTaskRequest = {
             "task_arn": task_arn
         }
@@ -3780,7 +4040,9 @@ class AsyncDataSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTaskExecution")
+        )
         input_: capo_datasync.types.update_task_execution_request.UpdateTaskExecutionRequest = {
             "task_execution_arn": task_execution_arn,
             "options": options,

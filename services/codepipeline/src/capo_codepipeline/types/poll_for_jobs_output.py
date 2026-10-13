@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.codepipeline#PollForJobsOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -33,4 +33,13 @@ def deserialize_aws_json_1_1(data: dict) -> PollForJobsOutput:
         out["jobs"] = capo_codepipeline.types.job_list.deserialize_aws_json_1_1(
             data["jobs"]
         )
+    return out
+
+
+def redact_sensitive(value: PollForJobsOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "jobs" in value:
+        import capo_codepipeline.types.job_list
+
+        out["jobs"] = capo_codepipeline.types.job_list.redact_sensitive(value["jobs"])
     return out

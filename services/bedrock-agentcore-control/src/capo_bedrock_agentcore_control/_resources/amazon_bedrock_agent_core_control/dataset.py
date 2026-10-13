@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agentcore_control._auth._signers
 import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -115,7 +116,19 @@ class Dataset:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_dataset_request.CreateDatasetRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_dataset_request
+
+            return capo_bedrock_agentcore_control.types.create_dataset_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateDataset", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.create_dataset_request.CreateDatasetRequest = {
             "dataset_name": dataset_name,
             "source": source,
@@ -178,7 +191,19 @@ class Dataset:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_dataset_response.GetDatasetResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_dataset_response
+
+            return capo_bedrock_agentcore_control.types.get_dataset_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDataset", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_dataset_request.GetDatasetRequest = {
             "dataset_id": dataset_id
         }
@@ -234,7 +259,9 @@ class Dataset:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDataset")
+        )
         input_: capo_bedrock_agentcore_control.types.update_dataset_request.UpdateDatasetRequest = {
             "dataset_id": dataset_id
         }
@@ -291,7 +318,9 @@ class Dataset:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDataset")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_dataset_request.DeleteDatasetRequest = {
             "dataset_id": dataset_id
         }
@@ -341,7 +370,9 @@ class Dataset:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDatasets")
+        )
         input_: capo_bedrock_agentcore_control.types.list_datasets_request.ListDatasetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -398,7 +429,19 @@ class Dataset:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.add_dataset_examples_request.AddDatasetExamplesRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.add_dataset_examples_request
+
+            return capo_bedrock_agentcore_control.types.add_dataset_examples_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("AddDatasetExamples", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.add_dataset_examples_request.AddDatasetExamplesRequest = {
             "dataset_id": dataset_id,
             "source": source,
@@ -455,7 +498,9 @@ class Dataset:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDatasetVersion")
+        )
         input_: capo_bedrock_agentcore_control.types.create_dataset_version_request.CreateDatasetVersionRequest = {
             "dataset_id": dataset_id
         }
@@ -512,7 +557,9 @@ class Dataset:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDatasetExamples")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_dataset_examples_request.DeleteDatasetExamplesRequest = {
             "dataset_id": dataset_id,
             "example_ids": example_ids,
@@ -572,7 +619,19 @@ class Dataset:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_dataset_examples_response.ListDatasetExamplesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_dataset_examples_response
+
+            return capo_bedrock_agentcore_control.types.list_dataset_examples_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListDatasetExamples", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_dataset_examples_request.ListDatasetExamplesRequest = {
             "dataset_id": dataset_id
         }
@@ -629,7 +688,9 @@ class Dataset:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDatasetVersions")
+        )
         input_: capo_bedrock_agentcore_control.types.list_dataset_versions_request.ListDatasetVersionsRequest = {
             "dataset_id": dataset_id
         }
@@ -688,7 +749,19 @@ class Dataset:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_dataset_examples_request.UpdateDatasetExamplesRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_dataset_examples_request
+
+            return capo_bedrock_agentcore_control.types.update_dataset_examples_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateDatasetExamples", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.update_dataset_examples_request.UpdateDatasetExamplesRequest = {
             "dataset_id": dataset_id,
             "examples": examples,
@@ -762,7 +835,19 @@ class AsyncDataset:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_dataset_request.CreateDatasetRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_dataset_request
+
+            return capo_bedrock_agentcore_control.types.create_dataset_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateDataset", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.create_dataset_request.CreateDatasetRequest = {
             "dataset_name": dataset_name,
             "source": source,
@@ -826,7 +911,19 @@ class AsyncDataset:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_dataset_response.GetDatasetResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_dataset_response
+
+            return capo_bedrock_agentcore_control.types.get_dataset_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDataset", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_dataset_request.GetDatasetRequest = {
             "dataset_id": dataset_id
         }
@@ -883,7 +980,9 @@ class AsyncDataset:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDataset")
+        )
         input_: capo_bedrock_agentcore_control.types.update_dataset_request.UpdateDatasetRequest = {
             "dataset_id": dataset_id
         }
@@ -941,7 +1040,9 @@ class AsyncDataset:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDataset")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_dataset_request.DeleteDatasetRequest = {
             "dataset_id": dataset_id
         }
@@ -992,7 +1093,9 @@ class AsyncDataset:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDatasets")
+        )
         input_: capo_bedrock_agentcore_control.types.list_datasets_request.ListDatasetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1050,7 +1153,19 @@ class AsyncDataset:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.add_dataset_examples_request.AddDatasetExamplesRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.add_dataset_examples_request
+
+            return capo_bedrock_agentcore_control.types.add_dataset_examples_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("AddDatasetExamples", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.add_dataset_examples_request.AddDatasetExamplesRequest = {
             "dataset_id": dataset_id,
             "source": source,
@@ -1108,7 +1223,9 @@ class AsyncDataset:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDatasetVersion")
+        )
         input_: capo_bedrock_agentcore_control.types.create_dataset_version_request.CreateDatasetVersionRequest = {
             "dataset_id": dataset_id
         }
@@ -1166,7 +1283,9 @@ class AsyncDataset:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDatasetExamples")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_dataset_examples_request.DeleteDatasetExamplesRequest = {
             "dataset_id": dataset_id,
             "example_ids": example_ids,
@@ -1227,7 +1346,19 @@ class AsyncDataset:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_dataset_examples_response.ListDatasetExamplesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_dataset_examples_response
+
+            return capo_bedrock_agentcore_control.types.list_dataset_examples_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListDatasetExamples", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_dataset_examples_request.ListDatasetExamplesRequest = {
             "dataset_id": dataset_id
         }
@@ -1285,7 +1416,9 @@ class AsyncDataset:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDatasetVersions")
+        )
         input_: capo_bedrock_agentcore_control.types.list_dataset_versions_request.ListDatasetVersionsRequest = {
             "dataset_id": dataset_id
         }
@@ -1345,7 +1478,19 @@ class AsyncDataset:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_dataset_examples_request.UpdateDatasetExamplesRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_dataset_examples_request
+
+            return capo_bedrock_agentcore_control.types.update_dataset_examples_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateDatasetExamples", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.update_dataset_examples_request.UpdateDatasetExamplesRequest = {
             "dataset_id": dataset_id,
             "examples": examples,

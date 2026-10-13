@@ -8,6 +8,7 @@ import capo_amplifyuibuilder._auth._sigv4
 from capo_amplifyuibuilder._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -87,7 +88,9 @@ class ComponentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateComponent")
+        )
         input_: capo_amplifyuibuilder.types.create_component_request.CreateComponentRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -141,7 +144,9 @@ class ComponentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetComponent")
+        )
         input_: capo_amplifyuibuilder.types.get_component_request.GetComponentRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -198,7 +203,9 @@ class ComponentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateComponent")
+        )
         input_: capo_amplifyuibuilder.types.update_component_request.UpdateComponentRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -251,7 +258,9 @@ class ComponentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteComponent")
+        )
         input_: capo_amplifyuibuilder.types.delete_component_request.DeleteComponentRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -305,7 +314,9 @@ class ComponentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListComponents")
+        )
         input_: capo_amplifyuibuilder.types.list_components_request.ListComponentsRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -358,7 +369,9 @@ class ComponentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ExportComponents")
+        )
         input_: capo_amplifyuibuilder.types.export_components_request.ExportComponentsRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -421,7 +434,9 @@ class AsyncComponentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateComponent")
+        )
         input_: capo_amplifyuibuilder.types.create_component_request.CreateComponentRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -476,7 +491,9 @@ class AsyncComponentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetComponent")
+        )
         input_: capo_amplifyuibuilder.types.get_component_request.GetComponentRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -534,7 +551,9 @@ class AsyncComponentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateComponent")
+        )
         input_: capo_amplifyuibuilder.types.update_component_request.UpdateComponentRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -588,7 +607,9 @@ class AsyncComponentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteComponent")
+        )
         input_: capo_amplifyuibuilder.types.delete_component_request.DeleteComponentRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -643,7 +664,9 @@ class AsyncComponentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListComponents")
+        )
         input_: capo_amplifyuibuilder.types.list_components_request.ListComponentsRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -697,7 +720,9 @@ class AsyncComponentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ExportComponents")
+        )
         input_: capo_amplifyuibuilder.types.export_components_request.ExportComponentsRequest = {
             "app_id": app_id,
             "environment_name": environment_name,

@@ -7,6 +7,7 @@ import capo_migrationhuborchestrator._auth._sigv4
 from capo_migrationhuborchestrator._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -73,7 +74,9 @@ class Plugin:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPlugins")
+        )
         input_: capo_migrationhuborchestrator.types.list_plugins_request.ListPluginsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -134,7 +137,9 @@ class AsyncPlugin:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPlugins")
+        )
         input_: capo_migrationhuborchestrator.types.list_plugins_request.ListPluginsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#ScatterPlotCategoricallyAggregatedFieldWells``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -91,5 +91,42 @@ def deserialize_json(data: dict) -> ScatterPlotCategoricallyAggregatedFieldWells
 
         out["label"] = capo_quicksight.types.dimension_field_list.deserialize_json(
             data["Label"]
+        )
+    return out
+
+
+def redact_sensitive(
+    value: ScatterPlotCategoricallyAggregatedFieldWells,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "x_axis" in value:
+        import capo_quicksight.types.measure_field_list
+
+        out["x_axis"] = capo_quicksight.types.measure_field_list.redact_sensitive(
+            value["x_axis"]
+        )
+    if "y_axis" in value:
+        import capo_quicksight.types.measure_field_list
+
+        out["y_axis"] = capo_quicksight.types.measure_field_list.redact_sensitive(
+            value["y_axis"]
+        )
+    if "category" in value:
+        import capo_quicksight.types.dimension_field_list
+
+        out["category"] = capo_quicksight.types.dimension_field_list.redact_sensitive(
+            value["category"]
+        )
+    if "size" in value:
+        import capo_quicksight.types.measure_field_list
+
+        out["size"] = capo_quicksight.types.measure_field_list.redact_sensitive(
+            value["size"]
+        )
+    if "label" in value:
+        import capo_quicksight.types.dimension_field_list
+
+        out["label"] = capo_quicksight.types.dimension_field_list.redact_sensitive(
+            value["label"]
         )
     return out

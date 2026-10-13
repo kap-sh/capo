@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.firehose#SnowflakeVpcConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -32,4 +32,11 @@ def deserialize_aws_json_1_1(data: dict) -> SnowflakeVpcConfiguration:
         raise DeserializationError(
             "SnowflakeVpcConfiguration.private_link_vpce_id required"
         )
+    return out
+
+
+def redact_sensitive(value: SnowflakeVpcConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "private_link_vpce_id" in value:
+        out["private_link_vpce_id"] = "*** Sensitive Data Redacted ***"
     return out

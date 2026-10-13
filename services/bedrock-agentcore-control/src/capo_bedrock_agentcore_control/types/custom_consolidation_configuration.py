@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#CustomConsolidationConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -123,3 +123,40 @@ def deserialize_json(data: dict) -> CustomConsolidationConfiguration:
         raise DeserializationError(
             "CustomConsolidationConfiguration: no recognized variant key"
         )
+
+
+def redact_sensitive(value: CustomConsolidationConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "semanticConsolidationOverride" in value:
+        import capo_bedrock_agentcore_control.types.semantic_consolidation_override
+
+        out["semanticConsolidationOverride"] = (
+            capo_bedrock_agentcore_control.types.semantic_consolidation_override.redact_sensitive(
+                value["semanticConsolidationOverride"]
+            )
+        )
+    if "summaryConsolidationOverride" in value:
+        import capo_bedrock_agentcore_control.types.summary_consolidation_override
+
+        out["summaryConsolidationOverride"] = (
+            capo_bedrock_agentcore_control.types.summary_consolidation_override.redact_sensitive(
+                value["summaryConsolidationOverride"]
+            )
+        )
+    if "userPreferenceConsolidationOverride" in value:
+        import capo_bedrock_agentcore_control.types.user_preference_consolidation_override
+
+        out["userPreferenceConsolidationOverride"] = (
+            capo_bedrock_agentcore_control.types.user_preference_consolidation_override.redact_sensitive(
+                value["userPreferenceConsolidationOverride"]
+            )
+        )
+    if "episodicConsolidationOverride" in value:
+        import capo_bedrock_agentcore_control.types.episodic_consolidation_override
+
+        out["episodicConsolidationOverride"] = (
+            capo_bedrock_agentcore_control.types.episodic_consolidation_override.redact_sensitive(
+                value["episodicConsolidationOverride"]
+            )
+        )
+    return out

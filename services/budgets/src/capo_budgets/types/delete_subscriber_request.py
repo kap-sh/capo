@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.budgets#DeleteSubscriberRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -68,4 +68,15 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteSubscriberRequest:
         )
     else:
         raise DeserializationError("DeleteSubscriberRequest.subscriber required")
+    return out
+
+
+def redact_sensitive(value: DeleteSubscriberRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "subscriber" in value:
+        import capo_budgets.types.subscriber
+
+        out["subscriber"] = capo_budgets.types.subscriber.redact_sensitive(
+            value["subscriber"]
+        )
     return out

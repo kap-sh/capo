@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appflow#CustomAuthCredentials``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,4 +47,11 @@ def deserialize_json(data: dict) -> CustomAuthCredentials:
         out["credentials_map"] = capo_appflow.types.credentials_map.deserialize_json(
             data["credentialsMap"]
         )
+    return out
+
+
+def redact_sensitive(value: CustomAuthCredentials) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "credentials_map" in value:
+        out["credentials_map"] = "*** Sensitive Data Redacted ***"
     return out

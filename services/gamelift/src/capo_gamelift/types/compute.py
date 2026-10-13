@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#Compute``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -198,4 +198,11 @@ def deserialize_aws_json_1_1(data: dict) -> Compute:
         out["game_server_container_group_definition_arn"] = data[
             "GameServerContainerGroupDefinitionArn"
         ]
+    return out
+
+
+def redact_sensitive(value: Compute) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ip_address" in value:
+        out["ip_address"] = "*** Sensitive Data Redacted ***"
     return out

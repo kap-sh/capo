@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connecthealth#EncounterContext``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -27,4 +27,11 @@ def deserialize_json(data: dict) -> EncounterContext:
     out: EncounterContext = {}  # type: ignore[typeddict-item]
     if data.get("unstructuredContext") is not None:
         out["unstructured_context"] = data["unstructuredContext"]
+    return out
+
+
+def redact_sensitive(value: EncounterContext) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "unstructured_context" in value:
+        out["unstructured_context"] = "*** Sensitive Data Redacted ***"
     return out

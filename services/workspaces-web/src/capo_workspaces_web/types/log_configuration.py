@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#LogConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_json(data: dict) -> LogConfiguration:
 
         out["s3"] = capo_workspaces_web.types.s3_log_configuration.deserialize_json(
             data["s3"]
+        )
+    return out
+
+
+def redact_sensitive(value: LogConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "s3" in value:
+        import capo_workspaces_web.types.s3_log_configuration
+
+        out["s3"] = capo_workspaces_web.types.s3_log_configuration.redact_sensitive(
+            value["s3"]
         )
     return out

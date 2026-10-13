@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#DescribeRouteCalculatorResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -112,4 +112,13 @@ def deserialize_json(data: dict) -> DescribeRouteCalculatorResponse:
         import capo_location.types.tag_map
 
         out["tags"] = capo_location.types.tag_map.deserialize_json(data["Tags"])
+    return out
+
+
+def redact_sensitive(value: DescribeRouteCalculatorResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "create_time" in value:
+        out["create_time"] = "*** Sensitive Data Redacted ***"
+    if "update_time" in value:
+        out["update_time"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.redshiftserverless#CreateNamespaceResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -36,5 +36,16 @@ def deserialize_aws_json_1_1(data: dict) -> CreateNamespaceResponse:
             capo_redshift_serverless.types.namespace.deserialize_aws_json_1_1(
                 data["namespace"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateNamespaceResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "namespace" in value:
+        import capo_redshift_serverless.types.namespace
+
+        out["namespace"] = capo_redshift_serverless.types.namespace.redact_sensitive(
+            value["namespace"]
         )
     return out

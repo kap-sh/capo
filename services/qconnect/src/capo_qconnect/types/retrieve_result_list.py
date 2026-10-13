@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#RetrieveResultList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_qconnect.types.retrieve_result
@@ -29,3 +29,11 @@ def deserialize_json(data: list) -> RetrieveResultList:
             continue
         out.append(capo_qconnect.types.retrieve_result.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: RetrieveResultList) -> list[Any]:
+    import capo_qconnect.types.retrieve_result
+
+    return [
+        capo_qconnect.types.retrieve_result.redact_sensitive(item) for item in value
+    ]

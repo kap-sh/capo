@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.grafana#WorkspaceList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_grafana.types.workspace_summary
@@ -27,3 +27,11 @@ def deserialize_json(data: list) -> WorkspaceList:
             continue
         out.append(capo_grafana.types.workspace_summary.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: WorkspaceList) -> list[Any]:
+    import capo_grafana.types.workspace_summary
+
+    return [
+        capo_grafana.types.workspace_summary.redact_sensitive(item) for item in value
+    ]

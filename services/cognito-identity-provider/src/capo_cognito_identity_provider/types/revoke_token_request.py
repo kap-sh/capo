@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#RevokeTokenRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,15 @@ def deserialize_aws_json_1_1(data: dict) -> RevokeTokenRequest:
         raise DeserializationError("RevokeTokenRequest.client_id required")
     if data.get("ClientSecret") is not None:
         out["client_secret"] = data["ClientSecret"]
+    return out
+
+
+def redact_sensitive(value: RevokeTokenRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "token" in value:
+        out["token"] = "*** Sensitive Data Redacted ***"
+    if "client_id" in value:
+        out["client_id"] = "*** Sensitive Data Redacted ***"
+    if "client_secret" in value:
+        out["client_secret"] = "*** Sensitive Data Redacted ***"
     return out

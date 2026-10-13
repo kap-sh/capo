@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#OrchestrationAIAgentConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -123,5 +123,38 @@ def deserialize_json(data: dict) -> OrchestrationAIAgentConfiguration:
 
         out["output_schemas"] = capo_qconnect.types.json_document_list.deserialize_json(
             data["outputSchemas"]
+        )
+    return out
+
+
+def redact_sensitive(value: OrchestrationAIAgentConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tool_configurations" in value:
+        import capo_qconnect.types.tool_configuration_list
+
+        out["tool_configurations"] = (
+            capo_qconnect.types.tool_configuration_list.redact_sensitive(
+                value["tool_configurations"]
+            )
+        )
+    if "multi_agent_configurations" in value:
+        import capo_qconnect.types.multi_agent_configuration_list
+
+        out["multi_agent_configurations"] = (
+            capo_qconnect.types.multi_agent_configuration_list.redact_sensitive(
+                value["multi_agent_configurations"]
+            )
+        )
+    if "input_schemas" in value:
+        import capo_qconnect.types.json_document_list
+
+        out["input_schemas"] = capo_qconnect.types.json_document_list.redact_sensitive(
+            value["input_schemas"]
+        )
+    if "output_schemas" in value:
+        import capo_qconnect.types.json_document_list
+
+        out["output_schemas"] = capo_qconnect.types.json_document_list.redact_sensitive(
+            value["output_schemas"]
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chatbot#UpdateTeamsChannelConfigurationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -110,4 +110,11 @@ def deserialize_json(data: dict) -> UpdateTeamsChannelConfigurationRequest:
         )
     if data.get("UserAuthorizationRequired") is not None:
         out["user_authorization_required"] = data["UserAuthorizationRequired"]
+    return out
+
+
+def redact_sensitive(value: UpdateTeamsChannelConfigurationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "channel_name" in value:
+        out["channel_name"] = "*** Sensitive Data Redacted ***"
     return out

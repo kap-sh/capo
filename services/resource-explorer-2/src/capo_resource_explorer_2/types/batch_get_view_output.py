@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.resourceexplorer2#BatchGetViewOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,5 +53,16 @@ def deserialize_json(data: dict) -> BatchGetViewOutput:
             capo_resource_explorer_2.types.batch_get_view_errors.deserialize_json(
                 data["Errors"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: BatchGetViewOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "views" in value:
+        import capo_resource_explorer_2.types.view_list
+
+        out["views"] = capo_resource_explorer_2.types.view_list.redact_sensitive(
+            value["views"]
         )
     return out

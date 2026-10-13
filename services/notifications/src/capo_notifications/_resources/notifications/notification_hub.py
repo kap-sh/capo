@@ -7,6 +7,7 @@ import capo_notifications._auth._sigv4
 from capo_notifications._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -72,7 +73,9 @@ class NotificationHub:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RegisterNotificationHub")
+        )
         input_: capo_notifications.types.register_notification_hub_request.RegisterNotificationHubRequest = {
             "notification_hub_region": notification_hub_region
         }
@@ -120,7 +123,9 @@ class NotificationHub:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeregisterNotificationHub")
+        )
         input_: capo_notifications.types.deregister_notification_hub_request.DeregisterNotificationHubRequest = {
             "notification_hub_region": notification_hub_region
         }
@@ -168,7 +173,9 @@ class NotificationHub:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNotificationHubs")
+        )
         input_: capo_notifications.types.list_notification_hubs_request.ListNotificationHubsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -224,7 +231,9 @@ class AsyncNotificationHub:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RegisterNotificationHub")
+        )
         input_: capo_notifications.types.register_notification_hub_request.RegisterNotificationHubRequest = {
             "notification_hub_region": notification_hub_region
         }
@@ -273,7 +282,9 @@ class AsyncNotificationHub:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeregisterNotificationHub")
+        )
         input_: capo_notifications.types.deregister_notification_hub_request.DeregisterNotificationHubRequest = {
             "notification_hub_region": notification_hub_region
         }
@@ -322,7 +333,9 @@ class AsyncNotificationHub:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNotificationHubs")
+        )
         input_: capo_notifications.types.list_notification_hubs_request.ListNotificationHubsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

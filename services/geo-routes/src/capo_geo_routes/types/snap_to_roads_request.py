@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#SnapToRoadsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -112,6 +112,31 @@ def deserialize_json(data: dict) -> SnapToRoadsRequest:
         out["travel_mode_options"] = (
             capo_geo_routes.types.road_snap_travel_mode_options.deserialize_json(
                 data["TravelModeOptions"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SnapToRoadsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "key" in value:
+        out["key"] = "*** Sensitive Data Redacted ***"
+    if "snap_radius" in value:
+        out["snap_radius"] = "*** Sensitive Data Redacted ***"
+    if "trace_points" in value:
+        import capo_geo_routes.types.road_snap_trace_point_list
+
+        out["trace_points"] = (
+            capo_geo_routes.types.road_snap_trace_point_list.redact_sensitive(
+                value["trace_points"]
+            )
+        )
+    if "travel_mode_options" in value:
+        import capo_geo_routes.types.road_snap_travel_mode_options
+
+        out["travel_mode_options"] = (
+            capo_geo_routes.types.road_snap_travel_mode_options.redact_sensitive(
+                value["travel_mode_options"]
             )
         )
     return out

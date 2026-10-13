@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#Attachments``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -58,4 +58,17 @@ def deserialize_json(data: dict) -> Attachments:
         )
     else:
         out["file_system"] = "COPIED"
+    return out
+
+
+def redact_sensitive(value: Attachments) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "manifests" in value:
+        import capo_deadline.types.manifest_properties_list
+
+        out["manifests"] = (
+            capo_deadline.types.manifest_properties_list.redact_sensitive(
+                value["manifests"]
+            )
+        )
     return out

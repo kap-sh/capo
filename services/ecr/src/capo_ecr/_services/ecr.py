@@ -21,10 +21,12 @@ from capo_ecr._pagination import resolve_path as _resolve_path
 from capo_ecr._services._aws_config import aws_config
 from capo_ecr._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -283,7 +285,9 @@ class ECRClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ECRClientConfig] = None
+        self,
+        config_overrides: Optional[ECRClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ECRClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -291,8 +295,10 @@ class ECRClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -347,7 +353,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchCheckLayerAvailability")
+        )
         input_: capo_ecr.types.batch_check_layer_availability_request.BatchCheckLayerAvailabilityRequest = {
             "repository_name": repository_name,
             "layer_digests": layer_digests,
@@ -405,7 +413,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteImage")
+        )
         input_: capo_ecr.types.batch_delete_image_request.BatchDeleteImageRequest = {
             "repository_name": repository_name,
             "image_ids": image_ids,
@@ -469,7 +479,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetImage")
+        )
         input_: capo_ecr.types.batch_get_image_request.BatchGetImageRequest = {
             "repository_name": repository_name,
             "image_ids": image_ids,
@@ -520,7 +532,10 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetRepositoryScanningConfiguration"),
+        )
         input_: capo_ecr.types.batch_get_repository_scanning_configuration_request.BatchGetRepositoryScanningConfigurationRequest = {
             "repository_names": repository_names
         }
@@ -577,7 +592,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CompleteLayerUpload")
+        )
         input_: capo_ecr.types.complete_layer_upload_request.CompleteLayerUploadRequest = {
             "repository_name": repository_name,
             "upload_id": upload_id,
@@ -650,7 +667,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePullThroughCacheRule")
+        )
         input_: capo_ecr.types.create_pull_through_cache_rule_request.CreatePullThroughCacheRuleRequest = {
             "ecr_repository_prefix": ecr_repository_prefix,
             "upstream_registry_url": upstream_registry_url,
@@ -736,7 +755,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRepository")
+        )
         input_: capo_ecr.types.create_repository_request.CreateRepositoryRequest = {
             "repository_name": repository_name
         }
@@ -829,7 +850,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRepositoryCreationTemplate")
+        )
         input_: capo_ecr.types.create_repository_creation_template_request.CreateRepositoryCreationTemplateRequest = {
             "prefix": prefix,
             "applied_for": applied_for,
@@ -899,7 +922,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLifecyclePolicy")
+        )
         input_: capo_ecr.types.delete_lifecycle_policy_request.DeleteLifecyclePolicyRequest = {
             "repository_name": repository_name
         }
@@ -949,7 +974,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePullThroughCacheRule")
+        )
         input_: capo_ecr.types.delete_pull_through_cache_rule_request.DeletePullThroughCacheRuleRequest = {
             "ecr_repository_prefix": ecr_repository_prefix
         }
@@ -991,7 +1018,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRegistryPolicy")
+        )
         input_: capo_ecr.types.delete_registry_policy_request.DeleteRegistryPolicyRequest = {}
 
         response = execute_pipeline(
@@ -1046,7 +1075,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRepository")
+        )
         input_: capo_ecr.types.delete_repository_request.DeleteRepositoryRequest = {
             "repository_name": repository_name
         }
@@ -1096,7 +1127,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRepositoryCreationTemplate")
+        )
         input_: capo_ecr.types.delete_repository_creation_template_request.DeleteRepositoryCreationTemplateRequest = {
             "prefix": prefix
         }
@@ -1150,7 +1183,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRepositoryPolicy")
+        )
         input_: capo_ecr.types.delete_repository_policy_request.DeleteRepositoryPolicyRequest = {
             "repository_name": repository_name
         }
@@ -1191,7 +1226,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSigningConfiguration")
+        )
         input_: capo_ecr.types.delete_signing_configuration_request.DeleteSigningConfigurationRequest = {}
 
         response = execute_pipeline(
@@ -1242,7 +1279,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterPullTimeUpdateExclusion")
+        )
         input_: capo_ecr.types.deregister_pull_time_update_exclusion_request.DeregisterPullTimeUpdateExclusionRequest = {
             "principal_arn": principal_arn
         }
@@ -1292,7 +1331,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeImageReplicationStatus")
+        )
         input_: capo_ecr.types.describe_image_replication_status_request.DescribeImageReplicationStatusRequest = {
             "repository_name": repository_name,
             "image_id": image_id,
@@ -1355,7 +1396,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeImages")
+        )
         input_: capo_ecr.types.describe_images_request.DescribeImagesRequest = {
             "repository_name": repository_name
         }
@@ -1453,7 +1496,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeImageScanFindings")
+        )
         input_: capo_ecr.types.describe_image_scan_findings_request.DescribeImageScanFindingsRequest = {
             "repository_name": repository_name,
             "image_id": image_id,
@@ -1536,7 +1581,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeImageSigningStatus")
+        )
         input_: capo_ecr.types.describe_image_signing_status_request.DescribeImageSigningStatusRequest = {
             "repository_name": repository_name,
             "image_id": image_id,
@@ -1593,7 +1640,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePullThroughCacheRules")
+        )
         input_: capo_ecr.types.describe_pull_through_cache_rules_request.DescribePullThroughCacheRulesRequest = {}
         if registry_id is not None:
             input_["registry_id"] = registry_id
@@ -1665,7 +1714,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRegistry")
+        )
         input_: capo_ecr.types.describe_registry_request.DescribeRegistryRequest = {}
 
         response = execute_pipeline(
@@ -1722,7 +1773,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRepositories")
+        )
         input_: capo_ecr.types.describe_repositories_request.DescribeRepositoriesRequest = {}
         if registry_id is not None:
             input_["registry_id"] = registry_id
@@ -1804,7 +1857,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRepositoryCreationTemplates")
+        )
         input_: capo_ecr.types.describe_repository_creation_templates_request.DescribeRepositoryCreationTemplatesRequest = {}
         if prefixes is not None:
             input_["prefixes"] = prefixes
@@ -1876,7 +1931,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountSetting")
+        )
         input_: capo_ecr.types.get_account_setting_request.GetAccountSettingRequest = {
             "name": name
         }
@@ -1924,7 +1981,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAuthorizationToken")
+        )
         input_: capo_ecr.types.get_authorization_token_request.GetAuthorizationTokenRequest = {}
         if registry_ids is not None:
             input_["registry_ids"] = registry_ids
@@ -1976,7 +2035,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDownloadUrlForLayer")
+        )
         input_: capo_ecr.types.get_download_url_for_layer_request.GetDownloadUrlForLayerRequest = {
             "repository_name": repository_name,
             "layer_digest": layer_digest,
@@ -2028,7 +2089,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLifecyclePolicy")
+        )
         input_: capo_ecr.types.get_lifecycle_policy_request.GetLifecyclePolicyRequest = {
             "repository_name": repository_name
         }
@@ -2093,7 +2156,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLifecyclePolicyPreview")
+        )
         input_: capo_ecr.types.get_lifecycle_policy_preview_request.GetLifecyclePolicyPreviewRequest = {
             "repository_name": repository_name
         }
@@ -2178,7 +2243,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRegistryPolicy")
+        )
         input_: capo_ecr.types.get_registry_policy_request.GetRegistryPolicyRequest = {}
 
         response = execute_pipeline(
@@ -2215,7 +2282,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRegistryScanningConfiguration")
+        )
         input_: capo_ecr.types.get_registry_scanning_configuration_request.GetRegistryScanningConfigurationRequest = {}
 
         response = execute_pipeline(
@@ -2267,7 +2336,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRepositoryPolicy")
+        )
         input_: capo_ecr.types.get_repository_policy_request.GetRepositoryPolicyRequest = {
             "repository_name": repository_name
         }
@@ -2309,7 +2380,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSigningConfiguration")
+        )
         input_: capo_ecr.types.get_signing_configuration_request.GetSigningConfigurationRequest = {}
 
         response = execute_pipeline(
@@ -2355,7 +2428,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InitiateLayerUpload")
+        )
         input_: capo_ecr.types.initiate_layer_upload_request.InitiateLayerUploadRequest = {
             "repository_name": repository_name
         }
@@ -2432,7 +2507,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImageReferrers")
+        )
         input_: capo_ecr.types.list_image_referrers_request.ListImageReferrersRequest = {
             "repository_name": repository_name,
             "subject_id": subject_id,
@@ -2500,7 +2577,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImages")
+        )
         input_: capo_ecr.types.list_images_request.ListImagesRequest = {
             "repository_name": repository_name
         }
@@ -2593,7 +2672,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPullTimeUpdateExclusions")
+        )
         input_: capo_ecr.types.list_pull_time_update_exclusions_request.ListPullTimeUpdateExclusionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2640,7 +2721,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_ecr.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2688,7 +2771,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccountSetting")
+        )
         input_: capo_ecr.types.put_account_setting_request.PutAccountSettingRequest = {
             "name": name,
             "value": value,
@@ -2751,7 +2836,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutImage")
+        )
         input_: capo_ecr.types.put_image_request.PutImageRequest = {
             "repository_name": repository_name,
             "image_manifest": image_manifest,
@@ -2810,7 +2897,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutImageScanningConfiguration")
+        )
         input_: capo_ecr.types.put_image_scanning_configuration_request.PutImageScanningConfigurationRequest = {
             "repository_name": repository_name,
             "image_scanning_configuration": image_scanning_configuration,
@@ -2868,7 +2957,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutImageTagMutability")
+        )
         input_: capo_ecr.types.put_image_tag_mutability_request.PutImageTagMutabilityRequest = {
             "repository_name": repository_name,
             "image_tag_mutability": image_tag_mutability,
@@ -2925,7 +3016,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutLifecyclePolicy")
+        )
         input_: capo_ecr.types.put_lifecycle_policy_request.PutLifecyclePolicyRequest = {
             "repository_name": repository_name,
             "lifecycle_policy_text": lifecycle_policy_text,
@@ -2973,7 +3066,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRegistryPolicy")
+        )
         input_: capo_ecr.types.put_registry_policy_request.PutRegistryPolicyRequest = {
             "policy_text": policy_text
         }
@@ -3023,7 +3118,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRegistryScanningConfiguration")
+        )
         input_: capo_ecr.types.put_registry_scanning_configuration_request.PutRegistryScanningConfigurationRequest = {}
         if scan_type is not None:
             input_["scan_type"] = scan_type
@@ -3070,7 +3167,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutReplicationConfiguration")
+        )
         input_: capo_ecr.types.put_replication_configuration_request.PutReplicationConfigurationRequest = {
             "replication_configuration": replication_configuration
         }
@@ -3115,7 +3214,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutSigningConfiguration")
+        )
         input_: capo_ecr.types.put_signing_configuration_request.PutSigningConfigurationRequest = {
             "signing_configuration": signing_configuration
         }
@@ -3162,7 +3263,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterPullTimeUpdateExclusion")
+        )
         input_: capo_ecr.types.register_pull_time_update_exclusion_request.RegisterPullTimeUpdateExclusionRequest = {
             "principal_arn": principal_arn
         }
@@ -3213,7 +3316,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetRepositoryPolicy")
+        )
         input_: capo_ecr.types.set_repository_policy_request.SetRepositoryPolicyRequest = {
             "repository_name": repository_name,
             "policy_text": policy_text,
@@ -3271,7 +3376,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartImageScan")
+        )
         input_: capo_ecr.types.start_image_scan_request.StartImageScanRequest = {
             "repository_name": repository_name,
             "image_id": image_id,
@@ -3328,7 +3435,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartLifecyclePolicyPreview")
+        )
         input_: capo_ecr.types.start_lifecycle_policy_preview_request.StartLifecyclePolicyPreviewRequest = {
             "repository_name": repository_name
         }
@@ -3381,7 +3490,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_ecr.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -3431,7 +3542,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_ecr.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -3495,7 +3608,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateImageStorageClass")
+        )
         input_: capo_ecr.types.update_image_storage_class_request.UpdateImageStorageClassRequest = {
             "repository_name": repository_name,
             "image_id": image_id,
@@ -3556,7 +3671,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePullThroughCacheRule")
+        )
         input_: capo_ecr.types.update_pull_through_cache_rule_request.UpdatePullThroughCacheRuleRequest = {
             "ecr_repository_prefix": ecr_repository_prefix
         }
@@ -3641,7 +3758,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRepositoryCreationTemplate")
+        )
         input_: capo_ecr.types.update_repository_creation_template_request.UpdateRepositoryCreationTemplateRequest = {
             "prefix": prefix
         }
@@ -3720,7 +3839,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UploadLayerPart")
+        )
         input_: capo_ecr.types.upload_layer_part_request.UploadLayerPartRequest = {
             "repository_name": repository_name,
             "upload_id": upload_id,
@@ -3774,7 +3895,9 @@ class ECRClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ValidatePullThroughCacheRule")
+        )
         input_: capo_ecr.types.validate_pull_through_cache_rule_request.ValidatePullThroughCacheRuleRequest = {
             "ecr_repository_prefix": ecr_repository_prefix
         }

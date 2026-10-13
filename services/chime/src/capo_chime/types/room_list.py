@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chime#RoomList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_chime.types.room
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> RoomList:
             continue
         out.append(capo_chime.types.room.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: RoomList) -> list[Any]:
+    import capo_chime.types.room
+
+    return [capo_chime.types.room.redact_sensitive(item) for item in value]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RoutePassThroughPlace``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -57,4 +57,15 @@ def deserialize_json(data: dict) -> RoutePassThroughPlace:
         raise DeserializationError("RoutePassThroughPlace.position required")
     if data.get("WaypointIndex") is not None:
         out["waypoint_index"] = data["WaypointIndex"]
+    return out
+
+
+def redact_sensitive(value: RoutePassThroughPlace) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "original_position" in value:
+        out["original_position"] = "*** Sensitive Data Redacted ***"
+    if "position" in value:
+        out["position"] = "*** Sensitive Data Redacted ***"
+    if "waypoint_index" in value:
+        out["waypoint_index"] = "*** Sensitive Data Redacted ***"
     return out

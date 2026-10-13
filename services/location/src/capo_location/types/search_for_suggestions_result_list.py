@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#SearchForSuggestionsResultList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_location.types.search_for_suggestions_result
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> SearchForSuggestionsResultList:
             capo_location.types.search_for_suggestions_result.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: SearchForSuggestionsResultList) -> list[Any]:
+    import capo_location.types.search_for_suggestions_result
+
+    return [
+        capo_location.types.search_for_suggestions_result.redact_sensitive(item)
+        for item in value
+    ]

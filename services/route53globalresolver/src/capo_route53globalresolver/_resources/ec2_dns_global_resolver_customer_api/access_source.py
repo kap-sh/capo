@@ -8,6 +8,7 @@ import capo_route53globalresolver._auth._sigv4
 from capo_route53globalresolver._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -107,7 +108,9 @@ class AccessSource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAccessSource")
+        )
         input_: capo_route53globalresolver.types.create_access_source_input.CreateAccessSourceInput = {
             "cidr": cidr,
             "dns_view_id": dns_view_id,
@@ -165,7 +168,9 @@ class AccessSource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAccessSource")
+        )
         input_: capo_route53globalresolver.types.get_access_source_input.GetAccessSourceInput = {
             "access_source_id": access_source_id
         }
@@ -228,7 +233,9 @@ class AccessSource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAccessSource")
+        )
         input_: capo_route53globalresolver.types.update_access_source_input.UpdateAccessSourceInput = {
             "access_source_id": access_source_id
         }
@@ -284,7 +291,9 @@ class AccessSource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAccessSource")
+        )
         input_: capo_route53globalresolver.types.delete_access_source_input.DeleteAccessSourceInput = {
             "access_source_id": access_source_id
         }
@@ -334,7 +343,9 @@ class AccessSource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAccessSources")
+        )
         input_: capo_route53globalresolver.types.list_access_sources_input.ListAccessSourcesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -416,7 +427,9 @@ class AsyncAccessSource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAccessSource")
+        )
         input_: capo_route53globalresolver.types.create_access_source_input.CreateAccessSourceInput = {
             "cidr": cidr,
             "dns_view_id": dns_view_id,
@@ -475,7 +488,9 @@ class AsyncAccessSource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAccessSource")
+        )
         input_: capo_route53globalresolver.types.get_access_source_input.GetAccessSourceInput = {
             "access_source_id": access_source_id
         }
@@ -539,7 +554,9 @@ class AsyncAccessSource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAccessSource")
+        )
         input_: capo_route53globalresolver.types.update_access_source_input.UpdateAccessSourceInput = {
             "access_source_id": access_source_id
         }
@@ -596,7 +613,9 @@ class AsyncAccessSource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAccessSource")
+        )
         input_: capo_route53globalresolver.types.delete_access_source_input.DeleteAccessSourceInput = {
             "access_source_id": access_source_id
         }
@@ -647,7 +666,9 @@ class AsyncAccessSource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAccessSources")
+        )
         input_: capo_route53globalresolver.types.list_access_sources_input.ListAccessSourcesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudfront#GetFunctionResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,11 @@ def deserialize_xml(el: Element) -> GetFunctionResult:
         out["function_code"] = capo_cloudfront.types.function_blob.deserialize_xml(
             child_function_code
         )
+    return out
+
+
+def redact_sensitive(value: GetFunctionResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "function_code" in value:
+        out["function_code"] = "*** Sensitive Data Redacted ***"
     return out

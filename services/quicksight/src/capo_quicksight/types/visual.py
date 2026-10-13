@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#Visual``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -478,5 +478,194 @@ def deserialize_json(data: dict) -> Visual:
 
         out["plugin_visual"] = capo_quicksight.types.plugin_visual.deserialize_json(
             data["PluginVisual"]
+        )
+    return out
+
+
+def redact_sensitive(value: Visual) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "table_visual" in value:
+        import capo_quicksight.types.table_visual
+
+        out["table_visual"] = capo_quicksight.types.table_visual.redact_sensitive(
+            value["table_visual"]
+        )
+    if "pivot_table_visual" in value:
+        import capo_quicksight.types.pivot_table_visual
+
+        out["pivot_table_visual"] = (
+            capo_quicksight.types.pivot_table_visual.redact_sensitive(
+                value["pivot_table_visual"]
+            )
+        )
+    if "bar_chart_visual" in value:
+        import capo_quicksight.types.bar_chart_visual
+
+        out["bar_chart_visual"] = (
+            capo_quicksight.types.bar_chart_visual.redact_sensitive(
+                value["bar_chart_visual"]
+            )
+        )
+    if "kpi_visual" in value:
+        import capo_quicksight.types.kpi_visual
+
+        out["kpi_visual"] = capo_quicksight.types.kpi_visual.redact_sensitive(
+            value["kpi_visual"]
+        )
+    if "pie_chart_visual" in value:
+        import capo_quicksight.types.pie_chart_visual
+
+        out["pie_chart_visual"] = (
+            capo_quicksight.types.pie_chart_visual.redact_sensitive(
+                value["pie_chart_visual"]
+            )
+        )
+    if "gauge_chart_visual" in value:
+        import capo_quicksight.types.gauge_chart_visual
+
+        out["gauge_chart_visual"] = (
+            capo_quicksight.types.gauge_chart_visual.redact_sensitive(
+                value["gauge_chart_visual"]
+            )
+        )
+    if "line_chart_visual" in value:
+        import capo_quicksight.types.line_chart_visual
+
+        out["line_chart_visual"] = (
+            capo_quicksight.types.line_chart_visual.redact_sensitive(
+                value["line_chart_visual"]
+            )
+        )
+    if "heat_map_visual" in value:
+        import capo_quicksight.types.heat_map_visual
+
+        out["heat_map_visual"] = capo_quicksight.types.heat_map_visual.redact_sensitive(
+            value["heat_map_visual"]
+        )
+    if "tree_map_visual" in value:
+        import capo_quicksight.types.tree_map_visual
+
+        out["tree_map_visual"] = capo_quicksight.types.tree_map_visual.redact_sensitive(
+            value["tree_map_visual"]
+        )
+    if "geospatial_map_visual" in value:
+        import capo_quicksight.types.geospatial_map_visual
+
+        out["geospatial_map_visual"] = (
+            capo_quicksight.types.geospatial_map_visual.redact_sensitive(
+                value["geospatial_map_visual"]
+            )
+        )
+    if "filled_map_visual" in value:
+        import capo_quicksight.types.filled_map_visual
+
+        out["filled_map_visual"] = (
+            capo_quicksight.types.filled_map_visual.redact_sensitive(
+                value["filled_map_visual"]
+            )
+        )
+    if "layer_map_visual" in value:
+        import capo_quicksight.types.layer_map_visual
+
+        out["layer_map_visual"] = (
+            capo_quicksight.types.layer_map_visual.redact_sensitive(
+                value["layer_map_visual"]
+            )
+        )
+    if "funnel_chart_visual" in value:
+        import capo_quicksight.types.funnel_chart_visual
+
+        out["funnel_chart_visual"] = (
+            capo_quicksight.types.funnel_chart_visual.redact_sensitive(
+                value["funnel_chart_visual"]
+            )
+        )
+    if "scatter_plot_visual" in value:
+        import capo_quicksight.types.scatter_plot_visual
+
+        out["scatter_plot_visual"] = (
+            capo_quicksight.types.scatter_plot_visual.redact_sensitive(
+                value["scatter_plot_visual"]
+            )
+        )
+    if "combo_chart_visual" in value:
+        import capo_quicksight.types.combo_chart_visual
+
+        out["combo_chart_visual"] = (
+            capo_quicksight.types.combo_chart_visual.redact_sensitive(
+                value["combo_chart_visual"]
+            )
+        )
+    if "box_plot_visual" in value:
+        import capo_quicksight.types.box_plot_visual
+
+        out["box_plot_visual"] = capo_quicksight.types.box_plot_visual.redact_sensitive(
+            value["box_plot_visual"]
+        )
+    if "waterfall_visual" in value:
+        import capo_quicksight.types.waterfall_visual
+
+        out["waterfall_visual"] = (
+            capo_quicksight.types.waterfall_visual.redact_sensitive(
+                value["waterfall_visual"]
+            )
+        )
+    if "histogram_visual" in value:
+        import capo_quicksight.types.histogram_visual
+
+        out["histogram_visual"] = (
+            capo_quicksight.types.histogram_visual.redact_sensitive(
+                value["histogram_visual"]
+            )
+        )
+    if "word_cloud_visual" in value:
+        import capo_quicksight.types.word_cloud_visual
+
+        out["word_cloud_visual"] = (
+            capo_quicksight.types.word_cloud_visual.redact_sensitive(
+                value["word_cloud_visual"]
+            )
+        )
+    if "insight_visual" in value:
+        import capo_quicksight.types.insight_visual
+
+        out["insight_visual"] = capo_quicksight.types.insight_visual.redact_sensitive(
+            value["insight_visual"]
+        )
+    if "sankey_diagram_visual" in value:
+        import capo_quicksight.types.sankey_diagram_visual
+
+        out["sankey_diagram_visual"] = (
+            capo_quicksight.types.sankey_diagram_visual.redact_sensitive(
+                value["sankey_diagram_visual"]
+            )
+        )
+    if "custom_content_visual" in value:
+        import capo_quicksight.types.custom_content_visual
+
+        out["custom_content_visual"] = (
+            capo_quicksight.types.custom_content_visual.redact_sensitive(
+                value["custom_content_visual"]
+            )
+        )
+    if "empty_visual" in value:
+        import capo_quicksight.types.empty_visual
+
+        out["empty_visual"] = capo_quicksight.types.empty_visual.redact_sensitive(
+            value["empty_visual"]
+        )
+    if "radar_chart_visual" in value:
+        import capo_quicksight.types.radar_chart_visual
+
+        out["radar_chart_visual"] = (
+            capo_quicksight.types.radar_chart_visual.redact_sensitive(
+                value["radar_chart_visual"]
+            )
+        )
+    if "plugin_visual" in value:
+        import capo_quicksight.types.plugin_visual
+
+        out["plugin_visual"] = capo_quicksight.types.plugin_visual.redact_sensitive(
+            value["plugin_visual"]
         )
     return out

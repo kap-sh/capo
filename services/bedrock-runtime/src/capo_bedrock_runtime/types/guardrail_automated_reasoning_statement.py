@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#GuardrailAutomatedReasoningStatement``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -36,4 +36,13 @@ def deserialize_json(data: dict) -> GuardrailAutomatedReasoningStatement:
         out["logic"] = data["logic"]
     if data.get("naturalLanguage") is not None:
         out["natural_language"] = data["naturalLanguage"]
+    return out
+
+
+def redact_sensitive(value: GuardrailAutomatedReasoningStatement) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "logic" in value:
+        out["logic"] = "*** Sensitive Data Redacted ***"
+    if "natural_language" in value:
+        out["natural_language"] = "*** Sensitive Data Redacted ***"
     return out

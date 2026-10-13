@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningCheckTranslationOptionList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_check_translation_option
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> AutomatedReasoningCheckTranslationOptionList
             )
         )
     return out
+
+
+def redact_sensitive(value: AutomatedReasoningCheckTranslationOptionList) -> list[Any]:
+    import capo_bedrock.types.automated_reasoning_check_translation_option
+
+    return [
+        capo_bedrock.types.automated_reasoning_check_translation_option.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#VisualPalette``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,5 +41,16 @@ def deserialize_json(data: dict) -> VisualPalette:
 
         out["color_map"] = capo_quicksight.types.data_path_color_list.deserialize_json(
             data["ColorMap"]
+        )
+    return out
+
+
+def redact_sensitive(value: VisualPalette) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "color_map" in value:
+        import capo_quicksight.types.data_path_color_list
+
+        out["color_map"] = capo_quicksight.types.data_path_color_list.redact_sensitive(
+            value["color_map"]
         )
     return out

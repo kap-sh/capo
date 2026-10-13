@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmessaging#Channel``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -196,5 +196,20 @@ def deserialize_json(data: dict) -> Channel:
             capo_chime_sdk_messaging.types.expiration_settings.deserialize_json(
                 data["ExpirationSettings"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: Channel) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "metadata" in value:
+        out["metadata"] = "*** Sensitive Data Redacted ***"
+    if "created_by" in value:
+        import capo_chime_sdk_messaging.types.identity
+
+        out["created_by"] = capo_chime_sdk_messaging.types.identity.redact_sensitive(
+            value["created_by"]
         )
     return out

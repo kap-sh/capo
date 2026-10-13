@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kms#GenerateMacRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -84,4 +84,11 @@ def deserialize_aws_json_1_1(data: dict) -> GenerateMacRequest:
         )
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
+    return out
+
+
+def redact_sensitive(value: GenerateMacRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "message" in value:
+        out["message"] = "*** Sensitive Data Redacted ***"
     return out

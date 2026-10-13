@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#GuardrailPiiEntitiesConfig``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_qconnect.types.guardrail_pii_entity_config
@@ -31,3 +31,12 @@ def deserialize_json(data: list) -> GuardrailPiiEntitiesConfig:
             capo_qconnect.types.guardrail_pii_entity_config.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: GuardrailPiiEntitiesConfig) -> list[Any]:
+    import capo_qconnect.types.guardrail_pii_entity_config
+
+    return [
+        capo_qconnect.types.guardrail_pii_entity_config.redact_sensitive(item)
+        for item in value
+    ]

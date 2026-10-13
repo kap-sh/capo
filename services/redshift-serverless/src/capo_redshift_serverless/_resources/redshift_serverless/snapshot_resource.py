@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import datetime
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_redshift_serverless._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -104,7 +105,9 @@ class SnapshotResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSnapshot")
+        )
         input_: capo_redshift_serverless.types.create_snapshot_request.CreateSnapshotRequest = {
             "namespace_name": namespace_name,
             "snapshot_name": snapshot_name,
@@ -165,7 +168,9 @@ class SnapshotResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSnapshotCopyConfiguration")
+        )
         input_: capo_redshift_serverless.types.create_snapshot_copy_configuration_request.CreateSnapshotCopyConfigurationRequest = {
             "namespace_name": namespace_name,
             "destination_region": destination_region,
@@ -218,7 +223,9 @@ class SnapshotResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSnapshot")
+        )
         input_: capo_redshift_serverless.types.delete_snapshot_request.DeleteSnapshotRequest = {
             "snapshot_name": snapshot_name
         }
@@ -265,7 +272,9 @@ class SnapshotResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSnapshotCopyConfiguration")
+        )
         input_: capo_redshift_serverless.types.delete_snapshot_copy_configuration_request.DeleteSnapshotCopyConfigurationRequest = {
             "snapshot_copy_configuration_id": snapshot_copy_configuration_id
         }
@@ -314,7 +323,9 @@ class SnapshotResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSnapshot")
+        )
         input_: capo_redshift_serverless.types.get_snapshot_request.GetSnapshotRequest = {}
         if snapshot_name is not None:
             input_["snapshot_name"] = snapshot_name
@@ -362,7 +373,9 @@ class SnapshotResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTableRestoreStatus")
+        )
         input_: capo_redshift_serverless.types.get_table_restore_status_request.GetTableRestoreStatusRequest = {
             "table_restore_request_id": table_restore_request_id
         }
@@ -417,7 +430,9 @@ class SnapshotResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSnapshotCopyConfigurations")
+        )
         input_: capo_redshift_serverless.types.list_snapshot_copy_configurations_request.ListSnapshotCopyConfigurationsRequest = {}
         if namespace_name is not None:
             input_["namespace_name"] = namespace_name
@@ -478,7 +493,9 @@ class SnapshotResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSnapshots")
+        )
         input_: capo_redshift_serverless.types.list_snapshots_request.ListSnapshotsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -543,7 +560,9 @@ class SnapshotResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTableRestoreStatus")
+        )
         input_: capo_redshift_serverless.types.list_table_restore_status_request.ListTableRestoreStatusRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -612,7 +631,19 @@ class SnapshotResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift_serverless.types.restore_from_snapshot_response.RestoreFromSnapshotResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.restore_from_snapshot_response
+
+            return capo_redshift_serverless.types.restore_from_snapshot_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("RestoreFromSnapshot", redact_output=_redact_output),
+        )
         input_: capo_redshift_serverless.types.restore_from_snapshot_request.RestoreFromSnapshotRequest = {
             "namespace_name": namespace_name,
             "workgroup_name": workgroup_name,
@@ -691,7 +722,9 @@ class SnapshotResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RestoreTableFromSnapshot")
+        )
         input_: capo_redshift_serverless.types.restore_table_from_snapshot_request.RestoreTableFromSnapshotRequest = {
             "namespace_name": namespace_name,
             "workgroup_name": workgroup_name,
@@ -756,7 +789,9 @@ class SnapshotResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSnapshot")
+        )
         input_: capo_redshift_serverless.types.update_snapshot_request.UpdateSnapshotRequest = {
             "snapshot_name": snapshot_name
         }
@@ -807,7 +842,9 @@ class SnapshotResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSnapshotCopyConfiguration")
+        )
         input_: capo_redshift_serverless.types.update_snapshot_copy_configuration_request.UpdateSnapshotCopyConfigurationRequest = {
             "snapshot_copy_configuration_id": snapshot_copy_configuration_id
         }
@@ -871,7 +908,9 @@ class AsyncSnapshotResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSnapshot")
+        )
         input_: capo_redshift_serverless.types.create_snapshot_request.CreateSnapshotRequest = {
             "namespace_name": namespace_name,
             "snapshot_name": snapshot_name,
@@ -933,7 +972,9 @@ class AsyncSnapshotResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSnapshotCopyConfiguration")
+        )
         input_: capo_redshift_serverless.types.create_snapshot_copy_configuration_request.CreateSnapshotCopyConfigurationRequest = {
             "namespace_name": namespace_name,
             "destination_region": destination_region,
@@ -987,7 +1028,9 @@ class AsyncSnapshotResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSnapshot")
+        )
         input_: capo_redshift_serverless.types.delete_snapshot_request.DeleteSnapshotRequest = {
             "snapshot_name": snapshot_name
         }
@@ -1035,7 +1078,9 @@ class AsyncSnapshotResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSnapshotCopyConfiguration")
+        )
         input_: capo_redshift_serverless.types.delete_snapshot_copy_configuration_request.DeleteSnapshotCopyConfigurationRequest = {
             "snapshot_copy_configuration_id": snapshot_copy_configuration_id
         }
@@ -1085,7 +1130,9 @@ class AsyncSnapshotResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSnapshot")
+        )
         input_: capo_redshift_serverless.types.get_snapshot_request.GetSnapshotRequest = {}
         if snapshot_name is not None:
             input_["snapshot_name"] = snapshot_name
@@ -1134,7 +1181,9 @@ class AsyncSnapshotResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTableRestoreStatus")
+        )
         input_: capo_redshift_serverless.types.get_table_restore_status_request.GetTableRestoreStatusRequest = {
             "table_restore_request_id": table_restore_request_id
         }
@@ -1190,7 +1239,9 @@ class AsyncSnapshotResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSnapshotCopyConfigurations")
+        )
         input_: capo_redshift_serverless.types.list_snapshot_copy_configurations_request.ListSnapshotCopyConfigurationsRequest = {}
         if namespace_name is not None:
             input_["namespace_name"] = namespace_name
@@ -1252,7 +1303,9 @@ class AsyncSnapshotResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSnapshots")
+        )
         input_: capo_redshift_serverless.types.list_snapshots_request.ListSnapshotsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1318,7 +1371,9 @@ class AsyncSnapshotResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTableRestoreStatus")
+        )
         input_: capo_redshift_serverless.types.list_table_restore_status_request.ListTableRestoreStatusRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1388,7 +1443,19 @@ class AsyncSnapshotResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift_serverless.types.restore_from_snapshot_response.RestoreFromSnapshotResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.restore_from_snapshot_response
+
+            return capo_redshift_serverless.types.restore_from_snapshot_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("RestoreFromSnapshot", redact_output=_redact_output),
+        )
         input_: capo_redshift_serverless.types.restore_from_snapshot_request.RestoreFromSnapshotRequest = {
             "namespace_name": namespace_name,
             "workgroup_name": workgroup_name,
@@ -1468,7 +1535,9 @@ class AsyncSnapshotResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RestoreTableFromSnapshot")
+        )
         input_: capo_redshift_serverless.types.restore_table_from_snapshot_request.RestoreTableFromSnapshotRequest = {
             "namespace_name": namespace_name,
             "workgroup_name": workgroup_name,
@@ -1534,7 +1603,9 @@ class AsyncSnapshotResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSnapshot")
+        )
         input_: capo_redshift_serverless.types.update_snapshot_request.UpdateSnapshotRequest = {
             "snapshot_name": snapshot_name
         }
@@ -1586,7 +1657,9 @@ class AsyncSnapshotResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSnapshotCopyConfiguration")
+        )
         input_: capo_redshift_serverless.types.update_snapshot_copy_configuration_request.UpdateSnapshotCopyConfigurationRequest = {
             "snapshot_copy_configuration_id": snapshot_copy_configuration_id
         }

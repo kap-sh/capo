@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.migrationhubrefactorspaces#ListEnvironmentsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -48,4 +48,17 @@ def deserialize_json(data: dict) -> ListEnvironmentsResponse:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListEnvironmentsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "environment_summary_list" in value:
+        import capo_migration_hub_refactor_spaces.types.environment_summaries
+
+        out["environment_summary_list"] = (
+            capo_migration_hub_refactor_spaces.types.environment_summaries.redact_sensitive(
+                value["environment_summary_list"]
+            )
+        )
     return out

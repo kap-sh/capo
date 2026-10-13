@@ -25,7 +25,9 @@ from capo_servicediscovery._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -200,7 +202,9 @@ class AsyncServiceDiscoveryClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncServiceDiscoveryClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncServiceDiscoveryClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncServiceDiscoveryClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -208,8 +212,10 @@ class AsyncServiceDiscoveryClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -279,7 +285,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHttpNamespace")
+        )
         input_: capo_servicediscovery.types.create_http_namespace_request.CreateHttpNamespaceRequest = {
             "name": name
         }
@@ -356,7 +364,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePrivateDnsNamespace")
+        )
         input_: capo_servicediscovery.types.create_private_dns_namespace_request.CreatePrivateDnsNamespaceRequest = {
             "name": name,
             "vpc": vpc,
@@ -434,7 +444,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePublicDnsNamespace")
+        )
         input_: capo_servicediscovery.types.create_public_dns_namespace_request.CreatePublicDnsNamespaceRequest = {
             "name": name
         }
@@ -527,7 +539,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateService")
+        )
         input_: capo_servicediscovery.types.create_service_request.CreateServiceRequest = {
             "name": name
         }
@@ -603,7 +617,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNamespace")
+        )
         input_: capo_servicediscovery.types.delete_namespace_request.DeleteNamespaceRequest = {
             "id": id
         }
@@ -659,7 +675,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteService")
+        )
         input_: capo_servicediscovery.types.delete_service_request.DeleteServiceRequest = {
             "id": id
         }
@@ -716,7 +734,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteServiceAttributes")
+        )
         input_: capo_servicediscovery.types.delete_service_attributes_request.DeleteServiceAttributesRequest = {
             "service_id": service_id,
             "attributes": attributes,
@@ -777,7 +797,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterInstance")
+        )
         input_: capo_servicediscovery.types.deregister_instance_request.DeregisterInstanceRequest = {
             "service_id": service_id,
             "instance_id": instance_id,
@@ -857,7 +879,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DiscoverInstances")
+        )
         input_: capo_servicediscovery.types.discover_instances_request.DiscoverInstancesRequest = {
             "namespace_name": namespace_name,
             "service_name": service_name,
@@ -931,7 +955,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DiscoverInstancesRevision")
+        )
         input_: capo_servicediscovery.types.discover_instances_revision_request.DiscoverInstancesRevisionRequest = {
             "namespace_name": namespace_name,
             "service_name": service_name,
@@ -992,7 +1018,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInstance")
+        )
         input_: capo_servicediscovery.types.get_instance_request.GetInstanceRequest = {
             "service_id": service_id,
             "instance_id": instance_id,
@@ -1059,7 +1087,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInstancesHealthStatus")
+        )
         input_: capo_servicediscovery.types.get_instances_health_status_request.GetInstancesHealthStatusRequest = {
             "service_id": service_id
         }
@@ -1137,7 +1167,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNamespace")
+        )
         input_: capo_servicediscovery.types.get_namespace_request.GetNamespaceRequest = {
             "id": id
         }
@@ -1192,7 +1224,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOperation")
+        )
         input_: capo_servicediscovery.types.get_operation_request.GetOperationRequest = {
             "operation_id": operation_id
         }
@@ -1245,7 +1279,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetService")
+        )
         input_: capo_servicediscovery.types.get_service_request.GetServiceRequest = {
             "id": id
         }
@@ -1300,7 +1336,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServiceAttributes")
+        )
         input_: capo_servicediscovery.types.get_service_attributes_request.GetServiceAttributesRequest = {
             "service_id": service_id
         }
@@ -1361,7 +1399,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInstances")
+        )
         input_: capo_servicediscovery.types.list_instances_request.ListInstancesRequest = {
             "service_id": service_id
         }
@@ -1450,7 +1490,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNamespaces")
+        )
         input_: capo_servicediscovery.types.list_namespaces_request.ListNamespacesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1537,7 +1579,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOperations")
+        )
         input_: capo_servicediscovery.types.list_operations_request.ListOperationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1624,7 +1668,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServices")
+        )
         input_: capo_servicediscovery.types.list_services_request.ListServicesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1704,7 +1750,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_servicediscovery.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1770,7 +1818,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterInstance")
+        )
         input_: capo_servicediscovery.types.register_instance_request.RegisterInstanceRequest = {
             "service_id": service_id,
             "instance_id": instance_id,
@@ -1829,7 +1879,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_servicediscovery.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1883,7 +1935,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_servicediscovery.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1947,7 +2001,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateHttpNamespace")
+        )
         input_: capo_servicediscovery.types.update_http_namespace_request.UpdateHttpNamespaceRequest = {
             "id": id,
             "namespace": namespace,
@@ -2010,7 +2066,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateInstanceCustomHealthStatus")
+        )
         input_: capo_servicediscovery.types.update_instance_custom_health_status_request.UpdateInstanceCustomHealthStatusRequest = {
             "service_id": service_id,
             "instance_id": instance_id,
@@ -2075,7 +2133,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePrivateDnsNamespace")
+        )
         input_: capo_servicediscovery.types.update_private_dns_namespace_request.UpdatePrivateDnsNamespaceRequest = {
             "id": id,
             "namespace": namespace,
@@ -2142,7 +2202,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePublicDnsNamespace")
+        )
         input_: capo_servicediscovery.types.update_public_dns_namespace_request.UpdatePublicDnsNamespaceRequest = {
             "id": id,
             "namespace": namespace,
@@ -2204,7 +2266,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateService")
+        )
         input_: capo_servicediscovery.types.update_service_request.UpdateServiceRequest = {
             "id": id,
             "service": service,
@@ -2263,7 +2327,9 @@ class AsyncServiceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateServiceAttributes")
+        )
         input_: capo_servicediscovery.types.update_service_attributes_request.UpdateServiceAttributesRequest = {
             "service_id": service_id,
             "attributes": attributes,

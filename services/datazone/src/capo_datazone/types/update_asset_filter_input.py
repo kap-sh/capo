@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#UpdateAssetFilterInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -61,4 +61,11 @@ def deserialize_json(data: dict) -> UpdateAssetFilterInput:
                 data["configuration"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: UpdateAssetFilterInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

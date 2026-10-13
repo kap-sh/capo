@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.notifications#NotificationEventAttachmentList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_notifications.types.notification_event_attachment
@@ -35,3 +35,12 @@ def deserialize_json(data: list) -> NotificationEventAttachmentList:
             )
         )
     return out
+
+
+def redact_sensitive(value: NotificationEventAttachmentList) -> list[Any]:
+    import capo_notifications.types.notification_event_attachment
+
+    return [
+        capo_notifications.types.notification_event_attachment.redact_sensitive(item)
+        for item in value
+    ]

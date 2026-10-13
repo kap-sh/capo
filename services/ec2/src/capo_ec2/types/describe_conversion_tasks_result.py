@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#DescribeConversionTasksResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,6 +39,19 @@ def deserialize_ec2_query(el: Element) -> DescribeConversionTasksResult:
         out["conversion_tasks"] = (
             capo_ec2.types.describe_conversion_task_list.deserialize_ec2_query(
                 child_conversion_tasks
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeConversionTasksResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "conversion_tasks" in value:
+        import capo_ec2.types.describe_conversion_task_list
+
+        out["conversion_tasks"] = (
+            capo_ec2.types.describe_conversion_task_list.redact_sensitive(
+                value["conversion_tasks"]
             )
         )
     return out

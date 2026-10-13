@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sns#SMSSandboxPhoneNumber``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,11 @@ def deserialize_query(el: Element) -> SMSSandboxPhoneNumber:
                 child_status
             )
         )
+    return out
+
+
+def redact_sensitive(value: SMSSandboxPhoneNumber) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "phone_number" in value:
+        out["phone_number"] = "*** Sensitive Data Redacted ***"
     return out

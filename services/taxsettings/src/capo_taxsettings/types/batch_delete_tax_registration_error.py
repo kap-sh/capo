@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.taxsettings#BatchDeleteTaxRegistrationError``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,11 @@ def deserialize_json(data: dict) -> BatchDeleteTaxRegistrationError:
         raise DeserializationError("BatchDeleteTaxRegistrationError.message required")
     if data.get("code") is not None:
         out["code"] = data["code"]
+    return out
+
+
+def redact_sensitive(value: BatchDeleteTaxRegistrationError) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "message" in value:
+        out["message"] = "*** Sensitive Data Redacted ***"
     return out

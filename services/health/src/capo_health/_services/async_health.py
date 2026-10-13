@@ -24,7 +24,9 @@ from capo_health._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -155,7 +157,9 @@ class AsyncHealthClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncHealthClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncHealthClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncHealthClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -163,8 +167,10 @@ class AsyncHealthClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -218,7 +224,10 @@ class AsyncHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeAffectedAccountsForOrganization"),
+        )
         input_: capo_health.types.describe_affected_accounts_for_organization_request.DescribeAffectedAccountsForOrganizationRequest = {
             "event_arn": event_arn
         }
@@ -298,7 +307,9 @@ class AsyncHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAffectedEntities")
+        )
         input_: capo_health.types.describe_affected_entities_request.DescribeAffectedEntitiesRequest = {
             "filter": filter
         }
@@ -390,7 +401,10 @@ class AsyncHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeAffectedEntitiesForOrganization"),
+        )
         input_: capo_health.types.describe_affected_entities_for_organization_request.DescribeAffectedEntitiesForOrganizationRequest = {}
         if organization_entity_filters is not None:
             input_["organization_entity_filters"] = organization_entity_filters
@@ -476,7 +490,9 @@ class AsyncHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEntityAggregates")
+        )
         input_: capo_health.types.describe_entity_aggregates_request.DescribeEntityAggregatesRequest = {}
         if event_arns is not None:
             input_["event_arns"] = event_arns
@@ -523,7 +539,10 @@ class AsyncHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeEntityAggregatesForOrganization"),
+        )
         input_: capo_health.types.describe_entity_aggregates_for_organization_request.DescribeEntityAggregatesForOrganizationRequest = {
             "event_arns": event_arns
         }
@@ -575,7 +594,9 @@ class AsyncHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEventAggregates")
+        )
         input_: capo_health.types.describe_event_aggregates_request.DescribeEventAggregatesRequest = {
             "aggregate_field": aggregate_field
         }
@@ -654,7 +675,9 @@ class AsyncHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEventDetails")
+        )
         input_: capo_health.types.describe_event_details_request.DescribeEventDetailsRequest = {
             "event_arns": event_arns
         }
@@ -702,7 +725,9 @@ class AsyncHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEventDetailsForOrganization")
+        )
         input_: capo_health.types.describe_event_details_for_organization_request.DescribeEventDetailsForOrganizationRequest = {
             "organization_event_detail_filters": organization_event_detail_filters
         }
@@ -757,7 +782,9 @@ class AsyncHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEvents")
+        )
         input_: capo_health.types.describe_events_request.DescribeEventsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -845,7 +872,9 @@ class AsyncHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEventsForOrganization")
+        )
         input_: capo_health.types.describe_events_for_organization_request.DescribeEventsForOrganizationRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -931,7 +960,9 @@ class AsyncHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEventTypes")
+        )
         input_: capo_health.types.describe_event_types_request.DescribeEventTypesRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -999,7 +1030,10 @@ class AsyncHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeHealthServiceStatusForOrganization"),
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -1054,7 +1088,9 @@ class AsyncHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeServiceLifecycle")
+        )
         input_: capo_health.types.describe_service_lifecycle_request.DescribeServiceLifecycleRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -1121,7 +1157,10 @@ class AsyncHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisableHealthServiceAccessForOrganization"),
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -1154,7 +1193,10 @@ class AsyncHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("EnableHealthServiceAccessForOrganization"),
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),

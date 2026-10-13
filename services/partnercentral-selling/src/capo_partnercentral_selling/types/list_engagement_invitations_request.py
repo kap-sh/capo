@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#ListEngagementInvitationsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -168,6 +168,19 @@ def deserialize_aws_json_1_0(data: dict) -> ListEngagementInvitationsRequest:
         out["sender_aws_account_id"] = (
             capo_partnercentral_selling.types.aws_account_id_or_alias_list.deserialize_aws_json_1_0(
                 data["SenderAwsAccountId"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ListEngagementInvitationsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sender_aws_account_id" in value:
+        import capo_partnercentral_selling.types.aws_account_id_or_alias_list
+
+        out["sender_aws_account_id"] = (
+            capo_partnercentral_selling.types.aws_account_id_or_alias_list.redact_sensitive(
+                value["sender_aws_account_id"]
             )
         )
     return out

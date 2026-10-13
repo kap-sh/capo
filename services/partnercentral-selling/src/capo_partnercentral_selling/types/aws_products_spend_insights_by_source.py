@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#AwsProductsSpendInsightsBySource``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -57,6 +57,27 @@ def deserialize_aws_json_1_0(data: dict) -> AwsProductsSpendInsightsBySource:
         out["aws"] = (
             capo_partnercentral_selling.types.aws_product_insights.deserialize_aws_json_1_0(
                 data["AWS"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: AwsProductsSpendInsightsBySource) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "partner" in value:
+        import capo_partnercentral_selling.types.aws_product_insights
+
+        out["partner"] = (
+            capo_partnercentral_selling.types.aws_product_insights.redact_sensitive(
+                value["partner"]
+            )
+        )
+    if "aws" in value:
+        import capo_partnercentral_selling.types.aws_product_insights
+
+        out["aws"] = (
+            capo_partnercentral_selling.types.aws_product_insights.redact_sensitive(
+                value["aws"]
             )
         )
     return out

@@ -22,10 +22,12 @@ from capo_iotdeviceadvisor._pagination import resolve_path as _resolve_path
 from capo_iotdeviceadvisor._services._aws_config import aws_config
 from capo_iotdeviceadvisor._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -144,7 +146,9 @@ class IotDeviceAdvisorClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[IotDeviceAdvisorClientConfig] = None
+        self,
+        config_overrides: Optional[IotDeviceAdvisorClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: IotDeviceAdvisorClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -152,8 +156,10 @@ class IotDeviceAdvisorClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -211,7 +217,9 @@ class IotDeviceAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSuiteDefinition")
+        )
         input_: capo_iotdeviceadvisor.types.create_suite_definition_request.CreateSuiteDefinitionRequest = {}
         if suite_definition_configuration is not None:
             input_["suite_definition_configuration"] = suite_definition_configuration
@@ -260,7 +268,9 @@ class IotDeviceAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSuiteDefinition")
+        )
         input_: capo_iotdeviceadvisor.types.delete_suite_definition_request.DeleteSuiteDefinitionRequest = {
             "suite_definition_id": suite_definition_id
         }
@@ -319,7 +329,9 @@ class IotDeviceAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEndpoint")
+        )
         input_: capo_iotdeviceadvisor.types.get_endpoint_request.GetEndpointRequest = {}
         if thing_arn is not None:
             input_["thing_arn"] = thing_arn
@@ -374,7 +386,9 @@ class IotDeviceAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSuiteDefinition")
+        )
         input_: capo_iotdeviceadvisor.types.get_suite_definition_request.GetSuiteDefinitionRequest = {
             "suite_definition_id": suite_definition_id
         }
@@ -423,7 +437,9 @@ class IotDeviceAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSuiteRun")
+        )
         input_: capo_iotdeviceadvisor.types.get_suite_run_request.GetSuiteRunRequest = {
             "suite_definition_id": suite_definition_id,
             "suite_run_id": suite_run_id,
@@ -471,7 +487,9 @@ class IotDeviceAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSuiteRunReport")
+        )
         input_: capo_iotdeviceadvisor.types.get_suite_run_report_request.GetSuiteRunReportRequest = {
             "suite_definition_id": suite_definition_id,
             "suite_run_id": suite_run_id,
@@ -520,7 +538,9 @@ class IotDeviceAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSuiteDefinitions")
+        )
         input_: capo_iotdeviceadvisor.types.list_suite_definitions_request.ListSuiteDefinitionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -597,7 +617,9 @@ class IotDeviceAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSuiteRuns")
+        )
         input_: capo_iotdeviceadvisor.types.list_suite_runs_request.ListSuiteRunsRequest = {}
         if suite_definition_id is not None:
             input_["suite_definition_id"] = suite_definition_id
@@ -675,7 +697,9 @@ class IotDeviceAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_iotdeviceadvisor.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -730,7 +754,9 @@ class IotDeviceAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartSuiteRun")
+        )
         input_: capo_iotdeviceadvisor.types.start_suite_run_request.StartSuiteRunRequest = {
             "suite_definition_id": suite_definition_id
         }
@@ -783,7 +809,9 @@ class IotDeviceAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopSuiteRun")
+        )
         input_: capo_iotdeviceadvisor.types.stop_suite_run_request.StopSuiteRunRequest = {
             "suite_definition_id": suite_definition_id,
             "suite_run_id": suite_run_id,
@@ -831,7 +859,9 @@ class IotDeviceAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_iotdeviceadvisor.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -882,7 +912,9 @@ class IotDeviceAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_iotdeviceadvisor.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -932,7 +964,9 @@ class IotDeviceAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSuiteDefinition")
+        )
         input_: capo_iotdeviceadvisor.types.update_suite_definition_request.UpdateSuiteDefinitionRequest = {
             "suite_definition_id": suite_definition_id
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#PublishLayerVersionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -95,4 +95,15 @@ def deserialize_json(data: dict) -> PublishLayerVersionRequest:
         )
     if data.get("LicenseInfo") is not None:
         out["license_info"] = data["LicenseInfo"]
+    return out
+
+
+def redact_sensitive(value: PublishLayerVersionRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        import capo_lambda.types.layer_version_content_input
+
+        out["content"] = capo_lambda.types.layer_version_content_input.redact_sensitive(
+            value["content"]
+        )
     return out

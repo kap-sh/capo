@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexruntimev2#ActiveContextParametersMap``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_lex_runtime_v2.types.parameter_name
@@ -27,3 +27,7 @@ def deserialize_json(data: dict) -> ActiveContextParametersMap:
             continue
         out[key] = value
     return out
+
+
+def redact_sensitive(value: ActiveContextParametersMap) -> dict[str, Any]:
+    return dict.fromkeys(value, "*** Sensitive Data Redacted ***")

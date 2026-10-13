@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.comprehend#DetectDominantLanguageRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -28,4 +28,11 @@ def deserialize_aws_json_1_1(data: dict) -> DetectDominantLanguageRequest:
         out["text"] = data["Text"]
     else:
         raise DeserializationError("DetectDominantLanguageRequest.text required")
+    return out
+
+
+def redact_sensitive(value: DetectDominantLanguageRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text" in value:
+        out["text"] = "*** Sensitive Data Redacted ***"
     return out

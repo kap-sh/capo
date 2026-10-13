@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pcs#RegisterComputeNodeGroupInstanceResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -96,4 +96,11 @@ def deserialize_aws_json_1_0(data: dict) -> RegisterComputeNodeGroupInstanceResp
                 data["nodeLifecycleActions"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: RegisterComputeNodeGroupInstanceResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "shared_secret" in value:
+        out["shared_secret"] = "*** Sensitive Data Redacted ***"
     return out

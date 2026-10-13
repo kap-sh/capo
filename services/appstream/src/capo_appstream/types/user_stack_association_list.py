@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appstream#UserStackAssociationList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_appstream.types.user_stack_association
@@ -33,3 +33,12 @@ def deserialize_aws_json_1_1(data: list) -> UserStackAssociationList:
             capo_appstream.types.user_stack_association.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+def redact_sensitive(value: UserStackAssociationList) -> list[Any]:
+    import capo_appstream.types.user_stack_association
+
+    return [
+        capo_appstream.types.user_stack_association.redact_sensitive(item)
+        for item in value
+    ]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#DocumentAccessControlList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.document_access_control_entry
@@ -35,3 +35,7 @@ def deserialize_json(data: list) -> DocumentAccessControlList:
             )
         )
     return out
+
+
+def redact_sensitive(value: DocumentAccessControlList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

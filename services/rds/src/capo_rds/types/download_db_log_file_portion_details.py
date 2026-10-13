@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#DownloadDBLogFilePortionDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -52,4 +52,11 @@ def deserialize_query(el: Element) -> DownloadDBLogFilePortionDetails:
         out["additional_data_pending"] = (
             child_additional_data_pending.text or ""
         ).lower() == "true"
+    return out
+
+
+def redact_sensitive(value: DownloadDBLogFilePortionDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "log_file_data" in value:
+        out["log_file_data"] = "*** Sensitive Data Redacted ***"
     return out

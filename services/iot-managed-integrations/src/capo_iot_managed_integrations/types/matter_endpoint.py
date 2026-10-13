@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#MatterEndpoint``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -44,6 +44,19 @@ def deserialize_json(data: dict) -> MatterEndpoint:
         out["clusters"] = (
             capo_iot_managed_integrations.types.matter_clusters.deserialize_json(
                 data["clusters"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: MatterEndpoint) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "clusters" in value:
+        import capo_iot_managed_integrations.types.matter_clusters
+
+        out["clusters"] = (
+            capo_iot_managed_integrations.types.matter_clusters.redact_sensitive(
+                value["clusters"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexruntimev2#ActiveContextsList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_lex_runtime_v2.types.active_context
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> ActiveContextsList:
             continue
         out.append(capo_lex_runtime_v2.types.active_context.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ActiveContextsList) -> list[Any]:
+    import capo_lex_runtime_v2.types.active_context
+
+    return [
+        capo_lex_runtime_v2.types.active_context.redact_sensitive(item)
+        for item in value
+    ]

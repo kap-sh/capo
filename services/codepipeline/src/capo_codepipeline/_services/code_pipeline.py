@@ -22,10 +22,12 @@ from capo_codepipeline._pagination import resolve_path as _resolve_path
 from capo_codepipeline._services._aws_config import aws_config
 from capo_codepipeline._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -245,7 +247,9 @@ class CodePipelineClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[CodePipelineClientConfig] = None
+        self,
+        config_overrides: Optional[CodePipelineClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: CodePipelineClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -253,8 +257,10 @@ class CodePipelineClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -307,7 +313,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcknowledgeJob")
+        )
         input_: capo_codepipeline.types.acknowledge_job_input.AcknowledgeJobInput = {
             "job_id": job_id,
             "nonce": nonce,
@@ -358,7 +366,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcknowledgeThirdPartyJob")
+        )
         input_: capo_codepipeline.types.acknowledge_third_party_job_input.AcknowledgeThirdPartyJobInput = {
             "job_id": job_id,
             "nonce": nonce,
@@ -425,7 +435,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCustomActionType")
+        )
         input_: capo_codepipeline.types.create_custom_action_type_input.CreateCustomActionTypeInput = {
             "category": category,
             "provider": provider,
@@ -489,7 +501,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePipeline")
+        )
         input_: capo_codepipeline.types.create_pipeline_input.CreatePipelineInput = {
             "pipeline": pipeline
         }
@@ -537,7 +551,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCustomActionType")
+        )
         input_: capo_codepipeline.types.delete_custom_action_type_input.DeleteCustomActionTypeInput = {
             "category": category,
             "provider": provider,
@@ -581,7 +597,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePipeline")
+        )
         input_: capo_codepipeline.types.delete_pipeline_input.DeletePipelineInput = {
             "name": name
         }
@@ -625,7 +643,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWebhook")
+        )
         input_: capo_codepipeline.types.delete_webhook_input.DeleteWebhookInput = {
             "name": name
         }
@@ -671,7 +691,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterWebhookWithThirdParty")
+        )
         input_: capo_codepipeline.types.deregister_webhook_with_third_party_input.DeregisterWebhookWithThirdPartyInput = {}
         if webhook_name is not None:
             input_["webhook_name"] = webhook_name
@@ -720,7 +742,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableStageTransition")
+        )
         input_: capo_codepipeline.types.disable_stage_transition_input.DisableStageTransitionInput = {
             "pipeline_name": pipeline_name,
             "stage_name": stage_name,
@@ -770,7 +794,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableStageTransition")
+        )
         input_: capo_codepipeline.types.enable_stage_transition_input.EnableStageTransitionInput = {
             "pipeline_name": pipeline_name,
             "stage_name": stage_name,
@@ -822,7 +848,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetActionType")
+        )
         input_: capo_codepipeline.types.get_action_type_input.GetActionTypeInput = {
             "category": category,
             "owner": owner,
@@ -869,7 +897,19 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_codepipeline.types.get_job_details_output.GetJobDetailsOutput",
+        ) -> dict[str, Any]:
+            import capo_codepipeline.types.get_job_details_output
+
+            return capo_codepipeline.types.get_job_details_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetJobDetails", redact_output=_redact_output),
+        )
         input_: capo_codepipeline.types.get_job_details_input.GetJobDetailsInput = {
             "job_id": job_id
         }
@@ -918,7 +958,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPipeline")
+        )
         input_: capo_codepipeline.types.get_pipeline_input.GetPipelineInput = {
             "name": name
         }
@@ -967,7 +1009,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPipelineExecution")
+        )
         input_: capo_codepipeline.types.get_pipeline_execution_input.GetPipelineExecutionInput = {
             "pipeline_name": pipeline_name,
             "pipeline_execution_id": pipeline_execution_id,
@@ -1012,7 +1056,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPipelineState")
+        )
         input_: capo_codepipeline.types.get_pipeline_state_input.GetPipelineStateInput = {
             "name": name
         }
@@ -1060,7 +1106,19 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_codepipeline.types.get_third_party_job_details_output.GetThirdPartyJobDetailsOutput",
+        ) -> dict[str, Any]:
+            import capo_codepipeline.types.get_third_party_job_details_output
+
+            return capo_codepipeline.types.get_third_party_job_details_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetThirdPartyJobDetails", redact_output=_redact_output),
+        )
         input_: capo_codepipeline.types.get_third_party_job_details_input.GetThirdPartyJobDetailsInput = {
             "job_id": job_id,
             "client_token": client_token,
@@ -1115,7 +1173,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListActionExecutions")
+        )
         input_: capo_codepipeline.types.list_action_executions_input.ListActionExecutionsInput = {
             "pipeline_name": pipeline_name
         }
@@ -1200,7 +1260,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListActionTypes")
+        )
         input_: capo_codepipeline.types.list_action_types_input.ListActionTypesInput = {}
         if action_owner_filter is not None:
             input_["action_owner_filter"] = action_owner_filter
@@ -1289,7 +1351,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeployActionExecutionTargets")
+        )
         input_: capo_codepipeline.types.list_deploy_action_execution_targets_input.ListDeployActionExecutionTargetsInput = {
             "action_execution_id": action_execution_id
         }
@@ -1381,7 +1445,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPipelineExecutions")
+        )
         input_: capo_codepipeline.types.list_pipeline_executions_input.ListPipelineExecutionsInput = {
             "pipeline_name": pipeline_name
         }
@@ -1462,7 +1528,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPipelines")
+        )
         input_: capo_codepipeline.types.list_pipelines_input.ListPipelinesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1541,7 +1609,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRuleExecutions")
+        )
         input_: capo_codepipeline.types.list_rule_executions_input.ListRuleExecutionsInput = {
             "pipeline_name": pipeline_name
         }
@@ -1624,7 +1694,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRuleTypes")
+        )
         input_: capo_codepipeline.types.list_rule_types_input.ListRuleTypesInput = {}
         if rule_owner_filter is not None:
             input_["rule_owner_filter"] = rule_owner_filter
@@ -1676,7 +1748,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_codepipeline.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -1749,7 +1823,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWebhooks")
+        )
         input_: capo_codepipeline.types.list_webhooks_input.ListWebhooksInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1825,7 +1901,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("OverrideStageCondition")
+        )
         input_: capo_codepipeline.types.override_stage_condition_input.OverrideStageConditionInput = {
             "pipeline_name": pipeline_name,
             "stage_name": stage_name,
@@ -1880,7 +1958,17 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_codepipeline.types.poll_for_jobs_output.PollForJobsOutput",
+        ) -> dict[str, Any]:
+            import capo_codepipeline.types.poll_for_jobs_output
+
+            return capo_codepipeline.types.poll_for_jobs_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PollForJobs", redact_output=_redact_output),
+        )
         input_: capo_codepipeline.types.poll_for_jobs_input.PollForJobsInput = {
             "action_type_id": action_type_id
         }
@@ -1932,7 +2020,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PollForThirdPartyJobs")
+        )
         input_: capo_codepipeline.types.poll_for_third_party_jobs_input.PollForThirdPartyJobsInput = {
             "action_type_id": action_type_id
         }
@@ -1987,7 +2077,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutActionRevision")
+        )
         input_: capo_codepipeline.types.put_action_revision_input.PutActionRevisionInput = {
             "pipeline_name": pipeline_name,
             "stage_name": stage_name,
@@ -2046,7 +2138,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutApprovalResult")
+        )
         input_: capo_codepipeline.types.put_approval_result_input.PutApprovalResultInput = {
             "pipeline_name": pipeline_name,
             "stage_name": stage_name,
@@ -2095,7 +2189,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutJobFailureResult")
+        )
         input_: capo_codepipeline.types.put_job_failure_result_input.PutJobFailureResultInput = {
             "job_id": job_id,
             "failure_details": failure_details,
@@ -2156,7 +2252,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutJobSuccessResult")
+        )
         input_: capo_codepipeline.types.put_job_success_result_input.PutJobSuccessResultInput = {
             "job_id": job_id
         }
@@ -2212,7 +2310,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutThirdPartyJobFailureResult")
+        )
         input_: capo_codepipeline.types.put_third_party_job_failure_result_input.PutThirdPartyJobFailureResultInput = {
             "job_id": job_id,
             "client_token": client_token,
@@ -2272,7 +2372,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutThirdPartyJobSuccessResult")
+        )
         input_: capo_codepipeline.types.put_third_party_job_success_result_input.PutThirdPartyJobSuccessResultInput = {
             "job_id": job_id,
             "client_token": client_token,
@@ -2331,7 +2433,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutWebhook")
+        )
         input_: capo_codepipeline.types.put_webhook_input.PutWebhookInput = {
             "webhook": webhook
         }
@@ -2379,7 +2483,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterWebhookWithThirdParty")
+        )
         input_: capo_codepipeline.types.register_webhook_with_third_party_input.RegisterWebhookWithThirdPartyInput = {}
         if webhook_name is not None:
             input_["webhook_name"] = webhook_name
@@ -2436,7 +2542,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RetryStageExecution")
+        )
         input_: capo_codepipeline.types.retry_stage_execution_input.RetryStageExecutionInput = {
             "pipeline_name": pipeline_name,
             "stage_name": stage_name,
@@ -2492,7 +2600,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RollbackStage")
+        )
         input_: capo_codepipeline.types.rollback_stage_input.RollbackStageInput = {
             "pipeline_name": pipeline_name,
             "stage_name": stage_name,
@@ -2552,7 +2662,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartPipelineExecution")
+        )
         input_: capo_codepipeline.types.start_pipeline_execution_input.StartPipelineExecutionInput = {
             "name": name
         }
@@ -2614,7 +2726,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopPipelineExecution")
+        )
         input_: capo_codepipeline.types.stop_pipeline_execution_input.StopPipelineExecutionInput = {
             "pipeline_name": pipeline_name,
             "pipeline_execution_id": pipeline_execution_id,
@@ -2669,7 +2783,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_codepipeline.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2719,7 +2835,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_codepipeline.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2763,7 +2881,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateActionType")
+        )
         input_: capo_codepipeline.types.update_action_type_input.UpdateActionTypeInput = {
             "action_type": action_type
         }
@@ -2811,7 +2931,9 @@ class CodePipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePipeline")
+        )
         input_: capo_codepipeline.types.update_pipeline_input.UpdatePipelineInput = {
             "pipeline": pipeline
         }

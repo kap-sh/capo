@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#RegisteredService``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -138,5 +138,18 @@ def deserialize_json(data: dict) -> RegisteredService:
 
         out["updated_at"] = datetime.datetime.fromisoformat(
             data["updatedAt"].replace("Z", "+00:00")
+        )
+    return out
+
+
+def redact_sensitive(value: RegisteredService) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "additional_service_details" in value:
+        import capo_devops_agent.types.additional_service_details
+
+        out["additional_service_details"] = (
+            capo_devops_agent.types.additional_service_details.redact_sensitive(
+                value["additional_service_details"]
+            )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#ApiResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -115,4 +115,11 @@ def deserialize_json(data: dict) -> ApiResult:
         )
     if data.get("agentId") is not None:
         out["agent_id"] = data["agentId"]
+    return out
+
+
+def redact_sensitive(value: ApiResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "api_path" in value:
+        out["api_path"] = "*** Sensitive Data Redacted ***"
     return out

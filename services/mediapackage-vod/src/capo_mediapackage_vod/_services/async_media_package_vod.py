@@ -24,7 +24,9 @@ from capo_mediapackage_vod._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -150,7 +152,9 @@ class AsyncMediaPackageVodClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncMediaPackageVodClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncMediaPackageVodClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncMediaPackageVodClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -158,8 +162,10 @@ class AsyncMediaPackageVodClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -217,7 +223,9 @@ class AsyncMediaPackageVodClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ConfigureLogs")
+        )
         input_: capo_mediapackage_vod.types.configure_logs_request.ConfigureLogsRequest = {
             "id": id
         }
@@ -281,7 +289,9 @@ class AsyncMediaPackageVodClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAsset")
+        )
         input_: capo_mediapackage_vod.types.create_asset_request.CreateAssetRequest = {}
         if id is not None:
             input_["id"] = id
@@ -357,7 +367,9 @@ class AsyncMediaPackageVodClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePackagingConfiguration")
+        )
         input_: capo_mediapackage_vod.types.create_packaging_configuration_request.CreatePackagingConfigurationRequest = {}
         if cmaf_package is not None:
             input_["cmaf_package"] = cmaf_package
@@ -425,7 +437,9 @@ class AsyncMediaPackageVodClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePackagingGroup")
+        )
         input_: capo_mediapackage_vod.types.create_packaging_group_request.CreatePackagingGroupRequest = {}
         if authorization is not None:
             input_["authorization"] = authorization
@@ -480,7 +494,9 @@ class AsyncMediaPackageVodClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAsset")
+        )
         input_: capo_mediapackage_vod.types.delete_asset_request.DeleteAssetRequest = {
             "id": id
         }
@@ -529,7 +545,9 @@ class AsyncMediaPackageVodClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePackagingConfiguration")
+        )
         input_: capo_mediapackage_vod.types.delete_packaging_configuration_request.DeletePackagingConfigurationRequest = {
             "id": id
         }
@@ -578,7 +596,9 @@ class AsyncMediaPackageVodClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePackagingGroup")
+        )
         input_: capo_mediapackage_vod.types.delete_packaging_group_request.DeletePackagingGroupRequest = {
             "id": id
         }
@@ -627,7 +647,9 @@ class AsyncMediaPackageVodClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAsset")
+        )
         input_: capo_mediapackage_vod.types.describe_asset_request.DescribeAssetRequest = {
             "id": id
         }
@@ -676,7 +698,9 @@ class AsyncMediaPackageVodClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePackagingConfiguration")
+        )
         input_: capo_mediapackage_vod.types.describe_packaging_configuration_request.DescribePackagingConfigurationRequest = {
             "id": id
         }
@@ -725,7 +749,9 @@ class AsyncMediaPackageVodClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePackagingGroup")
+        )
         input_: capo_mediapackage_vod.types.describe_packaging_group_request.DescribePackagingGroupRequest = {
             "id": id
         }
@@ -782,7 +808,9 @@ class AsyncMediaPackageVodClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssets")
+        )
         input_: capo_mediapackage_vod.types.list_assets_request.ListAssetsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -870,7 +898,9 @@ class AsyncMediaPackageVodClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPackagingConfigurations")
+        )
         input_: capo_mediapackage_vod.types.list_packaging_configurations_request.ListPackagingConfigurationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -954,7 +984,9 @@ class AsyncMediaPackageVodClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPackagingGroups")
+        )
         input_: capo_mediapackage_vod.types.list_packaging_groups_request.ListPackagingGroupsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1022,7 +1054,9 @@ class AsyncMediaPackageVodClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_mediapackage_vod.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1067,7 +1101,9 @@ class AsyncMediaPackageVodClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_mediapackage_vod.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1114,7 +1150,9 @@ class AsyncMediaPackageVodClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_mediapackage_vod.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1168,7 +1206,9 @@ class AsyncMediaPackageVodClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePackagingGroup")
+        )
         input_: capo_mediapackage_vod.types.update_packaging_group_request.UpdatePackagingGroupRequest = {
             "id": id
         }

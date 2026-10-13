@@ -32,7 +32,9 @@ from capo_internetmonitor._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -170,7 +172,9 @@ class AsyncInternetMonitorClient:
         self.monitor_resource = AsyncMonitorResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncInternetMonitorClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncInternetMonitorClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncInternetMonitorClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -178,8 +182,10 @@ class AsyncInternetMonitorClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -233,7 +239,9 @@ class AsyncInternetMonitorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_internetmonitor.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -283,7 +291,9 @@ class AsyncInternetMonitorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_internetmonitor.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -334,7 +344,9 @@ class AsyncInternetMonitorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_internetmonitor.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -382,7 +394,9 @@ class AsyncInternetMonitorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInternetEvent")
+        )
         input_: capo_internetmonitor.types.get_internet_event_input.GetInternetEventInput = {
             "event_id": event_id
         }
@@ -441,7 +455,9 @@ class AsyncInternetMonitorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInternetEvents")
+        )
         input_: capo_internetmonitor.types.list_internet_events_input.ListInternetEventsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -553,7 +569,9 @@ class AsyncInternetMonitorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMonitor")
+        )
         input_: capo_internetmonitor.types.create_monitor_input.CreateMonitorInput = {
             "monitor_name": monitor_name
         }
@@ -621,7 +639,9 @@ class AsyncInternetMonitorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMonitor")
+        )
         input_: capo_internetmonitor.types.get_monitor_input.GetMonitorInput = {
             "monitor_name": monitor_name
         }
@@ -702,7 +722,9 @@ class AsyncInternetMonitorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMonitor")
+        )
         input_: capo_internetmonitor.types.update_monitor_input.UpdateMonitorInput = {
             "monitor_name": monitor_name
         }
@@ -768,7 +790,9 @@ class AsyncInternetMonitorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMonitor")
+        )
         input_: capo_internetmonitor.types.delete_monitor_input.DeleteMonitorInput = {
             "monitor_name": monitor_name
         }
@@ -823,7 +847,9 @@ class AsyncInternetMonitorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMonitors")
+        )
         input_: capo_internetmonitor.types.list_monitors_input.ListMonitorsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -912,7 +938,9 @@ class AsyncInternetMonitorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQueryResults")
+        )
         input_: capo_internetmonitor.types.get_query_results_input.GetQueryResultsInput = {
             "monitor_name": monitor_name,
             "query_id": query_id,
@@ -992,7 +1020,9 @@ class AsyncInternetMonitorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQueryStatus")
+        )
         input_: capo_internetmonitor.types.get_query_status_input.GetQueryStatusInput = {
             "monitor_name": monitor_name,
             "query_id": query_id,
@@ -1055,7 +1085,9 @@ class AsyncInternetMonitorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartQuery")
+        )
         input_: capo_internetmonitor.types.start_query_input.StartQueryInput = {
             "monitor_name": monitor_name,
             "start_time": start_time,
@@ -1112,7 +1144,9 @@ class AsyncInternetMonitorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopQuery")
+        )
         input_: capo_internetmonitor.types.stop_query_input.StopQueryInput = {
             "monitor_name": monitor_name,
             "query_id": query_id,
@@ -1166,7 +1200,9 @@ class AsyncInternetMonitorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetHealthEvent")
+        )
         input_: capo_internetmonitor.types.get_health_event_input.GetHealthEventInput = {
             "monitor_name": monitor_name,
             "event_id": event_id,
@@ -1234,7 +1270,9 @@ class AsyncInternetMonitorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHealthEvents")
+        )
         input_: capo_internetmonitor.types.list_health_events_input.ListHealthEventsInput = {
             "monitor_name": monitor_name
         }

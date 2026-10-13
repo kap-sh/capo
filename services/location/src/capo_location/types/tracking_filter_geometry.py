@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#TrackingFilterGeometry``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_json(data: dict) -> TrackingFilterGeometry:
 
         out["polygon"] = capo_location.types.linear_rings.deserialize_json(
             data["Polygon"]
+        )
+    return out
+
+
+def redact_sensitive(value: TrackingFilterGeometry) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "polygon" in value:
+        import capo_location.types.linear_rings
+
+        out["polygon"] = capo_location.types.linear_rings.redact_sensitive(
+            value["polygon"]
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#AdminListDevicesRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,4 +56,11 @@ def deserialize_aws_json_1_1(data: dict) -> AdminListDevicesRequest:
         out["limit"] = data["Limit"]
     if data.get("PaginationToken") is not None:
         out["pagination_token"] = data["PaginationToken"]
+    return out
+
+
+def redact_sensitive(value: AdminListDevicesRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "username" in value:
+        out["username"] = "*** Sensitive Data Redacted ***"
     return out

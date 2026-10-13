@@ -21,10 +21,12 @@ from capo_ses._pagination import resolve_path as _resolve_path
 from capo_ses._services._aws_config import aws_config
 from capo_ses._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -282,7 +284,9 @@ class SESClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[SESClientConfig] = None
+        self,
+        config_overrides: Optional[SESClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: SESClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -290,8 +294,10 @@ class SESClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -350,7 +356,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CloneReceiptRuleSet")
+        )
         input_: capo_ses.types.clone_receipt_rule_set_request.CloneReceiptRuleSetRequest = {
             "rule_set_name": rule_set_name,
             "original_rule_set_name": original_rule_set_name,
@@ -396,7 +404,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfigurationSet")
+        )
         input_: capo_ses.types.create_configuration_set_request.CreateConfigurationSetRequest = {
             "configuration_set": configuration_set
         }
@@ -446,7 +456,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfigurationSetEventDestination")
+        )
         input_: capo_ses.types.create_configuration_set_event_destination_request.CreateConfigurationSetEventDestinationRequest = {
             "configuration_set_name": configuration_set_name,
             "event_destination": event_destination,
@@ -493,7 +505,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfigurationSetTrackingOptions")
+        )
         input_: capo_ses.types.create_configuration_set_tracking_options_request.CreateConfigurationSetTrackingOptionsRequest = {
             "configuration_set_name": configuration_set_name,
             "tracking_options": tracking_options,
@@ -548,7 +562,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCustomVerificationEmailTemplate")
+        )
         input_: capo_ses.types.create_custom_verification_email_template_request.CreateCustomVerificationEmailTemplateRequest = {
             "template_name": template_name,
             "from_email_address": from_email_address,
@@ -603,7 +619,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateReceiptFilter")
+        )
         input_: capo_ses.types.create_receipt_filter_request.CreateReceiptFilterRequest = {
             "filter": filter
         }
@@ -662,7 +680,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateReceiptRule")
+        )
         input_: capo_ses.types.create_receipt_rule_request.CreateReceiptRuleRequest = {
             "rule_set_name": rule_set_name,
             "rule": rule,
@@ -715,7 +735,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateReceiptRuleSet")
+        )
         input_: capo_ses.types.create_receipt_rule_set_request.CreateReceiptRuleSetRequest = {
             "rule_set_name": rule_set_name
         }
@@ -760,7 +782,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTemplate")
+        )
         input_: capo_ses.types.create_template_request.CreateTemplateRequest = {
             "template": template
         }
@@ -803,7 +827,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfigurationSet")
+        )
         input_: capo_ses.types.delete_configuration_set_request.DeleteConfigurationSetRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -849,7 +875,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfigurationSetEventDestination")
+        )
         input_: capo_ses.types.delete_configuration_set_event_destination_request.DeleteConfigurationSetEventDestinationRequest = {
             "configuration_set_name": configuration_set_name,
             "event_destination_name": event_destination_name,
@@ -894,7 +922,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfigurationSetTrackingOptions")
+        )
         input_: capo_ses.types.delete_configuration_set_tracking_options_request.DeleteConfigurationSetTrackingOptionsRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -934,7 +964,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCustomVerificationEmailTemplate")
+        )
         input_: capo_ses.types.delete_custom_verification_email_template_request.DeleteCustomVerificationEmailTemplateRequest = {
             "template_name": template_name
         }
@@ -982,7 +1014,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIdentity")
+        )
         input_: capo_ses.types.delete_identity_request.DeleteIdentityRequest = {
             "identity": identity
         }
@@ -1032,7 +1066,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIdentityPolicy")
+        )
         input_: capo_ses.types.delete_identity_policy_request.DeleteIdentityPolicyRequest = {
             "identity": identity,
             "policy_name": policy_name,
@@ -1081,7 +1117,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReceiptFilter")
+        )
         input_: capo_ses.types.delete_receipt_filter_request.DeleteReceiptFilterRequest = {
             "filter_name": filter_name
         }
@@ -1132,7 +1170,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReceiptRule")
+        )
         input_: capo_ses.types.delete_receipt_rule_request.DeleteReceiptRuleRequest = {
             "rule_set_name": rule_set_name,
             "rule_name": rule_name,
@@ -1182,7 +1222,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReceiptRuleSet")
+        )
         input_: capo_ses.types.delete_receipt_rule_set_request.DeleteReceiptRuleSetRequest = {
             "rule_set_name": rule_set_name
         }
@@ -1224,7 +1266,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTemplate")
+        )
         input_: capo_ses.types.delete_template_request.DeleteTemplateRequest = {
             "template_name": template_name
         }
@@ -1270,7 +1314,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVerifiedEmailAddress")
+        )
         input_: capo_ses.types.delete_verified_email_address_request.DeleteVerifiedEmailAddressRequest = {
             "email_address": email_address
         }
@@ -1312,7 +1358,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeActiveReceiptRuleSet")
+        )
         input_: capo_ses.types.describe_active_receipt_rule_set_request.DescribeActiveReceiptRuleSetRequest = {}
 
         response = execute_pipeline(
@@ -1357,7 +1405,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConfigurationSet")
+        )
         input_: capo_ses.types.describe_configuration_set_request.DescribeConfigurationSetRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -1413,7 +1463,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReceiptRule")
+        )
         input_: capo_ses.types.describe_receipt_rule_request.DescribeReceiptRuleRequest = {
             "rule_set_name": rule_set_name,
             "rule_name": rule_name,
@@ -1463,7 +1515,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReceiptRuleSet")
+        )
         input_: capo_ses.types.describe_receipt_rule_set_request.DescribeReceiptRuleSetRequest = {
             "rule_set_name": rule_set_name
         }
@@ -1505,7 +1559,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountSendingEnabled")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -1545,7 +1601,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCustomVerificationEmailTemplate")
+        )
         input_: capo_ses.types.get_custom_verification_email_template_request.GetCustomVerificationEmailTemplateRequest = {
             "template_name": template_name
         }
@@ -1593,7 +1651,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIdentityDkimAttributes")
+        )
         input_: capo_ses.types.get_identity_dkim_attributes_request.GetIdentityDkimAttributesRequest = {
             "identities": identities
         }
@@ -1641,7 +1701,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIdentityMailFromDomainAttributes")
+        )
         input_: capo_ses.types.get_identity_mail_from_domain_attributes_request.GetIdentityMailFromDomainAttributesRequest = {
             "identities": identities
         }
@@ -1689,7 +1751,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIdentityNotificationAttributes")
+        )
         input_: capo_ses.types.get_identity_notification_attributes_request.GetIdentityNotificationAttributesRequest = {
             "identities": identities
         }
@@ -1739,7 +1803,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIdentityPolicies")
+        )
         input_: capo_ses.types.get_identity_policies_request.GetIdentityPoliciesRequest = {
             "identity": identity,
             "policy_names": policy_names,
@@ -1788,7 +1854,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIdentityVerificationAttributes")
+        )
         input_: capo_ses.types.get_identity_verification_attributes_request.GetIdentityVerificationAttributesRequest = {
             "identities": identities
         }
@@ -1830,7 +1898,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSendQuota")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -1869,7 +1939,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSendStatistics")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -1909,7 +1981,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTemplate")
+        )
         input_: capo_ses.types.get_template_request.GetTemplateRequest = {
             "template_name": template_name
         }
@@ -1955,7 +2029,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfigurationSets")
+        )
         input_: capo_ses.types.list_configuration_sets_request.ListConfigurationSetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2001,7 +2077,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCustomVerificationEmailTemplates")
+        )
         input_: capo_ses.types.list_custom_verification_email_templates_request.ListCustomVerificationEmailTemplatesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2074,7 +2152,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIdentities")
+        )
         input_: capo_ses.types.list_identities_request.ListIdentitiesRequest = {}
         if identity_type is not None:
             input_["identity_type"] = identity_type
@@ -2149,7 +2229,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIdentityPolicies")
+        )
         input_: capo_ses.types.list_identity_policies_request.ListIdentityPoliciesRequest = {
             "identity": identity
         }
@@ -2191,7 +2273,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReceiptFilters")
+        )
         input_: capo_ses.types.list_receipt_filters_request.ListReceiptFiltersRequest = {}
 
         response = execute_pipeline(
@@ -2237,7 +2321,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReceiptRuleSets")
+        )
         input_: capo_ses.types.list_receipt_rule_sets_request.ListReceiptRuleSetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2281,7 +2367,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTemplates")
+        )
         input_: capo_ses.types.list_templates_request.ListTemplatesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2325,7 +2413,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVerifiedEmailAddresses")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -2370,7 +2460,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutConfigurationSetDeliveryOptions")
+        )
         input_: capo_ses.types.put_configuration_set_delivery_options_request.PutConfigurationSetDeliveryOptionsRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -2425,7 +2517,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutIdentityPolicy")
+        )
         input_: capo_ses.types.put_identity_policy_request.PutIdentityPolicyRequest = {
             "identity": identity,
             "policy_name": policy_name,
@@ -2481,7 +2575,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReorderReceiptRuleSet")
+        )
         input_: capo_ses.types.reorder_receipt_rule_set_request.ReorderReceiptRuleSetRequest = {
             "rule_set_name": rule_set_name,
             "rule_names": rule_names,
@@ -2537,7 +2633,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendBounce")
+        )
         input_: capo_ses.types.send_bounce_request.SendBounceRequest = {
             "original_message_id": original_message_id,
             "bounce_sender": bounce_sender,
@@ -2621,7 +2719,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendBulkTemplatedEmail")
+        )
         input_: capo_ses.types.send_bulk_templated_email_request.SendBulkTemplatedEmailRequest = {
             "source": source,
             "template": template,
@@ -2691,7 +2791,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendCustomVerificationEmail")
+        )
         input_: capo_ses.types.send_custom_verification_email_request.SendCustomVerificationEmailRequest = {
             "email_address": email_address,
             "template_name": template_name,
@@ -2767,7 +2869,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendEmail")
+        )
         input_: capo_ses.types.send_email_request.SendEmailRequest = {
             "source": source,
             "destination": destination,
@@ -2856,7 +2960,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendRawEmail")
+        )
         input_: capo_ses.types.send_raw_email_request.SendRawEmailRequest = {
             "raw_message": raw_message
         }
@@ -2946,7 +3052,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendTemplatedEmail")
+        )
         input_: capo_ses.types.send_templated_email_request.SendTemplatedEmailRequest = {
             "source": source,
             "destination": destination,
@@ -3014,7 +3122,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetActiveReceiptRuleSet")
+        )
         input_: capo_ses.types.set_active_receipt_rule_set_request.SetActiveReceiptRuleSetRequest = {}
         if rule_set_name is not None:
             input_["rule_set_name"] = rule_set_name
@@ -3064,7 +3174,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetIdentityDkimEnabled")
+        )
         input_: capo_ses.types.set_identity_dkim_enabled_request.SetIdentityDkimEnabledRequest = {
             "identity": identity,
             "dkim_enabled": dkim_enabled,
@@ -3115,7 +3227,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetIdentityFeedbackForwardingEnabled")
+        )
         input_: capo_ses.types.set_identity_feedback_forwarding_enabled_request.SetIdentityFeedbackForwardingEnabledRequest = {
             "identity": identity,
             "forwarding_enabled": forwarding_enabled,
@@ -3168,7 +3282,10 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SetIdentityHeadersInNotificationsEnabled"),
+        )
         input_: capo_ses.types.set_identity_headers_in_notifications_enabled_request.SetIdentityHeadersInNotificationsEnabledRequest = {
             "identity": identity,
             "notification_type": notification_type,
@@ -3226,7 +3343,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetIdentityMailFromDomain")
+        )
         input_: capo_ses.types.set_identity_mail_from_domain_request.SetIdentityMailFromDomainRequest = {
             "identity": identity
         }
@@ -3284,7 +3403,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetIdentityNotificationTopic")
+        )
         input_: capo_ses.types.set_identity_notification_topic_request.SetIdentityNotificationTopicRequest = {
             "identity": identity,
             "notification_type": notification_type,
@@ -3341,7 +3462,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetReceiptRulePosition")
+        )
         input_: capo_ses.types.set_receipt_rule_position_request.SetReceiptRulePositionRequest = {
             "rule_set_name": rule_set_name,
             "rule_name": rule_name,
@@ -3391,7 +3514,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestRenderTemplate")
+        )
         input_: capo_ses.types.test_render_template_request.TestRenderTemplateRequest = {
             "template_name": template_name,
             "template_data": template_data,
@@ -3438,7 +3563,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccountSendingEnabled")
+        )
         input_: capo_ses.types.update_account_sending_enabled_request.UpdateAccountSendingEnabledRequest = {}
         if enabled is not None:
             input_["enabled"] = enabled
@@ -3487,7 +3614,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConfigurationSetEventDestination")
+        )
         input_: capo_ses.types.update_configuration_set_event_destination_request.UpdateConfigurationSetEventDestinationRequest = {
             "configuration_set_name": configuration_set_name,
             "event_destination": event_destination,
@@ -3537,7 +3666,10 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateConfigurationSetReputationMetricsEnabled"),
+        )
         input_: capo_ses.types.update_configuration_set_reputation_metrics_enabled_request.UpdateConfigurationSetReputationMetricsEnabledRequest = {
             "configuration_set_name": configuration_set_name,
             "enabled": enabled,
@@ -3587,7 +3719,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConfigurationSetSendingEnabled")
+        )
         input_: capo_ses.types.update_configuration_set_sending_enabled_request.UpdateConfigurationSetSendingEnabledRequest = {
             "configuration_set_name": configuration_set_name,
             "enabled": enabled,
@@ -3634,7 +3768,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConfigurationSetTrackingOptions")
+        )
         input_: capo_ses.types.update_configuration_set_tracking_options_request.UpdateConfigurationSetTrackingOptionsRequest = {
             "configuration_set_name": configuration_set_name,
             "tracking_options": tracking_options,
@@ -3694,7 +3830,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCustomVerificationEmailTemplate")
+        )
         input_: capo_ses.types.update_custom_verification_email_template_request.UpdateCustomVerificationEmailTemplateRequest = {
             "template_name": template_name
         }
@@ -3760,7 +3898,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateReceiptRule")
+        )
         input_: capo_ses.types.update_receipt_rule_request.UpdateReceiptRuleRequest = {
             "rule_set_name": rule_set_name,
             "rule": rule,
@@ -3802,7 +3942,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTemplate")
+        )
         input_: capo_ses.types.update_template_request.UpdateTemplateRequest = {
             "template": template
         }
@@ -3850,7 +3992,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("VerifyDomainDkim")
+        )
         input_: capo_ses.types.verify_domain_dkim_request.VerifyDomainDkimRequest = {
             "domain": domain
         }
@@ -3898,7 +4042,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("VerifyDomainIdentity")
+        )
         input_: capo_ses.types.verify_domain_identity_request.VerifyDomainIdentityRequest = {
             "domain": domain
         }
@@ -3944,7 +4090,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("VerifyEmailAddress")
+        )
         input_: capo_ses.types.verify_email_address_request.VerifyEmailAddressRequest = {
             "email_address": email_address
         }
@@ -3992,7 +4140,9 @@ class SESClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("VerifyEmailIdentity")
+        )
         input_: capo_ses.types.verify_email_identity_request.VerifyEmailIdentityRequest = {
             "email_address": email_address
         }

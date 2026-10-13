@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_b2bi._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -92,7 +93,9 @@ class Capability:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCapability")
+        )
         input_: capo_b2bi.types.create_capability_request.CreateCapabilityRequest = {
             "name": name,
             "type": type,
@@ -153,7 +156,9 @@ class Capability:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCapability")
+        )
         input_: capo_b2bi.types.get_capability_request.GetCapabilityRequest = {
             "capability_id": capability_id
         }
@@ -217,7 +222,9 @@ class Capability:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCapability")
+        )
         input_: capo_b2bi.types.update_capability_request.UpdateCapabilityRequest = {
             "capability_id": capability_id
         }
@@ -274,7 +281,9 @@ class Capability:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCapability")
+        )
         input_: capo_b2bi.types.delete_capability_request.DeleteCapabilityRequest = {
             "capability_id": capability_id
         }
@@ -327,7 +336,9 @@ class Capability:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCapabilities")
+        )
         input_: capo_b2bi.types.list_capabilities_request.ListCapabilitiesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -401,7 +412,9 @@ class AsyncCapability:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCapability")
+        )
         input_: capo_b2bi.types.create_capability_request.CreateCapabilityRequest = {
             "name": name,
             "type": type,
@@ -463,7 +476,9 @@ class AsyncCapability:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCapability")
+        )
         input_: capo_b2bi.types.get_capability_request.GetCapabilityRequest = {
             "capability_id": capability_id
         }
@@ -528,7 +543,9 @@ class AsyncCapability:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCapability")
+        )
         input_: capo_b2bi.types.update_capability_request.UpdateCapabilityRequest = {
             "capability_id": capability_id
         }
@@ -586,7 +603,9 @@ class AsyncCapability:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCapability")
+        )
         input_: capo_b2bi.types.delete_capability_request.DeleteCapabilityRequest = {
             "capability_id": capability_id
         }
@@ -640,7 +659,9 @@ class AsyncCapability:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCapabilities")
+        )
         input_: capo_b2bi.types.list_capabilities_request.ListCapabilitiesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

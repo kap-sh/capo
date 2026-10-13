@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devicefarm#InstallToRemoteAccessSessionResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_aws_json_1_1(data: dict) -> InstallToRemoteAccessSessionResult:
 
         out["app_upload"] = capo_device_farm.types.upload.deserialize_aws_json_1_1(
             data["appUpload"]
+        )
+    return out
+
+
+def redact_sensitive(value: InstallToRemoteAccessSessionResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "app_upload" in value:
+        import capo_device_farm.types.upload
+
+        out["app_upload"] = capo_device_farm.types.upload.redact_sensitive(
+            value["app_upload"]
         )
     return out

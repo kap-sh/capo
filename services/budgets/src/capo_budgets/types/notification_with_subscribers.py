@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.budgets#NotificationWithSubscribers``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -52,4 +52,15 @@ def deserialize_aws_json_1_1(data: dict) -> NotificationWithSubscribers:
         )
     else:
         raise DeserializationError("NotificationWithSubscribers.subscribers required")
+    return out
+
+
+def redact_sensitive(value: NotificationWithSubscribers) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "subscribers" in value:
+        import capo_budgets.types.subscribers
+
+        out["subscribers"] = capo_budgets.types.subscribers.redact_sensitive(
+            value["subscribers"]
+        )
     return out

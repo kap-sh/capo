@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#ContentBlockDelta``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -143,3 +143,16 @@ def deserialize_json(data: dict) -> ContentBlockDelta:
         }
     else:
         raise DeserializationError("ContentBlockDelta: no recognized variant key")
+
+
+def redact_sensitive(value: ContentBlockDelta) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "reasoningContent" in value:
+        out["reasoningContent"] = "*** Sensitive Data Redacted ***"
+    if "image" in value:
+        import capo_bedrock_runtime.types.image_block_delta
+
+        out["image"] = capo_bedrock_runtime.types.image_block_delta.redact_sensitive(
+            value["image"]
+        )
+    return out

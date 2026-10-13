@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#RunInstancesRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -718,4 +718,11 @@ def deserialize_ec2_query(el: Element) -> RunInstancesRequest:
     child_ebs_optimized = el.find("ebsOptimized")
     if child_ebs_optimized is not None:
         out["ebs_optimized"] = (child_ebs_optimized.text or "").lower() == "true"
+    return out
+
+
+def redact_sensitive(value: RunInstancesRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_data" in value:
+        out["user_data"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#MessageTemplateAttachmentList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_qconnect.types.message_template_attachment
@@ -31,3 +31,12 @@ def deserialize_json(data: list) -> MessageTemplateAttachmentList:
             capo_qconnect.types.message_template_attachment.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: MessageTemplateAttachmentList) -> list[Any]:
+    import capo_qconnect.types.message_template_attachment
+
+    return [
+        capo_qconnect.types.message_template_attachment.redact_sensitive(item)
+        for item in value
+    ]

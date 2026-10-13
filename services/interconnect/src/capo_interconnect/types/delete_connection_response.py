@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.interconnect#DeleteConnectionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,15 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteConnectionResponse:
         )
     else:
         raise DeserializationError("DeleteConnectionResponse.connection required")
+    return out
+
+
+def redact_sensitive(value: DeleteConnectionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "connection" in value:
+        import capo_interconnect.types.connection
+
+        out["connection"] = capo_interconnect.types.connection.redact_sensitive(
+            value["connection"]
+        )
     return out

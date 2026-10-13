@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SpaceDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -109,4 +109,11 @@ def deserialize_json(data: dict) -> SpaceDetails:
         out["created_by"] = data["createdBy"]
     if data.get("createdByArn") is not None:
         out["created_by_arn"] = data["createdByArn"]
+    return out
+
+
+def redact_sensitive(value: SpaceDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

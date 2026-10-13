@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#AdditionalServiceDetails``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -354,3 +354,64 @@ def deserialize_json(data: dict) -> AdditionalServiceDetails:
         raise DeserializationError(
             "AdditionalServiceDetails: no recognized variant key"
         )
+
+
+def redact_sensitive(value: AdditionalServiceDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "mcpserverdatadog" in value:
+        import capo_devops_agent.types.registered_mcp_server_details
+
+        out["mcpserverdatadog"] = (
+            capo_devops_agent.types.registered_mcp_server_details.redact_sensitive(
+                value["mcpserverdatadog"]
+            )
+        )
+    if "mcpserver" in value:
+        import capo_devops_agent.types.registered_mcp_server_details
+
+        out["mcpserver"] = (
+            capo_devops_agent.types.registered_mcp_server_details.redact_sensitive(
+                value["mcpserver"]
+            )
+        )
+    if "mcpserversplunk" in value:
+        import capo_devops_agent.types.registered_mcp_server_details
+
+        out["mcpserversplunk"] = (
+            capo_devops_agent.types.registered_mcp_server_details.redact_sensitive(
+                value["mcpserversplunk"]
+            )
+        )
+    if "mcpservernewrelic" in value:
+        import capo_devops_agent.types.registered_new_relic_details
+
+        out["mcpservernewrelic"] = (
+            capo_devops_agent.types.registered_new_relic_details.redact_sensitive(
+                value["mcpservernewrelic"]
+            )
+        )
+    if "mcpserversigv4" in value:
+        import capo_devops_agent.types.registered_mcp_server_sig_v4_details
+
+        out["mcpserversigv4"] = (
+            capo_devops_agent.types.registered_mcp_server_sig_v4_details.redact_sensitive(
+                value["mcpserversigv4"]
+            )
+        )
+    if "remoteagent" in value:
+        import capo_devops_agent.types.registered_remote_agent_details
+
+        out["remoteagent"] = (
+            capo_devops_agent.types.registered_remote_agent_details.redact_sensitive(
+                value["remoteagent"]
+            )
+        )
+    if "remoteagentsigv4" in value:
+        import capo_devops_agent.types.registered_remote_agent_sig_v4_details
+
+        out["remoteagentsigv4"] = (
+            capo_devops_agent.types.registered_remote_agent_sig_v4_details.redact_sensitive(
+                value["remoteagentsigv4"]
+            )
+        )
+    return out

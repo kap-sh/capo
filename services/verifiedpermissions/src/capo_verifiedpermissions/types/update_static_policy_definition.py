@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#UpdateStaticPolicyDefinition``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,4 +37,13 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateStaticPolicyDefinition:
         out["statement"] = data["statement"]
     else:
         raise DeserializationError("UpdateStaticPolicyDefinition.statement required")
+    return out
+
+
+def redact_sensitive(value: UpdateStaticPolicyDefinition) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "statement" in value:
+        out["statement"] = "*** Sensitive Data Redacted ***"
     return out

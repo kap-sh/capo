@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#GetAccountAssociationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -143,4 +143,13 @@ def deserialize_json(data: dict) -> GetAccountAssociationResponse:
                 data["GeneralAuthorization"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: GetAccountAssociationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "o_auth_authorization_url" in value:
+        out["o_auth_authorization_url"] = "*** Sensitive Data Redacted ***"
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
     return out

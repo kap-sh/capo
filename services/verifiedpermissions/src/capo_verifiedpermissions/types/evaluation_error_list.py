@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#EvaluationErrorList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.evaluation_error_item
@@ -37,3 +37,7 @@ def deserialize_aws_json_1_0(data: list) -> EvaluationErrorList:
             )
         )
     return out
+
+
+def redact_sensitive(value: EvaluationErrorList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

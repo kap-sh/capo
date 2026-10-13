@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentity#GetCredentialsForIdentityResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -43,5 +43,16 @@ def deserialize_aws_json_1_1(data: dict) -> GetCredentialsForIdentityResponse:
             capo_cognito_identity.types.credentials.deserialize_aws_json_1_1(
                 data["Credentials"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: GetCredentialsForIdentityResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "credentials" in value:
+        import capo_cognito_identity.types.credentials
+
+        out["credentials"] = capo_cognito_identity.types.credentials.redact_sensitive(
+            value["credentials"]
         )
     return out

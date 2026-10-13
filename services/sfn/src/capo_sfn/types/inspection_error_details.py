@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#InspectionErrorDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -44,4 +44,15 @@ def deserialize_aws_json_1_0(data: dict) -> InspectionErrorDetails:
         out["retry_index"] = data["retryIndex"]
     if data.get("retryBackoffIntervalSeconds") is not None:
         out["retry_backoff_interval_seconds"] = data["retryBackoffIntervalSeconds"]
+    return out
+
+
+def redact_sensitive(value: InspectionErrorDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "catch_index" in value:
+        out["catch_index"] = "*** Sensitive Data Redacted ***"
+    if "retry_index" in value:
+        out["retry_index"] = "*** Sensitive Data Redacted ***"
+    if "retry_backoff_interval_seconds" in value:
+        out["retry_backoff_interval_seconds"] = "*** Sensitive Data Redacted ***"
     return out

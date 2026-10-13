@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#MatterClusters``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.matter_cluster
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> MatterClusters:
             capo_iot_managed_integrations.types.matter_cluster.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: MatterClusters) -> list[Any]:
+    import capo_iot_managed_integrations.types.matter_cluster
+
+    return [
+        capo_iot_managed_integrations.types.matter_cluster.redact_sensitive(item)
+        for item in value
+    ]

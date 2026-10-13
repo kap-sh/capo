@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.interconnect#DescribeConnectionProposalRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -30,4 +30,11 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeConnectionProposalRequest:
         raise DeserializationError(
             "DescribeConnectionProposalRequest.activation_key required"
         )
+    return out
+
+
+def redact_sensitive(value: DescribeConnectionProposalRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "activation_key" in value:
+        out["activation_key"] = "*** Sensitive Data Redacted ***"
     return out

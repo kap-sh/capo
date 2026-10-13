@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudfront#TenantConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_xml(el: Element) -> TenantConfig:
         out["parameter_definitions"] = (
             capo_cloudfront.types.parameter_definitions.deserialize_xml(
                 child_parameter_definitions
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: TenantConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "parameter_definitions" in value:
+        import capo_cloudfront.types.parameter_definitions
+
+        out["parameter_definitions"] = (
+            capo_cloudfront.types.parameter_definitions.redact_sensitive(
+                value["parameter_definitions"]
             )
         )
     return out

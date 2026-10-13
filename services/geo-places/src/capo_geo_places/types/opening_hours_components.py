@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#OpeningHoursComponents``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,4 +37,15 @@ def deserialize_json(data: dict) -> OpeningHoursComponents:
         out["open_duration"] = data["OpenDuration"]
     if data.get("Recurrence") is not None:
         out["recurrence"] = data["Recurrence"]
+    return out
+
+
+def redact_sensitive(value: OpeningHoursComponents) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "open_time" in value:
+        out["open_time"] = "*** Sensitive Data Redacted ***"
+    if "open_duration" in value:
+        out["open_duration"] = "*** Sensitive Data Redacted ***"
+    if "recurrence" in value:
+        out["recurrence"] = "*** Sensitive Data Redacted ***"
     return out

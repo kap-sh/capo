@@ -25,7 +25,9 @@ from capo_sagemakerjobruntime._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -114,7 +116,9 @@ class AsyncSagemakerJobRuntimeClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncSagemakerJobRuntimeClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncSagemakerJobRuntimeClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSagemakerJobRuntimeClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -122,8 +126,10 @@ class AsyncSagemakerJobRuntimeClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -190,7 +196,9 @@ class AsyncSagemakerJobRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CompleteRollout")
+        )
         input_: capo_sagemakerjobruntime.types.complete_rollout_request.CompleteRolloutRequest = {
             "job_arn": job_arn,
             "trajectory_id": trajectory_id,
@@ -255,7 +263,30 @@ class AsyncSagemakerJobRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemakerjobruntime.types.sample_request.SampleRequest",
+        ) -> dict[str, Any]:
+            import capo_sagemakerjobruntime.types.sample_request
+
+            return capo_sagemakerjobruntime.types.sample_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemakerjobruntime.types.sample_response.SampleResponse",
+        ) -> dict[str, Any]:
+            import capo_sagemakerjobruntime.types.sample_response
+
+            return capo_sagemakerjobruntime.types.sample_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "Sample", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_sagemakerjobruntime.types.sample_request.SampleRequest = {
             "job_arn": job_arn,
             "trajectory_id": trajectory_id,
@@ -317,7 +348,32 @@ class AsyncSagemakerJobRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemakerjobruntime.types.sample_with_response_stream_request.SampleWithResponseStreamRequest",
+        ) -> dict[str, Any]:
+            import capo_sagemakerjobruntime.types.sample_with_response_stream_request
+
+            return capo_sagemakerjobruntime.types.sample_with_response_stream_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemakerjobruntime.types.sample_with_response_stream_response.SampleWithResponseStreamResponse",
+        ) -> dict[str, Any]:
+            import capo_sagemakerjobruntime.types.sample_with_response_stream_response
+
+            return capo_sagemakerjobruntime.types.sample_with_response_stream_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SampleWithResponseStream",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sagemakerjobruntime.types.sample_with_response_stream_request.SampleWithResponseStreamRequest = {
             "job_arn": job_arn,
             "trajectory_id": trajectory_id,
@@ -383,7 +439,9 @@ class AsyncSagemakerJobRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateReward")
+        )
         input_: capo_sagemakerjobruntime.types.update_reward_request.UpdateRewardRequest = {
             "job_arn": job_arn,
             "trajectory_id": trajectory_id,

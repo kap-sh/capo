@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotsitewise#InvokeAssistantRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -44,4 +44,11 @@ def deserialize_json(data: dict) -> InvokeAssistantRequest:
         out["enable_trace"] = data["enableTrace"]
     else:
         out["enable_trace"] = False
+    return out
+
+
+def redact_sensitive(value: InvokeAssistantRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "message" in value:
+        out["message"] = "*** Sensitive Data Redacted ***"
     return out

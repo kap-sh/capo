@@ -24,7 +24,9 @@ from capo_sustainability._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -120,7 +122,9 @@ class AsyncSustainabilityClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncSustainabilityClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncSustainabilityClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSustainabilityClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -128,8 +132,10 @@ class AsyncSustainabilityClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -210,7 +216,9 @@ class AsyncSustainabilityClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEstimatedCarbonEmissions")
+        )
         input_: capo_sustainability.types.get_estimated_carbon_emissions_request.GetEstimatedCarbonEmissionsRequest = {
             "time_period": time_period
         }
@@ -329,7 +337,10 @@ class AsyncSustainabilityClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetEstimatedCarbonEmissionsDimensionValues"),
+        )
         input_: capo_sustainability.types.get_estimated_carbon_emissions_dimension_values_request.GetEstimatedCarbonEmissionsDimensionValuesRequest = {
             "time_period": time_period,
             "dimensions": dimensions,
@@ -435,7 +446,9 @@ class AsyncSustainabilityClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEstimatedWaterAllocation")
+        )
         input_: capo_sustainability.types.get_estimated_water_allocation_request.GetEstimatedWaterAllocationRequest = {
             "time_period": time_period
         }
@@ -548,7 +561,10 @@ class AsyncSustainabilityClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetEstimatedWaterAllocationDimensionValues"),
+        )
         input_: capo_sustainability.types.get_estimated_water_allocation_dimension_values_request.GetEstimatedWaterAllocationDimensionValuesRequest = {
             "time_period": time_period,
             "dimensions": dimensions,

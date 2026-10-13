@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.personalize#DescribeFilterResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -33,4 +33,13 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeFilterResponse:
         out["filter"] = capo_personalize.types.filter.deserialize_aws_json_1_1(
             data["filter"]
         )
+    return out
+
+
+def redact_sensitive(value: DescribeFilterResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "filter" in value:
+        import capo_personalize.types.filter
+
+        out["filter"] = capo_personalize.types.filter.redact_sensitive(value["filter"])
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#ModifyInstanceAttributeRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -322,5 +322,18 @@ def deserialize_ec2_query(el: Element) -> ModifyInstanceAttributeRequest:
             capo_ec2.types.attribute_boolean_value.deserialize_ec2_query(
                 child_ena_support
             )
+        )
+    return out
+
+
+def redact_sensitive(value: ModifyInstanceAttributeRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        out["value"] = "*** Sensitive Data Redacted ***"
+    if "user_data" in value:
+        import capo_ec2.types.secure_blob_attribute_value
+
+        out["user_data"] = capo_ec2.types.secure_blob_attribute_value.redact_sensitive(
+            value["user_data"]
         )
     return out

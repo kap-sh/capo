@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.healthlake#UpdateDataTransformationProfileRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -61,4 +61,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateDataTransformationProfileReque
         )
     if data.get("ChangeDescription") is not None:
         out["change_description"] = data["ChangeDescription"]
+    return out
+
+
+def redact_sensitive(value: UpdateDataTransformationProfileRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "profile_mapping" in value:
+        out["profile_mapping"] = "*** Sensitive Data Redacted ***"
     return out

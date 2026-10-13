@@ -28,7 +28,9 @@ from capo_dynamodb._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 from capo_dynamodb.errors import ServiceError, WaiterTimeoutError
@@ -343,7 +345,9 @@ class AsyncDynamoDBClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncDynamoDBClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncDynamoDBClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncDynamoDBClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -351,8 +355,10 @@ class AsyncDynamoDBClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -413,7 +419,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchExecuteStatement")
+        )
         input_: capo_dynamodb.types.batch_execute_statement_input.BatchExecuteStatementInput = {
             "statements": statements
         }
@@ -473,7 +481,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetItem")
+        )
         input_: capo_dynamodb.types.batch_get_item_input.BatchGetItemInput = {
             "request_items": request_items
         }
@@ -539,7 +549,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchWriteItem")
+        )
         input_: capo_dynamodb.types.batch_write_item_input.BatchWriteItemInput = {
             "request_items": request_items
         }
@@ -595,7 +607,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBackup")
+        )
         input_: capo_dynamodb.types.create_backup_input.CreateBackupInput = {
             "table_name": table_name,
             "backup_name": backup_name,
@@ -646,7 +660,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGlobalTable")
+        )
         input_: capo_dynamodb.types.create_global_table_input.CreateGlobalTableInput = {
             "global_table_name": global_table_name,
             "replication_group": replication_group,
@@ -754,7 +770,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTable")
+        )
         input_: capo_dynamodb.types.create_table_input.CreateTableInput = {
             "table_name": table_name
         }
@@ -838,7 +856,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBackup")
+        )
         input_: capo_dynamodb.types.delete_backup_input.DeleteBackupInput = {
             "backup_arn": backup_arn
         }
@@ -932,7 +952,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteItem")
+        )
         input_: capo_dynamodb.types.delete_item_input.DeleteItemInput = {
             "table_name": table_name,
             "key": key,
@@ -1006,7 +1028,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_dynamodb.types.delete_resource_policy_input.DeleteResourcePolicyInput = {
             "resource_arn": resource_arn
         }
@@ -1062,7 +1086,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTable")
+        )
         input_: capo_dynamodb.types.delete_table_input.DeleteTableInput = {
             "table_name": table_name
         }
@@ -1108,7 +1134,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBackup")
+        )
         input_: capo_dynamodb.types.describe_backup_input.DescribeBackupInput = {
             "backup_arn": backup_arn
         }
@@ -1154,7 +1182,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeContinuousBackups")
+        )
         input_: capo_dynamodb.types.describe_continuous_backups_input.DescribeContinuousBackupsInput = {
             "table_name": table_name
         }
@@ -1201,7 +1231,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeContributorInsights")
+        )
         input_: capo_dynamodb.types.describe_contributor_insights_input.DescribeContributorInsightsInput = {
             "table_name": table_name
         }
@@ -1240,7 +1272,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEndpoints")
+        )
         input_: capo_dynamodb.types.describe_endpoints_request.DescribeEndpointsRequest = {}
 
         response = await aexecute_pipeline(
@@ -1284,7 +1318,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeExport")
+        )
         input_: capo_dynamodb.types.describe_export_input.DescribeExportInput = {
             "export_arn": export_arn
         }
@@ -1330,7 +1366,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeGlobalTable")
+        )
         input_: capo_dynamodb.types.describe_global_table_input.DescribeGlobalTableInput = {
             "global_table_name": global_table_name
         }
@@ -1376,7 +1414,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeGlobalTableSettings")
+        )
         input_: capo_dynamodb.types.describe_global_table_settings_input.DescribeGlobalTableSettingsInput = {
             "global_table_name": global_table_name
         }
@@ -1420,7 +1460,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeImport")
+        )
         input_: capo_dynamodb.types.describe_import_input.DescribeImportInput = {
             "import_arn": import_arn
         }
@@ -1466,7 +1508,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeKinesisStreamingDestination")
+        )
         input_: capo_dynamodb.types.describe_kinesis_streaming_destination_input.DescribeKinesisStreamingDestinationInput = {
             "table_name": table_name
         }
@@ -1511,7 +1555,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLimits")
+        )
         input_: capo_dynamodb.types.describe_limits_input.DescribeLimitsInput = {}
 
         response = await aexecute_pipeline(
@@ -1555,7 +1601,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTable")
+        )
         input_: capo_dynamodb.types.describe_table_input.DescribeTableInput = {
             "table_name": table_name
         }
@@ -1643,7 +1691,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTableReplicaAutoScaling")
+        )
         input_: capo_dynamodb.types.describe_table_replica_auto_scaling_input.DescribeTableReplicaAutoScalingInput = {
             "table_name": table_name
         }
@@ -1689,7 +1739,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTimeToLive")
+        )
         input_: capo_dynamodb.types.describe_time_to_live_input.DescribeTimeToLiveInput = {
             "table_name": table_name
         }
@@ -1743,7 +1795,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableKinesisStreamingDestination")
+        )
         input_: capo_dynamodb.types.kinesis_streaming_destination_input.KinesisStreamingDestinationInput = {
             "table_name": table_name,
             "stream_arn": stream_arn,
@@ -1802,7 +1856,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableKinesisStreamingDestination")
+        )
         input_: capo_dynamodb.types.kinesis_streaming_destination_input.KinesisStreamingDestinationInput = {
             "table_name": table_name,
             "stream_arn": stream_arn,
@@ -1882,7 +1938,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExecuteStatement")
+        )
         input_: capo_dynamodb.types.execute_statement_input.ExecuteStatementInput = {
             "statement": statement
         }
@@ -1955,7 +2013,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExecuteTransaction")
+        )
         input_: capo_dynamodb.types.execute_transaction_input.ExecuteTransactionInput = {
             "transact_statements": transact_statements
         }
@@ -2043,7 +2103,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportTableToPointInTime")
+        )
         input_: capo_dynamodb.types.export_table_to_point_in_time_input.ExportTableToPointInTimeInput = {
             "table_arn": table_arn,
             "s3_bucket": s3_bucket,
@@ -2143,7 +2205,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetItem")
+        )
         input_: capo_dynamodb.types.get_item_input.GetItemInput = {
             "table_name": table_name,
             "key": key,
@@ -2201,7 +2265,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_dynamodb.types.get_resource_policy_input.GetResourcePolicyInput = {
             "resource_arn": resource_arn
         }
@@ -2261,7 +2327,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportTable")
+        )
         input_: capo_dynamodb.types.import_table_input.ImportTableInput = {
             "s3_bucket_source": s3_bucket_source,
             "input_format": input_format,
@@ -2335,7 +2403,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBackups")
+        )
         input_: capo_dynamodb.types.list_backups_input.ListBackupsInput = {}
         if table_name is not None:
             input_["table_name"] = table_name
@@ -2398,7 +2468,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContributorInsights")
+        )
         input_: capo_dynamodb.types.list_contributor_insights_input.ListContributorInsightsInput = {}
         if table_name is not None:
             input_["table_name"] = table_name
@@ -2480,7 +2552,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExports")
+        )
         input_: capo_dynamodb.types.list_exports_input.ListExportsInput = {}
         if table_arn is not None:
             input_["table_arn"] = table_arn
@@ -2562,7 +2636,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGlobalTables")
+        )
         input_: capo_dynamodb.types.list_global_tables_input.ListGlobalTablesInput = {}
         if exclusive_start_global_table_name is not None:
             input_["exclusive_start_global_table_name"] = (
@@ -2620,7 +2696,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImports")
+        )
         input_: capo_dynamodb.types.list_imports_input.ListImportsInput = {}
         if table_arn is not None:
             input_["table_arn"] = table_arn
@@ -2706,7 +2784,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTables")
+        )
         input_: capo_dynamodb.types.list_tables_input.ListTablesInput = {}
         if exclusive_start_table_name is not None:
             input_["exclusive_start_table_name"] = exclusive_start_table_name
@@ -2783,7 +2863,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsOfResource")
+        )
         input_: capo_dynamodb.types.list_tags_of_resource_input.ListTagsOfResourceInput = {
             "resource_arn": resource_arn
         }
@@ -2879,7 +2961,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutItem")
+        )
         input_: capo_dynamodb.types.put_item_input.PutItemInput = {
             "table_name": table_name,
             "item": item,
@@ -2959,7 +3043,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_dynamodb.types.put_resource_policy_input.PutResourcePolicyInput = {
             "resource_arn": resource_arn,
             "policy": policy,
@@ -3076,7 +3162,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Query")
+        )
         input_: capo_dynamodb.types.query_input.QueryInput = {"table_name": table_name}
         if index_name is not None:
             input_["index_name"] = index_name
@@ -3262,7 +3350,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreTableFromBackup")
+        )
         input_: capo_dynamodb.types.restore_table_from_backup_input.RestoreTableFromBackupInput = {
             "target_table_name": target_table_name,
             "backup_arn": backup_arn,
@@ -3365,7 +3455,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreTableToPointInTime")
+        )
         input_: capo_dynamodb.types.restore_table_to_point_in_time_input.RestoreTableToPointInTimeInput = {
             "target_table_name": target_table_name
         }
@@ -3491,7 +3583,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Scan")
+        )
         input_: capo_dynamodb.types.scan_input.ScanInput = {"table_name": table_name}
         if index_name is not None:
             input_["index_name"] = index_name
@@ -3668,7 +3762,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchVectors")
+        )
         input_: capo_dynamodb.types.search_vectors_input.SearchVectorsInput = {
             "table_name": table_name,
             "index_name": index_name,
@@ -3729,7 +3825,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_dynamodb.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -3784,7 +3882,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TransactGetItems")
+        )
         input_: capo_dynamodb.types.transact_get_items_input.TransactGetItemsInput = {
             "transact_items": transact_items
         }
@@ -3849,7 +3949,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TransactWriteItems")
+        )
         input_: capo_dynamodb.types.transact_write_items_input.TransactWriteItemsInput = {
             "transact_items": transact_items
         }
@@ -3904,7 +4006,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_dynamodb.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -3954,7 +4058,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContinuousBackups")
+        )
         input_: capo_dynamodb.types.update_continuous_backups_input.UpdateContinuousBackupsInput = {
             "table_name": table_name,
             "point_in_time_recovery_specification": point_in_time_recovery_specification,
@@ -4008,7 +4114,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContributorInsights")
+        )
         input_: capo_dynamodb.types.update_contributor_insights_input.UpdateContributorInsightsInput = {
             "table_name": table_name,
             "contributor_insights_action": contributor_insights_action,
@@ -4064,7 +4172,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGlobalTable")
+        )
         input_: capo_dynamodb.types.update_global_table_input.UpdateGlobalTableInput = {
             "global_table_name": global_table_name,
             "replica_updates": replica_updates,
@@ -4135,7 +4245,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGlobalTableSettings")
+        )
         input_: capo_dynamodb.types.update_global_table_settings_input.UpdateGlobalTableSettingsInput = {
             "global_table_name": global_table_name
         }
@@ -4256,7 +4368,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateItem")
+        )
         input_: capo_dynamodb.types.update_item_input.UpdateItemInput = {
             "table_name": table_name,
             "key": key,
@@ -4335,7 +4449,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateKinesisStreamingDestination")
+        )
         input_: capo_dynamodb.types.update_kinesis_streaming_destination_input.UpdateKinesisStreamingDestinationInput = {
             "table_name": table_name,
             "stream_arn": stream_arn,
@@ -4444,7 +4560,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTable")
+        )
         input_: capo_dynamodb.types.update_table_input.UpdateTableInput = {
             "table_name": table_name
         }
@@ -4534,7 +4652,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTableReplicaAutoScaling")
+        )
         input_: capo_dynamodb.types.update_table_replica_auto_scaling_input.UpdateTableReplicaAutoScalingInput = {
             "table_name": table_name
         }
@@ -4592,7 +4712,9 @@ class AsyncDynamoDBClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTimeToLive")
+        )
         input_: capo_dynamodb.types.update_time_to_live_input.UpdateTimeToLiveInput = {
             "table_name": table_name,
             "time_to_live_specification": time_to_live_specification,

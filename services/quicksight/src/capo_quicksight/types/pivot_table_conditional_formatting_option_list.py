@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#PivotTableConditionalFormattingOptionList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.pivot_table_conditional_formatting_option
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> PivotTableConditionalFormattingOptionList:
             )
         )
     return out
+
+
+def redact_sensitive(value: PivotTableConditionalFormattingOptionList) -> list[Any]:
+    import capo_quicksight.types.pivot_table_conditional_formatting_option
+
+    return [
+        capo_quicksight.types.pivot_table_conditional_formatting_option.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

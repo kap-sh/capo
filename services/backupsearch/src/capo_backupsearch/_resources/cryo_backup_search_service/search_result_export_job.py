@@ -7,6 +7,7 @@ import capo_backupsearch._auth._sigv4
 from capo_backupsearch._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -83,7 +84,9 @@ class SearchResultExportJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartSearchResultExportJob")
+        )
         input_: capo_backupsearch.types.start_search_result_export_job_input.StartSearchResultExportJobInput = {
             "search_job_identifier": search_job_identifier,
             "export_specification": export_specification,
@@ -137,7 +140,9 @@ class SearchResultExportJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSearchResultExportJob")
+        )
         input_: capo_backupsearch.types.get_search_result_export_job_input.GetSearchResultExportJobInput = {
             "export_job_identifier": export_job_identifier
         }
@@ -195,7 +200,9 @@ class SearchResultExportJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSearchResultExportJobs")
+        )
         input_: capo_backupsearch.types.list_search_result_export_jobs_input.ListSearchResultExportJobsInput = {}
         if status is not None:
             input_["status"] = status
@@ -264,7 +271,9 @@ class AsyncSearchResultExportJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartSearchResultExportJob")
+        )
         input_: capo_backupsearch.types.start_search_result_export_job_input.StartSearchResultExportJobInput = {
             "search_job_identifier": search_job_identifier,
             "export_specification": export_specification,
@@ -319,7 +328,9 @@ class AsyncSearchResultExportJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSearchResultExportJob")
+        )
         input_: capo_backupsearch.types.get_search_result_export_job_input.GetSearchResultExportJobInput = {
             "export_job_identifier": export_job_identifier
         }
@@ -378,7 +389,9 @@ class AsyncSearchResultExportJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSearchResultExportJobs")
+        )
         input_: capo_backupsearch.types.list_search_result_export_jobs_input.ListSearchResultExportJobsInput = {}
         if status is not None:
             input_["status"] = status

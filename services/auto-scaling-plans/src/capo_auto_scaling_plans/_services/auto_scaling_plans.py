@@ -19,10 +19,12 @@ from capo_auto_scaling_plans._auth._zapros_handler import AuthMiddleware
 from capo_auto_scaling_plans._services._aws_config import aws_config
 from capo_auto_scaling_plans._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -127,7 +129,9 @@ class AutoScalingPlansClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AutoScalingPlansClientConfig] = None
+        self,
+        config_overrides: Optional[AutoScalingPlansClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: AutoScalingPlansClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -135,8 +139,10 @@ class AutoScalingPlansClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -192,7 +198,9 @@ class AutoScalingPlansClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateScalingPlan")
+        )
         input_: capo_auto_scaling_plans.types.create_scaling_plan_request.CreateScalingPlanRequest = {
             "scaling_plan_name": scaling_plan_name,
             "application_source": application_source,
@@ -242,7 +250,9 @@ class AutoScalingPlansClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteScalingPlan")
+        )
         input_: capo_auto_scaling_plans.types.delete_scaling_plan_request.DeleteScalingPlanRequest = {
             "scaling_plan_name": scaling_plan_name,
             "scaling_plan_version": scaling_plan_version,
@@ -299,7 +309,9 @@ class AutoScalingPlansClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeScalingPlanResources")
+        )
         input_: capo_auto_scaling_plans.types.describe_scaling_plan_resources_request.DescribeScalingPlanResourcesRequest = {
             "scaling_plan_name": scaling_plan_name,
             "scaling_plan_version": scaling_plan_version,
@@ -368,7 +380,9 @@ class AutoScalingPlansClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeScalingPlans")
+        )
         input_: capo_auto_scaling_plans.types.describe_scaling_plans_request.DescribeScalingPlansRequest = {}
         if scaling_plan_names is not None:
             input_["scaling_plan_names"] = scaling_plan_names
@@ -434,7 +448,9 @@ class AutoScalingPlansClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetScalingPlanResourceForecastData")
+        )
         input_: capo_auto_scaling_plans.types.get_scaling_plan_resource_forecast_data_request.GetScalingPlanResourceForecastDataRequest = {
             "scaling_plan_name": scaling_plan_name,
             "scaling_plan_version": scaling_plan_version,
@@ -497,7 +513,9 @@ class AutoScalingPlansClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateScalingPlan")
+        )
         input_: capo_auto_scaling_plans.types.update_scaling_plan_request.UpdateScalingPlanRequest = {
             "scaling_plan_name": scaling_plan_name,
             "scaling_plan_version": scaling_plan_version,

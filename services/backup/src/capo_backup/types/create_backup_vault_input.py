@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.backup#CreateBackupVaultInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -50,4 +50,11 @@ def deserialize_json(data: dict) -> CreateBackupVaultInput:
         out["encryption_key_arn"] = data["EncryptionKeyArn"]
     if data.get("CreatorRequestId") is not None:
         out["creator_request_id"] = data["CreatorRequestId"]
+    return out
+
+
+def redact_sensitive(value: CreateBackupVaultInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "backup_vault_tags" in value:
+        out["backup_vault_tags"] = "*** Sensitive Data Redacted ***"
     return out

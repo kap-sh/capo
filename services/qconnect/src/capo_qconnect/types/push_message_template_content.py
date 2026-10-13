@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#PushMessageTemplateContent``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -100,6 +100,43 @@ def deserialize_json(data: dict) -> PushMessageTemplateContent:
         out["baidu"] = (
             capo_qconnect.types.push_baidu_message_template_content.deserialize_json(
                 data["baidu"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: PushMessageTemplateContent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "adm" in value:
+        import capo_qconnect.types.push_adm_message_template_content
+
+        out["adm"] = (
+            capo_qconnect.types.push_adm_message_template_content.redact_sensitive(
+                value["adm"]
+            )
+        )
+    if "apns" in value:
+        import capo_qconnect.types.push_apns_message_template_content
+
+        out["apns"] = (
+            capo_qconnect.types.push_apns_message_template_content.redact_sensitive(
+                value["apns"]
+            )
+        )
+    if "fcm" in value:
+        import capo_qconnect.types.push_fcm_message_template_content
+
+        out["fcm"] = (
+            capo_qconnect.types.push_fcm_message_template_content.redact_sensitive(
+                value["fcm"]
+            )
+        )
+    if "baidu" in value:
+        import capo_qconnect.types.push_baidu_message_template_content
+
+        out["baidu"] = (
+            capo_qconnect.types.push_baidu_message_template_content.redact_sensitive(
+                value["baidu"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chatbot#TeamChannelConfigurationsList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_chatbot.types.teams_channel_configuration
@@ -31,3 +31,12 @@ def deserialize_json(data: list) -> TeamChannelConfigurationsList:
             capo_chatbot.types.teams_channel_configuration.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: TeamChannelConfigurationsList) -> list[Any]:
+    import capo_chatbot.types.teams_channel_configuration
+
+    return [
+        capo_chatbot.types.teams_channel_configuration.redact_sensitive(item)
+        for item in value
+    ]

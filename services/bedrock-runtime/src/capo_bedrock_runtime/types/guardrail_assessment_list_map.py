@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#GuardrailAssessmentListMap``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.guardrail_assessment_list
@@ -34,3 +34,12 @@ def deserialize_json(data: dict) -> GuardrailAssessmentListMap:
             capo_bedrock_runtime.types.guardrail_assessment_list.deserialize_json(value)
         )
     return out
+
+
+def redact_sensitive(value: GuardrailAssessmentListMap) -> dict[str, Any]:
+    import capo_bedrock_runtime.types.guardrail_assessment_list
+
+    return {
+        key: capo_bedrock_runtime.types.guardrail_assessment_list.redact_sensitive(item)
+        for key, item in value.items()
+    }

@@ -21,10 +21,12 @@ from capo_cognito_identity._pagination import resolve_path as _resolve_path
 from capo_cognito_identity._services._aws_config import aws_config
 from capo_cognito_identity._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -171,7 +173,9 @@ class CognitoIdentityClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[CognitoIdentityClientConfig] = None
+        self,
+        config_overrides: Optional[CognitoIdentityClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: CognitoIdentityClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -179,8 +183,10 @@ class CognitoIdentityClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -264,7 +270,9 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIdentityPool")
+        )
         input_: capo_cognito_identity.types.create_identity_pool_input.CreateIdentityPoolInput = {
             "identity_pool_name": identity_pool_name,
             "allow_unauthenticated_identities": allow_unauthenticated_identities,
@@ -324,7 +332,9 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIdentities")
+        )
         input_: capo_cognito_identity.types.delete_identities_input.DeleteIdentitiesInput = {
             "identity_ids_to_delete": identity_ids_to_delete
         }
@@ -369,7 +379,9 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIdentityPool")
+        )
         input_: capo_cognito_identity.types.delete_identity_pool_input.DeleteIdentityPoolInput = {
             "identity_pool_id": identity_pool_id
         }
@@ -416,7 +428,9 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeIdentity")
+        )
         input_: capo_cognito_identity.types.describe_identity_input.DescribeIdentityInput = {
             "identity_id": identity_id
         }
@@ -463,7 +477,9 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeIdentityPool")
+        )
         input_: capo_cognito_identity.types.describe_identity_pool_input.DescribeIdentityPoolInput = {
             "identity_pool_id": identity_pool_id
         }
@@ -519,7 +535,32 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity.types.get_credentials_for_identity_input.GetCredentialsForIdentityInput",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity.types.get_credentials_for_identity_input
+
+            return capo_cognito_identity.types.get_credentials_for_identity_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity.types.get_credentials_for_identity_response.GetCredentialsForIdentityResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity.types.get_credentials_for_identity_response
+
+            return capo_cognito_identity.types.get_credentials_for_identity_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetCredentialsForIdentity",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity.types.get_credentials_for_identity_input.GetCredentialsForIdentityInput = {
             "identity_id": identity_id
         }
@@ -577,7 +618,16 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity.types.get_id_input.GetIdInput",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity.types.get_id_input
+
+            return capo_cognito_identity.types.get_id_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetId", redact_input=_redact_input)
+        )
         input_: capo_cognito_identity.types.get_id_input.GetIdInput = {
             "identity_pool_id": identity_pool_id
         }
@@ -629,7 +679,9 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIdentityPoolRoles")
+        )
         input_: capo_cognito_identity.types.get_identity_pool_roles_input.GetIdentityPoolRolesInput = {
             "identity_pool_id": identity_pool_id
         }
@@ -682,7 +734,34 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity.types.get_open_id_token_input.GetOpenIdTokenInput",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity.types.get_open_id_token_input
+
+            return capo_cognito_identity.types.get_open_id_token_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity.types.get_open_id_token_response.GetOpenIdTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity.types.get_open_id_token_response
+
+            return (
+                capo_cognito_identity.types.get_open_id_token_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetOpenIdToken",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity.types.get_open_id_token_input.GetOpenIdTokenInput = {
             "identity_id": identity_id
         }
@@ -747,7 +826,32 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity.types.get_open_id_token_for_developer_identity_input.GetOpenIdTokenForDeveloperIdentityInput",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity.types.get_open_id_token_for_developer_identity_input
+
+            return capo_cognito_identity.types.get_open_id_token_for_developer_identity_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity.types.get_open_id_token_for_developer_identity_response.GetOpenIdTokenForDeveloperIdentityResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity.types.get_open_id_token_for_developer_identity_response
+
+            return capo_cognito_identity.types.get_open_id_token_for_developer_identity_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetOpenIdTokenForDeveloperIdentity",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity.types.get_open_id_token_for_developer_identity_input.GetOpenIdTokenForDeveloperIdentityInput = {
             "identity_pool_id": identity_pool_id,
             "logins": logins,
@@ -803,7 +907,9 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPrincipalTagAttributeMap")
+        )
         input_: capo_cognito_identity.types.get_principal_tag_attribute_map_input.GetPrincipalTagAttributeMapInput = {
             "identity_pool_id": identity_pool_id,
             "identity_provider_name": identity_provider_name,
@@ -861,7 +967,9 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIdentities")
+        )
         input_: capo_cognito_identity.types.list_identities_input.ListIdentitiesInput = {
             "identity_pool_id": identity_pool_id,
             "max_results": max_results,
@@ -917,7 +1025,9 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIdentityPools")
+        )
         input_: capo_cognito_identity.types.list_identity_pools_input.ListIdentityPoolsInput = {
             "max_results": max_results
         }
@@ -989,7 +1099,9 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_cognito_identity.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -1053,7 +1165,9 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("LookupDeveloperIdentity")
+        )
         input_: capo_cognito_identity.types.lookup_developer_identity_input.LookupDeveloperIdentityInput = {
             "identity_pool_id": identity_pool_id
         }
@@ -1115,7 +1229,9 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("MergeDeveloperIdentities")
+        )
         input_: capo_cognito_identity.types.merge_developer_identities_input.MergeDeveloperIdentitiesInput = {
             "source_user_identifier": source_user_identifier,
             "destination_user_identifier": destination_user_identifier,
@@ -1171,7 +1287,9 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetIdentityPoolRoles")
+        )
         input_: capo_cognito_identity.types.set_identity_pool_roles_input.SetIdentityPoolRolesInput = {
             "identity_pool_id": identity_pool_id,
             "roles": roles,
@@ -1231,7 +1349,9 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetPrincipalTagAttributeMap")
+        )
         input_: capo_cognito_identity.types.set_principal_tag_attribute_map_input.SetPrincipalTagAttributeMapInput = {
             "identity_pool_id": identity_pool_id,
             "identity_provider_name": identity_provider_name,
@@ -1285,7 +1405,9 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_cognito_identity.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1338,7 +1460,9 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UnlinkDeveloperIdentity")
+        )
         input_: capo_cognito_identity.types.unlink_developer_identity_input.UnlinkDeveloperIdentityInput = {
             "identity_id": identity_id,
             "identity_pool_id": identity_pool_id,
@@ -1392,7 +1516,19 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity.types.unlink_identity_input.UnlinkIdentityInput",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity.types.unlink_identity_input
+
+            return capo_cognito_identity.types.unlink_identity_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UnlinkIdentity", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity.types.unlink_identity_input.UnlinkIdentityInput = {
             "identity_id": identity_id,
             "logins": logins,
@@ -1443,7 +1579,9 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_cognito_identity.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1526,7 +1664,9 @@ class CognitoIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIdentityPool")
+        )
         input_: capo_cognito_identity.types.identity_pool.IdentityPool = {
             "identity_pool_id": identity_pool_id,
             "identity_pool_name": identity_pool_name,

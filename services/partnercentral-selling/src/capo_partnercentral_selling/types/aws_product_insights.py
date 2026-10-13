@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#AwsProductInsights``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -127,4 +127,33 @@ def deserialize_aws_json_1_0(data: dict) -> AwsProductInsights:
         )
     else:
         raise DeserializationError("AwsProductInsights.aws_products required")
+    return out
+
+
+def redact_sensitive(value: AwsProductInsights) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "currency_code" in value:
+        out["currency_code"] = "*** Sensitive Data Redacted ***"
+    if "total_amount" in value:
+        out["total_amount"] = "*** Sensitive Data Redacted ***"
+    if "total_optimized_amount" in value:
+        out["total_optimized_amount"] = "*** Sensitive Data Redacted ***"
+    if "total_potential_savings_amount" in value:
+        out["total_potential_savings_amount"] = "*** Sensitive Data Redacted ***"
+    if "total_amount_by_category" in value:
+        import capo_partnercentral_selling.types.amount_map
+
+        out["total_amount_by_category"] = (
+            capo_partnercentral_selling.types.amount_map.redact_sensitive(
+                value["total_amount_by_category"]
+            )
+        )
+    if "aws_products" in value:
+        import capo_partnercentral_selling.types.aws_products_list
+
+        out["aws_products"] = (
+            capo_partnercentral_selling.types.aws_products_list.redact_sensitive(
+                value["aws_products"]
+            )
+        )
     return out

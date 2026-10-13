@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ecs#RunTaskResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -44,4 +44,13 @@ def deserialize_aws_json_1_1(data: dict) -> RunTaskResponse:
         out["failures"] = capo_ecs.types.failures.deserialize_aws_json_1_1(
             data["failures"]
         )
+    return out
+
+
+def redact_sensitive(value: RunTaskResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tasks" in value:
+        import capo_ecs.types.tasks
+
+        out["tasks"] = capo_ecs.types.tasks.redact_sensitive(value["tasks"])
     return out

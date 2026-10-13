@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#CreateGeofenceCollectionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -58,4 +58,11 @@ def deserialize_json(data: dict) -> CreateGeofenceCollectionResponse:
         raise DeserializationError(
             "CreateGeofenceCollectionResponse.create_time required"
         )
+    return out
+
+
+def redact_sensitive(value: CreateGeofenceCollectionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "create_time" in value:
+        out["create_time"] = "*** Sensitive Data Redacted ***"
     return out

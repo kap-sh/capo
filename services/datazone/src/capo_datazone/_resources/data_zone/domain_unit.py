@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_datazone._auth._signers
 import capo_datazone._auth._sigv4
 from capo_datazone._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -90,7 +91,30 @@ class DomainUnit:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_domain_unit_input.CreateDomainUnitInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_domain_unit_input
+
+            return capo_datazone.types.create_domain_unit_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_domain_unit_output.CreateDomainUnitOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_domain_unit_output
+
+            return capo_datazone.types.create_domain_unit_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDomainUnit",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_domain_unit_input.CreateDomainUnitInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -147,7 +171,17 @@ class DomainUnit:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_domain_unit_output.GetDomainUnitOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_domain_unit_output
+
+            return capo_datazone.types.get_domain_unit_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDomainUnit", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_domain_unit_input.GetDomainUnitInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -205,7 +239,30 @@ class DomainUnit:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_domain_unit_input.UpdateDomainUnitInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_domain_unit_input
+
+            return capo_datazone.types.update_domain_unit_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.update_domain_unit_output.UpdateDomainUnitOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_domain_unit_output
+
+            return capo_datazone.types.update_domain_unit_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDomainUnit",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_domain_unit_input.UpdateDomainUnitInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -261,7 +318,9 @@ class DomainUnit:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDomainUnit")
+        )
         input_: capo_datazone.types.delete_domain_unit_input.DeleteDomainUnitInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -319,7 +378,9 @@ class DomainUnit:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDomainUnitsForParent")
+        )
         input_: capo_datazone.types.list_domain_units_for_parent_input.ListDomainUnitsForParentInput = {
             "domain_identifier": domain_identifier,
             "parent_domain_unit_identifier": parent_domain_unit_identifier,
@@ -389,7 +450,30 @@ class AsyncDomainUnit:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_domain_unit_input.CreateDomainUnitInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_domain_unit_input
+
+            return capo_datazone.types.create_domain_unit_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_domain_unit_output.CreateDomainUnitOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_domain_unit_output
+
+            return capo_datazone.types.create_domain_unit_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDomainUnit",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_domain_unit_input.CreateDomainUnitInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -447,7 +531,17 @@ class AsyncDomainUnit:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_domain_unit_output.GetDomainUnitOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_domain_unit_output
+
+            return capo_datazone.types.get_domain_unit_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDomainUnit", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_domain_unit_input.GetDomainUnitInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -506,7 +600,30 @@ class AsyncDomainUnit:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_domain_unit_input.UpdateDomainUnitInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_domain_unit_input
+
+            return capo_datazone.types.update_domain_unit_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.update_domain_unit_output.UpdateDomainUnitOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_domain_unit_output
+
+            return capo_datazone.types.update_domain_unit_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDomainUnit",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_domain_unit_input.UpdateDomainUnitInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -563,7 +680,9 @@ class AsyncDomainUnit:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDomainUnit")
+        )
         input_: capo_datazone.types.delete_domain_unit_input.DeleteDomainUnitInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -622,7 +741,9 @@ class AsyncDomainUnit:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDomainUnitsForParent")
+        )
         input_: capo_datazone.types.list_domain_units_for_parent_input.ListDomainUnitsForParentInput = {
             "domain_identifier": domain_identifier,
             "parent_domain_unit_identifier": parent_domain_unit_identifier,

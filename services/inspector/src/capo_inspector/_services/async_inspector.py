@@ -24,7 +24,9 @@ from capo_inspector._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -197,7 +199,9 @@ class AsyncInspectorClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncInspectorClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncInspectorClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncInspectorClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -205,8 +209,10 @@ class AsyncInspectorClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -268,7 +274,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddAttributesToFindings")
+        )
         input_: capo_inspector.types.add_attributes_to_findings_request.AddAttributesToFindingsRequest = {
             "finding_arns": finding_arns,
             "attributes": attributes,
@@ -327,7 +335,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAssessmentTarget")
+        )
         input_: capo_inspector.types.create_assessment_target_request.CreateAssessmentTargetRequest = {
             "assessment_target_name": assessment_target_name
         }
@@ -394,7 +404,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAssessmentTemplate")
+        )
         input_: capo_inspector.types.create_assessment_template_request.CreateAssessmentTemplateRequest = {
             "assessment_target_arn": assessment_target_arn,
             "assessment_template_name": assessment_template_name,
@@ -448,7 +460,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateExclusionsPreview")
+        )
         input_: capo_inspector.types.create_exclusions_preview_request.CreateExclusionsPreviewRequest = {
             "assessment_template_arn": assessment_template_arn
         }
@@ -502,7 +516,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateResourceGroup")
+        )
         input_: capo_inspector.types.create_resource_group_request.CreateResourceGroupRequest = {
             "resource_group_tags": resource_group_tags
         }
@@ -555,7 +571,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAssessmentRun")
+        )
         input_: capo_inspector.types.delete_assessment_run_request.DeleteAssessmentRunRequest = {
             "assessment_run_arn": assessment_run_arn
         }
@@ -608,7 +626,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAssessmentTarget")
+        )
         input_: capo_inspector.types.delete_assessment_target_request.DeleteAssessmentTargetRequest = {
             "assessment_target_arn": assessment_target_arn
         }
@@ -661,7 +681,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAssessmentTemplate")
+        )
         input_: capo_inspector.types.delete_assessment_template_request.DeleteAssessmentTemplateRequest = {
             "assessment_template_arn": assessment_template_arn
         }
@@ -706,7 +728,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAssessmentRuns")
+        )
         input_: capo_inspector.types.describe_assessment_runs_request.DescribeAssessmentRunsRequest = {
             "assessment_run_arns": assessment_run_arns
         }
@@ -751,7 +775,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAssessmentTargets")
+        )
         input_: capo_inspector.types.describe_assessment_targets_request.DescribeAssessmentTargetsRequest = {
             "assessment_target_arns": assessment_target_arns
         }
@@ -793,7 +819,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAssessmentTemplates")
+        )
         input_: capo_inspector.types.describe_assessment_templates_request.DescribeAssessmentTemplatesRequest = {
             "assessment_template_arns": assessment_template_arns
         }
@@ -831,7 +859,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCrossAccountAccessRole")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -875,7 +905,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeExclusions")
+        )
         input_: capo_inspector.types.describe_exclusions_request.DescribeExclusionsRequest = {
             "exclusion_arns": exclusion_arns
         }
@@ -924,7 +956,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFindings")
+        )
         input_: capo_inspector.types.describe_findings_request.DescribeFindingsRequest = {
             "finding_arns": finding_arns
         }
@@ -971,7 +1005,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeResourceGroups")
+        )
         input_: capo_inspector.types.describe_resource_groups_request.DescribeResourceGroupsRequest = {
             "resource_group_arns": resource_group_arns
         }
@@ -1024,7 +1060,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRulesPackages")
+        )
         input_: capo_inspector.types.describe_rules_packages_request.DescribeRulesPackagesRequest = {
             "rules_package_arns": rules_package_arns
         }
@@ -1080,7 +1118,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAssessmentReport")
+        )
         input_: capo_inspector.types.get_assessment_report_request.GetAssessmentReportRequest = {
             "assessment_run_arn": assessment_run_arn,
             "report_file_format": report_file_format,
@@ -1141,7 +1181,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetExclusionsPreview")
+        )
         input_: capo_inspector.types.get_exclusions_preview_request.GetExclusionsPreviewRequest = {
             "assessment_template_arn": assessment_template_arn,
             "preview_token": preview_token,
@@ -1230,7 +1272,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTelemetryMetadata")
+        )
         input_: capo_inspector.types.get_telemetry_metadata_request.GetTelemetryMetadataRequest = {
             "assessment_run_arn": assessment_run_arn
         }
@@ -1293,7 +1337,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssessmentRunAgents")
+        )
         input_: capo_inspector.types.list_assessment_run_agents_request.ListAssessmentRunAgentsRequest = {
             "assessment_run_arn": assessment_run_arn
         }
@@ -1395,7 +1441,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssessmentRuns")
+        )
         input_: capo_inspector.types.list_assessment_runs_request.ListAssessmentRunsRequest = {}
         if assessment_template_arns is not None:
             input_["assessment_template_arns"] = assessment_template_arns
@@ -1494,7 +1542,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssessmentTargets")
+        )
         input_: capo_inspector.types.list_assessment_targets_request.ListAssessmentTargetsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -1592,7 +1642,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssessmentTemplates")
+        )
         input_: capo_inspector.types.list_assessment_templates_request.ListAssessmentTemplatesRequest = {}
         if assessment_target_arns is not None:
             input_["assessment_target_arns"] = assessment_target_arns
@@ -1684,7 +1736,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEventSubscriptions")
+        )
         input_: capo_inspector.types.list_event_subscriptions_request.ListEventSubscriptionsRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -1768,7 +1822,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExclusions")
+        )
         input_: capo_inspector.types.list_exclusions_request.ListExclusionsRequest = {
             "assessment_run_arn": assessment_run_arn
         }
@@ -1862,7 +1918,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFindings")
+        )
         input_: capo_inspector.types.list_findings_request.ListFindingsRequest = {}
         if assessment_run_arns is not None:
             input_["assessment_run_arns"] = assessment_run_arns
@@ -1955,7 +2013,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRulesPackages")
+        )
         input_: capo_inspector.types.list_rules_packages_request.ListRulesPackagesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2033,7 +2093,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_inspector.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2095,7 +2157,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PreviewAgents")
+        )
         input_: capo_inspector.types.preview_agents_request.PreviewAgentsRequest = {
             "preview_agents_arn": preview_agents_arn
         }
@@ -2176,7 +2240,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterCrossAccountAccessRole")
+        )
         input_: capo_inspector.types.register_cross_account_access_role_request.RegisterCrossAccountAccessRoleRequest = {
             "role_arn": role_arn
         }
@@ -2232,7 +2298,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveAttributesFromFindings")
+        )
         input_: capo_inspector.types.remove_attributes_from_findings_request.RemoveAttributesFromFindingsRequest = {
             "finding_arns": finding_arns,
             "attribute_keys": attribute_keys,
@@ -2287,7 +2355,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetTagsForResource")
+        )
         input_: capo_inspector.types.set_tags_for_resource_request.SetTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2352,7 +2422,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAssessmentRun")
+        )
         input_: capo_inspector.types.start_assessment_run_request.StartAssessmentRunRequest = {
             "assessment_template_arn": assessment_template_arn
         }
@@ -2408,7 +2480,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopAssessmentRun")
+        )
         input_: capo_inspector.types.stop_assessment_run_request.StopAssessmentRunRequest = {
             "assessment_run_arn": assessment_run_arn
         }
@@ -2467,7 +2541,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SubscribeToEvent")
+        )
         input_: capo_inspector.types.subscribe_to_event_request.SubscribeToEventRequest = {
             "resource_arn": resource_arn,
             "event": event,
@@ -2525,7 +2601,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UnsubscribeFromEvent")
+        )
         input_: capo_inspector.types.unsubscribe_from_event_request.UnsubscribeFromEventRequest = {
             "resource_arn": resource_arn,
             "event": event,
@@ -2583,7 +2661,9 @@ class AsyncInspectorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAssessmentTarget")
+        )
         input_: capo_inspector.types.update_assessment_target_request.UpdateAssessmentTargetRequest = {
             "assessment_target_arn": assessment_target_arn,
             "assessment_target_name": assessment_target_name,

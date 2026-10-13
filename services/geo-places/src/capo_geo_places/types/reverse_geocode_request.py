@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#ReverseGeocodeRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -162,4 +162,19 @@ def deserialize_json(data: dict) -> ReverseGeocodeRequest:
                 data["AddressNamesMode"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: ReverseGeocodeRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "query_position" in value:
+        out["query_position"] = "*** Sensitive Data Redacted ***"
+    if "query_radius" in value:
+        out["query_radius"] = "*** Sensitive Data Redacted ***"
+    if "political_view" in value:
+        out["political_view"] = "*** Sensitive Data Redacted ***"
+    if "key" in value:
+        out["key"] = "*** Sensitive Data Redacted ***"
+    if "heading" in value:
+        out["heading"] = "*** Sensitive Data Redacted ***"
     return out

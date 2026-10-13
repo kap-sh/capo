@@ -7,6 +7,7 @@ import capo_omics._auth._sigv4
 from capo_omics._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -86,7 +87,9 @@ class ConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateConfiguration")
+        )
         input_: capo_omics.types.create_configuration_request.CreateConfigurationRequest = {
             "name": name,
             "run_configurations": run_configurations,
@@ -142,7 +145,9 @@ class ConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConfiguration")
+        )
         input_: capo_omics.types.get_configuration_request.GetConfigurationRequest = {
             "name": name
         }
@@ -190,7 +195,9 @@ class ConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguration")
+        )
         input_: capo_omics.types.delete_configuration_request.DeleteConfigurationRequest = {
             "name": name
         }
@@ -244,7 +251,9 @@ class ConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConfigurations")
+        )
         input_: capo_omics.types.list_configurations_request.ListConfigurationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -312,7 +321,9 @@ class AsyncConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateConfiguration")
+        )
         input_: capo_omics.types.create_configuration_request.CreateConfigurationRequest = {
             "name": name,
             "run_configurations": run_configurations,
@@ -369,7 +380,9 @@ class AsyncConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConfiguration")
+        )
         input_: capo_omics.types.get_configuration_request.GetConfigurationRequest = {
             "name": name
         }
@@ -418,7 +431,9 @@ class AsyncConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguration")
+        )
         input_: capo_omics.types.delete_configuration_request.DeleteConfigurationRequest = {
             "name": name
         }
@@ -473,7 +488,9 @@ class AsyncConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConfigurations")
+        )
         input_: capo_omics.types.list_configurations_request.ListConfigurationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

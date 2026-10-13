@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appflow#ConnectorOAuthRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,4 +39,11 @@ def deserialize_json(data: dict) -> ConnectorOAuthRequest:
         out["redirect_uri"] = data["redirectUri"]
     if data.get("codeVerifier") is not None:
         out["code_verifier"] = data["codeVerifier"]
+    return out
+
+
+def redact_sensitive(value: ConnectorOAuthRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "code_verifier" in value:
+        out["code_verifier"] = "*** Sensitive Data Redacted ***"
     return out

@@ -8,6 +8,7 @@ import capo_pca_connector_ad._auth._sigv4
 from capo_pca_connector_ad._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -80,7 +81,9 @@ class ServicePrincipalNameResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateServicePrincipalName")
+        )
         input_: capo_pca_connector_ad.types.create_service_principal_name_request.CreateServicePrincipalNameRequest = {
             "directory_registration_arn": directory_registration_arn,
             "connector_arn": connector_arn,
@@ -133,7 +136,9 @@ class ServicePrincipalNameResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetServicePrincipalName")
+        )
         input_: capo_pca_connector_ad.types.get_service_principal_name_request.GetServicePrincipalNameRequest = {
             "directory_registration_arn": directory_registration_arn,
             "connector_arn": connector_arn,
@@ -181,7 +186,9 @@ class ServicePrincipalNameResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteServicePrincipalName")
+        )
         input_: capo_pca_connector_ad.types.delete_service_principal_name_request.DeleteServicePrincipalNameRequest = {
             "directory_registration_arn": directory_registration_arn,
             "connector_arn": connector_arn,
@@ -235,7 +242,9 @@ class ServicePrincipalNameResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListServicePrincipalNames")
+        )
         input_: capo_pca_connector_ad.types.list_service_principal_names_request.ListServicePrincipalNamesRequest = {
             "directory_registration_arn": directory_registration_arn
         }
@@ -297,7 +306,9 @@ class AsyncServicePrincipalNameResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateServicePrincipalName")
+        )
         input_: capo_pca_connector_ad.types.create_service_principal_name_request.CreateServicePrincipalNameRequest = {
             "directory_registration_arn": directory_registration_arn,
             "connector_arn": connector_arn,
@@ -351,7 +362,9 @@ class AsyncServicePrincipalNameResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetServicePrincipalName")
+        )
         input_: capo_pca_connector_ad.types.get_service_principal_name_request.GetServicePrincipalNameRequest = {
             "directory_registration_arn": directory_registration_arn,
             "connector_arn": connector_arn,
@@ -400,7 +413,9 @@ class AsyncServicePrincipalNameResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteServicePrincipalName")
+        )
         input_: capo_pca_connector_ad.types.delete_service_principal_name_request.DeleteServicePrincipalNameRequest = {
             "directory_registration_arn": directory_registration_arn,
             "connector_arn": connector_arn,
@@ -455,7 +470,9 @@ class AsyncServicePrincipalNameResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListServicePrincipalNames")
+        )
         input_: capo_pca_connector_ad.types.list_service_principal_names_request.ListServicePrincipalNamesRequest = {
             "directory_registration_arn": directory_registration_arn
         }

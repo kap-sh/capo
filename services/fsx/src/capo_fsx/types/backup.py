@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.fsx#Backup``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -204,4 +204,19 @@ def deserialize_aws_json_1_1(data: dict) -> Backup:
         out["volume"] = capo_fsx.types.volume.deserialize_aws_json_1_1(data["Volume"])
     if data.get("SizeInBytes") is not None:
         out["size_in_bytes"] = data["SizeInBytes"]
+    return out
+
+
+def redact_sensitive(value: Backup) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "file_system" in value:
+        import capo_fsx.types.file_system
+
+        out["file_system"] = capo_fsx.types.file_system.redact_sensitive(
+            value["file_system"]
+        )
+    if "volume" in value:
+        import capo_fsx.types.volume
+
+        out["volume"] = capo_fsx.types.volume.redact_sensitive(value["volume"])
     return out

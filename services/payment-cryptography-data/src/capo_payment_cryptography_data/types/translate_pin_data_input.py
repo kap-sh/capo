@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#TranslatePinDataInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -191,6 +191,45 @@ def deserialize_json(data: dict) -> TranslatePinDataInput:
         out["incoming_as2805_attributes"] = (
             capo_payment_cryptography_data.types.as2805_pek_derivation_attributes.deserialize_json(
                 data["IncomingAs2805Attributes"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: TranslatePinDataInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "incoming_translation_attributes" in value:
+        import capo_payment_cryptography_data.types.translation_iso_formats
+
+        out["incoming_translation_attributes"] = (
+            capo_payment_cryptography_data.types.translation_iso_formats.redact_sensitive(
+                value["incoming_translation_attributes"]
+            )
+        )
+    if "outgoing_translation_attributes" in value:
+        import capo_payment_cryptography_data.types.translation_iso_formats
+
+        out["outgoing_translation_attributes"] = (
+            capo_payment_cryptography_data.types.translation_iso_formats.redact_sensitive(
+                value["outgoing_translation_attributes"]
+            )
+        )
+    if "encrypted_pin_block" in value:
+        out["encrypted_pin_block"] = "*** Sensitive Data Redacted ***"
+    if "incoming_wrapped_key" in value:
+        import capo_payment_cryptography_data.types.wrapped_key
+
+        out["incoming_wrapped_key"] = (
+            capo_payment_cryptography_data.types.wrapped_key.redact_sensitive(
+                value["incoming_wrapped_key"]
+            )
+        )
+    if "outgoing_wrapped_key" in value:
+        import capo_payment_cryptography_data.types.wrapped_key
+
+        out["outgoing_wrapped_key"] = (
+            capo_payment_cryptography_data.types.wrapped_key.redact_sensitive(
+                value["outgoing_wrapped_key"]
             )
         )
     return out

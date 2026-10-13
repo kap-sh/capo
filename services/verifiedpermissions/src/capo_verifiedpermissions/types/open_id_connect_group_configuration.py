@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#OpenIdConnectGroupConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -42,4 +42,13 @@ def deserialize_aws_json_1_0(data: dict) -> OpenIdConnectGroupConfiguration:
         raise DeserializationError(
             "OpenIdConnectGroupConfiguration.group_entity_type required"
         )
+    return out
+
+
+def redact_sensitive(value: OpenIdConnectGroupConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "group_claim" in value:
+        out["group_claim"] = "*** Sensitive Data Redacted ***"
+    if "group_entity_type" in value:
+        out["group_entity_type"] = "*** Sensitive Data Redacted ***"
     return out

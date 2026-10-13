@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appfabric#ApiKeyCredential``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -28,4 +28,11 @@ def deserialize_json(data: dict) -> ApiKeyCredential:
         out["api_key"] = data["apiKey"]
     else:
         raise DeserializationError("ApiKeyCredential.api_key required")
+    return out
+
+
+def redact_sensitive(value: ApiKeyCredential) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "api_key" in value:
+        out["api_key"] = "*** Sensitive Data Redacted ***"
     return out

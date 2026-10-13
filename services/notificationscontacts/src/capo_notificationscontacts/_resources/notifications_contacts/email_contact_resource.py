@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_notificationscontacts._auth._signers
 import capo_notificationscontacts._auth._sigv4
 from capo_notificationscontacts._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -85,7 +86,19 @@ class EmailContactResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_notificationscontacts.types.create_email_contact_request.CreateEmailContactRequest",
+        ) -> dict[str, Any]:
+            import capo_notificationscontacts.types.create_email_contact_request
+
+            return capo_notificationscontacts.types.create_email_contact_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateEmailContact", redact_input=_redact_input),
+        )
         input_: capo_notificationscontacts.types.create_email_contact_request.CreateEmailContactRequest = {
             "name": name,
             "email_address": email_address,
@@ -135,7 +148,19 @@ class EmailContactResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_notificationscontacts.types.get_email_contact_response.GetEmailContactResponse",
+        ) -> dict[str, Any]:
+            import capo_notificationscontacts.types.get_email_contact_response
+
+            return capo_notificationscontacts.types.get_email_contact_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetEmailContact", redact_output=_redact_output),
+        )
         input_: capo_notificationscontacts.types.get_email_contact_request.GetEmailContactRequest = {
             "arn": arn
         }
@@ -183,7 +208,9 @@ class EmailContactResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEmailContact")
+        )
         input_: capo_notificationscontacts.types.delete_email_contact_request.DeleteEmailContactRequest = {
             "arn": arn
         }
@@ -231,7 +258,19 @@ class EmailContactResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_notificationscontacts.types.list_email_contacts_response.ListEmailContactsResponse",
+        ) -> dict[str, Any]:
+            import capo_notificationscontacts.types.list_email_contacts_response
+
+            return capo_notificationscontacts.types.list_email_contacts_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListEmailContacts", redact_output=_redact_output),
+        )
         input_: capo_notificationscontacts.types.list_email_contacts_request.ListEmailContactsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -283,7 +322,19 @@ class EmailContactResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_notificationscontacts.types.activate_email_contact_request.ActivateEmailContactRequest",
+        ) -> dict[str, Any]:
+            import capo_notificationscontacts.types.activate_email_contact_request
+
+            return capo_notificationscontacts.types.activate_email_contact_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ActivateEmailContact", redact_input=_redact_input),
+        )
         input_: capo_notificationscontacts.types.activate_email_contact_request.ActivateEmailContactRequest = {
             "arn": arn,
             "code": code,
@@ -332,7 +383,9 @@ class EmailContactResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SendActivationCode")
+        )
         input_: capo_notificationscontacts.types.send_activation_code_request.SendActivationCodeRequest = {
             "arn": arn
         }
@@ -390,7 +443,19 @@ class AsyncEmailContactResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_notificationscontacts.types.create_email_contact_request.CreateEmailContactRequest",
+        ) -> dict[str, Any]:
+            import capo_notificationscontacts.types.create_email_contact_request
+
+            return capo_notificationscontacts.types.create_email_contact_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateEmailContact", redact_input=_redact_input),
+        )
         input_: capo_notificationscontacts.types.create_email_contact_request.CreateEmailContactRequest = {
             "name": name,
             "email_address": email_address,
@@ -441,7 +506,19 @@ class AsyncEmailContactResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_notificationscontacts.types.get_email_contact_response.GetEmailContactResponse",
+        ) -> dict[str, Any]:
+            import capo_notificationscontacts.types.get_email_contact_response
+
+            return capo_notificationscontacts.types.get_email_contact_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetEmailContact", redact_output=_redact_output),
+        )
         input_: capo_notificationscontacts.types.get_email_contact_request.GetEmailContactRequest = {
             "arn": arn
         }
@@ -490,7 +567,9 @@ class AsyncEmailContactResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEmailContact")
+        )
         input_: capo_notificationscontacts.types.delete_email_contact_request.DeleteEmailContactRequest = {
             "arn": arn
         }
@@ -539,7 +618,19 @@ class AsyncEmailContactResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_notificationscontacts.types.list_email_contacts_response.ListEmailContactsResponse",
+        ) -> dict[str, Any]:
+            import capo_notificationscontacts.types.list_email_contacts_response
+
+            return capo_notificationscontacts.types.list_email_contacts_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListEmailContacts", redact_output=_redact_output),
+        )
         input_: capo_notificationscontacts.types.list_email_contacts_request.ListEmailContactsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -592,7 +683,19 @@ class AsyncEmailContactResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_notificationscontacts.types.activate_email_contact_request.ActivateEmailContactRequest",
+        ) -> dict[str, Any]:
+            import capo_notificationscontacts.types.activate_email_contact_request
+
+            return capo_notificationscontacts.types.activate_email_contact_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ActivateEmailContact", redact_input=_redact_input),
+        )
         input_: capo_notificationscontacts.types.activate_email_contact_request.ActivateEmailContactRequest = {
             "arn": arn,
             "code": code,
@@ -642,7 +745,9 @@ class AsyncEmailContactResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SendActivationCode")
+        )
         input_: capo_notificationscontacts.types.send_activation_code_request.SendActivationCodeRequest = {
             "arn": arn
         }

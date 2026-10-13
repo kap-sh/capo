@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#UpdateAuthEventFeedbackRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -84,4 +84,13 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateAuthEventFeedbackRequest:
         raise DeserializationError(
             "UpdateAuthEventFeedbackRequest.feedback_value required"
         )
+    return out
+
+
+def redact_sensitive(value: UpdateAuthEventFeedbackRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "username" in value:
+        out["username"] = "*** Sensitive Data Redacted ***"
+    if "feedback_token" in value:
+        out["feedback_token"] = "*** Sensitive Data Redacted ***"
     return out

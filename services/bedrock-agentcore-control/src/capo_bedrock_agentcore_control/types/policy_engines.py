@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#PolicyEngines``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.policy_engine
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> PolicyEngines:
             capo_bedrock_agentcore_control.types.policy_engine.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: PolicyEngines) -> list[Any]:
+    import capo_bedrock_agentcore_control.types.policy_engine
+
+    return [
+        capo_bedrock_agentcore_control.types.policy_engine.redact_sensitive(item)
+        for item in value
+    ]

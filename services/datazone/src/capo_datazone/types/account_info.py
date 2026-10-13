@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#AccountInfo``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -51,4 +51,11 @@ def deserialize_json(data: dict) -> AccountInfo:
         raise DeserializationError("AccountInfo.supported_regions required")
     if data.get("awsAccountName") is not None:
         out["aws_account_name"] = data["awsAccountName"]
+    return out
+
+
+def redact_sensitive(value: AccountInfo) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "aws_account_name" in value:
+        out["aws_account_name"] = "*** Sensitive Data Redacted ***"
     return out

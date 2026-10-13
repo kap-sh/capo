@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#ToolConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,4 +47,13 @@ def deserialize_json(data: dict) -> ToolConfiguration:
         out["tool_choice"] = capo_bedrock_agent.types.tool_choice.deserialize_json(
             data["toolChoice"]
         )
+    return out
+
+
+def redact_sensitive(value: ToolConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tools" in value:
+        out["tools"] = "*** Sensitive Data Redacted ***"
+    if "tool_choice" in value:
+        out["tool_choice"] = "*** Sensitive Data Redacted ***"
     return out

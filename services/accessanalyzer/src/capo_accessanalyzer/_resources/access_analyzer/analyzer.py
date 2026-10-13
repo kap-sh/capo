@@ -8,6 +8,7 @@ import capo_accessanalyzer._auth._sigv4
 from capo_accessanalyzer._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -94,7 +95,9 @@ class Analyzer:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAnalyzer")
+        )
         input_: capo_accessanalyzer.types.create_analyzer_request.CreateAnalyzerRequest = {
             "analyzer_name": analyzer_name,
             "type": type,
@@ -151,7 +154,9 @@ class Analyzer:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAnalyzer")
+        )
         input_: capo_accessanalyzer.types.get_analyzer_request.GetAnalyzerRequest = {
             "analyzer_name": analyzer_name
         }
@@ -202,7 +207,9 @@ class Analyzer:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAnalyzer")
+        )
         input_: capo_accessanalyzer.types.update_analyzer_request.UpdateAnalyzerRequest = {
             "analyzer_name": analyzer_name
         }
@@ -251,7 +258,9 @@ class Analyzer:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAnalyzer")
+        )
         input_: capo_accessanalyzer.types.delete_analyzer_request.DeleteAnalyzerRequest = {
             "analyzer_name": analyzer_name
         }
@@ -304,7 +313,9 @@ class Analyzer:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAnalyzers")
+        )
         input_: capo_accessanalyzer.types.list_analyzers_request.ListAnalyzersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -356,7 +367,9 @@ class Analyzer:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteServiceLinkedAnalyzer")
+        )
         input_: capo_accessanalyzer.types.delete_service_linked_analyzer_request.DeleteServiceLinkedAnalyzerRequest = {
             "analyzer_name": analyzer_name
         }
@@ -427,7 +440,9 @@ class AsyncAnalyzer:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAnalyzer")
+        )
         input_: capo_accessanalyzer.types.create_analyzer_request.CreateAnalyzerRequest = {
             "analyzer_name": analyzer_name,
             "type": type,
@@ -485,7 +500,9 @@ class AsyncAnalyzer:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAnalyzer")
+        )
         input_: capo_accessanalyzer.types.get_analyzer_request.GetAnalyzerRequest = {
             "analyzer_name": analyzer_name
         }
@@ -537,7 +554,9 @@ class AsyncAnalyzer:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAnalyzer")
+        )
         input_: capo_accessanalyzer.types.update_analyzer_request.UpdateAnalyzerRequest = {
             "analyzer_name": analyzer_name
         }
@@ -587,7 +606,9 @@ class AsyncAnalyzer:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAnalyzer")
+        )
         input_: capo_accessanalyzer.types.delete_analyzer_request.DeleteAnalyzerRequest = {
             "analyzer_name": analyzer_name
         }
@@ -641,7 +662,9 @@ class AsyncAnalyzer:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAnalyzers")
+        )
         input_: capo_accessanalyzer.types.list_analyzers_request.ListAnalyzersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -694,7 +717,9 @@ class AsyncAnalyzer:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteServiceLinkedAnalyzer")
+        )
         input_: capo_accessanalyzer.types.delete_service_linked_analyzer_request.DeleteServiceLinkedAnalyzerRequest = {
             "analyzer_name": analyzer_name
         }

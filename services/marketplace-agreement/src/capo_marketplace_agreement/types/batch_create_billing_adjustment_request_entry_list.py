@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.marketplaceagreement#BatchCreateBillingAdjustmentRequestEntryList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_marketplace_agreement.types.batch_create_billing_adjustment_request_entry
@@ -39,3 +39,14 @@ def deserialize_aws_json_1_0(
             )
         )
     return out
+
+
+def redact_sensitive(value: BatchCreateBillingAdjustmentRequestEntryList) -> list[Any]:
+    import capo_marketplace_agreement.types.batch_create_billing_adjustment_request_entry
+
+    return [
+        capo_marketplace_agreement.types.batch_create_billing_adjustment_request_entry.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

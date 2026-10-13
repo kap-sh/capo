@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#UploadPartCopyOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -63,4 +63,11 @@ def deserialize_xml(el: Element) -> UploadPartCopyOutput:
         out["copy_part_result"] = capo_s3.types.copy_part_result.deserialize_xml(
             child_copy_part_result
         )
+    return out
+
+
+def redact_sensitive(value: UploadPartCopyOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ssekms_key_id" in value:
+        out["ssekms_key_id"] = "*** Sensitive Data Redacted ***"
     return out

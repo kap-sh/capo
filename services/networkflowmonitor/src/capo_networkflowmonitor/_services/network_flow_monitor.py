@@ -29,10 +29,12 @@ from capo_networkflowmonitor._resources.network_flow_monitor.scope_resource impo
 from capo_networkflowmonitor._services._aws_config import aws_config
 from capo_networkflowmonitor._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -182,7 +184,9 @@ class NetworkFlowMonitorClient:
         self.scope_resource = ScopeResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[NetworkFlowMonitorClientConfig] = None
+        self,
+        config_overrides: Optional[NetworkFlowMonitorClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: NetworkFlowMonitorClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -190,8 +194,10 @@ class NetworkFlowMonitorClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -242,7 +248,9 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_networkflowmonitor.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -292,7 +300,9 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_networkflowmonitor.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -343,7 +353,9 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_networkflowmonitor.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -406,7 +418,9 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMonitor")
+        )
         input_: capo_networkflowmonitor.types.create_monitor_input.CreateMonitorInput = {
             "monitor_name": monitor_name,
             "local_resources": local_resources,
@@ -462,7 +476,9 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMonitor")
+        )
         input_: capo_networkflowmonitor.types.get_monitor_input.GetMonitorInput = {
             "monitor_name": monitor_name
         }
@@ -529,7 +545,9 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMonitor")
+        )
         input_: capo_networkflowmonitor.types.update_monitor_input.UpdateMonitorInput = {
             "monitor_name": monitor_name
         }
@@ -588,7 +606,9 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMonitor")
+        )
         input_: capo_networkflowmonitor.types.delete_monitor_input.DeleteMonitorInput = {
             "monitor_name": monitor_name
         }
@@ -642,7 +662,9 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMonitors")
+        )
         input_: capo_networkflowmonitor.types.list_monitors_input.ListMonitorsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -727,7 +749,9 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQueryResultsMonitorTopContributors")
+        )
         input_: capo_networkflowmonitor.types.get_query_results_monitor_top_contributors_input.GetQueryResultsMonitorTopContributorsInput = {
             "monitor_name": monitor_name,
             "query_id": query_id,
@@ -806,7 +830,9 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQueryStatusMonitorTopContributors")
+        )
         input_: capo_networkflowmonitor.types.get_query_status_monitor_top_contributors_input.GetQueryStatusMonitorTopContributorsInput = {
             "monitor_name": monitor_name,
             "query_id": query_id,
@@ -864,7 +890,9 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartQueryMonitorTopContributors")
+        )
         input_: capo_networkflowmonitor.types.start_query_monitor_top_contributors_input.StartQueryMonitorTopContributorsInput = {
             "monitor_name": monitor_name,
             "start_time": start_time,
@@ -919,7 +947,9 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopQueryMonitorTopContributors")
+        )
         input_: capo_networkflowmonitor.types.stop_query_monitor_top_contributors_input.StopQueryMonitorTopContributorsInput = {
             "monitor_name": monitor_name,
             "query_id": query_id,
@@ -974,7 +1004,9 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateScope")
+        )
         input_: capo_networkflowmonitor.types.create_scope_input.CreateScopeInput = {
             "targets": targets
         }
@@ -1027,7 +1059,9 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetScope")
+        )
         input_: capo_networkflowmonitor.types.get_scope_input.GetScopeInput = {
             "scope_id": scope_id
         }
@@ -1084,7 +1118,9 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateScope")
+        )
         input_: capo_networkflowmonitor.types.update_scope_input.UpdateScopeInput = {
             "scope_id": scope_id
         }
@@ -1137,7 +1173,9 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteScope")
+        )
         input_: capo_networkflowmonitor.types.delete_scope_input.DeleteScopeInput = {
             "scope_id": scope_id
         }
@@ -1188,7 +1226,9 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListScopes")
+        )
         input_: capo_networkflowmonitor.types.list_scopes_input.ListScopesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1267,7 +1307,10 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetQueryResultsWorkloadInsightsTopContributors"),
+        )
         input_: capo_networkflowmonitor.types.get_query_results_workload_insights_top_contributors_input.GetQueryResultsWorkloadInsightsTopContributorsInput = {
             "scope_id": scope_id,
             "query_id": query_id,
@@ -1351,7 +1394,10 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetQueryResultsWorkloadInsightsTopContributorsData"),
+        )
         input_: capo_networkflowmonitor.types.get_query_results_workload_insights_top_contributors_data_input.GetQueryResultsWorkloadInsightsTopContributorsDataInput = {
             "scope_id": scope_id,
             "query_id": query_id,
@@ -1430,7 +1476,10 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetQueryStatusWorkloadInsightsTopContributors"),
+        )
         input_: capo_networkflowmonitor.types.get_query_status_workload_insights_top_contributors_input.GetQueryStatusWorkloadInsightsTopContributorsInput = {
             "scope_id": scope_id,
             "query_id": query_id,
@@ -1480,7 +1529,10 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetQueryStatusWorkloadInsightsTopContributorsData"),
+        )
         input_: capo_networkflowmonitor.types.get_query_status_workload_insights_top_contributors_data_input.GetQueryStatusWorkloadInsightsTopContributorsDataInput = {
             "scope_id": scope_id,
             "query_id": query_id,
@@ -1538,7 +1590,10 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartQueryWorkloadInsightsTopContributors"),
+        )
         input_: capo_networkflowmonitor.types.start_query_workload_insights_top_contributors_input.StartQueryWorkloadInsightsTopContributorsInput = {
             "scope_id": scope_id,
             "start_time": start_time,
@@ -1599,7 +1654,10 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartQueryWorkloadInsightsTopContributorsData"),
+        )
         input_: capo_networkflowmonitor.types.start_query_workload_insights_top_contributors_data_input.StartQueryWorkloadInsightsTopContributorsDataInput = {
             "scope_id": scope_id,
             "start_time": start_time,
@@ -1652,7 +1710,10 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StopQueryWorkloadInsightsTopContributors"),
+        )
         input_: capo_networkflowmonitor.types.stop_query_workload_insights_top_contributors_input.StopQueryWorkloadInsightsTopContributorsInput = {
             "scope_id": scope_id,
             "query_id": query_id,
@@ -1702,7 +1763,10 @@ class NetworkFlowMonitorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StopQueryWorkloadInsightsTopContributorsData"),
+        )
         input_: capo_networkflowmonitor.types.stop_query_workload_insights_top_contributors_data_input.StopQueryWorkloadInsightsTopContributorsDataInput = {
             "scope_id": scope_id,
             "query_id": query_id,

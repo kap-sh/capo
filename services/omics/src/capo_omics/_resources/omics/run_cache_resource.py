@@ -7,6 +7,7 @@ import capo_omics._auth._sigv4
 from capo_omics._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -98,7 +99,9 @@ class RunCacheResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRunCache")
+        )
         input_: capo_omics.types.create_run_cache_request.CreateRunCacheRequest = {
             "cache_s3_location": cache_s3_location,
             "request_id": request_id,
@@ -159,7 +162,9 @@ class RunCacheResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRunCache")
+        )
         input_: capo_omics.types.get_run_cache_request.GetRunCacheRequest = {"id": id}
 
         response = execute_pipeline(
@@ -215,7 +220,9 @@ class RunCacheResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateRunCache")
+        )
         input_: capo_omics.types.update_run_cache_request.UpdateRunCacheRequest = {
             "id": id
         }
@@ -269,7 +276,9 @@ class RunCacheResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRunCache")
+        )
         input_: capo_omics.types.delete_run_cache_request.DeleteRunCacheRequest = {
             "id": id
         }
@@ -321,7 +330,9 @@ class RunCacheResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRunCaches")
+        )
         input_: capo_omics.types.list_run_caches_request.ListRunCachesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -397,7 +408,9 @@ class AsyncRunCacheResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRunCache")
+        )
         input_: capo_omics.types.create_run_cache_request.CreateRunCacheRequest = {
             "cache_s3_location": cache_s3_location,
             "request_id": request_id,
@@ -459,7 +472,9 @@ class AsyncRunCacheResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRunCache")
+        )
         input_: capo_omics.types.get_run_cache_request.GetRunCacheRequest = {"id": id}
 
         response = await aexecute_pipeline(
@@ -516,7 +531,9 @@ class AsyncRunCacheResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateRunCache")
+        )
         input_: capo_omics.types.update_run_cache_request.UpdateRunCacheRequest = {
             "id": id
         }
@@ -571,7 +588,9 @@ class AsyncRunCacheResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRunCache")
+        )
         input_: capo_omics.types.delete_run_cache_request.DeleteRunCacheRequest = {
             "id": id
         }
@@ -624,7 +643,9 @@ class AsyncRunCacheResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRunCaches")
+        )
         input_: capo_omics.types.list_run_caches_request.ListRunCachesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

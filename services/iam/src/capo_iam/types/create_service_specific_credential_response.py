@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iam#CreateServiceSpecificCredentialResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -43,6 +43,19 @@ def deserialize_query(el: Element) -> CreateServiceSpecificCredentialResponse:
         out["service_specific_credential"] = (
             capo_iam.types.service_specific_credential.deserialize_query(
                 child_service_specific_credential
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateServiceSpecificCredentialResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "service_specific_credential" in value:
+        import capo_iam.types.service_specific_credential
+
+        out["service_specific_credential"] = (
+            capo_iam.types.service_specific_credential.redact_sensitive(
+                value["service_specific_credential"]
             )
         )
     return out

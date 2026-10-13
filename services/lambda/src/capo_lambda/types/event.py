@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#Event``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -579,6 +579,163 @@ def deserialize_json(data: dict) -> Event:
         out["invocation_completed_details"] = (
             capo_lambda.types.invocation_completed_details.deserialize_json(
                 data["InvocationCompletedDetails"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: Event) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "execution_started_details" in value:
+        import capo_lambda.types.execution_started_details
+
+        out["execution_started_details"] = (
+            capo_lambda.types.execution_started_details.redact_sensitive(
+                value["execution_started_details"]
+            )
+        )
+    if "execution_succeeded_details" in value:
+        import capo_lambda.types.execution_succeeded_details
+
+        out["execution_succeeded_details"] = (
+            capo_lambda.types.execution_succeeded_details.redact_sensitive(
+                value["execution_succeeded_details"]
+            )
+        )
+    if "execution_failed_details" in value:
+        import capo_lambda.types.execution_failed_details
+
+        out["execution_failed_details"] = (
+            capo_lambda.types.execution_failed_details.redact_sensitive(
+                value["execution_failed_details"]
+            )
+        )
+    if "execution_timed_out_details" in value:
+        import capo_lambda.types.execution_timed_out_details
+
+        out["execution_timed_out_details"] = (
+            capo_lambda.types.execution_timed_out_details.redact_sensitive(
+                value["execution_timed_out_details"]
+            )
+        )
+    if "execution_stopped_details" in value:
+        import capo_lambda.types.execution_stopped_details
+
+        out["execution_stopped_details"] = (
+            capo_lambda.types.execution_stopped_details.redact_sensitive(
+                value["execution_stopped_details"]
+            )
+        )
+    if "context_succeeded_details" in value:
+        import capo_lambda.types.context_succeeded_details
+
+        out["context_succeeded_details"] = (
+            capo_lambda.types.context_succeeded_details.redact_sensitive(
+                value["context_succeeded_details"]
+            )
+        )
+    if "context_failed_details" in value:
+        import capo_lambda.types.context_failed_details
+
+        out["context_failed_details"] = (
+            capo_lambda.types.context_failed_details.redact_sensitive(
+                value["context_failed_details"]
+            )
+        )
+    if "wait_cancelled_details" in value:
+        import capo_lambda.types.wait_cancelled_details
+
+        out["wait_cancelled_details"] = (
+            capo_lambda.types.wait_cancelled_details.redact_sensitive(
+                value["wait_cancelled_details"]
+            )
+        )
+    if "step_succeeded_details" in value:
+        import capo_lambda.types.step_succeeded_details
+
+        out["step_succeeded_details"] = (
+            capo_lambda.types.step_succeeded_details.redact_sensitive(
+                value["step_succeeded_details"]
+            )
+        )
+    if "step_failed_details" in value:
+        import capo_lambda.types.step_failed_details
+
+        out["step_failed_details"] = (
+            capo_lambda.types.step_failed_details.redact_sensitive(
+                value["step_failed_details"]
+            )
+        )
+    if "chained_invoke_started_details" in value:
+        import capo_lambda.types.chained_invoke_started_details
+
+        out["chained_invoke_started_details"] = (
+            capo_lambda.types.chained_invoke_started_details.redact_sensitive(
+                value["chained_invoke_started_details"]
+            )
+        )
+    if "chained_invoke_succeeded_details" in value:
+        import capo_lambda.types.chained_invoke_succeeded_details
+
+        out["chained_invoke_succeeded_details"] = (
+            capo_lambda.types.chained_invoke_succeeded_details.redact_sensitive(
+                value["chained_invoke_succeeded_details"]
+            )
+        )
+    if "chained_invoke_failed_details" in value:
+        import capo_lambda.types.chained_invoke_failed_details
+
+        out["chained_invoke_failed_details"] = (
+            capo_lambda.types.chained_invoke_failed_details.redact_sensitive(
+                value["chained_invoke_failed_details"]
+            )
+        )
+    if "chained_invoke_timed_out_details" in value:
+        import capo_lambda.types.chained_invoke_timed_out_details
+
+        out["chained_invoke_timed_out_details"] = (
+            capo_lambda.types.chained_invoke_timed_out_details.redact_sensitive(
+                value["chained_invoke_timed_out_details"]
+            )
+        )
+    if "chained_invoke_stopped_details" in value:
+        import capo_lambda.types.chained_invoke_stopped_details
+
+        out["chained_invoke_stopped_details"] = (
+            capo_lambda.types.chained_invoke_stopped_details.redact_sensitive(
+                value["chained_invoke_stopped_details"]
+            )
+        )
+    if "callback_succeeded_details" in value:
+        import capo_lambda.types.callback_succeeded_details
+
+        out["callback_succeeded_details"] = (
+            capo_lambda.types.callback_succeeded_details.redact_sensitive(
+                value["callback_succeeded_details"]
+            )
+        )
+    if "callback_failed_details" in value:
+        import capo_lambda.types.callback_failed_details
+
+        out["callback_failed_details"] = (
+            capo_lambda.types.callback_failed_details.redact_sensitive(
+                value["callback_failed_details"]
+            )
+        )
+    if "callback_timed_out_details" in value:
+        import capo_lambda.types.callback_timed_out_details
+
+        out["callback_timed_out_details"] = (
+            capo_lambda.types.callback_timed_out_details.redact_sensitive(
+                value["callback_timed_out_details"]
+            )
+        )
+    if "invocation_completed_details" in value:
+        import capo_lambda.types.invocation_completed_details
+
+        out["invocation_completed_details"] = (
+            capo_lambda.types.invocation_completed_details.redact_sensitive(
+                value["invocation_completed_details"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#ToolDescriptionTextInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -38,4 +38,17 @@ def deserialize_json(data: dict) -> ToolDescriptionTextInput:
         )
     else:
         raise DeserializationError("ToolDescriptionTextInput.tools required")
+    return out
+
+
+def redact_sensitive(value: ToolDescriptionTextInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tools" in value:
+        import capo_bedrock_agentcore.types.tool_description_list
+
+        out["tools"] = (
+            capo_bedrock_agentcore.types.tool_description_list.redact_sensitive(
+                value["tools"]
+            )
+        )
     return out

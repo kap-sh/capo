@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#PathParameterList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_pipes.types.path_parameter
@@ -15,3 +15,7 @@ def serialize_json(value: PathParameterList) -> list:
 
 def deserialize_json(data: list) -> PathParameterList:
     return [item for item in data if item is not None]
+
+
+def redact_sensitive(value: PathParameterList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

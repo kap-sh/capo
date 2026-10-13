@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.redshiftserverless#NamespaceList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_redshift_serverless.types.namespace
@@ -31,3 +31,12 @@ def deserialize_aws_json_1_1(data: list) -> NamespaceList:
             capo_redshift_serverless.types.namespace.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+def redact_sensitive(value: NamespaceList) -> list[Any]:
+    import capo_redshift_serverless.types.namespace
+
+    return [
+        capo_redshift_serverless.types.namespace.redact_sensitive(item)
+        for item in value
+    ]

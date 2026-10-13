@@ -7,6 +7,7 @@ import capo_lambda._auth._sigv4
 from capo_lambda._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -77,7 +78,9 @@ class ProvisionedConcurrencyConfig:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutProvisionedConcurrencyConfig")
+        )
         input_: capo_lambda.types.put_provisioned_concurrency_config_request.PutProvisionedConcurrencyConfigRequest = {
             "function_name": function_name,
             "qualifier": qualifier,
@@ -138,7 +141,9 @@ class ProvisionedConcurrencyConfig:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetProvisionedConcurrencyConfig")
+        )
         input_: capo_lambda.types.get_provisioned_concurrency_config_request.GetProvisionedConcurrencyConfigRequest = {
             "function_name": function_name,
             "qualifier": qualifier,
@@ -192,7 +197,9 @@ class ProvisionedConcurrencyConfig:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteProvisionedConcurrencyConfig")
+        )
         input_: capo_lambda.types.delete_provisioned_concurrency_config_request.DeleteProvisionedConcurrencyConfigRequest = {
             "function_name": function_name,
             "qualifier": qualifier,
@@ -256,7 +263,9 @@ class AsyncProvisionedConcurrencyConfig:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutProvisionedConcurrencyConfig")
+        )
         input_: capo_lambda.types.put_provisioned_concurrency_config_request.PutProvisionedConcurrencyConfigRequest = {
             "function_name": function_name,
             "qualifier": qualifier,
@@ -318,7 +327,9 @@ class AsyncProvisionedConcurrencyConfig:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetProvisionedConcurrencyConfig")
+        )
         input_: capo_lambda.types.get_provisioned_concurrency_config_request.GetProvisionedConcurrencyConfigRequest = {
             "function_name": function_name,
             "qualifier": qualifier,
@@ -373,7 +384,9 @@ class AsyncProvisionedConcurrencyConfig:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteProvisionedConcurrencyConfig")
+        )
         input_: capo_lambda.types.delete_provisioned_concurrency_config_request.DeleteProvisionedConcurrencyConfigRequest = {
             "function_name": function_name,
             "qualifier": qualifier,

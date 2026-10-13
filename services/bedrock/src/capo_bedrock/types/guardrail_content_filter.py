@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#GuardrailContentFilter``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -167,4 +167,29 @@ def deserialize_json(data: dict) -> GuardrailContentFilter:
         out["input_enabled"] = data["inputEnabled"]
     if data.get("outputEnabled") is not None:
         out["output_enabled"] = data["outputEnabled"]
+    return out
+
+
+def redact_sensitive(value: GuardrailContentFilter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input_modalities" in value:
+        import capo_bedrock.types.guardrail_modalities
+
+        out["input_modalities"] = (
+            capo_bedrock.types.guardrail_modalities.redact_sensitive(
+                value["input_modalities"]
+            )
+        )
+    if "output_modalities" in value:
+        import capo_bedrock.types.guardrail_modalities
+
+        out["output_modalities"] = (
+            capo_bedrock.types.guardrail_modalities.redact_sensitive(
+                value["output_modalities"]
+            )
+        )
+    if "input_action" in value:
+        out["input_action"] = "*** Sensitive Data Redacted ***"
+    if "output_action" in value:
+        out["output_action"] = "*** Sensitive Data Redacted ***"
     return out

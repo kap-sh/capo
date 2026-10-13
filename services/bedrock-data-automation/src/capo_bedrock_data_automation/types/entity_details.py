@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockdataautomation#EntityDetails``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -42,3 +42,16 @@ def deserialize_json(data: dict) -> EntityDetails:
         }
     else:
         raise DeserializationError("EntityDetails: no recognized variant key")
+
+
+def redact_sensitive(value: EntityDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "vocabulary" in value:
+        import capo_bedrock_data_automation.types.vocabulary_entity
+
+        out["vocabulary"] = (
+            capo_bedrock_data_automation.types.vocabulary_entity.redact_sensitive(
+                value["vocabulary"]
+            )
+        )
+    return out

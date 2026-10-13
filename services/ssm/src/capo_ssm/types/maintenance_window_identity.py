@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#MaintenanceWindowIdentity``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -118,4 +118,11 @@ def deserialize_aws_json_1_1(data: dict) -> MaintenanceWindowIdentity:
         out["start_date"] = data["StartDate"]
     if data.get("NextExecutionTime") is not None:
         out["next_execution_time"] = data["NextExecutionTime"]
+    return out
+
+
+def redact_sensitive(value: MaintenanceWindowIdentity) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

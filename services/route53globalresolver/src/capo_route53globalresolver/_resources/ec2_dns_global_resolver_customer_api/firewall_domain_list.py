@@ -8,6 +8,7 @@ import capo_route53globalresolver._auth._sigv4
 from capo_route53globalresolver._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -99,7 +100,9 @@ class FirewallDomainList:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateFirewallDomainList")
+        )
         input_: capo_route53globalresolver.types.create_firewall_domain_list_input.CreateFirewallDomainListInput = {
             "global_resolver_id": global_resolver_id,
             "name": name,
@@ -154,7 +157,9 @@ class FirewallDomainList:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFirewallDomainList")
+        )
         input_: capo_route53globalresolver.types.get_firewall_domain_list_input.GetFirewallDomainListInput = {
             "firewall_domain_list_id": firewall_domain_list_id
         }
@@ -202,7 +207,9 @@ class FirewallDomainList:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFirewallDomainList")
+        )
         input_: capo_route53globalresolver.types.delete_firewall_domain_list_input.DeleteFirewallDomainListInput = {
             "firewall_domain_list_id": firewall_domain_list_id
         }
@@ -255,7 +262,9 @@ class FirewallDomainList:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFirewallDomainLists")
+        )
         input_: capo_route53globalresolver.types.list_firewall_domain_lists_input.ListFirewallDomainListsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -312,7 +321,9 @@ class FirewallDomainList:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ImportFirewallDomains")
+        )
         input_: capo_route53globalresolver.types.import_firewall_domains_input.ImportFirewallDomainsInput = {
             "domain_file_url": domain_file_url,
             "firewall_domain_list_id": firewall_domain_list_id,
@@ -365,7 +376,9 @@ class FirewallDomainList:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFirewallDomains")
+        )
         input_: capo_route53globalresolver.types.list_firewall_domains_input.ListFirewallDomainsInput = {
             "firewall_domain_list_id": firewall_domain_list_id
         }
@@ -422,7 +435,9 @@ class FirewallDomainList:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFirewallDomains")
+        )
         input_: capo_route53globalresolver.types.update_firewall_domains_input.UpdateFirewallDomainsInput = {
             "domains": domains,
             "firewall_domain_list_id": firewall_domain_list_id,
@@ -491,7 +506,9 @@ class AsyncFirewallDomainList:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateFirewallDomainList")
+        )
         input_: capo_route53globalresolver.types.create_firewall_domain_list_input.CreateFirewallDomainListInput = {
             "global_resolver_id": global_resolver_id,
             "name": name,
@@ -547,7 +564,9 @@ class AsyncFirewallDomainList:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFirewallDomainList")
+        )
         input_: capo_route53globalresolver.types.get_firewall_domain_list_input.GetFirewallDomainListInput = {
             "firewall_domain_list_id": firewall_domain_list_id
         }
@@ -596,7 +615,9 @@ class AsyncFirewallDomainList:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFirewallDomainList")
+        )
         input_: capo_route53globalresolver.types.delete_firewall_domain_list_input.DeleteFirewallDomainListInput = {
             "firewall_domain_list_id": firewall_domain_list_id
         }
@@ -650,7 +671,9 @@ class AsyncFirewallDomainList:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFirewallDomainLists")
+        )
         input_: capo_route53globalresolver.types.list_firewall_domain_lists_input.ListFirewallDomainListsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -708,7 +731,9 @@ class AsyncFirewallDomainList:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ImportFirewallDomains")
+        )
         input_: capo_route53globalresolver.types.import_firewall_domains_input.ImportFirewallDomainsInput = {
             "domain_file_url": domain_file_url,
             "firewall_domain_list_id": firewall_domain_list_id,
@@ -762,7 +787,9 @@ class AsyncFirewallDomainList:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFirewallDomains")
+        )
         input_: capo_route53globalresolver.types.list_firewall_domains_input.ListFirewallDomainsInput = {
             "firewall_domain_list_id": firewall_domain_list_id
         }
@@ -820,7 +847,9 @@ class AsyncFirewallDomainList:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFirewallDomains")
+        )
         input_: capo_route53globalresolver.types.update_firewall_domains_input.UpdateFirewallDomainsInput = {
             "domains": domains,
             "firewall_domain_list_id": firewall_domain_list_id,

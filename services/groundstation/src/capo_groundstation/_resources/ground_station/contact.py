@@ -9,6 +9,7 @@ import capo_groundstation._auth._sigv4
 from capo_groundstation._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -106,7 +107,9 @@ class Contact:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ReserveContact")
+        )
         input_: capo_groundstation.types.reserve_contact_request.ReserveContactRequest = {
             "mission_profile_arn": mission_profile_arn,
             "start_time": start_time,
@@ -160,7 +163,9 @@ class Contact:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeContact")
+        )
         input_: capo_groundstation.types.describe_contact_request.DescribeContactRequest = {
             "contact_id": contact_id
         }
@@ -217,7 +222,9 @@ class Contact:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateContact")
+        )
         input_: capo_groundstation.types.update_contact_request.UpdateContactRequest = {
             "contact_id": contact_id
         }
@@ -269,7 +276,9 @@ class Contact:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelContact")
+        )
         input_: capo_groundstation.types.cancel_contact_request.CancelContactRequest = {
             "contact_id": contact_id
         }
@@ -342,7 +351,9 @@ class Contact:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListContacts")
+        )
         input_: capo_groundstation.types.list_contacts_request.ListContactsRequest = {
             "status_list": status_list,
             "start_time": start_time,
@@ -403,7 +414,9 @@ class Contact:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeContactVersion")
+        )
         input_: capo_groundstation.types.describe_contact_version_request.DescribeContactVersionRequest = {
             "contact_id": contact_id,
             "version_id": version_id,
@@ -457,7 +470,9 @@ class Contact:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListContactVersions")
+        )
         input_: capo_groundstation.types.list_contact_versions_request.ListContactVersionsRequest = {
             "contact_id": contact_id
         }
@@ -529,7 +544,9 @@ class AsyncContact:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ReserveContact")
+        )
         input_: capo_groundstation.types.reserve_contact_request.ReserveContactRequest = {
             "mission_profile_arn": mission_profile_arn,
             "start_time": start_time,
@@ -584,7 +601,9 @@ class AsyncContact:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeContact")
+        )
         input_: capo_groundstation.types.describe_contact_request.DescribeContactRequest = {
             "contact_id": contact_id
         }
@@ -642,7 +661,9 @@ class AsyncContact:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateContact")
+        )
         input_: capo_groundstation.types.update_contact_request.UpdateContactRequest = {
             "contact_id": contact_id
         }
@@ -695,7 +716,9 @@ class AsyncContact:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelContact")
+        )
         input_: capo_groundstation.types.cancel_contact_request.CancelContactRequest = {
             "contact_id": contact_id
         }
@@ -769,7 +792,9 @@ class AsyncContact:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListContacts")
+        )
         input_: capo_groundstation.types.list_contacts_request.ListContactsRequest = {
             "status_list": status_list,
             "start_time": start_time,
@@ -831,7 +856,9 @@ class AsyncContact:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeContactVersion")
+        )
         input_: capo_groundstation.types.describe_contact_version_request.DescribeContactVersionRequest = {
             "contact_id": contact_id,
             "version_id": version_id,
@@ -886,7 +913,9 @@ class AsyncContact:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListContactVersions")
+        )
         input_: capo_groundstation.types.list_contact_versions_request.ListContactVersionsRequest = {
             "contact_id": contact_id
         }

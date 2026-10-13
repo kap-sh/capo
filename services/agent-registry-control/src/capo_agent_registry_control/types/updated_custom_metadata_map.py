@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.agentregistrycontrol#UpdatedCustomMetadataMap``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -27,4 +27,11 @@ def deserialize_json(data: dict) -> UpdatedCustomMetadataMap:
     out: UpdatedCustomMetadataMap = {}  # type: ignore[typeddict-item]
     if data.get("optionalValue") is not None:
         out["optional_value"] = data["optionalValue"]
+    return out
+
+
+def redact_sensitive(value: UpdatedCustomMetadataMap) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "optional_value" in value:
+        out["optional_value"] = "*** Sensitive Data Redacted ***"
     return out

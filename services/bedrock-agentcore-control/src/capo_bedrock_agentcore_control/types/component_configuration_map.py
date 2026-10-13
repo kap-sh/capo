@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#ComponentConfigurationMap``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.component_configuration
@@ -39,3 +39,7 @@ def deserialize_json(data: dict) -> ComponentConfigurationMap:
             )
         )
     return out
+
+
+def redact_sensitive(value: ComponentConfigurationMap) -> dict[str, Any]:
+    return dict.fromkeys(value, "*** Sensitive Data Redacted ***")

@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_devops_agent._auth._signers
 import capo_devops_agent._auth._sigv4
 from capo_devops_agent._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -105,7 +106,19 @@ class ServiceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_devops_agent.types.register_service_input.RegisterServiceInput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.register_service_input
+
+            return capo_devops_agent.types.register_service_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("RegisterService", redact_input=_redact_input),
+        )
         input_: capo_devops_agent.types.register_service_input.RegisterServiceInput = {
             "service": service,
             "service_details": service_details,
@@ -173,7 +186,17 @@ class ServiceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_devops_agent.types.get_service_output.GetServiceOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.get_service_output
+
+            return capo_devops_agent.types.get_service_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetService", redact_output=_redact_output),
+        )
         input_: capo_devops_agent.types.get_service_input.GetServiceInput = {
             "service_id": service_id
         }
@@ -224,7 +247,9 @@ class ServiceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeregisterService")
+        )
         input_: capo_devops_agent.types.deregister_service_input.DeregisterServiceInput = {
             "service_id": service_id
         }
@@ -279,7 +304,17 @@ class ServiceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_devops_agent.types.list_services_output.ListServicesOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.list_services_output
+
+            return capo_devops_agent.types.list_services_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListServices", redact_output=_redact_output),
+        )
         input_: capo_devops_agent.types.list_services_input.ListServicesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -361,7 +396,19 @@ class AsyncServiceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_devops_agent.types.register_service_input.RegisterServiceInput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.register_service_input
+
+            return capo_devops_agent.types.register_service_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("RegisterService", redact_input=_redact_input),
+        )
         input_: capo_devops_agent.types.register_service_input.RegisterServiceInput = {
             "service": service,
             "service_details": service_details,
@@ -430,7 +477,17 @@ class AsyncServiceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_devops_agent.types.get_service_output.GetServiceOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.get_service_output
+
+            return capo_devops_agent.types.get_service_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetService", redact_output=_redact_output),
+        )
         input_: capo_devops_agent.types.get_service_input.GetServiceInput = {
             "service_id": service_id
         }
@@ -482,7 +539,9 @@ class AsyncServiceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeregisterService")
+        )
         input_: capo_devops_agent.types.deregister_service_input.DeregisterServiceInput = {
             "service_id": service_id
         }
@@ -538,7 +597,17 @@ class AsyncServiceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_devops_agent.types.list_services_output.ListServicesOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.list_services_output
+
+            return capo_devops_agent.types.list_services_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListServices", redact_output=_redact_output),
+        )
         input_: capo_devops_agent.types.list_services_input.ListServicesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results

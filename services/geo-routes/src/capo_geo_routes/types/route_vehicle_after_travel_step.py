@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteVehicleAfterTravelStep``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -76,4 +76,23 @@ def deserialize_json(data: dict) -> RouteVehicleAfterTravelStep:
         )
     else:
         raise DeserializationError("RouteVehicleAfterTravelStep.type required")
+    return out
+
+
+def redact_sensitive(value: RouteVehicleAfterTravelStep) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "charge_step_details" in value:
+        import capo_geo_routes.types.route_charge_step_details
+
+        out["charge_step_details"] = (
+            capo_geo_routes.types.route_charge_step_details.redact_sensitive(
+                value["charge_step_details"]
+            )
+        )
+    if "duration" in value:
+        out["duration"] = "*** Sensitive Data Redacted ***"
+    if "instruction" in value:
+        out["instruction"] = "*** Sensitive Data Redacted ***"
+    if "type" in value:
+        out["type"] = "*** Sensitive Data Redacted ***"
     return out

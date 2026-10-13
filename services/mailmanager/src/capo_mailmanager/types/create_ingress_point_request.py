@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mailmanager#CreateIngressPointRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -146,5 +146,18 @@ def deserialize_aws_json_1_0(data: dict) -> CreateIngressPointRequest:
 
         out["tags"] = capo_mailmanager.types.tag_list.deserialize_aws_json_1_0(
             data["Tags"]
+        )
+    return out
+
+
+def redact_sensitive(value: CreateIngressPointRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ingress_point_configuration" in value:
+        import capo_mailmanager.types.ingress_point_configuration
+
+        out["ingress_point_configuration"] = (
+            capo_mailmanager.types.ingress_point_configuration.redact_sensitive(
+                value["ingress_point_configuration"]
+            )
         )
     return out

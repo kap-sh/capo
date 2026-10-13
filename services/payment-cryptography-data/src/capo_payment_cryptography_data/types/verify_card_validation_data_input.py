@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#VerifyCardValidationDataInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -74,4 +74,21 @@ def deserialize_json(data: dict) -> VerifyCardValidationDataInput:
         raise DeserializationError(
             "VerifyCardValidationDataInput.validation_data required"
         )
+    return out
+
+
+def redact_sensitive(value: VerifyCardValidationDataInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "primary_account_number" in value:
+        out["primary_account_number"] = "*** Sensitive Data Redacted ***"
+    if "verification_attributes" in value:
+        import capo_payment_cryptography_data.types.card_verification_attributes
+
+        out["verification_attributes"] = (
+            capo_payment_cryptography_data.types.card_verification_attributes.redact_sensitive(
+                value["verification_attributes"]
+            )
+        )
+    if "validation_data" in value:
+        out["validation_data"] = "*** Sensitive Data Redacted ***"
     return out

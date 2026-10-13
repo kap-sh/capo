@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chime#Bot``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -101,4 +101,15 @@ def deserialize_json(data: dict) -> Bot:
         out["bot_email"] = data["BotEmail"]
     if data.get("SecurityToken") is not None:
         out["security_token"] = data["SecurityToken"]
+    return out
+
+
+def redact_sensitive(value: Bot) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "display_name" in value:
+        out["display_name"] = "*** Sensitive Data Redacted ***"
+    if "bot_email" in value:
+        out["bot_email"] = "*** Sensitive Data Redacted ***"
+    if "security_token" in value:
+        out["security_token"] = "*** Sensitive Data Redacted ***"
     return out

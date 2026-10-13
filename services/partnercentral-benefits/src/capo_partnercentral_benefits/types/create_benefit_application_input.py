@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralbenefits#CreateBenefitApplicationInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -165,6 +165,19 @@ def deserialize_aws_json_1_0(data: dict) -> CreateBenefitApplicationInput:
         out["file_details"] = (
             capo_partnercentral_benefits.types.file_input_details.deserialize_aws_json_1_0(
                 data["FileDetails"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateBenefitApplicationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "partner_contacts" in value:
+        import capo_partnercentral_benefits.types.contacts
+
+        out["partner_contacts"] = (
+            capo_partnercentral_benefits.types.contacts.redact_sensitive(
+                value["partner_contacts"]
             )
         )
     return out

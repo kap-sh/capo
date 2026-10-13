@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mpa#ListApprovalTeamsResponseApprovalTeam``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -120,4 +120,11 @@ def deserialize_json(data: dict) -> ListApprovalTeamsResponseApprovalTeam:
         )
     if data.get("StatusMessage") is not None:
         out["status_message"] = data["StatusMessage"]
+    return out
+
+
+def redact_sensitive(value: ListApprovalTeamsResponseApprovalTeam) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

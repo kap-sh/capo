@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#Ibm3624NaturalPin``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -48,4 +48,13 @@ def deserialize_json(data: dict) -> Ibm3624NaturalPin:
         out["pin_validation_data"] = data["PinValidationData"]
     else:
         raise DeserializationError("Ibm3624NaturalPin.pin_validation_data required")
+    return out
+
+
+def redact_sensitive(value: Ibm3624NaturalPin) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "decimalization_table" in value:
+        out["decimalization_table"] = "*** Sensitive Data Redacted ***"
+    if "pin_validation_data" in value:
+        out["pin_validation_data"] = "*** Sensitive Data Redacted ***"
     return out

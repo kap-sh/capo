@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.inspector2#ListConnectorsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -54,4 +54,11 @@ def deserialize_json(data: dict) -> ListConnectorsRequest:
                 data["filterCriteria"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: ListConnectorsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "next_token" in value:
+        out["next_token"] = "*** Sensitive Data Redacted ***"
     return out

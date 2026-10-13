@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#DataSource``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -199,6 +199,19 @@ def deserialize_json(data: dict) -> DataSource:
         out["failure_reasons"] = (
             capo_bedrock_agent.types.failure_reasons.deserialize_json(
                 data["failureReasons"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DataSource) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "data_source_configuration" in value:
+        import capo_bedrock_agent.types.data_source_configuration
+
+        out["data_source_configuration"] = (
+            capo_bedrock_agent.types.data_source_configuration.redact_sensitive(
+                value["data_source_configuration"]
             )
         )
     return out

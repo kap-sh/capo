@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#DescribeFolderContentsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -57,4 +57,21 @@ def deserialize_json(data: dict) -> DescribeFolderContentsResponse:
         )
     if data.get("Marker") is not None:
         out["marker"] = data["Marker"]
+    return out
+
+
+def redact_sensitive(value: DescribeFolderContentsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "folders" in value:
+        import capo_workdocs.types.folder_metadata_list
+
+        out["folders"] = capo_workdocs.types.folder_metadata_list.redact_sensitive(
+            value["folders"]
+        )
+    if "documents" in value:
+        import capo_workdocs.types.document_metadata_list
+
+        out["documents"] = capo_workdocs.types.document_metadata_list.redact_sensitive(
+            value["documents"]
+        )
     return out

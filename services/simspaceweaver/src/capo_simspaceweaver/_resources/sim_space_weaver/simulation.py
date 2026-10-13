@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_simspaceweaver._auth._signers
 import capo_simspaceweaver._auth._sigv4
 from capo_simspaceweaver._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -125,7 +126,19 @@ class Simulation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_simspaceweaver.types.start_simulation_input.StartSimulationInput",
+        ) -> dict[str, Any]:
+            import capo_simspaceweaver.types.start_simulation_input
+
+            return capo_simspaceweaver.types.start_simulation_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartSimulation", redact_input=_redact_input),
+        )
         input_: capo_simspaceweaver.types.start_simulation_input.StartSimulationInput = {
             "name": name,
             "role_arn": role_arn,
@@ -187,7 +200,9 @@ class Simulation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeSimulation")
+        )
         input_: capo_simspaceweaver.types.describe_simulation_input.DescribeSimulationInput = {
             "simulation": simulation
         }
@@ -234,7 +249,9 @@ class Simulation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopSimulation")
+        )
         input_: capo_simspaceweaver.types.stop_simulation_input.StopSimulationInput = {
             "simulation": simulation
         }
@@ -281,7 +298,9 @@ class Simulation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSimulation")
+        )
         input_: capo_simspaceweaver.types.delete_simulation_input.DeleteSimulationInput = {
             "simulation": simulation
         }
@@ -332,7 +351,9 @@ class Simulation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSimulations")
+        )
         input_: capo_simspaceweaver.types.list_simulations_input.ListSimulationsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -383,7 +404,9 @@ class Simulation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSnapshot")
+        )
         input_: capo_simspaceweaver.types.create_snapshot_input.CreateSnapshotInput = {
             "simulation": simulation,
             "destination": destination,
@@ -435,7 +458,9 @@ class Simulation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApp")
+        )
         input_: capo_simspaceweaver.types.delete_app_input.DeleteAppInput = {
             "simulation": simulation,
             "domain": domain,
@@ -487,7 +512,9 @@ class Simulation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeApp")
+        )
         input_: capo_simspaceweaver.types.describe_app_input.DescribeAppInput = {
             "simulation": simulation,
             "domain": domain,
@@ -547,7 +574,9 @@ class Simulation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListApps")
+        )
         input_: capo_simspaceweaver.types.list_apps_input.ListAppsInput = {
             "simulation": simulation
         }
@@ -615,7 +644,16 @@ class Simulation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_simspaceweaver.types.start_app_input.StartAppInput",
+        ) -> dict[str, Any]:
+            import capo_simspaceweaver.types.start_app_input
+
+            return capo_simspaceweaver.types.start_app_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartApp", redact_input=_redact_input)
+        )
         input_: capo_simspaceweaver.types.start_app_input.StartAppInput = {
             "simulation": simulation,
             "domain": domain,
@@ -671,7 +709,9 @@ class Simulation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartClock")
+        )
         input_: capo_simspaceweaver.types.start_clock_input.StartClockInput = {
             "simulation": simulation
         }
@@ -722,7 +762,9 @@ class Simulation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopApp")
+        )
         input_: capo_simspaceweaver.types.stop_app_input.StopAppInput = {
             "simulation": simulation,
             "domain": domain,
@@ -771,7 +813,9 @@ class Simulation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopClock")
+        )
         input_: capo_simspaceweaver.types.stop_clock_input.StopClockInput = {
             "simulation": simulation
         }
@@ -848,7 +892,19 @@ class AsyncSimulation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_simspaceweaver.types.start_simulation_input.StartSimulationInput",
+        ) -> dict[str, Any]:
+            import capo_simspaceweaver.types.start_simulation_input
+
+            return capo_simspaceweaver.types.start_simulation_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartSimulation", redact_input=_redact_input),
+        )
         input_: capo_simspaceweaver.types.start_simulation_input.StartSimulationInput = {
             "name": name,
             "role_arn": role_arn,
@@ -911,7 +967,9 @@ class AsyncSimulation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeSimulation")
+        )
         input_: capo_simspaceweaver.types.describe_simulation_input.DescribeSimulationInput = {
             "simulation": simulation
         }
@@ -959,7 +1017,9 @@ class AsyncSimulation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopSimulation")
+        )
         input_: capo_simspaceweaver.types.stop_simulation_input.StopSimulationInput = {
             "simulation": simulation
         }
@@ -1007,7 +1067,9 @@ class AsyncSimulation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSimulation")
+        )
         input_: capo_simspaceweaver.types.delete_simulation_input.DeleteSimulationInput = {
             "simulation": simulation
         }
@@ -1059,7 +1121,9 @@ class AsyncSimulation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSimulations")
+        )
         input_: capo_simspaceweaver.types.list_simulations_input.ListSimulationsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1111,7 +1175,9 @@ class AsyncSimulation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSnapshot")
+        )
         input_: capo_simspaceweaver.types.create_snapshot_input.CreateSnapshotInput = {
             "simulation": simulation,
             "destination": destination,
@@ -1164,7 +1230,9 @@ class AsyncSimulation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApp")
+        )
         input_: capo_simspaceweaver.types.delete_app_input.DeleteAppInput = {
             "simulation": simulation,
             "domain": domain,
@@ -1217,7 +1285,9 @@ class AsyncSimulation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeApp")
+        )
         input_: capo_simspaceweaver.types.describe_app_input.DescribeAppInput = {
             "simulation": simulation,
             "domain": domain,
@@ -1278,7 +1348,9 @@ class AsyncSimulation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListApps")
+        )
         input_: capo_simspaceweaver.types.list_apps_input.ListAppsInput = {
             "simulation": simulation
         }
@@ -1347,7 +1419,16 @@ class AsyncSimulation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_simspaceweaver.types.start_app_input.StartAppInput",
+        ) -> dict[str, Any]:
+            import capo_simspaceweaver.types.start_app_input
+
+            return capo_simspaceweaver.types.start_app_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartApp", redact_input=_redact_input)
+        )
         input_: capo_simspaceweaver.types.start_app_input.StartAppInput = {
             "simulation": simulation,
             "domain": domain,
@@ -1404,7 +1485,9 @@ class AsyncSimulation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartClock")
+        )
         input_: capo_simspaceweaver.types.start_clock_input.StartClockInput = {
             "simulation": simulation
         }
@@ -1456,7 +1539,9 @@ class AsyncSimulation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopApp")
+        )
         input_: capo_simspaceweaver.types.stop_app_input.StopAppInput = {
             "simulation": simulation,
             "domain": domain,
@@ -1506,7 +1591,9 @@ class AsyncSimulation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopClock")
+        )
         input_: capo_simspaceweaver.types.stop_clock_input.StopClockInput = {
             "simulation": simulation
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.transcribestreaming#StartMedicalStreamTranscriptionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -50,3 +50,10 @@ class StartMedicalStreamTranscriptionRequest(TypedDict, closed=True):
         "capo_transcribe_streaming.types.medical_content_identification_type.MedicalContentIdentificationType"
     ]
     """<p>Labels all personal health information (PHI) identified in your transcript.</p> <p>Content identification is performed at the segment level; PHI is flagged upon complete transcription of an audio segment.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/phi-id.html">Identifying personal health information (PHI) in a transcription</a>.</p>"""
+
+
+def redact_sensitive(value: StartMedicalStreamTranscriptionRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "audio_stream" in value:
+        out["audio_stream"] = "*** Streaming Data Redacted ***"
+    return out

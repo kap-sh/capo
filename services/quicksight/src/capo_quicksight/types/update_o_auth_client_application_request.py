@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#UpdateOAuthClientApplicationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -120,4 +120,17 @@ def deserialize_json(data: dict) -> UpdateOAuthClientApplicationRequest:
                 data["IdentityProviderVpcConnectionProperties"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: UpdateOAuthClientApplicationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_id" in value:
+        out["client_id"] = "*** Sensitive Data Redacted ***"
+    if "client_secret" in value:
+        out["client_secret"] = "*** Sensitive Data Redacted ***"
+    if "o_auth_token_endpoint_url" in value:
+        out["o_auth_token_endpoint_url"] = "*** Sensitive Data Redacted ***"
+    if "o_auth_authorization_endpoint_url" in value:
+        out["o_auth_authorization_endpoint_url"] = "*** Sensitive Data Redacted ***"
     return out

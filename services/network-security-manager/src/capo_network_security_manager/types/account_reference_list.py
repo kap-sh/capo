@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.networksecuritymanager#AccountReferenceList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_network_security_manager.types.account_reference
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> AccountReferenceList:
             capo_network_security_manager.types.account_reference.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: AccountReferenceList) -> list[Any]:
+    import capo_network_security_manager.types.account_reference
+
+    return [
+        capo_network_security_manager.types.account_reference.redact_sensitive(item)
+        for item in value
+    ]

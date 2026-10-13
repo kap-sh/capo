@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockdataautomation#UpsertEntitiesInfo``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.upsert_entity_info
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> UpsertEntitiesInfo:
             capo_bedrock_data_automation.types.upsert_entity_info.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: UpsertEntitiesInfo) -> list[Any]:
+    import capo_bedrock_data_automation.types.upsert_entity_info
+
+    return [
+        capo_bedrock_data_automation.types.upsert_entity_info.redact_sensitive(item)
+        for item in value
+    ]

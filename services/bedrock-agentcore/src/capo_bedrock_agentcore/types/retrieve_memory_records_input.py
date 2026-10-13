@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#RetrieveMemoryRecordsInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -73,4 +73,17 @@ def deserialize_json(data: dict) -> RetrieveMemoryRecordsInput:
         out["max_results"] = data["maxResults"]
     else:
         out["max_results"] = 100
+    return out
+
+
+def redact_sensitive(value: RetrieveMemoryRecordsInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "search_criteria" in value:
+        import capo_bedrock_agentcore.types.search_criteria
+
+        out["search_criteria"] = (
+            capo_bedrock_agentcore.types.search_criteria.redact_sensitive(
+                value["search_criteria"]
+            )
+        )
     return out

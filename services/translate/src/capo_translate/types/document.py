@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.translate#Document``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -44,4 +44,11 @@ def deserialize_aws_json_1_1(data: dict) -> Document:
         out["content_type"] = data["ContentType"]
     else:
         raise DeserializationError("Document.content_type required")
+    return out
+
+
+def redact_sensitive(value: Document) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        out["content"] = "*** Sensitive Data Redacted ***"
     return out

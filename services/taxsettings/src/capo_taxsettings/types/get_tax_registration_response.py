@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.taxsettings#GetTaxRegistrationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,4 +37,11 @@ def deserialize_json(data: dict) -> GetTaxRegistrationResponse:
                 data["taxRegistration"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: GetTaxRegistrationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tax_registration" in value:
+        out["tax_registration"] = "*** Sensitive Data Redacted ***"
     return out

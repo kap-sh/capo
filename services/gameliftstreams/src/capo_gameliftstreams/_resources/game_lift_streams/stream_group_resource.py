@@ -8,6 +8,7 @@ import capo_gameliftstreams._auth._sigv4
 from capo_gameliftstreams._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -101,7 +102,9 @@ class StreamGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateStreamGroup")
+        )
         input_: capo_gameliftstreams.types.create_stream_group_input.CreateStreamGroupInput = {
             "description": description,
             "stream_class": stream_class,
@@ -158,7 +161,9 @@ class StreamGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetStreamGroup")
+        )
         input_: capo_gameliftstreams.types.get_stream_group_input.GetStreamGroupInput = {
             "identifier": identifier
         }
@@ -221,7 +226,9 @@ class StreamGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateStreamGroup")
+        )
         input_: capo_gameliftstreams.types.update_stream_group_input.UpdateStreamGroupInput = {
             "identifier": identifier
         }
@@ -273,7 +280,9 @@ class StreamGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteStreamGroup")
+        )
         input_: capo_gameliftstreams.types.delete_stream_group_input.DeleteStreamGroupInput = {
             "identifier": identifier
         }
@@ -323,7 +332,9 @@ class StreamGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListStreamGroups")
+        )
         input_: capo_gameliftstreams.types.list_stream_groups_input.ListStreamGroupsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -398,7 +409,9 @@ class AsyncStreamGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateStreamGroup")
+        )
         input_: capo_gameliftstreams.types.create_stream_group_input.CreateStreamGroupInput = {
             "description": description,
             "stream_class": stream_class,
@@ -456,7 +469,9 @@ class AsyncStreamGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetStreamGroup")
+        )
         input_: capo_gameliftstreams.types.get_stream_group_input.GetStreamGroupInput = {
             "identifier": identifier
         }
@@ -520,7 +535,9 @@ class AsyncStreamGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateStreamGroup")
+        )
         input_: capo_gameliftstreams.types.update_stream_group_input.UpdateStreamGroupInput = {
             "identifier": identifier
         }
@@ -573,7 +590,9 @@ class AsyncStreamGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteStreamGroup")
+        )
         input_: capo_gameliftstreams.types.delete_stream_group_input.DeleteStreamGroupInput = {
             "identifier": identifier
         }
@@ -624,7 +643,9 @@ class AsyncStreamGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListStreamGroups")
+        )
         input_: capo_gameliftstreams.types.list_stream_groups_input.ListStreamGroupsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.medicalimaging#UpdateImageSetMetadataRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,5 +56,18 @@ def deserialize_json(data: dict) -> UpdateImageSetMetadataRequest:
     else:
         raise DeserializationError(
             "UpdateImageSetMetadataRequest.update_image_set_metadata_updates required"
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateImageSetMetadataRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "update_image_set_metadata_updates" in value:
+        import capo_medical_imaging.types.metadata_updates
+
+        out["update_image_set_metadata_updates"] = (
+            capo_medical_imaging.types.metadata_updates.redact_sensitive(
+                value["update_image_set_metadata_updates"]
+            )
         )
     return out

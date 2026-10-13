@@ -22,10 +22,12 @@ from capo_wellarchitected._pagination import resolve_path as _resolve_path
 from capo_wellarchitected._services._aws_config import aws_config
 from capo_wellarchitected._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -382,7 +384,9 @@ class WellArchitectedClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[WellArchitectedClientConfig] = None
+        self,
+        config_overrides: Optional[WellArchitectedClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: WellArchitectedClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -390,8 +394,10 @@ class WellArchitectedClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -443,7 +449,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateLenses")
+        )
         input_: capo_wellarchitected.types.associate_lenses_input.AssociateLensesInput = {
             "workload_id": workload_id
         }
@@ -494,7 +502,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateProfiles")
+        )
         input_: capo_wellarchitected.types.associate_profiles_input.AssociateProfilesInput = {
             "workload_id": workload_id
         }
@@ -553,7 +563,32 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wellarchitected.types.create_agent_context_request.CreateAgentContextRequest",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.create_agent_context_request
+
+            return capo_wellarchitected.types.create_agent_context_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_wellarchitected.types.create_agent_context_response.CreateAgentContextResponse",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.create_agent_context_response
+
+            return capo_wellarchitected.types.create_agent_context_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAgentContext",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_wellarchitected.types.create_agent_context_request.CreateAgentContextRequest = {
             "profile_arn": profile_arn,
             "title": title,
@@ -620,7 +655,36 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wellarchitected.types.create_agent_goal_request.CreateAgentGoalRequest",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.create_agent_goal_request
+
+            return (
+                capo_wellarchitected.types.create_agent_goal_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_wellarchitected.types.create_agent_goal_response.CreateAgentGoalResponse",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.create_agent_goal_response
+
+            return (
+                capo_wellarchitected.types.create_agent_goal_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAgentGoal",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_wellarchitected.types.create_agent_goal_request.CreateAgentGoalRequest = {
             "profile_arn": profile_arn,
             "pillars": pillars,
@@ -699,7 +763,32 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wellarchitected.types.create_agent_profile_request.CreateAgentProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.create_agent_profile_request
+
+            return capo_wellarchitected.types.create_agent_profile_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_wellarchitected.types.create_agent_profile_response.CreateAgentProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.create_agent_profile_response
+
+            return capo_wellarchitected.types.create_agent_profile_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAgentProfile",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_wellarchitected.types.create_agent_profile_request.CreateAgentProfileRequest = {
             "name": name,
             "pillars": pillars,
@@ -767,7 +856,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLensShare")
+        )
         input_: capo_wellarchitected.types.create_lens_share_input.CreateLensShareInput = {
             "lens_alias": lens_alias
         }
@@ -833,7 +924,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLensVersion")
+        )
         input_: capo_wellarchitected.types.create_lens_version_input.CreateLensVersionInput = {
             "lens_alias": lens_alias
         }
@@ -892,7 +985,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMilestone")
+        )
         input_: capo_wellarchitected.types.create_milestone_input.CreateMilestoneInput = {
             "workload_id": workload_id
         }
@@ -960,7 +1055,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProfile")
+        )
         input_: capo_wellarchitected.types.create_profile_input.CreateProfileInput = {}
         if profile_name is not None:
             input_["profile_name"] = profile_name
@@ -1024,7 +1121,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProfileShare")
+        )
         input_: capo_wellarchitected.types.create_profile_share_input.CreateProfileShareInput = {
             "profile_arn": profile_arn
         }
@@ -1094,7 +1193,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateReviewTemplate")
+        )
         input_: capo_wellarchitected.types.create_review_template_input.CreateReviewTemplateInput = {}
         if template_name is not None:
             input_["template_name"] = template_name
@@ -1160,7 +1261,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTemplateShare")
+        )
         input_: capo_wellarchitected.types.create_template_share_input.CreateTemplateShareInput = {
             "template_arn": template_arn
         }
@@ -1274,7 +1377,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkload")
+        )
         input_: capo_wellarchitected.types.create_workload_input.CreateWorkloadInput = {}
         if workload_name is not None:
             input_["workload_name"] = workload_name
@@ -1368,7 +1473,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkloadShare")
+        )
         input_: capo_wellarchitected.types.create_workload_share_input.CreateWorkloadShareInput = {
             "workload_id": workload_id
         }
@@ -1424,7 +1531,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAgentContext")
+        )
         input_: capo_wellarchitected.types.delete_agent_context_request.DeleteAgentContextRequest = {
             "profile_arn": profile_arn,
             "id": id,
@@ -1476,7 +1585,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAgentGoal")
+        )
         input_: capo_wellarchitected.types.delete_agent_goal_request.DeleteAgentGoalRequest = {
             "profile_arn": profile_arn,
             "id": id,
@@ -1525,7 +1636,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAgentProfile")
+        )
         input_: capo_wellarchitected.types.delete_agent_profile_request.DeleteAgentProfileRequest = {
             "profile_arn": profile_arn
         }
@@ -1577,7 +1690,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLens")
+        )
         input_: capo_wellarchitected.types.delete_lens_input.DeleteLensInput = {
             "lens_alias": lens_alias
         }
@@ -1629,7 +1744,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLensShare")
+        )
         input_: capo_wellarchitected.types.delete_lens_share_input.DeleteLensShareInput = {
             "share_id": share_id,
             "lens_alias": lens_alias,
@@ -1682,7 +1799,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProfile")
+        )
         input_: capo_wellarchitected.types.delete_profile_input.DeleteProfileInput = {
             "profile_arn": profile_arn
         }
@@ -1735,7 +1854,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProfileShare")
+        )
         input_: capo_wellarchitected.types.delete_profile_share_input.DeleteProfileShareInput = {
             "share_id": share_id,
             "profile_arn": profile_arn,
@@ -1788,7 +1909,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReviewTemplate")
+        )
         input_: capo_wellarchitected.types.delete_review_template_input.DeleteReviewTemplateInput = {
             "template_arn": template_arn
         }
@@ -1841,7 +1964,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTemplateShare")
+        )
         input_: capo_wellarchitected.types.delete_template_share_input.DeleteTemplateShareInput = {
             "share_id": share_id,
             "template_arn": template_arn,
@@ -1891,7 +2016,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkload")
+        )
         input_: capo_wellarchitected.types.delete_workload_input.DeleteWorkloadInput = {
             "workload_id": workload_id
         }
@@ -1941,7 +2068,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkloadShare")
+        )
         input_: capo_wellarchitected.types.delete_workload_share_input.DeleteWorkloadShareInput = {
             "share_id": share_id,
             "workload_id": workload_id,
@@ -1991,7 +2120,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateLenses")
+        )
         input_: capo_wellarchitected.types.disassociate_lenses_input.DisassociateLensesInput = {
             "workload_id": workload_id
         }
@@ -2042,7 +2173,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateProfiles")
+        )
         input_: capo_wellarchitected.types.disassociate_profiles_input.DisassociateProfilesInput = {
             "workload_id": workload_id
         }
@@ -2094,7 +2227,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportLens")
+        )
         input_: capo_wellarchitected.types.export_lens_input.ExportLensInput = {
             "lens_alias": lens_alias
         }
@@ -2147,7 +2282,21 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wellarchitected.types.get_agent_context_response.GetAgentContextResponse",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.get_agent_context_response
+
+            return (
+                capo_wellarchitected.types.get_agent_context_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAgentContext", redact_output=_redact_output),
+        )
         input_: capo_wellarchitected.types.get_agent_context_request.GetAgentContextRequest = {
             "profile_arn": profile_arn,
             "id": id,
@@ -2197,7 +2346,19 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wellarchitected.types.get_agent_goal_response.GetAgentGoalResponse",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.get_agent_goal_response
+
+            return capo_wellarchitected.types.get_agent_goal_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAgentGoal", redact_output=_redact_output),
+        )
         input_: capo_wellarchitected.types.get_agent_goal_request.GetAgentGoalRequest = {
             "profile_arn": profile_arn,
             "id": id,
@@ -2247,7 +2408,21 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wellarchitected.types.get_agent_profile_response.GetAgentProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.get_agent_profile_response
+
+            return (
+                capo_wellarchitected.types.get_agent_profile_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAgentProfile", redact_output=_redact_output),
+        )
         input_: capo_wellarchitected.types.get_agent_profile_request.GetAgentProfileRequest = {
             "profile_arn": profile_arn
         }
@@ -2298,7 +2473,19 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wellarchitected.types.get_agent_recommendation_response.GetAgentRecommendationResponse",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.get_agent_recommendation_response
+
+            return capo_wellarchitected.types.get_agent_recommendation_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAgentRecommendation", redact_output=_redact_output),
+        )
         input_: capo_wellarchitected.types.get_agent_recommendation_request.GetAgentRecommendationRequest = {
             "recommendation_arn": recommendation_arn
         }
@@ -2349,7 +2536,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAgentRecommendationGeneration")
+        )
         input_: capo_wellarchitected.types.get_agent_recommendation_generation_request.GetAgentRecommendationGenerationRequest = {
             "profile_arn": profile_arn,
             "generation_id": generation_id,
@@ -2399,7 +2588,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAnswer")
+        )
         input_: capo_wellarchitected.types.get_answer_input.GetAnswerInput = {
             "workload_id": workload_id,
             "lens_alias": lens_alias,
@@ -2461,7 +2652,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConsolidatedReport")
+        )
         input_: capo_wellarchitected.types.get_consolidated_report_input.GetConsolidatedReportInput = {}
         if format is not None:
             input_["format"] = format
@@ -2538,7 +2731,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGlobalSettings")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -2585,7 +2780,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLens")
+        )
         input_: capo_wellarchitected.types.get_lens_input.GetLensInput = {
             "lens_alias": lens_alias
         }
@@ -2635,7 +2832,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLensReview")
+        )
         input_: capo_wellarchitected.types.get_lens_review_input.GetLensReviewInput = {
             "workload_id": workload_id,
             "lens_alias": lens_alias,
@@ -2686,7 +2885,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLensReviewReport")
+        )
         input_: capo_wellarchitected.types.get_lens_review_report_input.GetLensReviewReportInput = {
             "workload_id": workload_id,
             "lens_alias": lens_alias,
@@ -2743,7 +2944,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLensVersionDifference")
+        )
         input_: capo_wellarchitected.types.get_lens_version_difference_input.GetLensVersionDifferenceInput = {
             "lens_alias": lens_alias
         }
@@ -2792,7 +2995,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMilestone")
+        )
         input_: capo_wellarchitected.types.get_milestone_input.GetMilestoneInput = {
             "workload_id": workload_id,
             "milestone_number": milestone_number,
@@ -2844,7 +3049,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProfile")
+        )
         input_: capo_wellarchitected.types.get_profile_input.GetProfileInput = {
             "profile_arn": profile_arn
         }
@@ -2887,7 +3094,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProfileTemplate")
+        )
         input_: capo_wellarchitected.types.get_profile_template_input.GetProfileTemplateInput = {}
 
         response = execute_pipeline(
@@ -2934,7 +3143,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReviewTemplate")
+        )
         input_: capo_wellarchitected.types.get_review_template_input.GetReviewTemplateInput = {
             "template_arn": template_arn
         }
@@ -2983,7 +3194,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReviewTemplateAnswer")
+        )
         input_: capo_wellarchitected.types.get_review_template_answer_input.GetReviewTemplateAnswerInput = {
             "template_arn": template_arn,
             "lens_alias": lens_alias,
@@ -3033,7 +3246,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReviewTemplateLensReview")
+        )
         input_: capo_wellarchitected.types.get_review_template_lens_review_input.GetReviewTemplateLensReviewInput = {
             "template_arn": template_arn,
             "lens_alias": lens_alias,
@@ -3078,7 +3293,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkload")
+        )
         input_: capo_wellarchitected.types.get_workload_input.GetWorkloadInput = {
             "workload_id": workload_id
         }
@@ -3133,7 +3350,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportLens")
+        )
         input_: capo_wellarchitected.types.import_lens_input.ImportLensInput = {}
         if lens_alias is not None:
             input_["lens_alias"] = lens_alias
@@ -3190,7 +3409,19 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wellarchitected.types.list_agent_contexts_response.ListAgentContextsResponse",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.list_agent_contexts_response
+
+            return capo_wellarchitected.types.list_agent_contexts_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAgentContexts", redact_output=_redact_output),
+        )
         input_: capo_wellarchitected.types.list_agent_contexts_request.ListAgentContextsRequest = {
             "profile_arn": profile_arn
         }
@@ -3271,7 +3502,21 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wellarchitected.types.list_agent_goals_response.ListAgentGoalsResponse",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.list_agent_goals_response
+
+            return (
+                capo_wellarchitected.types.list_agent_goals_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAgentGoals", redact_output=_redact_output),
+        )
         input_: capo_wellarchitected.types.list_agent_goals_request.ListAgentGoalsRequest = {
             "profile_arn": profile_arn
         }
@@ -3350,7 +3595,19 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wellarchitected.types.list_agent_profiles_response.ListAgentProfilesResponse",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.list_agent_profiles_response
+
+            return capo_wellarchitected.types.list_agent_profiles_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAgentProfiles", redact_output=_redact_output),
+        )
         input_: capo_wellarchitected.types.list_agent_profiles_request.ListAgentProfilesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3434,7 +3691,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAgentRecommendationGenerations")
+        )
         input_: capo_wellarchitected.types.list_agent_recommendation_generations_request.ListAgentRecommendationGenerationsRequest = {
             "profile_arn": profile_arn
         }
@@ -3526,7 +3785,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAgentRecommendationItems")
+        )
         input_: capo_wellarchitected.types.list_agent_recommendation_items_request.ListAgentRecommendationItemsRequest = {
             "recommendation_arn": recommendation_arn
         }
@@ -3620,7 +3881,19 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wellarchitected.types.list_agent_recommendations_response.ListAgentRecommendationsResponse",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.list_agent_recommendations_response
+
+            return capo_wellarchitected.types.list_agent_recommendations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAgentRecommendations", redact_output=_redact_output),
+        )
         input_: capo_wellarchitected.types.list_agent_recommendations_request.ListAgentRecommendationsRequest = {
             "profile_arn": profile_arn
         }
@@ -3719,7 +3992,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAnswers")
+        )
         input_: capo_wellarchitected.types.list_answers_input.ListAnswersInput = {
             "workload_id": workload_id,
             "lens_alias": lens_alias,
@@ -3822,7 +4097,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCheckDetails")
+        )
         input_: capo_wellarchitected.types.list_check_details_input.ListCheckDetailsInput = {
             "workload_id": workload_id
         }
@@ -3924,7 +4201,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCheckSummaries")
+        )
         input_: capo_wellarchitected.types.list_check_summaries_input.ListCheckSummariesInput = {
             "workload_id": workload_id
         }
@@ -4024,7 +4303,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLenses")
+        )
         input_: capo_wellarchitected.types.list_lenses_input.ListLensesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4121,7 +4402,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLensReviewImprovements")
+        )
         input_: capo_wellarchitected.types.list_lens_review_improvements_input.ListLensReviewImprovementsInput = {
             "workload_id": workload_id,
             "lens_alias": lens_alias,
@@ -4218,7 +4501,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLensReviews")
+        )
         input_: capo_wellarchitected.types.list_lens_reviews_input.ListLensReviewsInput = {
             "workload_id": workload_id
         }
@@ -4307,7 +4592,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLensShares")
+        )
         input_: capo_wellarchitected.types.list_lens_shares_input.ListLensSharesInput = {
             "lens_alias": lens_alias
         }
@@ -4392,7 +4679,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMilestones")
+        )
         input_: capo_wellarchitected.types.list_milestones_input.ListMilestonesInput = {
             "workload_id": workload_id
         }
@@ -4475,7 +4764,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNotifications")
+        )
         input_: capo_wellarchitected.types.list_notifications_input.ListNotificationsInput = {}
         if workload_id is not None:
             input_["workload_id"] = workload_id
@@ -4559,7 +4850,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProfileNotifications")
+        )
         input_: capo_wellarchitected.types.list_profile_notifications_input.ListProfileNotificationsInput = {}
         if workload_id is not None:
             input_["workload_id"] = workload_id
@@ -4644,7 +4937,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProfiles")
+        )
         input_: capo_wellarchitected.types.list_profiles_input.ListProfilesInput = {}
         if profile_name_prefix is not None:
             input_["profile_name_prefix"] = profile_name_prefix
@@ -4738,7 +5033,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProfileShares")
+        )
         input_: capo_wellarchitected.types.list_profile_shares_input.ListProfileSharesInput = {
             "profile_arn": profile_arn
         }
@@ -4829,7 +5126,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReviewTemplateAnswers")
+        )
         input_: capo_wellarchitected.types.list_review_template_answers_input.ListReviewTemplateAnswersInput = {
             "template_arn": template_arn,
             "lens_alias": lens_alias,
@@ -4909,7 +5208,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReviewTemplates")
+        )
         input_: capo_wellarchitected.types.list_review_templates_input.ListReviewTemplatesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -5000,7 +5301,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListShareInvitations")
+        )
         input_: capo_wellarchitected.types.list_share_invitations_input.ListShareInvitationsInput = {}
         if workload_name_prefix is not None:
             input_["workload_name_prefix"] = workload_name_prefix
@@ -5094,7 +5397,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_wellarchitected.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "workload_arn": workload_arn
         }
@@ -5151,7 +5456,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTemplateShares")
+        )
         input_: capo_wellarchitected.types.list_template_shares_input.ListTemplateSharesInput = {
             "template_arn": template_arn
         }
@@ -5240,7 +5547,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkloads")
+        )
         input_: capo_wellarchitected.types.list_workloads_input.ListWorkloadsInput = {}
         if workload_name_prefix is not None:
             input_["workload_name_prefix"] = workload_name_prefix
@@ -5327,7 +5636,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkloadShares")
+        )
         input_: capo_wellarchitected.types.list_workload_shares_input.ListWorkloadSharesInput = {
             "workload_id": workload_id
         }
@@ -5419,7 +5730,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAgentRecommendationFeedback")
+        )
         input_: capo_wellarchitected.types.put_agent_recommendation_feedback_request.PutAgentRecommendationFeedbackRequest = {
             "recommendation_arn": recommendation_arn,
             "type": type,
@@ -5480,7 +5793,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAgentRecommendationGeneration")
+        )
         input_: capo_wellarchitected.types.start_agent_recommendation_generation_request.StartAgentRecommendationGenerationRequest = {
             "profile_arn": profile_arn,
             "types": types,
@@ -5531,7 +5846,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_wellarchitected.types.tag_resource_input.TagResourceInput = {
             "workload_arn": workload_arn
         }
@@ -5578,7 +5895,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_wellarchitected.types.untag_resource_input.UntagResourceInput = {
             "workload_arn": workload_arn
         }
@@ -5639,7 +5958,32 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wellarchitected.types.update_agent_context_request.UpdateAgentContextRequest",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.update_agent_context_request
+
+            return capo_wellarchitected.types.update_agent_context_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_wellarchitected.types.update_agent_context_response.UpdateAgentContextResponse",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.update_agent_context_response
+
+            return capo_wellarchitected.types.update_agent_context_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAgentContext",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_wellarchitected.types.update_agent_context_request.UpdateAgentContextRequest = {
             "profile_arn": profile_arn,
             "id": id,
@@ -5710,7 +6054,36 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wellarchitected.types.update_agent_goal_request.UpdateAgentGoalRequest",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.update_agent_goal_request
+
+            return (
+                capo_wellarchitected.types.update_agent_goal_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_wellarchitected.types.update_agent_goal_response.UpdateAgentGoalResponse",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.update_agent_goal_response
+
+            return (
+                capo_wellarchitected.types.update_agent_goal_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAgentGoal",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_wellarchitected.types.update_agent_goal_request.UpdateAgentGoalRequest = {
             "profile_arn": profile_arn,
             "id": id,
@@ -5793,7 +6166,32 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wellarchitected.types.update_agent_profile_request.UpdateAgentProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.update_agent_profile_request
+
+            return capo_wellarchitected.types.update_agent_profile_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_wellarchitected.types.update_agent_profile_response.UpdateAgentProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.update_agent_profile_response
+
+            return capo_wellarchitected.types.update_agent_profile_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAgentProfile",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_wellarchitected.types.update_agent_profile_request.UpdateAgentProfileRequest = {
             "profile_arn": profile_arn
         }
@@ -5863,7 +6261,21 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wellarchitected.types.update_agent_recommendation_status_request.UpdateAgentRecommendationStatusRequest",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.update_agent_recommendation_status_request
+
+            return capo_wellarchitected.types.update_agent_recommendation_status_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAgentRecommendationStatus", redact_input=_redact_input
+            ),
+        )
         input_: capo_wellarchitected.types.update_agent_recommendation_status_request.UpdateAgentRecommendationStatusRequest = {
             "recommendation_arn": recommendation_arn,
             "status": status,
@@ -5930,7 +6342,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAnswer")
+        )
         input_: capo_wellarchitected.types.update_answer_input.UpdateAnswerInput = {
             "workload_id": workload_id,
             "lens_alias": lens_alias,
@@ -5997,7 +6411,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGlobalSettings")
+        )
         input_: capo_wellarchitected.types.update_global_settings_input.UpdateGlobalSettingsInput = {}
         if organization_sharing_status is not None:
             input_["organization_sharing_status"] = organization_sharing_status
@@ -6053,7 +6469,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIntegration")
+        )
         input_: capo_wellarchitected.types.update_integration_input.UpdateIntegrationInput = {
             "workload_id": workload_id
         }
@@ -6114,7 +6532,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLensReview")
+        )
         input_: capo_wellarchitected.types.update_lens_review_input.UpdateLensReviewInput = {
             "workload_id": workload_id,
             "lens_alias": lens_alias,
@@ -6177,7 +6597,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProfile")
+        )
         input_: capo_wellarchitected.types.update_profile_input.UpdateProfileInput = {
             "profile_arn": profile_arn
         }
@@ -6246,7 +6668,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateReviewTemplate")
+        )
         input_: capo_wellarchitected.types.update_review_template_input.UpdateReviewTemplateInput = {
             "template_arn": template_arn
         }
@@ -6321,7 +6745,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateReviewTemplateAnswer")
+        )
         input_: capo_wellarchitected.types.update_review_template_answer_input.UpdateReviewTemplateAnswerInput = {
             "template_arn": template_arn,
             "lens_alias": lens_alias,
@@ -6386,7 +6812,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateReviewTemplateLensReview")
+        )
         input_: capo_wellarchitected.types.update_review_template_lens_review_input.UpdateReviewTemplateLensReviewInput = {
             "template_arn": template_arn,
             "lens_alias": lens_alias,
@@ -6442,7 +6870,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateShareInvitation")
+        )
         input_: capo_wellarchitected.types.update_share_invitation_input.UpdateShareInvitationInput = {
             "share_invitation_id": share_invitation_id
         }
@@ -6544,7 +6974,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkload")
+        )
         input_: capo_wellarchitected.types.update_workload_input.UpdateWorkloadInput = {
             "workload_id": workload_id
         }
@@ -6629,7 +7061,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkloadShare")
+        )
         input_: capo_wellarchitected.types.update_workload_share_input.UpdateWorkloadShareInput = {
             "share_id": share_id,
             "workload_id": workload_id,
@@ -6683,7 +7117,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpgradeLensReview")
+        )
         input_: capo_wellarchitected.types.upgrade_lens_review_input.UpgradeLensReviewInput = {
             "workload_id": workload_id,
             "lens_alias": lens_alias,
@@ -6742,7 +7178,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpgradeProfileVersion")
+        )
         input_: capo_wellarchitected.types.upgrade_profile_version_input.UpgradeProfileVersionInput = {
             "workload_id": workload_id,
             "profile_arn": profile_arn,
@@ -6798,7 +7236,9 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpgradeReviewTemplateLensReview")
+        )
         input_: capo_wellarchitected.types.upgrade_review_template_lens_review_input.UpgradeReviewTemplateLensReviewInput = {
             "template_arn": template_arn,
             "lens_alias": lens_alias,

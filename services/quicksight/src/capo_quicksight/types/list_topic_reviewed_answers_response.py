@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#ListTopicReviewedAnswersResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -59,4 +59,15 @@ def deserialize_json(data: dict) -> ListTopicReviewedAnswersResponse:
         )
     if data.get("RequestId") is not None:
         out["request_id"] = data["RequestId"]
+    return out
+
+
+def redact_sensitive(value: ListTopicReviewedAnswersResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "answers" in value:
+        import capo_quicksight.types.topic_reviewed_answers
+
+        out["answers"] = capo_quicksight.types.topic_reviewed_answers.redact_sensitive(
+            value["answers"]
+        )
     return out

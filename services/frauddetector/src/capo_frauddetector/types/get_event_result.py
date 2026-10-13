@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.frauddetector#GetEventResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -33,4 +33,13 @@ def deserialize_aws_json_1_1(data: dict) -> GetEventResult:
         out["event"] = capo_frauddetector.types.event.deserialize_aws_json_1_1(
             data["event"]
         )
+    return out
+
+
+def redact_sensitive(value: GetEventResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "event" in value:
+        import capo_frauddetector.types.event
+
+        out["event"] = capo_frauddetector.types.event.redact_sensitive(value["event"])
     return out

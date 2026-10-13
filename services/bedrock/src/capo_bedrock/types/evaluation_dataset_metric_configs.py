@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#EvaluationDatasetMetricConfigs``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock.types.evaluation_dataset_metric_config
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> EvaluationDatasetMetricConfigs:
             capo_bedrock.types.evaluation_dataset_metric_config.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: EvaluationDatasetMetricConfigs) -> list[Any]:
+    import capo_bedrock.types.evaluation_dataset_metric_config
+
+    return [
+        capo_bedrock.types.evaluation_dataset_metric_config.redact_sensitive(item)
+        for item in value
+    ]

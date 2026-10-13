@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#UserProfileDetails``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -63,3 +63,14 @@ def deserialize_json(data: dict) -> UserProfileDetails:
         }
     else:
         raise DeserializationError("UserProfileDetails: no recognized variant key")
+
+
+def redact_sensitive(value: UserProfileDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sso" in value:
+        import capo_datazone.types.sso_user_profile_details
+
+        out["sso"] = capo_datazone.types.sso_user_profile_details.redact_sensitive(
+            value["sso"]
+        )
+    return out

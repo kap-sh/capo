@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectcampaignsv2#Campaign``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -183,5 +183,18 @@ def deserialize_json(data: dict) -> Campaign:
 
         out["tags"] = capo_connectcampaignsv2.types.tag_map.deserialize_json(
             data["tags"]
+        )
+    return out
+
+
+def redact_sensitive(value: Campaign) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "channel_subtype_config" in value:
+        import capo_connectcampaignsv2.types.channel_subtype_config
+
+        out["channel_subtype_config"] = (
+            capo_connectcampaignsv2.types.channel_subtype_config.redact_sensitive(
+                value["channel_subtype_config"]
+            )
         )
     return out

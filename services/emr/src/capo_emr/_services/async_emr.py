@@ -24,7 +24,9 @@ from capo_emr._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -299,7 +301,9 @@ class AsyncEMRClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncEMRClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncEMRClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncEMRClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -307,8 +311,10 @@ class AsyncEMRClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -365,7 +371,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddInstanceFleet")
+        )
         input_: capo_emr.types.add_instance_fleet_input.AddInstanceFleetInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -417,7 +425,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddInstanceGroups")
+        )
         input_: capo_emr.types.add_instance_groups_input.AddInstanceGroupsInput = {}
         if instance_groups is not None:
             input_["instance_groups"] = instance_groups
@@ -469,7 +479,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddJobFlowSteps")
+        )
         input_: capo_emr.types.add_job_flow_steps_input.AddJobFlowStepsInput = {}
         if job_flow_id is not None:
             input_["job_flow_id"] = job_flow_id
@@ -520,7 +532,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTags")
+        )
         input_: capo_emr.types.add_tags_input.AddTagsInput = {}
         if resource_id is not None:
             input_["resource_id"] = resource_id
@@ -577,7 +591,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelSteps")
+        )
         input_: capo_emr.types.cancel_steps_input.CancelStepsInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -636,7 +652,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePersistentAppUI")
+        )
         input_: capo_emr.types.create_persistent_app_ui_input.CreatePersistentAppUIInput = {}
         if target_resource_arn is not None:
             input_["target_resource_arn"] = target_resource_arn
@@ -691,7 +709,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSecurityConfiguration")
+        )
         input_: capo_emr.types.create_security_configuration_input.CreateSecurityConfigurationInput = {}
         if name is not None:
             input_["name"] = name
@@ -786,7 +806,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStudio")
+        )
         input_: capo_emr.types.create_studio_input.CreateStudioInput = {}
         if name is not None:
             input_["name"] = name
@@ -879,7 +901,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStudioSessionMapping")
+        )
         input_: capo_emr.types.create_studio_session_mapping_input.CreateStudioSessionMappingInput = {}
         if studio_id is not None:
             input_["studio_id"] = studio_id
@@ -932,7 +956,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSecurityConfiguration")
+        )
         input_: capo_emr.types.delete_security_configuration_input.DeleteSecurityConfigurationInput = {}
         if name is not None:
             input_["name"] = name
@@ -977,7 +1003,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStudio")
+        )
         input_: capo_emr.types.delete_studio_input.DeleteStudioInput = {}
         if studio_id is not None:
             input_["studio_id"] = studio_id
@@ -1032,7 +1060,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStudioSessionMapping")
+        )
         input_: capo_emr.types.delete_studio_session_mapping_input.DeleteStudioSessionMappingInput = {}
         if studio_id is not None:
             input_["studio_id"] = studio_id
@@ -1083,7 +1113,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCluster")
+        )
         input_: capo_emr.types.describe_cluster_input.DescribeClusterInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -1135,7 +1167,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeJobFlows")
+        )
         input_: capo_emr.types.describe_job_flows_input.DescribeJobFlowsInput = {}
         if created_after is not None:
             input_["created_after"] = created_after
@@ -1188,7 +1222,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeNotebookExecution")
+        )
         input_: capo_emr.types.describe_notebook_execution_input.DescribeNotebookExecutionInput = {}
         if notebook_execution_id is not None:
             input_["notebook_execution_id"] = notebook_execution_id
@@ -1237,7 +1273,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePersistentAppUI")
+        )
         input_: capo_emr.types.describe_persistent_app_ui_input.DescribePersistentAppUIInput = {}
         if persistent_app_ui_id is not None:
             input_["persistent_app_ui_id"] = persistent_app_ui_id
@@ -1288,7 +1326,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReleaseLabel")
+        )
         input_: capo_emr.types.describe_release_label_input.DescribeReleaseLabelInput = {}
         if release_label is not None:
             input_["release_label"] = release_label
@@ -1337,7 +1377,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSecurityConfiguration")
+        )
         input_: capo_emr.types.describe_security_configuration_input.DescribeSecurityConfigurationInput = {}
         if name is not None:
             input_["name"] = name
@@ -1384,7 +1426,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStep")
+        )
         input_: capo_emr.types.describe_step_input.DescribeStepInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -1433,7 +1477,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStudio")
+        )
         input_: capo_emr.types.describe_studio_input.DescribeStudioInput = {}
         if studio_id is not None:
             input_["studio_id"] = studio_id
@@ -1476,7 +1522,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAutoTerminationPolicy")
+        )
         input_: capo_emr.types.get_auto_termination_policy_input.GetAutoTerminationPolicyInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -1515,7 +1563,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBlockPublicAccessConfiguration")
+        )
         input_: capo_emr.types.get_block_public_access_configuration_input.GetBlockPublicAccessConfigurationInput = {}
 
         response = await aexecute_pipeline(
@@ -1562,7 +1612,23 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_emr.types.get_cluster_session_credentials_output.GetClusterSessionCredentialsOutput",
+        ) -> dict[str, Any]:
+            import capo_emr.types.get_cluster_session_credentials_output
+
+            return (
+                capo_emr.types.get_cluster_session_credentials_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetClusterSessionCredentials", redact_output=_redact_output
+            ),
+        )
         input_: capo_emr.types.get_cluster_session_credentials_input.GetClusterSessionCredentialsInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -1609,7 +1675,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetManagedScalingPolicy")
+        )
         input_: capo_emr.types.get_managed_scaling_policy_input.GetManagedScalingPolicyInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -1668,7 +1736,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOnClusterAppUIPresignedURL")
+        )
         input_: capo_emr.types.get_on_cluster_app_ui_presigned_url_input.GetOnClusterAppUIPresignedURLInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -1735,7 +1805,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPersistentAppUIPresignedURL")
+        )
         input_: capo_emr.types.get_persistent_app_ui_presigned_url_input.GetPersistentAppUIPresignedURLInput = {}
         if persistent_app_ui_id is not None:
             input_["persistent_app_ui_id"] = persistent_app_ui_id
@@ -1790,7 +1862,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSession")
+        )
         input_: capo_emr.types.get_session_input.GetSessionInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -1839,7 +1913,17 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_emr.types.get_session_endpoint_output.GetSessionEndpointOutput",
+        ) -> dict[str, Any]:
+            import capo_emr.types.get_session_endpoint_output
+
+            return capo_emr.types.get_session_endpoint_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSessionEndpoint", redact_output=_redact_output),
+        )
         input_: capo_emr.types.get_session_endpoint_input.GetSessionEndpointInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -1900,7 +1984,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStudioSessionMapping")
+        )
         input_: capo_emr.types.get_studio_session_mapping_input.GetStudioSessionMappingInput = {}
         if studio_id is not None:
             input_["studio_id"] = studio_id
@@ -1953,7 +2039,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBootstrapActions")
+        )
         input_: capo_emr.types.list_bootstrap_actions_input.ListBootstrapActionsInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -2029,7 +2117,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusters")
+        )
         input_: capo_emr.types.list_clusters_input.ListClustersInput = {}
         if created_after is not None:
             input_["created_after"] = created_after
@@ -2109,7 +2199,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInstanceFleets")
+        )
         input_: capo_emr.types.list_instance_fleets_input.ListInstanceFleetsInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -2179,7 +2271,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInstanceGroups")
+        )
         input_: capo_emr.types.list_instance_groups_input.ListInstanceGroupsInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -2269,7 +2363,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInstances")
+        )
         input_: capo_emr.types.list_instances_input.ListInstancesInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -2381,7 +2477,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNotebookExecutions")
+        )
         input_: capo_emr.types.list_notebook_executions_input.ListNotebookExecutionsInput = {}
         if editor_id is not None:
             input_["editor_id"] = editor_id
@@ -2477,7 +2575,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReleaseLabels")
+        )
         input_: capo_emr.types.list_release_labels_input.ListReleaseLabelsInput = {}
         if filters is not None:
             input_["filters"] = filters
@@ -2551,7 +2651,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSecurityConfigurations")
+        )
         input_: capo_emr.types.list_security_configurations_input.ListSecurityConfigurationsInput = {}
         if marker is not None:
             input_["marker"] = marker
@@ -2625,7 +2727,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSessions")
+        )
         input_: capo_emr.types.list_sessions_input.ListSessionsInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -2709,7 +2813,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSteps")
+        )
         input_: capo_emr.types.list_steps_input.ListStepsInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -2785,7 +2891,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStudios")
+        )
         input_: capo_emr.types.list_studios_input.ListStudiosInput = {}
         if marker is not None:
             input_["marker"] = marker
@@ -2855,7 +2963,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStudioSessionMappings")
+        )
         input_: capo_emr.types.list_studio_session_mappings_input.ListStudioSessionMappingsInput = {}
         if studio_id is not None:
             input_["studio_id"] = studio_id
@@ -2931,7 +3041,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSupportedInstanceTypes")
+        )
         input_: capo_emr.types.list_supported_instance_types_input.ListSupportedInstanceTypesInput = {}
         if release_label is not None:
             input_["release_label"] = release_label
@@ -3003,7 +3115,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyCluster")
+        )
         input_: capo_emr.types.modify_cluster_input.ModifyClusterInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -3054,7 +3168,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyInstanceFleet")
+        )
         input_: capo_emr.types.modify_instance_fleet_input.ModifyInstanceFleetInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -3102,7 +3218,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyInstanceGroups")
+        )
         input_: capo_emr.types.modify_instance_groups_input.ModifyInstanceGroupsInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -3155,7 +3273,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAutoScalingPolicy")
+        )
         input_: capo_emr.types.put_auto_scaling_policy_input.PutAutoScalingPolicyInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -3206,7 +3326,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAutoTerminationPolicy")
+        )
         input_: capo_emr.types.put_auto_termination_policy_input.PutAutoTerminationPolicyInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -3255,7 +3377,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBlockPublicAccessConfiguration")
+        )
         input_: capo_emr.types.put_block_public_access_configuration_input.PutBlockPublicAccessConfigurationInput = {}
         if block_public_access_configuration is not None:
             input_["block_public_access_configuration"] = (
@@ -3306,7 +3430,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutManagedScalingPolicy")
+        )
         input_: capo_emr.types.put_managed_scaling_policy_input.PutManagedScalingPolicyInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -3357,7 +3483,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveAutoScalingPolicy")
+        )
         input_: capo_emr.types.remove_auto_scaling_policy_input.RemoveAutoScalingPolicyInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -3402,7 +3530,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveAutoTerminationPolicy")
+        )
         input_: capo_emr.types.remove_auto_termination_policy_input.RemoveAutoTerminationPolicyInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -3445,7 +3575,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveManagedScalingPolicy")
+        )
         input_: capo_emr.types.remove_managed_scaling_policy_input.RemoveManagedScalingPolicyInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -3494,7 +3626,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTags")
+        )
         input_: capo_emr.types.remove_tags_input.RemoveTagsInput = {}
         if resource_id is not None:
             input_["resource_id"] = resource_id
@@ -3649,7 +3783,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RunJobFlow")
+        )
         input_: capo_emr.types.run_job_flow_input.RunJobFlowInput = {}
         if name is not None:
             input_["name"] = name
@@ -3763,7 +3899,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetKeepJobFlowAliveWhenNoSteps")
+        )
         input_: capo_emr.types.set_keep_job_flow_alive_when_no_steps_input.SetKeepJobFlowAliveWhenNoStepsInput = {}
         if job_flow_ids is not None:
             input_["job_flow_ids"] = job_flow_ids
@@ -3811,7 +3949,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetTerminationProtection")
+        )
         input_: capo_emr.types.set_termination_protection_input.SetTerminationProtectionInput = {}
         if job_flow_ids is not None:
             input_["job_flow_ids"] = job_flow_ids
@@ -3859,7 +3999,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetUnhealthyNodeReplacement")
+        )
         input_: capo_emr.types.set_unhealthy_node_replacement_input.SetUnhealthyNodeReplacementInput = {}
         if job_flow_ids is not None:
             input_["job_flow_ids"] = job_flow_ids
@@ -3905,7 +4047,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetVisibleToAllUsers")
+        )
         input_: capo_emr.types.set_visible_to_all_users_input.SetVisibleToAllUsersInput = {}
         if job_flow_ids is not None:
             input_["job_flow_ids"] = job_flow_ids
@@ -3990,7 +4134,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartNotebookExecution")
+        )
         input_: capo_emr.types.start_notebook_execution_input.StartNotebookExecutionInput = {}
         if editor_id is not None:
             input_["editor_id"] = editor_id
@@ -4081,7 +4227,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartSession")
+        )
         input_: capo_emr.types.start_session_input.StartSessionInput = {}
         if name is not None:
             input_["name"] = name
@@ -4140,7 +4288,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopNotebookExecution")
+        )
         input_: capo_emr.types.stop_notebook_execution_input.StopNotebookExecutionInput = {}
         if notebook_execution_id is not None:
             input_["notebook_execution_id"] = notebook_execution_id
@@ -4182,7 +4332,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TerminateJobFlows")
+        )
         input_: capo_emr.types.terminate_job_flows_input.TerminateJobFlowsInput = {}
         if job_flow_ids is not None:
             input_["job_flow_ids"] = job_flow_ids
@@ -4229,7 +4381,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TerminateSession")
+        )
         input_: capo_emr.types.terminate_session_input.TerminateSessionInput = {}
         if cluster_id is not None:
             input_["cluster_id"] = cluster_id
@@ -4290,7 +4444,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateStudio")
+        )
         input_: capo_emr.types.update_studio_input.UpdateStudioInput = {}
         if studio_id is not None:
             input_["studio_id"] = studio_id
@@ -4359,7 +4515,9 @@ class AsyncEMRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateStudioSessionMapping")
+        )
         input_: capo_emr.types.update_studio_session_mapping_input.UpdateStudioSessionMappingInput = {}
         if studio_id is not None:
             input_["studio_id"] = studio_id

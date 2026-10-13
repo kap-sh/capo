@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#SubscribedPrincipal``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -104,3 +104,26 @@ def deserialize_json(data: dict) -> SubscribedPrincipal:
         }
     else:
         raise DeserializationError("SubscribedPrincipal: no recognized variant key")
+
+
+def redact_sensitive(value: SubscribedPrincipal) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "project" in value:
+        import capo_datazone.types.subscribed_project
+
+        out["project"] = capo_datazone.types.subscribed_project.redact_sensitive(
+            value["project"]
+        )
+    if "user" in value:
+        import capo_datazone.types.subscribed_user
+
+        out["user"] = capo_datazone.types.subscribed_user.redact_sensitive(
+            value["user"]
+        )
+    if "group" in value:
+        import capo_datazone.types.subscribed_group
+
+        out["group"] = capo_datazone.types.subscribed_group.redact_sensitive(
+            value["group"]
+        )
+    return out

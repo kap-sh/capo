@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_grafana._auth._signers
 import capo_grafana._auth._sigv4
 from capo_grafana._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -155,7 +156,28 @@ class Workspace:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_grafana.types.create_workspace_request.CreateWorkspaceRequest",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.create_workspace_request
+
+            return capo_grafana.types.create_workspace_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_grafana.types.create_workspace_response.CreateWorkspaceResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.create_workspace_response
+
+            return capo_grafana.types.create_workspace_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateWorkspace",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_grafana.types.create_workspace_request.CreateWorkspaceRequest = {
             "account_access_type": account_access_type,
             "permission_type": permission_type,
@@ -239,7 +261,19 @@ class Workspace:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.describe_workspace_response.DescribeWorkspaceResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.describe_workspace_response
+
+            return capo_grafana.types.describe_workspace_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeWorkspace", redact_output=_redact_output),
+        )
         input_: capo_grafana.types.describe_workspace_request.DescribeWorkspaceRequest = {
             "workspace_id": workspace_id
         }
@@ -343,7 +377,28 @@ class Workspace:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_grafana.types.update_workspace_request.UpdateWorkspaceRequest",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.update_workspace_request
+
+            return capo_grafana.types.update_workspace_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_grafana.types.update_workspace_response.UpdateWorkspaceResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.update_workspace_response
+
+            return capo_grafana.types.update_workspace_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateWorkspace",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_grafana.types.update_workspace_request.UpdateWorkspaceRequest = {
             "workspace_id": workspace_id
         }
@@ -425,7 +480,17 @@ class Workspace:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.delete_workspace_response.DeleteWorkspaceResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.delete_workspace_response
+
+            return capo_grafana.types.delete_workspace_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteWorkspace", redact_output=_redact_output),
+        )
         input_: capo_grafana.types.delete_workspace_request.DeleteWorkspaceRequest = {
             "workspace_id": workspace_id
         }
@@ -474,7 +539,17 @@ class Workspace:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.list_workspaces_response.ListWorkspacesResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.list_workspaces_response
+
+            return capo_grafana.types.list_workspaces_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListWorkspaces", redact_output=_redact_output),
+        )
         input_: capo_grafana.types.list_workspaces_request.ListWorkspacesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -592,7 +667,28 @@ class AsyncWorkspace:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_grafana.types.create_workspace_request.CreateWorkspaceRequest",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.create_workspace_request
+
+            return capo_grafana.types.create_workspace_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_grafana.types.create_workspace_response.CreateWorkspaceResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.create_workspace_response
+
+            return capo_grafana.types.create_workspace_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateWorkspace",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_grafana.types.create_workspace_request.CreateWorkspaceRequest = {
             "account_access_type": account_access_type,
             "permission_type": permission_type,
@@ -677,7 +773,19 @@ class AsyncWorkspace:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.describe_workspace_response.DescribeWorkspaceResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.describe_workspace_response
+
+            return capo_grafana.types.describe_workspace_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeWorkspace", redact_output=_redact_output),
+        )
         input_: capo_grafana.types.describe_workspace_request.DescribeWorkspaceRequest = {
             "workspace_id": workspace_id
         }
@@ -782,7 +890,28 @@ class AsyncWorkspace:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_grafana.types.update_workspace_request.UpdateWorkspaceRequest",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.update_workspace_request
+
+            return capo_grafana.types.update_workspace_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_grafana.types.update_workspace_response.UpdateWorkspaceResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.update_workspace_response
+
+            return capo_grafana.types.update_workspace_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateWorkspace",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_grafana.types.update_workspace_request.UpdateWorkspaceRequest = {
             "workspace_id": workspace_id
         }
@@ -865,7 +994,17 @@ class AsyncWorkspace:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.delete_workspace_response.DeleteWorkspaceResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.delete_workspace_response
+
+            return capo_grafana.types.delete_workspace_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteWorkspace", redact_output=_redact_output),
+        )
         input_: capo_grafana.types.delete_workspace_request.DeleteWorkspaceRequest = {
             "workspace_id": workspace_id
         }
@@ -915,7 +1054,17 @@ class AsyncWorkspace:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.list_workspaces_response.ListWorkspacesResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.list_workspaces_response
+
+            return capo_grafana.types.list_workspaces_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListWorkspaces", redact_output=_redact_output),
+        )
         input_: capo_grafana.types.list_workspaces_request.ListWorkspacesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

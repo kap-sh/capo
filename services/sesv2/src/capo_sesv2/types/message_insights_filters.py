@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sesv2#MessageInsightsFilters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -143,5 +143,32 @@ def deserialize_json(data: dict) -> MessageInsightsFilters:
             capo_sesv2.types.last_engagement_event_list.deserialize_json(
                 data["LastEngagementEvent"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: MessageInsightsFilters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "from_email_address" in value:
+        import capo_sesv2.types.email_address_filter_list
+
+        out["from_email_address"] = (
+            capo_sesv2.types.email_address_filter_list.redact_sensitive(
+                value["from_email_address"]
+            )
+        )
+    if "destination" in value:
+        import capo_sesv2.types.email_address_filter_list
+
+        out["destination"] = (
+            capo_sesv2.types.email_address_filter_list.redact_sensitive(
+                value["destination"]
+            )
+        )
+    if "subject" in value:
+        import capo_sesv2.types.email_subject_filter_list
+
+        out["subject"] = capo_sesv2.types.email_subject_filter_list.redact_sensitive(
+            value["subject"]
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.apprunner#CodeConfigurationValues``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -99,4 +99,17 @@ def deserialize_aws_json_1_0(data: dict) -> CodeConfigurationValues:
                 data["RuntimeEnvironmentSecrets"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: CodeConfigurationValues) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "build_command" in value:
+        out["build_command"] = "*** Sensitive Data Redacted ***"
+    if "start_command" in value:
+        out["start_command"] = "*** Sensitive Data Redacted ***"
+    if "runtime_environment_variables" in value:
+        out["runtime_environment_variables"] = "*** Sensitive Data Redacted ***"
+    if "runtime_environment_secrets" in value:
+        out["runtime_environment_secrets"] = "*** Sensitive Data Redacted ***"
     return out

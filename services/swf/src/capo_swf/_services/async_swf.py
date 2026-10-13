@@ -24,7 +24,9 @@ from capo_swf._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -200,7 +202,9 @@ class AsyncSWFClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncSWFClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncSWFClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSWFClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -208,8 +212,10 @@ class AsyncSWFClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -282,7 +288,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CountClosedWorkflowExecutions")
+        )
         input_: capo_swf.types.count_closed_workflow_executions_input.CountClosedWorkflowExecutionsInput = {
             "domain": domain
         }
@@ -351,7 +359,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CountOpenWorkflowExecutions")
+        )
         input_: capo_swf.types.count_open_workflow_executions_input.CountOpenWorkflowExecutionsInput = {
             "domain": domain,
             "start_time_filter": start_time_filter,
@@ -405,7 +415,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CountPendingActivityTasks")
+        )
         input_: capo_swf.types.count_pending_activity_tasks_input.CountPendingActivityTasksInput = {
             "domain": domain,
             "task_list": task_list,
@@ -453,7 +465,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CountPendingDecisionTasks")
+        )
         input_: capo_swf.types.count_pending_decision_tasks_input.CountPendingDecisionTasksInput = {
             "domain": domain,
             "task_list": task_list,
@@ -500,7 +514,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteActivityType")
+        )
         input_: capo_swf.types.delete_activity_type_input.DeleteActivityTypeInput = {
             "domain": domain,
             "activity_type": activity_type,
@@ -547,7 +563,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflowType")
+        )
         input_: capo_swf.types.delete_workflow_type_input.DeleteWorkflowTypeInput = {
             "domain": domain,
             "workflow_type": workflow_type,
@@ -594,7 +612,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeprecateActivityType")
+        )
         input_: capo_swf.types.deprecate_activity_type_input.DeprecateActivityTypeInput = {
             "domain": domain,
             "activity_type": activity_type,
@@ -639,7 +659,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeprecateDomain")
+        )
         input_: capo_swf.types.deprecate_domain_input.DeprecateDomainInput = {
             "name": name
         }
@@ -685,7 +707,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeprecateWorkflowType")
+        )
         input_: capo_swf.types.deprecate_workflow_type_input.DeprecateWorkflowTypeInput = {
             "domain": domain,
             "workflow_type": workflow_type,
@@ -733,7 +757,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeActivityType")
+        )
         input_: capo_swf.types.describe_activity_type_input.DescribeActivityTypeInput = {
             "domain": domain,
             "activity_type": activity_type,
@@ -777,7 +803,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDomain")
+        )
         input_: capo_swf.types.describe_domain_input.DescribeDomainInput = {
             "name": name
         }
@@ -824,7 +852,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkflowExecution")
+        )
         input_: capo_swf.types.describe_workflow_execution_input.DescribeWorkflowExecutionInput = {
             "domain": domain,
             "execution": execution,
@@ -872,7 +902,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkflowType")
+        )
         input_: capo_swf.types.describe_workflow_type_input.DescribeWorkflowTypeInput = {
             "domain": domain,
             "workflow_type": workflow_type,
@@ -924,7 +956,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkflowExecutionHistory")
+        )
         input_: capo_swf.types.get_workflow_execution_history_input.GetWorkflowExecutionHistoryInput = {
             "domain": domain,
             "execution": execution,
@@ -1013,7 +1047,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListActivityTypes")
+        )
         input_: capo_swf.types.list_activity_types_input.ListActivityTypesInput = {
             "domain": domain,
             "registration_status": registration_status,
@@ -1124,7 +1160,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClosedWorkflowExecutions")
+        )
         input_: capo_swf.types.list_closed_workflow_executions_input.ListClosedWorkflowExecutionsInput = {
             "domain": domain
         }
@@ -1237,7 +1275,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomains")
+        )
         input_: capo_swf.types.list_domains_input.ListDomainsInput = {
             "registration_status": registration_status
         }
@@ -1331,7 +1371,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOpenWorkflowExecutions")
+        )
         input_: capo_swf.types.list_open_workflow_executions_input.ListOpenWorkflowExecutionsInput = {
             "domain": domain,
             "start_time_filter": start_time_filter,
@@ -1427,7 +1469,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_swf.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -1482,7 +1526,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkflowTypes")
+        )
         input_: capo_swf.types.list_workflow_types_input.ListWorkflowTypesInput = {
             "domain": domain,
             "registration_status": registration_status,
@@ -1568,7 +1614,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PollForActivityTask")
+        )
         input_: capo_swf.types.poll_for_activity_task_input.PollForActivityTaskInput = {
             "domain": domain,
             "task_list": task_list,
@@ -1629,7 +1677,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PollForDecisionTask")
+        )
         input_: capo_swf.types.poll_for_decision_task_input.PollForDecisionTaskInput = {
             "domain": domain,
             "task_list": task_list,
@@ -1720,7 +1770,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RecordActivityTaskHeartbeat")
+        )
         input_: capo_swf.types.record_activity_task_heartbeat_input.RecordActivityTaskHeartbeatInput = {
             "task_token": task_token
         }
@@ -1795,7 +1847,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterActivityType")
+        )
         input_: capo_swf.types.register_activity_type_input.RegisterActivityTypeInput = {
             "domain": domain,
             "name": name,
@@ -1868,7 +1922,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterDomain")
+        )
         input_: capo_swf.types.register_domain_input.RegisterDomainInput = {
             "name": name,
             "workflow_execution_retention_period_in_days": workflow_execution_retention_period_in_days,
@@ -1944,7 +2000,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterWorkflowType")
+        )
         input_: capo_swf.types.register_workflow_type_input.RegisterWorkflowTypeInput = {
             "domain": domain,
             "name": name,
@@ -2013,7 +2071,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RequestCancelWorkflowExecution")
+        )
         input_: capo_swf.types.request_cancel_workflow_execution_input.RequestCancelWorkflowExecutionInput = {
             "domain": domain,
             "workflow_id": workflow_id,
@@ -2061,7 +2121,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RespondActivityTaskCanceled")
+        )
         input_: capo_swf.types.respond_activity_task_canceled_input.RespondActivityTaskCanceledInput = {
             "task_token": task_token
         }
@@ -2108,7 +2170,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RespondActivityTaskCompleted")
+        )
         input_: capo_swf.types.respond_activity_task_completed_input.RespondActivityTaskCompletedInput = {
             "task_token": task_token
         }
@@ -2157,7 +2221,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RespondActivityTaskFailed")
+        )
         input_: capo_swf.types.respond_activity_task_failed_input.RespondActivityTaskFailedInput = {
             "task_token": task_token
         }
@@ -2214,7 +2280,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RespondDecisionTaskCompleted")
+        )
         input_: capo_swf.types.respond_decision_task_completed_input.RespondDecisionTaskCompletedInput = {
             "task_token": task_token
         }
@@ -2277,7 +2345,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SignalWorkflowExecution")
+        )
         input_: capo_swf.types.signal_workflow_execution_input.SignalWorkflowExecutionInput = {
             "domain": domain,
             "workflow_id": workflow_id,
@@ -2354,7 +2424,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartWorkflowExecution")
+        )
         input_: capo_swf.types.start_workflow_execution_input.StartWorkflowExecutionInput = {
             "domain": domain,
             "workflow_id": workflow_id,
@@ -2421,7 +2493,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_swf.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2477,7 +2551,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TerminateWorkflowExecution")
+        )
         input_: capo_swf.types.terminate_workflow_execution_input.TerminateWorkflowExecutionInput = {
             "domain": domain,
             "workflow_id": workflow_id,
@@ -2532,7 +2608,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UndeprecateActivityType")
+        )
         input_: capo_swf.types.undeprecate_activity_type_input.UndeprecateActivityTypeInput = {
             "domain": domain,
             "activity_type": activity_type,
@@ -2577,7 +2655,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UndeprecateDomain")
+        )
         input_: capo_swf.types.undeprecate_domain_input.UndeprecateDomainInput = {
             "name": name
         }
@@ -2623,7 +2703,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UndeprecateWorkflowType")
+        )
         input_: capo_swf.types.undeprecate_workflow_type_input.UndeprecateWorkflowTypeInput = {
             "domain": domain,
             "workflow_type": workflow_type,
@@ -2670,7 +2752,9 @@ class AsyncSWFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_swf.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,

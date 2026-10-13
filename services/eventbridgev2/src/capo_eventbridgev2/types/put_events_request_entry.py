@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridgev2#PutEventsRequestEntry``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -94,4 +94,11 @@ def deserialize_cbor(data: dict) -> PutEventsRequestEntry:
                 data["SystemMetadata"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: PutEventsRequestEntry) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "detail" in value:
+        out["detail"] = "*** Sensitive Data Redacted ***"
     return out

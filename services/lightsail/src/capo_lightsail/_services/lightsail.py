@@ -19,10 +19,12 @@ from capo_lightsail._auth._zapros_handler import AuthMiddleware
 from capo_lightsail._services._aws_config import aws_config
 from capo_lightsail._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -511,7 +513,9 @@ class LightsailClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[LightsailClientConfig] = None
+        self,
+        config_overrides: Optional[LightsailClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: LightsailClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -519,8 +523,10 @@ class LightsailClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -576,7 +582,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AllocateStaticIp")
+        )
         input_: capo_lightsail.types.allocate_static_ip_request.AllocateStaticIpRequest = {
             "static_ip_name": static_ip_name
         }
@@ -626,7 +634,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachCertificateToDistribution")
+        )
         input_: capo_lightsail.types.attach_certificate_to_distribution_request.AttachCertificateToDistributionRequest = {
             "distribution_name": distribution_name,
             "certificate_name": certificate_name,
@@ -683,7 +693,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachDisk")
+        )
         input_: capo_lightsail.types.attach_disk_request.AttachDiskRequest = {
             "disk_name": disk_name,
             "instance_name": instance_name,
@@ -739,7 +751,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachInstancesToLoadBalancer")
+        )
         input_: capo_lightsail.types.attach_instances_to_load_balancer_request.AttachInstancesToLoadBalancerRequest = {
             "load_balancer_name": load_balancer_name,
             "instance_names": instance_names,
@@ -792,7 +806,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachLoadBalancerTlsCertificate")
+        )
         input_: capo_lightsail.types.attach_load_balancer_tls_certificate_request.AttachLoadBalancerTlsCertificateRequest = {
             "load_balancer_name": load_balancer_name,
             "certificate_name": certificate_name,
@@ -845,7 +861,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachStaticIp")
+        )
         input_: capo_lightsail.types.attach_static_ip_request.AttachStaticIpRequest = {
             "static_ip_name": static_ip_name,
             "instance_name": instance_name,
@@ -898,7 +916,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CloseInstancePublicPorts")
+        )
         input_: capo_lightsail.types.close_instance_public_ports_request.CloseInstancePublicPortsRequest = {
             "port_info": port_info,
             "instance_name": instance_name,
@@ -963,7 +983,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CopySnapshot")
+        )
         input_: capo_lightsail.types.copy_snapshot_request.CopySnapshotRequest = {
             "target_snapshot_name": target_snapshot_name,
             "source_region": source_region,
@@ -1029,7 +1051,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBucket")
+        )
         input_: capo_lightsail.types.create_bucket_request.CreateBucketRequest = {
             "bucket_name": bucket_name,
             "bundle_id": bundle_id,
@@ -1082,7 +1106,21 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lightsail.types.create_bucket_access_key_result.CreateBucketAccessKeyResult",
+        ) -> dict[str, Any]:
+            import capo_lightsail.types.create_bucket_access_key_result
+
+            return (
+                capo_lightsail.types.create_bucket_access_key_result.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateBucketAccessKey", redact_output=_redact_output),
+        )
         input_: capo_lightsail.types.create_bucket_access_key_request.CreateBucketAccessKeyRequest = {
             "bucket_name": bucket_name
         }
@@ -1138,7 +1176,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCertificate")
+        )
         input_: capo_lightsail.types.create_certificate_request.CreateCertificateRequest = {
             "certificate_name": certificate_name,
             "domain_name": domain_name,
@@ -1193,7 +1233,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCloudFormationStack")
+        )
         input_: capo_lightsail.types.create_cloud_formation_stack_request.CreateCloudFormationStackRequest = {
             "instances": instances
         }
@@ -1246,7 +1288,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateContactMethod")
+        )
         input_: capo_lightsail.types.create_contact_method_request.CreateContactMethodRequest = {
             "protocol": protocol,
             "contact_endpoint": contact_endpoint,
@@ -1315,7 +1359,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateContainerService")
+        )
         input_: capo_lightsail.types.create_container_service_request.CreateContainerServiceRequest = {
             "service_name": service_name,
             "power": power,
@@ -1379,7 +1425,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateContainerServiceDeployment")
+        )
         input_: capo_lightsail.types.create_container_service_deployment_request.CreateContainerServiceDeploymentRequest = {
             "service_name": service_name
         }
@@ -1425,7 +1473,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateContainerServiceRegistryLogin")
+        )
         input_: capo_lightsail.types.create_container_service_registry_login_request.CreateContainerServiceRegistryLoginRequest = {}
 
         response = execute_pipeline(
@@ -1483,7 +1533,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDisk")
+        )
         input_: capo_lightsail.types.create_disk_request.CreateDiskRequest = {
             "disk_name": disk_name,
             "availability_zone": availability_zone,
@@ -1561,7 +1613,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDiskFromSnapshot")
+        )
         input_: capo_lightsail.types.create_disk_from_snapshot_request.CreateDiskFromSnapshotRequest = {
             "disk_name": disk_name,
             "availability_zone": availability_zone,
@@ -1635,7 +1689,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDiskSnapshot")
+        )
         input_: capo_lightsail.types.create_disk_snapshot_request.CreateDiskSnapshotRequest = {
             "disk_snapshot_name": disk_snapshot_name
         }
@@ -1727,7 +1783,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDistribution")
+        )
         input_: capo_lightsail.types.create_distribution_request.CreateDistributionRequest = {
             "distribution_name": distribution_name,
             "origin": origin,
@@ -1802,7 +1860,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDomain")
+        )
         input_: capo_lightsail.types.create_domain_request.CreateDomainRequest = {
             "domain_name": domain_name
         }
@@ -1856,7 +1916,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDomainEntry")
+        )
         input_: capo_lightsail.types.create_domain_entry_request.CreateDomainEntryRequest = {
             "domain_name": domain_name,
             "domain_entry": domain_entry,
@@ -1905,7 +1967,21 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lightsail.types.create_gui_session_access_details_result.CreateGUISessionAccessDetailsResult",
+        ) -> dict[str, Any]:
+            import capo_lightsail.types.create_gui_session_access_details_result
+
+            return capo_lightsail.types.create_gui_session_access_details_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateGUISessionAccessDetails", redact_output=_redact_output
+            ),
+        )
         input_: capo_lightsail.types.create_gui_session_access_details_request.CreateGUISessionAccessDetailsRequest = {
             "resource_name": resource_name
         }
@@ -1981,7 +2057,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInstances")
+        )
         input_: capo_lightsail.types.create_instances_request.CreateInstancesRequest = {
             "instance_names": instance_names,
             "availability_zone": availability_zone,
@@ -2082,7 +2160,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInstancesFromSnapshot")
+        )
         input_: capo_lightsail.types.create_instances_from_snapshot_request.CreateInstancesFromSnapshotRequest = {
             "instance_names": instance_names,
             "availability_zone": availability_zone,
@@ -2160,7 +2240,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInstanceSnapshot")
+        )
         input_: capo_lightsail.types.create_instance_snapshot_request.CreateInstanceSnapshotRequest = {
             "instance_snapshot_name": instance_snapshot_name,
             "instance_name": instance_name,
@@ -2215,7 +2297,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateKeyPair")
+        )
         input_: capo_lightsail.types.create_key_pair_request.CreateKeyPairRequest = {
             "key_pair_name": key_pair_name
         }
@@ -2291,7 +2375,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLoadBalancer")
+        )
         input_: capo_lightsail.types.create_load_balancer_request.CreateLoadBalancerRequest = {
             "load_balancer_name": load_balancer_name,
             "instance_port": instance_port,
@@ -2366,7 +2452,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLoadBalancerTlsCertificate")
+        )
         input_: capo_lightsail.types.create_load_balancer_tls_certificate_request.CreateLoadBalancerTlsCertificateRequest = {
             "load_balancer_name": load_balancer_name,
             "certificate_name": certificate_name,
@@ -2446,7 +2534,19 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lightsail.types.create_relational_database_request.CreateRelationalDatabaseRequest",
+        ) -> dict[str, Any]:
+            import capo_lightsail.types.create_relational_database_request
+
+            return capo_lightsail.types.create_relational_database_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateRelationalDatabase", redact_input=_redact_input),
+        )
         input_: capo_lightsail.types.create_relational_database_request.CreateRelationalDatabaseRequest = {
             "relational_database_name": relational_database_name,
             "relational_database_blueprint_id": relational_database_blueprint_id,
@@ -2536,7 +2636,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRelationalDatabaseFromSnapshot")
+        )
         input_: capo_lightsail.types.create_relational_database_from_snapshot_request.CreateRelationalDatabaseFromSnapshotRequest = {
             "relational_database_name": relational_database_name
         }
@@ -2608,7 +2710,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRelationalDatabaseSnapshot")
+        )
         input_: capo_lightsail.types.create_relational_database_snapshot_request.CreateRelationalDatabaseSnapshotRequest = {
             "relational_database_name": relational_database_name,
             "relational_database_snapshot_name": relational_database_snapshot_name,
@@ -2660,7 +2764,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAlarm")
+        )
         input_: capo_lightsail.types.delete_alarm_request.DeleteAlarmRequest = {
             "alarm_name": alarm_name
         }
@@ -2711,7 +2817,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAutoSnapshot")
+        )
         input_: capo_lightsail.types.delete_auto_snapshot_request.DeleteAutoSnapshotRequest = {
             "resource_name": resource_name,
             "date": date,
@@ -2762,7 +2870,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBucket")
+        )
         input_: capo_lightsail.types.delete_bucket_request.DeleteBucketRequest = {
             "bucket_name": bucket_name
         }
@@ -2814,7 +2924,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBucketAccessKey")
+        )
         input_: capo_lightsail.types.delete_bucket_access_key_request.DeleteBucketAccessKeyRequest = {
             "bucket_name": bucket_name,
             "access_key_id": access_key_id,
@@ -2863,7 +2975,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCertificate")
+        )
         input_: capo_lightsail.types.delete_certificate_request.DeleteCertificateRequest = {
             "certificate_name": certificate_name
         }
@@ -2912,7 +3026,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContactMethod")
+        )
         input_: capo_lightsail.types.delete_contact_method_request.DeleteContactMethodRequest = {
             "protocol": protocol
         }
@@ -2964,7 +3080,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContainerImage")
+        )
         input_: capo_lightsail.types.delete_container_image_request.DeleteContainerImageRequest = {
             "service_name": service_name,
             "image": image,
@@ -3013,7 +3131,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContainerService")
+        )
         input_: capo_lightsail.types.delete_container_service_request.DeleteContainerServiceRequest = {
             "service_name": service_name
         }
@@ -3065,7 +3185,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDisk")
+        )
         input_: capo_lightsail.types.delete_disk_request.DeleteDiskRequest = {
             "disk_name": disk_name
         }
@@ -3117,7 +3239,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDiskSnapshot")
+        )
         input_: capo_lightsail.types.delete_disk_snapshot_request.DeleteDiskSnapshotRequest = {
             "disk_snapshot_name": disk_snapshot_name
         }
@@ -3167,7 +3291,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDistribution")
+        )
         input_: capo_lightsail.types.delete_distribution_request.DeleteDistributionRequest = {}
         if distribution_name is not None:
             input_["distribution_name"] = distribution_name
@@ -3217,7 +3343,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomain")
+        )
         input_: capo_lightsail.types.delete_domain_request.DeleteDomainRequest = {
             "domain_name": domain_name
         }
@@ -3269,7 +3397,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomainEntry")
+        )
         input_: capo_lightsail.types.delete_domain_entry_request.DeleteDomainEntryRequest = {
             "domain_name": domain_name,
             "domain_entry": domain_entry,
@@ -3322,7 +3452,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInstance")
+        )
         input_: capo_lightsail.types.delete_instance_request.DeleteInstanceRequest = {
             "instance_name": instance_name
         }
@@ -3374,7 +3506,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInstanceSnapshot")
+        )
         input_: capo_lightsail.types.delete_instance_snapshot_request.DeleteInstanceSnapshotRequest = {
             "instance_snapshot_name": instance_snapshot_name
         }
@@ -3426,7 +3560,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteKeyPair")
+        )
         input_: capo_lightsail.types.delete_key_pair_request.DeleteKeyPairRequest = {
             "key_pair_name": key_pair_name
         }
@@ -3478,7 +3614,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteKnownHostKeys")
+        )
         input_: capo_lightsail.types.delete_known_host_keys_request.DeleteKnownHostKeysRequest = {
             "instance_name": instance_name
         }
@@ -3528,7 +3666,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLoadBalancer")
+        )
         input_: capo_lightsail.types.delete_load_balancer_request.DeleteLoadBalancerRequest = {
             "load_balancer_name": load_balancer_name
         }
@@ -3582,7 +3722,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLoadBalancerTlsCertificate")
+        )
         input_: capo_lightsail.types.delete_load_balancer_tls_certificate_request.DeleteLoadBalancerTlsCertificateRequest = {
             "load_balancer_name": load_balancer_name,
             "certificate_name": certificate_name,
@@ -3641,7 +3783,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRelationalDatabase")
+        )
         input_: capo_lightsail.types.delete_relational_database_request.DeleteRelationalDatabaseRequest = {
             "relational_database_name": relational_database_name
         }
@@ -3697,7 +3841,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRelationalDatabaseSnapshot")
+        )
         input_: capo_lightsail.types.delete_relational_database_snapshot_request.DeleteRelationalDatabaseSnapshotRequest = {
             "relational_database_snapshot_name": relational_database_snapshot_name
         }
@@ -3745,7 +3891,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachCertificateFromDistribution")
+        )
         input_: capo_lightsail.types.detach_certificate_from_distribution_request.DetachCertificateFromDistributionRequest = {
             "distribution_name": distribution_name
         }
@@ -3795,7 +3943,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachDisk")
+        )
         input_: capo_lightsail.types.detach_disk_request.DetachDiskRequest = {
             "disk_name": disk_name
         }
@@ -3847,7 +3997,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachInstancesFromLoadBalancer")
+        )
         input_: capo_lightsail.types.detach_instances_from_load_balancer_request.DetachInstancesFromLoadBalancerRequest = {
             "load_balancer_name": load_balancer_name,
             "instance_names": instance_names,
@@ -3898,7 +4050,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachStaticIp")
+        )
         input_: capo_lightsail.types.detach_static_ip_request.DetachStaticIpRequest = {
             "static_ip_name": static_ip_name
         }
@@ -3949,7 +4103,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableAddOn")
+        )
         input_: capo_lightsail.types.disable_add_on_request.DisableAddOnRequest = {
             "add_on_type": add_on_type,
             "resource_name": resource_name,
@@ -3994,7 +4150,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DownloadDefaultKeyPair")
+        )
         input_: capo_lightsail.types.download_default_key_pair_request.DownloadDefaultKeyPairRequest = {}
 
         response = execute_pipeline(
@@ -4043,7 +4201,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableAddOn")
+        )
         input_: capo_lightsail.types.enable_add_on_request.EnableAddOnRequest = {
             "resource_name": resource_name,
             "add_on_request": add_on_request,
@@ -4094,7 +4254,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportSnapshot")
+        )
         input_: capo_lightsail.types.export_snapshot_request.ExportSnapshotRequest = {
             "source_snapshot_name": source_snapshot_name
         }
@@ -4144,7 +4306,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetActiveNames")
+        )
         input_: capo_lightsail.types.get_active_names_request.GetActiveNamesRequest = {}
         if page_token is not None:
             input_["page_token"] = page_token
@@ -4199,7 +4363,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAlarms")
+        )
         input_: capo_lightsail.types.get_alarms_request.GetAlarmsRequest = {}
         if alarm_name is not None:
             input_["alarm_name"] = alarm_name
@@ -4252,7 +4418,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAutoSnapshots")
+        )
         input_: capo_lightsail.types.get_auto_snapshots_request.GetAutoSnapshotsRequest = {
             "resource_name": resource_name
         }
@@ -4306,7 +4474,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBlueprints")
+        )
         input_: capo_lightsail.types.get_blueprints_request.GetBlueprintsRequest = {}
         if include_inactive is not None:
             input_["include_inactive"] = include_inactive
@@ -4358,7 +4528,19 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lightsail.types.get_bucket_access_keys_result.GetBucketAccessKeysResult",
+        ) -> dict[str, Any]:
+            import capo_lightsail.types.get_bucket_access_keys_result
+
+            return capo_lightsail.types.get_bucket_access_keys_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetBucketAccessKeys", redact_output=_redact_output),
+        )
         input_: capo_lightsail.types.get_bucket_access_keys_request.GetBucketAccessKeysRequest = {
             "bucket_name": bucket_name
         }
@@ -4405,7 +4587,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketBundles")
+        )
         input_: capo_lightsail.types.get_bucket_bundles_request.GetBucketBundlesRequest = {}
         if include_inactive is not None:
             input_["include_inactive"] = include_inactive
@@ -4465,7 +4649,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBucketMetricData")
+        )
         input_: capo_lightsail.types.get_bucket_metric_data_request.GetBucketMetricDataRequest = {
             "bucket_name": bucket_name,
             "metric_name": metric_name,
@@ -4527,7 +4713,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBuckets")
+        )
         input_: capo_lightsail.types.get_buckets_request.GetBucketsRequest = {}
         if bucket_name is not None:
             input_["bucket_name"] = bucket_name
@@ -4587,7 +4775,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBundles")
+        )
         input_: capo_lightsail.types.get_bundles_request.GetBundlesRequest = {}
         if include_inactive is not None:
             input_["include_inactive"] = include_inactive
@@ -4651,7 +4841,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCertificates")
+        )
         input_: capo_lightsail.types.get_certificates_request.GetCertificatesRequest = {}
         if certificate_statuses is not None:
             input_["certificate_statuses"] = certificate_statuses
@@ -4707,7 +4899,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCloudFormationStackRecords")
+        )
         input_: capo_lightsail.types.get_cloud_formation_stack_records_request.GetCloudFormationStackRecordsRequest = {}
         if page_token is not None:
             input_["page_token"] = page_token
@@ -4758,7 +4952,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContactMethods")
+        )
         input_: capo_lightsail.types.get_contact_methods_request.GetContactMethodsRequest = {}
         if protocols is not None:
             input_["protocols"] = protocols
@@ -4798,7 +4994,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContainerAPIMetadata")
+        )
         input_: capo_lightsail.types.get_container_api_metadata_request.GetContainerAPIMetadataRequest = {}
 
         response = execute_pipeline(
@@ -4844,7 +5042,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContainerImages")
+        )
         input_: capo_lightsail.types.get_container_images_request.GetContainerImagesRequest = {
             "service_name": service_name
         }
@@ -4902,7 +5102,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContainerLog")
+        )
         input_: capo_lightsail.types.get_container_log_request.GetContainerLogRequest = {
             "service_name": service_name,
             "container_name": container_name,
@@ -4959,7 +5161,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContainerServiceDeployments")
+        )
         input_: capo_lightsail.types.get_container_service_deployments_request.GetContainerServiceDeploymentsRequest = {
             "service_name": service_name
         }
@@ -5017,7 +5221,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContainerServiceMetricData")
+        )
         input_: capo_lightsail.types.get_container_service_metric_data_request.GetContainerServiceMetricDataRequest = {
             "service_name": service_name,
             "metric_name": metric_name,
@@ -5064,7 +5270,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContainerServicePowers")
+        )
         input_: capo_lightsail.types.get_container_service_powers_request.GetContainerServicePowersRequest = {}
 
         response = execute_pipeline(
@@ -5112,7 +5320,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContainerServices")
+        )
         input_: capo_lightsail.types.get_container_services_request.GetContainerServicesRequest = {}
         if service_name is not None:
             input_["service_name"] = service_name
@@ -5164,7 +5374,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCostEstimate")
+        )
         input_: capo_lightsail.types.get_cost_estimate_request.GetCostEstimateRequest = {
             "resource_name": resource_name,
             "start_time": start_time,
@@ -5214,7 +5426,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDisk")
+        )
         input_: capo_lightsail.types.get_disk_request.GetDiskRequest = {
             "disk_name": disk_name
         }
@@ -5262,7 +5476,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDisks")
+        )
         input_: capo_lightsail.types.get_disks_request.GetDisksRequest = {}
         if page_token is not None:
             input_["page_token"] = page_token
@@ -5312,7 +5528,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDiskSnapshot")
+        )
         input_: capo_lightsail.types.get_disk_snapshot_request.GetDiskSnapshotRequest = {
             "disk_snapshot_name": disk_snapshot_name
         }
@@ -5362,7 +5580,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDiskSnapshots")
+        )
         input_: capo_lightsail.types.get_disk_snapshots_request.GetDiskSnapshotsRequest = {}
         if page_token is not None:
             input_["page_token"] = page_token
@@ -5404,7 +5624,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDistributionBundles")
+        )
         input_: capo_lightsail.types.get_distribution_bundles_request.GetDistributionBundlesRequest = {}
 
         response = execute_pipeline(
@@ -5452,7 +5674,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDistributionLatestCacheReset")
+        )
         input_: capo_lightsail.types.get_distribution_latest_cache_reset_request.GetDistributionLatestCacheResetRequest = {}
         if distribution_name is not None:
             input_["distribution_name"] = distribution_name
@@ -5512,7 +5736,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDistributionMetricData")
+        )
         input_: capo_lightsail.types.get_distribution_metric_data_request.GetDistributionMetricDataRequest = {
             "distribution_name": distribution_name,
             "metric_name": metric_name,
@@ -5570,7 +5796,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDistributions")
+        )
         input_: capo_lightsail.types.get_distributions_request.GetDistributionsRequest = {}
         if distribution_name is not None:
             input_["distribution_name"] = distribution_name
@@ -5622,7 +5850,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomain")
+        )
         input_: capo_lightsail.types.get_domain_request.GetDomainRequest = {
             "domain_name": domain_name
         }
@@ -5672,7 +5902,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomains")
+        )
         input_: capo_lightsail.types.get_domains_request.GetDomainsRequest = {}
         if page_token is not None:
             input_["page_token"] = page_token
@@ -5722,7 +5954,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetExportSnapshotRecords")
+        )
         input_: capo_lightsail.types.get_export_snapshot_records_request.GetExportSnapshotRecordsRequest = {}
         if page_token is not None:
             input_["page_token"] = page_token
@@ -5772,7 +6006,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInstance")
+        )
         input_: capo_lightsail.types.get_instance_request.GetInstanceRequest = {
             "instance_name": instance_name
         }
@@ -5826,7 +6062,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInstanceAccessDetails")
+        )
         input_: capo_lightsail.types.get_instance_access_details_request.GetInstanceAccessDetailsRequest = {
             "instance_name": instance_name
         }
@@ -5890,7 +6128,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInstanceMetricData")
+        )
         input_: capo_lightsail.types.get_instance_metric_data_request.GetInstanceMetricDataRequest = {
             "instance_name": instance_name,
             "metric_name": metric_name,
@@ -5946,7 +6186,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInstancePortStates")
+        )
         input_: capo_lightsail.types.get_instance_port_states_request.GetInstancePortStatesRequest = {
             "instance_name": instance_name
         }
@@ -5996,7 +6238,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInstances")
+        )
         input_: capo_lightsail.types.get_instances_request.GetInstancesRequest = {}
         if page_token is not None:
             input_["page_token"] = page_token
@@ -6046,7 +6290,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInstanceSnapshot")
+        )
         input_: capo_lightsail.types.get_instance_snapshot_request.GetInstanceSnapshotRequest = {
             "instance_snapshot_name": instance_snapshot_name
         }
@@ -6098,7 +6344,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInstanceSnapshots")
+        )
         input_: capo_lightsail.types.get_instance_snapshots_request.GetInstanceSnapshotsRequest = {}
         if page_token is not None:
             input_["page_token"] = page_token
@@ -6148,7 +6396,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInstanceState")
+        )
         input_: capo_lightsail.types.get_instance_state_request.GetInstanceStateRequest = {
             "instance_name": instance_name
         }
@@ -6198,7 +6448,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetKeyPair")
+        )
         input_: capo_lightsail.types.get_key_pair_request.GetKeyPairRequest = {
             "key_pair_name": key_pair_name
         }
@@ -6252,7 +6504,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetKeyPairs")
+        )
         input_: capo_lightsail.types.get_key_pairs_request.GetKeyPairsRequest = {}
         if page_token is not None:
             input_["page_token"] = page_token
@@ -6304,7 +6558,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLoadBalancer")
+        )
         input_: capo_lightsail.types.get_load_balancer_request.GetLoadBalancerRequest = {
             "load_balancer_name": load_balancer_name
         }
@@ -6366,7 +6622,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLoadBalancerMetricData")
+        )
         input_: capo_lightsail.types.get_load_balancer_metric_data_request.GetLoadBalancerMetricDataRequest = {
             "load_balancer_name": load_balancer_name,
             "metric_name": metric_name,
@@ -6422,7 +6680,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLoadBalancers")
+        )
         input_: capo_lightsail.types.get_load_balancers_request.GetLoadBalancersRequest = {}
         if page_token is not None:
             input_["page_token"] = page_token
@@ -6472,7 +6732,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLoadBalancerTlsCertificates")
+        )
         input_: capo_lightsail.types.get_load_balancer_tls_certificates_request.GetLoadBalancerTlsCertificatesRequest = {
             "load_balancer_name": load_balancer_name
         }
@@ -6520,7 +6782,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLoadBalancerTlsPolicies")
+        )
         input_: capo_lightsail.types.get_load_balancer_tls_policies_request.GetLoadBalancerTlsPoliciesRequest = {}
         if page_token is not None:
             input_["page_token"] = page_token
@@ -6570,7 +6834,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOperation")
+        )
         input_: capo_lightsail.types.get_operation_request.GetOperationRequest = {
             "operation_id": operation_id
         }
@@ -6620,7 +6886,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOperations")
+        )
         input_: capo_lightsail.types.get_operations_request.GetOperationsRequest = {}
         if page_token is not None:
             input_["page_token"] = page_token
@@ -6672,7 +6940,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOperationsForResource")
+        )
         input_: capo_lightsail.types.get_operations_for_resource_request.GetOperationsForResourceRequest = {
             "resource_name": resource_name
         }
@@ -6715,7 +6985,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProfile")
+        )
         input_: capo_lightsail.types.get_profile_request.GetProfileRequest = {}
 
         response = execute_pipeline(
@@ -6769,7 +7041,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRegions")
+        )
         input_: capo_lightsail.types.get_regions_request.GetRegionsRequest = {}
         if include_availability_zones is not None:
             input_["include_availability_zones"] = include_availability_zones
@@ -6823,7 +7097,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRelationalDatabase")
+        )
         input_: capo_lightsail.types.get_relational_database_request.GetRelationalDatabaseRequest = {
             "relational_database_name": relational_database_name
         }
@@ -6873,7 +7149,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRelationalDatabaseBlueprints")
+        )
         input_: capo_lightsail.types.get_relational_database_blueprints_request.GetRelationalDatabaseBlueprintsRequest = {}
         if page_token is not None:
             input_["page_token"] = page_token
@@ -6925,7 +7203,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRelationalDatabaseBundles")
+        )
         input_: capo_lightsail.types.get_relational_database_bundles_request.GetRelationalDatabaseBundlesRequest = {}
         if page_token is not None:
             input_["page_token"] = page_token
@@ -6981,7 +7261,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRelationalDatabaseEvents")
+        )
         input_: capo_lightsail.types.get_relational_database_events_request.GetRelationalDatabaseEventsRequest = {
             "relational_database_name": relational_database_name
         }
@@ -7045,7 +7327,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRelationalDatabaseLogEvents")
+        )
         input_: capo_lightsail.types.get_relational_database_log_events_request.GetRelationalDatabaseLogEventsRequest = {
             "relational_database_name": relational_database_name,
             "log_stream_name": log_stream_name,
@@ -7104,7 +7388,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRelationalDatabaseLogStreams")
+        )
         input_: capo_lightsail.types.get_relational_database_log_streams_request.GetRelationalDatabaseLogStreamsRequest = {
             "relational_database_name": relational_database_name
         }
@@ -7158,7 +7444,21 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lightsail.types.get_relational_database_master_user_password_result.GetRelationalDatabaseMasterUserPasswordResult",
+        ) -> dict[str, Any]:
+            import capo_lightsail.types.get_relational_database_master_user_password_result
+
+            return capo_lightsail.types.get_relational_database_master_user_password_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetRelationalDatabaseMasterUserPassword", redact_output=_redact_output
+            ),
+        )
         input_: capo_lightsail.types.get_relational_database_master_user_password_request.GetRelationalDatabaseMasterUserPasswordRequest = {
             "relational_database_name": relational_database_name
         }
@@ -7222,7 +7522,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRelationalDatabaseMetricData")
+        )
         input_: capo_lightsail.types.get_relational_database_metric_data_request.GetRelationalDatabaseMetricDataRequest = {
             "relational_database_name": relational_database_name,
             "metric_name": metric_name,
@@ -7280,7 +7582,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRelationalDatabaseParameters")
+        )
         input_: capo_lightsail.types.get_relational_database_parameters_request.GetRelationalDatabaseParametersRequest = {
             "relational_database_name": relational_database_name
         }
@@ -7332,7 +7636,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRelationalDatabases")
+        )
         input_: capo_lightsail.types.get_relational_databases_request.GetRelationalDatabasesRequest = {}
         if page_token is not None:
             input_["page_token"] = page_token
@@ -7382,7 +7688,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRelationalDatabaseSnapshot")
+        )
         input_: capo_lightsail.types.get_relational_database_snapshot_request.GetRelationalDatabaseSnapshotRequest = {
             "relational_database_snapshot_name": relational_database_snapshot_name
         }
@@ -7432,7 +7740,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRelationalDatabaseSnapshots")
+        )
         input_: capo_lightsail.types.get_relational_database_snapshots_request.GetRelationalDatabaseSnapshotsRequest = {}
         if page_token is not None:
             input_["page_token"] = page_token
@@ -7484,7 +7794,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSetupHistory")
+        )
         input_: capo_lightsail.types.get_setup_history_request.GetSetupHistoryRequest = {
             "resource_name": resource_name
         }
@@ -7536,7 +7848,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStaticIp")
+        )
         input_: capo_lightsail.types.get_static_ip_request.GetStaticIpRequest = {
             "static_ip_name": static_ip_name
         }
@@ -7586,7 +7900,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStaticIps")
+        )
         input_: capo_lightsail.types.get_static_ips_request.GetStaticIpsRequest = {}
         if page_token is not None:
             input_["page_token"] = page_token
@@ -7638,7 +7954,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportKeyPair")
+        )
         input_: capo_lightsail.types.import_key_pair_request.ImportKeyPairRequest = {
             "key_pair_name": key_pair_name,
             "public_key_base64": public_key_base64,
@@ -7683,7 +8001,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("IsVpcPeered")
+        )
         input_: capo_lightsail.types.is_vpc_peered_request.IsVpcPeeredRequest = {}
 
         response = execute_pipeline(
@@ -7733,7 +8053,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("OpenInstancePublicPorts")
+        )
         input_: capo_lightsail.types.open_instance_public_ports_request.OpenInstancePublicPortsRequest = {
             "port_info": port_info,
             "instance_name": instance_name,
@@ -7776,7 +8098,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PeerVpc")
+        )
         input_: capo_lightsail.types.peer_vpc_request.PeerVpcRequest = {}
 
         response = execute_pipeline(
@@ -7849,7 +8173,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAlarm")
+        )
         input_: capo_lightsail.types.put_alarm_request.PutAlarmRequest = {
             "alarm_name": alarm_name,
             "metric_name": metric_name,
@@ -7918,7 +8244,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutInstancePublicPorts")
+        )
         input_: capo_lightsail.types.put_instance_public_ports_request.PutInstancePublicPortsRequest = {
             "port_infos": port_infos,
             "instance_name": instance_name,
@@ -7969,7 +8297,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RebootInstance")
+        )
         input_: capo_lightsail.types.reboot_instance_request.RebootInstanceRequest = {
             "instance_name": instance_name
         }
@@ -8019,7 +8349,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RebootRelationalDatabase")
+        )
         input_: capo_lightsail.types.reboot_relational_database_request.RebootRelationalDatabaseRequest = {
             "relational_database_name": relational_database_name
         }
@@ -8071,7 +8403,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterContainerImage")
+        )
         input_: capo_lightsail.types.register_container_image_request.RegisterContainerImageRequest = {
             "service_name": service_name,
             "label": label,
@@ -8123,7 +8457,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReleaseStaticIp")
+        )
         input_: capo_lightsail.types.release_static_ip_request.ReleaseStaticIpRequest = {
             "static_ip_name": static_ip_name
         }
@@ -8173,7 +8509,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetDistributionCache")
+        )
         input_: capo_lightsail.types.reset_distribution_cache_request.ResetDistributionCacheRequest = {}
         if distribution_name is not None:
             input_["distribution_name"] = distribution_name
@@ -8222,7 +8560,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendContactMethodVerification")
+        )
         input_: capo_lightsail.types.send_contact_method_verification_request.SendContactMethodVerificationRequest = {
             "protocol": protocol
         }
@@ -8278,7 +8618,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetIpAddressType")
+        )
         input_: capo_lightsail.types.set_ip_address_type_request.SetIpAddressTypeRequest = {
             "resource_type": resource_type,
             "resource_name": resource_name,
@@ -8334,7 +8676,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetResourceAccessForBucket")
+        )
         input_: capo_lightsail.types.set_resource_access_for_bucket_request.SetResourceAccessForBucketRequest = {
             "resource_name": resource_name,
             "bucket_name": bucket_name,
@@ -8390,7 +8734,19 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lightsail.types.setup_instance_https_request.SetupInstanceHttpsRequest",
+        ) -> dict[str, Any]:
+            import capo_lightsail.types.setup_instance_https_request
+
+            return capo_lightsail.types.setup_instance_https_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SetupInstanceHttps", redact_input=_redact_input),
+        )
         input_: capo_lightsail.types.setup_instance_https_request.SetupInstanceHttpsRequest = {
             "instance_name": instance_name,
             "email_address": email_address,
@@ -8441,7 +8797,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartGUISession")
+        )
         input_: capo_lightsail.types.start_gui_session_request.StartGUISessionRequest = {
             "resource_name": resource_name
         }
@@ -8491,7 +8849,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartInstance")
+        )
         input_: capo_lightsail.types.start_instance_request.StartInstanceRequest = {
             "instance_name": instance_name
         }
@@ -8541,7 +8901,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartRelationalDatabase")
+        )
         input_: capo_lightsail.types.start_relational_database_request.StartRelationalDatabaseRequest = {
             "relational_database_name": relational_database_name
         }
@@ -8589,7 +8951,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopGUISession")
+        )
         input_: capo_lightsail.types.stop_gui_session_request.StopGUISessionRequest = {
             "resource_name": resource_name
         }
@@ -8641,7 +9005,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopInstance")
+        )
         input_: capo_lightsail.types.stop_instance_request.StopInstanceRequest = {
             "instance_name": instance_name
         }
@@ -8697,7 +9063,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopRelationalDatabase")
+        )
         input_: capo_lightsail.types.stop_relational_database_request.StopRelationalDatabaseRequest = {
             "relational_database_name": relational_database_name
         }
@@ -8755,7 +9123,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_lightsail.types.tag_resource_request.TagResourceRequest = {
             "resource_name": resource_name,
             "tags": tags,
@@ -8809,7 +9179,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestAlarm")
+        )
         input_: capo_lightsail.types.test_alarm_request.TestAlarmRequest = {
             "alarm_name": alarm_name,
             "state": state,
@@ -8854,7 +9226,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UnpeerVpc")
+        )
         input_: capo_lightsail.types.unpeer_vpc_request.UnpeerVpcRequest = {}
 
         response = execute_pipeline(
@@ -8906,7 +9280,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_lightsail.types.untag_resource_request.UntagResourceRequest = {
             "resource_name": resource_name,
             "tag_keys": tag_keys,
@@ -8975,7 +9351,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBucket")
+        )
         input_: capo_lightsail.types.update_bucket_request.UpdateBucketRequest = {
             "bucket_name": bucket_name
         }
@@ -9035,7 +9413,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBucketBundle")
+        )
         input_: capo_lightsail.types.update_bucket_bundle_request.UpdateBucketBundleRequest = {
             "bucket_name": bucket_name,
             "bundle_id": bundle_id,
@@ -9102,7 +9482,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContainerService")
+        )
         input_: capo_lightsail.types.update_container_service_request.UpdateContainerServiceRequest = {
             "service_name": service_name
         }
@@ -9198,7 +9580,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDistribution")
+        )
         input_: capo_lightsail.types.update_distribution_request.UpdateDistributionRequest = {
             "distribution_name": distribution_name
         }
@@ -9274,7 +9658,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDistributionBundle")
+        )
         input_: capo_lightsail.types.update_distribution_bundle_request.UpdateDistributionBundleRequest = {}
         if distribution_name is not None:
             input_["distribution_name"] = distribution_name
@@ -9328,7 +9714,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDomainEntry")
+        )
         input_: capo_lightsail.types.update_domain_entry_request.UpdateDomainEntryRequest = {
             "domain_name": domain_name,
             "domain_entry": domain_entry,
@@ -9393,7 +9781,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateInstanceMetadataOptions")
+        )
         input_: capo_lightsail.types.update_instance_metadata_options_request.UpdateInstanceMetadataOptionsRequest = {
             "instance_name": instance_name
         }
@@ -9455,7 +9845,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLoadBalancerAttribute")
+        )
         input_: capo_lightsail.types.update_load_balancer_attribute_request.UpdateLoadBalancerAttributeRequest = {
             "load_balancer_name": load_balancer_name,
             "attribute_name": attribute_name,
@@ -9541,7 +9933,19 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lightsail.types.update_relational_database_request.UpdateRelationalDatabaseRequest",
+        ) -> dict[str, Any]:
+            import capo_lightsail.types.update_relational_database_request
+
+            return capo_lightsail.types.update_relational_database_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateRelationalDatabase", redact_input=_redact_input),
+        )
         input_: capo_lightsail.types.update_relational_database_request.UpdateRelationalDatabaseRequest = {
             "relational_database_name": relational_database_name
         }
@@ -9615,7 +10019,9 @@ class LightsailClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRelationalDatabaseParameters")
+        )
         input_: capo_lightsail.types.update_relational_database_parameters_request.UpdateRelationalDatabaseParametersRequest = {
             "relational_database_name": relational_database_name,
             "parameters": parameters,

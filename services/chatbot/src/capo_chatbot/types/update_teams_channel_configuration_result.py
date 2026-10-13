@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chatbot#UpdateTeamsChannelConfigurationResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> UpdateTeamsChannelConfigurationResult:
         out["channel_configuration"] = (
             capo_chatbot.types.teams_channel_configuration.deserialize_json(
                 data["ChannelConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateTeamsChannelConfigurationResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "channel_configuration" in value:
+        import capo_chatbot.types.teams_channel_configuration
+
+        out["channel_configuration"] = (
+            capo_chatbot.types.teams_channel_configuration.redact_sensitive(
+                value["channel_configuration"]
             )
         )
     return out

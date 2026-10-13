@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geomaps#GetStaticMapRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,4 +79,33 @@ def serialize_json(value: GetStaticMapRequest) -> dict:
 
 def deserialize_json(data: dict) -> GetStaticMapRequest:
     out: GetStaticMapRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: GetStaticMapRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "bounding_box" in value:
+        out["bounding_box"] = "*** Sensitive Data Redacted ***"
+    if "bounded_positions" in value:
+        out["bounded_positions"] = "*** Sensitive Data Redacted ***"
+    if "center" in value:
+        out["center"] = "*** Sensitive Data Redacted ***"
+    if "compact_overlay" in value:
+        out["compact_overlay"] = "*** Sensitive Data Redacted ***"
+    if "geo_json_overlay" in value:
+        out["geo_json_overlay"] = "*** Sensitive Data Redacted ***"
+    if "height" in value:
+        out["height"] = "*** Sensitive Data Redacted ***"
+    if "key" in value:
+        out["key"] = "*** Sensitive Data Redacted ***"
+    if "padding" in value:
+        out["padding"] = "*** Sensitive Data Redacted ***"
+    if "political_view" in value:
+        out["political_view"] = "*** Sensitive Data Redacted ***"
+    if "radius" in value:
+        out["radius"] = "*** Sensitive Data Redacted ***"
+    if "width" in value:
+        out["width"] = "*** Sensitive Data Redacted ***"
+    if "zoom" in value:
+        out["zoom"] = "*** Sensitive Data Redacted ***"
     return out

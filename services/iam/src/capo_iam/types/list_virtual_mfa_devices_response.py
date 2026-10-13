@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iam#ListVirtualMFADevicesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -67,4 +67,17 @@ def deserialize_query(el: Element) -> ListVirtualMFADevicesResponse:
     child_marker = el.find("Marker")
     if child_marker is not None:
         out["marker"] = str(child_marker.text or "")
+    return out
+
+
+def redact_sensitive(value: ListVirtualMFADevicesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "virtual_mfa_devices" in value:
+        import capo_iam.types.virtual_mfa_device_list_type
+
+        out["virtual_mfa_devices"] = (
+            capo_iam.types.virtual_mfa_device_list_type.redact_sensitive(
+                value["virtual_mfa_devices"]
+            )
+        )
     return out

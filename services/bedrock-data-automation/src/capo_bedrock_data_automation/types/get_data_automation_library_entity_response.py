@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockdataautomation#GetDataAutomationLibraryEntityResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> GetDataAutomationLibraryEntityResponse:
         out["entity"] = (
             capo_bedrock_data_automation.types.entity_details.deserialize_json(
                 data["entity"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GetDataAutomationLibraryEntityResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "entity" in value:
+        import capo_bedrock_data_automation.types.entity_details
+
+        out["entity"] = (
+            capo_bedrock_data_automation.types.entity_details.redact_sensitive(
+                value["entity"]
             )
         )
     return out

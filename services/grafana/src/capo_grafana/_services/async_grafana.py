@@ -41,7 +41,9 @@ from capo_grafana._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -217,7 +219,9 @@ class AsyncgrafanaClient:
         self.workspace = AsyncWorkspace(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncgrafanaClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncgrafanaClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncgrafanaClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -225,8 +229,10 @@ class AsyncgrafanaClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -282,7 +288,9 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_grafana.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -336,7 +344,9 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVersions")
+        )
         input_: capo_grafana.types.list_versions_request.ListVersionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -415,7 +425,9 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_grafana.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -466,7 +478,9 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_grafana.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -523,7 +537,21 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.create_workspace_api_key_response.CreateWorkspaceApiKeyResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.create_workspace_api_key_response
+
+            return (
+                capo_grafana.types.create_workspace_api_key_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateWorkspaceApiKey", redact_output=_redact_output),
+        )
         input_: capo_grafana.types.create_workspace_api_key_request.CreateWorkspaceApiKeyRequest = {
             "key_name": key_name,
             "key_role": key_role,
@@ -577,7 +605,9 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkspaceApiKey")
+        )
         input_: capo_grafana.types.delete_workspace_api_key_request.DeleteWorkspaceApiKeyRequest = {
             "key_name": key_name,
             "workspace_id": workspace_id,
@@ -627,7 +657,21 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.describe_workspace_authentication_response.DescribeWorkspaceAuthenticationResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.describe_workspace_authentication_response
+
+            return capo_grafana.types.describe_workspace_authentication_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeWorkspaceAuthentication", redact_output=_redact_output
+            ),
+        )
         input_: capo_grafana.types.describe_workspace_authentication_request.DescribeWorkspaceAuthenticationRequest = {
             "workspace_id": workspace_id
         }
@@ -682,7 +726,32 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_grafana.types.update_workspace_authentication_request.UpdateWorkspaceAuthenticationRequest",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.update_workspace_authentication_request
+
+            return capo_grafana.types.update_workspace_authentication_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_grafana.types.update_workspace_authentication_response.UpdateWorkspaceAuthenticationResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.update_workspace_authentication_response
+
+            return capo_grafana.types.update_workspace_authentication_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateWorkspaceAuthentication",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_grafana.types.update_workspace_authentication_request.UpdateWorkspaceAuthenticationRequest = {
             "workspace_id": workspace_id,
             "authentication_providers": authentication_providers,
@@ -732,7 +801,9 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkspaceConfiguration")
+        )
         input_: capo_grafana.types.describe_workspace_configuration_request.DescribeWorkspaceConfigurationRequest = {
             "workspace_id": workspace_id
         }
@@ -787,7 +858,9 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkspaceConfiguration")
+        )
         input_: capo_grafana.types.update_workspace_configuration_request.UpdateWorkspaceConfigurationRequest = {
             "configuration": configuration,
             "workspace_id": workspace_id,
@@ -842,7 +915,19 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.associate_license_response.AssociateLicenseResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.associate_license_response
+
+            return capo_grafana.types.associate_license_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AssociateLicense", redact_output=_redact_output),
+        )
         input_: capo_grafana.types.associate_license_request.AssociateLicenseRequest = {
             "workspace_id": workspace_id,
             "license_type": license_type,
@@ -895,7 +980,19 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.disassociate_license_response.DisassociateLicenseResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.disassociate_license_response
+
+            return capo_grafana.types.disassociate_license_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateLicense", redact_output=_redact_output),
+        )
         input_: capo_grafana.types.disassociate_license_request.DisassociateLicenseRequest = {
             "workspace_id": workspace_id,
             "license_type": license_type,
@@ -956,7 +1053,9 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPermissions")
+        )
         input_: capo_grafana.types.list_permissions_request.ListPermissionsRequest = {
             "workspace_id": workspace_id
         }
@@ -1047,7 +1146,9 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePermissions")
+        )
         input_: capo_grafana.types.update_permissions_request.UpdatePermissionsRequest = {
             "update_instruction_batch": update_instruction_batch,
             "workspace_id": workspace_id,
@@ -1102,7 +1203,9 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkspaceServiceAccount")
+        )
         input_: capo_grafana.types.create_workspace_service_account_request.CreateWorkspaceServiceAccountRequest = {
             "name": name,
             "grafana_role": grafana_role,
@@ -1155,7 +1258,9 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkspaceServiceAccount")
+        )
         input_: capo_grafana.types.delete_workspace_service_account_request.DeleteWorkspaceServiceAccountRequest = {
             "service_account_id": service_account_id,
             "workspace_id": workspace_id,
@@ -1211,7 +1316,9 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkspaceServiceAccounts")
+        )
         input_: capo_grafana.types.list_workspace_service_accounts_request.ListWorkspaceServiceAccountsRequest = {
             "workspace_id": workspace_id
         }
@@ -1296,7 +1403,21 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.create_workspace_service_account_token_response.CreateWorkspaceServiceAccountTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.create_workspace_service_account_token_response
+
+            return capo_grafana.types.create_workspace_service_account_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateWorkspaceServiceAccountToken", redact_output=_redact_output
+            ),
+        )
         input_: capo_grafana.types.create_workspace_service_account_token_request.CreateWorkspaceServiceAccountTokenRequest = {
             "name": name,
             "seconds_to_live": seconds_to_live,
@@ -1352,7 +1473,9 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkspaceServiceAccountToken")
+        )
         input_: capo_grafana.types.delete_workspace_service_account_token_request.DeleteWorkspaceServiceAccountTokenRequest = {
             "token_id": token_id,
             "service_account_id": service_account_id,
@@ -1411,7 +1534,9 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkspaceServiceAccountTokens")
+        )
         input_: capo_grafana.types.list_workspace_service_account_tokens_request.ListWorkspaceServiceAccountTokensRequest = {
             "service_account_id": service_account_id,
             "workspace_id": workspace_id,
@@ -1554,7 +1679,28 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_grafana.types.create_workspace_request.CreateWorkspaceRequest",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.create_workspace_request
+
+            return capo_grafana.types.create_workspace_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_grafana.types.create_workspace_response.CreateWorkspaceResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.create_workspace_response
+
+            return capo_grafana.types.create_workspace_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateWorkspace",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_grafana.types.create_workspace_request.CreateWorkspaceRequest = {
             "account_access_type": account_access_type,
             "permission_type": permission_type,
@@ -1639,7 +1785,19 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.describe_workspace_response.DescribeWorkspaceResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.describe_workspace_response
+
+            return capo_grafana.types.describe_workspace_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeWorkspace", redact_output=_redact_output),
+        )
         input_: capo_grafana.types.describe_workspace_request.DescribeWorkspaceRequest = {
             "workspace_id": workspace_id
         }
@@ -1744,7 +1902,28 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_grafana.types.update_workspace_request.UpdateWorkspaceRequest",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.update_workspace_request
+
+            return capo_grafana.types.update_workspace_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_grafana.types.update_workspace_response.UpdateWorkspaceResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.update_workspace_response
+
+            return capo_grafana.types.update_workspace_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateWorkspace",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_grafana.types.update_workspace_request.UpdateWorkspaceRequest = {
             "workspace_id": workspace_id
         }
@@ -1827,7 +2006,17 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.delete_workspace_response.DeleteWorkspaceResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.delete_workspace_response
+
+            return capo_grafana.types.delete_workspace_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteWorkspace", redact_output=_redact_output),
+        )
         input_: capo_grafana.types.delete_workspace_request.DeleteWorkspaceRequest = {
             "workspace_id": workspace_id
         }
@@ -1877,7 +2066,17 @@ class AsyncgrafanaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.list_workspaces_response.ListWorkspacesResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.list_workspaces_response
+
+            return capo_grafana.types.list_workspaces_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListWorkspaces", redact_output=_redact_output),
+        )
         input_: capo_grafana.types.list_workspaces_request.ListWorkspacesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

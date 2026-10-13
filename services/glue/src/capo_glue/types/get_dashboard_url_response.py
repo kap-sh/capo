@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glue#GetDashboardUrlResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -28,4 +28,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetDashboardUrlResponse:
         out["url"] = data["Url"]
     else:
         raise DeserializationError("GetDashboardUrlResponse.url required")
+    return out
+
+
+def redact_sensitive(value: GetDashboardUrlResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "url" in value:
+        out["url"] = "*** Sensitive Data Redacted ***"
     return out

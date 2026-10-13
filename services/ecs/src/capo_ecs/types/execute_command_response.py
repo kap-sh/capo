@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ecs#ExecuteCommandResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -64,4 +64,13 @@ def deserialize_aws_json_1_1(data: dict) -> ExecuteCommandResponse:
         )
     if data.get("taskArn") is not None:
         out["task_arn"] = data["taskArn"]
+    return out
+
+
+def redact_sensitive(value: ExecuteCommandResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "session" in value:
+        import capo_ecs.types.session
+
+        out["session"] = capo_ecs.types.session.redact_sensitive(value["session"])
     return out

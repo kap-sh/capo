@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#CalculateRoutesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -74,4 +74,15 @@ def deserialize_json(data: dict) -> CalculateRoutesResponse:
         )
     else:
         raise DeserializationError("CalculateRoutesResponse.routes required")
+    return out
+
+
+def redact_sensitive(value: CalculateRoutesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "routes" in value:
+        import capo_geo_routes.types.route_list
+
+        out["routes"] = capo_geo_routes.types.route_list.redact_sensitive(
+            value["routes"]
+        )
     return out

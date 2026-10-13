@@ -21,10 +21,12 @@ from capo_customer_profiles._pagination import resolve_path as _resolve_path
 from capo_customer_profiles._services._aws_config import aws_config
 from capo_customer_profiles._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -447,7 +449,9 @@ class CustomerProfilesClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[CustomerProfilesClientConfig] = None
+        self,
+        config_overrides: Optional[CustomerProfilesClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: CustomerProfilesClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -455,8 +459,10 @@ class CustomerProfilesClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -515,7 +521,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddProfileKey")
+        )
         input_: capo_customer_profiles.types.add_profile_key_request.AddProfileKeyRequest = {
             "profile_id": profile_id,
             "key_name": key_name,
@@ -569,7 +577,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateStreamForSegments")
+        )
         input_: capo_customer_profiles.types.associate_stream_for_segments_request.AssociateStreamForSegmentsRequest = {
             "domain_name": domain_name,
             "destination_arn": destination_arn,
@@ -626,7 +636,32 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.batch_get_calculated_attribute_for_profile_request.BatchGetCalculatedAttributeForProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.batch_get_calculated_attribute_for_profile_request
+
+            return capo_customer_profiles.types.batch_get_calculated_attribute_for_profile_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_customer_profiles.types.batch_get_calculated_attribute_for_profile_response.BatchGetCalculatedAttributeForProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.batch_get_calculated_attribute_for_profile_response
+
+            return capo_customer_profiles.types.batch_get_calculated_attribute_for_profile_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchGetCalculatedAttributeForProfile",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_customer_profiles.types.batch_get_calculated_attribute_for_profile_request.BatchGetCalculatedAttributeForProfileRequest = {
             "calculated_attribute_name": calculated_attribute_name,
             "domain_name": domain_name,
@@ -679,7 +714,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.batch_get_profile_response.BatchGetProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.batch_get_profile_response
+
+            return capo_customer_profiles.types.batch_get_profile_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetProfile", redact_output=_redact_output),
+        )
         input_: capo_customer_profiles.types.batch_get_profile_request.BatchGetProfileRequest = {
             "domain_name": domain_name,
             "profile_ids": profile_ids,
@@ -731,7 +778,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.batch_put_profile_object_request.BatchPutProfileObjectRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.batch_put_profile_object_request
+
+            return capo_customer_profiles.types.batch_put_profile_object_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchPutProfileObject", redact_input=_redact_input),
+        )
         input_: capo_customer_profiles.types.batch_put_profile_object_request.BatchPutProfileObjectRequest = {
             "domain_name": domain_name,
             "object_type_name": object_type_name,
@@ -806,7 +865,32 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.create_calculated_attribute_definition_request.CreateCalculatedAttributeDefinitionRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.create_calculated_attribute_definition_request
+
+            return capo_customer_profiles.types.create_calculated_attribute_definition_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_customer_profiles.types.create_calculated_attribute_definition_response.CreateCalculatedAttributeDefinitionResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.create_calculated_attribute_definition_response
+
+            return capo_customer_profiles.types.create_calculated_attribute_definition_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateCalculatedAttributeDefinition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_customer_profiles.types.create_calculated_attribute_definition_request.CreateCalculatedAttributeDefinitionRequest = {
             "domain_name": domain_name,
             "calculated_attribute_name": calculated_attribute_name,
@@ -892,7 +976,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDomain")
+        )
         input_: capo_customer_profiles.types.create_domain_request.CreateDomainRequest = {
             "domain_name": domain_name,
             "default_expiration_days": default_expiration_days,
@@ -966,7 +1052,32 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.create_domain_layout_request.CreateDomainLayoutRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.create_domain_layout_request
+
+            return capo_customer_profiles.types.create_domain_layout_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_customer_profiles.types.create_domain_layout_response.CreateDomainLayoutResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.create_domain_layout_response
+
+            return capo_customer_profiles.types.create_domain_layout_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDomainLayout",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_customer_profiles.types.create_domain_layout_request.CreateDomainLayoutRequest = {
             "domain_name": domain_name,
             "layout_definition_name": layout_definition_name,
@@ -1028,7 +1139,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEventStream")
+        )
         input_: capo_customer_profiles.types.create_event_stream_request.CreateEventStreamRequest = {
             "domain_name": domain_name,
             "uri": uri,
@@ -1097,7 +1210,32 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.create_event_trigger_request.CreateEventTriggerRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.create_event_trigger_request
+
+            return capo_customer_profiles.types.create_event_trigger_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_customer_profiles.types.create_event_trigger_response.CreateEventTriggerResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.create_event_trigger_response
+
+            return capo_customer_profiles.types.create_event_trigger_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateEventTrigger",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_customer_profiles.types.create_event_trigger_request.CreateEventTriggerRequest = {
             "domain_name": domain_name,
             "event_trigger_name": event_trigger_name,
@@ -1165,7 +1303,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.create_integration_workflow_request.CreateIntegrationWorkflowRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.create_integration_workflow_request
+
+            return capo_customer_profiles.types.create_integration_workflow_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateIntegrationWorkflow", redact_input=_redact_input),
+        )
         input_: capo_customer_profiles.types.create_integration_workflow_request.CreateIntegrationWorkflowRequest = {
             "domain_name": domain_name,
             "workflow_type": workflow_type,
@@ -1314,7 +1464,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.create_profile_request.CreateProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.create_profile_request
+
+            return capo_customer_profiles.types.create_profile_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateProfile", redact_input=_redact_input),
+        )
         input_: capo_customer_profiles.types.create_profile_request.CreateProfileRequest = {
             "domain_name": domain_name
         }
@@ -1429,7 +1591,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.create_recommender_request.CreateRecommenderRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.create_recommender_request
+
+            return capo_customer_profiles.types.create_recommender_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateRecommender", redact_input=_redact_input),
+        )
         input_: capo_customer_profiles.types.create_recommender_request.CreateRecommenderRequest = {
             "domain_name": domain_name,
             "recommender_name": recommender_name,
@@ -1500,7 +1674,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.create_recommender_filter_request.CreateRecommenderFilterRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.create_recommender_filter_request
+
+            return capo_customer_profiles.types.create_recommender_filter_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateRecommenderFilter", redact_input=_redact_input),
+        )
         input_: capo_customer_profiles.types.create_recommender_filter_request.CreateRecommenderFilterRequest = {
             "domain_name": domain_name,
             "recommender_filter_name": recommender_filter_name,
@@ -1561,7 +1747,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRecommenderSchema")
+        )
         input_: capo_customer_profiles.types.create_recommender_schema_request.CreateRecommenderSchemaRequest = {
             "domain_name": domain_name,
             "recommender_schema_name": recommender_schema_name,
@@ -1634,7 +1822,32 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.create_segment_definition_request.CreateSegmentDefinitionRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.create_segment_definition_request
+
+            return capo_customer_profiles.types.create_segment_definition_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_customer_profiles.types.create_segment_definition_response.CreateSegmentDefinitionResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.create_segment_definition_response
+
+            return capo_customer_profiles.types.create_segment_definition_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateSegmentDefinition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_customer_profiles.types.create_segment_definition_request.CreateSegmentDefinitionRequest = {
             "domain_name": domain_name,
             "segment_definition_name": segment_definition_name,
@@ -1701,7 +1914,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.create_segment_estimate_request.CreateSegmentEstimateRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.create_segment_estimate_request
+
+            return capo_customer_profiles.types.create_segment_estimate_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateSegmentEstimate", redact_input=_redact_input),
+        )
         input_: capo_customer_profiles.types.create_segment_estimate_request.CreateSegmentEstimateRequest = {
             "domain_name": domain_name
         }
@@ -1766,7 +1991,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSegmentSnapshot")
+        )
         input_: capo_customer_profiles.types.create_segment_snapshot_request.CreateSegmentSnapshotRequest = {
             "domain_name": domain_name,
             "segment_definition_name": segment_definition_name,
@@ -1831,7 +2058,21 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.create_upload_job_request.CreateUploadJobRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.create_upload_job_request
+
+            return (
+                capo_customer_profiles.types.create_upload_job_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateUploadJob", redact_input=_redact_input),
+        )
         input_: capo_customer_profiles.types.create_upload_job_request.CreateUploadJobRequest = {
             "domain_name": domain_name,
             "display_name": display_name,
@@ -1885,7 +2126,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCalculatedAttributeDefinition")
+        )
         input_: capo_customer_profiles.types.delete_calculated_attribute_definition_request.DeleteCalculatedAttributeDefinitionRequest = {
             "domain_name": domain_name,
             "calculated_attribute_name": calculated_attribute_name,
@@ -1933,7 +2176,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomain")
+        )
         input_: capo_customer_profiles.types.delete_domain_request.DeleteDomainRequest = {
             "domain_name": domain_name
         }
@@ -1982,7 +2227,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomainLayout")
+        )
         input_: capo_customer_profiles.types.delete_domain_layout_request.DeleteDomainLayoutRequest = {
             "domain_name": domain_name,
             "layout_definition_name": layout_definition_name,
@@ -2032,7 +2279,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomainObjectType")
+        )
         input_: capo_customer_profiles.types.delete_domain_object_type_request.DeleteDomainObjectTypeRequest = {
             "domain_name": domain_name,
             "object_type_name": object_type_name,
@@ -2082,7 +2331,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEventStream")
+        )
         input_: capo_customer_profiles.types.delete_event_stream_request.DeleteEventStreamRequest = {
             "domain_name": domain_name,
             "event_stream_name": event_stream_name,
@@ -2132,7 +2383,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEventTrigger")
+        )
         input_: capo_customer_profiles.types.delete_event_trigger_request.DeleteEventTriggerRequest = {
             "domain_name": domain_name,
             "event_trigger_name": event_trigger_name,
@@ -2182,7 +2435,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIntegration")
+        )
         input_: capo_customer_profiles.types.delete_integration_request.DeleteIntegrationRequest = {
             "domain_name": domain_name,
             "uri": uri,
@@ -2232,7 +2487,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProfile")
+        )
         input_: capo_customer_profiles.types.delete_profile_request.DeleteProfileRequest = {
             "profile_id": profile_id,
             "domain_name": domain_name,
@@ -2286,7 +2543,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProfileKey")
+        )
         input_: capo_customer_profiles.types.delete_profile_key_request.DeleteProfileKeyRequest = {
             "profile_id": profile_id,
             "key_name": key_name,
@@ -2342,7 +2601,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProfileObject")
+        )
         input_: capo_customer_profiles.types.delete_profile_object_request.DeleteProfileObjectRequest = {
             "profile_id": profile_id,
             "profile_object_unique_key": profile_object_unique_key,
@@ -2394,7 +2655,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProfileObjectType")
+        )
         input_: capo_customer_profiles.types.delete_profile_object_type_request.DeleteProfileObjectTypeRequest = {
             "domain_name": domain_name,
             "object_type_name": object_type_name,
@@ -2444,7 +2707,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRecommender")
+        )
         input_: capo_customer_profiles.types.delete_recommender_request.DeleteRecommenderRequest = {
             "domain_name": domain_name,
             "recommender_name": recommender_name,
@@ -2494,7 +2759,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRecommenderFilter")
+        )
         input_: capo_customer_profiles.types.delete_recommender_filter_request.DeleteRecommenderFilterRequest = {
             "domain_name": domain_name,
             "recommender_filter_name": recommender_filter_name,
@@ -2544,7 +2811,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRecommenderSchema")
+        )
         input_: capo_customer_profiles.types.delete_recommender_schema_request.DeleteRecommenderSchemaRequest = {
             "domain_name": domain_name,
             "recommender_schema_name": recommender_schema_name,
@@ -2594,7 +2863,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSegmentDefinition")
+        )
         input_: capo_customer_profiles.types.delete_segment_definition_request.DeleteSegmentDefinitionRequest = {
             "domain_name": domain_name,
             "segment_definition_name": segment_definition_name,
@@ -2644,7 +2915,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSegmentSubscription")
+        )
         input_: capo_customer_profiles.types.delete_segment_subscription_request.DeleteSegmentSubscriptionRequest = {
             "domain_name": domain_name,
             "segment_definition_name": segment_definition_name,
@@ -2694,7 +2967,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflow")
+        )
         input_: capo_customer_profiles.types.delete_workflow_request.DeleteWorkflowRequest = {
             "domain_name": domain_name,
             "workflow_id": workflow_id,
@@ -2744,7 +3019,32 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.detect_profile_object_type_request.DetectProfileObjectTypeRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.detect_profile_object_type_request
+
+            return capo_customer_profiles.types.detect_profile_object_type_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_customer_profiles.types.detect_profile_object_type_response.DetectProfileObjectTypeResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.detect_profile_object_type_response
+
+            return capo_customer_profiles.types.detect_profile_object_type_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DetectProfileObjectType",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_customer_profiles.types.detect_profile_object_type_request.DetectProfileObjectTypeRequest = {
             "objects": objects,
             "domain_name": domain_name,
@@ -2792,7 +3092,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateStreamForSegments")
+        )
         input_: capo_customer_profiles.types.disassociate_stream_for_segments_request.DisassociateStreamForSegmentsRequest = {
             "domain_name": domain_name
         }
@@ -2847,7 +3149,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAutoMergingPreview")
+        )
         input_: capo_customer_profiles.types.get_auto_merging_preview_request.GetAutoMergingPreviewRequest = {
             "domain_name": domain_name,
             "consolidation": consolidation,
@@ -2902,7 +3206,21 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.get_calculated_attribute_definition_response.GetCalculatedAttributeDefinitionResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.get_calculated_attribute_definition_response
+
+            return capo_customer_profiles.types.get_calculated_attribute_definition_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetCalculatedAttributeDefinition", redact_output=_redact_output
+            ),
+        )
         input_: capo_customer_profiles.types.get_calculated_attribute_definition_request.GetCalculatedAttributeDefinitionRequest = {
             "domain_name": domain_name,
             "calculated_attribute_name": calculated_attribute_name,
@@ -2954,7 +3272,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCalculatedAttributeForProfile")
+        )
         input_: capo_customer_profiles.types.get_calculated_attribute_for_profile_request.GetCalculatedAttributeForProfileRequest = {
             "domain_name": domain_name,
             "profile_id": profile_id,
@@ -3003,7 +3323,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomain")
+        )
         input_: capo_customer_profiles.types.get_domain_request.GetDomainRequest = {
             "domain_name": domain_name
         }
@@ -3052,7 +3374,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.get_domain_layout_response.GetDomainLayoutResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.get_domain_layout_response
+
+            return capo_customer_profiles.types.get_domain_layout_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDomainLayout", redact_output=_redact_output),
+        )
         input_: capo_customer_profiles.types.get_domain_layout_request.GetDomainLayoutRequest = {
             "domain_name": domain_name,
             "layout_definition_name": layout_definition_name,
@@ -3102,7 +3436,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.get_domain_object_type_response.GetDomainObjectTypeResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.get_domain_object_type_response
+
+            return capo_customer_profiles.types.get_domain_object_type_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDomainObjectType", redact_output=_redact_output),
+        )
         input_: capo_customer_profiles.types.get_domain_object_type_request.GetDomainObjectTypeRequest = {
             "domain_name": domain_name,
             "object_type_name": object_type_name,
@@ -3154,7 +3500,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEventStream")
+        )
         input_: capo_customer_profiles.types.get_event_stream_request.GetEventStreamRequest = {
             "domain_name": domain_name,
             "event_stream_name": event_stream_name,
@@ -3204,7 +3552,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.get_event_trigger_response.GetEventTriggerResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.get_event_trigger_response
+
+            return capo_customer_profiles.types.get_event_trigger_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetEventTrigger", redact_output=_redact_output),
+        )
         input_: capo_customer_profiles.types.get_event_trigger_request.GetEventTriggerRequest = {
             "domain_name": domain_name,
             "event_trigger_name": event_trigger_name,
@@ -3254,7 +3614,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIdentityResolutionJob")
+        )
         input_: capo_customer_profiles.types.get_identity_resolution_job_request.GetIdentityResolutionJobRequest = {
             "domain_name": domain_name,
             "job_id": job_id,
@@ -3304,7 +3666,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIntegration")
+        )
         input_: capo_customer_profiles.types.get_integration_request.GetIntegrationRequest = {
             "domain_name": domain_name,
             "uri": uri,
@@ -3358,7 +3722,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMatches")
+        )
         input_: capo_customer_profiles.types.get_matches_request.GetMatchesRequest = {
             "domain_name": domain_name
         }
@@ -3413,7 +3779,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetObjectTypeAttributeStatistics")
+        )
         input_: capo_customer_profiles.types.get_object_type_attribute_statistics_request.GetObjectTypeAttributeStatisticsRequest = {
             "domain_name": domain_name,
             "object_type_name": object_type_name,
@@ -3466,7 +3834,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.get_profile_history_record_response.GetProfileHistoryRecordResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.get_profile_history_record_response
+
+            return capo_customer_profiles.types.get_profile_history_record_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetProfileHistoryRecord", redact_output=_redact_output),
+        )
         input_: capo_customer_profiles.types.get_profile_history_record_request.GetProfileHistoryRecordRequest = {
             "domain_name": domain_name,
             "profile_id": profile_id,
@@ -3517,7 +3897,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.get_profile_object_type_response.GetProfileObjectTypeResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.get_profile_object_type_response
+
+            return capo_customer_profiles.types.get_profile_object_type_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetProfileObjectType", redact_output=_redact_output),
+        )
         input_: capo_customer_profiles.types.get_profile_object_type_request.GetProfileObjectTypeRequest = {
             "domain_name": domain_name,
             "object_type_name": object_type_name,
@@ -3565,7 +3957,21 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.get_profile_object_type_template_response.GetProfileObjectTypeTemplateResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.get_profile_object_type_template_response
+
+            return capo_customer_profiles.types.get_profile_object_type_template_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetProfileObjectTypeTemplate", redact_output=_redact_output
+            ),
+        )
         input_: capo_customer_profiles.types.get_profile_object_type_template_request.GetProfileObjectTypeTemplateRequest = {
             "template_id": template_id
         }
@@ -3644,7 +4050,32 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.get_profile_recommendations_request.GetProfileRecommendationsRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.get_profile_recommendations_request
+
+            return capo_customer_profiles.types.get_profile_recommendations_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_customer_profiles.types.get_profile_recommendations_response.GetProfileRecommendationsResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.get_profile_recommendations_response
+
+            return capo_customer_profiles.types.get_profile_recommendations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetProfileRecommendations",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_customer_profiles.types.get_profile_recommendations_request.GetProfileRecommendationsRequest = {
             "domain_name": domain_name,
             "profile_id": profile_id,
@@ -3713,7 +4144,21 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.get_recommender_response.GetRecommenderResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.get_recommender_response
+
+            return (
+                capo_customer_profiles.types.get_recommender_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetRecommender", redact_output=_redact_output),
+        )
         input_: capo_customer_profiles.types.get_recommender_request.GetRecommenderRequest = {
             "domain_name": domain_name,
             "recommender_name": recommender_name,
@@ -3765,7 +4210,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.get_recommender_filter_response.GetRecommenderFilterResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.get_recommender_filter_response
+
+            return capo_customer_profiles.types.get_recommender_filter_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetRecommenderFilter", redact_output=_redact_output),
+        )
         input_: capo_customer_profiles.types.get_recommender_filter_request.GetRecommenderFilterRequest = {
             "domain_name": domain_name,
             "recommender_filter_name": recommender_filter_name,
@@ -3815,7 +4272,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRecommenderSchema")
+        )
         input_: capo_customer_profiles.types.get_recommender_schema_request.GetRecommenderSchemaRequest = {
             "domain_name": domain_name,
             "recommender_schema_name": recommender_schema_name,
@@ -3865,7 +4324,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.get_segment_definition_response.GetSegmentDefinitionResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.get_segment_definition_response
+
+            return capo_customer_profiles.types.get_segment_definition_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSegmentDefinition", redact_output=_redact_output),
+        )
         input_: capo_customer_profiles.types.get_segment_definition_request.GetSegmentDefinitionRequest = {
             "domain_name": domain_name,
             "segment_definition_name": segment_definition_name,
@@ -3915,7 +4386,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSegmentEstimate")
+        )
         input_: capo_customer_profiles.types.get_segment_estimate_request.GetSegmentEstimateRequest = {
             "domain_name": domain_name,
             "estimate_id": estimate_id,
@@ -3967,7 +4440,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.get_segment_membership_response.GetSegmentMembershipResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.get_segment_membership_response
+
+            return capo_customer_profiles.types.get_segment_membership_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSegmentMembership", redact_output=_redact_output),
+        )
         input_: capo_customer_profiles.types.get_segment_membership_request.GetSegmentMembershipRequest = {
             "domain_name": domain_name,
             "segment_definition_name": segment_definition_name,
@@ -4020,7 +4505,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSegmentSnapshot")
+        )
         input_: capo_customer_profiles.types.get_segment_snapshot_request.GetSegmentSnapshotRequest = {
             "domain_name": domain_name,
             "segment_definition_name": segment_definition_name,
@@ -4071,7 +4558,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSegmentSubscription")
+        )
         input_: capo_customer_profiles.types.get_segment_subscription_request.GetSegmentSubscriptionRequest = {
             "domain_name": domain_name,
             "segment_definition_name": segment_definition_name,
@@ -4131,7 +4620,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSimilarProfiles")
+        )
         input_: capo_customer_profiles.types.get_similar_profiles_request.GetSimilarProfilesRequest = {
             "domain_name": domain_name,
             "match_type": match_type,
@@ -4216,7 +4707,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStreamForSegments")
+        )
         input_: capo_customer_profiles.types.get_stream_for_segments_request.GetStreamForSegmentsRequest = {
             "domain_name": domain_name
         }
@@ -4265,7 +4758,21 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.get_upload_job_response.GetUploadJobResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.get_upload_job_response
+
+            return (
+                capo_customer_profiles.types.get_upload_job_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetUploadJob", redact_output=_redact_output),
+        )
         input_: capo_customer_profiles.types.get_upload_job_request.GetUploadJobRequest = {
             "domain_name": domain_name,
             "job_id": job_id,
@@ -4315,7 +4822,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUploadJobPath")
+        )
         input_: capo_customer_profiles.types.get_upload_job_path_request.GetUploadJobPathRequest = {
             "domain_name": domain_name,
             "job_id": job_id,
@@ -4365,7 +4874,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkflow")
+        )
         input_: capo_customer_profiles.types.get_workflow_request.GetWorkflowRequest = {
             "domain_name": domain_name,
             "workflow_id": workflow_id,
@@ -4421,7 +4932,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkflowSteps")
+        )
         input_: capo_customer_profiles.types.get_workflow_steps_request.GetWorkflowStepsRequest = {
             "domain_name": domain_name,
             "workflow_id": workflow_id,
@@ -4483,7 +4996,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccountIntegrations")
+        )
         input_: capo_customer_profiles.types.list_account_integrations_request.ListAccountIntegrationsRequest = {
             "uri": uri
         }
@@ -4542,7 +5057,21 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.list_calculated_attribute_definitions_response.ListCalculatedAttributeDefinitionsResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.list_calculated_attribute_definitions_response
+
+            return capo_customer_profiles.types.list_calculated_attribute_definitions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListCalculatedAttributeDefinitions", redact_output=_redact_output
+            ),
+        )
         input_: capo_customer_profiles.types.list_calculated_attribute_definitions_request.ListCalculatedAttributeDefinitionsRequest = {
             "domain_name": domain_name
         }
@@ -4601,7 +5130,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCalculatedAttributesForProfile")
+        )
         input_: capo_customer_profiles.types.list_calculated_attributes_for_profile_request.ListCalculatedAttributesForProfileRequest = {
             "domain_name": domain_name,
             "profile_id": profile_id,
@@ -4659,7 +5190,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.list_domain_layouts_response.ListDomainLayoutsResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.list_domain_layouts_response
+
+            return capo_customer_profiles.types.list_domain_layouts_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListDomainLayouts", redact_output=_redact_output),
+        )
         input_: capo_customer_profiles.types.list_domain_layouts_request.ListDomainLayoutsRequest = {
             "domain_name": domain_name
         }
@@ -4741,7 +5284,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.list_domain_object_types_response.ListDomainObjectTypesResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.list_domain_object_types_response
+
+            return capo_customer_profiles.types.list_domain_object_types_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListDomainObjectTypes", redact_output=_redact_output),
+        )
         input_: capo_customer_profiles.types.list_domain_object_types_request.ListDomainObjectTypesRequest = {
             "domain_name": domain_name
         }
@@ -4821,7 +5376,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomains")
+        )
         input_: capo_customer_profiles.types.list_domains_request.ListDomainsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4876,7 +5433,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEventStreams")
+        )
         input_: capo_customer_profiles.types.list_event_streams_request.ListEventStreamsRequest = {
             "domain_name": domain_name
         }
@@ -4960,7 +5519,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.list_event_triggers_response.ListEventTriggersResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.list_event_triggers_response
+
+            return capo_customer_profiles.types.list_event_triggers_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListEventTriggers", redact_output=_redact_output),
+        )
         input_: capo_customer_profiles.types.list_event_triggers_request.ListEventTriggersRequest = {
             "domain_name": domain_name
         }
@@ -5042,7 +5613,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIdentityResolutionJobs")
+        )
         input_: capo_customer_profiles.types.list_identity_resolution_jobs_request.ListIdentityResolutionJobsRequest = {
             "domain_name": domain_name
         }
@@ -5103,7 +5676,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIntegrations")
+        )
         input_: capo_customer_profiles.types.list_integrations_request.ListIntegrationsRequest = {
             "domain_name": domain_name
         }
@@ -5164,7 +5739,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListObjectTypeAttributes")
+        )
         input_: capo_customer_profiles.types.list_object_type_attributes_request.ListObjectTypeAttributesRequest = {
             "domain_name": domain_name,
             "object_type_name": object_type_name,
@@ -5253,7 +5830,21 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.list_object_type_attribute_values_response.ListObjectTypeAttributeValuesResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.list_object_type_attribute_values_response
+
+            return capo_customer_profiles.types.list_object_type_attribute_values_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListObjectTypeAttributeValues", redact_output=_redact_output
+            ),
+        )
         input_: capo_customer_profiles.types.list_object_type_attribute_values_request.ListObjectTypeAttributeValuesRequest = {
             "domain_name": domain_name,
             "object_type_name": object_type_name,
@@ -5308,7 +5899,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProfileAttributeValues")
+        )
         input_: capo_customer_profiles.types.profile_attribute_values_request.ProfileAttributeValuesRequest = {
             "domain_name": domain_name,
             "attribute_name": attribute_name,
@@ -5376,7 +5969,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProfileHistoryRecords")
+        )
         input_: capo_customer_profiles.types.list_profile_history_records_request.ListProfileHistoryRecordsRequest = {
             "domain_name": domain_name,
             "profile_id": profile_id,
@@ -5448,7 +6043,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.list_profile_objects_response.ListProfileObjectsResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.list_profile_objects_response
+
+            return capo_customer_profiles.types.list_profile_objects_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListProfileObjects", redact_output=_redact_output),
+        )
         input_: capo_customer_profiles.types.list_profile_objects_request.ListProfileObjectsRequest = {
             "domain_name": domain_name,
             "object_type_name": object_type_name,
@@ -5509,7 +6116,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.list_profile_object_types_response.ListProfileObjectTypesResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.list_profile_object_types_response
+
+            return capo_customer_profiles.types.list_profile_object_types_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListProfileObjectTypes", redact_output=_redact_output),
+        )
         input_: capo_customer_profiles.types.list_profile_object_types_request.ListProfileObjectTypesRequest = {
             "domain_name": domain_name
         }
@@ -5564,7 +6183,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProfileObjectTypeTemplates")
+        )
         input_: capo_customer_profiles.types.list_profile_object_type_templates_request.ListProfileObjectTypeTemplatesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -5619,7 +6240,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.list_recommender_filters_response.ListRecommenderFiltersResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.list_recommender_filters_response
+
+            return capo_customer_profiles.types.list_recommender_filters_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListRecommenderFilters", redact_output=_redact_output),
+        )
         input_: capo_customer_profiles.types.list_recommender_filters_request.ListRecommenderFiltersRequest = {
             "domain_name": domain_name
         }
@@ -5698,7 +6331,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecommenderRecipes")
+        )
         input_: capo_customer_profiles.types.list_recommender_recipes_request.ListRecommenderRecipesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -5776,7 +6411,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.list_recommenders_response.ListRecommendersResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.list_recommenders_response
+
+            return capo_customer_profiles.types.list_recommenders_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListRecommenders", redact_output=_redact_output),
+        )
         input_: capo_customer_profiles.types.list_recommenders_request.ListRecommendersRequest = {
             "domain_name": domain_name
         }
@@ -5860,7 +6507,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecommenderSchemas")
+        )
         input_: capo_customer_profiles.types.list_recommender_schemas_request.ListRecommenderSchemasRequest = {
             "domain_name": domain_name
         }
@@ -5942,7 +6591,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRuleBasedMatches")
+        )
         input_: capo_customer_profiles.types.list_rule_based_matches_request.ListRuleBasedMatchesRequest = {
             "domain_name": domain_name
         }
@@ -6024,7 +6675,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.list_segment_definitions_response.ListSegmentDefinitionsResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.list_segment_definitions_response
+
+            return capo_customer_profiles.types.list_segment_definitions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListSegmentDefinitions", redact_output=_redact_output),
+        )
         input_: capo_customer_profiles.types.list_segment_definitions_request.ListSegmentDefinitionsRequest = {
             "domain_name": domain_name
         }
@@ -6108,7 +6771,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSegmentSubscriptionEvents")
+        )
         input_: capo_customer_profiles.types.list_segment_subscription_events_request.ListSegmentSubscriptionEventsRequest = {
             "domain_name": domain_name,
             "segment_definition_name": segment_definition_name,
@@ -6185,7 +6850,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_customer_profiles.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -6240,7 +6907,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUploadJobs")
+        )
         input_: capo_customer_profiles.types.list_upload_jobs_request.ListUploadJobsRequest = {
             "domain_name": domain_name
         }
@@ -6336,7 +7005,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkflows")
+        )
         input_: capo_customer_profiles.types.list_workflows_request.ListWorkflowsRequest = {
             "domain_name": domain_name
         }
@@ -6402,7 +7073,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("MergeProfiles")
+        )
         input_: capo_customer_profiles.types.merge_profiles_request.MergeProfilesRequest = {
             "domain_name": domain_name,
             "main_profile_id": main_profile_id,
@@ -6467,7 +7140,32 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.put_domain_object_type_request.PutDomainObjectTypeRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.put_domain_object_type_request
+
+            return capo_customer_profiles.types.put_domain_object_type_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_customer_profiles.types.put_domain_object_type_response.PutDomainObjectTypeResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.put_domain_object_type_response
+
+            return capo_customer_profiles.types.put_domain_object_type_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutDomainObjectType",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_customer_profiles.types.put_domain_object_type_request.PutDomainObjectTypeRequest = {
             "domain_name": domain_name,
             "object_type_name": object_type_name,
@@ -6546,7 +7244,21 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.put_integration_request.PutIntegrationRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.put_integration_request
+
+            return (
+                capo_customer_profiles.types.put_integration_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutIntegration", redact_input=_redact_input),
+        )
         input_: capo_customer_profiles.types.put_integration_request.PutIntegrationRequest = {
             "domain_name": domain_name
         }
@@ -6613,7 +7325,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.put_profile_object_request.PutProfileObjectRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.put_profile_object_request
+
+            return capo_customer_profiles.types.put_profile_object_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutProfileObject", redact_input=_redact_input),
+        )
         input_: capo_customer_profiles.types.put_profile_object_request.PutProfileObjectRequest = {
             "object_type_name": object_type_name,
             "object": object,
@@ -6698,7 +7422,32 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.put_profile_object_type_request.PutProfileObjectTypeRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.put_profile_object_type_request
+
+            return capo_customer_profiles.types.put_profile_object_type_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_customer_profiles.types.put_profile_object_type_response.PutProfileObjectTypeResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.put_profile_object_type_response
+
+            return capo_customer_profiles.types.put_profile_object_type_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutProfileObjectType",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_customer_profiles.types.put_profile_object_type_request.PutProfileObjectTypeRequest = {
             "domain_name": domain_name,
             "object_type_name": object_type_name,
@@ -6775,7 +7524,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutSegmentSubscription")
+        )
         input_: capo_customer_profiles.types.put_segment_subscription_request.PutSegmentSubscriptionRequest = {
             "domain_name": domain_name,
             "segment_definition_name": segment_definition_name,
@@ -6843,7 +7594,21 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_customer_profiles.types.search_profiles_response.SearchProfilesResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.search_profiles_response
+
+            return (
+                capo_customer_profiles.types.search_profiles_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SearchProfiles", redact_output=_redact_output),
+        )
         input_: capo_customer_profiles.types.search_profiles_request.SearchProfilesRequest = {
             "domain_name": domain_name,
             "key_name": key_name,
@@ -6926,7 +7691,32 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.search_recommendations_request.SearchRecommendationsRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.search_recommendations_request
+
+            return capo_customer_profiles.types.search_recommendations_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_customer_profiles.types.search_recommendations_response.SearchRecommendationsResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.search_recommendations_response
+
+            return capo_customer_profiles.types.search_recommendations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchRecommendations",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_customer_profiles.types.search_recommendations_request.SearchRecommendationsRequest = {
             "domain_name": domain_name,
             "key_name": key_name,
@@ -6988,7 +7778,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartRecommender")
+        )
         input_: capo_customer_profiles.types.start_recommender_request.StartRecommenderRequest = {
             "domain_name": domain_name,
             "recommender_name": recommender_name,
@@ -7040,7 +7832,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartUploadJob")
+        )
         input_: capo_customer_profiles.types.start_upload_job_request.StartUploadJobRequest = {
             "domain_name": domain_name,
             "job_id": job_id,
@@ -7092,7 +7886,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopRecommender")
+        )
         input_: capo_customer_profiles.types.stop_recommender_request.StopRecommenderRequest = {
             "domain_name": domain_name,
             "recommender_name": recommender_name,
@@ -7142,7 +7938,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopUploadJob")
+        )
         input_: capo_customer_profiles.types.stop_upload_job_request.StopUploadJobRequest = {
             "domain_name": domain_name,
             "job_id": job_id,
@@ -7190,7 +7988,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_customer_profiles.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -7238,7 +8038,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_customer_profiles.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -7300,7 +8102,32 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.update_calculated_attribute_definition_request.UpdateCalculatedAttributeDefinitionRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.update_calculated_attribute_definition_request
+
+            return capo_customer_profiles.types.update_calculated_attribute_definition_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_customer_profiles.types.update_calculated_attribute_definition_response.UpdateCalculatedAttributeDefinitionResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.update_calculated_attribute_definition_response
+
+            return capo_customer_profiles.types.update_calculated_attribute_definition_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateCalculatedAttributeDefinition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_customer_profiles.types.update_calculated_attribute_definition_request.UpdateCalculatedAttributeDefinitionRequest = {
             "domain_name": domain_name,
             "calculated_attribute_name": calculated_attribute_name,
@@ -7380,7 +8207,9 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDomain")
+        )
         input_: capo_customer_profiles.types.update_domain_request.UpdateDomainRequest = {
             "domain_name": domain_name
         }
@@ -7461,7 +8290,32 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.update_domain_layout_request.UpdateDomainLayoutRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.update_domain_layout_request
+
+            return capo_customer_profiles.types.update_domain_layout_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_customer_profiles.types.update_domain_layout_response.UpdateDomainLayoutResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.update_domain_layout_response
+
+            return capo_customer_profiles.types.update_domain_layout_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDomainLayout",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_customer_profiles.types.update_domain_layout_request.UpdateDomainLayoutRequest = {
             "domain_name": domain_name,
             "layout_definition_name": layout_definition_name,
@@ -7539,7 +8393,32 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.update_event_trigger_request.UpdateEventTriggerRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.update_event_trigger_request
+
+            return capo_customer_profiles.types.update_event_trigger_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_customer_profiles.types.update_event_trigger_response.UpdateEventTriggerResponse",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.update_event_trigger_response
+
+            return capo_customer_profiles.types.update_event_trigger_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateEventTrigger",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_customer_profiles.types.update_event_trigger_request.UpdateEventTriggerRequest = {
             "domain_name": domain_name,
             "event_trigger_name": event_trigger_name,
@@ -7697,7 +8576,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.update_profile_request.UpdateProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.update_profile_request
+
+            return capo_customer_profiles.types.update_profile_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateProfile", redact_input=_redact_input),
+        )
         input_: capo_customer_profiles.types.update_profile_request.UpdateProfileRequest = {
             "domain_name": domain_name,
             "profile_id": profile_id,
@@ -7809,7 +8700,19 @@ class CustomerProfilesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_customer_profiles.types.update_recommender_request.UpdateRecommenderRequest",
+        ) -> dict[str, Any]:
+            import capo_customer_profiles.types.update_recommender_request
+
+            return capo_customer_profiles.types.update_recommender_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateRecommender", redact_input=_redact_input),
+        )
         input_: capo_customer_profiles.types.update_recommender_request.UpdateRecommenderRequest = {
             "domain_name": domain_name,
             "recommender_name": recommender_name,

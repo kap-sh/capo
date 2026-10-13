@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#AgenticRetrieveStreamRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -159,4 +159,27 @@ def deserialize_json(data: dict) -> AgenticRetrieveStreamRequest:
         out["generate_response"] = data["generateResponse"]
     else:
         out["generate_response"] = True
+    return out
+
+
+def redact_sensitive(value: AgenticRetrieveStreamRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "messages" in value:
+        import capo_bedrock_agent_runtime.types.agentic_retrieve_messages
+
+        out["messages"] = (
+            capo_bedrock_agent_runtime.types.agentic_retrieve_messages.redact_sensitive(
+                value["messages"]
+            )
+        )
+    if "retrievers" in value:
+        import capo_bedrock_agent_runtime.types.agentic_retrievers
+
+        out["retrievers"] = (
+            capo_bedrock_agent_runtime.types.agentic_retrievers.redact_sensitive(
+                value["retrievers"]
+            )
+        )
+    if "user_context" in value:
+        out["user_context"] = "*** Sensitive Data Redacted ***"
     return out

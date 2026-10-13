@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.storagegateway#UpdateChapCredentialsInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,4 +56,13 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateChapCredentialsInput:
         raise DeserializationError("UpdateChapCredentialsInput.initiator_name required")
     if data.get("SecretToAuthenticateTarget") is not None:
         out["secret_to_authenticate_target"] = data["SecretToAuthenticateTarget"]
+    return out
+
+
+def redact_sensitive(value: UpdateChapCredentialsInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "secret_to_authenticate_initiator" in value:
+        out["secret_to_authenticate_initiator"] = "*** Sensitive Data Redacted ***"
+    if "secret_to_authenticate_target" in value:
+        out["secret_to_authenticate_target"] = "*** Sensitive Data Redacted ***"
     return out

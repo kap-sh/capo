@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SnapshotConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -72,5 +72,16 @@ def deserialize_json(data: dict) -> SnapshotConfiguration:
 
         out["parameters"] = capo_quicksight.types.parameters.deserialize_json(
             data["Parameters"]
+        )
+    return out
+
+
+def redact_sensitive(value: SnapshotConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "parameters" in value:
+        import capo_quicksight.types.parameters
+
+        out["parameters"] = capo_quicksight.types.parameters.redact_sensitive(
+            value["parameters"]
         )
     return out

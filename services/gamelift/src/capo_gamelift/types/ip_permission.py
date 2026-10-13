@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#IpPermission``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,4 +53,15 @@ def deserialize_aws_json_1_1(data: dict) -> IpPermission:
         out["protocol"] = capo_gamelift.types.ip_protocol.deserialize_aws_json_1_1(
             data["Protocol"]
         )
+    return out
+
+
+def redact_sensitive(value: IpPermission) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "from_port" in value:
+        out["from_port"] = "*** Sensitive Data Redacted ***"
+    if "to_port" in value:
+        out["to_port"] = "*** Sensitive Data Redacted ***"
+    if "ip_range" in value:
+        out["ip_range"] = "*** Sensitive Data Redacted ***"
     return out

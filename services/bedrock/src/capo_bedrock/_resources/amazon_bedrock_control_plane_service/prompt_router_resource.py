@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock._auth._signers
 import capo_bedrock._auth._sigv4
 from capo_bedrock._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -99,7 +100,19 @@ class PromptRouterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_prompt_router_request.CreatePromptRouterRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_prompt_router_request
+
+            return capo_bedrock.types.create_prompt_router_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreatePromptRouter", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.create_prompt_router_request.CreatePromptRouterRequest = {
             "prompt_router_name": prompt_router_name,
             "models": models,
@@ -156,7 +169,19 @@ class PromptRouterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_prompt_router_response.GetPromptRouterResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_prompt_router_response
+
+            return capo_bedrock.types.get_prompt_router_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetPromptRouter", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.get_prompt_router_request.GetPromptRouterRequest = {
             "prompt_router_arn": prompt_router_arn
         }
@@ -203,7 +228,9 @@ class PromptRouterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePromptRouter")
+        )
         input_: capo_bedrock.types.delete_prompt_router_request.DeletePromptRouterRequest = {
             "prompt_router_arn": prompt_router_arn
         }
@@ -255,7 +282,19 @@ class PromptRouterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.list_prompt_routers_response.ListPromptRoutersResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.list_prompt_routers_response
+
+            return capo_bedrock.types.list_prompt_routers_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListPromptRouters", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.list_prompt_routers_request.ListPromptRoutersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -331,7 +370,19 @@ class AsyncPromptRouterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_prompt_router_request.CreatePromptRouterRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_prompt_router_request
+
+            return capo_bedrock.types.create_prompt_router_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreatePromptRouter", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.create_prompt_router_request.CreatePromptRouterRequest = {
             "prompt_router_name": prompt_router_name,
             "models": models,
@@ -389,7 +440,19 @@ class AsyncPromptRouterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_prompt_router_response.GetPromptRouterResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_prompt_router_response
+
+            return capo_bedrock.types.get_prompt_router_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetPromptRouter", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.get_prompt_router_request.GetPromptRouterRequest = {
             "prompt_router_arn": prompt_router_arn
         }
@@ -437,7 +500,9 @@ class AsyncPromptRouterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePromptRouter")
+        )
         input_: capo_bedrock.types.delete_prompt_router_request.DeletePromptRouterRequest = {
             "prompt_router_arn": prompt_router_arn
         }
@@ -490,7 +555,19 @@ class AsyncPromptRouterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.list_prompt_routers_response.ListPromptRoutersResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.list_prompt_routers_response
+
+            return capo_bedrock.types.list_prompt_routers_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListPromptRouters", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.list_prompt_routers_request.ListPromptRoutersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

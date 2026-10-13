@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.voiceid#UpdateWatchlistResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateWatchlistResponse:
 
         out["watchlist"] = capo_voice_id.types.watchlist.deserialize_aws_json_1_0(
             data["Watchlist"]
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateWatchlistResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "watchlist" in value:
+        import capo_voice_id.types.watchlist
+
+        out["watchlist"] = capo_voice_id.types.watchlist.redact_sensitive(
+            value["watchlist"]
         )
     return out

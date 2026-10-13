@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glue#StatisticSummaryList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_glue.types.statistic_summary
@@ -29,3 +29,9 @@ def deserialize_aws_json_1_1(data: list) -> StatisticSummaryList:
             continue
         out.append(capo_glue.types.statistic_summary.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: StatisticSummaryList) -> list[Any]:
+    import capo_glue.types.statistic_summary
+
+    return [capo_glue.types.statistic_summary.redact_sensitive(item) for item in value]

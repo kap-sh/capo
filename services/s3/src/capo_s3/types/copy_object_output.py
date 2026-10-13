@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#CopyObjectOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -74,4 +74,13 @@ def deserialize_xml(el: Element) -> CopyObjectOutput:
         out["copy_object_result"] = capo_s3.types.copy_object_result.deserialize_xml(
             child_copy_object_result
         )
+    return out
+
+
+def redact_sensitive(value: CopyObjectOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ssekms_key_id" in value:
+        out["ssekms_key_id"] = "*** Sensitive Data Redacted ***"
+    if "ssekms_encryption_context" in value:
+        out["ssekms_encryption_context"] = "*** Sensitive Data Redacted ***"
     return out

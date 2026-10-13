@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#ViewSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -68,4 +68,11 @@ def deserialize_json(data: dict) -> ViewSummary:
         out["status"] = capo_connect.types.view_status.deserialize_json(data["Status"])
     if data.get("Description") is not None:
         out["description"] = data["Description"]
+    return out
+
+
+def redact_sensitive(value: ViewSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
     return out

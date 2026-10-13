@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#DescribeInstancePropertiesResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeInstancePropertiesResult:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: DescribeInstancePropertiesResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "instance_properties" in value:
+        import capo_ssm.types.instance_properties
+
+        out["instance_properties"] = (
+            capo_ssm.types.instance_properties.redact_sensitive(
+                value["instance_properties"]
+            )
+        )
     return out

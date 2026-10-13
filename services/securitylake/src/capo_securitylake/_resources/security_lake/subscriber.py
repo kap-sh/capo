@@ -7,6 +7,7 @@ import capo_securitylake._auth._sigv4
 from capo_securitylake._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -104,7 +105,9 @@ class Subscriber:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSubscriber")
+        )
         input_: capo_securitylake.types.create_subscriber_request.CreateSubscriberRequest = {
             "subscriber_identity": subscriber_identity,
             "subscriber_name": subscriber_name,
@@ -160,7 +163,9 @@ class Subscriber:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSubscriber")
+        )
         input_: capo_securitylake.types.get_subscriber_request.GetSubscriberRequest = {
             "subscriber_id": subscriber_id
         }
@@ -224,7 +229,9 @@ class Subscriber:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSubscriber")
+        )
         input_: capo_securitylake.types.update_subscriber_request.UpdateSubscriberRequest = {
             "subscriber_id": subscriber_id
         }
@@ -280,7 +287,9 @@ class Subscriber:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSubscriber")
+        )
         input_: capo_securitylake.types.delete_subscriber_request.DeleteSubscriberRequest = {
             "subscriber_id": subscriber_id
         }
@@ -330,7 +339,9 @@ class Subscriber:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSubscribers")
+        )
         input_: capo_securitylake.types.list_subscribers_request.ListSubscribersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -382,7 +393,9 @@ class Subscriber:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSubscriberNotification")
+        )
         input_: capo_securitylake.types.create_subscriber_notification_request.CreateSubscriberNotificationRequest = {
             "subscriber_id": subscriber_id,
             "configuration": configuration,
@@ -431,7 +444,9 @@ class Subscriber:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSubscriberNotification")
+        )
         input_: capo_securitylake.types.delete_subscriber_notification_request.DeleteSubscriberNotificationRequest = {
             "subscriber_id": subscriber_id
         }
@@ -481,7 +496,9 @@ class Subscriber:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSubscriberNotification")
+        )
         input_: capo_securitylake.types.update_subscriber_notification_request.UpdateSubscriberNotificationRequest = {
             "subscriber_id": subscriber_id,
             "configuration": configuration,
@@ -550,7 +567,9 @@ class AsyncSubscriber:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSubscriber")
+        )
         input_: capo_securitylake.types.create_subscriber_request.CreateSubscriberRequest = {
             "subscriber_identity": subscriber_identity,
             "subscriber_name": subscriber_name,
@@ -607,7 +626,9 @@ class AsyncSubscriber:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSubscriber")
+        )
         input_: capo_securitylake.types.get_subscriber_request.GetSubscriberRequest = {
             "subscriber_id": subscriber_id
         }
@@ -672,7 +693,9 @@ class AsyncSubscriber:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSubscriber")
+        )
         input_: capo_securitylake.types.update_subscriber_request.UpdateSubscriberRequest = {
             "subscriber_id": subscriber_id
         }
@@ -729,7 +752,9 @@ class AsyncSubscriber:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSubscriber")
+        )
         input_: capo_securitylake.types.delete_subscriber_request.DeleteSubscriberRequest = {
             "subscriber_id": subscriber_id
         }
@@ -780,7 +805,9 @@ class AsyncSubscriber:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSubscribers")
+        )
         input_: capo_securitylake.types.list_subscribers_request.ListSubscribersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -833,7 +860,9 @@ class AsyncSubscriber:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSubscriberNotification")
+        )
         input_: capo_securitylake.types.create_subscriber_notification_request.CreateSubscriberNotificationRequest = {
             "subscriber_id": subscriber_id,
             "configuration": configuration,
@@ -883,7 +912,9 @@ class AsyncSubscriber:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSubscriberNotification")
+        )
         input_: capo_securitylake.types.delete_subscriber_notification_request.DeleteSubscriberNotificationRequest = {
             "subscriber_id": subscriber_id
         }
@@ -934,7 +965,9 @@ class AsyncSubscriber:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSubscriberNotification")
+        )
         input_: capo_securitylake.types.update_subscriber_notification_request.UpdateSubscriberNotificationRequest = {
             "subscriber_id": subscriber_id,
             "configuration": configuration,

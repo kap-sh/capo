@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkidentity#DescribeAppInstanceUserEndpointResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> DescribeAppInstanceUserEndpointResponse:
         out["app_instance_user_endpoint"] = (
             capo_chime_sdk_identity.types.app_instance_user_endpoint.deserialize_json(
                 data["AppInstanceUserEndpoint"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeAppInstanceUserEndpointResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "app_instance_user_endpoint" in value:
+        import capo_chime_sdk_identity.types.app_instance_user_endpoint
+
+        out["app_instance_user_endpoint"] = (
+            capo_chime_sdk_identity.types.app_instance_user_endpoint.redact_sensitive(
+                value["app_instance_user_endpoint"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#PromptTemplateConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -67,3 +67,12 @@ def deserialize_json(data: dict) -> PromptTemplateConfiguration:
         raise DeserializationError(
             "PromptTemplateConfiguration: no recognized variant key"
         )
+
+
+def redact_sensitive(value: PromptTemplateConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text" in value:
+        out["text"] = "*** Sensitive Data Redacted ***"
+    if "chat" in value:
+        out["chat"] = "*** Sensitive Data Redacted ***"
+    return out

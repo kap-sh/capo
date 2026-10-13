@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.launchwizard#DeploymentData``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -156,4 +156,11 @@ def deserialize_json(data: dict) -> DeploymentData:
         out["tags"] = capo_launch_wizard.types.tags.deserialize_json(data["tags"])
     if data.get("deploymentArn") is not None:
         out["deployment_arn"] = data["deploymentArn"]
+    return out
+
+
+def redact_sensitive(value: DeploymentData) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "specifications" in value:
+        out["specifications"] = "*** Sensitive Data Redacted ***"
     return out

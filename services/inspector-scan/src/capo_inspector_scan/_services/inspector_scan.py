@@ -19,10 +19,12 @@ from capo_inspector_scan._auth._zapros_handler import AuthMiddleware
 from capo_inspector_scan._services._aws_config import aws_config
 from capo_inspector_scan._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -106,7 +108,9 @@ class InspectorScanClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[InspectorScanClientConfig] = None
+        self,
+        config_overrides: Optional[InspectorScanClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: InspectorScanClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -114,8 +118,10 @@ class InspectorScanClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -176,7 +182,9 @@ class InspectorScanClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ScanSbom")
+        )
         input_: capo_inspector_scan.types.scan_sbom_request.ScanSbomRequest = {
             "sbom": sbom
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityagent#Actor``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -75,4 +75,11 @@ def deserialize_json(data: dict) -> Actor:
         out["enable_email_mfa"] = data["enableEmailMfa"]
     if data.get("mfaForwardingAddress") is not None:
         out["mfa_forwarding_address"] = data["mfaForwardingAddress"]
+    return out
+
+
+def redact_sensitive(value: Actor) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "mfa_forwarding_address" in value:
+        out["mfa_forwarding_address"] = "*** Sensitive Data Redacted ***"
     return out

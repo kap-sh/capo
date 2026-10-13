@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.comprehend#DetectToxicContentRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -58,4 +58,11 @@ def deserialize_aws_json_1_1(data: dict) -> DetectToxicContentRequest:
         )
     else:
         raise DeserializationError("DetectToxicContentRequest.language_code required")
+    return out
+
+
+def redact_sensitive(value: DetectToxicContentRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text_segments" in value:
+        out["text_segments"] = "*** Sensitive Data Redacted ***"
     return out

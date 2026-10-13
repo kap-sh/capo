@@ -24,7 +24,9 @@ from capo_sagemaker_runtime._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -129,7 +131,9 @@ class AsyncSageMakerRuntimeClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncSageMakerRuntimeClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncSageMakerRuntimeClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSageMakerRuntimeClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -137,8 +141,10 @@ class AsyncSageMakerRuntimeClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -235,7 +241,32 @@ class AsyncSageMakerRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker_runtime.types.invoke_endpoint_input.InvokeEndpointInput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_runtime.types.invoke_endpoint_input
+
+            return capo_sagemaker_runtime.types.invoke_endpoint_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemaker_runtime.types.invoke_endpoint_output.InvokeEndpointOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_runtime.types.invoke_endpoint_output
+
+            return capo_sagemaker_runtime.types.invoke_endpoint_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeEndpoint",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sagemaker_runtime.types.invoke_endpoint_input.InvokeEndpointInput = {
             "endpoint_name": endpoint_name
         }
@@ -341,7 +372,19 @@ class AsyncSageMakerRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker_runtime.types.invoke_endpoint_async_input.InvokeEndpointAsyncInput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_runtime.types.invoke_endpoint_async_input
+
+            return capo_sagemaker_runtime.types.invoke_endpoint_async_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("InvokeEndpointAsync", redact_input=_redact_input),
+        )
         input_: capo_sagemaker_runtime.types.invoke_endpoint_async_input.InvokeEndpointAsyncInput = {
             "endpoint_name": endpoint_name
         }
@@ -445,7 +488,32 @@ class AsyncSageMakerRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker_runtime.types.invoke_endpoint_with_response_stream_input.InvokeEndpointWithResponseStreamInput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_runtime.types.invoke_endpoint_with_response_stream_input
+
+            return capo_sagemaker_runtime.types.invoke_endpoint_with_response_stream_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemaker_runtime.types.invoke_endpoint_with_response_stream_output.InvokeEndpointWithResponseStreamOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_runtime.types.invoke_endpoint_with_response_stream_output
+
+            return capo_sagemaker_runtime.types.invoke_endpoint_with_response_stream_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeEndpointWithResponseStream",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sagemaker_runtime.types.invoke_endpoint_with_response_stream_input.InvokeEndpointWithResponseStreamInput = {
             "endpoint_name": endpoint_name
         }

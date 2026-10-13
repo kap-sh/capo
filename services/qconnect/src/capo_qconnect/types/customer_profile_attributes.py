@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#CustomerProfileAttributes``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -490,4 +490,125 @@ def deserialize_json(data: dict) -> CustomerProfileAttributes:
         out["custom"] = capo_qconnect.types.custom_attributes.deserialize_json(
             data["custom"]
         )
+    return out
+
+
+def redact_sensitive(value: CustomerProfileAttributes) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "profile_id" in value:
+        out["profile_id"] = "*** Sensitive Data Redacted ***"
+    if "profile_arn" in value:
+        out["profile_arn"] = "*** Sensitive Data Redacted ***"
+    if "first_name" in value:
+        out["first_name"] = "*** Sensitive Data Redacted ***"
+    if "middle_name" in value:
+        out["middle_name"] = "*** Sensitive Data Redacted ***"
+    if "last_name" in value:
+        out["last_name"] = "*** Sensitive Data Redacted ***"
+    if "account_number" in value:
+        out["account_number"] = "*** Sensitive Data Redacted ***"
+    if "email_address" in value:
+        out["email_address"] = "*** Sensitive Data Redacted ***"
+    if "phone_number" in value:
+        out["phone_number"] = "*** Sensitive Data Redacted ***"
+    if "additional_information" in value:
+        out["additional_information"] = "*** Sensitive Data Redacted ***"
+    if "party_type" in value:
+        out["party_type"] = "*** Sensitive Data Redacted ***"
+    if "business_name" in value:
+        out["business_name"] = "*** Sensitive Data Redacted ***"
+    if "birth_date" in value:
+        out["birth_date"] = "*** Sensitive Data Redacted ***"
+    if "gender" in value:
+        out["gender"] = "*** Sensitive Data Redacted ***"
+    if "mobile_phone_number" in value:
+        out["mobile_phone_number"] = "*** Sensitive Data Redacted ***"
+    if "home_phone_number" in value:
+        out["home_phone_number"] = "*** Sensitive Data Redacted ***"
+    if "business_phone_number" in value:
+        out["business_phone_number"] = "*** Sensitive Data Redacted ***"
+    if "business_email_address" in value:
+        out["business_email_address"] = "*** Sensitive Data Redacted ***"
+    if "address1" in value:
+        out["address1"] = "*** Sensitive Data Redacted ***"
+    if "address2" in value:
+        out["address2"] = "*** Sensitive Data Redacted ***"
+    if "address3" in value:
+        out["address3"] = "*** Sensitive Data Redacted ***"
+    if "address4" in value:
+        out["address4"] = "*** Sensitive Data Redacted ***"
+    if "city" in value:
+        out["city"] = "*** Sensitive Data Redacted ***"
+    if "county" in value:
+        out["county"] = "*** Sensitive Data Redacted ***"
+    if "country" in value:
+        out["country"] = "*** Sensitive Data Redacted ***"
+    if "postal_code" in value:
+        out["postal_code"] = "*** Sensitive Data Redacted ***"
+    if "province" in value:
+        out["province"] = "*** Sensitive Data Redacted ***"
+    if "state" in value:
+        out["state"] = "*** Sensitive Data Redacted ***"
+    if "shipping_address1" in value:
+        out["shipping_address1"] = "*** Sensitive Data Redacted ***"
+    if "shipping_address2" in value:
+        out["shipping_address2"] = "*** Sensitive Data Redacted ***"
+    if "shipping_address3" in value:
+        out["shipping_address3"] = "*** Sensitive Data Redacted ***"
+    if "shipping_address4" in value:
+        out["shipping_address4"] = "*** Sensitive Data Redacted ***"
+    if "shipping_city" in value:
+        out["shipping_city"] = "*** Sensitive Data Redacted ***"
+    if "shipping_county" in value:
+        out["shipping_county"] = "*** Sensitive Data Redacted ***"
+    if "shipping_country" in value:
+        out["shipping_country"] = "*** Sensitive Data Redacted ***"
+    if "shipping_postal_code" in value:
+        out["shipping_postal_code"] = "*** Sensitive Data Redacted ***"
+    if "shipping_province" in value:
+        out["shipping_province"] = "*** Sensitive Data Redacted ***"
+    if "shipping_state" in value:
+        out["shipping_state"] = "*** Sensitive Data Redacted ***"
+    if "mailing_address1" in value:
+        out["mailing_address1"] = "*** Sensitive Data Redacted ***"
+    if "mailing_address2" in value:
+        out["mailing_address2"] = "*** Sensitive Data Redacted ***"
+    if "mailing_address3" in value:
+        out["mailing_address3"] = "*** Sensitive Data Redacted ***"
+    if "mailing_address4" in value:
+        out["mailing_address4"] = "*** Sensitive Data Redacted ***"
+    if "mailing_city" in value:
+        out["mailing_city"] = "*** Sensitive Data Redacted ***"
+    if "mailing_county" in value:
+        out["mailing_county"] = "*** Sensitive Data Redacted ***"
+    if "mailing_country" in value:
+        out["mailing_country"] = "*** Sensitive Data Redacted ***"
+    if "mailing_postal_code" in value:
+        out["mailing_postal_code"] = "*** Sensitive Data Redacted ***"
+    if "mailing_province" in value:
+        out["mailing_province"] = "*** Sensitive Data Redacted ***"
+    if "mailing_state" in value:
+        out["mailing_state"] = "*** Sensitive Data Redacted ***"
+    if "billing_address1" in value:
+        out["billing_address1"] = "*** Sensitive Data Redacted ***"
+    if "billing_address2" in value:
+        out["billing_address2"] = "*** Sensitive Data Redacted ***"
+    if "billing_address3" in value:
+        out["billing_address3"] = "*** Sensitive Data Redacted ***"
+    if "billing_address4" in value:
+        out["billing_address4"] = "*** Sensitive Data Redacted ***"
+    if "billing_city" in value:
+        out["billing_city"] = "*** Sensitive Data Redacted ***"
+    if "billing_county" in value:
+        out["billing_county"] = "*** Sensitive Data Redacted ***"
+    if "billing_country" in value:
+        out["billing_country"] = "*** Sensitive Data Redacted ***"
+    if "billing_postal_code" in value:
+        out["billing_postal_code"] = "*** Sensitive Data Redacted ***"
+    if "billing_province" in value:
+        out["billing_province"] = "*** Sensitive Data Redacted ***"
+    if "billing_state" in value:
+        out["billing_state"] = "*** Sensitive Data Redacted ***"
+    if "custom" in value:
+        out["custom"] = "*** Sensitive Data Redacted ***"
     return out

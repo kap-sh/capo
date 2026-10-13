@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.identitystore#Name``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -67,4 +67,21 @@ def deserialize_aws_json_1_1(data: dict) -> Name:
         out["honorific_prefix"] = data["HonorificPrefix"]
     if data.get("HonorificSuffix") is not None:
         out["honorific_suffix"] = data["HonorificSuffix"]
+    return out
+
+
+def redact_sensitive(value: Name) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "formatted" in value:
+        out["formatted"] = "*** Sensitive Data Redacted ***"
+    if "family_name" in value:
+        out["family_name"] = "*** Sensitive Data Redacted ***"
+    if "given_name" in value:
+        out["given_name"] = "*** Sensitive Data Redacted ***"
+    if "middle_name" in value:
+        out["middle_name"] = "*** Sensitive Data Redacted ***"
+    if "honorific_prefix" in value:
+        out["honorific_prefix"] = "*** Sensitive Data Redacted ***"
+    if "honorific_suffix" in value:
+        out["honorific_suffix"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.transfer#ImportCertificateRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -109,4 +109,15 @@ def deserialize_aws_json_1_1(data: dict) -> ImportCertificateRequest:
         import capo_transfer.types.tags
 
         out["tags"] = capo_transfer.types.tags.deserialize_aws_json_1_1(data["Tags"])
+    return out
+
+
+def redact_sensitive(value: ImportCertificateRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "certificate" in value:
+        out["certificate"] = "*** Sensitive Data Redacted ***"
+    if "certificate_chain" in value:
+        out["certificate_chain"] = "*** Sensitive Data Redacted ***"
+    if "private_key" in value:
+        out["private_key"] = "*** Sensitive Data Redacted ***"
     return out

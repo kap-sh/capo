@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#MetadataSchemaEntry``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -89,6 +89,19 @@ def deserialize_json(data: dict) -> MetadataSchemaEntry:
         out["extraction_config"] = (
             capo_bedrock_agentcore_control.types.extraction_config.deserialize_json(
                 data["extractionConfig"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: MetadataSchemaEntry) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "extraction_config" in value:
+        import capo_bedrock_agentcore_control.types.extraction_config
+
+        out["extraction_config"] = (
+            capo_bedrock_agentcore_control.types.extraction_config.redact_sensitive(
+                value["extraction_config"]
             )
         )
     return out

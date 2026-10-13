@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#ComputeList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_gamelift.types.compute
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> ComputeList:
             continue
         out.append(capo_gamelift.types.compute.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: ComputeList) -> list[Any]:
+    import capo_gamelift.types.compute
+
+    return [capo_gamelift.types.compute.redact_sensitive(item) for item in value]

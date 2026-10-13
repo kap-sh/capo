@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#FormatConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,6 +79,35 @@ def deserialize_json(data: dict) -> FormatConfiguration:
         out["date_time_format_configuration"] = (
             capo_quicksight.types.date_time_format_configuration.deserialize_json(
                 data["DateTimeFormatConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: FormatConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "string_format_configuration" in value:
+        import capo_quicksight.types.string_format_configuration
+
+        out["string_format_configuration"] = (
+            capo_quicksight.types.string_format_configuration.redact_sensitive(
+                value["string_format_configuration"]
+            )
+        )
+    if "number_format_configuration" in value:
+        import capo_quicksight.types.number_format_configuration
+
+        out["number_format_configuration"] = (
+            capo_quicksight.types.number_format_configuration.redact_sensitive(
+                value["number_format_configuration"]
+            )
+        )
+    if "date_time_format_configuration" in value:
+        import capo_quicksight.types.date_time_format_configuration
+
+        out["date_time_format_configuration"] = (
+            capo_quicksight.types.date_time_format_configuration.redact_sensitive(
+                value["date_time_format_configuration"]
             )
         )
     return out

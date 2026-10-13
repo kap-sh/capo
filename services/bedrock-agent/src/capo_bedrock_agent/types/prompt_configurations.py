@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#PromptConfigurations``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.prompt_configuration
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> PromptConfigurations:
             continue
         out.append(capo_bedrock_agent.types.prompt_configuration.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: PromptConfigurations) -> list[Any]:
+    import capo_bedrock_agent.types.prompt_configuration
+
+    return [
+        capo_bedrock_agent.types.prompt_configuration.redact_sensitive(item)
+        for item in value
+    ]

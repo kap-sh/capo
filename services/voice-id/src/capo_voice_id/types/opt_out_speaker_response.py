@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.voiceid#OptOutSpeakerResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -33,4 +33,13 @@ def deserialize_aws_json_1_0(data: dict) -> OptOutSpeakerResponse:
         out["speaker"] = capo_voice_id.types.speaker.deserialize_aws_json_1_0(
             data["Speaker"]
         )
+    return out
+
+
+def redact_sensitive(value: OptOutSpeakerResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "speaker" in value:
+        import capo_voice_id.types.speaker
+
+        out["speaker"] = capo_voice_id.types.speaker.redact_sensitive(value["speaker"])
     return out

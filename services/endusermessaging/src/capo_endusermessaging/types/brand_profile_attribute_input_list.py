@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.endusermessaging#BrandProfileAttributeInputList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_endusermessaging.types.brand_profile_attribute_input
@@ -37,3 +37,12 @@ def deserialize_json(data: list) -> BrandProfileAttributeInputList:
             )
         )
     return out
+
+
+def redact_sensitive(value: BrandProfileAttributeInputList) -> list[Any]:
+    import capo_endusermessaging.types.brand_profile_attribute_input
+
+    return [
+        capo_endusermessaging.types.brand_profile_attribute_input.redact_sensitive(item)
+        for item in value
+    ]

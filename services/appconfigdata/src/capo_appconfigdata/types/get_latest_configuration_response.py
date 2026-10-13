@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appconfigdata#GetLatestConfigurationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -44,4 +44,11 @@ def deserialize_json(data: dict) -> GetLatestConfigurationResponse:
         out["configuration"] = capo_appconfigdata.types.sensitive_blob.deserialize_json(
             data["Configuration"]
         )
+    return out
+
+
+def redact_sensitive(value: GetLatestConfigurationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "configuration" in value:
+        out["configuration"] = "*** Sensitive Data Redacted ***"
     return out

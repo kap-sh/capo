@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#MessageTemplateSourceConfigurationSummary``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -48,3 +48,18 @@ def deserialize_json(data: dict) -> MessageTemplateSourceConfigurationSummary:
         raise DeserializationError(
             "MessageTemplateSourceConfigurationSummary: no recognized variant key"
         )
+
+
+def redact_sensitive(
+    value: MessageTemplateSourceConfigurationSummary,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "whatsApp" in value:
+        import capo_qconnect.types.whats_app_message_template_source_configuration_summary
+
+        out["whatsApp"] = (
+            capo_qconnect.types.whats_app_message_template_source_configuration_summary.redact_sensitive(
+                value["whatsApp"]
+            )
+        )
+    return out

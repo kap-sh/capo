@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.voiceid#DescribeFraudsterRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,11 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeFraudsterRequest:
         out["fraudster_id"] = data["FraudsterId"]
     else:
         raise DeserializationError("DescribeFraudsterRequest.fraudster_id required")
+    return out
+
+
+def redact_sensitive(value: DescribeFraudsterRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "fraudster_id" in value:
+        out["fraudster_id"] = "*** Sensitive Data Redacted ***"
     return out

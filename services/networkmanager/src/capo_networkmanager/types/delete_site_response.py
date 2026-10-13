@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.networkmanager#DeleteSiteResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -29,4 +29,13 @@ def deserialize_json(data: dict) -> DeleteSiteResponse:
         import capo_networkmanager.types.site
 
         out["site"] = capo_networkmanager.types.site.deserialize_json(data["Site"])
+    return out
+
+
+def redact_sensitive(value: DeleteSiteResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "site" in value:
+        import capo_networkmanager.types.site
+
+        out["site"] = capo_networkmanager.types.site.redact_sensitive(value["site"])
     return out

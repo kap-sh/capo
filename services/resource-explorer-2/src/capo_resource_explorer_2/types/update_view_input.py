@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.resourceexplorer2#UpdateViewInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -63,4 +63,11 @@ def deserialize_json(data: dict) -> UpdateViewInput:
         out["filters"] = capo_resource_explorer_2.types.search_filter.deserialize_json(
             data["Filters"]
         )
+    return out
+
+
+def redact_sensitive(value: UpdateViewInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "filters" in value:
+        out["filters"] = "*** Sensitive Data Redacted ***"
     return out

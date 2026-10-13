@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#ListAsyncInvokesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,6 +46,19 @@ def deserialize_json(data: dict) -> ListAsyncInvokesResponse:
         out["async_invoke_summaries"] = (
             capo_bedrock_runtime.types.async_invoke_summaries.deserialize_json(
                 data["asyncInvokeSummaries"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ListAsyncInvokesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "async_invoke_summaries" in value:
+        import capo_bedrock_runtime.types.async_invoke_summaries
+
+        out["async_invoke_summaries"] = (
+            capo_bedrock_runtime.types.async_invoke_summaries.redact_sensitive(
+                value["async_invoke_summaries"]
             )
         )
     return out

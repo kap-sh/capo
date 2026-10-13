@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workmail#DescribeUserResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -245,4 +245,35 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeUserResponse:
         out["identity_provider_identity_store_id"] = data[
             "IdentityProviderIdentityStoreId"
         ]
+    return out
+
+
+def redact_sensitive(value: DescribeUserResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "display_name" in value:
+        out["display_name"] = "*** Sensitive Data Redacted ***"
+    if "first_name" in value:
+        out["first_name"] = "*** Sensitive Data Redacted ***"
+    if "last_name" in value:
+        out["last_name"] = "*** Sensitive Data Redacted ***"
+    if "initials" in value:
+        out["initials"] = "*** Sensitive Data Redacted ***"
+    if "telephone" in value:
+        out["telephone"] = "*** Sensitive Data Redacted ***"
+    if "street" in value:
+        out["street"] = "*** Sensitive Data Redacted ***"
+    if "job_title" in value:
+        out["job_title"] = "*** Sensitive Data Redacted ***"
+    if "city" in value:
+        out["city"] = "*** Sensitive Data Redacted ***"
+    if "company" in value:
+        out["company"] = "*** Sensitive Data Redacted ***"
+    if "zip_code" in value:
+        out["zip_code"] = "*** Sensitive Data Redacted ***"
+    if "department" in value:
+        out["department"] = "*** Sensitive Data Redacted ***"
+    if "country" in value:
+        out["country"] = "*** Sensitive Data Redacted ***"
+    if "office" in value:
+        out["office"] = "*** Sensitive Data Redacted ***"
     return out

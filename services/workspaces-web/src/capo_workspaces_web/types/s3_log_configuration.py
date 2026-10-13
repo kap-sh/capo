@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#S3LogConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -78,4 +78,13 @@ def deserialize_json(data: dict) -> S3LogConfiguration:
         )
     else:
         raise DeserializationError("S3LogConfiguration.folder_structure required")
+    return out
+
+
+def redact_sensitive(value: S3LogConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "bucket" in value:
+        out["bucket"] = "*** Sensitive Data Redacted ***"
+    if "key_prefix" in value:
+        out["key_prefix"] = "*** Sensitive Data Redacted ***"
     return out

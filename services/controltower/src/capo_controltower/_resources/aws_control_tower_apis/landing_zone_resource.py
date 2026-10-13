@@ -7,6 +7,7 @@ import capo_controltower._auth._sigv4
 from capo_controltower._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -88,7 +89,9 @@ class LandingZoneResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateLandingZone")
+        )
         input_: capo_controltower.types.create_landing_zone_input.CreateLandingZoneInput = {
             "version": version
         }
@@ -141,7 +144,9 @@ class LandingZoneResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetLandingZone")
+        )
         input_: capo_controltower.types.get_landing_zone_input.GetLandingZoneInput = {
             "landing_zone_identifier": landing_zone_identifier
         }
@@ -197,7 +202,9 @@ class LandingZoneResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateLandingZone")
+        )
         input_: capo_controltower.types.update_landing_zone_input.UpdateLandingZoneInput = {
             "version": version,
             "landing_zone_identifier": landing_zone_identifier,
@@ -250,7 +257,9 @@ class LandingZoneResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteLandingZone")
+        )
         input_: capo_controltower.types.delete_landing_zone_input.DeleteLandingZoneInput = {
             "landing_zone_identifier": landing_zone_identifier
         }
@@ -300,7 +309,9 @@ class LandingZoneResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListLandingZones")
+        )
         input_: capo_controltower.types.list_landing_zones_input.ListLandingZonesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -350,7 +361,9 @@ class LandingZoneResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ResetLandingZone")
+        )
         input_: capo_controltower.types.reset_landing_zone_input.ResetLandingZoneInput = {
             "landing_zone_identifier": landing_zone_identifier
         }
@@ -411,7 +424,9 @@ class AsyncLandingZoneResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateLandingZone")
+        )
         input_: capo_controltower.types.create_landing_zone_input.CreateLandingZoneInput = {
             "version": version
         }
@@ -465,7 +480,9 @@ class AsyncLandingZoneResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetLandingZone")
+        )
         input_: capo_controltower.types.get_landing_zone_input.GetLandingZoneInput = {
             "landing_zone_identifier": landing_zone_identifier
         }
@@ -522,7 +539,9 @@ class AsyncLandingZoneResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateLandingZone")
+        )
         input_: capo_controltower.types.update_landing_zone_input.UpdateLandingZoneInput = {
             "version": version,
             "landing_zone_identifier": landing_zone_identifier,
@@ -576,7 +595,9 @@ class AsyncLandingZoneResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteLandingZone")
+        )
         input_: capo_controltower.types.delete_landing_zone_input.DeleteLandingZoneInput = {
             "landing_zone_identifier": landing_zone_identifier
         }
@@ -627,7 +648,9 @@ class AsyncLandingZoneResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListLandingZones")
+        )
         input_: capo_controltower.types.list_landing_zones_input.ListLandingZonesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -678,7 +701,9 @@ class AsyncLandingZoneResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ResetLandingZone")
+        )
         input_: capo_controltower.types.reset_landing_zone_input.ResetLandingZoneInput = {
             "landing_zone_identifier": landing_zone_identifier
         }

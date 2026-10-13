@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_cleanrooms._auth._signers
 import capo_cleanrooms._auth._sigv4
 from capo_cleanrooms._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -164,7 +165,9 @@ class MembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateMembership")
+        )
         input_: capo_cleanrooms.types.create_membership_input.CreateMembershipInput = {
             "collaboration_identifier": collaboration_identifier,
             "query_log_status": query_log_status,
@@ -226,7 +229,9 @@ class MembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMembership")
+        )
         input_: capo_cleanrooms.types.get_membership_input.GetMembershipInput = {
             "membership_identifier": membership_identifier
         }
@@ -294,7 +299,9 @@ class MembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateMembership")
+        )
         input_: capo_cleanrooms.types.update_membership_input.UpdateMembershipInput = {
             "membership_identifier": membership_identifier
         }
@@ -356,7 +363,9 @@ class MembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMembership")
+        )
         input_: capo_cleanrooms.types.delete_membership_input.DeleteMembershipInput = {
             "membership_identifier": membership_identifier
         }
@@ -410,7 +419,9 @@ class MembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMemberships")
+        )
         input_: capo_cleanrooms.types.list_memberships_input.ListMembershipsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -466,7 +477,9 @@ class MembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisallowIntermediateTable")
+        )
         input_: capo_cleanrooms.types.disallow_intermediate_table_input.DisallowIntermediateTableInput = {
             "membership_identifier": membership_identifier,
             "intermediate_table_name": intermediate_table_name,
@@ -518,7 +531,9 @@ class MembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAnalysisLogExport")
+        )
         input_: capo_cleanrooms.types.get_analysis_log_export_input.GetAnalysisLogExportInput = {
             "membership_identifier": membership_identifier,
             "analysis_log_export_identifier": analysis_log_export_identifier,
@@ -568,7 +583,19 @@ class MembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.get_protected_job_output.GetProtectedJobOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.get_protected_job_output
+
+            return capo_cleanrooms.types.get_protected_job_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetProtectedJob", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.get_protected_job_input.GetProtectedJobInput = {
             "membership_identifier": membership_identifier,
             "protected_job_identifier": protected_job_identifier,
@@ -618,7 +645,19 @@ class MembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.get_protected_query_output.GetProtectedQueryOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.get_protected_query_output
+
+            return capo_cleanrooms.types.get_protected_query_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetProtectedQuery", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.get_protected_query_input.GetProtectedQueryInput = {
             "membership_identifier": membership_identifier,
             "protected_query_identifier": protected_query_identifier,
@@ -678,7 +717,9 @@ class MembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAnalysisLogExports")
+        )
         input_: capo_cleanrooms.types.list_analysis_log_exports_input.ListAnalysisLogExportsInput = {
             "membership_identifier": membership_identifier
         }
@@ -745,7 +786,9 @@ class MembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPrivacyBudgets")
+        )
         input_: capo_cleanrooms.types.list_privacy_budgets_input.ListPrivacyBudgetsInput = {
             "membership_identifier": membership_identifier,
             "privacy_budget_type": privacy_budget_type,
@@ -809,7 +852,9 @@ class MembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListProtectedJobs")
+        )
         input_: capo_cleanrooms.types.list_protected_jobs_input.ListProtectedJobsInput = {
             "membership_identifier": membership_identifier
         }
@@ -874,7 +919,9 @@ class MembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListProtectedQueries")
+        )
         input_: capo_cleanrooms.types.list_protected_queries_input.ListProtectedQueriesInput = {
             "membership_identifier": membership_identifier
         }
@@ -931,7 +978,9 @@ class MembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PreviewPrivacyImpact")
+        )
         input_: capo_cleanrooms.types.preview_privacy_impact_input.PreviewPrivacyImpactInput = {
             "membership_identifier": membership_identifier,
             "parameters": parameters,
@@ -986,7 +1035,9 @@ class MembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartAnalysisLogExport")
+        )
         input_: capo_cleanrooms.types.start_analysis_log_export_input.StartAnalysisLogExportInput = {
             "membership_identifier": membership_identifier,
             "analysis_id": analysis_id,
@@ -1053,7 +1104,32 @@ class MembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cleanrooms.types.start_protected_job_input.StartProtectedJobInput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.start_protected_job_input
+
+            return capo_cleanrooms.types.start_protected_job_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cleanrooms.types.start_protected_job_output.StartProtectedJobOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.start_protected_job_output
+
+            return capo_cleanrooms.types.start_protected_job_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartProtectedJob",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cleanrooms.types.start_protected_job_input.StartProtectedJobInput = {
             "type": type,
             "membership_identifier": membership_identifier,
@@ -1125,7 +1201,32 @@ class MembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cleanrooms.types.start_protected_query_input.StartProtectedQueryInput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.start_protected_query_input
+
+            return capo_cleanrooms.types.start_protected_query_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cleanrooms.types.start_protected_query_output.StartProtectedQueryOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.start_protected_query_output
+
+            return capo_cleanrooms.types.start_protected_query_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartProtectedQuery",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cleanrooms.types.start_protected_query_input.StartProtectedQueryInput = {
             "type": type,
             "membership_identifier": membership_identifier,
@@ -1185,7 +1286,19 @@ class MembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.update_protected_job_output.UpdateProtectedJobOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.update_protected_job_output
+
+            return capo_cleanrooms.types.update_protected_job_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateProtectedJob", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.update_protected_job_input.UpdateProtectedJobInput = {
             "membership_identifier": membership_identifier,
             "protected_job_identifier": protected_job_identifier,
@@ -1241,7 +1354,19 @@ class MembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.update_protected_query_output.UpdateProtectedQueryOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.update_protected_query_output
+
+            return capo_cleanrooms.types.update_protected_query_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateProtectedQuery", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.update_protected_query_input.UpdateProtectedQueryInput = {
             "membership_identifier": membership_identifier,
             "protected_query_identifier": protected_query_identifier,
@@ -1320,7 +1445,9 @@ class AsyncMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateMembership")
+        )
         input_: capo_cleanrooms.types.create_membership_input.CreateMembershipInput = {
             "collaboration_identifier": collaboration_identifier,
             "query_log_status": query_log_status,
@@ -1383,7 +1510,9 @@ class AsyncMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMembership")
+        )
         input_: capo_cleanrooms.types.get_membership_input.GetMembershipInput = {
             "membership_identifier": membership_identifier
         }
@@ -1452,7 +1581,9 @@ class AsyncMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateMembership")
+        )
         input_: capo_cleanrooms.types.update_membership_input.UpdateMembershipInput = {
             "membership_identifier": membership_identifier
         }
@@ -1515,7 +1646,9 @@ class AsyncMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMembership")
+        )
         input_: capo_cleanrooms.types.delete_membership_input.DeleteMembershipInput = {
             "membership_identifier": membership_identifier
         }
@@ -1570,7 +1703,9 @@ class AsyncMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMemberships")
+        )
         input_: capo_cleanrooms.types.list_memberships_input.ListMembershipsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1627,7 +1762,9 @@ class AsyncMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisallowIntermediateTable")
+        )
         input_: capo_cleanrooms.types.disallow_intermediate_table_input.DisallowIntermediateTableInput = {
             "membership_identifier": membership_identifier,
             "intermediate_table_name": intermediate_table_name,
@@ -1680,7 +1817,9 @@ class AsyncMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAnalysisLogExport")
+        )
         input_: capo_cleanrooms.types.get_analysis_log_export_input.GetAnalysisLogExportInput = {
             "membership_identifier": membership_identifier,
             "analysis_log_export_identifier": analysis_log_export_identifier,
@@ -1731,7 +1870,19 @@ class AsyncMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.get_protected_job_output.GetProtectedJobOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.get_protected_job_output
+
+            return capo_cleanrooms.types.get_protected_job_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetProtectedJob", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.get_protected_job_input.GetProtectedJobInput = {
             "membership_identifier": membership_identifier,
             "protected_job_identifier": protected_job_identifier,
@@ -1782,7 +1933,19 @@ class AsyncMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.get_protected_query_output.GetProtectedQueryOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.get_protected_query_output
+
+            return capo_cleanrooms.types.get_protected_query_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetProtectedQuery", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.get_protected_query_input.GetProtectedQueryInput = {
             "membership_identifier": membership_identifier,
             "protected_query_identifier": protected_query_identifier,
@@ -1843,7 +2006,9 @@ class AsyncMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAnalysisLogExports")
+        )
         input_: capo_cleanrooms.types.list_analysis_log_exports_input.ListAnalysisLogExportsInput = {
             "membership_identifier": membership_identifier
         }
@@ -1911,7 +2076,9 @@ class AsyncMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPrivacyBudgets")
+        )
         input_: capo_cleanrooms.types.list_privacy_budgets_input.ListPrivacyBudgetsInput = {
             "membership_identifier": membership_identifier,
             "privacy_budget_type": privacy_budget_type,
@@ -1976,7 +2143,9 @@ class AsyncMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListProtectedJobs")
+        )
         input_: capo_cleanrooms.types.list_protected_jobs_input.ListProtectedJobsInput = {
             "membership_identifier": membership_identifier
         }
@@ -2042,7 +2211,9 @@ class AsyncMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListProtectedQueries")
+        )
         input_: capo_cleanrooms.types.list_protected_queries_input.ListProtectedQueriesInput = {
             "membership_identifier": membership_identifier
         }
@@ -2100,7 +2271,9 @@ class AsyncMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PreviewPrivacyImpact")
+        )
         input_: capo_cleanrooms.types.preview_privacy_impact_input.PreviewPrivacyImpactInput = {
             "membership_identifier": membership_identifier,
             "parameters": parameters,
@@ -2156,7 +2329,9 @@ class AsyncMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartAnalysisLogExport")
+        )
         input_: capo_cleanrooms.types.start_analysis_log_export_input.StartAnalysisLogExportInput = {
             "membership_identifier": membership_identifier,
             "analysis_id": analysis_id,
@@ -2224,7 +2399,32 @@ class AsyncMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cleanrooms.types.start_protected_job_input.StartProtectedJobInput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.start_protected_job_input
+
+            return capo_cleanrooms.types.start_protected_job_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cleanrooms.types.start_protected_job_output.StartProtectedJobOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.start_protected_job_output
+
+            return capo_cleanrooms.types.start_protected_job_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartProtectedJob",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cleanrooms.types.start_protected_job_input.StartProtectedJobInput = {
             "type": type,
             "membership_identifier": membership_identifier,
@@ -2297,7 +2497,32 @@ class AsyncMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cleanrooms.types.start_protected_query_input.StartProtectedQueryInput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.start_protected_query_input
+
+            return capo_cleanrooms.types.start_protected_query_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cleanrooms.types.start_protected_query_output.StartProtectedQueryOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.start_protected_query_output
+
+            return capo_cleanrooms.types.start_protected_query_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartProtectedQuery",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cleanrooms.types.start_protected_query_input.StartProtectedQueryInput = {
             "type": type,
             "membership_identifier": membership_identifier,
@@ -2358,7 +2583,19 @@ class AsyncMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.update_protected_job_output.UpdateProtectedJobOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.update_protected_job_output
+
+            return capo_cleanrooms.types.update_protected_job_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateProtectedJob", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.update_protected_job_input.UpdateProtectedJobInput = {
             "membership_identifier": membership_identifier,
             "protected_job_identifier": protected_job_identifier,
@@ -2415,7 +2652,19 @@ class AsyncMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.update_protected_query_output.UpdateProtectedQueryOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.update_protected_query_output
+
+            return capo_cleanrooms.types.update_protected_query_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateProtectedQuery", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.update_protected_query_input.UpdateProtectedQueryInput = {
             "membership_identifier": membership_identifier,
             "protected_query_identifier": protected_query_identifier,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#WaypointOptimizationDriverOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -81,4 +81,27 @@ def deserialize_json(data: dict) -> WaypointOptimizationDriverOptions:
                 data["TreatServiceTimeAs"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: WaypointOptimizationDriverOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "rest_cycles" in value:
+        import capo_geo_routes.types.waypoint_optimization_rest_cycles
+
+        out["rest_cycles"] = (
+            capo_geo_routes.types.waypoint_optimization_rest_cycles.redact_sensitive(
+                value["rest_cycles"]
+            )
+        )
+    if "rest_profile" in value:
+        import capo_geo_routes.types.waypoint_optimization_rest_profile
+
+        out["rest_profile"] = (
+            capo_geo_routes.types.waypoint_optimization_rest_profile.redact_sensitive(
+                value["rest_profile"]
+            )
+        )
+    if "treat_service_time_as" in value:
+        out["treat_service_time_as"] = "*** Sensitive Data Redacted ***"
     return out

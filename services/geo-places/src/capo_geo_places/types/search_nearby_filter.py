@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#SearchNearbyFilter``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -175,6 +175,69 @@ def deserialize_json(data: dict) -> SearchNearbyFilter:
         out["exclude_food_types"] = (
             capo_geo_places.types.filter_food_type_list.deserialize_json(
                 data["ExcludeFoodTypes"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SearchNearbyFilter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "bounding_box" in value:
+        out["bounding_box"] = "*** Sensitive Data Redacted ***"
+    if "include_countries" in value:
+        import capo_geo_places.types.country_code_list
+
+        out["include_countries"] = (
+            capo_geo_places.types.country_code_list.redact_sensitive(
+                value["include_countries"]
+            )
+        )
+    if "include_categories" in value:
+        import capo_geo_places.types.filter_category_list
+
+        out["include_categories"] = (
+            capo_geo_places.types.filter_category_list.redact_sensitive(
+                value["include_categories"]
+            )
+        )
+    if "exclude_categories" in value:
+        import capo_geo_places.types.filter_category_list
+
+        out["exclude_categories"] = (
+            capo_geo_places.types.filter_category_list.redact_sensitive(
+                value["exclude_categories"]
+            )
+        )
+    if "include_business_chains" in value:
+        import capo_geo_places.types.filter_business_chain_list
+
+        out["include_business_chains"] = (
+            capo_geo_places.types.filter_business_chain_list.redact_sensitive(
+                value["include_business_chains"]
+            )
+        )
+    if "exclude_business_chains" in value:
+        import capo_geo_places.types.filter_business_chain_list
+
+        out["exclude_business_chains"] = (
+            capo_geo_places.types.filter_business_chain_list.redact_sensitive(
+                value["exclude_business_chains"]
+            )
+        )
+    if "include_food_types" in value:
+        import capo_geo_places.types.filter_food_type_list
+
+        out["include_food_types"] = (
+            capo_geo_places.types.filter_food_type_list.redact_sensitive(
+                value["include_food_types"]
+            )
+        )
+    if "exclude_food_types" in value:
+        import capo_geo_places.types.filter_food_type_list
+
+        out["exclude_food_types"] = (
+            capo_geo_places.types.filter_food_type_list.redact_sensitive(
+                value["exclude_food_types"]
             )
         )
     return out

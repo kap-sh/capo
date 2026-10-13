@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#ValidateStateMachineDefinitionDiagnosticList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_sfn.types.validate_state_machine_definition_diagnostic
@@ -39,3 +39,14 @@ def deserialize_aws_json_1_0(
             )
         )
     return out
+
+
+def redact_sensitive(value: ValidateStateMachineDefinitionDiagnosticList) -> list[Any]:
+    import capo_sfn.types.validate_state_machine_definition_diagnostic
+
+    return [
+        capo_sfn.types.validate_state_machine_definition_diagnostic.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

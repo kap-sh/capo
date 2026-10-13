@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wellarchitected#UpdateAgentGoalResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -34,4 +34,15 @@ def deserialize_json(data: dict) -> UpdateAgentGoalResponse:
         )
     else:
         raise DeserializationError("UpdateAgentGoalResponse.goal required")
+    return out
+
+
+def redact_sensitive(value: UpdateAgentGoalResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "goal" in value:
+        import capo_wellarchitected.types.goal_summary
+
+        out["goal"] = capo_wellarchitected.types.goal_summary.redact_sensitive(
+            value["goal"]
+        )
     return out

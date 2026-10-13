@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sns#PhoneNumberInformation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -95,4 +95,11 @@ def deserialize_query(el: Element) -> PhoneNumberInformation:
                 child_number_capabilities
             )
         )
+    return out
+
+
+def redact_sensitive(value: PhoneNumberInformation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "phone_number" in value:
+        out["phone_number"] = "*** Sensitive Data Redacted ***"
     return out

@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_mailmanager._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -81,7 +82,9 @@ class AddonSubscriptionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAddonSubscription")
+        )
         input_: capo_mailmanager.types.create_addon_subscription_request.CreateAddonSubscriptionRequest = {
             "addon_name": addon_name
         }
@@ -130,7 +133,9 @@ class AddonSubscriptionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAddonSubscription")
+        )
         input_: capo_mailmanager.types.get_addon_subscription_request.GetAddonSubscriptionRequest = {
             "addon_subscription_id": addon_subscription_id
         }
@@ -174,7 +179,9 @@ class AddonSubscriptionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAddonSubscription")
+        )
         input_: capo_mailmanager.types.delete_addon_subscription_request.DeleteAddonSubscriptionRequest = {
             "addon_subscription_id": addon_subscription_id
         }
@@ -221,7 +228,9 @@ class AddonSubscriptionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAddonSubscriptions")
+        )
         input_: capo_mailmanager.types.list_addon_subscriptions_request.ListAddonSubscriptionsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -281,7 +290,9 @@ class AsyncAddonSubscriptionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAddonSubscription")
+        )
         input_: capo_mailmanager.types.create_addon_subscription_request.CreateAddonSubscriptionRequest = {
             "addon_name": addon_name
         }
@@ -331,7 +342,9 @@ class AsyncAddonSubscriptionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAddonSubscription")
+        )
         input_: capo_mailmanager.types.get_addon_subscription_request.GetAddonSubscriptionRequest = {
             "addon_subscription_id": addon_subscription_id
         }
@@ -376,7 +389,9 @@ class AsyncAddonSubscriptionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAddonSubscription")
+        )
         input_: capo_mailmanager.types.delete_addon_subscription_request.DeleteAddonSubscriptionRequest = {
             "addon_subscription_id": addon_subscription_id
         }
@@ -424,7 +439,9 @@ class AsyncAddonSubscriptionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAddonSubscriptions")
+        )
         input_: capo_mailmanager.types.list_addon_subscriptions_request.ListAddonSubscriptionsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

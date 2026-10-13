@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock._auth._signers
 import capo_bedrock._auth._sigv4
 from capo_bedrock._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -154,7 +155,32 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_automated_reasoning_policy_request.CreateAutomatedReasoningPolicyRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_automated_reasoning_policy_request
+
+            return capo_bedrock.types.create_automated_reasoning_policy_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock.types.create_automated_reasoning_policy_response.CreateAutomatedReasoningPolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_automated_reasoning_policy_response
+
+            return capo_bedrock.types.create_automated_reasoning_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAutomatedReasoningPolicy",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock.types.create_automated_reasoning_policy_request.CreateAutomatedReasoningPolicyRequest = {
             "name": name
         }
@@ -212,7 +238,21 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_automated_reasoning_policy_response.GetAutomatedReasoningPolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_automated_reasoning_policy_response
+
+            return capo_bedrock.types.get_automated_reasoning_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAutomatedReasoningPolicy", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.get_automated_reasoning_policy_request.GetAutomatedReasoningPolicyRequest = {
             "policy_arn": policy_arn
         }
@@ -271,7 +311,32 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.update_automated_reasoning_policy_request.UpdateAutomatedReasoningPolicyRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.update_automated_reasoning_policy_request
+
+            return capo_bedrock.types.update_automated_reasoning_policy_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock.types.update_automated_reasoning_policy_response.UpdateAutomatedReasoningPolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.update_automated_reasoning_policy_response
+
+            return capo_bedrock.types.update_automated_reasoning_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAutomatedReasoningPolicy",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock.types.update_automated_reasoning_policy_request.UpdateAutomatedReasoningPolicyRequest = {
             "policy_arn": policy_arn,
             "policy_definition": policy_definition,
@@ -327,7 +392,9 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAutomatedReasoningPolicy")
+        )
         input_: capo_bedrock.types.delete_automated_reasoning_policy_request.DeleteAutomatedReasoningPolicyRequest = {
             "policy_arn": policy_arn
         }
@@ -384,7 +451,21 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.list_automated_reasoning_policies_response.ListAutomatedReasoningPoliciesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.list_automated_reasoning_policies_response
+
+            return capo_bedrock.types.list_automated_reasoning_policies_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListAutomatedReasoningPolicies", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.list_automated_reasoning_policies_request.ListAutomatedReasoningPoliciesRequest = {}
         if policy_arn is not None:
             input_["policy_arn"] = policy_arn
@@ -437,7 +518,10 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CancelAutomatedReasoningPolicyBuildWorkflow"),
+        )
         input_: capo_bedrock.types.cancel_automated_reasoning_policy_build_workflow_request.CancelAutomatedReasoningPolicyBuildWorkflowRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -503,7 +587,21 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_automated_reasoning_policy_test_case_request.CreateAutomatedReasoningPolicyTestCaseRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_automated_reasoning_policy_test_case_request
+
+            return capo_bedrock.types.create_automated_reasoning_policy_test_case_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAutomatedReasoningPolicyTestCase", redact_input=_redact_input
+            ),
+        )
         input_: capo_bedrock.types.create_automated_reasoning_policy_test_case_request.CreateAutomatedReasoningPolicyTestCaseRequest = {
             "policy_arn": policy_arn,
             "guard_content": guard_content,
@@ -570,7 +668,21 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.create_automated_reasoning_policy_version_response.CreateAutomatedReasoningPolicyVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_automated_reasoning_policy_version_response
+
+            return capo_bedrock.types.create_automated_reasoning_policy_version_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAutomatedReasoningPolicyVersion", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.create_automated_reasoning_policy_version_request.CreateAutomatedReasoningPolicyVersionRequest = {
             "policy_arn": policy_arn,
             "last_updated_definition_hash": last_updated_definition_hash,
@@ -629,7 +741,10 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteAutomatedReasoningPolicyBuildWorkflow"),
+        )
         input_: capo_bedrock.types.delete_automated_reasoning_policy_build_workflow_request.DeleteAutomatedReasoningPolicyBuildWorkflowRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -684,7 +799,9 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAutomatedReasoningPolicyTestCase")
+        )
         input_: capo_bedrock.types.delete_automated_reasoning_policy_test_case_request.DeleteAutomatedReasoningPolicyTestCaseRequest = {
             "policy_arn": policy_arn,
             "test_case_id": test_case_id,
@@ -733,7 +850,21 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.export_automated_reasoning_policy_version_response.ExportAutomatedReasoningPolicyVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.export_automated_reasoning_policy_version_response
+
+            return capo_bedrock.types.export_automated_reasoning_policy_version_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ExportAutomatedReasoningPolicyVersion", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.export_automated_reasoning_policy_version_request.ExportAutomatedReasoningPolicyVersionRequest = {
             "policy_arn": policy_arn
         }
@@ -782,7 +913,21 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_automated_reasoning_policy_annotations_response.GetAutomatedReasoningPolicyAnnotationsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_automated_reasoning_policy_annotations_response
+
+            return capo_bedrock.types.get_automated_reasoning_policy_annotations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAutomatedReasoningPolicyAnnotations", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.get_automated_reasoning_policy_annotations_request.GetAutomatedReasoningPolicyAnnotationsRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -832,7 +977,21 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_automated_reasoning_policy_build_workflow_response.GetAutomatedReasoningPolicyBuildWorkflowResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_automated_reasoning_policy_build_workflow_response
+
+            return capo_bedrock.types.get_automated_reasoning_policy_build_workflow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAutomatedReasoningPolicyBuildWorkflow", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.get_automated_reasoning_policy_build_workflow_request.GetAutomatedReasoningPolicyBuildWorkflowRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -888,7 +1047,22 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_automated_reasoning_policy_build_workflow_result_assets_response.GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_automated_reasoning_policy_build_workflow_result_assets_response
+
+            return capo_bedrock.types.get_automated_reasoning_policy_build_workflow_result_assets_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAutomatedReasoningPolicyBuildWorkflowResultAssets",
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock.types.get_automated_reasoning_policy_build_workflow_result_assets_request.GetAutomatedReasoningPolicyBuildWorkflowResultAssetsRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -941,7 +1115,21 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_automated_reasoning_policy_next_scenario_response.GetAutomatedReasoningPolicyNextScenarioResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_automated_reasoning_policy_next_scenario_response
+
+            return capo_bedrock.types.get_automated_reasoning_policy_next_scenario_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAutomatedReasoningPolicyNextScenario", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.get_automated_reasoning_policy_next_scenario_request.GetAutomatedReasoningPolicyNextScenarioRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -991,7 +1179,21 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_automated_reasoning_policy_test_case_response.GetAutomatedReasoningPolicyTestCaseResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_automated_reasoning_policy_test_case_response
+
+            return capo_bedrock.types.get_automated_reasoning_policy_test_case_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAutomatedReasoningPolicyTestCase", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.get_automated_reasoning_policy_test_case_request.GetAutomatedReasoningPolicyTestCaseRequest = {
             "policy_arn": policy_arn,
             "test_case_id": test_case_id,
@@ -1043,7 +1245,21 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_automated_reasoning_policy_test_result_response.GetAutomatedReasoningPolicyTestResultResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_automated_reasoning_policy_test_result_response
+
+            return capo_bedrock.types.get_automated_reasoning_policy_test_result_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAutomatedReasoningPolicyTestResult", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.get_automated_reasoning_policy_test_result_request.GetAutomatedReasoningPolicyTestResultRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -1098,7 +1314,10 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListAutomatedReasoningPolicyBuildWorkflows"),
+        )
         input_: capo_bedrock.types.list_automated_reasoning_policy_build_workflows_request.ListAutomatedReasoningPolicyBuildWorkflowsRequest = {
             "policy_arn": policy_arn
         }
@@ -1155,7 +1374,21 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.list_automated_reasoning_policy_test_cases_response.ListAutomatedReasoningPolicyTestCasesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.list_automated_reasoning_policy_test_cases_response
+
+            return capo_bedrock.types.list_automated_reasoning_policy_test_cases_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListAutomatedReasoningPolicyTestCases", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.list_automated_reasoning_policy_test_cases_request.ListAutomatedReasoningPolicyTestCasesRequest = {
             "policy_arn": policy_arn
         }
@@ -1215,7 +1448,21 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.list_automated_reasoning_policy_test_results_response.ListAutomatedReasoningPolicyTestResultsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.list_automated_reasoning_policy_test_results_response
+
+            return capo_bedrock.types.list_automated_reasoning_policy_test_results_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListAutomatedReasoningPolicyTestResults", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.list_automated_reasoning_policy_test_results_request.ListAutomatedReasoningPolicyTestResultsRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -1278,7 +1525,21 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.start_automated_reasoning_policy_build_workflow_request.StartAutomatedReasoningPolicyBuildWorkflowRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.start_automated_reasoning_policy_build_workflow_request
+
+            return capo_bedrock.types.start_automated_reasoning_policy_build_workflow_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartAutomatedReasoningPolicyBuildWorkflow", redact_input=_redact_input
+            ),
+        )
         input_: capo_bedrock.types.start_automated_reasoning_policy_build_workflow_request.StartAutomatedReasoningPolicyBuildWorkflowRequest = {
             "policy_arn": policy_arn,
             "build_workflow_type": build_workflow_type,
@@ -1341,7 +1602,10 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartAutomatedReasoningPolicyTestWorkflow"),
+        )
         input_: capo_bedrock.types.start_automated_reasoning_policy_test_workflow_request.StartAutomatedReasoningPolicyTestWorkflowRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -1401,7 +1665,21 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.update_automated_reasoning_policy_annotations_request.UpdateAutomatedReasoningPolicyAnnotationsRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.update_automated_reasoning_policy_annotations_request
+
+            return capo_bedrock.types.update_automated_reasoning_policy_annotations_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAutomatedReasoningPolicyAnnotations", redact_input=_redact_input
+            ),
+        )
         input_: capo_bedrock.types.update_automated_reasoning_policy_annotations_request.UpdateAutomatedReasoningPolicyAnnotationsRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -1473,7 +1751,21 @@ class AutomatedReasoningPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.update_automated_reasoning_policy_test_case_request.UpdateAutomatedReasoningPolicyTestCaseRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.update_automated_reasoning_policy_test_case_request
+
+            return capo_bedrock.types.update_automated_reasoning_policy_test_case_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAutomatedReasoningPolicyTestCase", redact_input=_redact_input
+            ),
+        )
         input_: capo_bedrock.types.update_automated_reasoning_policy_test_case_request.UpdateAutomatedReasoningPolicyTestCaseRequest = {
             "policy_arn": policy_arn,
             "test_case_id": test_case_id,
@@ -1556,7 +1848,32 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_automated_reasoning_policy_request.CreateAutomatedReasoningPolicyRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_automated_reasoning_policy_request
+
+            return capo_bedrock.types.create_automated_reasoning_policy_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock.types.create_automated_reasoning_policy_response.CreateAutomatedReasoningPolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_automated_reasoning_policy_response
+
+            return capo_bedrock.types.create_automated_reasoning_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAutomatedReasoningPolicy",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock.types.create_automated_reasoning_policy_request.CreateAutomatedReasoningPolicyRequest = {
             "name": name
         }
@@ -1615,7 +1932,21 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_automated_reasoning_policy_response.GetAutomatedReasoningPolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_automated_reasoning_policy_response
+
+            return capo_bedrock.types.get_automated_reasoning_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAutomatedReasoningPolicy", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.get_automated_reasoning_policy_request.GetAutomatedReasoningPolicyRequest = {
             "policy_arn": policy_arn
         }
@@ -1675,7 +2006,32 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.update_automated_reasoning_policy_request.UpdateAutomatedReasoningPolicyRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.update_automated_reasoning_policy_request
+
+            return capo_bedrock.types.update_automated_reasoning_policy_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock.types.update_automated_reasoning_policy_response.UpdateAutomatedReasoningPolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.update_automated_reasoning_policy_response
+
+            return capo_bedrock.types.update_automated_reasoning_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAutomatedReasoningPolicy",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock.types.update_automated_reasoning_policy_request.UpdateAutomatedReasoningPolicyRequest = {
             "policy_arn": policy_arn,
             "policy_definition": policy_definition,
@@ -1732,7 +2088,9 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAutomatedReasoningPolicy")
+        )
         input_: capo_bedrock.types.delete_automated_reasoning_policy_request.DeleteAutomatedReasoningPolicyRequest = {
             "policy_arn": policy_arn
         }
@@ -1790,7 +2148,21 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.list_automated_reasoning_policies_response.ListAutomatedReasoningPoliciesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.list_automated_reasoning_policies_response
+
+            return capo_bedrock.types.list_automated_reasoning_policies_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListAutomatedReasoningPolicies", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.list_automated_reasoning_policies_request.ListAutomatedReasoningPoliciesRequest = {}
         if policy_arn is not None:
             input_["policy_arn"] = policy_arn
@@ -1844,7 +2216,10 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CancelAutomatedReasoningPolicyBuildWorkflow"),
+        )
         input_: capo_bedrock.types.cancel_automated_reasoning_policy_build_workflow_request.CancelAutomatedReasoningPolicyBuildWorkflowRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -1911,7 +2286,21 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_automated_reasoning_policy_test_case_request.CreateAutomatedReasoningPolicyTestCaseRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_automated_reasoning_policy_test_case_request
+
+            return capo_bedrock.types.create_automated_reasoning_policy_test_case_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAutomatedReasoningPolicyTestCase", redact_input=_redact_input
+            ),
+        )
         input_: capo_bedrock.types.create_automated_reasoning_policy_test_case_request.CreateAutomatedReasoningPolicyTestCaseRequest = {
             "policy_arn": policy_arn,
             "guard_content": guard_content,
@@ -1979,7 +2368,21 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.create_automated_reasoning_policy_version_response.CreateAutomatedReasoningPolicyVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_automated_reasoning_policy_version_response
+
+            return capo_bedrock.types.create_automated_reasoning_policy_version_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAutomatedReasoningPolicyVersion", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.create_automated_reasoning_policy_version_request.CreateAutomatedReasoningPolicyVersionRequest = {
             "policy_arn": policy_arn,
             "last_updated_definition_hash": last_updated_definition_hash,
@@ -2039,7 +2442,10 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteAutomatedReasoningPolicyBuildWorkflow"),
+        )
         input_: capo_bedrock.types.delete_automated_reasoning_policy_build_workflow_request.DeleteAutomatedReasoningPolicyBuildWorkflowRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -2095,7 +2501,9 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAutomatedReasoningPolicyTestCase")
+        )
         input_: capo_bedrock.types.delete_automated_reasoning_policy_test_case_request.DeleteAutomatedReasoningPolicyTestCaseRequest = {
             "policy_arn": policy_arn,
             "test_case_id": test_case_id,
@@ -2145,7 +2553,21 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.export_automated_reasoning_policy_version_response.ExportAutomatedReasoningPolicyVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.export_automated_reasoning_policy_version_response
+
+            return capo_bedrock.types.export_automated_reasoning_policy_version_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ExportAutomatedReasoningPolicyVersion", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.export_automated_reasoning_policy_version_request.ExportAutomatedReasoningPolicyVersionRequest = {
             "policy_arn": policy_arn
         }
@@ -2195,7 +2617,21 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_automated_reasoning_policy_annotations_response.GetAutomatedReasoningPolicyAnnotationsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_automated_reasoning_policy_annotations_response
+
+            return capo_bedrock.types.get_automated_reasoning_policy_annotations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAutomatedReasoningPolicyAnnotations", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.get_automated_reasoning_policy_annotations_request.GetAutomatedReasoningPolicyAnnotationsRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -2246,7 +2682,21 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_automated_reasoning_policy_build_workflow_response.GetAutomatedReasoningPolicyBuildWorkflowResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_automated_reasoning_policy_build_workflow_response
+
+            return capo_bedrock.types.get_automated_reasoning_policy_build_workflow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAutomatedReasoningPolicyBuildWorkflow", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.get_automated_reasoning_policy_build_workflow_request.GetAutomatedReasoningPolicyBuildWorkflowRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -2303,7 +2753,22 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_automated_reasoning_policy_build_workflow_result_assets_response.GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_automated_reasoning_policy_build_workflow_result_assets_response
+
+            return capo_bedrock.types.get_automated_reasoning_policy_build_workflow_result_assets_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAutomatedReasoningPolicyBuildWorkflowResultAssets",
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock.types.get_automated_reasoning_policy_build_workflow_result_assets_request.GetAutomatedReasoningPolicyBuildWorkflowResultAssetsRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -2357,7 +2822,21 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_automated_reasoning_policy_next_scenario_response.GetAutomatedReasoningPolicyNextScenarioResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_automated_reasoning_policy_next_scenario_response
+
+            return capo_bedrock.types.get_automated_reasoning_policy_next_scenario_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAutomatedReasoningPolicyNextScenario", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.get_automated_reasoning_policy_next_scenario_request.GetAutomatedReasoningPolicyNextScenarioRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -2408,7 +2887,21 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_automated_reasoning_policy_test_case_response.GetAutomatedReasoningPolicyTestCaseResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_automated_reasoning_policy_test_case_response
+
+            return capo_bedrock.types.get_automated_reasoning_policy_test_case_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAutomatedReasoningPolicyTestCase", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.get_automated_reasoning_policy_test_case_request.GetAutomatedReasoningPolicyTestCaseRequest = {
             "policy_arn": policy_arn,
             "test_case_id": test_case_id,
@@ -2461,7 +2954,21 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_automated_reasoning_policy_test_result_response.GetAutomatedReasoningPolicyTestResultResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_automated_reasoning_policy_test_result_response
+
+            return capo_bedrock.types.get_automated_reasoning_policy_test_result_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAutomatedReasoningPolicyTestResult", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.get_automated_reasoning_policy_test_result_request.GetAutomatedReasoningPolicyTestResultRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -2517,7 +3024,10 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListAutomatedReasoningPolicyBuildWorkflows"),
+        )
         input_: capo_bedrock.types.list_automated_reasoning_policy_build_workflows_request.ListAutomatedReasoningPolicyBuildWorkflowsRequest = {
             "policy_arn": policy_arn
         }
@@ -2575,7 +3085,21 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.list_automated_reasoning_policy_test_cases_response.ListAutomatedReasoningPolicyTestCasesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.list_automated_reasoning_policy_test_cases_response
+
+            return capo_bedrock.types.list_automated_reasoning_policy_test_cases_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListAutomatedReasoningPolicyTestCases", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.list_automated_reasoning_policy_test_cases_request.ListAutomatedReasoningPolicyTestCasesRequest = {
             "policy_arn": policy_arn
         }
@@ -2636,7 +3160,21 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.list_automated_reasoning_policy_test_results_response.ListAutomatedReasoningPolicyTestResultsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.list_automated_reasoning_policy_test_results_response
+
+            return capo_bedrock.types.list_automated_reasoning_policy_test_results_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListAutomatedReasoningPolicyTestResults", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock.types.list_automated_reasoning_policy_test_results_request.ListAutomatedReasoningPolicyTestResultsRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -2700,7 +3238,21 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.start_automated_reasoning_policy_build_workflow_request.StartAutomatedReasoningPolicyBuildWorkflowRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.start_automated_reasoning_policy_build_workflow_request
+
+            return capo_bedrock.types.start_automated_reasoning_policy_build_workflow_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartAutomatedReasoningPolicyBuildWorkflow", redact_input=_redact_input
+            ),
+        )
         input_: capo_bedrock.types.start_automated_reasoning_policy_build_workflow_request.StartAutomatedReasoningPolicyBuildWorkflowRequest = {
             "policy_arn": policy_arn,
             "build_workflow_type": build_workflow_type,
@@ -2764,7 +3316,10 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartAutomatedReasoningPolicyTestWorkflow"),
+        )
         input_: capo_bedrock.types.start_automated_reasoning_policy_test_workflow_request.StartAutomatedReasoningPolicyTestWorkflowRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -2825,7 +3380,21 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.update_automated_reasoning_policy_annotations_request.UpdateAutomatedReasoningPolicyAnnotationsRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.update_automated_reasoning_policy_annotations_request
+
+            return capo_bedrock.types.update_automated_reasoning_policy_annotations_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAutomatedReasoningPolicyAnnotations", redact_input=_redact_input
+            ),
+        )
         input_: capo_bedrock.types.update_automated_reasoning_policy_annotations_request.UpdateAutomatedReasoningPolicyAnnotationsRequest = {
             "policy_arn": policy_arn,
             "build_workflow_id": build_workflow_id,
@@ -2898,7 +3467,21 @@ class AsyncAutomatedReasoningPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.update_automated_reasoning_policy_test_case_request.UpdateAutomatedReasoningPolicyTestCaseRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.update_automated_reasoning_policy_test_case_request
+
+            return capo_bedrock.types.update_automated_reasoning_policy_test_case_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAutomatedReasoningPolicyTestCase", redact_input=_redact_input
+            ),
+        )
         input_: capo_bedrock.types.update_automated_reasoning_policy_test_case_request.UpdateAutomatedReasoningPolicyTestCaseRequest = {
             "policy_arn": policy_arn,
             "test_case_id": test_case_id,

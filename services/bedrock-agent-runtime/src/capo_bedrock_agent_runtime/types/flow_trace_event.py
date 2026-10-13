@@ -1,7 +1,7 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#FlowTraceEvent``."""
 
 import json
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -58,4 +58,11 @@ def deserialize_event_json(message: Message) -> FlowTraceEvent:
     out: FlowTraceEvent = {}  # type: ignore[typeddict-item]
     if payload:
         out = deserialize_json(json.loads(payload))
+    return out
+
+
+def redact_sensitive(value: FlowTraceEvent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "trace" in value:
+        out["trace"] = "*** Sensitive Data Redacted ***"
     return out

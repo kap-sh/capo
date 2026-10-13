@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteSignpostLabel``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,5 +47,22 @@ def deserialize_json(data: dict) -> RouteSignpostLabel:
 
         out["text"] = capo_geo_routes.types.localized_string.deserialize_json(
             data["Text"]
+        )
+    return out
+
+
+def redact_sensitive(value: RouteSignpostLabel) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "route_number" in value:
+        import capo_geo_routes.types.route_number
+
+        out["route_number"] = capo_geo_routes.types.route_number.redact_sensitive(
+            value["route_number"]
+        )
+    if "text" in value:
+        import capo_geo_routes.types.localized_string
+
+        out["text"] = capo_geo_routes.types.localized_string.redact_sensitive(
+            value["text"]
         )
     return out

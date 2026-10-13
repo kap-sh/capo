@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TagColumnOperation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -42,4 +42,15 @@ def deserialize_json(data: dict) -> TagColumnOperation:
         )
     else:
         raise DeserializationError("TagColumnOperation.tags required")
+    return out
+
+
+def redact_sensitive(value: TagColumnOperation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        import capo_quicksight.types.column_tag_list
+
+        out["tags"] = capo_quicksight.types.column_tag_list.redact_sensitive(
+            value["tags"]
+        )
     return out

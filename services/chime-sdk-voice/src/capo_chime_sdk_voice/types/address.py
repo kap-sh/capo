@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#Address``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -99,4 +99,29 @@ def deserialize_json(data: dict) -> Address:
         out["postal_code_plus4"] = data["postalCodePlus4"]
     if data.get("country") is not None:
         out["country"] = data["country"]
+    return out
+
+
+def redact_sensitive(value: Address) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "street_name" in value:
+        out["street_name"] = "*** Sensitive Data Redacted ***"
+    if "street_suffix" in value:
+        out["street_suffix"] = "*** Sensitive Data Redacted ***"
+    if "post_directional" in value:
+        out["post_directional"] = "*** Sensitive Data Redacted ***"
+    if "pre_directional" in value:
+        out["pre_directional"] = "*** Sensitive Data Redacted ***"
+    if "street_number" in value:
+        out["street_number"] = "*** Sensitive Data Redacted ***"
+    if "city" in value:
+        out["city"] = "*** Sensitive Data Redacted ***"
+    if "state" in value:
+        out["state"] = "*** Sensitive Data Redacted ***"
+    if "postal_code" in value:
+        out["postal_code"] = "*** Sensitive Data Redacted ***"
+    if "postal_code_plus4" in value:
+        out["postal_code_plus4"] = "*** Sensitive Data Redacted ***"
+    if "country" in value:
+        out["country"] = "*** Sensitive Data Redacted ***"
     return out

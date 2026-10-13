@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#MemoryRecordsCreateInputList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.memory_record_create_input
@@ -35,3 +35,12 @@ def deserialize_json(data: list) -> MemoryRecordsCreateInputList:
             )
         )
     return out
+
+
+def redact_sensitive(value: MemoryRecordsCreateInputList) -> list[Any]:
+    import capo_bedrock_agentcore.types.memory_record_create_input
+
+    return [
+        capo_bedrock_agentcore.types.memory_record_create_input.redact_sensitive(item)
+        for item in value
+    ]

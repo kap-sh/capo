@@ -7,6 +7,7 @@ import capo_controlcatalog._auth._sigv4
 from capo_controlcatalog._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -77,7 +78,9 @@ class ObjectiveResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListObjectives")
+        )
         input_: capo_controlcatalog.types.list_objectives_request.ListObjectivesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -143,7 +146,9 @@ class AsyncObjectiveResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListObjectives")
+        )
         input_: capo_controlcatalog.types.list_objectives_request.ListObjectivesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

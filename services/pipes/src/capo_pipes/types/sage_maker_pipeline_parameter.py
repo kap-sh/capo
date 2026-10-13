@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#SageMakerPipelineParameter``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,13 @@ def deserialize_json(data: dict) -> SageMakerPipelineParameter:
         out["value"] = data["Value"]
     else:
         raise DeserializationError("SageMakerPipelineParameter.value required")
+    return out
+
+
+def redact_sensitive(value: SageMakerPipelineParameter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "value" in value:
+        out["value"] = "*** Sensitive Data Redacted ***"
     return out

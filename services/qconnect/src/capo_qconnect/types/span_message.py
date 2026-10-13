@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#SpanMessage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -69,4 +69,15 @@ def deserialize_json(data: dict) -> SpanMessage:
         )
     else:
         raise DeserializationError("SpanMessage.values required")
+    return out
+
+
+def redact_sensitive(value: SpanMessage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "values" in value:
+        import capo_qconnect.types.span_message_value_list
+
+        out["values"] = capo_qconnect.types.span_message_value_list.redact_sensitive(
+            value["values"]
+        )
     return out

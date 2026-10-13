@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glue#BatchGetDataQualityResultResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,5 +58,16 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetDataQualityResultResponse:
             capo_glue.types.data_quality_result_ids.deserialize_aws_json_1_1(
                 data["ResultsNotFound"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: BatchGetDataQualityResultResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "results" in value:
+        import capo_glue.types.data_quality_results_list
+
+        out["results"] = capo_glue.types.data_quality_results_list.redact_sensitive(
+            value["results"]
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#GetAccessTokenResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,5 +53,16 @@ def deserialize_aws_json_1_1(data: dict) -> GetAccessTokenResponse:
             capo_ssm.types.access_request_status.deserialize_aws_json_1_1(
                 data["AccessRequestStatus"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: GetAccessTokenResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "credentials" in value:
+        import capo_ssm.types.credentials
+
+        out["credentials"] = capo_ssm.types.credentials.redact_sensitive(
+            value["credentials"]
         )
     return out

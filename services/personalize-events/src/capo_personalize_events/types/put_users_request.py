@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.personalizeevents#PutUsersRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -44,4 +44,15 @@ def deserialize_json(data: dict) -> PutUsersRequest:
         )
     else:
         raise DeserializationError("PutUsersRequest.users required")
+    return out
+
+
+def redact_sensitive(value: PutUsersRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "users" in value:
+        import capo_personalize_events.types.user_list
+
+        out["users"] = capo_personalize_events.types.user_list.redact_sensitive(
+            value["users"]
+        )
     return out

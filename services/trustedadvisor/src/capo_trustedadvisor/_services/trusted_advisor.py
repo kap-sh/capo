@@ -22,10 +22,12 @@ from capo_trustedadvisor._pagination import resolve_path as _resolve_path
 from capo_trustedadvisor._services._aws_config import aws_config
 from capo_trustedadvisor._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -152,7 +154,9 @@ class TrustedAdvisorClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[TrustedAdvisorClientConfig] = None
+        self,
+        config_overrides: Optional[TrustedAdvisorClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: TrustedAdvisorClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -160,8 +164,10 @@ class TrustedAdvisorClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -219,7 +225,10 @@ class TrustedAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchUpdateRecommendationResourceExclusion"),
+        )
         input_: capo_trustedadvisor.types.batch_update_recommendation_resource_exclusion_request.BatchUpdateRecommendationResourceExclusionRequest = {
             "recommendation_resource_exclusions": recommendation_resource_exclusions
         }
@@ -271,7 +280,21 @@ class TrustedAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_trustedadvisor.types.get_organization_recommendation_response.GetOrganizationRecommendationResponse",
+        ) -> dict[str, Any]:
+            import capo_trustedadvisor.types.get_organization_recommendation_response
+
+            return capo_trustedadvisor.types.get_organization_recommendation_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetOrganizationRecommendation", redact_output=_redact_output
+            ),
+        )
         input_: capo_trustedadvisor.types.get_organization_recommendation_request.GetOrganizationRecommendationRequest = {
             "organization_recommendation_identifier": organization_recommendation_identifier
         }
@@ -327,7 +350,21 @@ class TrustedAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_trustedadvisor.types.get_recommendation_response.GetRecommendationResponse",
+        ) -> dict[str, Any]:
+            import capo_trustedadvisor.types.get_recommendation_response
+
+            return (
+                capo_trustedadvisor.types.get_recommendation_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetRecommendation", redact_output=_redact_output),
+        )
         input_: capo_trustedadvisor.types.get_recommendation_request.GetRecommendationRequest = {
             "recommendation_identifier": recommendation_identifier
         }
@@ -398,7 +435,9 @@ class TrustedAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListChecks")
+        )
         input_: capo_trustedadvisor.types.list_checks_request.ListChecksRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -505,7 +544,21 @@ class TrustedAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_trustedadvisor.types.list_organization_recommendation_accounts_response.ListOrganizationRecommendationAccountsResponse",
+        ) -> dict[str, Any]:
+            import capo_trustedadvisor.types.list_organization_recommendation_accounts_response
+
+            return capo_trustedadvisor.types.list_organization_recommendation_accounts_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListOrganizationRecommendationAccounts", redact_output=_redact_output
+            ),
+        )
         input_: capo_trustedadvisor.types.list_organization_recommendation_accounts_request.ListOrganizationRecommendationAccountsRequest = {
             "organization_recommendation_identifier": organization_recommendation_identifier
         }
@@ -610,7 +663,10 @@ class TrustedAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListOrganizationRecommendationResources"),
+        )
         input_: capo_trustedadvisor.types.list_organization_recommendation_resources_request.ListOrganizationRecommendationResourcesRequest = {
             "organization_recommendation_identifier": organization_recommendation_identifier
         }
@@ -748,7 +804,9 @@ class TrustedAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOrganizationRecommendations")
+        )
         input_: capo_trustedadvisor.types.list_organization_recommendations_request.ListOrganizationRecommendationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -885,7 +943,9 @@ class TrustedAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecommendationResources")
+        )
         input_: capo_trustedadvisor.types.list_recommendation_resources_request.ListRecommendationResourcesRequest = {
             "recommendation_identifier": recommendation_identifier
         }
@@ -1025,7 +1085,9 @@ class TrustedAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecommendations")
+        )
         input_: capo_trustedadvisor.types.list_recommendations_request.ListRecommendationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1167,7 +1229,9 @@ class TrustedAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecommendationsForResource")
+        )
         input_: capo_trustedadvisor.types.list_recommendations_for_resource_request.ListRecommendationsForResourceRequest = {
             "aws_resource_arn": aws_resource_arn
         }
@@ -1277,7 +1341,21 @@ class TrustedAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_trustedadvisor.types.update_organization_recommendation_lifecycle_request.UpdateOrganizationRecommendationLifecycleRequest",
+        ) -> dict[str, Any]:
+            import capo_trustedadvisor.types.update_organization_recommendation_lifecycle_request
+
+            return capo_trustedadvisor.types.update_organization_recommendation_lifecycle_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateOrganizationRecommendationLifecycle", redact_input=_redact_input
+            ),
+        )
         input_: capo_trustedadvisor.types.update_organization_recommendation_lifecycle_request.UpdateOrganizationRecommendationLifecycleRequest = {
             "lifecycle_stage": lifecycle_stage,
             "organization_recommendation_identifier": organization_recommendation_identifier,
@@ -1343,7 +1421,21 @@ class TrustedAdvisorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_trustedadvisor.types.update_recommendation_lifecycle_request.UpdateRecommendationLifecycleRequest",
+        ) -> dict[str, Any]:
+            import capo_trustedadvisor.types.update_recommendation_lifecycle_request
+
+            return capo_trustedadvisor.types.update_recommendation_lifecycle_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateRecommendationLifecycle", redact_input=_redact_input
+            ),
+        )
         input_: capo_trustedadvisor.types.update_recommendation_lifecycle_request.UpdateRecommendationLifecycleRequest = {
             "lifecycle_stage": lifecycle_stage,
             "recommendation_identifier": recommendation_identifier,

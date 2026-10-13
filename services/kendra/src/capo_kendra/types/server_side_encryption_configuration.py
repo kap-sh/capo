@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kendra#ServerSideEncryptionConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -25,4 +25,11 @@ def deserialize_aws_json_1_1(data: dict) -> ServerSideEncryptionConfiguration:
     out: ServerSideEncryptionConfiguration = {}  # type: ignore[typeddict-item]
     if data.get("KmsKeyId") is not None:
         out["kms_key_id"] = data["KmsKeyId"]
+    return out
+
+
+def redact_sensitive(value: ServerSideEncryptionConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "kms_key_id" in value:
+        out["kms_key_id"] = "*** Sensitive Data Redacted ***"
     return out

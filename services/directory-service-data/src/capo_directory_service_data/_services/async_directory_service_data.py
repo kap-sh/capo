@@ -25,7 +25,9 @@ from capo_directory_service_data._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -161,7 +163,9 @@ class AsyncDirectoryServiceDataClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncDirectoryServiceDataClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncDirectoryServiceDataClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncDirectoryServiceDataClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -169,8 +173,10 @@ class AsyncDirectoryServiceDataClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -244,7 +250,9 @@ class AsyncDirectoryServiceDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddGroupMember")
+        )
         input_: capo_directory_service_data.types.add_group_member_request.AddGroupMemberRequest = {
             "directory_id": directory_id,
             "group_name": group_name,
@@ -324,7 +332,21 @@ class AsyncDirectoryServiceDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_directory_service_data.types.create_group_request.CreateGroupRequest",
+        ) -> dict[str, Any]:
+            import capo_directory_service_data.types.create_group_request
+
+            return (
+                capo_directory_service_data.types.create_group_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateGroup", redact_input=_redact_input),
+        )
         input_: capo_directory_service_data.types.create_group_request.CreateGroupRequest = {
             "directory_id": directory_id,
             "sam_account_name": sam_account_name,
@@ -409,7 +431,20 @@ class AsyncDirectoryServiceDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_directory_service_data.types.create_user_request.CreateUserRequest",
+        ) -> dict[str, Any]:
+            import capo_directory_service_data.types.create_user_request
+
+            return (
+                capo_directory_service_data.types.create_user_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUser", redact_input=_redact_input)
+        )
         input_: capo_directory_service_data.types.create_user_request.CreateUserRequest = {
             "directory_id": directory_id,
             "sam_account_name": sam_account_name,
@@ -483,7 +518,9 @@ class AsyncDirectoryServiceDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGroup")
+        )
         input_: capo_directory_service_data.types.delete_group_request.DeleteGroupRequest = {
             "directory_id": directory_id,
             "sam_account_name": sam_account_name,
@@ -549,7 +586,9 @@ class AsyncDirectoryServiceDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUser")
+        )
         input_: capo_directory_service_data.types.delete_user_request.DeleteUserRequest = {
             "directory_id": directory_id,
             "sam_account_name": sam_account_name,
@@ -616,7 +655,19 @@ class AsyncDirectoryServiceDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_directory_service_data.types.describe_group_result.DescribeGroupResult",
+        ) -> dict[str, Any]:
+            import capo_directory_service_data.types.describe_group_result
+
+            return capo_directory_service_data.types.describe_group_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeGroup", redact_output=_redact_output),
+        )
         input_: capo_directory_service_data.types.describe_group_request.DescribeGroupRequest = {
             "directory_id": directory_id,
             "sam_account_name": sam_account_name,
@@ -684,7 +735,21 @@ class AsyncDirectoryServiceDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_directory_service_data.types.describe_user_result.DescribeUserResult",
+        ) -> dict[str, Any]:
+            import capo_directory_service_data.types.describe_user_result
+
+            return (
+                capo_directory_service_data.types.describe_user_result.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeUser", redact_output=_redact_output),
+        )
         input_: capo_directory_service_data.types.describe_user_request.DescribeUserRequest = {
             "directory_id": directory_id,
             "sam_account_name": sam_account_name,
@@ -751,7 +816,9 @@ class AsyncDirectoryServiceDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableUser")
+        )
         input_: capo_directory_service_data.types.disable_user_request.DisableUserRequest = {
             "directory_id": directory_id,
             "sam_account_name": sam_account_name,
@@ -824,7 +891,32 @@ class AsyncDirectoryServiceDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_directory_service_data.types.list_group_members_request.ListGroupMembersRequest",
+        ) -> dict[str, Any]:
+            import capo_directory_service_data.types.list_group_members_request
+
+            return capo_directory_service_data.types.list_group_members_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_directory_service_data.types.list_group_members_result.ListGroupMembersResult",
+        ) -> dict[str, Any]:
+            import capo_directory_service_data.types.list_group_members_result
+
+            return capo_directory_service_data.types.list_group_members_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListGroupMembers",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_directory_service_data.types.list_group_members_request.ListGroupMembersRequest = {
             "directory_id": directory_id,
             "sam_account_name": sam_account_name,
@@ -930,7 +1022,34 @@ class AsyncDirectoryServiceDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_directory_service_data.types.list_groups_request.ListGroupsRequest",
+        ) -> dict[str, Any]:
+            import capo_directory_service_data.types.list_groups_request
+
+            return (
+                capo_directory_service_data.types.list_groups_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_directory_service_data.types.list_groups_result.ListGroupsResult",
+        ) -> dict[str, Any]:
+            import capo_directory_service_data.types.list_groups_result
+
+            return (
+                capo_directory_service_data.types.list_groups_result.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListGroups", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_directory_service_data.types.list_groups_request.ListGroupsRequest = {
             "directory_id": directory_id
         }
@@ -1034,7 +1153,32 @@ class AsyncDirectoryServiceDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_directory_service_data.types.list_groups_for_member_request.ListGroupsForMemberRequest",
+        ) -> dict[str, Any]:
+            import capo_directory_service_data.types.list_groups_for_member_request
+
+            return capo_directory_service_data.types.list_groups_for_member_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_directory_service_data.types.list_groups_for_member_result.ListGroupsForMemberResult",
+        ) -> dict[str, Any]:
+            import capo_directory_service_data.types.list_groups_for_member_result
+
+            return capo_directory_service_data.types.list_groups_for_member_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListGroupsForMember",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_directory_service_data.types.list_groups_for_member_request.ListGroupsForMemberRequest = {
             "directory_id": directory_id,
             "sam_account_name": sam_account_name,
@@ -1140,7 +1284,32 @@ class AsyncDirectoryServiceDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_directory_service_data.types.list_users_request.ListUsersRequest",
+        ) -> dict[str, Any]:
+            import capo_directory_service_data.types.list_users_request
+
+            return (
+                capo_directory_service_data.types.list_users_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_directory_service_data.types.list_users_result.ListUsersResult",
+        ) -> dict[str, Any]:
+            import capo_directory_service_data.types.list_users_result
+
+            return capo_directory_service_data.types.list_users_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListUsers", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_directory_service_data.types.list_users_request.ListUsersRequest = {
             "directory_id": directory_id
         }
@@ -1241,7 +1410,9 @@ class AsyncDirectoryServiceDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveGroupMember")
+        )
         input_: capo_directory_service_data.types.remove_group_member_request.RemoveGroupMemberRequest = {
             "directory_id": directory_id,
             "group_name": group_name,
@@ -1316,7 +1487,32 @@ class AsyncDirectoryServiceDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_directory_service_data.types.search_groups_request.SearchGroupsRequest",
+        ) -> dict[str, Any]:
+            import capo_directory_service_data.types.search_groups_request
+
+            return capo_directory_service_data.types.search_groups_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_directory_service_data.types.search_groups_result.SearchGroupsResult",
+        ) -> dict[str, Any]:
+            import capo_directory_service_data.types.search_groups_result
+
+            return (
+                capo_directory_service_data.types.search_groups_result.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchGroups", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_directory_service_data.types.search_groups_request.SearchGroupsRequest = {
             "directory_id": directory_id,
             "search_string": search_string,
@@ -1425,7 +1621,34 @@ class AsyncDirectoryServiceDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_directory_service_data.types.search_users_request.SearchUsersRequest",
+        ) -> dict[str, Any]:
+            import capo_directory_service_data.types.search_users_request
+
+            return (
+                capo_directory_service_data.types.search_users_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_directory_service_data.types.search_users_result.SearchUsersResult",
+        ) -> dict[str, Any]:
+            import capo_directory_service_data.types.search_users_result
+
+            return (
+                capo_directory_service_data.types.search_users_result.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchUsers", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_directory_service_data.types.search_users_request.SearchUsersRequest = {
             "directory_id": directory_id,
             "search_string": search_string,
@@ -1544,7 +1767,21 @@ class AsyncDirectoryServiceDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_directory_service_data.types.update_group_request.UpdateGroupRequest",
+        ) -> dict[str, Any]:
+            import capo_directory_service_data.types.update_group_request
+
+            return (
+                capo_directory_service_data.types.update_group_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateGroup", redact_input=_redact_input),
+        )
         input_: capo_directory_service_data.types.update_group_request.UpdateGroupRequest = {
             "directory_id": directory_id,
             "sam_account_name": sam_account_name,
@@ -1636,7 +1873,20 @@ class AsyncDirectoryServiceDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_directory_service_data.types.update_user_request.UpdateUserRequest",
+        ) -> dict[str, Any]:
+            import capo_directory_service_data.types.update_user_request
+
+            return (
+                capo_directory_service_data.types.update_user_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUser", redact_input=_redact_input)
+        )
         input_: capo_directory_service_data.types.update_user_request.UpdateUserRequest = {
             "directory_id": directory_id,
             "sam_account_name": sam_account_name,

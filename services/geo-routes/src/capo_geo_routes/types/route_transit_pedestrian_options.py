@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteTransitPedestrianOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,4 +42,13 @@ def deserialize_json(data: dict) -> RouteTransitPedestrianOptions:
         out["max_distance"] = data["MaxDistance"]
     if data.get("Speed") is not None:
         out["speed"] = float(data["Speed"])
+    return out
+
+
+def redact_sensitive(value: RouteTransitPedestrianOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "max_distance" in value:
+        out["max_distance"] = "*** Sensitive Data Redacted ***"
+    if "speed" in value:
+        out["speed"] = "*** Sensitive Data Redacted ***"
     return out

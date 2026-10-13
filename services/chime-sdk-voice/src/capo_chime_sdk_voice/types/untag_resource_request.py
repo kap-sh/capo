@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#UntagResourceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -44,4 +44,17 @@ def deserialize_json(data: dict) -> UntagResourceRequest:
         )
     else:
         raise DeserializationError("UntagResourceRequest.tag_keys required")
+    return out
+
+
+def redact_sensitive(value: UntagResourceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "resource_arn" in value:
+        out["resource_arn"] = "*** Sensitive Data Redacted ***"
+    if "tag_keys" in value:
+        import capo_chime_sdk_voice.types.tag_key_list
+
+        out["tag_keys"] = capo_chime_sdk_voice.types.tag_key_list.redact_sensitive(
+            value["tag_keys"]
+        )
     return out

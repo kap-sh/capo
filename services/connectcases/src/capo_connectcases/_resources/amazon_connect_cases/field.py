@@ -7,6 +7,7 @@ import capo_connectcases._auth._sigv4
 from capo_connectcases._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -101,7 +102,9 @@ class Field:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateField")
+        )
         input_: capo_connectcases.types.create_field_request.CreateFieldRequest = {
             "domain_id": domain_id,
             "name": name,
@@ -167,7 +170,9 @@ class Field:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateField")
+        )
         input_: capo_connectcases.types.update_field_request.UpdateFieldRequest = {
             "domain_id": domain_id,
             "field_id": field_id,
@@ -225,7 +230,9 @@ class Field:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteField")
+        )
         input_: capo_connectcases.types.delete_field_request.DeleteFieldRequest = {
             "domain_id": domain_id,
             "field_id": field_id,
@@ -277,7 +284,9 @@ class Field:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFields")
+        )
         input_: capo_connectcases.types.list_fields_request.ListFieldsRequest = {
             "domain_id": domain_id
         }
@@ -333,7 +342,9 @@ class Field:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchPutFieldOptions")
+        )
         input_: capo_connectcases.types.batch_put_field_options_request.BatchPutFieldOptionsRequest = {
             "domain_id": domain_id,
             "field_id": field_id,
@@ -390,7 +401,9 @@ class Field:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFieldOptions")
+        )
         input_: capo_connectcases.types.list_field_options_request.ListFieldOptionsRequest = {
             "domain_id": domain_id,
             "field_id": field_id,
@@ -446,7 +459,9 @@ class Field:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchGetField")
+        )
         input_: capo_connectcases.types.batch_get_field_request.BatchGetFieldRequest = {
             "domain_id": domain_id,
             "fields": fields,
@@ -514,7 +529,9 @@ class AsyncField:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateField")
+        )
         input_: capo_connectcases.types.create_field_request.CreateFieldRequest = {
             "domain_id": domain_id,
             "name": name,
@@ -581,7 +598,9 @@ class AsyncField:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateField")
+        )
         input_: capo_connectcases.types.update_field_request.UpdateFieldRequest = {
             "domain_id": domain_id,
             "field_id": field_id,
@@ -640,7 +659,9 @@ class AsyncField:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteField")
+        )
         input_: capo_connectcases.types.delete_field_request.DeleteFieldRequest = {
             "domain_id": domain_id,
             "field_id": field_id,
@@ -693,7 +714,9 @@ class AsyncField:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFields")
+        )
         input_: capo_connectcases.types.list_fields_request.ListFieldsRequest = {
             "domain_id": domain_id
         }
@@ -750,7 +773,9 @@ class AsyncField:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchPutFieldOptions")
+        )
         input_: capo_connectcases.types.batch_put_field_options_request.BatchPutFieldOptionsRequest = {
             "domain_id": domain_id,
             "field_id": field_id,
@@ -808,7 +833,9 @@ class AsyncField:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFieldOptions")
+        )
         input_: capo_connectcases.types.list_field_options_request.ListFieldOptionsRequest = {
             "domain_id": domain_id,
             "field_id": field_id,
@@ -865,7 +892,9 @@ class AsyncField:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchGetField")
+        )
         input_: capo_connectcases.types.batch_get_field_request.BatchGetFieldRequest = {
             "domain_id": domain_id,
             "fields": fields,

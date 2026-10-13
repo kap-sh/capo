@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SnapshotJobS3Result``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -67,4 +67,11 @@ def deserialize_json(data: dict) -> SnapshotJobS3Result:
                 data["ErrorInfo"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: SnapshotJobS3Result) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "s3_uri" in value:
+        out["s3_uri"] = "*** Sensitive Data Redacted ***"
     return out

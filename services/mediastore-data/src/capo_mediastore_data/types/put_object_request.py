@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mediastoredata#PutObjectRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -30,3 +30,10 @@ class PutObjectRequest(TypedDict, closed=True):
         "capo_mediastore_data.types.upload_availability.UploadAvailability"
     ]
     """<p>Indicates the availability of an object while it is still uploading. If the value is set to <code>streaming</code>, the object is available for downloading after some initial buffering but before the object is uploaded completely. If the value is set to <code>standard</code>, the object is available for downloading only when it is uploaded completely. The default value for this header is <code>standard</code>.</p> <p>To use this header, you must also set the HTTP <code>Transfer-Encoding</code> header to <code>chunked</code>.</p>"""
+
+
+def redact_sensitive(value: PutObjectRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "body" in value:
+        out["body"] = "*** Streaming Data Redacted ***"
+    return out

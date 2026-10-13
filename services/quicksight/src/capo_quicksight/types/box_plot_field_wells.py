@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#BoxPlotFieldWells``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> BoxPlotFieldWells:
         out["box_plot_aggregated_field_wells"] = (
             capo_quicksight.types.box_plot_aggregated_field_wells.deserialize_json(
                 data["BoxPlotAggregatedFieldWells"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: BoxPlotFieldWells) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "box_plot_aggregated_field_wells" in value:
+        import capo_quicksight.types.box_plot_aggregated_field_wells
+
+        out["box_plot_aggregated_field_wells"] = (
+            capo_quicksight.types.box_plot_aggregated_field_wells.redact_sensitive(
+                value["box_plot_aggregated_field_wells"]
             )
         )
     return out

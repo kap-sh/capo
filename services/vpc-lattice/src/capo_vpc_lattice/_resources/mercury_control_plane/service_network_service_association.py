@@ -8,6 +8,7 @@ import capo_vpc_lattice._auth._sigv4
 from capo_vpc_lattice._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -89,7 +90,9 @@ class ServiceNetworkServiceAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateServiceNetworkServiceAssociation")
+        )
         input_: capo_vpc_lattice.types.create_service_network_service_association_request.CreateServiceNetworkServiceAssociationRequest = {
             "service_identifier": service_identifier,
             "service_network_identifier": service_network_identifier,
@@ -142,7 +145,9 @@ class ServiceNetworkServiceAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetServiceNetworkServiceAssociation")
+        )
         input_: capo_vpc_lattice.types.get_service_network_service_association_request.GetServiceNetworkServiceAssociationRequest = {
             "service_network_service_association_identifier": service_network_service_association_identifier
         }
@@ -190,7 +195,9 @@ class ServiceNetworkServiceAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteServiceNetworkServiceAssociation")
+        )
         input_: capo_vpc_lattice.types.delete_service_network_service_association_request.DeleteServiceNetworkServiceAssociationRequest = {
             "service_network_service_association_identifier": service_network_service_association_identifier
         }
@@ -246,7 +253,9 @@ class ServiceNetworkServiceAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListServiceNetworkServiceAssociations")
+        )
         input_: capo_vpc_lattice.types.list_service_network_service_associations_request.ListServiceNetworkServiceAssociationsRequest = {}
         if service_network_identifier is not None:
             input_["service_network_identifier"] = service_network_identifier
@@ -315,7 +324,9 @@ class AsyncServiceNetworkServiceAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateServiceNetworkServiceAssociation")
+        )
         input_: capo_vpc_lattice.types.create_service_network_service_association_request.CreateServiceNetworkServiceAssociationRequest = {
             "service_identifier": service_identifier,
             "service_network_identifier": service_network_identifier,
@@ -369,7 +380,9 @@ class AsyncServiceNetworkServiceAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetServiceNetworkServiceAssociation")
+        )
         input_: capo_vpc_lattice.types.get_service_network_service_association_request.GetServiceNetworkServiceAssociationRequest = {
             "service_network_service_association_identifier": service_network_service_association_identifier
         }
@@ -418,7 +431,9 @@ class AsyncServiceNetworkServiceAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteServiceNetworkServiceAssociation")
+        )
         input_: capo_vpc_lattice.types.delete_service_network_service_association_request.DeleteServiceNetworkServiceAssociationRequest = {
             "service_network_service_association_identifier": service_network_service_association_identifier
         }
@@ -475,7 +490,9 @@ class AsyncServiceNetworkServiceAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListServiceNetworkServiceAssociations")
+        )
         input_: capo_vpc_lattice.types.list_service_network_service_associations_request.ListServiceNetworkServiceAssociationsRequest = {}
         if service_network_identifier is not None:
             input_["service_network_identifier"] = service_network_identifier

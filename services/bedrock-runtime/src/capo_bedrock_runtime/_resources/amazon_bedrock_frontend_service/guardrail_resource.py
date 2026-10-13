@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_runtime._auth._signers
 import capo_bedrock_runtime._auth._sigv4
 from capo_bedrock_runtime._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -85,7 +86,32 @@ class GuardrailResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_runtime.types.apply_guardrail_request.ApplyGuardrailRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.apply_guardrail_request
+
+            return capo_bedrock_runtime.types.apply_guardrail_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_runtime.types.apply_guardrail_response.ApplyGuardrailResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.apply_guardrail_response
+
+            return capo_bedrock_runtime.types.apply_guardrail_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ApplyGuardrail",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_runtime.types.apply_guardrail_request.ApplyGuardrailRequest = {
             "guardrail_identifier": guardrail_identifier,
             "guardrail_version": guardrail_version,
@@ -139,7 +165,19 @@ class GuardrailResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_runtime.types.invoke_guardrail_checks_request.InvokeGuardrailChecksRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.invoke_guardrail_checks_request
+
+            return capo_bedrock_runtime.types.invoke_guardrail_checks_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("InvokeGuardrailChecks", redact_input=_redact_input),
+        )
         input_: capo_bedrock_runtime.types.invoke_guardrail_checks_request.InvokeGuardrailChecksRequest = {
             "messages": messages,
             "checks": checks,
@@ -205,7 +243,32 @@ class AsyncGuardrailResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_runtime.types.apply_guardrail_request.ApplyGuardrailRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.apply_guardrail_request
+
+            return capo_bedrock_runtime.types.apply_guardrail_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_runtime.types.apply_guardrail_response.ApplyGuardrailResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.apply_guardrail_response
+
+            return capo_bedrock_runtime.types.apply_guardrail_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ApplyGuardrail",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_runtime.types.apply_guardrail_request.ApplyGuardrailRequest = {
             "guardrail_identifier": guardrail_identifier,
             "guardrail_version": guardrail_version,
@@ -260,7 +323,19 @@ class AsyncGuardrailResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_runtime.types.invoke_guardrail_checks_request.InvokeGuardrailChecksRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.invoke_guardrail_checks_request
+
+            return capo_bedrock_runtime.types.invoke_guardrail_checks_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("InvokeGuardrailChecks", redact_input=_redact_input),
+        )
         input_: capo_bedrock_runtime.types.invoke_guardrail_checks_request.InvokeGuardrailChecksRequest = {
             "messages": messages,
             "checks": checks,

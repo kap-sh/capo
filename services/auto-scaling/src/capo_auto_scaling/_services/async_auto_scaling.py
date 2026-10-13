@@ -25,7 +25,9 @@ from capo_auto_scaling._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -318,7 +320,9 @@ class AsyncAutoScalingClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncAutoScalingClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncAutoScalingClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncAutoScalingClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -326,8 +330,10 @@ class AsyncAutoScalingClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -388,7 +394,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachInstances")
+        )
         input_: capo_auto_scaling.types.attach_instances_query.AttachInstancesQuery = {}
         if instance_ids is not None:
             input_["instance_ids"] = instance_ids
@@ -448,7 +456,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachLoadBalancers")
+        )
         input_: capo_auto_scaling.types.attach_load_balancers_type.AttachLoadBalancersType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -508,7 +518,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachLoadBalancerTargetGroups")
+        )
         input_: capo_auto_scaling.types.attach_load_balancer_target_groups_type.AttachLoadBalancerTargetGroupsType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -572,7 +584,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachTrafficSources")
+        )
         input_: capo_auto_scaling.types.attach_traffic_sources_type.AttachTrafficSourcesType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -626,7 +640,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteScheduledAction")
+        )
         input_: capo_auto_scaling.types.batch_delete_scheduled_action_type.BatchDeleteScheduledActionType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -680,7 +696,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchPutScheduledUpdateGroupAction")
+        )
         input_: capo_auto_scaling.types.batch_put_scheduled_update_group_action_type.BatchPutScheduledUpdateGroupActionType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -740,7 +758,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelInstanceRefresh")
+        )
         input_: capo_auto_scaling.types.cancel_instance_refresh_type.CancelInstanceRefreshType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -812,7 +832,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CompleteLifecycleAction")
+        )
         input_: capo_auto_scaling.types.complete_lifecycle_action_type.CompleteLifecycleActionType = {}
         if lifecycle_hook_name is not None:
             input_["lifecycle_hook_name"] = lifecycle_hook_name
@@ -1021,7 +1043,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAutoScalingGroup")
+        )
         input_: capo_auto_scaling.types.create_auto_scaling_group_type.CreateAutoScalingGroupType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -1221,7 +1245,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLaunchConfiguration")
+        )
         input_: capo_auto_scaling.types.create_launch_configuration_type.CreateLaunchConfigurationType = {}
         if launch_configuration_name is not None:
             input_["launch_configuration_name"] = launch_configuration_name
@@ -1310,7 +1336,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateOrUpdateTags")
+        )
         input_: capo_auto_scaling.types.create_or_update_tags_type.CreateOrUpdateTagsType = {}
         if tags is not None:
             input_["tags"] = tags
@@ -1370,7 +1398,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAutoScalingGroup")
+        )
         input_: capo_auto_scaling.types.delete_auto_scaling_group_type.DeleteAutoScalingGroupType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -1423,7 +1453,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLaunchConfiguration")
+        )
         input_: capo_auto_scaling.types.launch_configuration_name_type.LaunchConfigurationNameType = {}
         if launch_configuration_name is not None:
             input_["launch_configuration_name"] = launch_configuration_name
@@ -1481,7 +1513,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLifecycleHook")
+        )
         input_: capo_auto_scaling.types.delete_lifecycle_hook_type.DeleteLifecycleHookType = {}
         if lifecycle_hook_name is not None:
             input_["lifecycle_hook_name"] = lifecycle_hook_name
@@ -1537,7 +1571,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNotificationConfiguration")
+        )
         input_: capo_auto_scaling.types.delete_notification_configuration_type.DeleteNotificationConfigurationType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -1594,7 +1630,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePolicy")
+        )
         input_: capo_auto_scaling.types.delete_policy_type.DeletePolicyType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -1650,7 +1688,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteScheduledAction")
+        )
         input_: capo_auto_scaling.types.delete_scheduled_action_type.DeleteScheduledActionType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -1701,7 +1741,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTags")
+        )
         input_: capo_auto_scaling.types.delete_tags_type.DeleteTagsType = {}
         if tags is not None:
             input_["tags"] = tags
@@ -1754,7 +1796,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWarmPool")
+        )
         input_: capo_auto_scaling.types.delete_warm_pool_type.DeleteWarmPoolType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -1800,7 +1844,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountLimits")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -1841,7 +1887,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAdjustmentTypes")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -1901,7 +1949,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAutoScalingGroups")
+        )
         input_: capo_auto_scaling.types.auto_scaling_group_names_type.AutoScalingGroupNamesType = {}
         if auto_scaling_group_names is not None:
             input_["auto_scaling_group_names"] = auto_scaling_group_names
@@ -1997,7 +2047,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAutoScalingInstances")
+        )
         input_: capo_auto_scaling.types.describe_auto_scaling_instances_type.DescribeAutoScalingInstancesType = {}
         if instance_ids is not None:
             input_["instance_ids"] = instance_ids
@@ -2070,7 +2122,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAutoScalingNotificationTypes")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -2122,7 +2176,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInstanceRefreshes")
+        )
         input_: capo_auto_scaling.types.describe_instance_refreshes_type.DescribeInstanceRefreshesType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -2212,7 +2268,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLaunchConfigurations")
+        )
         input_: capo_auto_scaling.types.launch_configuration_names_type.LaunchConfigurationNamesType = {}
         if launch_configuration_names is not None:
             input_["launch_configuration_names"] = launch_configuration_names
@@ -2297,7 +2355,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLifecycleHooks")
+        )
         input_: capo_auto_scaling.types.describe_lifecycle_hooks_type.DescribeLifecycleHooksType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -2343,7 +2403,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLifecycleHookTypes")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -2397,7 +2459,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLoadBalancers")
+        )
         input_: capo_auto_scaling.types.describe_load_balancers_request.DescribeLoadBalancersRequest = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -2481,7 +2545,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLoadBalancerTargetGroups")
+        )
         input_: capo_auto_scaling.types.describe_load_balancer_target_groups_request.DescribeLoadBalancerTargetGroupsRequest = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -2552,7 +2618,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMetricCollectionTypes")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -2606,7 +2674,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeNotificationConfigurations")
+        )
         input_: capo_auto_scaling.types.describe_notification_configurations_type.DescribeNotificationConfigurationsType = {}
         if auto_scaling_group_names is not None:
             input_["auto_scaling_group_names"] = auto_scaling_group_names
@@ -2701,7 +2771,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePolicies")
+        )
         input_: capo_auto_scaling.types.describe_policies_type.DescribePoliciesType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -2809,7 +2881,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeScalingActivities")
+        )
         input_: capo_auto_scaling.types.describe_scaling_activities_type.DescribeScalingActivitiesType = {}
         if activity_ids is not None:
             input_["activity_ids"] = activity_ids
@@ -2898,7 +2972,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeScalingProcessTypes")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -2964,7 +3040,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeScheduledActions")
+        )
         input_: capo_auto_scaling.types.describe_scheduled_actions_type.DescribeScheduledActionsType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -3064,7 +3142,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTags")
+        )
         input_: capo_auto_scaling.types.describe_tags_type.DescribeTagsType = {}
         if filters is not None:
             input_["filters"] = filters
@@ -3135,7 +3215,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTerminationPolicyTypes")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -3193,7 +3275,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTrafficSources")
+        )
         input_: capo_auto_scaling.types.describe_traffic_sources_request.DescribeTrafficSourcesRequest = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -3278,7 +3362,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWarmPool")
+        )
         input_: capo_auto_scaling.types.describe_warm_pool_type.DescribeWarmPoolType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -3367,7 +3453,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachInstances")
+        )
         input_: capo_auto_scaling.types.detach_instances_query.DetachInstancesQuery = {}
         if instance_ids is not None:
             input_["instance_ids"] = instance_ids
@@ -3429,7 +3517,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachLoadBalancers")
+        )
         input_: capo_auto_scaling.types.detach_load_balancers_type.DetachLoadBalancersType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -3487,7 +3577,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachLoadBalancerTargetGroups")
+        )
         input_: capo_auto_scaling.types.detach_load_balancer_target_groups_type.DetachLoadBalancerTargetGroupsType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -3545,7 +3637,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachTrafficSources")
+        )
         input_: capo_auto_scaling.types.detach_traffic_sources_type.DetachTrafficSourcesType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -3599,7 +3693,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableMetricsCollection")
+        )
         input_: capo_auto_scaling.types.disable_metrics_collection_query.DisableMetricsCollectionQuery = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -3657,7 +3753,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableMetricsCollection")
+        )
         input_: capo_auto_scaling.types.enable_metrics_collection_query.EnableMetricsCollectionQuery = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -3721,7 +3819,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnterStandby")
+        )
         input_: capo_auto_scaling.types.enter_standby_query.EnterStandbyQuery = {}
         if instance_ids is not None:
             input_["instance_ids"] = instance_ids
@@ -3794,7 +3894,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExecutePolicy")
+        )
         input_: capo_auto_scaling.types.execute_policy_type.ExecutePolicyType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -3858,7 +3960,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExitStandby")
+        )
         input_: capo_auto_scaling.types.exit_standby_query.ExitStandbyQuery = {}
         if instance_ids is not None:
             input_["instance_ids"] = instance_ids
@@ -3918,7 +4022,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPredictiveScalingForecast")
+        )
         input_: capo_auto_scaling.types.get_predictive_scaling_forecast_type.GetPredictiveScalingForecastType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -3996,7 +4102,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("LaunchInstances")
+        )
         input_: capo_auto_scaling.types.launch_instances_request.LaunchInstancesRequest = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -4090,7 +4198,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutLifecycleHook")
+        )
         input_: capo_auto_scaling.types.put_lifecycle_hook_type.PutLifecycleHookType = {}
         if lifecycle_hook_name is not None:
             input_["lifecycle_hook_name"] = lifecycle_hook_name
@@ -4164,7 +4274,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutNotificationConfiguration")
+        )
         input_: capo_auto_scaling.types.put_notification_configuration_type.PutNotificationConfigurationType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -4272,7 +4384,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutScalingPolicy")
+        )
         input_: capo_auto_scaling.types.put_scaling_policy_type.PutScalingPolicyType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -4386,7 +4500,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutScheduledUpdateGroupAction")
+        )
         input_: capo_auto_scaling.types.put_scheduled_update_group_action_type.PutScheduledUpdateGroupActionType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -4474,7 +4590,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutWarmPool")
+        )
         input_: capo_auto_scaling.types.put_warm_pool_type.PutWarmPoolType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -4546,7 +4664,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RecordLifecycleActionHeartbeat")
+        )
         input_: capo_auto_scaling.types.record_lifecycle_action_heartbeat_type.RecordLifecycleActionHeartbeatType = {}
         if lifecycle_hook_name is not None:
             input_["lifecycle_hook_name"] = lifecycle_hook_name
@@ -4607,7 +4727,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResumeProcesses")
+        )
         input_: capo_auto_scaling.types.scaling_process_query.ScalingProcessQuery = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -4658,7 +4780,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RollbackInstanceRefresh")
+        )
         input_: capo_auto_scaling.types.rollback_instance_refresh_type.RollbackInstanceRefreshType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -4717,7 +4841,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetDesiredCapacity")
+        )
         input_: capo_auto_scaling.types.set_desired_capacity_type.SetDesiredCapacityType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -4779,7 +4905,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetInstanceHealth")
+        )
         input_: capo_auto_scaling.types.set_instance_health_query.SetInstanceHealthQuery = {}
         if instance_id is not None:
             input_["instance_id"] = instance_id
@@ -4848,7 +4976,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetInstanceProtection")
+        )
         input_: capo_auto_scaling.types.set_instance_protection_query.SetInstanceProtectionQuery = {}
         if instance_ids is not None:
             input_["instance_ids"] = instance_ids
@@ -4918,7 +5048,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartInstanceRefresh")
+        )
         input_: capo_auto_scaling.types.start_instance_refresh_type.StartInstanceRefreshType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -4979,7 +5111,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SuspendProcesses")
+        )
         input_: capo_auto_scaling.types.scaling_process_query.ScalingProcessQuery = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name
@@ -5050,7 +5184,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TerminateInstanceInAutoScalingGroup")
+        )
         input_: capo_auto_scaling.types.terminate_instance_in_auto_scaling_group_type.TerminateInstanceInAutoScalingGroupType = {}
         if instance_id is not None:
             input_["instance_id"] = instance_id
@@ -5218,7 +5354,9 @@ class AsyncAutoScalingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAutoScalingGroup")
+        )
         input_: capo_auto_scaling.types.update_auto_scaling_group_type.UpdateAutoScalingGroupType = {}
         if auto_scaling_group_name is not None:
             input_["auto_scaling_group_name"] = auto_scaling_group_name

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#GenerateMacEmvPinChangeInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -117,5 +117,22 @@ def deserialize_json(data: dict) -> GenerateMacEmvPinChangeInput:
     else:
         raise DeserializationError(
             "GenerateMacEmvPinChangeInput.derivation_method_attributes required"
+        )
+    return out
+
+
+def redact_sensitive(value: GenerateMacEmvPinChangeInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "new_encrypted_pin_block" in value:
+        out["new_encrypted_pin_block"] = "*** Sensitive Data Redacted ***"
+    if "message_data" in value:
+        out["message_data"] = "*** Sensitive Data Redacted ***"
+    if "derivation_method_attributes" in value:
+        import capo_payment_cryptography_data.types.derivation_method_attributes
+
+        out["derivation_method_attributes"] = (
+            capo_payment_cryptography_data.types.derivation_method_attributes.redact_sensitive(
+                value["derivation_method_attributes"]
+            )
         )
     return out

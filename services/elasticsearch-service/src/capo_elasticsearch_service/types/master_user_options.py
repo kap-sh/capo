@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.elasticsearchservice#MasterUserOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,4 +41,13 @@ def deserialize_json(data: dict) -> MasterUserOptions:
         out["master_user_name"] = data["MasterUserName"]
     if data.get("MasterUserPassword") is not None:
         out["master_user_password"] = data["MasterUserPassword"]
+    return out
+
+
+def redact_sensitive(value: MasterUserOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "master_user_name" in value:
+        out["master_user_name"] = "*** Sensitive Data Redacted ***"
+    if "master_user_password" in value:
+        out["master_user_password"] = "*** Sensitive Data Redacted ***"
     return out

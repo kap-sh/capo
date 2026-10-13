@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmessaging#PushNotificationConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -57,4 +57,13 @@ def deserialize_json(data: dict) -> PushNotificationConfiguration:
                 data["Type"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: PushNotificationConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "title" in value:
+        out["title"] = "*** Sensitive Data Redacted ***"
+    if "body" in value:
+        out["body"] = "*** Sensitive Data Redacted ***"
     return out

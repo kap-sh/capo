@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appstream#DirectoryConfigList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_appstream.types.directory_config
@@ -29,3 +29,11 @@ def deserialize_aws_json_1_1(data: list) -> DirectoryConfigList:
             continue
         out.append(capo_appstream.types.directory_config.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: DirectoryConfigList) -> list[Any]:
+    import capo_appstream.types.directory_config
+
+    return [
+        capo_appstream.types.directory_config.redact_sensitive(item) for item in value
+    ]

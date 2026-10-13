@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TimeRangeFilter``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -175,6 +175,27 @@ def deserialize_json(data: dict) -> TimeRangeFilter:
         out["default_filter_control_configuration"] = (
             capo_quicksight.types.default_filter_control_configuration.deserialize_json(
                 data["DefaultFilterControlConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: TimeRangeFilter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "range_minimum_value" in value:
+        import capo_quicksight.types.time_range_filter_value
+
+        out["range_minimum_value"] = (
+            capo_quicksight.types.time_range_filter_value.redact_sensitive(
+                value["range_minimum_value"]
+            )
+        )
+    if "range_maximum_value" in value:
+        import capo_quicksight.types.time_range_filter_value
+
+        out["range_maximum_value"] = (
+            capo_quicksight.types.time_range_filter_value.redact_sensitive(
+                value["range_maximum_value"]
             )
         )
     return out

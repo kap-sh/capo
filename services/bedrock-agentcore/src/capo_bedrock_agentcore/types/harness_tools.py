@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#HarnessTools``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.harness_tool
@@ -27,3 +27,12 @@ def deserialize_json(data: list) -> HarnessTools:
             continue
         out.append(capo_bedrock_agentcore.types.harness_tool.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: HarnessTools) -> list[Any]:
+    import capo_bedrock_agentcore.types.harness_tool
+
+    return [
+        capo_bedrock_agentcore.types.harness_tool.redact_sensitive(item)
+        for item in value
+    ]

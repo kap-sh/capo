@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#AssessmentFrameworkShareRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -162,4 +162,11 @@ def deserialize_json(data: dict) -> AssessmentFrameworkShareRequest:
         out["custom_controls_count"] = data["customControlsCount"]
     if data.get("complianceType") is not None:
         out["compliance_type"] = data["complianceType"]
+    return out
+
+
+def redact_sensitive(value: AssessmentFrameworkShareRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "compliance_type" in value:
+        out["compliance_type"] = "*** Sensitive Data Redacted ***"
     return out

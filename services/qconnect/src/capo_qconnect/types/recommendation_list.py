@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#RecommendationList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_qconnect.types.recommendation_data
@@ -29,3 +29,11 @@ def deserialize_json(data: list) -> RecommendationList:
             continue
         out.append(capo_qconnect.types.recommendation_data.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: RecommendationList) -> list[Any]:
+    import capo_qconnect.types.recommendation_data
+
+    return [
+        capo_qconnect.types.recommendation_data.redact_sensitive(item) for item in value
+    ]

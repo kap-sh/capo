@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SparklinesOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -168,5 +168,16 @@ def deserialize_json(data: dict) -> SparklinesOptions:
             capo_quicksight.types.line_chart_marker_style_settings.deserialize_json(
                 data["MinValueMarker"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: SparklinesOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "x_axis_field" in value:
+        import capo_quicksight.types.dimension_field
+
+        out["x_axis_field"] = capo_quicksight.types.dimension_field.redact_sensitive(
+            value["x_axis_field"]
         )
     return out

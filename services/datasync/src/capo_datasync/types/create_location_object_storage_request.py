@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datasync#CreateLocationObjectStorageRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -190,4 +190,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationObjectStorageRequest:
                 data["CustomSecretConfig"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: CreateLocationObjectStorageRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "secret_key" in value:
+        out["secret_key"] = "*** Sensitive Data Redacted ***"
     return out

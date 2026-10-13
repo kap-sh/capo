@@ -23,10 +23,12 @@ from capo_kinesis._pagination import resolve_path as _resolve_path
 from capo_kinesis._services._aws_config import aws_config
 from capo_kinesis._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 from capo_kinesis.errors import ServiceError, WaiterTimeoutError
@@ -239,7 +241,9 @@ class KinesisClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[KinesisClientConfig] = None
+        self,
+        config_overrides: Optional[KinesisClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: KinesisClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -247,8 +251,10 @@ class KinesisClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -309,7 +315,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTagsToStream")
+        )
         input_: capo_kinesis.types.add_tags_to_stream_input.AddTagsToStreamInput = {
             "tags": tags
         }
@@ -399,7 +407,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateChannel")
+        )
         input_: capo_kinesis.types.create_channel_input.CreateChannelInput = {
             "channel_name": channel_name,
             "service_execution_role_arn": service_execution_role_arn,
@@ -479,7 +489,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStream")
+        )
         input_: capo_kinesis.types.create_stream_input.CreateStreamInput = {
             "stream_name": stream_name
         }
@@ -542,7 +554,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DecreaseStreamRetentionPeriod")
+        )
         input_: capo_kinesis.types.decrease_stream_retention_period_input.DecreaseStreamRetentionPeriodInput = {
             "retention_period_hours": retention_period_hours
         }
@@ -598,7 +612,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChannel")
+        )
         input_: capo_kinesis.types.delete_channel_input.DeleteChannelInput = {
             "channel_arn": channel_arn
         }
@@ -645,7 +661,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_kinesis.types.delete_resource_policy_input.DeleteResourcePolicyInput = {
             "resource_arn": resource_arn
         }
@@ -700,7 +718,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStream")
+        )
         input_: capo_kinesis.types.delete_stream_input.DeleteStreamInput = {}
         if stream_name is not None:
             input_["stream_name"] = stream_name
@@ -755,7 +775,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterStreamConsumer")
+        )
         input_: capo_kinesis.types.deregister_stream_consumer_input.DeregisterStreamConsumerInput = {}
         if stream_arn is not None:
             input_["stream_arn"] = stream_arn
@@ -798,7 +820,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountSettings")
+        )
         input_: capo_kinesis.types.describe_account_settings_input.DescribeAccountSettingsInput = {}
 
         response = execute_pipeline(
@@ -848,7 +872,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeChannel")
+        )
         input_: capo_kinesis.types.describe_channel_input.DescribeChannelInput = {
             "channel_arn": channel_arn
         }
@@ -885,7 +911,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLimits")
+        )
         input_: capo_kinesis.types.describe_limits_input.DescribeLimitsInput = {}
 
         response = execute_pipeline(
@@ -941,7 +969,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStream")
+        )
         input_: capo_kinesis.types.describe_stream_input.DescribeStreamInput = {}
         if stream_name is not None:
             input_["stream_name"] = stream_name
@@ -1060,7 +1090,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStreamConsumer")
+        )
         input_: capo_kinesis.types.describe_stream_consumer_input.DescribeStreamConsumerInput = {}
         if stream_arn is not None:
             input_["stream_arn"] = stream_arn
@@ -1118,7 +1150,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStreamSummary")
+        )
         input_: capo_kinesis.types.describe_stream_summary_input.DescribeStreamSummaryInput = {}
         if stream_name is not None:
             input_["stream_name"] = stream_name
@@ -1175,7 +1209,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableEnhancedMonitoring")
+        )
         input_: capo_kinesis.types.disable_enhanced_monitoring_input.DisableEnhancedMonitoringInput = {
             "shard_level_metrics": shard_level_metrics
         }
@@ -1234,7 +1270,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableEnhancedMonitoring")
+        )
         input_: capo_kinesis.types.enable_enhanced_monitoring_input.EnableEnhancedMonitoringInput = {
             "shard_level_metrics": shard_level_metrics
         }
@@ -1305,7 +1343,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRecords")
+        )
         input_: capo_kinesis.types.get_records_input.GetRecordsInput = {
             "shard_iterator": shard_iterator
         }
@@ -1362,7 +1402,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_kinesis.types.get_resource_policy_input.GetResourcePolicyInput = {
             "resource_arn": resource_arn
         }
@@ -1428,7 +1470,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetShardIterator")
+        )
         input_: capo_kinesis.types.get_shard_iterator_input.GetShardIteratorInput = {
             "shard_id": shard_id,
             "shard_iterator_type": shard_iterator_type,
@@ -1492,7 +1536,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("IncreaseStreamRetentionPeriod")
+        )
         input_: capo_kinesis.types.increase_stream_retention_period_input.IncreaseStreamRetentionPeriodInput = {
             "retention_period_hours": retention_period_hours
         }
@@ -1561,7 +1607,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListChannels")
+        )
         input_: capo_kinesis.types.list_channels_input.ListChannelsInput = {}
         if stream_filter is not None:
             input_["stream_filter"] = stream_filter
@@ -1660,7 +1708,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListShards")
+        )
         input_: capo_kinesis.types.list_shards_input.ListShardsInput = {}
         if stream_name is not None:
             input_["stream_name"] = stream_name
@@ -1733,7 +1783,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStreamConsumers")
+        )
         input_: capo_kinesis.types.list_stream_consumers_input.ListStreamConsumersInput = {
             "stream_arn": stream_arn
         }
@@ -1823,7 +1875,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStreams")
+        )
         input_: capo_kinesis.types.list_streams_input.ListStreamsInput = {}
         if limit is not None:
             input_["limit"] = limit
@@ -1901,7 +1955,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_kinesis.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -1959,7 +2015,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForStream")
+        )
         input_: capo_kinesis.types.list_tags_for_stream_input.ListTagsForStreamInput = {}
         if stream_name is not None:
             input_["stream_name"] = stream_name
@@ -2021,7 +2079,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("MergeShards")
+        )
         input_: capo_kinesis.types.merge_shards_input.MergeShardsInput = {
             "shard_to_merge": shard_to_merge,
             "adjacent_shard_to_merge": adjacent_shard_to_merge,
@@ -2096,7 +2156,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRecord")
+        )
         input_: capo_kinesis.types.put_record_input.PutRecordInput = {"data": data}
         if stream_name is not None:
             input_["stream_name"] = stream_name
@@ -2170,7 +2232,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRecords")
+        )
         input_: capo_kinesis.types.put_records_input.PutRecordsInput = {
             "records": records
         }
@@ -2227,7 +2291,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_kinesis.types.put_resource_policy_input.PutResourcePolicyInput = {
             "resource_arn": resource_arn,
             "policy": policy,
@@ -2282,7 +2348,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterStreamConsumer")
+        )
         input_: capo_kinesis.types.register_stream_consumer_input.RegisterStreamConsumerInput = {
             "stream_arn": stream_arn,
             "consumer_name": consumer_name,
@@ -2338,7 +2406,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTagsFromStream")
+        )
         input_: capo_kinesis.types.remove_tags_from_stream_input.RemoveTagsFromStreamInput = {
             "tag_keys": tag_keys
         }
@@ -2398,7 +2468,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SplitShard")
+        )
         input_: capo_kinesis.types.split_shard_input.SplitShardInput = {
             "shard_to_split": shard_to_split,
             "new_starting_hash_key": new_starting_hash_key,
@@ -2464,7 +2536,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartStreamEncryption")
+        )
         input_: capo_kinesis.types.start_stream_encryption_input.StartStreamEncryptionInput = {
             "encryption_type": encryption_type,
             "key_id": key_id,
@@ -2524,7 +2598,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopStreamEncryption")
+        )
         input_: capo_kinesis.types.stop_stream_encryption_input.StopStreamEncryptionInput = {
             "encryption_type": encryption_type,
             "key_id": key_id,
@@ -2587,7 +2663,17 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_kinesis.types.subscribe_to_shard_output.SubscribeToShardOutput",
+        ) -> dict[str, Any]:
+            import capo_kinesis.types.subscribe_to_shard_output
+
+            return capo_kinesis.types.subscribe_to_shard_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SubscribeToShard", redact_output=_redact_output),
+        )
         input_: capo_kinesis.types.subscribe_to_shard_input.SubscribeToShardInput = {
             "consumer_arn": consumer_arn,
             "shard_id": shard_id,
@@ -2641,7 +2727,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_kinesis.types.tag_resource_input.TagResourceInput = {
             "tags": tags,
             "resource_arn": resource_arn,
@@ -2693,7 +2781,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_kinesis.types.untag_resource_input.UntagResourceInput = {
             "tag_keys": tag_keys,
             "resource_arn": resource_arn,
@@ -2743,7 +2833,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccountSettings")
+        )
         input_: capo_kinesis.types.update_account_settings_input.UpdateAccountSettingsInput = {
             "minimum_throughput_billing_commitment": minimum_throughput_billing_commitment
         }
@@ -2808,7 +2900,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateChannel")
+        )
         input_: capo_kinesis.types.update_channel_input.UpdateChannelInput = {
             "channel_arn": channel_arn
         }
@@ -2866,7 +2960,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMaxRecordSize")
+        )
         input_: capo_kinesis.types.update_max_record_size_input.UpdateMaxRecordSizeInput = {
             "max_record_size_in_ki_b": max_record_size_in_ki_b
         }
@@ -2926,7 +3022,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateShardCount")
+        )
         input_: capo_kinesis.types.update_shard_count_input.UpdateShardCountInput = {
             "target_shard_count": target_shard_count,
             "scaling_type": scaling_type,
@@ -2986,7 +3084,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateStreamMode")
+        )
         input_: capo_kinesis.types.update_stream_mode_input.UpdateStreamModeInput = {
             "stream_arn": stream_arn,
             "stream_mode_details": stream_mode_details,
@@ -3041,7 +3141,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateStreamRecordDistributionStrategy")
+        )
         input_: capo_kinesis.types.update_stream_record_distribution_strategy_input.UpdateStreamRecordDistributionStrategyInput = {
             "stream_arn": stream_arn,
             "record_distribution_strategy": record_distribution_strategy,
@@ -3098,7 +3200,9 @@ class KinesisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateStreamWarmThroughput")
+        )
         input_: capo_kinesis.types.update_stream_warm_throughput_input.UpdateStreamWarmThroughputInput = {
             "warm_throughput_mi_bps": warm_throughput_mi_bps
         }

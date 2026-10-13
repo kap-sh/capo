@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DescribeAssetBundleExportJobResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -270,4 +270,11 @@ def deserialize_json(data: dict) -> DescribeAssetBundleExportJobResponse:
                 data["IncludeFolderMembers"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: DescribeAssetBundleExportJobResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "download_url" in value:
+        out["download_url"] = "*** Sensitive Data Redacted ***"
     return out

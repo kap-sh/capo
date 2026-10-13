@@ -57,10 +57,12 @@ from capo_bedrock_agentcore._resources.amazon_bedrock_agent_core.registry_record
 from capo_bedrock_agentcore._services._aws_config import aws_config
 from capo_bedrock_agentcore._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -415,7 +417,9 @@ class BedrockAgentCoreClient:
         self.registry_record_resource = RegistryRecordResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[BedrockAgentCoreClientConfig] = None
+        self,
+        config_overrides: Optional[BedrockAgentCoreClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: BedrockAgentCoreClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -423,8 +427,10 @@ class BedrockAgentCoreClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -480,7 +486,19 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.complete_resource_token_auth_request.CompleteResourceTokenAuthRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.complete_resource_token_auth_request
+
+            return capo_bedrock_agentcore.types.complete_resource_token_auth_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CompleteResourceTokenAuth", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore.types.complete_resource_token_auth_request.CompleteResourceTokenAuthRequest = {
             "user_identifier": user_identifier,
             "session_uri": session_uri,
@@ -531,7 +549,32 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.get_resource_api_key_request.GetResourceApiKeyRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_resource_api_key_request
+
+            return capo_bedrock_agentcore.types.get_resource_api_key_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.get_resource_api_key_response.GetResourceApiKeyResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_resource_api_key_response
+
+            return capo_bedrock_agentcore.types.get_resource_api_key_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetResourceApiKey",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore.types.get_resource_api_key_request.GetResourceApiKeyRequest = {
             "workload_identity_token": workload_identity_token,
             "resource_credential_provider_name": resource_credential_provider_name,
@@ -610,7 +653,32 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.get_resource_oauth2_token_request.GetResourceOauth2TokenRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_resource_oauth2_token_request
+
+            return capo_bedrock_agentcore.types.get_resource_oauth2_token_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.get_resource_oauth2_token_response.GetResourceOauth2TokenResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_resource_oauth2_token_response
+
+            return capo_bedrock_agentcore.types.get_resource_oauth2_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetResourceOauth2Token",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore.types.get_resource_oauth2_token_request.GetResourceOauth2TokenRequest = {
             "workload_identity_token": workload_identity_token,
             "resource_credential_provider_name": resource_credential_provider_name,
@@ -679,7 +747,32 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.get_resource_payment_token_request.GetResourcePaymentTokenRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_resource_payment_token_request
+
+            return capo_bedrock_agentcore.types.get_resource_payment_token_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.get_resource_payment_token_response.GetResourcePaymentTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_resource_payment_token_response
+
+            return capo_bedrock_agentcore.types.get_resource_payment_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetResourcePaymentToken",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore.types.get_resource_payment_token_request.GetResourcePaymentTokenRequest = {
             "workload_identity_token": workload_identity_token,
             "resource_credential_provider_name": resource_credential_provider_name,
@@ -729,7 +822,19 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.get_workload_access_token_response.GetWorkloadAccessTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_workload_access_token_response
+
+            return capo_bedrock_agentcore.types.get_workload_access_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetWorkloadAccessToken", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore.types.get_workload_access_token_request.GetWorkloadAccessTokenRequest = {
             "workload_name": workload_name
         }
@@ -779,7 +884,32 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.get_workload_access_token_for_jwt_request.GetWorkloadAccessTokenForJWTRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_workload_access_token_for_jwt_request
+
+            return capo_bedrock_agentcore.types.get_workload_access_token_for_jwt_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.get_workload_access_token_for_jwt_response.GetWorkloadAccessTokenForJWTResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_workload_access_token_for_jwt_response
+
+            return capo_bedrock_agentcore.types.get_workload_access_token_for_jwt_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetWorkloadAccessTokenForJWT",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore.types.get_workload_access_token_for_jwt_request.GetWorkloadAccessTokenForJWTRequest = {
             "workload_name": workload_name,
             "user_token": user_token,
@@ -830,7 +960,21 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.get_workload_access_token_for_user_id_response.GetWorkloadAccessTokenForUserIdResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_workload_access_token_for_user_id_response
+
+            return capo_bedrock_agentcore.types.get_workload_access_token_for_user_id_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetWorkloadAccessTokenForUserId", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agentcore.types.get_workload_access_token_for_user_id_request.GetWorkloadAccessTokenForUserIdRequest = {
             "workload_name": workload_name,
             "user_id": user_id,
@@ -895,7 +1039,32 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.invoke_code_interpreter_request.InvokeCodeInterpreterRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.invoke_code_interpreter_request
+
+            return capo_bedrock_agentcore.types.invoke_code_interpreter_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.invoke_code_interpreter_response.InvokeCodeInterpreterResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.invoke_code_interpreter_response
+
+            return capo_bedrock_agentcore.types.invoke_code_interpreter_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeCodeInterpreter",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore.types.invoke_code_interpreter_request.InvokeCodeInterpreterRequest = {
             "code_interpreter_identifier": code_interpreter_identifier,
             "name": name,
@@ -1002,7 +1171,34 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.invoke_harness_request.InvokeHarnessRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.invoke_harness_request
+
+            return capo_bedrock_agentcore.types.invoke_harness_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.invoke_harness_response.InvokeHarnessResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.invoke_harness_response
+
+            return (
+                capo_bedrock_agentcore.types.invoke_harness_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeHarness",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore.types.invoke_harness_request.InvokeHarnessRequest = {
             "harness_arn": harness_arn,
             "runtime_session_id": runtime_session_id,
@@ -1092,7 +1288,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAgentCard")
+        )
         input_: capo_bedrock_agentcore.types.get_agent_card_request.GetAgentCardRequest = {
             "agent_runtime_arn": agent_runtime_arn
         }
@@ -1192,7 +1390,32 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.invoke_agent_runtime_request.InvokeAgentRuntimeRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.invoke_agent_runtime_request
+
+            return capo_bedrock_agentcore.types.invoke_agent_runtime_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.invoke_agent_runtime_response.InvokeAgentRuntimeResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.invoke_agent_runtime_response
+
+            return capo_bedrock_agentcore.types.invoke_agent_runtime_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeAgentRuntime",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore.types.invoke_agent_runtime_request.InvokeAgentRuntimeRequest = {
             "agent_runtime_arn": agent_runtime_arn,
             "payload": payload,
@@ -1299,7 +1522,19 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.invoke_agent_runtime_command_response.InvokeAgentRuntimeCommandResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.invoke_agent_runtime_command_response
+
+            return capo_bedrock_agentcore.types.invoke_agent_runtime_command_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("InvokeAgentRuntimeCommand", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore.types.invoke_agent_runtime_command_request.InvokeAgentRuntimeCommandRequest = {
             "agent_runtime_arn": agent_runtime_arn,
             "body": body,
@@ -1381,7 +1616,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopRuntimeSession")
+        )
         input_: capo_bedrock_agentcore.types.stop_runtime_session_request.StopRuntimeSessionRequest = {
             "runtime_session_id": runtime_session_id,
             "agent_runtime_arn": agent_runtime_arn,
@@ -1447,7 +1684,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SaveBrowserSessionProfile")
+        )
         input_: capo_bedrock_agentcore.types.save_browser_session_profile_request.SaveBrowserSessionProfileRequest = {
             "profile_identifier": profile_identifier,
             "browser_identifier": browser_identifier,
@@ -1505,7 +1744,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBrowserSession")
+        )
         input_: capo_bedrock_agentcore.types.get_browser_session_request.GetBrowserSessionRequest = {
             "browser_identifier": browser_identifier,
             "session_id": session_id,
@@ -1558,7 +1799,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InvokeBrowser")
+        )
         input_: capo_bedrock_agentcore.types.invoke_browser_request.InvokeBrowserRequest = {
             "browser_identifier": browser_identifier,
             "session_id": session_id,
@@ -1619,7 +1862,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBrowserSessions")
+        )
         input_: capo_bedrock_agentcore.types.list_browser_sessions_request.ListBrowserSessionsRequest = {
             "browser_identifier": browser_identifier
         }
@@ -1714,7 +1959,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartBrowserSession")
+        )
         input_: capo_bedrock_agentcore.types.start_browser_session_request.StartBrowserSessionRequest = {
             "browser_identifier": browser_identifier
         }
@@ -1798,7 +2045,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopBrowserSession")
+        )
         input_: capo_bedrock_agentcore.types.stop_browser_session_request.StopBrowserSessionRequest = {
             "browser_identifier": browser_identifier,
             "session_id": session_id,
@@ -1863,7 +2112,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBrowserStream")
+        )
         input_: capo_bedrock_agentcore.types.update_browser_stream_request.UpdateBrowserStreamRequest = {
             "browser_identifier": browser_identifier,
             "session_id": session_id,
@@ -1917,7 +2168,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCapacityProviderSession")
+        )
         input_: capo_bedrock_agentcore.types.delete_capacity_provider_session_request.DeleteCapacityProviderSessionRequest = {
             "capacity_provider_id": capacity_provider_id,
             "session_id": session_id,
@@ -1967,7 +2220,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCodeInterpreterSession")
+        )
         input_: capo_bedrock_agentcore.types.get_code_interpreter_session_request.GetCodeInterpreterSessionRequest = {
             "code_interpreter_identifier": code_interpreter_identifier,
             "session_id": session_id,
@@ -2027,7 +2282,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCodeInterpreterSessions")
+        )
         input_: capo_bedrock_agentcore.types.list_code_interpreter_sessions_request.ListCodeInterpreterSessionsRequest = {
             "code_interpreter_identifier": code_interpreter_identifier
         }
@@ -2104,7 +2361,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCodeInterpreterSession")
+        )
         input_: capo_bedrock_agentcore.types.start_code_interpreter_session_request.StartCodeInterpreterSessionRequest = {
             "code_interpreter_identifier": code_interpreter_identifier
         }
@@ -2178,7 +2437,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopCodeInterpreterSession")
+        )
         input_: capo_bedrock_agentcore.types.stop_code_interpreter_session_request.StopCodeInterpreterSessionRequest = {
             "code_interpreter_identifier": code_interpreter_identifier,
             "session_id": session_id,
@@ -2259,7 +2520,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateABTest")
+        )
         input_: capo_bedrock_agentcore.types.create_ab_test_request.CreateABTestRequest = {
             "name": name,
             "gateway_arn": gateway_arn,
@@ -2323,7 +2586,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteABTest")
+        )
         input_: capo_bedrock_agentcore.types.delete_ab_test_request.DeleteABTestRequest = {
             "ab_test_id": ab_test_id
         }
@@ -2372,7 +2637,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBatchEvaluation")
+        )
         input_: capo_bedrock_agentcore.types.delete_batch_evaluation_request.DeleteBatchEvaluationRequest = {
             "batch_evaluation_id": batch_evaluation_id
         }
@@ -2420,7 +2687,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRecommendation")
+        )
         input_: capo_bedrock_agentcore.types.delete_recommendation_request.DeleteRecommendationRequest = {
             "recommendation_id": recommendation_id
         }
@@ -2481,7 +2750,30 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.evaluate_request.EvaluateRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.evaluate_request
+
+            return capo_bedrock_agentcore.types.evaluate_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.evaluate_response.EvaluateResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.evaluate_response
+
+            return capo_bedrock_agentcore.types.evaluate_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "Evaluate", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agentcore.types.evaluate_request.EvaluateRequest = {
             "evaluator_id": evaluator_id,
             "evaluation_input": evaluation_input,
@@ -2534,7 +2826,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetABTest")
+        )
         input_: capo_bedrock_agentcore.types.get_ab_test_request.GetABTestRequest = {
             "ab_test_id": ab_test_id
         }
@@ -2582,7 +2876,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBatchEvaluation")
+        )
         input_: capo_bedrock_agentcore.types.get_batch_evaluation_request.GetBatchEvaluationRequest = {
             "batch_evaluation_id": batch_evaluation_id
         }
@@ -2629,7 +2925,19 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.get_recommendation_response.GetRecommendationResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_recommendation_response
+
+            return capo_bedrock_agentcore.types.get_recommendation_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetRecommendation", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore.types.get_recommendation_request.GetRecommendationRequest = {
             "recommendation_id": recommendation_id
         }
@@ -2678,7 +2986,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListABTests")
+        )
         input_: capo_bedrock_agentcore.types.list_ab_tests_request.ListABTestsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2750,7 +3060,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBatchEvaluations")
+        )
         input_: capo_bedrock_agentcore.types.list_batch_evaluations_request.ListBatchEvaluationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2827,7 +3139,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecommendations")
+        )
         input_: capo_bedrock_agentcore.types.list_recommendations_request.ListRecommendationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2938,7 +3252,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartBatchEvaluation")
+        )
         input_: capo_bedrock_agentcore.types.start_batch_evaluation_request.StartBatchEvaluationRequest = {
             "batch_evaluation_name": batch_evaluation_name,
             "data_source_config": data_source_config,
@@ -3022,7 +3338,32 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.start_recommendation_request.StartRecommendationRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.start_recommendation_request
+
+            return capo_bedrock_agentcore.types.start_recommendation_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.start_recommendation_response.StartRecommendationResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.start_recommendation_response
+
+            return capo_bedrock_agentcore.types.start_recommendation_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartRecommendation",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore.types.start_recommendation_request.StartRecommendationRequest = {
             "name": name,
             "type": type,
@@ -3082,7 +3423,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopBatchEvaluation")
+        )
         input_: capo_bedrock_agentcore.types.stop_batch_evaluation_request.StopBatchEvaluationRequest = {
             "batch_evaluation_id": batch_evaluation_id
         }
@@ -3160,7 +3503,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateABTest")
+        )
         input_: capo_bedrock_agentcore.types.update_ab_test_request.UpdateABTestRequest = {
             "ab_test_id": ab_test_id
         }
@@ -3229,7 +3574,19 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.batch_create_memory_records_input.BatchCreateMemoryRecordsInput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.batch_create_memory_records_input
+
+            return capo_bedrock_agentcore.types.batch_create_memory_records_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchCreateMemoryRecords", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore.types.batch_create_memory_records_input.BatchCreateMemoryRecordsInput = {
             "memory_id": memory_id,
             "records": records,
@@ -3283,7 +3640,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteMemoryRecords")
+        )
         input_: capo_bedrock_agentcore.types.batch_delete_memory_records_input.BatchDeleteMemoryRecordsInput = {
             "memory_id": memory_id,
             "records": records,
@@ -3334,7 +3693,19 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.batch_update_memory_records_input.BatchUpdateMemoryRecordsInput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.batch_update_memory_records_input
+
+            return capo_bedrock_agentcore.types.batch_update_memory_records_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchUpdateMemoryRecords", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore.types.batch_update_memory_records_input.BatchUpdateMemoryRecordsInput = {
             "memory_id": memory_id,
             "records": records,
@@ -3411,7 +3782,30 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.create_event_input.CreateEventInput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.create_event_input
+
+            return capo_bedrock_agentcore.types.create_event_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.create_event_output.CreateEventOutput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.create_event_output
+
+            return capo_bedrock_agentcore.types.create_event_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateEvent", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agentcore.types.create_event_input.CreateEventInput = {
             "memory_id": memory_id,
             "actor_id": actor_id,
@@ -3482,7 +3876,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEvent")
+        )
         input_: capo_bedrock_agentcore.types.delete_event_input.DeleteEventInput = {
             "memory_id": memory_id,
             "session_id": session_id,
@@ -3538,7 +3934,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMemoryRecord")
+        )
         input_: capo_bedrock_agentcore.types.delete_memory_record_input.DeleteMemoryRecordInput = {
             "memory_id": memory_id,
             "memory_record_id": memory_record_id,
@@ -3596,7 +3994,18 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.get_event_output.GetEventOutput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_event_output
+
+            return capo_bedrock_agentcore.types.get_event_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEvent", redact_output=_redact_output)
+        )
         input_: capo_bedrock_agentcore.types.get_event_input.GetEventInput = {
             "memory_id": memory_id,
             "session_id": session_id,
@@ -3652,7 +4061,21 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.get_memory_record_output.GetMemoryRecordOutput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_memory_record_output
+
+            return (
+                capo_bedrock_agentcore.types.get_memory_record_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetMemoryRecord", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore.types.get_memory_record_input.GetMemoryRecordInput = {
             "memory_id": memory_id,
             "memory_record_id": memory_record_id,
@@ -3723,7 +4146,18 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.ingest_data_input.IngestDataInput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.ingest_data_input
+
+            return capo_bedrock_agentcore.types.ingest_data_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("IngestData", redact_input=_redact_input)
+        )
         input_: capo_bedrock_agentcore.types.ingest_data_input.IngestDataInput = {
             "memory_id": memory_id,
             "source": source,
@@ -3792,7 +4226,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListActors")
+        )
         input_: capo_bedrock_agentcore.types.list_actors_input.ListActorsInput = {
             "memory_id": memory_id
         }
@@ -3890,7 +4326,19 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.list_events_output.ListEventsOutput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.list_events_output
+
+            return capo_bedrock_agentcore.types.list_events_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListEvents", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore.types.list_events_input.ListEventsInput = {
             "memory_id": memory_id,
             "session_id": session_id,
@@ -3995,7 +4443,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMemoryExtractionJobs")
+        )
         input_: capo_bedrock_agentcore.types.list_memory_extraction_jobs_input.ListMemoryExtractionJobsInput = {
             "memory_id": memory_id
         }
@@ -4101,7 +4551,19 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.list_memory_records_output.ListMemoryRecordsOutput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.list_memory_records_output
+
+            return capo_bedrock_agentcore.types.list_memory_records_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListMemoryRecords", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore.types.list_memory_records_input.ListMemoryRecordsInput = {
             "memory_id": memory_id
         }
@@ -4217,7 +4679,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSessions")
+        )
         input_: capo_bedrock_agentcore.types.list_sessions_input.ListSessionsInput = {
             "memory_id": memory_id,
             "actor_id": actor_id,
@@ -4322,7 +4786,32 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.retrieve_memory_records_input.RetrieveMemoryRecordsInput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.retrieve_memory_records_input
+
+            return capo_bedrock_agentcore.types.retrieve_memory_records_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.retrieve_memory_records_output.RetrieveMemoryRecordsOutput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.retrieve_memory_records_output
+
+            return capo_bedrock_agentcore.types.retrieve_memory_records_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RetrieveMemoryRecords",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore.types.retrieve_memory_records_input.RetrieveMemoryRecordsInput = {
             "memory_id": memory_id,
             "search_criteria": search_criteria,
@@ -4418,7 +4907,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMemoryExtractionJob")
+        )
         input_: capo_bedrock_agentcore.types.start_memory_extraction_job_input.StartMemoryExtractionJobInput = {
             "memory_id": memory_id,
             "extraction_job": extraction_job,
@@ -4488,7 +4979,32 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.create_payment_instrument_request.CreatePaymentInstrumentRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.create_payment_instrument_request
+
+            return capo_bedrock_agentcore.types.create_payment_instrument_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.create_payment_instrument_response.CreatePaymentInstrumentResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.create_payment_instrument_response
+
+            return capo_bedrock_agentcore.types.create_payment_instrument_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreatePaymentInstrument",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore.types.create_payment_instrument_request.CreatePaymentInstrumentRequest = {
             "payment_manager_arn": payment_manager_arn,
             "payment_connector_id": payment_connector_id,
@@ -4557,7 +5073,19 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.get_payment_instrument_response.GetPaymentInstrumentResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_payment_instrument_response
+
+            return capo_bedrock_agentcore.types.get_payment_instrument_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetPaymentInstrument", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore.types.get_payment_instrument_request.GetPaymentInstrumentRequest = {
             "payment_manager_arn": payment_manager_arn,
             "payment_instrument_id": payment_instrument_id,
@@ -4617,7 +5145,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePaymentInstrument")
+        )
         input_: capo_bedrock_agentcore.types.delete_payment_instrument_request.DeletePaymentInstrumentRequest = {
             "payment_manager_arn": payment_manager_arn,
             "payment_connector_id": payment_connector_id,
@@ -4683,7 +5213,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPaymentInstruments")
+        )
         input_: capo_bedrock_agentcore.types.list_payment_instruments_request.ListPaymentInstrumentsRequest = {
             "payment_manager_arn": payment_manager_arn
         }
@@ -4789,7 +5321,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPaymentInstrumentBalance")
+        )
         input_: capo_bedrock_agentcore.types.get_payment_instrument_balance_request.GetPaymentInstrumentBalanceRequest = {
             "payment_manager_arn": payment_manager_arn,
             "payment_connector_id": payment_connector_id,
@@ -4862,7 +5396,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePaymentSession")
+        )
         input_: capo_bedrock_agentcore.types.create_payment_session_request.CreatePaymentSessionRequest = {
             "payment_manager_arn": payment_manager_arn,
             "expiry_time_in_minutes": expiry_time_in_minutes,
@@ -4927,7 +5463,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPaymentSession")
+        )
         input_: capo_bedrock_agentcore.types.get_payment_session_request.GetPaymentSessionRequest = {
             "payment_manager_arn": payment_manager_arn,
             "payment_session_id": payment_session_id,
@@ -4983,7 +5521,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePaymentSession")
+        )
         input_: capo_bedrock_agentcore.types.delete_payment_session_request.DeletePaymentSessionRequest = {
             "payment_manager_arn": payment_manager_arn,
             "payment_session_id": payment_session_id,
@@ -5044,7 +5584,9 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPaymentSessions")
+        )
         input_: capo_bedrock_agentcore.types.list_payment_sessions_request.ListPaymentSessionsRequest = {
             "payment_manager_arn": payment_manager_arn
         }
@@ -5151,7 +5693,36 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.process_payment_request.ProcessPaymentRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.process_payment_request
+
+            return (
+                capo_bedrock_agentcore.types.process_payment_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.process_payment_response.ProcessPaymentResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.process_payment_response
+
+            return (
+                capo_bedrock_agentcore.types.process_payment_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ProcessPayment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore.types.process_payment_request.ProcessPaymentRequest = {
             "payment_manager_arn": payment_manager_arn,
             "payment_session_id": payment_session_id,
@@ -5218,7 +5789,19 @@ class BedrockAgentCoreClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.search_registry_records_response.SearchRegistryRecordsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.search_registry_records_response
+
+            return capo_bedrock_agentcore.types.search_registry_records_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SearchRegistryRecords", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore.types.search_registry_records_request.SearchRegistryRecordsRequest = {
             "search_query": search_query,
             "registry_ids": registry_ids,

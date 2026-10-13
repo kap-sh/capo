@@ -22,10 +22,12 @@ from capo_lakeformation._pagination import resolve_path as _resolve_path
 from capo_lakeformation._services._aws_config import aws_config
 from capo_lakeformation._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -293,7 +295,9 @@ class LakeFormationClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[LakeFormationClientConfig] = None
+        self,
+        config_overrides: Optional[LakeFormationClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: LakeFormationClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -301,8 +305,10 @@ class LakeFormationClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -362,7 +368,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddLFTagsToResource")
+        )
         input_: capo_lakeformation.types.add_lf_tags_to_resource_request.AddLFTagsToResourceRequest = {
             "resource": resource,
             "lf_tags": lf_tags,
@@ -420,7 +428,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssumeDecoratedRoleWithSAML")
+        )
         input_: capo_lakeformation.types.assume_decorated_role_with_saml_request.AssumeDecoratedRoleWithSAMLRequest = {
             "saml_assertion": saml_assertion,
             "role_arn": role_arn,
@@ -472,7 +482,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGrantPermissions")
+        )
         input_: capo_lakeformation.types.batch_grant_permissions_request.BatchGrantPermissionsRequest = {
             "entries": entries
         }
@@ -522,7 +534,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchRevokePermissions")
+        )
         input_: capo_lakeformation.types.batch_revoke_permissions_request.BatchRevokePermissionsRequest = {
             "entries": entries
         }
@@ -575,7 +589,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelTransaction")
+        )
         input_: capo_lakeformation.types.cancel_transaction_request.CancelTransactionRequest = {
             "transaction_id": transaction_id
         }
@@ -625,7 +641,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CommitTransaction")
+        )
         input_: capo_lakeformation.types.commit_transaction_request.CommitTransactionRequest = {
             "transaction_id": transaction_id
         }
@@ -674,7 +692,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataCellsFilter")
+        )
         input_: capo_lakeformation.types.create_data_cells_filter_request.CreateDataCellsFilterRequest = {
             "table_data": table_data
         }
@@ -740,7 +760,10 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateLakeFormationIdentityCenterConfiguration"),
+        )
         input_: capo_lakeformation.types.create_lake_formation_identity_center_configuration_request.CreateLakeFormationIdentityCenterConfigurationRequest = {}
         if catalog_id is not None:
             input_["catalog_id"] = catalog_id
@@ -796,7 +819,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLakeFormationOptIn")
+        )
         input_: capo_lakeformation.types.create_lake_formation_opt_in_request.CreateLakeFormationOptInRequest = {
             "principal": principal,
             "resource": resource,
@@ -853,7 +878,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLFTag")
+        )
         input_: capo_lakeformation.types.create_lf_tag_request.CreateLFTagRequest = {
             "tag_key": tag_key,
             "tag_values": tag_values,
@@ -914,7 +941,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLFTagExpression")
+        )
         input_: capo_lakeformation.types.create_lf_tag_expression_request.CreateLFTagExpressionRequest = {
             "name": name,
             "expression": expression,
@@ -976,7 +1005,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataCellsFilter")
+        )
         input_: capo_lakeformation.types.delete_data_cells_filter_request.DeleteDataCellsFilterRequest = {}
         if table_catalog_id is not None:
             input_["table_catalog_id"] = table_catalog_id
@@ -1032,7 +1063,10 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteLakeFormationIdentityCenterConfiguration"),
+        )
         input_: capo_lakeformation.types.delete_lake_formation_identity_center_configuration_request.DeleteLakeFormationIdentityCenterConfigurationRequest = {}
         if catalog_id is not None:
             input_["catalog_id"] = catalog_id
@@ -1079,7 +1113,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLakeFormationOptIn")
+        )
         input_: capo_lakeformation.types.delete_lake_formation_opt_in_request.DeleteLakeFormationOptInRequest = {
             "principal": principal,
             "resource": resource,
@@ -1133,7 +1169,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLFTag")
+        )
         input_: capo_lakeformation.types.delete_lf_tag_request.DeleteLFTagRequest = {
             "tag_key": tag_key
         }
@@ -1186,7 +1224,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLFTagExpression")
+        )
         input_: capo_lakeformation.types.delete_lf_tag_expression_request.DeleteLFTagExpressionRequest = {
             "name": name
         }
@@ -1248,7 +1288,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteObjectsOnCancel")
+        )
         input_: capo_lakeformation.types.delete_objects_on_cancel_request.DeleteObjectsOnCancelRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -1299,7 +1341,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterResource")
+        )
         input_: capo_lakeformation.types.deregister_resource_request.DeregisterResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1348,7 +1392,10 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeLakeFormationIdentityCenterConfiguration"),
+        )
         input_: capo_lakeformation.types.describe_lake_formation_identity_center_configuration_request.DescribeLakeFormationIdentityCenterConfigurationRequest = {}
         if catalog_id is not None:
             input_["catalog_id"] = catalog_id
@@ -1394,7 +1441,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeResource")
+        )
         input_: capo_lakeformation.types.describe_resource_request.DescribeResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1440,7 +1489,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTransaction")
+        )
         input_: capo_lakeformation.types.describe_transaction_request.DescribeTransactionRequest = {
             "transaction_id": transaction_id
         }
@@ -1493,7 +1544,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExtendTransaction")
+        )
         input_: capo_lakeformation.types.extend_transaction_request.ExtendTransactionRequest = {}
         if transaction_id is not None:
             input_["transaction_id"] = transaction_id
@@ -1546,7 +1599,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataCellsFilter")
+        )
         input_: capo_lakeformation.types.get_data_cells_filter_request.GetDataCellsFilterRequest = {
             "table_catalog_id": table_catalog_id,
             "database_name": database_name,
@@ -1588,7 +1643,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataLakePrincipal")
+        )
         input_: capo_lakeformation.types.get_data_lake_principal_request.GetDataLakePrincipalRequest = {}
 
         response = execute_pipeline(
@@ -1633,7 +1690,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataLakeSettings")
+        )
         input_: capo_lakeformation.types.get_data_lake_settings_request.GetDataLakeSettingsRequest = {}
         if catalog_id is not None:
             input_["catalog_id"] = catalog_id
@@ -1687,7 +1746,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEffectivePermissionsForPath")
+        )
         input_: capo_lakeformation.types.get_effective_permissions_for_path_request.GetEffectivePermissionsForPathRequest = {
             "resource_arn": resource_arn
         }
@@ -1769,7 +1830,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLFTag")
+        )
         input_: capo_lakeformation.types.get_lf_tag_request.GetLFTagRequest = {
             "tag_key": tag_key
         }
@@ -1822,7 +1885,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLFTagExpression")
+        )
         input_: capo_lakeformation.types.get_lf_tag_expression_request.GetLFTagExpressionRequest = {
             "name": name
         }
@@ -1869,7 +1934,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQueryState")
+        )
         input_: capo_lakeformation.types.get_query_state_request.GetQueryStateRequest = {
             "query_id": query_id
         }
@@ -1917,7 +1984,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQueryStatistics")
+        )
         input_: capo_lakeformation.types.get_query_statistics_request.GetQueryStatisticsRequest = {
             "query_id": query_id
         }
@@ -1973,7 +2042,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourceLFTags")
+        )
         input_: capo_lakeformation.types.get_resource_lf_tags_request.GetResourceLFTagsRequest = {
             "resource": resource
         }
@@ -2050,7 +2121,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableObjects")
+        )
         input_: capo_lakeformation.types.get_table_objects_request.GetTableObjectsRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -2166,7 +2239,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTemporaryDataLocationCredentials")
+        )
         input_: capo_lakeformation.types.get_temporary_data_location_credentials_request.GetTemporaryDataLocationCredentialsRequest = {}
         if duration_seconds is not None:
             input_["duration_seconds"] = duration_seconds
@@ -2238,7 +2313,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTemporaryGluePartitionCredentials")
+        )
         input_: capo_lakeformation.types.get_temporary_glue_partition_credentials_request.GetTemporaryGluePartitionCredentialsRequest = {
             "table_arn": table_arn,
             "partition": partition,
@@ -2317,7 +2394,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTemporaryGlueTableCredentials")
+        )
         input_: capo_lakeformation.types.get_temporary_glue_table_credentials_request.GetTemporaryGlueTableCredentialsRequest = {
             "table_arn": table_arn
         }
@@ -2381,7 +2460,34 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lakeformation.types.get_work_unit_results_request.GetWorkUnitResultsRequest",
+        ) -> dict[str, Any]:
+            import capo_lakeformation.types.get_work_unit_results_request
+
+            return (
+                capo_lakeformation.types.get_work_unit_results_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_lakeformation.types.get_work_unit_results_response.GetWorkUnitResultsResponse",
+        ) -> dict[str, Any]:
+            import capo_lakeformation.types.get_work_unit_results_response
+
+            return capo_lakeformation.types.get_work_unit_results_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetWorkUnitResults",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_lakeformation.types.get_work_unit_results_request.GetWorkUnitResultsRequest = {
             "query_id": query_id,
             "work_unit_id": work_unit_id,
@@ -2436,7 +2542,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkUnits")
+        )
         input_: capo_lakeformation.types.get_work_units_request.GetWorkUnitsRequest = {
             "query_id": query_id
         }
@@ -2521,7 +2629,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GrantPermissions")
+        )
         input_: capo_lakeformation.types.grant_permissions_request.GrantPermissionsRequest = {
             "principal": principal,
             "resource": resource,
@@ -2579,7 +2689,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataCellsFilter")
+        )
         input_: capo_lakeformation.types.list_data_cells_filter_request.ListDataCellsFilterRequest = {}
         if table is not None:
             input_["table"] = table
@@ -2659,7 +2771,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLakeFormationOptIns")
+        )
         input_: capo_lakeformation.types.list_lake_formation_opt_ins_request.ListLakeFormationOptInsRequest = {}
         if principal is not None:
             input_["principal"] = principal
@@ -2743,7 +2857,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLFTagExpressions")
+        )
         input_: capo_lakeformation.types.list_lf_tag_expressions_request.ListLFTagExpressionsRequest = {}
         if catalog_id is not None:
             input_["catalog_id"] = catalog_id
@@ -2829,7 +2945,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLFTags")
+        )
         input_: capo_lakeformation.types.list_lf_tags_request.ListLFTagsRequest = {}
         if catalog_id is not None:
             input_["catalog_id"] = catalog_id
@@ -2929,7 +3047,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPermissions")
+        )
         input_: capo_lakeformation.types.list_permissions_request.ListPermissionsRequest = {}
         if catalog_id is not None:
             input_["catalog_id"] = catalog_id
@@ -3029,7 +3149,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResources")
+        )
         input_: capo_lakeformation.types.list_resources_request.ListResourcesRequest = {}
         if filter_condition_list is not None:
             input_["filter_condition_list"] = filter_condition_list
@@ -3116,7 +3238,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTableStorageOptimizers")
+        )
         input_: capo_lakeformation.types.list_table_storage_optimizers_request.ListTableStorageOptimizersRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -3213,7 +3337,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTransactions")
+        )
         input_: capo_lakeformation.types.list_transactions_request.ListTransactionsRequest = {}
         if catalog_id is not None:
             input_["catalog_id"] = catalog_id
@@ -3296,7 +3422,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDataLakeSettings")
+        )
         input_: capo_lakeformation.types.put_data_lake_settings_request.PutDataLakeSettingsRequest = {
             "data_lake_settings": data_lake_settings
         }
@@ -3369,7 +3497,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterResource")
+        )
         input_: capo_lakeformation.types.register_resource_request.RegisterResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3436,7 +3566,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveLFTagsFromResource")
+        )
         input_: capo_lakeformation.types.remove_lf_tags_from_resource_request.RemoveLFTagsFromResourceRequest = {
             "resource": resource,
             "lf_tags": lf_tags,
@@ -3499,7 +3631,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokePermissions")
+        )
         input_: capo_lakeformation.types.revoke_permissions_request.RevokePermissionsRequest = {
             "principal": principal,
             "resource": resource,
@@ -3565,7 +3699,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchDatabasesByLFTags")
+        )
         input_: capo_lakeformation.types.search_databases_by_lf_tags_request.SearchDatabasesByLFTagsRequest = {
             "expression": expression
         }
@@ -3658,7 +3794,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchTablesByLFTags")
+        )
         input_: capo_lakeformation.types.search_tables_by_lf_tags_request.SearchTablesByLFTagsRequest = {
             "expression": expression
         }
@@ -3741,7 +3879,21 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lakeformation.types.start_query_planning_request.StartQueryPlanningRequest",
+        ) -> dict[str, Any]:
+            import capo_lakeformation.types.start_query_planning_request
+
+            return (
+                capo_lakeformation.types.start_query_planning_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartQueryPlanning", redact_input=_redact_input),
+        )
         input_: capo_lakeformation.types.start_query_planning_request.StartQueryPlanningRequest = {
             "query_planning_context": query_planning_context,
             "query_string": query_string,
@@ -3788,7 +3940,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartTransaction")
+        )
         input_: capo_lakeformation.types.start_transaction_request.StartTransactionRequest = {}
         if transaction_type is not None:
             input_["transaction_type"] = transaction_type
@@ -3836,7 +3990,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataCellsFilter")
+        )
         input_: capo_lakeformation.types.update_data_cells_filter_request.UpdateDataCellsFilterRequest = {
             "table_data": table_data
         }
@@ -3902,7 +4058,10 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateLakeFormationIdentityCenterConfiguration"),
+        )
         input_: capo_lakeformation.types.update_lake_formation_identity_center_configuration_request.UpdateLakeFormationIdentityCenterConfigurationRequest = {}
         if catalog_id is not None:
             input_["catalog_id"] = catalog_id
@@ -3970,7 +4129,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLFTag")
+        )
         input_: capo_lakeformation.types.update_lf_tag_request.UpdateLFTagRequest = {
             "tag_key": tag_key
         }
@@ -4034,7 +4195,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLFTagExpression")
+        )
         input_: capo_lakeformation.types.update_lf_tag_expression_request.UpdateLFTagExpressionRequest = {
             "name": name,
             "expression": expression,
@@ -4099,7 +4262,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateResource")
+        )
         input_: capo_lakeformation.types.update_resource_request.UpdateResourceRequest = {
             "role_arn": role_arn,
             "resource_arn": resource_arn,
@@ -4169,7 +4334,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTableObjects")
+        )
         input_: capo_lakeformation.types.update_table_objects_request.UpdateTableObjectsRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -4229,7 +4396,9 @@ class LakeFormationClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTableStorageOptimizer")
+        )
         input_: capo_lakeformation.types.update_table_storage_optimizer_request.UpdateTableStorageOptimizerRequest = {
             "database_name": database_name,
             "table_name": table_name,

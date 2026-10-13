@@ -7,6 +7,7 @@ import capo_lambda._auth._sigv4
 from capo_lambda._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -83,7 +84,9 @@ class CodeSigningConfigResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCodeSigningConfig")
+        )
         input_: capo_lambda.types.create_code_signing_config_request.CreateCodeSigningConfigRequest = {
             "allowed_publishers": allowed_publishers
         }
@@ -135,7 +138,9 @@ class CodeSigningConfigResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCodeSigningConfigs")
+        )
         input_: capo_lambda.types.list_code_signing_configs_request.ListCodeSigningConfigsRequest = {}
         if marker is not None:
             input_["marker"] = marker
@@ -183,7 +188,9 @@ class CodeSigningConfigResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCodeSigningConfig")
+        )
         input_: capo_lambda.types.delete_code_signing_config_request.DeleteCodeSigningConfigRequest = {
             "code_signing_config_arn": code_signing_config_arn
         }
@@ -228,7 +235,9 @@ class CodeSigningConfigResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCodeSigningConfig")
+        )
         input_: capo_lambda.types.get_code_signing_config_request.GetCodeSigningConfigRequest = {
             "code_signing_config_arn": code_signing_config_arn
         }
@@ -277,7 +286,9 @@ class CodeSigningConfigResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFunctionsByCodeSigningConfig")
+        )
         input_: capo_lambda.types.list_functions_by_code_signing_config_request.ListFunctionsByCodeSigningConfigRequest = {
             "code_signing_config_arn": code_signing_config_arn
         }
@@ -336,7 +347,9 @@ class CodeSigningConfigResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCodeSigningConfig")
+        )
         input_: capo_lambda.types.update_code_signing_config_request.UpdateCodeSigningConfigRequest = {
             "code_signing_config_arn": code_signing_config_arn
         }
@@ -400,7 +413,9 @@ class AsyncCodeSigningConfigResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCodeSigningConfig")
+        )
         input_: capo_lambda.types.create_code_signing_config_request.CreateCodeSigningConfigRequest = {
             "allowed_publishers": allowed_publishers
         }
@@ -453,7 +468,9 @@ class AsyncCodeSigningConfigResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCodeSigningConfigs")
+        )
         input_: capo_lambda.types.list_code_signing_configs_request.ListCodeSigningConfigsRequest = {}
         if marker is not None:
             input_["marker"] = marker
@@ -502,7 +519,9 @@ class AsyncCodeSigningConfigResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCodeSigningConfig")
+        )
         input_: capo_lambda.types.delete_code_signing_config_request.DeleteCodeSigningConfigRequest = {
             "code_signing_config_arn": code_signing_config_arn
         }
@@ -548,7 +567,9 @@ class AsyncCodeSigningConfigResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCodeSigningConfig")
+        )
         input_: capo_lambda.types.get_code_signing_config_request.GetCodeSigningConfigRequest = {
             "code_signing_config_arn": code_signing_config_arn
         }
@@ -598,7 +619,9 @@ class AsyncCodeSigningConfigResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFunctionsByCodeSigningConfig")
+        )
         input_: capo_lambda.types.list_functions_by_code_signing_config_request.ListFunctionsByCodeSigningConfigRequest = {
             "code_signing_config_arn": code_signing_config_arn
         }
@@ -658,7 +681,9 @@ class AsyncCodeSigningConfigResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCodeSigningConfig")
+        )
         input_: capo_lambda.types.update_code_signing_config_request.UpdateCodeSigningConfigRequest = {
             "code_signing_config_arn": code_signing_config_arn
         }

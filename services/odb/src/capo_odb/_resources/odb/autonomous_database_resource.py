@@ -2,11 +2,12 @@ from __future__ import annotations
 
 import datetime
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_odb._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -240,7 +241,19 @@ class AutonomousDatabaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_odb.types.create_autonomous_database_input.CreateAutonomousDatabaseInput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.create_autonomous_database_input
+
+            return capo_odb.types.create_autonomous_database_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateAutonomousDatabase", redact_input=_redact_input),
+        )
         input_: capo_odb.types.create_autonomous_database_input.CreateAutonomousDatabaseInput = {}
         if odb_network_id is not None:
             input_["odb_network_id"] = odb_network_id
@@ -376,7 +389,19 @@ class AutonomousDatabaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_odb.types.get_autonomous_database_output.GetAutonomousDatabaseOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.get_autonomous_database_output
+
+            return capo_odb.types.get_autonomous_database_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAutonomousDatabase", redact_output=_redact_output),
+        )
         input_: capo_odb.types.get_autonomous_database_input.GetAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -550,7 +575,19 @@ class AutonomousDatabaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_odb.types.update_autonomous_database_input.UpdateAutonomousDatabaseInput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.update_autonomous_database_input
+
+            return capo_odb.types.update_autonomous_database_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAutonomousDatabase", redact_input=_redact_input),
+        )
         input_: capo_odb.types.update_autonomous_database_input.UpdateAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -700,7 +737,9 @@ class AutonomousDatabaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAutonomousDatabase")
+        )
         input_: capo_odb.types.delete_autonomous_database_input.DeleteAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -750,7 +789,19 @@ class AutonomousDatabaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_odb.types.list_autonomous_databases_output.ListAutonomousDatabasesOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.list_autonomous_databases_output
+
+            return capo_odb.types.list_autonomous_databases_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListAutonomousDatabases", redact_output=_redact_output),
+        )
         input_: capo_odb.types.list_autonomous_databases_input.ListAutonomousDatabasesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -815,7 +866,34 @@ class AutonomousDatabaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_odb.types.create_autonomous_database_wallet_input.CreateAutonomousDatabaseWalletInput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.create_autonomous_database_wallet_input
+
+            return (
+                capo_odb.types.create_autonomous_database_wallet_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_odb.types.create_autonomous_database_wallet_output.CreateAutonomousDatabaseWalletOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.create_autonomous_database_wallet_output
+
+            return capo_odb.types.create_autonomous_database_wallet_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAutonomousDatabaseWallet",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_odb.types.create_autonomous_database_wallet_input.CreateAutonomousDatabaseWalletInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -876,7 +954,9 @@ class AutonomousDatabaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("FailoverAutonomousDatabase")
+        )
         input_: capo_odb.types.failover_autonomous_database_input.FailoverAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -925,7 +1005,9 @@ class AutonomousDatabaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAutonomousDatabaseWalletDetails")
+        )
         input_: capo_odb.types.get_autonomous_database_wallet_details_input.GetAutonomousDatabaseWalletDetailsInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -976,7 +1058,23 @@ class AutonomousDatabaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_odb.types.list_autonomous_database_clones_output.ListAutonomousDatabaseClonesOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.list_autonomous_database_clones_output
+
+            return (
+                capo_odb.types.list_autonomous_database_clones_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListAutonomousDatabaseClones", redact_output=_redact_output
+            ),
+        )
         input_: capo_odb.types.list_autonomous_database_clones_input.ListAutonomousDatabaseClonesInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -1031,7 +1129,9 @@ class AutonomousDatabaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAutonomousDatabasePeers")
+        )
         input_: capo_odb.types.list_autonomous_database_peers_input.ListAutonomousDatabasePeersInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -1085,7 +1185,9 @@ class AutonomousDatabaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RebootAutonomousDatabase")
+        )
         input_: capo_odb.types.reboot_autonomous_database_input.RebootAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -1137,7 +1239,9 @@ class AutonomousDatabaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RestoreAutonomousDatabase")
+        )
         input_: capo_odb.types.restore_autonomous_database_input.RestoreAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id,
             "timestamp": timestamp,
@@ -1186,7 +1290,9 @@ class AutonomousDatabaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ShrinkAutonomousDatabase")
+        )
         input_: capo_odb.types.shrink_autonomous_database_input.ShrinkAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -1236,7 +1342,9 @@ class AutonomousDatabaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartAutonomousDatabase")
+        )
         input_: capo_odb.types.start_autonomous_database_input.StartAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -1284,7 +1392,9 @@ class AutonomousDatabaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopAutonomousDatabase")
+        )
         input_: capo_odb.types.stop_autonomous_database_input.StopAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -1334,7 +1444,9 @@ class AutonomousDatabaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SwitchoverAutonomousDatabase")
+        )
         input_: capo_odb.types.switchover_autonomous_database_input.SwitchoverAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -1509,7 +1621,19 @@ class AsyncAutonomousDatabaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_odb.types.create_autonomous_database_input.CreateAutonomousDatabaseInput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.create_autonomous_database_input
+
+            return capo_odb.types.create_autonomous_database_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateAutonomousDatabase", redact_input=_redact_input),
+        )
         input_: capo_odb.types.create_autonomous_database_input.CreateAutonomousDatabaseInput = {}
         if odb_network_id is not None:
             input_["odb_network_id"] = odb_network_id
@@ -1646,7 +1770,19 @@ class AsyncAutonomousDatabaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_odb.types.get_autonomous_database_output.GetAutonomousDatabaseOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.get_autonomous_database_output
+
+            return capo_odb.types.get_autonomous_database_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAutonomousDatabase", redact_output=_redact_output),
+        )
         input_: capo_odb.types.get_autonomous_database_input.GetAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -1821,7 +1957,19 @@ class AsyncAutonomousDatabaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_odb.types.update_autonomous_database_input.UpdateAutonomousDatabaseInput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.update_autonomous_database_input
+
+            return capo_odb.types.update_autonomous_database_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAutonomousDatabase", redact_input=_redact_input),
+        )
         input_: capo_odb.types.update_autonomous_database_input.UpdateAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -1972,7 +2120,9 @@ class AsyncAutonomousDatabaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAutonomousDatabase")
+        )
         input_: capo_odb.types.delete_autonomous_database_input.DeleteAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -2023,7 +2173,19 @@ class AsyncAutonomousDatabaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_odb.types.list_autonomous_databases_output.ListAutonomousDatabasesOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.list_autonomous_databases_output
+
+            return capo_odb.types.list_autonomous_databases_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListAutonomousDatabases", redact_output=_redact_output),
+        )
         input_: capo_odb.types.list_autonomous_databases_input.ListAutonomousDatabasesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2089,7 +2251,34 @@ class AsyncAutonomousDatabaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_odb.types.create_autonomous_database_wallet_input.CreateAutonomousDatabaseWalletInput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.create_autonomous_database_wallet_input
+
+            return (
+                capo_odb.types.create_autonomous_database_wallet_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_odb.types.create_autonomous_database_wallet_output.CreateAutonomousDatabaseWalletOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.create_autonomous_database_wallet_output
+
+            return capo_odb.types.create_autonomous_database_wallet_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAutonomousDatabaseWallet",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_odb.types.create_autonomous_database_wallet_input.CreateAutonomousDatabaseWalletInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -2151,7 +2340,9 @@ class AsyncAutonomousDatabaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("FailoverAutonomousDatabase")
+        )
         input_: capo_odb.types.failover_autonomous_database_input.FailoverAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -2201,7 +2392,9 @@ class AsyncAutonomousDatabaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAutonomousDatabaseWalletDetails")
+        )
         input_: capo_odb.types.get_autonomous_database_wallet_details_input.GetAutonomousDatabaseWalletDetailsInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -2253,7 +2446,23 @@ class AsyncAutonomousDatabaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_odb.types.list_autonomous_database_clones_output.ListAutonomousDatabaseClonesOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.list_autonomous_database_clones_output
+
+            return (
+                capo_odb.types.list_autonomous_database_clones_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListAutonomousDatabaseClones", redact_output=_redact_output
+            ),
+        )
         input_: capo_odb.types.list_autonomous_database_clones_input.ListAutonomousDatabaseClonesInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -2309,7 +2518,9 @@ class AsyncAutonomousDatabaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAutonomousDatabasePeers")
+        )
         input_: capo_odb.types.list_autonomous_database_peers_input.ListAutonomousDatabasePeersInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -2364,7 +2575,9 @@ class AsyncAutonomousDatabaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RebootAutonomousDatabase")
+        )
         input_: capo_odb.types.reboot_autonomous_database_input.RebootAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -2417,7 +2630,9 @@ class AsyncAutonomousDatabaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RestoreAutonomousDatabase")
+        )
         input_: capo_odb.types.restore_autonomous_database_input.RestoreAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id,
             "timestamp": timestamp,
@@ -2467,7 +2682,9 @@ class AsyncAutonomousDatabaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ShrinkAutonomousDatabase")
+        )
         input_: capo_odb.types.shrink_autonomous_database_input.ShrinkAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -2518,7 +2735,9 @@ class AsyncAutonomousDatabaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartAutonomousDatabase")
+        )
         input_: capo_odb.types.start_autonomous_database_input.StartAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -2567,7 +2786,9 @@ class AsyncAutonomousDatabaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopAutonomousDatabase")
+        )
         input_: capo_odb.types.stop_autonomous_database_input.StopAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -2618,7 +2839,9 @@ class AsyncAutonomousDatabaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SwitchoverAutonomousDatabase")
+        )
         input_: capo_odb.types.switchover_autonomous_database_input.SwitchoverAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }

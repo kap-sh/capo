@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RoutePedestrianSpan``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -210,4 +210,67 @@ def deserialize_json(data: dict) -> RoutePedestrianSpan:
         out["typical_duration"] = data["TypicalDuration"]
     else:
         out["typical_duration"] = 0
+    return out
+
+
+def redact_sensitive(value: RoutePedestrianSpan) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "best_case_duration" in value:
+        out["best_case_duration"] = "*** Sensitive Data Redacted ***"
+    if "country" in value:
+        out["country"] = "*** Sensitive Data Redacted ***"
+    if "distance" in value:
+        out["distance"] = "*** Sensitive Data Redacted ***"
+    if "duration" in value:
+        out["duration"] = "*** Sensitive Data Redacted ***"
+    if "dynamic_speed" in value:
+        import capo_geo_routes.types.route_span_dynamic_speed_details
+
+        out["dynamic_speed"] = (
+            capo_geo_routes.types.route_span_dynamic_speed_details.redact_sensitive(
+                value["dynamic_speed"]
+            )
+        )
+    if "functional_classification" in value:
+        out["functional_classification"] = "*** Sensitive Data Redacted ***"
+    if "names" in value:
+        import capo_geo_routes.types.localized_string_list
+
+        out["names"] = capo_geo_routes.types.localized_string_list.redact_sensitive(
+            value["names"]
+        )
+    if "pedestrian_access" in value:
+        import capo_geo_routes.types.route_span_pedestrian_access_attribute_list
+
+        out["pedestrian_access"] = (
+            capo_geo_routes.types.route_span_pedestrian_access_attribute_list.redact_sensitive(
+                value["pedestrian_access"]
+            )
+        )
+    if "region" in value:
+        out["region"] = "*** Sensitive Data Redacted ***"
+    if "road_attributes" in value:
+        import capo_geo_routes.types.route_span_road_attribute_list
+
+        out["road_attributes"] = (
+            capo_geo_routes.types.route_span_road_attribute_list.redact_sensitive(
+                value["road_attributes"]
+            )
+        )
+    if "route_numbers" in value:
+        import capo_geo_routes.types.route_number_list
+
+        out["route_numbers"] = capo_geo_routes.types.route_number_list.redact_sensitive(
+            value["route_numbers"]
+        )
+    if "speed_limit" in value:
+        import capo_geo_routes.types.route_span_speed_limit_details
+
+        out["speed_limit"] = (
+            capo_geo_routes.types.route_span_speed_limit_details.redact_sensitive(
+                value["speed_limit"]
+            )
+        )
+    if "typical_duration" in value:
+        out["typical_duration"] = "*** Sensitive Data Redacted ***"
     return out

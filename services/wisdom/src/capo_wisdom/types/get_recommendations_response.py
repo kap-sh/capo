@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wisdom#GetRecommendationsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -55,6 +55,25 @@ def deserialize_json(data: dict) -> GetRecommendationsResponse:
         out["triggers"] = (
             capo_wisdom.types.recommendation_trigger_list.deserialize_json(
                 data["triggers"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GetRecommendationsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "recommendations" in value:
+        import capo_wisdom.types.recommendation_list
+
+        out["recommendations"] = capo_wisdom.types.recommendation_list.redact_sensitive(
+            value["recommendations"]
+        )
+    if "triggers" in value:
+        import capo_wisdom.types.recommendation_trigger_list
+
+        out["triggers"] = (
+            capo_wisdom.types.recommendation_trigger_list.redact_sensitive(
+                value["triggers"]
             )
         )
     return out

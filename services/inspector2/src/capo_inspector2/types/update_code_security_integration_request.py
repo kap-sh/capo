@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.inspector2#UpdateCodeSecurityIntegrationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -51,5 +51,18 @@ def deserialize_json(data: dict) -> UpdateCodeSecurityIntegrationRequest:
     else:
         raise DeserializationError(
             "UpdateCodeSecurityIntegrationRequest.details required"
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateCodeSecurityIntegrationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "details" in value:
+        import capo_inspector2.types.update_integration_details
+
+        out["details"] = (
+            capo_inspector2.types.update_integration_details.redact_sensitive(
+                value["details"]
+            )
         )
     return out

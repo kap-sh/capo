@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#BatchGetAttributeOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -44,5 +44,16 @@ def deserialize_json(data: dict) -> BatchGetAttributeOutput:
 
         out["forms"] = capo_datazone.types.form_output_list.deserialize_json(
             data["forms"]
+        )
+    return out
+
+
+def redact_sensitive(value: BatchGetAttributeOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "forms" in value:
+        import capo_datazone.types.form_output_list
+
+        out["forms"] = capo_datazone.types.form_output_list.redact_sensitive(
+            value["forms"]
         )
     return out

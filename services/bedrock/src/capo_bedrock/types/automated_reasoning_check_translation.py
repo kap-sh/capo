@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningCheckTranslation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -118,5 +118,42 @@ def deserialize_json(data: dict) -> AutomatedReasoningCheckTranslation:
     else:
         raise DeserializationError(
             "AutomatedReasoningCheckTranslation.confidence required"
+        )
+    return out
+
+
+def redact_sensitive(value: AutomatedReasoningCheckTranslation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "premises" in value:
+        import capo_bedrock.types.automated_reasoning_logic_statement_list
+
+        out["premises"] = (
+            capo_bedrock.types.automated_reasoning_logic_statement_list.redact_sensitive(
+                value["premises"]
+            )
+        )
+    if "claims" in value:
+        import capo_bedrock.types.automated_reasoning_logic_statement_list
+
+        out["claims"] = (
+            capo_bedrock.types.automated_reasoning_logic_statement_list.redact_sensitive(
+                value["claims"]
+            )
+        )
+    if "untranslated_premises" in value:
+        import capo_bedrock.types.automated_reasoning_check_input_text_reference_list
+
+        out["untranslated_premises"] = (
+            capo_bedrock.types.automated_reasoning_check_input_text_reference_list.redact_sensitive(
+                value["untranslated_premises"]
+            )
+        )
+    if "untranslated_claims" in value:
+        import capo_bedrock.types.automated_reasoning_check_input_text_reference_list
+
+        out["untranslated_claims"] = (
+            capo_bedrock.types.automated_reasoning_check_input_text_reference_list.redact_sensitive(
+                value["untranslated_claims"]
+            )
         )
     return out

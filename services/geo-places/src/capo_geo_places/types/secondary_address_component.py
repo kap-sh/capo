@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#SecondaryAddressComponent``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -34,4 +34,13 @@ def deserialize_json(data: dict) -> SecondaryAddressComponent:
         raise DeserializationError("SecondaryAddressComponent.number required")
     if data.get("Designator") is not None:
         out["designator"] = data["Designator"]
+    return out
+
+
+def redact_sensitive(value: SecondaryAddressComponent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "number" in value:
+        out["number"] = "*** Sensitive Data Redacted ***"
+    if "designator" in value:
+        out["designator"] = "*** Sensitive Data Redacted ***"
     return out

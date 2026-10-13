@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmeetings#Meeting``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -127,4 +127,13 @@ def deserialize_json(data: dict) -> Meeting:
         )
     if data.get("MeetingArn") is not None:
         out["meeting_arn"] = data["MeetingArn"]
+    return out
+
+
+def redact_sensitive(value: Meeting) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "meeting_host_id" in value:
+        out["meeting_host_id"] = "*** Sensitive Data Redacted ***"
+    if "external_meeting_id" in value:
+        out["external_meeting_id"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteTransitTransportModeDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -97,4 +97,23 @@ def deserialize_json(data: dict) -> RouteTransitTransportModeDetails:
         out["short_route_name"] = data["ShortRouteName"]
     if data.get("TextColor") is not None:
         out["text_color"] = data["TextColor"]
+    return out
+
+
+def redact_sensitive(value: RouteTransitTransportModeDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "color" in value:
+        out["color"] = "*** Sensitive Data Redacted ***"
+    if "headsign" in value:
+        out["headsign"] = "*** Sensitive Data Redacted ***"
+    if "long_route_name" in value:
+        out["long_route_name"] = "*** Sensitive Data Redacted ***"
+    if "mode" in value:
+        out["mode"] = "*** Sensitive Data Redacted ***"
+    if "route_name" in value:
+        out["route_name"] = "*** Sensitive Data Redacted ***"
+    if "short_route_name" in value:
+        out["short_route_name"] = "*** Sensitive Data Redacted ***"
+    if "text_color" in value:
+        out["text_color"] = "*** Sensitive Data Redacted ***"
     return out

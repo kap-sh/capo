@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.backup#GetBackupPlanFromJSONOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_json(data: dict) -> GetBackupPlanFromJSONOutput:
 
         out["backup_plan"] = capo_backup.types.backup_plan.deserialize_json(
             data["BackupPlan"]
+        )
+    return out
+
+
+def redact_sensitive(value: GetBackupPlanFromJSONOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "backup_plan" in value:
+        import capo_backup.types.backup_plan
+
+        out["backup_plan"] = capo_backup.types.backup_plan.redact_sensitive(
+            value["backup_plan"]
         )
     return out

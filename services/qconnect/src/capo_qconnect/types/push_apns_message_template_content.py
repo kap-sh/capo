@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#PushAPNSMessageTemplateContent``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -97,6 +97,35 @@ def deserialize_json(data: dict) -> PushAPNSMessageTemplateContent:
         out["raw_content"] = (
             capo_qconnect.types.message_template_body_content_provider.deserialize_json(
                 data["rawContent"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: PushAPNSMessageTemplateContent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "title" in value:
+        out["title"] = "*** Sensitive Data Redacted ***"
+    if "body" in value:
+        import capo_qconnect.types.message_template_body_content_provider
+
+        out["body"] = (
+            capo_qconnect.types.message_template_body_content_provider.redact_sensitive(
+                value["body"]
+            )
+        )
+    if "sound" in value:
+        out["sound"] = "*** Sensitive Data Redacted ***"
+    if "url" in value:
+        out["url"] = "*** Sensitive Data Redacted ***"
+    if "media_url" in value:
+        out["media_url"] = "*** Sensitive Data Redacted ***"
+    if "raw_content" in value:
+        import capo_qconnect.types.message_template_body_content_provider
+
+        out["raw_content"] = (
+            capo_qconnect.types.message_template_body_content_provider.redact_sensitive(
+                value["raw_content"]
             )
         )
     return out

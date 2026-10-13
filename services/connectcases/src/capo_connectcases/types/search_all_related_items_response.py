@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectcases#SearchAllRelatedItemsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -48,5 +48,18 @@ def deserialize_json(data: dict) -> SearchAllRelatedItemsResponse:
     else:
         raise DeserializationError(
             "SearchAllRelatedItemsResponse.related_items required"
+        )
+    return out
+
+
+def redact_sensitive(value: SearchAllRelatedItemsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "related_items" in value:
+        import capo_connectcases.types.search_all_related_items_response_item_list
+
+        out["related_items"] = (
+            capo_connectcases.types.search_all_related_items_response_item_list.redact_sensitive(
+                value["related_items"]
+            )
         )
     return out

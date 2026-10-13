@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#ServerSideEncryptionRules``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from capo_s3._protocol.xml import Element, SubElement
 
@@ -47,3 +47,12 @@ def deserialize_xml_flat(parent: Element, tag: str) -> ServerSideEncryptionRules
     for child in parent.findall(tag):
         out.append(capo_s3.types.server_side_encryption_rule.deserialize_xml(child))
     return out
+
+
+def redact_sensitive(value: ServerSideEncryptionRules) -> list[Any]:
+    import capo_s3.types.server_side_encryption_rule
+
+    return [
+        capo_s3.types.server_side_encryption_rule.redact_sensitive(item)
+        for item in value
+    ]

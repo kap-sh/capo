@@ -24,7 +24,9 @@ from capo_cloudhsm_v2._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -165,7 +167,9 @@ class AsyncCloudHSMV2Client:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncCloudHSMV2ClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncCloudHSMV2ClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncCloudHSMV2ClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -173,8 +177,10 @@ class AsyncCloudHSMV2Client:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -233,7 +239,9 @@ class AsyncCloudHSMV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CopyBackupToRegion")
+        )
         input_: capo_cloudhsm_v2.types.copy_backup_to_region_request.CopyBackupToRegionRequest = {
             "destination_region": destination_region,
             "backup_id": backup_id,
@@ -303,7 +311,9 @@ class AsyncCloudHSMV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCluster")
+        )
         input_: capo_cloudhsm_v2.types.create_cluster_request.CreateClusterRequest = {
             "hsm_type": hsm_type,
             "subnet_ids": subnet_ids,
@@ -366,7 +376,9 @@ class AsyncCloudHSMV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHsm")
+        )
         input_: capo_cloudhsm_v2.types.create_hsm_request.CreateHsmRequest = {
             "cluster_id": cluster_id,
             "availability_zone": availability_zone,
@@ -417,7 +429,9 @@ class AsyncCloudHSMV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBackup")
+        )
         input_: capo_cloudhsm_v2.types.delete_backup_request.DeleteBackupRequest = {
             "backup_id": backup_id
         }
@@ -466,7 +480,9 @@ class AsyncCloudHSMV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCluster")
+        )
         input_: capo_cloudhsm_v2.types.delete_cluster_request.DeleteClusterRequest = {
             "cluster_id": cluster_id
         }
@@ -520,7 +536,9 @@ class AsyncCloudHSMV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteHsm")
+        )
         input_: capo_cloudhsm_v2.types.delete_hsm_request.DeleteHsmRequest = {
             "cluster_id": cluster_id
         }
@@ -576,7 +594,9 @@ class AsyncCloudHSMV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_cloudhsm_v2.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -635,7 +655,9 @@ class AsyncCloudHSMV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBackups")
+        )
         input_: capo_cloudhsm_v2.types.describe_backups_request.DescribeBackupsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -724,7 +746,9 @@ class AsyncCloudHSMV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClusters")
+        )
         input_: capo_cloudhsm_v2.types.describe_clusters_request.DescribeClustersRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -803,7 +827,9 @@ class AsyncCloudHSMV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_cloudhsm_v2.types.get_resource_policy_request.GetResourcePolicyRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -855,7 +881,9 @@ class AsyncCloudHSMV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InitializeCluster")
+        )
         input_: capo_cloudhsm_v2.types.initialize_cluster_request.InitializeClusterRequest = {
             "cluster_id": cluster_id,
             "signed_cert": signed_cert,
@@ -910,7 +938,9 @@ class AsyncCloudHSMV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTags")
+        )
         input_: capo_cloudhsm_v2.types.list_tags_request.ListTagsRequest = {
             "resource_id": resource_id
         }
@@ -985,7 +1015,9 @@ class AsyncCloudHSMV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyBackupAttributes")
+        )
         input_: capo_cloudhsm_v2.types.modify_backup_attributes_request.ModifyBackupAttributesRequest = {
             "backup_id": backup_id,
             "never_expires": never_expires,
@@ -1040,7 +1072,9 @@ class AsyncCloudHSMV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyCluster")
+        )
         input_: capo_cloudhsm_v2.types.modify_cluster_request.ModifyClusterRequest = {
             "cluster_id": cluster_id
         }
@@ -1100,7 +1134,9 @@ class AsyncCloudHSMV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_cloudhsm_v2.types.put_resource_policy_request.PutResourcePolicyRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -1150,7 +1186,9 @@ class AsyncCloudHSMV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreBackup")
+        )
         input_: capo_cloudhsm_v2.types.restore_backup_request.RestoreBackupRequest = {
             "backup_id": backup_id
         }
@@ -1202,7 +1240,9 @@ class AsyncCloudHSMV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_cloudhsm_v2.types.tag_resource_request.TagResourceRequest = {
             "resource_id": resource_id,
             "tag_list": tag_list,
@@ -1254,7 +1294,9 @@ class AsyncCloudHSMV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_cloudhsm_v2.types.untag_resource_request.UntagResourceRequest = {
             "resource_id": resource_id,
             "tag_key_list": tag_key_list,

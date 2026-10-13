@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#CollaboratorConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -70,4 +70,13 @@ def deserialize_json(data: dict) -> CollaboratorConfiguration:
                 data["relayConversationHistory"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: CollaboratorConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "collaborator_name" in value:
+        out["collaborator_name"] = "*** Sensitive Data Redacted ***"
+    if "collaborator_instruction" in value:
+        out["collaborator_instruction"] = "*** Sensitive Data Redacted ***"
     return out

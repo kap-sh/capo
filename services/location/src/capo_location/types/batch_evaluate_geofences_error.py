@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#BatchEvaluateGeofencesError``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -58,4 +58,11 @@ def deserialize_json(data: dict) -> BatchEvaluateGeofencesError:
         )
     else:
         raise DeserializationError("BatchEvaluateGeofencesError.error required")
+    return out
+
+
+def redact_sensitive(value: BatchEvaluateGeofencesError) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sample_time" in value:
+        out["sample_time"] = "*** Sensitive Data Redacted ***"
     return out

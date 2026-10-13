@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudwatchevents#ConnectionHeaderParametersList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_cloudwatch_events.types.connection_header_parameter
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_1(data: list) -> ConnectionHeaderParametersList:
             )
         )
     return out
+
+
+def redact_sensitive(value: ConnectionHeaderParametersList) -> list[Any]:
+    import capo_cloudwatch_events.types.connection_header_parameter
+
+    return [
+        capo_cloudwatch_events.types.connection_header_parameter.redact_sensitive(item)
+        for item in value
+    ]

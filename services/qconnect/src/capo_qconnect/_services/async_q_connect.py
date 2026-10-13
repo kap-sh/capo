@@ -28,7 +28,9 @@ from capo_qconnect._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -415,7 +417,9 @@ class AsyncQConnectClient:
         self.knowledge_base = AsyncKnowledgeBase(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncQConnectClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncQConnectClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncQConnectClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -423,8 +427,10 @@ class AsyncQConnectClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -474,7 +480,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_qconnect.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -521,7 +529,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_qconnect.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -568,7 +578,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_qconnect.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -629,7 +641,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAssistant")
+        )
         input_: capo_qconnect.types.create_assistant_request.CreateAssistantRequest = {
             "name": name,
             "type": type,
@@ -688,7 +702,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAssistant")
+        )
         input_: capo_qconnect.types.get_assistant_request.GetAssistantRequest = {
             "assistant_id": assistant_id
         }
@@ -735,7 +751,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAssistant")
+        )
         input_: capo_qconnect.types.delete_assistant_request.DeleteAssistantRequest = {
             "assistant_id": assistant_id
         }
@@ -783,7 +801,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssistants")
+        )
         input_: capo_qconnect.types.list_assistants_request.ListAssistantsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -866,7 +886,19 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.get_recommendations_response.GetRecommendationsResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.get_recommendations_response
+
+            return capo_qconnect.types.get_recommendations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetRecommendations", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.get_recommendations_request.GetRecommendationsRequest = {
             "assistant_id": assistant_id,
             "session_id": session_id,
@@ -936,7 +968,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListModels")
+        )
         input_: capo_qconnect.types.list_models_request.ListModelsRequest = {
             "assistant_id": assistant_id
         }
@@ -1025,7 +1059,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("NotifyRecommendationsReceived")
+        )
         input_: capo_qconnect.types.notify_recommendations_received_request.NotifyRecommendationsReceivedRequest = {
             "assistant_id": assistant_id,
             "session_id": session_id,
@@ -1079,7 +1115,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutFeedback")
+        )
         input_: capo_qconnect.types.put_feedback_request.PutFeedbackRequest = {
             "assistant_id": assistant_id,
             "target_id": target_id,
@@ -1149,7 +1187,28 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qconnect.types.query_assistant_request.QueryAssistantRequest",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.query_assistant_request
+
+            return capo_qconnect.types.query_assistant_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_qconnect.types.query_assistant_response.QueryAssistantResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.query_assistant_response
+
+            return capo_qconnect.types.query_assistant_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "QueryAssistant",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_qconnect.types.query_assistant_request.QueryAssistantRequest = {
             "assistant_id": assistant_id
         }
@@ -1257,7 +1316,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveAssistantAIAgent")
+        )
         input_: capo_qconnect.types.remove_assistant_ai_agent_request.RemoveAssistantAIAgentRequest = {
             "assistant_id": assistant_id,
             "ai_agent_type": ai_agent_type,
@@ -1315,7 +1376,26 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qconnect.types.retrieve_request.RetrieveRequest",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.retrieve_request
+
+            return capo_qconnect.types.retrieve_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_qconnect.types.retrieve_response.RetrieveResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.retrieve_response
+
+            return capo_qconnect.types.retrieve_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "Retrieve", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_qconnect.types.retrieve_request.RetrieveRequest = {
             "assistant_id": assistant_id,
             "retrieval_configuration": retrieval_configuration,
@@ -1370,7 +1450,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchSessions")
+        )
         input_: capo_qconnect.types.search_sessions_request.SearchSessionsRequest = {
             "assistant_id": assistant_id,
             "search_expression": search_expression,
@@ -1455,7 +1537,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAssistantAIAgent")
+        )
         input_: capo_qconnect.types.update_assistant_ai_agent_request.UpdateAssistantAIAgentRequest = {
             "assistant_id": assistant_id,
             "ai_agent_type": ai_agent_type,
@@ -1523,7 +1607,28 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qconnect.types.create_ai_agent_request.CreateAIAgentRequest",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.create_ai_agent_request
+
+            return capo_qconnect.types.create_ai_agent_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_qconnect.types.create_ai_agent_response.CreateAIAgentResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.create_ai_agent_response
+
+            return capo_qconnect.types.create_ai_agent_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAIAgent",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_qconnect.types.create_ai_agent_request.CreateAIAgentRequest = {
             "assistant_id": assistant_id,
             "name": name,
@@ -1584,7 +1689,17 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.get_ai_agent_response.GetAIAgentResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.get_ai_agent_response
+
+            return capo_qconnect.types.get_ai_agent_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAIAgent", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.get_ai_agent_request.GetAIAgentRequest = {
             "assistant_id": assistant_id,
             "ai_agent_id": ai_agent_id,
@@ -1646,7 +1761,28 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qconnect.types.update_ai_agent_request.UpdateAIAgentRequest",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.update_ai_agent_request
+
+            return capo_qconnect.types.update_ai_agent_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_qconnect.types.update_ai_agent_response.UpdateAIAgentResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.update_ai_agent_response
+
+            return capo_qconnect.types.update_ai_agent_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAIAgent",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_qconnect.types.update_ai_agent_request.UpdateAIAgentRequest = {
             "assistant_id": assistant_id,
             "ai_agent_id": ai_agent_id,
@@ -1705,7 +1841,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAIAgent")
+        )
         input_: capo_qconnect.types.delete_ai_agent_request.DeleteAIAgentRequest = {
             "assistant_id": assistant_id,
             "ai_agent_id": ai_agent_id,
@@ -1760,7 +1898,17 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.list_ai_agents_response.ListAIAgentsResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.list_ai_agents_response
+
+            return capo_qconnect.types.list_ai_agents_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAIAgents", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.list_ai_agents_request.ListAIAgentsRequest = {
             "assistant_id": assistant_id
         }
@@ -1847,7 +1995,21 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.create_ai_agent_version_response.CreateAIAgentVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.create_ai_agent_version_response
+
+            return (
+                capo_qconnect.types.create_ai_agent_version_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateAIAgentVersion", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.create_ai_agent_version_request.CreateAIAgentVersionRequest = {
             "assistant_id": assistant_id,
             "ai_agent_id": ai_agent_id,
@@ -1906,7 +2068,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAIAgentVersion")
+        )
         input_: capo_qconnect.types.delete_ai_agent_version_request.DeleteAIAgentVersionRequest = {
             "assistant_id": assistant_id,
             "ai_agent_id": ai_agent_id,
@@ -1964,7 +2128,19 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.list_ai_agent_versions_response.ListAIAgentVersionsResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.list_ai_agent_versions_response
+
+            return capo_qconnect.types.list_ai_agent_versions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAIAgentVersions", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.list_ai_agent_versions_request.ListAIAgentVersionsRequest = {
             "assistant_id": assistant_id,
             "ai_agent_id": ai_agent_id,
@@ -2084,7 +2260,32 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qconnect.types.create_ai_guardrail_request.CreateAIGuardrailRequest",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.create_ai_guardrail_request
+
+            return capo_qconnect.types.create_ai_guardrail_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_qconnect.types.create_ai_guardrail_response.CreateAIGuardrailResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.create_ai_guardrail_response
+
+            return capo_qconnect.types.create_ai_guardrail_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAIGuardrail",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_qconnect.types.create_ai_guardrail_request.CreateAIGuardrailRequest = {
             "assistant_id": assistant_id,
             "name": name,
@@ -2159,7 +2360,19 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.get_ai_guardrail_response.GetAIGuardrailResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.get_ai_guardrail_response
+
+            return capo_qconnect.types.get_ai_guardrail_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAIGuardrail", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.get_ai_guardrail_request.GetAIGuardrailRequest = {
             "assistant_id": assistant_id,
             "ai_guardrail_id": ai_guardrail_id,
@@ -2243,7 +2456,32 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qconnect.types.update_ai_guardrail_request.UpdateAIGuardrailRequest",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.update_ai_guardrail_request
+
+            return capo_qconnect.types.update_ai_guardrail_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_qconnect.types.update_ai_guardrail_response.UpdateAIGuardrailResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.update_ai_guardrail_response
+
+            return capo_qconnect.types.update_ai_guardrail_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAIGuardrail",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_qconnect.types.update_ai_guardrail_request.UpdateAIGuardrailRequest = {
             "assistant_id": assistant_id,
             "ai_guardrail_id": ai_guardrail_id,
@@ -2317,7 +2555,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAIGuardrail")
+        )
         input_: capo_qconnect.types.delete_ai_guardrail_request.DeleteAIGuardrailRequest = {
             "assistant_id": assistant_id,
             "ai_guardrail_id": ai_guardrail_id,
@@ -2370,7 +2610,19 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.list_ai_guardrails_response.ListAIGuardrailsResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.list_ai_guardrails_response
+
+            return capo_qconnect.types.list_ai_guardrails_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAIGuardrails", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.list_ai_guardrails_request.ListAIGuardrailsRequest = {
             "assistant_id": assistant_id
         }
@@ -2453,7 +2705,19 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.create_ai_guardrail_version_response.CreateAIGuardrailVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.create_ai_guardrail_version_response
+
+            return capo_qconnect.types.create_ai_guardrail_version_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateAIGuardrailVersion", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.create_ai_guardrail_version_request.CreateAIGuardrailVersionRequest = {
             "assistant_id": assistant_id,
             "ai_guardrail_id": ai_guardrail_id,
@@ -2512,7 +2776,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAIGuardrailVersion")
+        )
         input_: capo_qconnect.types.delete_ai_guardrail_version_request.DeleteAIGuardrailVersionRequest = {
             "assistant_id": assistant_id,
             "ai_guardrail_id": ai_guardrail_id,
@@ -2568,7 +2834,19 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.list_ai_guardrail_versions_response.ListAIGuardrailVersionsResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.list_ai_guardrail_versions_response
+
+            return capo_qconnect.types.list_ai_guardrail_versions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAIGuardrailVersions", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.list_ai_guardrail_versions_request.ListAIGuardrailVersionsRequest = {
             "assistant_id": assistant_id,
             "ai_guardrail_id": ai_guardrail_id,
@@ -2672,7 +2950,30 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qconnect.types.create_ai_prompt_request.CreateAIPromptRequest",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.create_ai_prompt_request
+
+            return capo_qconnect.types.create_ai_prompt_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_qconnect.types.create_ai_prompt_response.CreateAIPromptResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.create_ai_prompt_response
+
+            return capo_qconnect.types.create_ai_prompt_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAIPrompt",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_qconnect.types.create_ai_prompt_request.CreateAIPromptRequest = {
             "assistant_id": assistant_id,
             "name": name,
@@ -2738,7 +3039,17 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.get_ai_prompt_response.GetAIPromptResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.get_ai_prompt_response
+
+            return capo_qconnect.types.get_ai_prompt_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAIPrompt", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.get_ai_prompt_request.GetAIPromptRequest = {
             "assistant_id": assistant_id,
             "ai_prompt_id": ai_prompt_id,
@@ -2808,7 +3119,30 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qconnect.types.update_ai_prompt_request.UpdateAIPromptRequest",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.update_ai_prompt_request
+
+            return capo_qconnect.types.update_ai_prompt_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_qconnect.types.update_ai_prompt_response.UpdateAIPromptResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.update_ai_prompt_response
+
+            return capo_qconnect.types.update_ai_prompt_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAIPrompt",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_qconnect.types.update_ai_prompt_request.UpdateAIPromptRequest = {
             "assistant_id": assistant_id,
             "ai_prompt_id": ai_prompt_id,
@@ -2871,7 +3205,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAIPrompt")
+        )
         input_: capo_qconnect.types.delete_ai_prompt_request.DeleteAIPromptRequest = {
             "assistant_id": assistant_id,
             "ai_prompt_id": ai_prompt_id,
@@ -2926,7 +3262,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAIPrompts")
+        )
         input_: capo_qconnect.types.list_ai_prompts_request.ListAIPromptsRequest = {
             "assistant_id": assistant_id
         }
@@ -3013,7 +3351,21 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.create_ai_prompt_version_response.CreateAIPromptVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.create_ai_prompt_version_response
+
+            return (
+                capo_qconnect.types.create_ai_prompt_version_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateAIPromptVersion", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.create_ai_prompt_version_request.CreateAIPromptVersionRequest = {
             "assistant_id": assistant_id,
             "ai_prompt_id": ai_prompt_id,
@@ -3072,7 +3424,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAIPromptVersion")
+        )
         input_: capo_qconnect.types.delete_ai_prompt_version_request.DeleteAIPromptVersionRequest = {
             "assistant_id": assistant_id,
             "ai_prompt_id": ai_prompt_id,
@@ -3130,7 +3484,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAIPromptVersions")
+        )
         input_: capo_qconnect.types.list_ai_prompt_versions_request.ListAIPromptVersionsRequest = {
             "assistant_id": assistant_id,
             "ai_prompt_id": ai_prompt_id,
@@ -3220,7 +3576,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAssistantAssociation")
+        )
         input_: capo_qconnect.types.create_assistant_association_request.CreateAssistantAssociationRequest = {
             "assistant_id": assistant_id,
             "association_type": association_type,
@@ -3276,7 +3634,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAssistantAssociation")
+        )
         input_: capo_qconnect.types.get_assistant_association_request.GetAssistantAssociationRequest = {
             "assistant_association_id": assistant_association_id,
             "assistant_id": assistant_id,
@@ -3326,7 +3686,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAssistantAssociation")
+        )
         input_: capo_qconnect.types.delete_assistant_association_request.DeleteAssistantAssociationRequest = {
             "assistant_association_id": assistant_association_id,
             "assistant_id": assistant_id,
@@ -3377,7 +3739,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssistantAssociations")
+        )
         input_: capo_qconnect.types.list_assistant_associations_request.ListAssistantAssociationsRequest = {
             "assistant_id": assistant_id
         }
@@ -3475,7 +3839,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSession")
+        )
         input_: capo_qconnect.types.create_session_request.CreateSessionRequest = {
             "assistant_id": assistant_id,
             "name": name,
@@ -3544,7 +3910,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSession")
+        )
         input_: capo_qconnect.types.get_session_request.GetSessionRequest = {
             "assistant_id": assistant_id,
             "session_id": session_id,
@@ -3608,7 +3976,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSession")
+        )
         input_: capo_qconnect.types.update_session_request.UpdateSessionRequest = {
             "assistant_id": assistant_id,
             "session_id": session_id,
@@ -3672,7 +4042,19 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.get_next_message_response.GetNextMessageResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.get_next_message_response
+
+            return capo_qconnect.types.get_next_message_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetNextMessage", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.get_next_message_request.GetNextMessageRequest = {
             "assistant_id": assistant_id,
             "session_id": session_id,
@@ -3730,7 +4112,17 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.list_messages_response.ListMessagesResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.list_messages_response
+
+            return capo_qconnect.types.list_messages_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListMessages", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.list_messages_request.ListMessagesRequest = {
             "assistant_id": assistant_id,
             "session_id": session_id,
@@ -3818,7 +4210,17 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.list_spans_response.ListSpansResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.list_spans_response
+
+            return capo_qconnect.types.list_spans_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListSpans", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.list_spans_request.ListSpansRequest = {
             "assistant_id": assistant_id,
             "session_id": session_id,
@@ -3931,7 +4333,17 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qconnect.types.send_message_request.SendMessageRequest",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.send_message_request
+
+            return capo_qconnect.types.send_message_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SendMessage", redact_input=_redact_input),
+        )
         input_: capo_qconnect.types.send_message_request.SendMessageRequest = {
             "assistant_id": assistant_id,
             "session_id": session_id,
@@ -4004,7 +4416,32 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qconnect.types.update_session_data_request.UpdateSessionDataRequest",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.update_session_data_request
+
+            return capo_qconnect.types.update_session_data_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_qconnect.types.update_session_data_response.UpdateSessionDataResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.update_session_data_response
+
+            return capo_qconnect.types.update_session_data_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateSessionData",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_qconnect.types.update_session_data_request.UpdateSessionDataRequest = {
             "assistant_id": assistant_id,
             "session_id": session_id,
@@ -4084,7 +4521,32 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qconnect.types.create_knowledge_base_request.CreateKnowledgeBaseRequest",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.create_knowledge_base_request
+
+            return capo_qconnect.types.create_knowledge_base_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_qconnect.types.create_knowledge_base_response.CreateKnowledgeBaseResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.create_knowledge_base_response
+
+            return capo_qconnect.types.create_knowledge_base_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateKnowledgeBase",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_qconnect.types.create_knowledge_base_request.CreateKnowledgeBaseRequest = {
             "name": name,
             "knowledge_base_type": knowledge_base_type,
@@ -4149,7 +4611,19 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.get_knowledge_base_response.GetKnowledgeBaseResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.get_knowledge_base_response
+
+            return capo_qconnect.types.get_knowledge_base_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetKnowledgeBase", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.get_knowledge_base_request.GetKnowledgeBaseRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -4199,7 +4673,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteKnowledgeBase")
+        )
         input_: capo_qconnect.types.delete_knowledge_base_request.DeleteKnowledgeBaseRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -4248,7 +4724,19 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.list_knowledge_bases_response.ListKnowledgeBasesResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.list_knowledge_bases_response
+
+            return capo_qconnect.types.list_knowledge_bases_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListKnowledgeBases", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.list_knowledge_bases_request.ListKnowledgeBasesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4325,7 +4813,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteImportJob")
+        )
         input_: capo_qconnect.types.delete_import_job_request.DeleteImportJobRequest = {
             "knowledge_base_id": knowledge_base_id,
             "import_job_id": import_job_id,
@@ -4374,7 +4864,17 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.get_import_job_response.GetImportJobResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.get_import_job_response
+
+            return capo_qconnect.types.get_import_job_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetImportJob", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.get_import_job_request.GetImportJobRequest = {
             "import_job_id": import_job_id,
             "knowledge_base_id": knowledge_base_id,
@@ -4426,7 +4926,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImportJobs")
+        )
         input_: capo_qconnect.types.list_import_jobs_request.ListImportJobsRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -4501,7 +5003,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveKnowledgeBaseTemplateUri")
+        )
         input_: capo_qconnect.types.remove_knowledge_base_template_uri_request.RemoveKnowledgeBaseTemplateUriRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -4554,7 +5058,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchContent")
+        )
         input_: capo_qconnect.types.search_content_request.SearchContentRequest = {
             "knowledge_base_id": knowledge_base_id,
             "search_expression": search_expression,
@@ -4638,7 +5144,21 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.search_message_templates_response.SearchMessageTemplatesResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.search_message_templates_response
+
+            return (
+                capo_qconnect.types.search_message_templates_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SearchMessageTemplates", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.search_message_templates_request.SearchMessageTemplatesRequest = {
             "knowledge_base_id": knowledge_base_id,
             "search_expression": search_expression,
@@ -4728,7 +5248,32 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qconnect.types.search_quick_responses_request.SearchQuickResponsesRequest",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.search_quick_responses_request
+
+            return capo_qconnect.types.search_quick_responses_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_qconnect.types.search_quick_responses_response.SearchQuickResponsesResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.search_quick_responses_response
+
+            return capo_qconnect.types.search_quick_responses_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchQuickResponses",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_qconnect.types.search_quick_responses_request.SearchQuickResponsesRequest = {
             "knowledge_base_id": knowledge_base_id,
             "search_expression": search_expression,
@@ -4819,7 +5364,19 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.start_content_upload_response.StartContentUploadResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.start_content_upload_response
+
+            return capo_qconnect.types.start_content_upload_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartContentUpload", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.start_content_upload_request.StartContentUploadRequest = {
             "knowledge_base_id": knowledge_base_id,
             "content_type": content_type,
@@ -4887,7 +5444,19 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.start_import_job_response.StartImportJobResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.start_import_job_response
+
+            return capo_qconnect.types.start_import_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartImportJob", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.start_import_job_request.StartImportJobRequest = {
             "knowledge_base_id": knowledge_base_id,
             "import_job_type": import_job_type,
@@ -4944,7 +5513,21 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.update_knowledge_base_template_uri_response.UpdateKnowledgeBaseTemplateUriResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.update_knowledge_base_template_uri_response
+
+            return capo_qconnect.types.update_knowledge_base_template_uri_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateKnowledgeBaseTemplateUri", redact_output=_redact_output
+            ),
+        )
         input_: capo_qconnect.types.update_knowledge_base_template_uri_request.UpdateKnowledgeBaseTemplateUriRequest = {
             "knowledge_base_id": knowledge_base_id,
             "template_uri": template_uri,
@@ -5012,7 +5595,17 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.create_content_response.CreateContentResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.create_content_response
+
+            return capo_qconnect.types.create_content_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateContent", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.create_content_request.CreateContentRequest = {
             "knowledge_base_id": knowledge_base_id,
             "name": name,
@@ -5074,7 +5667,17 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.get_content_response.GetContentResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.get_content_response
+
+            return capo_qconnect.types.get_content_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetContent", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.get_content_request.GetContentRequest = {
             "content_id": content_id,
             "knowledge_base_id": knowledge_base_id,
@@ -5141,7 +5744,17 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.update_content_response.UpdateContentResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.update_content_response
+
+            return capo_qconnect.types.update_content_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateContent", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.update_content_request.UpdateContentRequest = {
             "knowledge_base_id": knowledge_base_id,
             "content_id": content_id,
@@ -5204,7 +5817,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContent")
+        )
         input_: capo_qconnect.types.delete_content_request.DeleteContentRequest = {
             "knowledge_base_id": knowledge_base_id,
             "content_id": content_id,
@@ -5255,7 +5870,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContents")
+        )
         input_: capo_qconnect.types.list_contents_request.ListContentsRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -5331,7 +5948,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContentSummary")
+        )
         input_: capo_qconnect.types.get_content_summary_request.GetContentSummaryRequest = {
             "content_id": content_id,
             "knowledge_base_id": knowledge_base_id,
@@ -5392,7 +6011,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateContentAssociation")
+        )
         input_: capo_qconnect.types.create_content_association_request.CreateContentAssociationRequest = {
             "knowledge_base_id": knowledge_base_id,
             "content_id": content_id,
@@ -5451,7 +6072,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContentAssociation")
+        )
         input_: capo_qconnect.types.get_content_association_request.GetContentAssociationRequest = {
             "knowledge_base_id": knowledge_base_id,
             "content_id": content_id,
@@ -5504,7 +6127,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContentAssociation")
+        )
         input_: capo_qconnect.types.delete_content_association_request.DeleteContentAssociationRequest = {
             "knowledge_base_id": knowledge_base_id,
             "content_id": content_id,
@@ -5559,7 +6184,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContentAssociations")
+        )
         input_: capo_qconnect.types.list_content_associations_request.ListContentAssociationsRequest = {
             "knowledge_base_id": knowledge_base_id,
             "content_id": content_id,
@@ -5665,7 +6292,34 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qconnect.types.create_message_template_request.CreateMessageTemplateRequest",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.create_message_template_request
+
+            return capo_qconnect.types.create_message_template_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_qconnect.types.create_message_template_response.CreateMessageTemplateResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.create_message_template_response
+
+            return (
+                capo_qconnect.types.create_message_template_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateMessageTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_qconnect.types.create_message_template_request.CreateMessageTemplateRequest = {
             "knowledge_base_id": knowledge_base_id,
             "channel_subtype": channel_subtype,
@@ -5735,7 +6389,19 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.get_message_template_response.GetMessageTemplateResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.get_message_template_response
+
+            return capo_qconnect.types.get_message_template_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetMessageTemplate", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.get_message_template_request.GetMessageTemplateRequest = {
             "message_template_id": message_template_id,
             "knowledge_base_id": knowledge_base_id,
@@ -5800,7 +6466,34 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qconnect.types.update_message_template_request.UpdateMessageTemplateRequest",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.update_message_template_request
+
+            return capo_qconnect.types.update_message_template_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_qconnect.types.update_message_template_response.UpdateMessageTemplateResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.update_message_template_response
+
+            return (
+                capo_qconnect.types.update_message_template_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateMessageTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_qconnect.types.update_message_template_request.UpdateMessageTemplateRequest = {
             "knowledge_base_id": knowledge_base_id,
             "message_template_id": message_template_id,
@@ -5859,7 +6552,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMessageTemplate")
+        )
         input_: capo_qconnect.types.delete_message_template_request.DeleteMessageTemplateRequest = {
             "knowledge_base_id": knowledge_base_id,
             "message_template_id": message_template_id,
@@ -5911,7 +6606,19 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.list_message_templates_response.ListMessageTemplatesResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.list_message_templates_response
+
+            return capo_qconnect.types.list_message_templates_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListMessageTemplates", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.list_message_templates_request.ListMessageTemplatesRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -5990,7 +6697,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ActivateMessageTemplate")
+        )
         input_: capo_qconnect.types.activate_message_template_request.ActivateMessageTemplateRequest = {
             "knowledge_base_id": knowledge_base_id,
             "message_template_id": message_template_id,
@@ -6052,7 +6761,32 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qconnect.types.create_message_template_attachment_request.CreateMessageTemplateAttachmentRequest",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.create_message_template_attachment_request
+
+            return capo_qconnect.types.create_message_template_attachment_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_qconnect.types.create_message_template_attachment_response.CreateMessageTemplateAttachmentResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.create_message_template_attachment_response
+
+            return capo_qconnect.types.create_message_template_attachment_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateMessageTemplateAttachment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_qconnect.types.create_message_template_attachment_request.CreateMessageTemplateAttachmentRequest = {
             "knowledge_base_id": knowledge_base_id,
             "message_template_id": message_template_id,
@@ -6113,7 +6847,21 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.create_message_template_version_response.CreateMessageTemplateVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.create_message_template_version_response
+
+            return capo_qconnect.types.create_message_template_version_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateMessageTemplateVersion", redact_output=_redact_output
+            ),
+        )
         input_: capo_qconnect.types.create_message_template_version_request.CreateMessageTemplateVersionRequest = {
             "knowledge_base_id": knowledge_base_id,
             "message_template_id": message_template_id,
@@ -6168,7 +6916,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeactivateMessageTemplate")
+        )
         input_: capo_qconnect.types.deactivate_message_template_request.DeactivateMessageTemplateRequest = {
             "knowledge_base_id": knowledge_base_id,
             "message_template_id": message_template_id,
@@ -6222,7 +6972,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMessageTemplateAttachment")
+        )
         input_: capo_qconnect.types.delete_message_template_attachment_request.DeleteMessageTemplateAttachmentRequest = {
             "knowledge_base_id": knowledge_base_id,
             "message_template_id": message_template_id,
@@ -6277,7 +7029,21 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.list_message_template_versions_response.ListMessageTemplateVersionsResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.list_message_template_versions_response
+
+            return capo_qconnect.types.list_message_template_versions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListMessageTemplateVersions", redact_output=_redact_output
+            ),
+        )
         input_: capo_qconnect.types.list_message_template_versions_request.ListMessageTemplateVersionsRequest = {
             "knowledge_base_id": knowledge_base_id,
             "message_template_id": message_template_id,
@@ -6358,7 +7124,34 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qconnect.types.render_message_template_request.RenderMessageTemplateRequest",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.render_message_template_request
+
+            return capo_qconnect.types.render_message_template_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_qconnect.types.render_message_template_response.RenderMessageTemplateResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.render_message_template_response
+
+            return (
+                capo_qconnect.types.render_message_template_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RenderMessageTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_qconnect.types.render_message_template_request.RenderMessageTemplateRequest = {
             "knowledge_base_id": knowledge_base_id,
             "message_template_id": message_template_id,
@@ -6417,7 +7210,32 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qconnect.types.update_message_template_metadata_request.UpdateMessageTemplateMetadataRequest",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.update_message_template_metadata_request
+
+            return capo_qconnect.types.update_message_template_metadata_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_qconnect.types.update_message_template_metadata_response.UpdateMessageTemplateMetadataResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.update_message_template_metadata_response
+
+            return capo_qconnect.types.update_message_template_metadata_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateMessageTemplateMetadata",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_qconnect.types.update_message_template_metadata_request.UpdateMessageTemplateMetadataRequest = {
             "knowledge_base_id": knowledge_base_id,
             "message_template_id": message_template_id,
@@ -6505,7 +7323,32 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qconnect.types.create_quick_response_request.CreateQuickResponseRequest",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.create_quick_response_request
+
+            return capo_qconnect.types.create_quick_response_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_qconnect.types.create_quick_response_response.CreateQuickResponseResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.create_quick_response_response
+
+            return capo_qconnect.types.create_quick_response_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateQuickResponse",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_qconnect.types.create_quick_response_request.CreateQuickResponseRequest = {
             "knowledge_base_id": knowledge_base_id,
             "name": name,
@@ -6575,7 +7418,19 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.get_quick_response_response.GetQuickResponseResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.get_quick_response_response
+
+            return capo_qconnect.types.get_quick_response_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetQuickResponse", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.get_quick_response_request.GetQuickResponseRequest = {
             "quick_response_id": quick_response_id,
             "knowledge_base_id": knowledge_base_id,
@@ -6663,7 +7518,32 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qconnect.types.update_quick_response_request.UpdateQuickResponseRequest",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.update_quick_response_request
+
+            return capo_qconnect.types.update_quick_response_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_qconnect.types.update_quick_response_response.UpdateQuickResponseResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.update_quick_response_response
+
+            return capo_qconnect.types.update_quick_response_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateQuickResponse",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_qconnect.types.update_quick_response_request.UpdateQuickResponseRequest = {
             "knowledge_base_id": knowledge_base_id,
             "quick_response_id": quick_response_id,
@@ -6739,7 +7619,9 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQuickResponse")
+        )
         input_: capo_qconnect.types.delete_quick_response_request.DeleteQuickResponseRequest = {
             "knowledge_base_id": knowledge_base_id,
             "quick_response_id": quick_response_id,
@@ -6792,7 +7674,19 @@ class AsyncQConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qconnect.types.list_quick_responses_response.ListQuickResponsesResponse",
+        ) -> dict[str, Any]:
+            import capo_qconnect.types.list_quick_responses_response
+
+            return capo_qconnect.types.list_quick_responses_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListQuickResponses", redact_output=_redact_output),
+        )
         input_: capo_qconnect.types.list_quick_responses_request.ListQuickResponsesRequest = {
             "knowledge_base_id": knowledge_base_id
         }

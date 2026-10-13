@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gameliftstreams#StreamUrlSummaryList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_gameliftstreams.types.stream_url_summary
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> StreamUrlSummaryList:
             continue
         out.append(capo_gameliftstreams.types.stream_url_summary.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: StreamUrlSummaryList) -> list[Any]:
+    import capo_gameliftstreams.types.stream_url_summary
+
+    return [
+        capo_gameliftstreams.types.stream_url_summary.redact_sensitive(item)
+        for item in value
+    ]

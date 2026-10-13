@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.organizations#CreateGovCloudAccountResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -36,6 +36,19 @@ def deserialize_aws_json_1_1(data: dict) -> CreateGovCloudAccountResponse:
         out["create_account_status"] = (
             capo_organizations.types.create_account_status.deserialize_aws_json_1_1(
                 data["CreateAccountStatus"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateGovCloudAccountResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "create_account_status" in value:
+        import capo_organizations.types.create_account_status
+
+        out["create_account_status"] = (
+            capo_organizations.types.create_account_status.redact_sensitive(
+                value["create_account_status"]
             )
         )
     return out

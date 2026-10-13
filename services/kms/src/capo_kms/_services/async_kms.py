@@ -24,7 +24,9 @@ from capo_kms._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -264,7 +266,9 @@ class AsyncKMSClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncKMSClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncKMSClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncKMSClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -272,8 +276,10 @@ class AsyncKMSClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -333,7 +339,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelKeyDeletion")
+        )
         input_: capo_kms.types.cancel_key_deletion_request.CancelKeyDeletionRequest = {
             "key_id": key_id
         }
@@ -389,7 +397,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ConnectCustomKeyStore")
+        )
         input_: capo_kms.types.connect_custom_key_store_request.ConnectCustomKeyStoreRequest = {
             "custom_key_store_id": custom_key_store_id
         }
@@ -445,7 +455,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAlias")
+        )
         input_: capo_kms.types.create_alias_request.CreateAliasRequest = {
             "alias_name": alias_name,
             "target_key_id": target_key_id,
@@ -552,7 +564,19 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_kms.types.create_custom_key_store_request.CreateCustomKeyStoreRequest",
+        ) -> dict[str, Any]:
+            import capo_kms.types.create_custom_key_store_request
+
+            return capo_kms.types.create_custom_key_store_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateCustomKeyStore", redact_input=_redact_input),
+        )
         input_: capo_kms.types.create_custom_key_store_request.CreateCustomKeyStoreRequest = {
             "custom_key_store_name": custom_key_store_name
         }
@@ -670,7 +694,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGrant")
+        )
         input_: capo_kms.types.create_grant_request.CreateGrantRequest = {
             "key_id": key_id,
             "operations": operations,
@@ -771,7 +797,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateKey")
+        )
         input_: capo_kms.types.create_key_request.CreateKeyRequest = {}
         if policy is not None:
             input_["policy"] = policy
@@ -879,7 +907,16 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_kms.types.decrypt_response.DecryptResponse",
+        ) -> dict[str, Any]:
+            import capo_kms.types.decrypt_response
+
+            return capo_kms.types.decrypt_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Decrypt", redact_output=_redact_output)
+        )
         input_: capo_kms.types.decrypt_request.DecryptRequest = {}
         if ciphertext_blob is not None:
             input_["ciphertext_blob"] = ciphertext_blob
@@ -944,7 +981,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAlias")
+        )
         input_: capo_kms.types.delete_alias_request.DeleteAliasRequest = {
             "alias_name": alias_name
         }
@@ -997,7 +1036,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCustomKeyStore")
+        )
         input_: capo_kms.types.delete_custom_key_store_request.DeleteCustomKeyStoreRequest = {
             "custom_key_store_id": custom_key_store_id
         }
@@ -1056,7 +1097,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteImportedKeyMaterial")
+        )
         input_: capo_kms.types.delete_imported_key_material_request.DeleteImportedKeyMaterialRequest = {
             "key_id": key_id
         }
@@ -1128,7 +1171,17 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_kms.types.derive_shared_secret_response.DeriveSharedSecretResponse",
+        ) -> dict[str, Any]:
+            import capo_kms.types.derive_shared_secret_response
+
+            return capo_kms.types.derive_shared_secret_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeriveSharedSecret", redact_output=_redact_output),
+        )
         input_: capo_kms.types.derive_shared_secret_request.DeriveSharedSecretRequest = {
             "key_id": key_id,
             "key_agreement_algorithm": key_agreement_algorithm,
@@ -1198,7 +1251,19 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_kms.types.describe_custom_key_stores_response.DescribeCustomKeyStoresResponse",
+        ) -> dict[str, Any]:
+            import capo_kms.types.describe_custom_key_stores_response
+
+            return capo_kms.types.describe_custom_key_stores_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeCustomKeyStores", redact_output=_redact_output),
+        )
         input_: capo_kms.types.describe_custom_key_stores_request.DescribeCustomKeyStoresRequest = {}
         if custom_key_store_id is not None:
             input_["custom_key_store_id"] = custom_key_store_id
@@ -1304,7 +1369,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeKey")
+        )
         input_: capo_kms.types.describe_key_request.DescribeKeyRequest = {
             "key_id": key_id
         }
@@ -1358,7 +1425,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableKey")
+        )
         input_: capo_kms.types.disable_key_request.DisableKeyRequest = {
             "key_id": key_id
         }
@@ -1412,7 +1481,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableKeyRotation")
+        )
         input_: capo_kms.types.disable_key_rotation_request.DisableKeyRotationRequest = {
             "key_id": key_id
         }
@@ -1464,7 +1535,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisconnectCustomKeyStore")
+        )
         input_: capo_kms.types.disconnect_custom_key_store_request.DisconnectCustomKeyStoreRequest = {
             "custom_key_store_id": custom_key_store_id
         }
@@ -1517,7 +1590,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableKey")
+        )
         input_: capo_kms.types.enable_key_request.EnableKeyRequest = {"key_id": key_id}
 
         response = await aexecute_pipeline(
@@ -1573,7 +1648,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableKeyRotation")
+        )
         input_: capo_kms.types.enable_key_rotation_request.EnableKeyRotationRequest = {
             "key_id": key_id
         }
@@ -1651,7 +1728,16 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_kms.types.encrypt_request.EncryptRequest",
+        ) -> dict[str, Any]:
+            import capo_kms.types.encrypt_request
+
+            return capo_kms.types.encrypt_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Encrypt", redact_input=_redact_input)
+        )
         input_: capo_kms.types.encrypt_request.EncryptRequest = {
             "key_id": key_id,
             "plaintext": plaintext,
@@ -1736,7 +1822,17 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_kms.types.generate_data_key_response.GenerateDataKeyResponse",
+        ) -> dict[str, Any]:
+            import capo_kms.types.generate_data_key_response
+
+            return capo_kms.types.generate_data_key_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GenerateDataKey", redact_output=_redact_output),
+        )
         input_: capo_kms.types.generate_data_key_request.GenerateDataKeyRequest = {
             "key_id": key_id
         }
@@ -1821,7 +1917,19 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_kms.types.generate_data_key_pair_response.GenerateDataKeyPairResponse",
+        ) -> dict[str, Any]:
+            import capo_kms.types.generate_data_key_pair_response
+
+            return capo_kms.types.generate_data_key_pair_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GenerateDataKeyPair", redact_output=_redact_output),
+        )
         input_: capo_kms.types.generate_data_key_pair_request.GenerateDataKeyPairRequest = {
             "key_id": key_id,
             "key_pair_spec": key_pair_spec,
@@ -1901,7 +2009,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GenerateDataKeyPairWithoutPlaintext")
+        )
         input_: capo_kms.types.generate_data_key_pair_without_plaintext_request.GenerateDataKeyPairWithoutPlaintextRequest = {
             "key_id": key_id,
             "key_pair_spec": key_pair_spec,
@@ -1982,7 +2092,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GenerateDataKeyWithoutPlaintext")
+        )
         input_: capo_kms.types.generate_data_key_without_plaintext_request.GenerateDataKeyWithoutPlaintextRequest = {
             "key_id": key_id
         }
@@ -2059,7 +2171,17 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_kms.types.generate_mac_request.GenerateMacRequest",
+        ) -> dict[str, Any]:
+            import capo_kms.types.generate_mac_request
+
+            return capo_kms.types.generate_mac_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GenerateMac", redact_input=_redact_input),
+        )
         input_: capo_kms.types.generate_mac_request.GenerateMacRequest = {
             "message": message,
             "key_id": key_id,
@@ -2127,7 +2249,17 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_kms.types.generate_random_response.GenerateRandomResponse",
+        ) -> dict[str, Any]:
+            import capo_kms.types.generate_random_response
+
+            return capo_kms.types.generate_random_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GenerateRandom", redact_output=_redact_output),
+        )
         input_: capo_kms.types.generate_random_request.GenerateRandomRequest = {}
         if number_of_bytes is not None:
             input_["number_of_bytes"] = number_of_bytes
@@ -2184,7 +2316,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetKeyLastUsage")
+        )
         input_: capo_kms.types.get_key_last_usage_request.GetKeyLastUsageRequest = {
             "key_id": key_id
         }
@@ -2240,7 +2374,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetKeyPolicy")
+        )
         input_: capo_kms.types.get_key_policy_request.GetKeyPolicyRequest = {
             "key_id": key_id
         }
@@ -2291,7 +2427,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetKeyRotationStatus")
+        )
         input_: capo_kms.types.get_key_rotation_status_request.GetKeyRotationStatusRequest = {
             "key_id": key_id
         }
@@ -2344,7 +2482,19 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_kms.types.get_parameters_for_import_response.GetParametersForImportResponse",
+        ) -> dict[str, Any]:
+            import capo_kms.types.get_parameters_for_import_response
+
+            return capo_kms.types.get_parameters_for_import_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetParametersForImport", redact_output=_redact_output),
+        )
         input_: capo_kms.types.get_parameters_for_import_request.GetParametersForImportRequest = {
             "key_id": key_id,
             "wrapping_algorithm": wrapping_algorithm,
@@ -2407,7 +2557,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPublicKey")
+        )
         input_: capo_kms.types.get_public_key_request.GetPublicKeyRequest = {
             "key_id": key_id
         }
@@ -2488,7 +2640,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportKeyMaterial")
+        )
         input_: capo_kms.types.import_key_material_request.ImportKeyMaterialRequest = {
             "key_id": key_id,
             "import_token": import_token,
@@ -2558,7 +2712,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAliases")
+        )
         input_: capo_kms.types.list_aliases_request.ListAliasesRequest = {}
         if key_id is not None:
             input_["key_id"] = key_id
@@ -2649,7 +2805,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGrants")
+        )
         input_: capo_kms.types.list_grants_request.ListGrantsRequest = {
             "key_id": key_id
         }
@@ -2750,7 +2908,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListKeyPolicies")
+        )
         input_: capo_kms.types.list_key_policies_request.ListKeyPoliciesRequest = {
             "key_id": key_id
         }
@@ -2834,7 +2994,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListKeyRotations")
+        )
         input_: capo_kms.types.list_key_rotations_request.ListKeyRotationsRequest = {
             "key_id": key_id
         }
@@ -2921,7 +3083,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListKeys")
+        )
         input_: capo_kms.types.list_keys_request.ListKeysRequest = {}
         if limit is not None:
             input_["limit"] = limit
@@ -3001,7 +3165,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceTags")
+        )
         input_: capo_kms.types.list_resource_tags_request.ListResourceTagsRequest = {
             "key_id": key_id
         }
@@ -3086,7 +3252,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRetirableGrants")
+        )
         input_: capo_kms.types.list_retirable_grants_request.ListRetirableGrantsRequest = {}
         if limit is not None:
             input_["limit"] = limit
@@ -3184,7 +3352,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutKeyPolicy")
+        )
         input_: capo_kms.types.put_key_policy_request.PutKeyPolicyRequest = {
             "key_id": key_id,
             "policy": policy,
@@ -3283,7 +3453,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReEncrypt")
+        )
         input_: capo_kms.types.re_encrypt_request.ReEncryptRequest = {
             "destination_key_id": destination_key_id
         }
@@ -3374,7 +3546,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReplicateKey")
+        )
         input_: capo_kms.types.replicate_key_request.ReplicateKeyRequest = {
             "key_id": key_id,
             "replica_region": replica_region,
@@ -3448,7 +3622,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RetireGrant")
+        )
         input_: capo_kms.types.retire_grant_request.RetireGrantRequest = {}
         if grant_token is not None:
             input_["grant_token"] = grant_token
@@ -3514,7 +3690,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokeGrant")
+        )
         input_: capo_kms.types.revoke_grant_request.RevokeGrantRequest = {
             "key_id": key_id,
             "grant_id": grant_id,
@@ -3575,7 +3753,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RotateKeyOnDemand")
+        )
         input_: capo_kms.types.rotate_key_on_demand_request.RotateKeyOnDemandRequest = {
             "key_id": key_id
         }
@@ -3627,7 +3807,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ScheduleKeyDeletion")
+        )
         input_: capo_kms.types.schedule_key_deletion_request.ScheduleKeyDeletionRequest = {
             "key_id": key_id
         }
@@ -3701,7 +3883,16 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_kms.types.sign_request.SignRequest",
+        ) -> dict[str, Any]:
+            import capo_kms.types.sign_request
+
+            return capo_kms.types.sign_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Sign", redact_input=_redact_input)
+        )
         input_: capo_kms.types.sign_request.SignRequest = {
             "key_id": key_id,
             "message": message,
@@ -3764,7 +3955,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_kms.types.tag_resource_request.TagResourceRequest = {
             "key_id": key_id,
             "tags": tags,
@@ -3819,7 +4012,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_kms.types.untag_resource_request.UntagResourceRequest = {
             "key_id": key_id,
             "tag_keys": tag_keys,
@@ -3874,7 +4069,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAlias")
+        )
         input_: capo_kms.types.update_alias_request.UpdateAliasRequest = {
             "alias_name": alias_name,
             "target_key_id": target_key_id,
@@ -3993,7 +4190,19 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_kms.types.update_custom_key_store_request.UpdateCustomKeyStoreRequest",
+        ) -> dict[str, Any]:
+            import capo_kms.types.update_custom_key_store_request
+
+            return capo_kms.types.update_custom_key_store_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateCustomKeyStore", redact_input=_redact_input),
+        )
         input_: capo_kms.types.update_custom_key_store_request.UpdateCustomKeyStoreRequest = {
             "custom_key_store_id": custom_key_store_id
         }
@@ -4071,7 +4280,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateKeyDescription")
+        )
         input_: capo_kms.types.update_key_description_request.UpdateKeyDescriptionRequest = {
             "key_id": key_id,
             "description": description,
@@ -4131,7 +4342,9 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePrimaryRegion")
+        )
         input_: capo_kms.types.update_primary_region_request.UpdatePrimaryRegionRequest = {
             "key_id": key_id,
             "primary_region": primary_region,
@@ -4207,7 +4420,16 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_kms.types.verify_request.VerifyRequest",
+        ) -> dict[str, Any]:
+            import capo_kms.types.verify_request
+
+            return capo_kms.types.verify_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Verify", redact_input=_redact_input)
+        )
         input_: capo_kms.types.verify_request.VerifyRequest = {
             "key_id": key_id,
             "message": message,
@@ -4286,7 +4508,16 @@ class AsyncKMSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_kms.types.verify_mac_request.VerifyMacRequest",
+        ) -> dict[str, Any]:
+            import capo_kms.types.verify_mac_request
+
+            return capo_kms.types.verify_mac_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("VerifyMac", redact_input=_redact_input)
+        )
         input_: capo_kms.types.verify_mac_request.VerifyMacRequest = {
             "message": message,
             "key_id": key_id,

@@ -24,10 +24,12 @@ from capo_scheduler._resources.aws_chronos_service.schedule_group import Schedul
 from capo_scheduler._services._aws_config import aws_config
 from capo_scheduler._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -157,7 +159,9 @@ class SchedulerClient:
         self.schedule_group = ScheduleGroup(self)
 
     def operation_options(
-        self, config_overrides: Optional[SchedulerClientConfig] = None
+        self,
+        config_overrides: Optional[SchedulerClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: SchedulerClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -165,8 +169,10 @@ class SchedulerClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -218,7 +224,9 @@ class SchedulerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_scheduler.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -267,7 +275,9 @@ class SchedulerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_scheduler.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -317,7 +327,9 @@ class SchedulerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_scheduler.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -396,7 +408,9 @@ class SchedulerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSchedule")
+        )
         input_: capo_scheduler.types.create_schedule_input.CreateScheduleInput = {
             "name": name,
             "schedule_expression": schedule_expression,
@@ -468,7 +482,9 @@ class SchedulerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSchedule")
+        )
         input_: capo_scheduler.types.get_schedule_input.GetScheduleInput = {
             "name": name
         }
@@ -547,7 +563,9 @@ class SchedulerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSchedule")
+        )
         input_: capo_scheduler.types.update_schedule_input.UpdateScheduleInput = {
             "name": name,
             "schedule_expression": schedule_expression,
@@ -622,7 +640,9 @@ class SchedulerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSchedule")
+        )
         input_: capo_scheduler.types.delete_schedule_input.DeleteScheduleInput = {
             "name": name
         }
@@ -683,7 +703,9 @@ class SchedulerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSchedules")
+        )
         input_: capo_scheduler.types.list_schedules_input.ListSchedulesInput = {}
         if group_name is not None:
             input_["group_name"] = group_name
@@ -771,7 +793,9 @@ class SchedulerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateScheduleGroup")
+        )
         input_: capo_scheduler.types.create_schedule_group_input.CreateScheduleGroupInput = {
             "name": name
         }
@@ -822,7 +846,9 @@ class SchedulerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetScheduleGroup")
+        )
         input_: capo_scheduler.types.get_schedule_group_input.GetScheduleGroupInput = {
             "name": name
         }
@@ -871,7 +897,9 @@ class SchedulerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteScheduleGroup")
+        )
         input_: capo_scheduler.types.delete_schedule_group_input.DeleteScheduleGroupInput = {
             "name": name
         }
@@ -925,7 +953,9 @@ class SchedulerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListScheduleGroups")
+        )
         input_: capo_scheduler.types.list_schedule_groups_input.ListScheduleGroupsInput = {}
         if name_prefix is not None:
             input_["name_prefix"] = name_prefix

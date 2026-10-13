@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#GetEvaluationJobResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -217,5 +217,28 @@ def deserialize_json(data: dict) -> GetEvaluationJobResponse:
 
         out["failure_messages"] = capo_bedrock.types.error_messages.deserialize_json(
             data["failureMessages"]
+        )
+    return out
+
+
+def redact_sensitive(value: GetEvaluationJobResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "job_description" in value:
+        out["job_description"] = "*** Sensitive Data Redacted ***"
+    if "evaluation_config" in value:
+        import capo_bedrock.types.evaluation_config
+
+        out["evaluation_config"] = (
+            capo_bedrock.types.evaluation_config.redact_sensitive(
+                value["evaluation_config"]
+            )
+        )
+    if "inference_config" in value:
+        import capo_bedrock.types.evaluation_inference_config
+
+        out["inference_config"] = (
+            capo_bedrock.types.evaluation_inference_config.redact_sensitive(
+                value["inference_config"]
+            )
         )
     return out

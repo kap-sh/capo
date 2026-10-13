@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#HarnessTool``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -62,6 +62,19 @@ def deserialize_json(data: dict) -> HarnessTool:
         out["config"] = (
             capo_bedrock_agentcore.types.harness_tool_configuration.deserialize_json(
                 data["config"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: HarnessTool) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "config" in value:
+        import capo_bedrock_agentcore.types.harness_tool_configuration
+
+        out["config"] = (
+            capo_bedrock_agentcore.types.harness_tool_configuration.redact_sensitive(
+                value["config"]
             )
         )
     return out

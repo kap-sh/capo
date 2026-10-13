@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.personalizeevents#Impression``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_personalize_events.types.item_id
@@ -15,3 +15,7 @@ def serialize_json(value: Impression) -> list:
 
 def deserialize_json(data: list) -> Impression:
     return [item for item in data if item is not None]
+
+
+def redact_sensitive(value: Impression) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

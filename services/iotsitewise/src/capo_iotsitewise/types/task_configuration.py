@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotsitewise#TaskConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -44,3 +44,16 @@ def deserialize_json(data: dict) -> TaskConfiguration:
         }
     else:
         raise DeserializationError("TaskConfiguration: no recognized variant key")
+
+
+def redact_sensitive(value: TaskConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "containerTaskConfiguration" in value:
+        import capo_iotsitewise.types.container_task_configuration
+
+        out["containerTaskConfiguration"] = (
+            capo_iotsitewise.types.container_task_configuration.redact_sensitive(
+                value["containerTaskConfiguration"]
+            )
+        )
+    return out

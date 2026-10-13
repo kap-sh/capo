@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.codebuild#StartSandboxInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -34,4 +34,11 @@ def deserialize_aws_json_1_1(data: dict) -> StartSandboxInput:
         out["project_name"] = data["projectName"]
     if data.get("idempotencyToken") is not None:
         out["idempotency_token"] = data["idempotencyToken"]
+    return out
+
+
+def redact_sensitive(value: StartSandboxInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "idempotency_token" in value:
+        out["idempotency_token"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#GetInstanceUefiDataResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,4 +37,11 @@ def deserialize_ec2_query(el: Element) -> GetInstanceUefiDataResult:
     child_uefi_data = el.find("uefiData")
     if child_uefi_data is not None:
         out["uefi_data"] = str(child_uefi_data.text or "")
+    return out
+
+
+def redact_sensitive(value: GetInstanceUefiDataResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "uefi_data" in value:
+        out["uefi_data"] = "*** Sensitive Data Redacted ***"
     return out

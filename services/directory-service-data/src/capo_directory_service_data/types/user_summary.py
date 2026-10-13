@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.directoryservicedata#UserSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -57,4 +57,13 @@ def deserialize_json(data: dict) -> UserSummary:
         out["enabled"] = data["Enabled"]
     else:
         raise DeserializationError("UserSummary.enabled required")
+    return out
+
+
+def redact_sensitive(value: UserSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "given_name" in value:
+        out["given_name"] = "*** Sensitive Data Redacted ***"
+    if "surname" in value:
+        out["surname"] = "*** Sensitive Data Redacted ***"
     return out

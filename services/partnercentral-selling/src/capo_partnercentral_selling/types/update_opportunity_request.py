@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#UpdateOpportunityRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -224,6 +224,39 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateOpportunityRequest:
         out["life_cycle"] = (
             capo_partnercentral_selling.types.life_cycle.deserialize_aws_json_1_0(
                 data["LifeCycle"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateOpportunityRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "customer" in value:
+        import capo_partnercentral_selling.types.customer
+
+        out["customer"] = capo_partnercentral_selling.types.customer.redact_sensitive(
+            value["customer"]
+        )
+    if "project" in value:
+        import capo_partnercentral_selling.types.project
+
+        out["project"] = capo_partnercentral_selling.types.project.redact_sensitive(
+            value["project"]
+        )
+    if "software_revenue" in value:
+        import capo_partnercentral_selling.types.software_revenue
+
+        out["software_revenue"] = (
+            capo_partnercentral_selling.types.software_revenue.redact_sensitive(
+                value["software_revenue"]
+            )
+        )
+    if "life_cycle" in value:
+        import capo_partnercentral_selling.types.life_cycle
+
+        out["life_cycle"] = (
+            capo_partnercentral_selling.types.life_cycle.redact_sensitive(
+                value["life_cycle"]
             )
         )
     return out

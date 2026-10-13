@@ -8,6 +8,7 @@ import capo_bedrock_agentcore._auth._sigv4
 from capo_bedrock_agentcore._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -97,7 +98,9 @@ class PaymentSessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePaymentSession")
+        )
         input_: capo_bedrock_agentcore.types.create_payment_session_request.CreatePaymentSessionRequest = {
             "payment_manager_arn": payment_manager_arn,
             "expiry_time_in_minutes": expiry_time_in_minutes,
@@ -162,7 +165,9 @@ class PaymentSessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPaymentSession")
+        )
         input_: capo_bedrock_agentcore.types.get_payment_session_request.GetPaymentSessionRequest = {
             "payment_manager_arn": payment_manager_arn,
             "payment_session_id": payment_session_id,
@@ -218,7 +223,9 @@ class PaymentSessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePaymentSession")
+        )
         input_: capo_bedrock_agentcore.types.delete_payment_session_request.DeletePaymentSessionRequest = {
             "payment_manager_arn": payment_manager_arn,
             "payment_session_id": payment_session_id,
@@ -279,7 +286,9 @@ class PaymentSessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPaymentSessions")
+        )
         input_: capo_bedrock_agentcore.types.list_payment_sessions_request.ListPaymentSessionsRequest = {
             "payment_manager_arn": payment_manager_arn
         }
@@ -358,7 +367,9 @@ class AsyncPaymentSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePaymentSession")
+        )
         input_: capo_bedrock_agentcore.types.create_payment_session_request.CreatePaymentSessionRequest = {
             "payment_manager_arn": payment_manager_arn,
             "expiry_time_in_minutes": expiry_time_in_minutes,
@@ -424,7 +435,9 @@ class AsyncPaymentSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPaymentSession")
+        )
         input_: capo_bedrock_agentcore.types.get_payment_session_request.GetPaymentSessionRequest = {
             "payment_manager_arn": payment_manager_arn,
             "payment_session_id": payment_session_id,
@@ -481,7 +494,9 @@ class AsyncPaymentSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePaymentSession")
+        )
         input_: capo_bedrock_agentcore.types.delete_payment_session_request.DeletePaymentSessionRequest = {
             "payment_manager_arn": payment_manager_arn,
             "payment_session_id": payment_session_id,
@@ -543,7 +558,9 @@ class AsyncPaymentSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPaymentSessions")
+        )
         input_: capo_bedrock_agentcore.types.list_payment_sessions_request.ListPaymentSessionsRequest = {
             "payment_manager_arn": payment_manager_arn
         }

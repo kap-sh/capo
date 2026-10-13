@@ -22,7 +22,9 @@ from capo_sso_oidc._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -127,7 +129,9 @@ class AsyncSSOOIDCClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncSSOOIDCClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncSSOOIDCClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSSOOIDCClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -135,8 +139,10 @@ class AsyncSSOOIDCClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -224,7 +230,26 @@ class AsyncSSOOIDCClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sso_oidc.types.create_token_request.CreateTokenRequest",
+        ) -> dict[str, Any]:
+            import capo_sso_oidc.types.create_token_request
+
+            return capo_sso_oidc.types.create_token_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_sso_oidc.types.create_token_response.CreateTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_sso_oidc.types.create_token_response
+
+            return capo_sso_oidc.types.create_token_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateToken", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_sso_oidc.types.create_token_request.CreateTokenRequest = {
             "client_id": client_id,
             "client_secret": client_secret,
@@ -339,7 +364,32 @@ class AsyncSSOOIDCClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sso_oidc.types.create_token_with_iam_request.CreateTokenWithIAMRequest",
+        ) -> dict[str, Any]:
+            import capo_sso_oidc.types.create_token_with_iam_request
+
+            return capo_sso_oidc.types.create_token_with_iam_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sso_oidc.types.create_token_with_iam_response.CreateTokenWithIAMResponse",
+        ) -> dict[str, Any]:
+            import capo_sso_oidc.types.create_token_with_iam_response
+
+            return capo_sso_oidc.types.create_token_with_iam_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateTokenWithIAM",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sso_oidc.types.create_token_with_iam_request.CreateTokenWithIAMRequest = {
             "client_id": client_id,
             "grant_type": grant_type,
@@ -429,7 +479,17 @@ class AsyncSSOOIDCClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sso_oidc.types.register_client_response.RegisterClientResponse",
+        ) -> dict[str, Any]:
+            import capo_sso_oidc.types.register_client_response
+
+            return capo_sso_oidc.types.register_client_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RegisterClient", redact_output=_redact_output),
+        )
         input_: capo_sso_oidc.types.register_client_request.RegisterClientRequest = {
             "client_name": client_name,
             "client_type": client_type,
@@ -497,7 +557,21 @@ class AsyncSSOOIDCClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sso_oidc.types.start_device_authorization_request.StartDeviceAuthorizationRequest",
+        ) -> dict[str, Any]:
+            import capo_sso_oidc.types.start_device_authorization_request
+
+            return (
+                capo_sso_oidc.types.start_device_authorization_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartDeviceAuthorization", redact_input=_redact_input),
+        )
         input_: capo_sso_oidc.types.start_device_authorization_request.StartDeviceAuthorizationRequest = {
             "client_id": client_id,
             "client_secret": client_secret,

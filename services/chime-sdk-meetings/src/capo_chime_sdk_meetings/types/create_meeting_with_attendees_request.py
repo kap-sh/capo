@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmeetings#CreateMeetingWithAttendeesRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -187,6 +187,33 @@ def deserialize_json(data: dict) -> CreateMeetingWithAttendeesRequest:
         out["media_placement_network_type"] = (
             capo_chime_sdk_meetings.types.media_placement_network_type.deserialize_json(
                 data["MediaPlacementNetworkType"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateMeetingWithAttendeesRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_request_token" in value:
+        out["client_request_token"] = "*** Sensitive Data Redacted ***"
+    if "meeting_host_id" in value:
+        out["meeting_host_id"] = "*** Sensitive Data Redacted ***"
+    if "external_meeting_id" in value:
+        out["external_meeting_id"] = "*** Sensitive Data Redacted ***"
+    if "notifications_configuration" in value:
+        import capo_chime_sdk_meetings.types.notifications_configuration
+
+        out["notifications_configuration"] = (
+            capo_chime_sdk_meetings.types.notifications_configuration.redact_sensitive(
+                value["notifications_configuration"]
+            )
+        )
+    if "attendees" in value:
+        import capo_chime_sdk_meetings.types.create_meeting_with_attendees_request_item_list
+
+        out["attendees"] = (
+            capo_chime_sdk_meetings.types.create_meeting_with_attendees_request_item_list.redact_sensitive(
+                value["attendees"]
             )
         )
     return out

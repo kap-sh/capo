@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#LambdaFunctionScheduledEventDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -84,4 +84,11 @@ def deserialize_aws_json_1_0(data: dict) -> LambdaFunctionScheduledEventDetails:
                 data["taskCredentials"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: LambdaFunctionScheduledEventDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input" in value:
+        out["input"] = "*** Sensitive Data Redacted ***"
     return out

@@ -8,6 +8,7 @@ import capo_bedrock_agent._auth._sigv4
 from capo_bedrock_agent._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -83,7 +84,9 @@ class IngestionJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetIngestionJob")
+        )
         input_: capo_bedrock_agent.types.get_ingestion_job_request.GetIngestionJobRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,
@@ -146,7 +149,9 @@ class IngestionJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListIngestionJobs")
+        )
         input_: capo_bedrock_agent.types.list_ingestion_jobs_request.ListIngestionJobsRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,
@@ -214,7 +219,9 @@ class IngestionJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartIngestionJob")
+        )
         input_: capo_bedrock_agent.types.start_ingestion_job_request.StartIngestionJobRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,
@@ -274,7 +281,9 @@ class IngestionJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopIngestionJob")
+        )
         input_: capo_bedrock_agent.types.stop_ingestion_job_request.StopIngestionJobRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,
@@ -333,7 +342,9 @@ class AsyncIngestionJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetIngestionJob")
+        )
         input_: capo_bedrock_agent.types.get_ingestion_job_request.GetIngestionJobRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,
@@ -397,7 +408,9 @@ class AsyncIngestionJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListIngestionJobs")
+        )
         input_: capo_bedrock_agent.types.list_ingestion_jobs_request.ListIngestionJobsRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,
@@ -466,7 +479,9 @@ class AsyncIngestionJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartIngestionJob")
+        )
         input_: capo_bedrock_agent.types.start_ingestion_job_request.StartIngestionJobRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,
@@ -527,7 +542,9 @@ class AsyncIngestionJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopIngestionJob")
+        )
         input_: capo_bedrock_agent.types.stop_ingestion_job_request.StopIngestionJobRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,

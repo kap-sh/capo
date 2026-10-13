@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#CreateColumnsOperation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -64,4 +64,15 @@ def deserialize_json(data: dict) -> CreateColumnsOperation:
         )
     else:
         raise DeserializationError("CreateColumnsOperation.columns required")
+    return out
+
+
+def redact_sensitive(value: CreateColumnsOperation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "columns" in value:
+        import capo_quicksight.types.calculated_column_list
+
+        out["columns"] = capo_quicksight.types.calculated_column_list.redact_sensitive(
+            value["columns"]
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentity#UnlinkIdentityInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -64,4 +64,15 @@ def deserialize_aws_json_1_1(data: dict) -> UnlinkIdentityInput:
         )
     else:
         raise DeserializationError("UnlinkIdentityInput.logins_to_remove required")
+    return out
+
+
+def redact_sensitive(value: UnlinkIdentityInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "logins" in value:
+        import capo_cognito_identity.types.logins_map
+
+        out["logins"] = capo_cognito_identity.types.logins_map.redact_sensitive(
+            value["logins"]
+        )
     return out

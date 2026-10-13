@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#MapConfigurationUpdate``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,4 +42,11 @@ def deserialize_json(data: dict) -> MapConfigurationUpdate:
         out["custom_layers"] = capo_location.types.custom_layer_list.deserialize_json(
             data["CustomLayers"]
         )
+    return out
+
+
+def redact_sensitive(value: MapConfigurationUpdate) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "political_view" in value:
+        out["political_view"] = "*** Sensitive Data Redacted ***"
     return out

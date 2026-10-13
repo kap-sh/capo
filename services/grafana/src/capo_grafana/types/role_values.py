@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.grafana#RoleValues``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,13 @@ def deserialize_json(data: dict) -> RoleValues:
         out["admin"] = capo_grafana.types.role_value_list.deserialize_json(
             data["admin"]
         )
+    return out
+
+
+def redact_sensitive(value: RoleValues) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "editor" in value:
+        out["editor"] = "*** Sensitive Data Redacted ***"
+    if "admin" in value:
+        out["admin"] = "*** Sensitive Data Redacted ***"
     return out

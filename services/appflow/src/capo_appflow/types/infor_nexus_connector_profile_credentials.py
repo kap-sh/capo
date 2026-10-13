@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appflow#InforNexusConnectorProfileCredentials``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -59,4 +59,11 @@ def deserialize_json(data: dict) -> InforNexusConnectorProfileCredentials:
         raise DeserializationError(
             "InforNexusConnectorProfileCredentials.datakey required"
         )
+    return out
+
+
+def redact_sensitive(value: InforNexusConnectorProfileCredentials) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "access_key_id" in value:
+        out["access_key_id"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.networksecuritymanager#AdminScopeSelection``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,6 +58,19 @@ def deserialize_json(data: dict) -> AdminScopeSelection:
         out["organizational_units"] = (
             capo_network_security_manager.types.organizational_unit_reference_list.deserialize_json(
                 data["organizationalUnits"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: AdminScopeSelection) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "accounts" in value:
+        import capo_network_security_manager.types.account_reference_list
+
+        out["accounts"] = (
+            capo_network_security_manager.types.account_reference_list.redact_sensitive(
+                value["accounts"]
             )
         )
     return out

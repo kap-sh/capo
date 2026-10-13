@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.translate#TranslateDocumentResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -100,6 +100,19 @@ def deserialize_aws_json_1_1(data: dict) -> TranslateDocumentResponse:
         out["applied_settings"] = (
             capo_translate.types.translation_settings.deserialize_aws_json_1_1(
                 data["AppliedSettings"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: TranslateDocumentResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "translated_document" in value:
+        import capo_translate.types.translated_document
+
+        out["translated_document"] = (
+            capo_translate.types.translated_document.redact_sensitive(
+                value["translated_document"]
             )
         )
     return out

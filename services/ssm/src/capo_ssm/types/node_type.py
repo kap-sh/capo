@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#NodeType``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -42,3 +42,14 @@ def deserialize_aws_json_1_1(data: dict) -> NodeType:
         }
     else:
         raise DeserializationError("NodeType: no recognized variant key")
+
+
+def redact_sensitive(value: NodeType) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "Instance" in value:
+        import capo_ssm.types.instance_info
+
+        out["Instance"] = capo_ssm.types.instance_info.redact_sensitive(
+            value["Instance"]
+        )
+    return out

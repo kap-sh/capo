@@ -21,10 +21,12 @@ from capo_ivs._pagination import resolve_path as _resolve_path
 from capo_ivs._services._aws_config import aws_config
 from capo_ivs._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -231,7 +233,9 @@ class ivsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ivsClientConfig] = None
+        self,
+        config_overrides: Optional[ivsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ivsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -239,8 +243,10 @@ class ivsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -291,7 +297,17 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ivs.types.batch_get_channel_response.BatchGetChannelResponse",
+        ) -> dict[str, Any]:
+            import capo_ivs.types.batch_get_channel_response
+
+            return capo_ivs.types.batch_get_channel_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetChannel", redact_output=_redact_output),
+        )
         input_: capo_ivs.types.batch_get_channel_request.BatchGetChannelRequest = {
             "arns": arns
         }
@@ -336,7 +352,17 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ivs.types.batch_get_stream_key_response.BatchGetStreamKeyResponse",
+        ) -> dict[str, Any]:
+            import capo_ivs.types.batch_get_stream_key_response
+
+            return capo_ivs.types.batch_get_stream_key_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetStreamKey", redact_output=_redact_output),
+        )
         input_: capo_ivs.types.batch_get_stream_key_request.BatchGetStreamKeyRequest = {
             "arns": arns
         }
@@ -382,7 +408,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchStartViewerSessionRevocation")
+        )
         input_: capo_ivs.types.batch_start_viewer_session_revocation_request.BatchStartViewerSessionRevocationRequest = {
             "viewer_sessions": viewer_sessions
         }
@@ -444,7 +472,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAdConfiguration")
+        )
         input_: capo_ivs.types.create_ad_configuration_request.CreateAdConfigurationRequest = {
             "media_tailor_playback_configurations": media_tailor_playback_configurations
         }
@@ -531,7 +561,17 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ivs.types.create_channel_response.CreateChannelResponse",
+        ) -> dict[str, Any]:
+            import capo_ivs.types.create_channel_response
+
+            return capo_ivs.types.create_channel_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateChannel", redact_output=_redact_output),
+        )
         input_: capo_ivs.types.create_channel_request.CreateChannelRequest = {}
         if name is not None:
             input_["name"] = name
@@ -616,7 +656,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePlaybackRestrictionPolicy")
+        )
         input_: capo_ivs.types.create_playback_restriction_policy_request.CreatePlaybackRestrictionPolicyRequest = {}
         if allowed_countries is not None:
             input_["allowed_countries"] = allowed_countries
@@ -692,7 +734,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRecordingConfiguration")
+        )
         input_: capo_ivs.types.create_recording_configuration_request.CreateRecordingConfigurationRequest = {
             "destination_configuration": destination_configuration
         }
@@ -753,7 +797,17 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ivs.types.create_stream_key_response.CreateStreamKeyResponse",
+        ) -> dict[str, Any]:
+            import capo_ivs.types.create_stream_key_response
+
+            return capo_ivs.types.create_stream_key_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateStreamKey", redact_output=_redact_output),
+        )
         input_: capo_ivs.types.create_stream_key_request.CreateStreamKeyRequest = {
             "channel_arn": channel_arn
         }
@@ -800,7 +854,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAdConfiguration")
+        )
         input_: capo_ivs.types.delete_ad_configuration_request.DeleteAdConfigurationRequest = {
             "arn": arn
         }
@@ -845,7 +901,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChannel")
+        )
         input_: capo_ivs.types.delete_channel_request.DeleteChannelRequest = {
             "arn": arn
         }
@@ -893,7 +951,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePlaybackKeyPair")
+        )
         input_: capo_ivs.types.delete_playback_key_pair_request.DeletePlaybackKeyPairRequest = {
             "arn": arn
         }
@@ -938,7 +998,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePlaybackRestrictionPolicy")
+        )
         input_: capo_ivs.types.delete_playback_restriction_policy_request.DeletePlaybackRestrictionPolicyRequest = {
             "arn": arn
         }
@@ -983,7 +1045,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRecordingConfiguration")
+        )
         input_: capo_ivs.types.delete_recording_configuration_request.DeleteRecordingConfigurationRequest = {
             "arn": arn
         }
@@ -1027,7 +1091,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStreamKey")
+        )
         input_: capo_ivs.types.delete_stream_key_request.DeleteStreamKeyRequest = {
             "arn": arn
         }
@@ -1073,7 +1139,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAdConfiguration")
+        )
         input_: capo_ivs.types.get_ad_configuration_request.GetAdConfigurationRequest = {
             "arn": arn
         }
@@ -1118,7 +1186,17 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ivs.types.get_channel_response.GetChannelResponse",
+        ) -> dict[str, Any]:
+            import capo_ivs.types.get_channel_response
+
+            return capo_ivs.types.get_channel_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetChannel", redact_output=_redact_output),
+        )
         input_: capo_ivs.types.get_channel_request.GetChannelRequest = {"arn": arn}
 
         response = execute_pipeline(
@@ -1161,7 +1239,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPlaybackKeyPair")
+        )
         input_: capo_ivs.types.get_playback_key_pair_request.GetPlaybackKeyPairRequest = {
             "arn": arn
         }
@@ -1207,7 +1287,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPlaybackRestrictionPolicy")
+        )
         input_: capo_ivs.types.get_playback_restriction_policy_request.GetPlaybackRestrictionPolicyRequest = {
             "arn": arn
         }
@@ -1253,7 +1335,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRecordingConfiguration")
+        )
         input_: capo_ivs.types.get_recording_configuration_request.GetRecordingConfigurationRequest = {
             "arn": arn
         }
@@ -1297,7 +1381,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStream")
+        )
         input_: capo_ivs.types.get_stream_request.GetStreamRequest = {
             "channel_arn": channel_arn
         }
@@ -1342,7 +1428,17 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ivs.types.get_stream_key_response.GetStreamKeyResponse",
+        ) -> dict[str, Any]:
+            import capo_ivs.types.get_stream_key_response
+
+            return capo_ivs.types.get_stream_key_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetStreamKey", redact_output=_redact_output),
+        )
         input_: capo_ivs.types.get_stream_key_request.GetStreamKeyRequest = {"arn": arn}
 
         response = execute_pipeline(
@@ -1387,7 +1483,17 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ivs.types.get_stream_session_response.GetStreamSessionResponse",
+        ) -> dict[str, Any]:
+            import capo_ivs.types.get_stream_session_response
+
+            return capo_ivs.types.get_stream_session_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetStreamSession", redact_output=_redact_output),
+        )
         input_: capo_ivs.types.get_stream_session_request.GetStreamSessionRequest = {
             "channel_arn": channel_arn
         }
@@ -1444,7 +1550,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportPlaybackKeyPair")
+        )
         input_: capo_ivs.types.import_playback_key_pair_request.ImportPlaybackKeyPairRequest = {
             "public_key_material": public_key_material
         }
@@ -1499,7 +1607,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InsertAdBreak")
+        )
         input_: capo_ivs.types.insert_ad_break_request.InsertAdBreakRequest = {
             "channel_arn": channel_arn,
             "duration_seconds": duration_seconds,
@@ -1549,7 +1659,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAdConfigurations")
+        )
         input_: capo_ivs.types.list_ad_configurations_request.ListAdConfigurationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1637,7 +1749,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListChannels")
+        )
         input_: capo_ivs.types.list_channels_request.ListChannelsRequest = {}
         if filter_by_name is not None:
             input_["filter_by_name"] = filter_by_name
@@ -1734,7 +1848,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPlaybackKeyPairs")
+        )
         input_: capo_ivs.types.list_playback_key_pairs_request.ListPlaybackKeyPairsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1807,7 +1923,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPlaybackRestrictionPolicies")
+        )
         input_: capo_ivs.types.list_playback_restriction_policies_request.ListPlaybackRestrictionPoliciesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1879,7 +1997,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecordingConfigurations")
+        )
         input_: capo_ivs.types.list_recording_configurations_request.ListRecordingConfigurationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1953,7 +2073,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStreamKeys")
+        )
         input_: capo_ivs.types.list_stream_keys_request.ListStreamKeysRequest = {
             "channel_arn": channel_arn
         }
@@ -2030,7 +2152,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStreams")
+        )
         input_: capo_ivs.types.list_streams_request.ListStreamsRequest = {}
         if filter_by is not None:
             input_["filter_by"] = filter_by
@@ -2108,7 +2232,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStreamSessions")
+        )
         input_: capo_ivs.types.list_stream_sessions_request.ListStreamSessionsRequest = {
             "channel_arn": channel_arn
         }
@@ -2180,7 +2306,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_ivs.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2227,7 +2355,17 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ivs.types.put_metadata_request.PutMetadataRequest",
+        ) -> dict[str, Any]:
+            import capo_ivs.types.put_metadata_request
+
+            return capo_ivs.types.put_metadata_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutMetadata", redact_input=_redact_input),
+        )
         input_: capo_ivs.types.put_metadata_request.PutMetadataRequest = {
             "channel_arn": channel_arn,
             "metadata": metadata,
@@ -2282,7 +2420,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartViewerSessionRevocation")
+        )
         input_: capo_ivs.types.start_viewer_session_revocation_request.StartViewerSessionRevocationRequest = {
             "channel_arn": channel_arn,
             "viewer_id": viewer_id,
@@ -2334,7 +2474,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopStream")
+        )
         input_: capo_ivs.types.stop_stream_request.StopStreamRequest = {
             "channel_arn": channel_arn
         }
@@ -2381,7 +2523,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_ivs.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2429,7 +2573,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_ivs.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2494,7 +2640,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAdConfiguration")
+        )
         input_: capo_ivs.types.update_ad_configuration_request.UpdateAdConfigurationRequest = {
             "arn": arn
         }
@@ -2583,7 +2731,17 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ivs.types.update_channel_response.UpdateChannelResponse",
+        ) -> dict[str, Any]:
+            import capo_ivs.types.update_channel_response
+
+            return capo_ivs.types.update_channel_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateChannel", redact_output=_redact_output),
+        )
         input_: capo_ivs.types.update_channel_request.UpdateChannelRequest = {
             "arn": arn
         }
@@ -2668,7 +2826,9 @@ class ivsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePlaybackRestrictionPolicy")
+        )
         input_: capo_ivs.types.update_playback_restriction_policy_request.UpdatePlaybackRestrictionPolicyRequest = {
             "arn": arn
         }

@@ -7,6 +7,7 @@ import capo_cleanroomsml._auth._sigv4
 from capo_cleanroomsml._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -133,7 +134,9 @@ class TrainedModel:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTrainedModel")
+        )
         input_: capo_cleanroomsml.types.create_trained_model_request.CreateTrainedModelRequest = {
             "membership_identifier": membership_identifier,
             "name": name,
@@ -209,7 +212,9 @@ class TrainedModel:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTrainedModel")
+        )
         input_: capo_cleanroomsml.types.get_trained_model_request.GetTrainedModelRequest = {
             "trained_model_arn": trained_model_arn,
             "membership_identifier": membership_identifier,
@@ -261,7 +266,9 @@ class TrainedModel:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTrainedModelOutput")
+        )
         input_: capo_cleanroomsml.types.delete_trained_model_output_request.DeleteTrainedModelOutputRequest = {
             "trained_model_arn": trained_model_arn,
             "membership_identifier": membership_identifier,
@@ -315,7 +322,9 @@ class TrainedModel:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTrainedModels")
+        )
         input_: capo_cleanroomsml.types.list_trained_models_request.ListTrainedModelsRequest = {
             "membership_identifier": membership_identifier
         }
@@ -368,7 +377,9 @@ class TrainedModel:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelTrainedModel")
+        )
         input_: capo_cleanroomsml.types.cancel_trained_model_request.CancelTrainedModelRequest = {
             "membership_identifier": membership_identifier,
             "trained_model_arn": trained_model_arn,
@@ -421,7 +432,9 @@ class TrainedModel:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCollaborationTrainedModel")
+        )
         input_: capo_cleanroomsml.types.get_collaboration_trained_model_request.GetCollaborationTrainedModelRequest = {
             "trained_model_arn": trained_model_arn,
             "collaboration_identifier": collaboration_identifier,
@@ -480,7 +493,9 @@ class TrainedModel:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTrainedModelVersions")
+        )
         input_: capo_cleanroomsml.types.list_trained_model_versions_request.ListTrainedModelVersionsRequest = {
             "membership_identifier": membership_identifier,
             "trained_model_arn": trained_model_arn,
@@ -580,7 +595,9 @@ class AsyncTrainedModel:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTrainedModel")
+        )
         input_: capo_cleanroomsml.types.create_trained_model_request.CreateTrainedModelRequest = {
             "membership_identifier": membership_identifier,
             "name": name,
@@ -657,7 +674,9 @@ class AsyncTrainedModel:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTrainedModel")
+        )
         input_: capo_cleanroomsml.types.get_trained_model_request.GetTrainedModelRequest = {
             "trained_model_arn": trained_model_arn,
             "membership_identifier": membership_identifier,
@@ -710,7 +729,9 @@ class AsyncTrainedModel:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTrainedModelOutput")
+        )
         input_: capo_cleanroomsml.types.delete_trained_model_output_request.DeleteTrainedModelOutputRequest = {
             "trained_model_arn": trained_model_arn,
             "membership_identifier": membership_identifier,
@@ -765,7 +786,9 @@ class AsyncTrainedModel:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTrainedModels")
+        )
         input_: capo_cleanroomsml.types.list_trained_models_request.ListTrainedModelsRequest = {
             "membership_identifier": membership_identifier
         }
@@ -819,7 +842,9 @@ class AsyncTrainedModel:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelTrainedModel")
+        )
         input_: capo_cleanroomsml.types.cancel_trained_model_request.CancelTrainedModelRequest = {
             "membership_identifier": membership_identifier,
             "trained_model_arn": trained_model_arn,
@@ -873,7 +898,9 @@ class AsyncTrainedModel:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCollaborationTrainedModel")
+        )
         input_: capo_cleanroomsml.types.get_collaboration_trained_model_request.GetCollaborationTrainedModelRequest = {
             "trained_model_arn": trained_model_arn,
             "collaboration_identifier": collaboration_identifier,
@@ -933,7 +960,9 @@ class AsyncTrainedModel:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTrainedModelVersions")
+        )
         input_: capo_cleanroomsml.types.list_trained_model_versions_request.ListTrainedModelVersionsRequest = {
             "membership_identifier": membership_identifier,
             "trained_model_arn": trained_model_arn,

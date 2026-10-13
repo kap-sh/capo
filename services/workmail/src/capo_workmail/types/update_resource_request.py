@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workmail#UpdateResourceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -95,4 +95,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateResourceRequest:
         )
     if data.get("HiddenFromGlobalAddressList") is not None:
         out["hidden_from_global_address_list"] = data["HiddenFromGlobalAddressList"]
+    return out
+
+
+def redact_sensitive(value: UpdateResourceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

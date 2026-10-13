@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#CreateCommentResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -29,4 +29,13 @@ def deserialize_json(data: dict) -> CreateCommentResponse:
         import capo_workdocs.types.comment
 
         out["comment"] = capo_workdocs.types.comment.deserialize_json(data["Comment"])
+    return out
+
+
+def redact_sensitive(value: CreateCommentResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "comment" in value:
+        import capo_workdocs.types.comment
+
+        out["comment"] = capo_workdocs.types.comment.redact_sensitive(value["comment"])
     return out

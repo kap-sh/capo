@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appstream#BatchAssociateUserStackRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_aws_json_1_1(data: dict) -> BatchAssociateUserStackRequest:
         out["user_stack_associations"] = (
             capo_appstream.types.user_stack_association_list.deserialize_aws_json_1_1(
                 data["UserStackAssociations"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: BatchAssociateUserStackRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_stack_associations" in value:
+        import capo_appstream.types.user_stack_association_list
+
+        out["user_stack_associations"] = (
+            capo_appstream.types.user_stack_association_list.redact_sensitive(
+                value["user_stack_associations"]
             )
         )
     return out

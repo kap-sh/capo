@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#SessionKeyDerivationValue``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -49,3 +49,10 @@ def deserialize_json(data: dict) -> SessionKeyDerivationValue:
         raise DeserializationError(
             "SessionKeyDerivationValue: no recognized variant key"
         )
+
+
+def redact_sensitive(value: SessionKeyDerivationValue) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ApplicationCryptogram" in value:
+        out["ApplicationCryptogram"] = "*** Sensitive Data Redacted ***"
+    return out

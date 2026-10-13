@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sns#PhoneNumberList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from capo_sns._protocol.xml import Element
 
@@ -43,3 +43,7 @@ def deserialize_query_flat(parent: Element, tag: str) -> PhoneNumberList:
     for child in parent.findall(tag):
         out.append(str(child.text or ""))
     return out
+
+
+def redact_sensitive(value: PhoneNumberList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

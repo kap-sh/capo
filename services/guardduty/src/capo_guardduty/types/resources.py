@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.guardduty#Resources``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_guardduty.types.resource_v2
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> Resources:
             continue
         out.append(capo_guardduty.types.resource_v2.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: Resources) -> list[Any]:
+    import capo_guardduty.types.resource_v2
+
+    return [capo_guardduty.types.resource_v2.redact_sensitive(item) for item in value]

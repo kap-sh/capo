@@ -19,10 +19,12 @@ from capo_cloudwatch_events._auth._zapros_handler import AuthMiddleware
 from capo_cloudwatch_events._services._aws_config import aws_config
 from capo_cloudwatch_events._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -245,7 +247,9 @@ class CloudWatchEventsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[CloudWatchEventsClientConfig] = None
+        self,
+        config_overrides: Optional[CloudWatchEventsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: CloudWatchEventsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -253,8 +257,10 @@ class CloudWatchEventsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -305,7 +311,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ActivateEventSource")
+        )
         input_: capo_cloudwatch_events.types.activate_event_source_request.ActivateEventSourceRequest = {
             "name": name
         }
@@ -351,7 +359,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelReplay")
+        )
         input_: capo_cloudwatch_events.types.cancel_replay_request.CancelReplayRequest = {
             "replay_name": replay_name
         }
@@ -411,7 +421,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApiDestination")
+        )
         input_: capo_cloudwatch_events.types.create_api_destination_request.CreateApiDestinationRequest = {
             "name": name,
             "connection_arn": connection_arn,
@@ -482,7 +494,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateArchive")
+        )
         input_: capo_cloudwatch_events.types.create_archive_request.CreateArchiveRequest = {
             "archive_name": archive_name,
             "event_source_arn": event_source_arn,
@@ -542,7 +556,21 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cloudwatch_events.types.create_connection_request.CreateConnectionRequest",
+        ) -> dict[str, Any]:
+            import capo_cloudwatch_events.types.create_connection_request
+
+            return (
+                capo_cloudwatch_events.types.create_connection_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateConnection", redact_input=_redact_input),
+        )
         input_: capo_cloudwatch_events.types.create_connection_request.CreateConnectionRequest = {
             "name": name,
             "authorization_type": authorization_type,
@@ -603,7 +631,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEventBus")
+        )
         input_: capo_cloudwatch_events.types.create_event_bus_request.CreateEventBusRequest = {
             "name": name
         }
@@ -656,7 +686,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePartnerEventSource")
+        )
         input_: capo_cloudwatch_events.types.create_partner_event_source_request.CreatePartnerEventSourceRequest = {
             "name": name,
             "account": account,
@@ -702,7 +734,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeactivateEventSource")
+        )
         input_: capo_cloudwatch_events.types.deactivate_event_source_request.DeactivateEventSourceRequest = {
             "name": name
         }
@@ -747,7 +781,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeauthorizeConnection")
+        )
         input_: capo_cloudwatch_events.types.deauthorize_connection_request.DeauthorizeConnectionRequest = {
             "name": name
         }
@@ -792,7 +828,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApiDestination")
+        )
         input_: capo_cloudwatch_events.types.delete_api_destination_request.DeleteApiDestinationRequest = {
             "name": name
         }
@@ -837,7 +875,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteArchive")
+        )
         input_: capo_cloudwatch_events.types.delete_archive_request.DeleteArchiveRequest = {
             "archive_name": archive_name
         }
@@ -882,7 +922,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnection")
+        )
         input_: capo_cloudwatch_events.types.delete_connection_request.DeleteConnectionRequest = {
             "name": name
         }
@@ -924,7 +966,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEventBus")
+        )
         input_: capo_cloudwatch_events.types.delete_event_bus_request.DeleteEventBusRequest = {
             "name": name
         }
@@ -969,7 +1013,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePartnerEventSource")
+        )
         input_: capo_cloudwatch_events.types.delete_partner_event_source_request.DeletePartnerEventSourceRequest = {
             "name": name,
             "account": account,
@@ -1020,7 +1066,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRule")
+        )
         input_: capo_cloudwatch_events.types.delete_rule_request.DeleteRuleRequest = {
             "name": name
         }
@@ -1068,7 +1116,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeApiDestination")
+        )
         input_: capo_cloudwatch_events.types.describe_api_destination_request.DescribeApiDestinationRequest = {
             "name": name
         }
@@ -1115,7 +1165,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeArchive")
+        )
         input_: capo_cloudwatch_events.types.describe_archive_request.DescribeArchiveRequest = {
             "archive_name": archive_name
         }
@@ -1159,7 +1211,19 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cloudwatch_events.types.describe_connection_response.DescribeConnectionResponse",
+        ) -> dict[str, Any]:
+            import capo_cloudwatch_events.types.describe_connection_response
+
+            return capo_cloudwatch_events.types.describe_connection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeConnection", redact_output=_redact_output),
+        )
         input_: capo_cloudwatch_events.types.describe_connection_request.DescribeConnectionRequest = {
             "name": name
         }
@@ -1205,7 +1269,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEventBus")
+        )
         input_: capo_cloudwatch_events.types.describe_event_bus_request.DescribeEventBusRequest = {}
         if name is not None:
             input_["name"] = name
@@ -1250,7 +1316,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEventSource")
+        )
         input_: capo_cloudwatch_events.types.describe_event_source_request.DescribeEventSourceRequest = {
             "name": name
         }
@@ -1295,7 +1363,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePartnerEventSource")
+        )
         input_: capo_cloudwatch_events.types.describe_partner_event_source_request.DescribePartnerEventSourceRequest = {
             "name": name
         }
@@ -1339,7 +1409,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReplay")
+        )
         input_: capo_cloudwatch_events.types.describe_replay_request.DescribeReplayRequest = {
             "replay_name": replay_name
         }
@@ -1387,7 +1459,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRule")
+        )
         input_: capo_cloudwatch_events.types.describe_rule_request.DescribeRuleRequest = {
             "name": name
         }
@@ -1437,7 +1511,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableRule")
+        )
         input_: capo_cloudwatch_events.types.disable_rule_request.DisableRuleRequest = {
             "name": name
         }
@@ -1487,7 +1563,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableRule")
+        )
         input_: capo_cloudwatch_events.types.enable_rule_request.EnableRuleRequest = {
             "name": name
         }
@@ -1544,7 +1622,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApiDestinations")
+        )
         input_: capo_cloudwatch_events.types.list_api_destinations_request.ListApiDestinationsRequest = {}
         if name_prefix is not None:
             input_["name_prefix"] = name_prefix
@@ -1608,7 +1688,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListArchives")
+        )
         input_: capo_cloudwatch_events.types.list_archives_request.ListArchivesRequest = {}
         if name_prefix is not None:
             input_["name_prefix"] = name_prefix
@@ -1673,7 +1755,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConnections")
+        )
         input_: capo_cloudwatch_events.types.list_connections_request.ListConnectionsRequest = {}
         if name_prefix is not None:
             input_["name_prefix"] = name_prefix
@@ -1732,7 +1816,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEventBuses")
+        )
         input_: capo_cloudwatch_events.types.list_event_buses_request.ListEventBusesRequest = {}
         if name_prefix is not None:
             input_["name_prefix"] = name_prefix
@@ -1788,7 +1874,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEventSources")
+        )
         input_: capo_cloudwatch_events.types.list_event_sources_request.ListEventSourcesRequest = {}
         if name_prefix is not None:
             input_["name_prefix"] = name_prefix
@@ -1843,7 +1931,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPartnerEventSourceAccounts")
+        )
         input_: capo_cloudwatch_events.types.list_partner_event_source_accounts_request.ListPartnerEventSourceAccountsRequest = {
             "event_source_name": event_source_name
         }
@@ -1897,7 +1987,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPartnerEventSources")
+        )
         input_: capo_cloudwatch_events.types.list_partner_event_sources_request.ListPartnerEventSourcesRequest = {
             "name_prefix": name_prefix
         }
@@ -1956,7 +2048,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReplays")
+        )
         input_: capo_cloudwatch_events.types.list_replays_request.ListReplaysRequest = {}
         if name_prefix is not None:
             input_["name_prefix"] = name_prefix
@@ -2018,7 +2112,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRuleNamesByTarget")
+        )
         input_: capo_cloudwatch_events.types.list_rule_names_by_target_request.ListRuleNamesByTargetRequest = {
             "target_arn": target_arn
         }
@@ -2078,7 +2174,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRules")
+        )
         input_: capo_cloudwatch_events.types.list_rules_request.ListRulesRequest = {}
         if name_prefix is not None:
             input_["name_prefix"] = name_prefix
@@ -2128,7 +2226,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_cloudwatch_events.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2182,7 +2282,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTargetsByRule")
+        )
         input_: capo_cloudwatch_events.types.list_targets_by_rule_request.ListTargetsByRuleRequest = {
             "rule": rule
         }
@@ -2231,7 +2333,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutEvents")
+        )
         input_: capo_cloudwatch_events.types.put_events_request.PutEventsRequest = {
             "entries": entries
         }
@@ -2275,7 +2379,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutPartnerEvents")
+        )
         input_: capo_cloudwatch_events.types.put_partner_events_request.PutPartnerEventsRequest = {
             "entries": entries
         }
@@ -2334,7 +2440,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutPermission")
+        )
         input_: capo_cloudwatch_events.types.put_permission_request.PutPermissionRequest = {}
         if event_bus_name is not None:
             input_["event_bus_name"] = event_bus_name
@@ -2414,7 +2522,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRule")
+        )
         input_: capo_cloudwatch_events.types.put_rule_request.PutRuleRequest = {
             "name": name
         }
@@ -2481,7 +2591,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutTargets")
+        )
         input_: capo_cloudwatch_events.types.put_targets_request.PutTargetsRequest = {
             "rule": rule,
             "targets": targets,
@@ -2538,7 +2650,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemovePermission")
+        )
         input_: capo_cloudwatch_events.types.remove_permission_request.RemovePermissionRequest = {}
         if statement_id is not None:
             input_["statement_id"] = statement_id
@@ -2596,7 +2710,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTargets")
+        )
         input_: capo_cloudwatch_events.types.remove_targets_request.RemoveTargetsRequest = {
             "rule": rule,
             "ids": ids,
@@ -2660,7 +2776,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartReplay")
+        )
         input_: capo_cloudwatch_events.types.start_replay_request.StartReplayRequest = {
             "replay_name": replay_name,
             "event_source_arn": event_source_arn,
@@ -2714,7 +2832,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_cloudwatch_events.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2761,7 +2881,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestEventPattern")
+        )
         input_: capo_cloudwatch_events.types.test_event_pattern_request.TestEventPatternRequest = {
             "event_pattern": event_pattern,
             "event": event,
@@ -2810,7 +2932,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_cloudwatch_events.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2877,7 +3001,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApiDestination")
+        )
         input_: capo_cloudwatch_events.types.update_api_destination_request.UpdateApiDestinationRequest = {
             "name": name
         }
@@ -2948,7 +3074,9 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateArchive")
+        )
         input_: capo_cloudwatch_events.types.update_archive_request.UpdateArchiveRequest = {
             "archive_name": archive_name
         }
@@ -3012,7 +3140,21 @@ class CloudWatchEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cloudwatch_events.types.update_connection_request.UpdateConnectionRequest",
+        ) -> dict[str, Any]:
+            import capo_cloudwatch_events.types.update_connection_request
+
+            return (
+                capo_cloudwatch_events.types.update_connection_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateConnection", redact_input=_redact_input),
+        )
         input_: capo_cloudwatch_events.types.update_connection_request.UpdateConnectionRequest = {
             "name": name
         }

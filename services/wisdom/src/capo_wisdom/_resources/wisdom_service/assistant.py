@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_wisdom._auth._signers
 import capo_wisdom._auth._sigv4
 from capo_wisdom._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -103,7 +104,9 @@ class Assistant:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAssistant")
+        )
         input_: capo_wisdom.types.create_assistant_request.CreateAssistantRequest = {
             "name": name,
             "type": type,
@@ -160,7 +163,9 @@ class Assistant:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAssistant")
+        )
         input_: capo_wisdom.types.get_assistant_request.GetAssistantRequest = {
             "assistant_id": assistant_id
         }
@@ -205,7 +210,9 @@ class Assistant:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAssistant")
+        )
         input_: capo_wisdom.types.delete_assistant_request.DeleteAssistantRequest = {
             "assistant_id": assistant_id
         }
@@ -251,7 +258,9 @@ class Assistant:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAssistants")
+        )
         input_: capo_wisdom.types.list_assistants_request.ListAssistantsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -306,7 +315,19 @@ class Assistant:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wisdom.types.get_recommendations_response.GetRecommendationsResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.get_recommendations_response
+
+            return capo_wisdom.types.get_recommendations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetRecommendations", redact_output=_redact_output),
+        )
         input_: capo_wisdom.types.get_recommendations_request.GetRecommendationsRequest = {
             "assistant_id": assistant_id,
             "session_id": session_id,
@@ -360,7 +381,9 @@ class Assistant:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("NotifyRecommendationsReceived")
+        )
         input_: capo_wisdom.types.notify_recommendations_received_request.NotifyRecommendationsReceivedRequest = {
             "assistant_id": assistant_id,
             "session_id": session_id,
@@ -414,7 +437,28 @@ class Assistant:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wisdom.types.query_assistant_request.QueryAssistantRequest",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.query_assistant_request
+
+            return capo_wisdom.types.query_assistant_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_wisdom.types.query_assistant_response.QueryAssistantResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.query_assistant_response
+
+            return capo_wisdom.types.query_assistant_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "QueryAssistant",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_wisdom.types.query_assistant_request.QueryAssistantRequest = {
             "assistant_id": assistant_id,
             "query_text": query_text,
@@ -470,7 +514,9 @@ class Assistant:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SearchSessions")
+        )
         input_: capo_wisdom.types.search_sessions_request.SearchSessionsRequest = {
             "assistant_id": assistant_id,
             "search_expression": search_expression,
@@ -539,7 +585,9 @@ class AsyncAssistant:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAssistant")
+        )
         input_: capo_wisdom.types.create_assistant_request.CreateAssistantRequest = {
             "name": name,
             "type": type,
@@ -597,7 +645,9 @@ class AsyncAssistant:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAssistant")
+        )
         input_: capo_wisdom.types.get_assistant_request.GetAssistantRequest = {
             "assistant_id": assistant_id
         }
@@ -643,7 +693,9 @@ class AsyncAssistant:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAssistant")
+        )
         input_: capo_wisdom.types.delete_assistant_request.DeleteAssistantRequest = {
             "assistant_id": assistant_id
         }
@@ -690,7 +742,9 @@ class AsyncAssistant:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAssistants")
+        )
         input_: capo_wisdom.types.list_assistants_request.ListAssistantsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -746,7 +800,19 @@ class AsyncAssistant:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wisdom.types.get_recommendations_response.GetRecommendationsResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.get_recommendations_response
+
+            return capo_wisdom.types.get_recommendations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetRecommendations", redact_output=_redact_output),
+        )
         input_: capo_wisdom.types.get_recommendations_request.GetRecommendationsRequest = {
             "assistant_id": assistant_id,
             "session_id": session_id,
@@ -801,7 +867,9 @@ class AsyncAssistant:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("NotifyRecommendationsReceived")
+        )
         input_: capo_wisdom.types.notify_recommendations_received_request.NotifyRecommendationsReceivedRequest = {
             "assistant_id": assistant_id,
             "session_id": session_id,
@@ -856,7 +924,28 @@ class AsyncAssistant:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wisdom.types.query_assistant_request.QueryAssistantRequest",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.query_assistant_request
+
+            return capo_wisdom.types.query_assistant_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_wisdom.types.query_assistant_response.QueryAssistantResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.query_assistant_response
+
+            return capo_wisdom.types.query_assistant_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "QueryAssistant",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_wisdom.types.query_assistant_request.QueryAssistantRequest = {
             "assistant_id": assistant_id,
             "query_text": query_text,
@@ -913,7 +1002,9 @@ class AsyncAssistant:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SearchSessions")
+        )
         input_: capo_wisdom.types.search_sessions_request.SearchSessionsRequest = {
             "assistant_id": assistant_id,
             "search_expression": search_expression,

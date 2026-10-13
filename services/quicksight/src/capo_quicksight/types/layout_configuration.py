@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#LayoutConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,6 +79,27 @@ def deserialize_json(data: dict) -> LayoutConfiguration:
         out["section_based_layout"] = (
             capo_quicksight.types.section_based_layout_configuration.deserialize_json(
                 data["SectionBasedLayout"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: LayoutConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "free_form_layout" in value:
+        import capo_quicksight.types.free_form_layout_configuration
+
+        out["free_form_layout"] = (
+            capo_quicksight.types.free_form_layout_configuration.redact_sensitive(
+                value["free_form_layout"]
+            )
+        )
+    if "section_based_layout" in value:
+        import capo_quicksight.types.section_based_layout_configuration
+
+        out["section_based_layout"] = (
+            capo_quicksight.types.section_based_layout_configuration.redact_sensitive(
+                value["section_based_layout"]
             )
         )
     return out

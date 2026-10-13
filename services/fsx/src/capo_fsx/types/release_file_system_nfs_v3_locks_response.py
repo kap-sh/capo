@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.fsx#ReleaseFileSystemNfsV3LocksResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -31,5 +31,16 @@ def deserialize_aws_json_1_1(data: dict) -> ReleaseFileSystemNfsV3LocksResponse:
 
         out["file_system"] = capo_fsx.types.file_system.deserialize_aws_json_1_1(
             data["FileSystem"]
+        )
+    return out
+
+
+def redact_sensitive(value: ReleaseFileSystemNfsV3LocksResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "file_system" in value:
+        import capo_fsx.types.file_system
+
+        out["file_system"] = capo_fsx.types.file_system.redact_sensitive(
+            value["file_system"]
         )
     return out

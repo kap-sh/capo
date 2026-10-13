@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.account#PutAccountNameRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -35,4 +35,11 @@ def deserialize_json(data: dict) -> PutAccountNameRequest:
         raise DeserializationError("PutAccountNameRequest.account_name required")
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
+    return out
+
+
+def redact_sensitive(value: PutAccountNameRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "account_name" in value:
+        out["account_name"] = "*** Sensitive Data Redacted ***"
     return out

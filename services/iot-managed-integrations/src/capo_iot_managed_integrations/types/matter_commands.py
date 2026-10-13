@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#MatterCommands``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.matter_command_id
@@ -27,3 +27,7 @@ def deserialize_json(data: dict) -> MatterCommands:
             continue
         out[key] = value
     return out
+
+
+def redact_sensitive(value: MatterCommands) -> dict[str, Any]:
+    return dict.fromkeys(value, "*** Sensitive Data Redacted ***")

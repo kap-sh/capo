@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#AgenticRetriever``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_json(data: dict) -> AgenticRetriever:
         )
     else:
         raise DeserializationError("AgenticRetriever.configuration required")
+    return out
+
+
+def redact_sensitive(value: AgenticRetriever) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "configuration" in value:
+        import capo_bedrock_agent_runtime.types.retriever_configuration
+
+        out["configuration"] = (
+            capo_bedrock_agent_runtime.types.retriever_configuration.redact_sensitive(
+                value["configuration"]
+            )
+        )
     return out

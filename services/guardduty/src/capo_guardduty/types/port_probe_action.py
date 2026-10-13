@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.guardduty#PortProbeAction``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -44,6 +44,19 @@ def deserialize_json(data: dict) -> PortProbeAction:
         out["port_probe_details"] = (
             capo_guardduty.types.port_probe_details.deserialize_json(
                 data["portProbeDetails"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: PortProbeAction) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "port_probe_details" in value:
+        import capo_guardduty.types.port_probe_details
+
+        out["port_probe_details"] = (
+            capo_guardduty.types.port_probe_details.redact_sensitive(
+                value["port_probe_details"]
             )
         )
     return out

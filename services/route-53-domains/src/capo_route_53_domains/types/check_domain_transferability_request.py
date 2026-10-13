@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.route53domains#CheckDomainTransferabilityRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,4 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> CheckDomainTransferabilityRequest:
         )
     if data.get("AuthCode") is not None:
         out["auth_code"] = data["AuthCode"]
+    return out
+
+
+def redact_sensitive(value: CheckDomainTransferabilityRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "auth_code" in value:
+        out["auth_code"] = "*** Sensitive Data Redacted ***"
     return out

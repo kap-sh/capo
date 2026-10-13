@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_wisdom._auth._signers
 import capo_wisdom._auth._sigv4
 from capo_wisdom._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -133,7 +134,9 @@ class KnowledgeBase:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateKnowledgeBase")
+        )
         input_: capo_wisdom.types.create_knowledge_base_request.CreateKnowledgeBaseRequest = {
             "name": name,
             "knowledge_base_type": knowledge_base_type,
@@ -194,7 +197,9 @@ class KnowledgeBase:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetKnowledgeBase")
+        )
         input_: capo_wisdom.types.get_knowledge_base_request.GetKnowledgeBaseRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -240,7 +245,9 @@ class KnowledgeBase:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteKnowledgeBase")
+        )
         input_: capo_wisdom.types.delete_knowledge_base_request.DeleteKnowledgeBaseRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -288,7 +295,9 @@ class KnowledgeBase:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListKnowledgeBases")
+        )
         input_: capo_wisdom.types.list_knowledge_bases_request.ListKnowledgeBasesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -338,7 +347,9 @@ class KnowledgeBase:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteImportJob")
+        )
         input_: capo_wisdom.types.delete_import_job_request.DeleteImportJobRequest = {
             "knowledge_base_id": knowledge_base_id,
             "import_job_id": import_job_id,
@@ -386,7 +397,17 @@ class KnowledgeBase:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wisdom.types.get_import_job_response.GetImportJobResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.get_import_job_response
+
+            return capo_wisdom.types.get_import_job_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetImportJob", redact_output=_redact_output),
+        )
         input_: capo_wisdom.types.get_import_job_request.GetImportJobRequest = {
             "import_job_id": import_job_id,
             "knowledge_base_id": knowledge_base_id,
@@ -437,7 +458,9 @@ class KnowledgeBase:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListImportJobs")
+        )
         input_: capo_wisdom.types.list_import_jobs_request.ListImportJobsRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -486,7 +509,9 @@ class KnowledgeBase:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemoveKnowledgeBaseTemplateUri")
+        )
         input_: capo_wisdom.types.remove_knowledge_base_template_uri_request.RemoveKnowledgeBaseTemplateUriRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -537,7 +562,9 @@ class KnowledgeBase:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SearchContent")
+        )
         input_: capo_wisdom.types.search_content_request.SearchContentRequest = {
             "knowledge_base_id": knowledge_base_id,
             "search_expression": search_expression,
@@ -602,7 +629,32 @@ class KnowledgeBase:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wisdom.types.search_quick_responses_request.SearchQuickResponsesRequest",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.search_quick_responses_request
+
+            return capo_wisdom.types.search_quick_responses_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_wisdom.types.search_quick_responses_response.SearchQuickResponsesResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.search_quick_responses_response
+
+            return capo_wisdom.types.search_quick_responses_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchQuickResponses",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_wisdom.types.search_quick_responses_request.SearchQuickResponsesRequest = {
             "knowledge_base_id": knowledge_base_id,
             "search_expression": search_expression,
@@ -660,7 +712,19 @@ class KnowledgeBase:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wisdom.types.start_content_upload_response.StartContentUploadResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.start_content_upload_response
+
+            return capo_wisdom.types.start_content_upload_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartContentUpload", redact_output=_redact_output),
+        )
         input_: capo_wisdom.types.start_content_upload_request.StartContentUploadRequest = {
             "knowledge_base_id": knowledge_base_id,
             "content_type": content_type,
@@ -724,7 +788,17 @@ class KnowledgeBase:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wisdom.types.start_import_job_response.StartImportJobResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.start_import_job_response
+
+            return capo_wisdom.types.start_import_job_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartImportJob", redact_output=_redact_output),
+        )
         input_: capo_wisdom.types.start_import_job_request.StartImportJobRequest = {
             "knowledge_base_id": knowledge_base_id,
             "import_job_type": import_job_type,
@@ -780,7 +854,9 @@ class KnowledgeBase:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateKnowledgeBaseTemplateUri")
+        )
         input_: capo_wisdom.types.update_knowledge_base_template_uri_request.UpdateKnowledgeBaseTemplateUriRequest = {
             "knowledge_base_id": knowledge_base_id,
             "template_uri": template_uri,
@@ -855,7 +931,9 @@ class AsyncKnowledgeBase:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateKnowledgeBase")
+        )
         input_: capo_wisdom.types.create_knowledge_base_request.CreateKnowledgeBaseRequest = {
             "name": name,
             "knowledge_base_type": knowledge_base_type,
@@ -917,7 +995,9 @@ class AsyncKnowledgeBase:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetKnowledgeBase")
+        )
         input_: capo_wisdom.types.get_knowledge_base_request.GetKnowledgeBaseRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -964,7 +1044,9 @@ class AsyncKnowledgeBase:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteKnowledgeBase")
+        )
         input_: capo_wisdom.types.delete_knowledge_base_request.DeleteKnowledgeBaseRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -1013,7 +1095,9 @@ class AsyncKnowledgeBase:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListKnowledgeBases")
+        )
         input_: capo_wisdom.types.list_knowledge_bases_request.ListKnowledgeBasesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1064,7 +1148,9 @@ class AsyncKnowledgeBase:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteImportJob")
+        )
         input_: capo_wisdom.types.delete_import_job_request.DeleteImportJobRequest = {
             "knowledge_base_id": knowledge_base_id,
             "import_job_id": import_job_id,
@@ -1113,7 +1199,17 @@ class AsyncKnowledgeBase:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wisdom.types.get_import_job_response.GetImportJobResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.get_import_job_response
+
+            return capo_wisdom.types.get_import_job_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetImportJob", redact_output=_redact_output),
+        )
         input_: capo_wisdom.types.get_import_job_request.GetImportJobRequest = {
             "import_job_id": import_job_id,
             "knowledge_base_id": knowledge_base_id,
@@ -1165,7 +1261,9 @@ class AsyncKnowledgeBase:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListImportJobs")
+        )
         input_: capo_wisdom.types.list_import_jobs_request.ListImportJobsRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -1215,7 +1313,9 @@ class AsyncKnowledgeBase:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemoveKnowledgeBaseTemplateUri")
+        )
         input_: capo_wisdom.types.remove_knowledge_base_template_uri_request.RemoveKnowledgeBaseTemplateUriRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -1267,7 +1367,9 @@ class AsyncKnowledgeBase:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SearchContent")
+        )
         input_: capo_wisdom.types.search_content_request.SearchContentRequest = {
             "knowledge_base_id": knowledge_base_id,
             "search_expression": search_expression,
@@ -1333,7 +1435,32 @@ class AsyncKnowledgeBase:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wisdom.types.search_quick_responses_request.SearchQuickResponsesRequest",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.search_quick_responses_request
+
+            return capo_wisdom.types.search_quick_responses_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_wisdom.types.search_quick_responses_response.SearchQuickResponsesResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.search_quick_responses_response
+
+            return capo_wisdom.types.search_quick_responses_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchQuickResponses",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_wisdom.types.search_quick_responses_request.SearchQuickResponsesRequest = {
             "knowledge_base_id": knowledge_base_id,
             "search_expression": search_expression,
@@ -1392,7 +1519,19 @@ class AsyncKnowledgeBase:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wisdom.types.start_content_upload_response.StartContentUploadResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.start_content_upload_response
+
+            return capo_wisdom.types.start_content_upload_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartContentUpload", redact_output=_redact_output),
+        )
         input_: capo_wisdom.types.start_content_upload_request.StartContentUploadRequest = {
             "knowledge_base_id": knowledge_base_id,
             "content_type": content_type,
@@ -1457,7 +1596,17 @@ class AsyncKnowledgeBase:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wisdom.types.start_import_job_response.StartImportJobResponse",
+        ) -> dict[str, Any]:
+            import capo_wisdom.types.start_import_job_response
+
+            return capo_wisdom.types.start_import_job_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartImportJob", redact_output=_redact_output),
+        )
         input_: capo_wisdom.types.start_import_job_request.StartImportJobRequest = {
             "knowledge_base_id": knowledge_base_id,
             "import_job_type": import_job_type,
@@ -1514,7 +1663,9 @@ class AsyncKnowledgeBase:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateKnowledgeBaseTemplateUri")
+        )
         input_: capo_wisdom.types.update_knowledge_base_template_uri_request.UpdateKnowledgeBaseTemplateUriRequest = {
             "knowledge_base_id": knowledge_base_id,
             "template_uri": template_uri,

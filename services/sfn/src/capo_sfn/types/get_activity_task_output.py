@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#GetActivityTaskOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,4 +32,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetActivityTaskOutput:
         out["task_token"] = data["taskToken"]
     if data.get("input") is not None:
         out["input"] = data["input"]
+    return out
+
+
+def redact_sensitive(value: GetActivityTaskOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input" in value:
+        out["input"] = "*** Sensitive Data Redacted ***"
     return out

@@ -30,7 +30,9 @@ from capo_iotsitewise._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 from capo_iotsitewise.errors import ServiceError, WaiterTimeoutError
@@ -608,7 +610,9 @@ class AsyncIoTSiteWiseClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncIoTSiteWiseClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncIoTSiteWiseClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncIoTSiteWiseClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -616,8 +620,10 @@ class AsyncIoTSiteWiseClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -679,7 +685,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateAssets")
+        )
         input_: capo_iotsitewise.types.associate_assets_request.AssociateAssetsRequest = {
             "asset_id": asset_id,
             "hierarchy_id": hierarchy_id,
@@ -738,7 +746,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateTimeSeriesToAssetProperty")
+        )
         input_: capo_iotsitewise.types.associate_time_series_to_asset_property_request.AssociateTimeSeriesToAssetPropertyRequest = {
             "alias": alias,
             "asset_id": asset_id,
@@ -800,7 +810,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchAssociateDataSegmentsToDataset")
+        )
         input_: capo_iotsitewise.types.batch_associate_data_segments_to_dataset_request.BatchAssociateDataSegmentsToDatasetRequest = {
             "dataset_id": dataset_id,
             "workspace_name": workspace_name,
@@ -859,7 +871,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchAssociateProjectAssets")
+        )
         input_: capo_iotsitewise.types.batch_associate_project_assets_request.BatchAssociateProjectAssetsRequest = {
             "project_id": project_id,
             "asset_ids": asset_ids,
@@ -919,7 +933,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteDatasetDataSegments")
+        )
         input_: capo_iotsitewise.types.batch_delete_dataset_data_segments_request.BatchDeleteDatasetDataSegmentsRequest = {
             "dataset_id": dataset_id,
             "workspace_name": workspace_name,
@@ -980,7 +996,10 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchDisassociateDataSegmentsFromDataset"),
+        )
         input_: capo_iotsitewise.types.batch_disassociate_data_segments_from_dataset_request.BatchDisassociateDataSegmentsFromDatasetRequest = {
             "dataset_id": dataset_id,
             "workspace_name": workspace_name,
@@ -1038,7 +1057,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDisassociateProjectAssets")
+        )
         input_: capo_iotsitewise.types.batch_disassociate_project_assets_request.BatchDisassociateProjectAssetsRequest = {
             "project_id": project_id,
             "asset_ids": asset_ids,
@@ -1095,7 +1116,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetAssetPropertyAggregates")
+        )
         input_: capo_iotsitewise.types.batch_get_asset_property_aggregates_request.BatchGetAssetPropertyAggregatesRequest = {
             "entries": entries
         }
@@ -1171,7 +1194,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetAssetPropertyValue")
+        )
         input_: capo_iotsitewise.types.batch_get_asset_property_value_request.BatchGetAssetPropertyValueRequest = {
             "entries": entries
         }
@@ -1245,7 +1270,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetAssetPropertyValueHistory")
+        )
         input_: capo_iotsitewise.types.batch_get_asset_property_value_history_request.BatchGetAssetPropertyValueHistoryRequest = {
             "entries": entries
         }
@@ -1326,7 +1353,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchPutAssetPropertyValue")
+        )
         input_: capo_iotsitewise.types.batch_put_asset_property_value_request.BatchPutAssetPropertyValueRequest = {
             "entries": entries
         }
@@ -1380,7 +1409,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelEnrichmentJob")
+        )
         input_: capo_iotsitewise.types.cancel_enrichment_job_request.CancelEnrichmentJobRequest = {
             "workspace_name": workspace_name,
             "job_id": job_id,
@@ -1438,7 +1469,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelPipelineExecution")
+        )
         input_: capo_iotsitewise.types.cancel_pipeline_execution_request.CancelPipelineExecutionRequest = {
             "workspace_name": workspace_name,
             "pipeline_name": pipeline_name,
@@ -1493,7 +1526,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelQuery")
+        )
         input_: capo_iotsitewise.types.cancel_query_request.CancelQueryRequest = {
             "workspace_name": workspace_name,
             "query_id": query_id,
@@ -1552,7 +1587,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccessPolicy")
+        )
         input_: capo_iotsitewise.types.create_access_policy_request.CreateAccessPolicyRequest = {
             "access_policy_identity": access_policy_identity,
             "access_policy_resource": access_policy_resource,
@@ -1621,7 +1658,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_iotsitewise.types.create_application_request.CreateApplicationRequest = {
             "idc_instance_arn": idc_instance_arn,
             "workspace_name": workspace_name,
@@ -1698,7 +1737,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAsset")
+        )
         input_: capo_iotsitewise.types.create_asset_request.CreateAssetRequest = {
             "asset_name": asset_name,
             "asset_model_id": asset_model_id,
@@ -1792,7 +1833,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAssetModel")
+        )
         input_: capo_iotsitewise.types.create_asset_model_request.CreateAssetModelRequest = {
             "asset_model_name": asset_model_name
         }
@@ -1900,7 +1943,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAssetModelCompositeModel")
+        )
         input_: capo_iotsitewise.types.create_asset_model_composite_model_request.CreateAssetModelCompositeModelRequest = {
             "asset_model_id": asset_model_id,
             "asset_model_composite_model_name": asset_model_composite_model_name,
@@ -2005,7 +2050,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBulkImportJob")
+        )
         input_: capo_iotsitewise.types.create_bulk_import_job_request.CreateBulkImportJobRequest = {
             "job_name": job_name,
             "job_role_arn": job_role_arn,
@@ -2082,7 +2129,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateComputationModel")
+        )
         input_: capo_iotsitewise.types.create_computation_model_request.CreateComputationModelRequest = {
             "computation_model_name": computation_model_name,
             "computation_model_configuration": computation_model_configuration,
@@ -2153,7 +2202,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDashboard")
+        )
         input_: capo_iotsitewise.types.create_dashboard_request.CreateDashboardRequest = {
             "project_id": project_id,
             "dashboard_name": dashboard_name,
@@ -2240,7 +2291,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataset")
+        )
         input_: capo_iotsitewise.types.create_dataset_request.CreateDatasetRequest = {
             "dataset_name": dataset_name,
             "dataset_source": dataset_source,
@@ -2317,7 +2370,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDatasetExportJob")
+        )
         input_: capo_iotsitewise.types.create_dataset_export_job_request.CreateDatasetExportJobRequest = {
             "workspace_name": workspace_name,
             "destination_s3_uri": destination_s3_uri,
@@ -2379,7 +2434,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEnrichmentJob")
+        )
         input_: capo_iotsitewise.types.create_enrichment_job_request.CreateEnrichmentJobRequest = {
             "workspace_name": workspace_name,
             "job_configuration": job_configuration,
@@ -2439,7 +2496,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGateway")
+        )
         input_: capo_iotsitewise.types.create_gateway_request.CreateGatewayRequest = {
             "gateway_name": gateway_name,
             "gateway_platform": gateway_platform,
@@ -2510,7 +2569,19 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iotsitewise.types.create_pipeline_request.CreatePipelineRequest",
+        ) -> dict[str, Any]:
+            import capo_iotsitewise.types.create_pipeline_request
+
+            return capo_iotsitewise.types.create_pipeline_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreatePipeline", redact_input=_redact_input),
+        )
         input_: capo_iotsitewise.types.create_pipeline_request.CreatePipelineRequest = {
             "workspace_name": workspace_name,
             "pipeline_name": pipeline_name,
@@ -2601,7 +2672,17 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iotsitewise.types.create_portal_request.CreatePortalRequest",
+        ) -> dict[str, Any]:
+            import capo_iotsitewise.types.create_portal_request
+
+            return capo_iotsitewise.types.create_portal_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreatePortal", redact_input=_redact_input),
+        )
         input_: capo_iotsitewise.types.create_portal_request.CreatePortalRequest = {
             "portal_name": portal_name,
             "portal_contact_email": portal_contact_email,
@@ -2682,7 +2763,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProject")
+        )
         input_: capo_iotsitewise.types.create_project_request.CreateProjectRequest = {
             "portal_id": portal_id,
             "project_name": project_name,
@@ -2752,7 +2835,16 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iotsitewise.types.create_task_request.CreateTaskRequest",
+        ) -> dict[str, Any]:
+            import capo_iotsitewise.types.create_task_request
+
+            return capo_iotsitewise.types.create_task_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTask", redact_input=_redact_input)
+        )
         input_: capo_iotsitewise.types.create_task_request.CreateTaskRequest = {
             "workspace_name": workspace_name,
             "task_name": task_name,
@@ -2822,7 +2914,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkspace")
+        )
         input_: capo_iotsitewise.types.create_workspace_request.CreateWorkspaceRequest = {
             "workspace_name": workspace_name,
             "encryption_configuration": encryption_configuration,
@@ -2881,7 +2975,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessPolicy")
+        )
         input_: capo_iotsitewise.types.delete_access_policy_request.DeleteAccessPolicyRequest = {
             "access_policy_id": access_policy_id
         }
@@ -2935,7 +3031,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_iotsitewise.types.delete_application_request.DeleteApplicationRequest = {
             "workspace_name": workspace_name,
             "id": id,
@@ -2988,7 +3086,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAsset")
+        )
         input_: capo_iotsitewise.types.delete_asset_request.DeleteAssetRequest = {
             "asset_id": asset_id
         }
@@ -3052,7 +3152,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAssetModel")
+        )
         input_: capo_iotsitewise.types.delete_asset_model_request.DeleteAssetModelRequest = {
             "asset_model_id": asset_model_id
         }
@@ -3124,7 +3226,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAssetModelCompositeModel")
+        )
         input_: capo_iotsitewise.types.delete_asset_model_composite_model_request.DeleteAssetModelCompositeModelRequest = {
             "asset_model_id": asset_model_id,
             "asset_model_composite_model_id": asset_model_composite_model_id,
@@ -3188,7 +3292,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAssetModelInterfaceRelationship")
+        )
         input_: capo_iotsitewise.types.delete_asset_model_interface_relationship_request.DeleteAssetModelInterfaceRelationshipRequest = {
             "asset_model_id": asset_model_id,
             "interface_asset_model_id": interface_asset_model_id,
@@ -3244,7 +3350,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteComputationModel")
+        )
         input_: capo_iotsitewise.types.delete_computation_model_request.DeleteComputationModelRequest = {
             "computation_model_id": computation_model_id
         }
@@ -3298,7 +3406,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDashboard")
+        )
         input_: capo_iotsitewise.types.delete_dashboard_request.DeleteDashboardRequest = {
             "dashboard_id": dashboard_id
         }
@@ -3357,7 +3467,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataset")
+        )
         input_: capo_iotsitewise.types.delete_dataset_request.DeleteDatasetRequest = {
             "dataset_id": dataset_id
         }
@@ -3408,7 +3520,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGateway")
+        )
         input_: capo_iotsitewise.types.delete_gateway_request.DeleteGatewayRequest = {
             "gateway_id": gateway_id
         }
@@ -3459,7 +3573,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePipeline")
+        )
         input_: capo_iotsitewise.types.delete_pipeline_request.DeletePipelineRequest = {
             "workspace_name": workspace_name,
             "pipeline_name": pipeline_name,
@@ -3512,7 +3628,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePortal")
+        )
         input_: capo_iotsitewise.types.delete_portal_request.DeletePortalRequest = {
             "portal_id": portal_id
         }
@@ -3566,7 +3684,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProject")
+        )
         input_: capo_iotsitewise.types.delete_project_request.DeleteProjectRequest = {
             "project_id": project_id
         }
@@ -3620,7 +3740,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTask")
+        )
         input_: capo_iotsitewise.types.delete_task_request.DeleteTaskRequest = {
             "workspace_name": workspace_name,
             "task_name": task_name,
@@ -3679,7 +3801,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTimeSeries")
+        )
         input_: capo_iotsitewise.types.delete_time_series_request.DeleteTimeSeriesRequest = {}
         if alias is not None:
             input_["alias"] = alias
@@ -3741,7 +3865,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkspace")
+        )
         input_: capo_iotsitewise.types.delete_workspace_request.DeleteWorkspaceRequest = {
             "workspace_name": workspace_name
         }
@@ -3791,7 +3917,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccessPolicy")
+        )
         input_: capo_iotsitewise.types.describe_access_policy_request.DescribeAccessPolicyRequest = {
             "access_policy_id": access_policy_id
         }
@@ -3838,7 +3966,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAction")
+        )
         input_: capo_iotsitewise.types.describe_action_request.DescribeActionRequest = {
             "action_id": action_id
         }
@@ -3888,7 +4018,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeApplication")
+        )
         input_: capo_iotsitewise.types.describe_application_request.DescribeApplicationRequest = {
             "workspace_name": workspace_name,
             "id": id,
@@ -3940,7 +4072,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAsset")
+        )
         input_: capo_iotsitewise.types.describe_asset_request.DescribeAssetRequest = {
             "asset_id": asset_id
         }
@@ -4040,7 +4174,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAssetCompositeModel")
+        )
         input_: capo_iotsitewise.types.describe_asset_composite_model_request.DescribeAssetCompositeModelRequest = {
             "asset_id": asset_id,
             "asset_composite_model_id": asset_composite_model_id,
@@ -4096,7 +4232,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAssetModel")
+        )
         input_: capo_iotsitewise.types.describe_asset_model_request.DescribeAssetModelRequest = {
             "asset_model_id": asset_model_id
         }
@@ -4207,7 +4345,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAssetModelCompositeModel")
+        )
         input_: capo_iotsitewise.types.describe_asset_model_composite_model_request.DescribeAssetModelCompositeModelRequest = {
             "asset_model_id": asset_model_id,
             "asset_model_composite_model_id": asset_model_composite_model_id,
@@ -4259,7 +4399,10 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeAssetModelInterfaceRelationship"),
+        )
         input_: capo_iotsitewise.types.describe_asset_model_interface_relationship_request.DescribeAssetModelInterfaceRelationshipRequest = {
             "asset_model_id": asset_model_id,
             "interface_asset_model_id": interface_asset_model_id,
@@ -4309,7 +4452,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAssetProperty")
+        )
         input_: capo_iotsitewise.types.describe_asset_property_request.DescribeAssetPropertyRequest = {
             "asset_id": asset_id,
             "property_id": property_id,
@@ -4361,7 +4506,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBulkImportJob")
+        )
         input_: capo_iotsitewise.types.describe_bulk_import_job_request.DescribeBulkImportJobRequest = {
             "job_id": job_id
         }
@@ -4414,7 +4561,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeComputationModel")
+        )
         input_: capo_iotsitewise.types.describe_computation_model_request.DescribeComputationModelRequest = {
             "computation_model_id": computation_model_id
         }
@@ -4469,7 +4618,10 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeComputationModelExecutionSummary"),
+        )
         input_: capo_iotsitewise.types.describe_computation_model_execution_summary_request.DescribeComputationModelExecutionSummaryRequest = {
             "computation_model_id": computation_model_id
         }
@@ -4520,7 +4672,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDashboard")
+        )
         input_: capo_iotsitewise.types.describe_dashboard_request.DescribeDashboardRequest = {
             "dashboard_id": dashboard_id
         }
@@ -4573,7 +4727,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataset")
+        )
         input_: capo_iotsitewise.types.describe_dataset_request.DescribeDatasetRequest = {
             "dataset_id": dataset_id
         }
@@ -4627,7 +4783,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDatasetExportJob")
+        )
         input_: capo_iotsitewise.types.describe_dataset_export_job_request.DescribeDatasetExportJobRequest = {
             "workspace_name": workspace_name,
             "job_id": job_id,
@@ -4669,7 +4827,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDefaultEncryptionConfiguration")
+        )
         input_: capo_iotsitewise.types.describe_default_encryption_configuration_request.DescribeDefaultEncryptionConfigurationRequest = {}
 
         response = await aexecute_pipeline(
@@ -4719,7 +4879,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEnrichmentJob")
+        )
         input_: capo_iotsitewise.types.describe_enrichment_job_request.DescribeEnrichmentJobRequest = {
             "workspace_name": workspace_name,
             "job_id": job_id,
@@ -4767,7 +4929,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeExecution")
+        )
         input_: capo_iotsitewise.types.describe_execution_request.DescribeExecutionRequest = {
             "execution_id": execution_id
         }
@@ -4814,7 +4978,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeGateway")
+        )
         input_: capo_iotsitewise.types.describe_gateway_request.DescribeGatewayRequest = {
             "gateway_id": gateway_id
         }
@@ -4863,7 +5029,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeGatewayCapabilityConfiguration")
+        )
         input_: capo_iotsitewise.types.describe_gateway_capability_configuration_request.DescribeGatewayCapabilityConfigurationRequest = {
             "gateway_id": gateway_id,
             "capability_namespace": capability_namespace,
@@ -4913,7 +5081,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLoggingOptions")
+        )
         input_: capo_iotsitewise.types.describe_logging_options_request.DescribeLoggingOptionsRequest = {}
         if workspace_name is not None:
             input_["workspace_name"] = workspace_name
@@ -4965,7 +5135,19 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iotsitewise.types.describe_pipeline_response.DescribePipelineResponse",
+        ) -> dict[str, Any]:
+            import capo_iotsitewise.types.describe_pipeline_response
+
+            return capo_iotsitewise.types.describe_pipeline_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribePipeline", redact_output=_redact_output),
+        )
         input_: capo_iotsitewise.types.describe_pipeline_request.DescribePipelineRequest = {
             "workspace_name": workspace_name,
             "pipeline_name": pipeline_name,
@@ -5028,7 +5210,19 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iotsitewise.types.describe_pipeline_execution_response.DescribePipelineExecutionResponse",
+        ) -> dict[str, Any]:
+            import capo_iotsitewise.types.describe_pipeline_execution_response
+
+            return capo_iotsitewise.types.describe_pipeline_execution_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribePipelineExecution", redact_output=_redact_output),
+        )
         input_: capo_iotsitewise.types.describe_pipeline_execution_request.DescribePipelineExecutionRequest = {
             "workspace_name": workspace_name,
             "pipeline_name": pipeline_name,
@@ -5112,7 +5306,19 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iotsitewise.types.describe_portal_response.DescribePortalResponse",
+        ) -> dict[str, Any]:
+            import capo_iotsitewise.types.describe_portal_response
+
+            return capo_iotsitewise.types.describe_portal_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribePortal", redact_output=_redact_output),
+        )
         input_: capo_iotsitewise.types.describe_portal_request.DescribePortalRequest = {
             "portal_id": portal_id
         }
@@ -5202,7 +5408,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProject")
+        )
         input_: capo_iotsitewise.types.describe_project_request.DescribeProjectRequest = {
             "project_id": project_id
         }
@@ -5252,7 +5460,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeQuery")
+        )
         input_: capo_iotsitewise.types.describe_query_request.DescribeQueryRequest = {
             "workspace_name": workspace_name,
             "query_id": query_id,
@@ -5303,7 +5513,19 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iotsitewise.types.describe_search_response.DescribeSearchResponse",
+        ) -> dict[str, Any]:
+            import capo_iotsitewise.types.describe_search_response
+
+            return capo_iotsitewise.types.describe_search_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeSearch", redact_output=_redact_output),
+        )
         input_: capo_iotsitewise.types.describe_search_request.DescribeSearchRequest = {
             "workspace_name": workspace_name,
             "search_id": search_id,
@@ -5347,7 +5569,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStorageConfiguration")
+        )
         input_: capo_iotsitewise.types.describe_storage_configuration_request.DescribeStorageConfigurationRequest = {}
 
         response = await aexecute_pipeline(
@@ -5397,7 +5621,19 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iotsitewise.types.describe_task_response.DescribeTaskResponse",
+        ) -> dict[str, Any]:
+            import capo_iotsitewise.types.describe_task_response
+
+            return capo_iotsitewise.types.describe_task_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeTask", redact_output=_redact_output),
+        )
         input_: capo_iotsitewise.types.describe_task_request.DescribeTaskRequest = {
             "workspace_name": workspace_name,
             "task_name": task_name,
@@ -5455,7 +5691,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTimeSeries")
+        )
         input_: capo_iotsitewise.types.describe_time_series_request.DescribeTimeSeriesRequest = {}
         if alias is not None:
             input_["alias"] = alias
@@ -5509,7 +5747,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkspace")
+        )
         input_: capo_iotsitewise.types.describe_workspace_request.DescribeWorkspaceRequest = {
             "workspace_name": workspace_name
         }
@@ -5563,7 +5803,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateAssets")
+        )
         input_: capo_iotsitewise.types.disassociate_assets_request.DisassociateAssetsRequest = {
             "asset_id": asset_id,
             "hierarchy_id": hierarchy_id,
@@ -5622,7 +5864,10 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateTimeSeriesFromAssetProperty"),
+        )
         input_: capo_iotsitewise.types.disassociate_time_series_from_asset_property_request.DisassociateTimeSeriesFromAssetPropertyRequest = {
             "alias": alias,
             "asset_id": asset_id,
@@ -5686,7 +5931,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExecuteAction")
+        )
         input_: capo_iotsitewise.types.execute_action_request.ExecuteActionRequest = {
             "target_resource": target_resource,
             "action_definition_id": action_definition_id,
@@ -5754,7 +6001,17 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iotsitewise.types.execute_query_request.ExecuteQueryRequest",
+        ) -> dict[str, Any]:
+            import capo_iotsitewise.types.execute_query_request
+
+            return capo_iotsitewise.types.execute_query_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ExecuteQuery", redact_input=_redact_input),
+        )
         input_: capo_iotsitewise.types.execute_query_request.ExecuteQueryRequest = {
             "query_statement": query_statement
         }
@@ -5866,7 +6123,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAssetPropertyAggregates")
+        )
         input_: capo_iotsitewise.types.get_asset_property_aggregates_request.GetAssetPropertyAggregatesRequest = {
             "aggregate_types": aggregate_types,
             "resolution": resolution,
@@ -5982,7 +6241,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAssetPropertyValue")
+        )
         input_: capo_iotsitewise.types.get_asset_property_value_request.GetAssetPropertyValueRequest = {}
         if asset_id is not None:
             input_["asset_id"] = asset_id
@@ -6056,7 +6317,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAssetPropertyValueHistory")
+        )
         input_: capo_iotsitewise.types.get_asset_property_value_history_request.GetAssetPropertyValueHistoryRequest = {}
         if asset_id is not None:
             input_["asset_id"] = asset_id
@@ -6183,7 +6446,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCaptureData")
+        )
         input_: capo_iotsitewise.types.get_capture_data_request.GetCaptureDataRequest = {
             "workspace_name": workspace_name,
             "start_time": start_time,
@@ -6275,7 +6540,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInterpolatedAssetPropertyValues")
+        )
         input_: capo_iotsitewise.types.get_interpolated_asset_property_values_request.GetInterpolatedAssetPropertyValuesRequest = {
             "start_time_in_seconds": start_time_in_seconds,
             "end_time_in_seconds": end_time_in_seconds,
@@ -6406,7 +6673,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQueryResults")
+        )
         input_: capo_iotsitewise.types.get_query_results_request.GetQueryResultsRequest = {
             "workspace_name": workspace_name,
             "query_id": query_id,
@@ -6496,7 +6765,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSearchResults")
+        )
         input_: capo_iotsitewise.types.get_search_results_request.GetSearchResultsRequest = {
             "search_id": search_id,
             "workspace_name": workspace_name,
@@ -6585,7 +6856,32 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iotsitewise.types.invoke_assistant_request.InvokeAssistantRequest",
+        ) -> dict[str, Any]:
+            import capo_iotsitewise.types.invoke_assistant_request
+
+            return capo_iotsitewise.types.invoke_assistant_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_iotsitewise.types.invoke_assistant_response.InvokeAssistantResponse",
+        ) -> dict[str, Any]:
+            import capo_iotsitewise.types.invoke_assistant_response
+
+            return capo_iotsitewise.types.invoke_assistant_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeAssistant",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_iotsitewise.types.invoke_assistant_request.InvokeAssistantRequest = {
             "message": message
         }
@@ -6653,7 +6949,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessPolicies")
+        )
         input_: capo_iotsitewise.types.list_access_policies_request.ListAccessPoliciesRequest = {}
         if identity_type is not None:
             input_["identity_type"] = identity_type
@@ -6759,7 +7057,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListActions")
+        )
         input_: capo_iotsitewise.types.list_actions_request.ListActionsRequest = {
             "target_resource_type": target_resource_type,
             "target_resource_id": target_resource_id,
@@ -6849,7 +7149,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_iotsitewise.types.list_applications_request.ListApplicationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -6927,7 +7229,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssetModelCompositeModels")
+        )
         input_: capo_iotsitewise.types.list_asset_model_composite_models_request.ListAssetModelCompositeModelsRequest = {
             "asset_model_id": asset_model_id
         }
@@ -7019,7 +7323,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssetModelProperties")
+        )
         input_: capo_iotsitewise.types.list_asset_model_properties_request.ListAssetModelPropertiesRequest = {
             "asset_model_id": asset_model_id
         }
@@ -7115,7 +7421,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssetModels")
+        )
         input_: capo_iotsitewise.types.list_asset_models_request.ListAssetModelsRequest = {}
         if asset_model_types is not None:
             input_["asset_model_types"] = asset_model_types
@@ -7205,7 +7513,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssetProperties")
+        )
         input_: capo_iotsitewise.types.list_asset_properties_request.ListAssetPropertiesRequest = {
             "asset_id": asset_id
         }
@@ -7291,7 +7601,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssetRelationships")
+        )
         input_: capo_iotsitewise.types.list_asset_relationships_request.ListAssetRelationshipsRequest = {
             "asset_id": asset_id,
             "traversal_type": traversal_type,
@@ -7376,7 +7688,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssets")
+        )
         input_: capo_iotsitewise.types.list_assets_request.ListAssetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -7466,7 +7780,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssociatedAssets")
+        )
         input_: capo_iotsitewise.types.list_associated_assets_request.ListAssociatedAssetsRequest = {
             "asset_id": asset_id
         }
@@ -7560,7 +7876,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBulkImportJobs")
+        )
         input_: capo_iotsitewise.types.list_bulk_import_jobs_request.ListBulkImportJobsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -7646,7 +7964,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCompositionRelationships")
+        )
         input_: capo_iotsitewise.types.list_composition_relationships_request.ListCompositionRelationshipsRequest = {
             "asset_model_id": asset_model_id
         }
@@ -7723,7 +8043,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListComputationModelDataBindingUsages")
+        )
         input_: capo_iotsitewise.types.list_computation_model_data_binding_usages_request.ListComputationModelDataBindingUsagesRequest = {
             "data_binding_value_filter": data_binding_value_filter
         }
@@ -7801,7 +8123,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListComputationModelResolveToResources")
+        )
         input_: capo_iotsitewise.types.list_computation_model_resolve_to_resources_request.ListComputationModelResolveToResourcesRequest = {
             "computation_model_id": computation_model_id
         }
@@ -7882,7 +8206,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListComputationModels")
+        )
         input_: capo_iotsitewise.types.list_computation_models_request.ListComputationModelsRequest = {}
         if computation_model_type is not None:
             input_["computation_model_type"] = computation_model_type
@@ -7961,7 +8287,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDashboards")
+        )
         input_: capo_iotsitewise.types.list_dashboards_request.ListDashboardsRequest = {
             "project_id": project_id
         }
@@ -8041,7 +8369,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatasetDataSegmentRelationships")
+        )
         input_: capo_iotsitewise.types.list_dataset_data_segment_relationships_request.ListDatasetDataSegmentRelationshipsRequest = {
             "dataset_id": dataset_id,
             "workspace_name": workspace_name,
@@ -8126,7 +8456,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatasetDataSegments")
+        )
         input_: capo_iotsitewise.types.list_dataset_data_segments_request.ListDatasetDataSegmentsRequest = {
             "dataset_id": dataset_id,
             "workspace_name": workspace_name,
@@ -8222,7 +8554,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatasetExportJobs")
+        )
         input_: capo_iotsitewise.types.list_dataset_export_jobs_request.ListDatasetExportJobsRequest = {
             "workspace_name": workspace_name
         }
@@ -8318,7 +8652,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatasets")
+        )
         input_: capo_iotsitewise.types.list_datasets_request.ListDatasetsRequest = {
             "source_type": source_type
         }
@@ -8431,7 +8767,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEnrichmentJobs")
+        )
         input_: capo_iotsitewise.types.list_enrichment_jobs_request.ListEnrichmentJobsRequest = {
             "workspace_name": workspace_name
         }
@@ -8553,7 +8891,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExecutions")
+        )
         input_: capo_iotsitewise.types.list_executions_request.ListExecutionsRequest = {
             "target_resource_type": target_resource_type,
             "target_resource_id": target_resource_id,
@@ -8645,7 +8985,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGateways")
+        )
         input_: capo_iotsitewise.types.list_gateways_request.ListGatewaysRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -8719,7 +9061,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInterfaceRelationships")
+        )
         input_: capo_iotsitewise.types.list_interface_relationships_request.ListInterfaceRelationshipsRequest = {
             "interface_asset_model_id": interface_asset_model_id
         }
@@ -8818,7 +9162,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPipelineExecutions")
+        )
         input_: capo_iotsitewise.types.list_pipeline_executions_request.ListPipelineExecutionsRequest = {
             "workspace_name": workspace_name,
             "pipeline_name": pipeline_name,
@@ -8932,7 +9278,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPipelines")
+        )
         input_: capo_iotsitewise.types.list_pipelines_request.ListPipelinesRequest = {
             "workspace_name": workspace_name
         }
@@ -9011,7 +9359,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPortals")
+        )
         input_: capo_iotsitewise.types.list_portals_request.ListPortalsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -9086,7 +9436,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProjectAssets")
+        )
         input_: capo_iotsitewise.types.list_project_assets_request.ListProjectAssetsRequest = {
             "project_id": project_id
         }
@@ -9163,7 +9515,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProjects")
+        )
         input_: capo_iotsitewise.types.list_projects_request.ListProjectsRequest = {
             "portal_id": portal_id
         }
@@ -9248,7 +9602,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQueries")
+        )
         input_: capo_iotsitewise.types.list_queries_request.ListQueriesRequest = {
             "workspace_name": workspace_name
         }
@@ -9341,7 +9697,19 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iotsitewise.types.list_searches_response.ListSearchesResponse",
+        ) -> dict[str, Any]:
+            import capo_iotsitewise.types.list_searches_response
+
+            return capo_iotsitewise.types.list_searches_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListSearches", redact_output=_redact_output),
+        )
         input_: capo_iotsitewise.types.list_searches_request.ListSearchesRequest = {
             "workspace_name": workspace_name
         }
@@ -9426,7 +9794,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_iotsitewise.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -9482,7 +9852,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTasks")
+        )
         input_: capo_iotsitewise.types.list_tasks_request.ListTasksRequest = {
             "workspace_name": workspace_name
         }
@@ -9576,7 +9948,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTimeSeries")
+        )
         input_: capo_iotsitewise.types.list_time_series_request.ListTimeSeriesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -9670,7 +10044,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkspaces")
+        )
         input_: capo_iotsitewise.types.list_workspaces_request.ListWorkspacesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -9750,7 +10126,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAssetModelInterfaceRelationship")
+        )
         input_: capo_iotsitewise.types.put_asset_model_interface_relationship_request.PutAssetModelInterfaceRelationshipRequest = {
             "asset_model_id": asset_model_id,
             "interface_asset_model_id": interface_asset_model_id,
@@ -9806,7 +10184,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDefaultEncryptionConfiguration")
+        )
         input_: capo_iotsitewise.types.put_default_encryption_configuration_request.PutDefaultEncryptionConfigurationRequest = {
             "encryption_type": encryption_type
         }
@@ -9862,7 +10242,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutLoggingOptions")
+        )
         input_: capo_iotsitewise.types.put_logging_options_request.PutLoggingOptionsRequest = {
             "logging_options": logging_options
         }
@@ -9937,7 +10319,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutStorageConfiguration")
+        )
         input_: capo_iotsitewise.types.put_storage_configuration_request.PutStorageConfigurationRequest = {
             "storage_type": storage_type
         }
@@ -10017,7 +10401,19 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iotsitewise.types.start_pipeline_execution_request.StartPipelineExecutionRequest",
+        ) -> dict[str, Any]:
+            import capo_iotsitewise.types.start_pipeline_execution_request
+
+            return capo_iotsitewise.types.start_pipeline_execution_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartPipelineExecution", redact_input=_redact_input),
+        )
         input_: capo_iotsitewise.types.start_pipeline_execution_request.StartPipelineExecutionRequest = {
             "workspace_name": workspace_name,
             "pipeline_name": pipeline_name,
@@ -10084,7 +10480,16 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iotsitewise.types.start_query_request.StartQueryRequest",
+        ) -> dict[str, Any]:
+            import capo_iotsitewise.types.start_query_request
+
+            return capo_iotsitewise.types.start_query_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartQuery", redact_input=_redact_input)
+        )
         input_: capo_iotsitewise.types.start_query_request.StartQueryRequest = {
             "workspace_name": workspace_name,
             "query_statement": query_statement,
@@ -10152,7 +10557,17 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iotsitewise.types.start_search_request.StartSearchRequest",
+        ) -> dict[str, Any]:
+            import capo_iotsitewise.types.start_search_request
+
+            return capo_iotsitewise.types.start_search_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartSearch", redact_input=_redact_input),
+        )
         input_: capo_iotsitewise.types.start_search_request.StartSearchRequest = {
             "workspace_name": workspace_name,
             "query_statement": query_statement,
@@ -10215,7 +10630,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_iotsitewise.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -10268,7 +10685,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_iotsitewise.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -10326,7 +10745,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccessPolicy")
+        )
         input_: capo_iotsitewise.types.update_access_policy_request.UpdateAccessPolicyRequest = {
             "access_policy_id": access_policy_id,
             "access_policy_identity": access_policy_identity,
@@ -10395,7 +10816,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAsset")
+        )
         input_: capo_iotsitewise.types.update_asset_request.UpdateAssetRequest = {
             "asset_id": asset_id,
             "asset_name": asset_name,
@@ -10488,7 +10911,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAssetModel")
+        )
         input_: capo_iotsitewise.types.update_asset_model_request.UpdateAssetModelRequest = {
             "asset_model_id": asset_model_id,
             "asset_model_name": asset_model_name,
@@ -10587,7 +11012,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAssetModelCompositeModel")
+        )
         input_: capo_iotsitewise.types.update_asset_model_composite_model_request.UpdateAssetModelCompositeModelRequest = {
             "asset_model_id": asset_model_id,
             "asset_model_composite_model_id": asset_model_composite_model_id,
@@ -10674,7 +11101,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAssetProperty")
+        )
         input_: capo_iotsitewise.types.update_asset_property_request.UpdateAssetPropertyRequest = {
             "asset_id": asset_id,
             "property_id": property_id,
@@ -10748,7 +11177,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateComputationModel")
+        )
         input_: capo_iotsitewise.types.update_computation_model_request.UpdateComputationModelRequest = {
             "computation_model_id": computation_model_id,
             "computation_model_name": computation_model_name,
@@ -10815,7 +11246,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDashboard")
+        )
         input_: capo_iotsitewise.types.update_dashboard_request.UpdateDashboardRequest = {
             "dashboard_id": dashboard_id,
             "dashboard_name": dashboard_name,
@@ -10894,7 +11327,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataset")
+        )
         input_: capo_iotsitewise.types.update_dataset_request.UpdateDatasetRequest = {
             "dataset_id": dataset_id,
             "dataset_name": dataset_name,
@@ -10955,7 +11390,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGateway")
+        )
         input_: capo_iotsitewise.types.update_gateway_request.UpdateGatewayRequest = {
             "gateway_id": gateway_id,
             "gateway_name": gateway_name,
@@ -11009,7 +11446,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGatewayCapabilityConfiguration")
+        )
         input_: capo_iotsitewise.types.update_gateway_capability_configuration_request.UpdateGatewayCapabilityConfigurationRequest = {
             "gateway_id": gateway_id,
             "capability_namespace": capability_namespace,
@@ -11073,7 +11512,19 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iotsitewise.types.update_pipeline_request.UpdatePipelineRequest",
+        ) -> dict[str, Any]:
+            import capo_iotsitewise.types.update_pipeline_request
+
+            return capo_iotsitewise.types.update_pipeline_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdatePipeline", redact_input=_redact_input),
+        )
         input_: capo_iotsitewise.types.update_pipeline_request.UpdatePipelineRequest = {
             "workspace_name": workspace_name,
             "pipeline_name": pipeline_name,
@@ -11155,7 +11606,17 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iotsitewise.types.update_portal_request.UpdatePortalRequest",
+        ) -> dict[str, Any]:
+            import capo_iotsitewise.types.update_portal_request
+
+            return capo_iotsitewise.types.update_portal_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdatePortal", redact_input=_redact_input),
+        )
         input_: capo_iotsitewise.types.update_portal_request.UpdatePortalRequest = {
             "portal_id": portal_id,
             "portal_name": portal_name,
@@ -11230,7 +11691,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProject")
+        )
         input_: capo_iotsitewise.types.update_project_request.UpdateProjectRequest = {
             "project_id": project_id,
             "project_name": project_name,
@@ -11293,7 +11756,16 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iotsitewise.types.update_task_request.UpdateTaskRequest",
+        ) -> dict[str, Any]:
+            import capo_iotsitewise.types.update_task_request
+
+            return capo_iotsitewise.types.update_task_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTask", redact_input=_redact_input)
+        )
         input_: capo_iotsitewise.types.update_task_request.UpdateTaskRequest = {
             "workspace_name": workspace_name,
             "task_name": task_name,
@@ -11359,7 +11831,9 @@ class AsyncIoTSiteWiseClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkspace")
+        )
         input_: capo_iotsitewise.types.update_workspace_request.UpdateWorkspaceRequest = {
             "workspace_name": workspace_name
         }

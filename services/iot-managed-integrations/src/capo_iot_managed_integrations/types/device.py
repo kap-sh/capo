@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#Device``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -89,4 +89,11 @@ def deserialize_json(data: dict) -> Device:
         )
     if data.get("DeviceMetadata") is not None:
         out["device_metadata"] = data["DeviceMetadata"]
+    return out
+
+
+def redact_sensitive(value: Device) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "connector_device_id" in value:
+        out["connector_device_id"] = "*** Sensitive Data Redacted ***"
     return out

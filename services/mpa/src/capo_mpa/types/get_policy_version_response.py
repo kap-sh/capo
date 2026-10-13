@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mpa#GetPolicyVersionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,15 @@ def deserialize_json(data: dict) -> GetPolicyVersionResponse:
         )
     else:
         raise DeserializationError("GetPolicyVersionResponse.policy_version required")
+    return out
+
+
+def redact_sensitive(value: GetPolicyVersionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "policy_version" in value:
+        import capo_mpa.types.policy_version
+
+        out["policy_version"] = capo_mpa.types.policy_version.redact_sensitive(
+            value["policy_version"]
+        )
     return out

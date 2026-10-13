@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.finspacedata#CreateDatasetRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -123,6 +123,19 @@ def deserialize_json(data: dict) -> CreateDatasetRequest:
         out["schema_definition"] = (
             capo_finspace_data.types.schema_union.deserialize_json(
                 data["schemaDefinition"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateDatasetRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "owner_info" in value:
+        import capo_finspace_data.types.dataset_owner_info
+
+        out["owner_info"] = (
+            capo_finspace_data.types.dataset_owner_info.redact_sensitive(
+                value["owner_info"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#MCPGatewayConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -119,4 +119,11 @@ def deserialize_json(data: dict) -> MCPGatewayConfiguration:
         )
     if data.get("disableMcpListToolsPagination") is not None:
         out["disable_mcp_list_tools_pagination"] = data["disableMcpListToolsPagination"]
+    return out
+
+
+def redact_sensitive(value: MCPGatewayConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "instructions" in value:
+        out["instructions"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexmodelsv2#EncryptionSetting``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,4 +42,13 @@ def deserialize_json(data: dict) -> EncryptionSetting:
         out["bot_locale_export_password"] = data["botLocaleExportPassword"]
     if data.get("associatedTranscriptsPassword") is not None:
         out["associated_transcripts_password"] = data["associatedTranscriptsPassword"]
+    return out
+
+
+def redact_sensitive(value: EncryptionSetting) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "bot_locale_export_password" in value:
+        out["bot_locale_export_password"] = "*** Sensitive Data Redacted ***"
+    if "associated_transcripts_password" in value:
+        out["associated_transcripts_password"] = "*** Sensitive Data Redacted ***"
     return out

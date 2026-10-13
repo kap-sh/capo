@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#HandoffAgentConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -67,4 +67,11 @@ def deserialize_json(data: dict) -> HandoffAgentConfiguration:
         out["audio_streaming_enabled"] = data["audioStreamingEnabled"]
     if data.get("immediateHandoff") is not None:
         out["immediate_handoff"] = data["immediateHandoff"]
+    return out
+
+
+def redact_sensitive(value: HandoffAgentConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "instruction" in value:
+        out["instruction"] = "*** Sensitive Data Redacted ***"
     return out

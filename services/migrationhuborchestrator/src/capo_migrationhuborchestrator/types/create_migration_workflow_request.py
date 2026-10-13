@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.migrationhuborchestrator#CreateMigrationWorkflowRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -108,4 +108,11 @@ def deserialize_json(data: dict) -> CreateMigrationWorkflowRequest:
         out["tags"] = capo_migrationhuborchestrator.types.string_map.deserialize_json(
             data["tags"]
         )
+    return out
+
+
+def redact_sensitive(value: CreateMigrationWorkflowRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input_parameters" in value:
+        out["input_parameters"] = "*** Sensitive Data Redacted ***"
     return out

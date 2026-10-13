@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#DescribeStateMachineForExecutionOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -181,4 +181,13 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeStateMachineForExecutionOutp
                 data["variableReferences"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: DescribeStateMachineForExecutionOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "definition" in value:
+        out["definition"] = "*** Sensitive Data Redacted ***"
+    if "variable_references" in value:
+        out["variable_references"] = "*** Sensitive Data Redacted ***"
     return out

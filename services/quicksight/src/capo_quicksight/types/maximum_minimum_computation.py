@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#MaximumMinimumComputation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -85,4 +85,21 @@ def deserialize_json(data: dict) -> MaximumMinimumComputation:
         )
     else:
         raise DeserializationError("MaximumMinimumComputation.type required")
+    return out
+
+
+def redact_sensitive(value: MaximumMinimumComputation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "time" in value:
+        import capo_quicksight.types.dimension_field
+
+        out["time"] = capo_quicksight.types.dimension_field.redact_sensitive(
+            value["time"]
+        )
+    if "value" in value:
+        import capo_quicksight.types.measure_field
+
+        out["value"] = capo_quicksight.types.measure_field.redact_sensitive(
+            value["value"]
+        )
     return out

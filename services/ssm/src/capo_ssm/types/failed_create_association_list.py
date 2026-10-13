@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#FailedCreateAssociationList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_ssm.types.failed_create_association
@@ -33,3 +33,12 @@ def deserialize_aws_json_1_1(data: list) -> FailedCreateAssociationList:
             capo_ssm.types.failed_create_association.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+def redact_sensitive(value: FailedCreateAssociationList) -> list[Any]:
+    import capo_ssm.types.failed_create_association
+
+    return [
+        capo_ssm.types.failed_create_association.redact_sensitive(item)
+        for item in value
+    ]

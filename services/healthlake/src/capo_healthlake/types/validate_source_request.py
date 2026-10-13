@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazon.awshealthlakedatatransformationfrontendservice#ValidateSourceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -56,4 +56,11 @@ def deserialize_aws_json_1_0(data: dict) -> ValidateSourceRequest:
         )
     else:
         raise DeserializationError("ValidateSourceRequest.source_file required")
+    return out
+
+
+def redact_sensitive(value: ValidateSourceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "source_file" in value:
+        out["source_file"] = "*** Sensitive Data Redacted ***"
     return out

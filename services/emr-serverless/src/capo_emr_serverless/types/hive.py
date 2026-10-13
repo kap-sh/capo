@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.emrserverless#Hive``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,15 @@ def deserialize_json(data: dict) -> Hive:
         out["init_query_file"] = data["initQueryFile"]
     if data.get("parameters") is not None:
         out["parameters"] = data["parameters"]
+    return out
+
+
+def redact_sensitive(value: Hive) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "query" in value:
+        out["query"] = "*** Sensitive Data Redacted ***"
+    if "init_query_file" in value:
+        out["init_query_file"] = "*** Sensitive Data Redacted ***"
+    if "parameters" in value:
+        out["parameters"] = "*** Sensitive Data Redacted ***"
     return out

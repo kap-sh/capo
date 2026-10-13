@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#UserIdentifier``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -49,3 +49,12 @@ def deserialize_json(data: dict) -> UserIdentifier:
         return {"UserArn": data["UserArn"]}
     else:
         raise DeserializationError("UserIdentifier: no recognized variant key")
+
+
+def redact_sensitive(value: UserIdentifier) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "UserName" in value:
+        out["UserName"] = "*** Sensitive Data Redacted ***"
+    if "Email" in value:
+        out["Email"] = "*** Sensitive Data Redacted ***"
+    return out

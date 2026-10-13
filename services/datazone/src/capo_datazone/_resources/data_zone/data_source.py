@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_datazone._auth._signers
 import capo_datazone._auth._sigv4
 from capo_datazone._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -123,7 +124,30 @@ class DataSource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_data_source_input.CreateDataSourceInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_data_source_input
+
+            return capo_datazone.types.create_data_source_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_data_source_output.CreateDataSourceOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_data_source_output
+
+            return capo_datazone.types.create_data_source_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDataSource",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_data_source_input.CreateDataSourceInput = {
             "name": name,
             "domain_identifier": domain_identifier,
@@ -199,7 +223,17 @@ class DataSource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_data_source_output.GetDataSourceOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_data_source_output
+
+            return capo_datazone.types.get_data_source_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDataSource", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_data_source_input.GetDataSourceInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -280,7 +314,30 @@ class DataSource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_data_source_input.UpdateDataSourceInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_data_source_input
+
+            return capo_datazone.types.update_data_source_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.update_data_source_output.UpdateDataSourceOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_data_source_output
+
+            return capo_datazone.types.update_data_source_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDataSource",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_data_source_input.UpdateDataSourceInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -357,7 +414,19 @@ class DataSource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.delete_data_source_output.DeleteDataSourceOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.delete_data_source_output
+
+            return capo_datazone.types.delete_data_source_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteDataSource", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.delete_data_source_input.DeleteDataSourceInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -435,7 +504,28 @@ class DataSource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.list_data_sources_input.ListDataSourcesInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_data_sources_input
+
+            return capo_datazone.types.list_data_sources_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.list_data_sources_output.ListDataSourcesOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_data_sources_output
+
+            return capo_datazone.types.list_data_sources_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListDataSources",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.list_data_sources_input.ListDataSourcesInput = {
             "domain_identifier": domain_identifier,
             "project_identifier": project_identifier,
@@ -542,7 +632,30 @@ class AsyncDataSource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_data_source_input.CreateDataSourceInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_data_source_input
+
+            return capo_datazone.types.create_data_source_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_data_source_output.CreateDataSourceOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_data_source_output
+
+            return capo_datazone.types.create_data_source_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDataSource",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_data_source_input.CreateDataSourceInput = {
             "name": name,
             "domain_identifier": domain_identifier,
@@ -619,7 +732,17 @@ class AsyncDataSource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_data_source_output.GetDataSourceOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_data_source_output
+
+            return capo_datazone.types.get_data_source_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDataSource", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_data_source_input.GetDataSourceInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -701,7 +824,30 @@ class AsyncDataSource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_data_source_input.UpdateDataSourceInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_data_source_input
+
+            return capo_datazone.types.update_data_source_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.update_data_source_output.UpdateDataSourceOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_data_source_output
+
+            return capo_datazone.types.update_data_source_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDataSource",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_data_source_input.UpdateDataSourceInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -779,7 +925,19 @@ class AsyncDataSource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.delete_data_source_output.DeleteDataSourceOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.delete_data_source_output
+
+            return capo_datazone.types.delete_data_source_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteDataSource", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.delete_data_source_input.DeleteDataSourceInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -858,7 +1016,28 @@ class AsyncDataSource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.list_data_sources_input.ListDataSourcesInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_data_sources_input
+
+            return capo_datazone.types.list_data_sources_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.list_data_sources_output.ListDataSourcesOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_data_sources_output
+
+            return capo_datazone.types.list_data_sources_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListDataSources",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.list_data_sources_input.ListDataSourcesInput = {
             "domain_identifier": domain_identifier,
             "project_identifier": project_identifier,

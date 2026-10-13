@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.personalize#CreateFilterRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -55,4 +55,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateFilterRequest:
         import capo_personalize.types.tags
 
         out["tags"] = capo_personalize.types.tags.deserialize_aws_json_1_1(data["tags"])
+    return out
+
+
+def redact_sensitive(value: CreateFilterRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "filter_expression" in value:
+        out["filter_expression"] = "*** Sensitive Data Redacted ***"
+    if "tags" in value:
+        import capo_personalize.types.tags
+
+        out["tags"] = capo_personalize.types.tags.redact_sensitive(value["tags"])
     return out

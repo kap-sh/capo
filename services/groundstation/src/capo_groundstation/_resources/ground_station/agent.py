@@ -7,6 +7,7 @@ import capo_groundstation._auth._sigv4
 from capo_groundstation._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -76,7 +77,9 @@ class Agent:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RegisterAgent")
+        )
         input_: capo_groundstation.types.register_agent_request.RegisterAgentRequest = {
             "discovery_data": discovery_data,
             "agent_details": agent_details,
@@ -124,7 +127,9 @@ class Agent:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAgentConfiguration")
+        )
         input_: capo_groundstation.types.get_agent_configuration_request.GetAgentConfigurationRequest = {
             "agent_id": agent_id
         }
@@ -175,7 +180,9 @@ class Agent:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAgentStatus")
+        )
         input_: capo_groundstation.types.update_agent_status_request.UpdateAgentStatusRequest = {
             "agent_id": agent_id,
             "task_id": task_id,
@@ -233,7 +240,9 @@ class AsyncAgent:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RegisterAgent")
+        )
         input_: capo_groundstation.types.register_agent_request.RegisterAgentRequest = {
             "discovery_data": discovery_data,
             "agent_details": agent_details,
@@ -282,7 +291,9 @@ class AsyncAgent:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAgentConfiguration")
+        )
         input_: capo_groundstation.types.get_agent_configuration_request.GetAgentConfigurationRequest = {
             "agent_id": agent_id
         }
@@ -334,7 +345,9 @@ class AsyncAgent:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAgentStatus")
+        )
         input_: capo_groundstation.types.update_agent_status_request.UpdateAgentStatusRequest = {
             "agent_id": agent_id,
             "task_id": task_id,

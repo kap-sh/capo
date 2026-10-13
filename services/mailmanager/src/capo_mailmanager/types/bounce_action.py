@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mailmanager#BounceAction``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -88,4 +88,15 @@ def deserialize_aws_json_1_0(data: dict) -> BounceAction:
         raise DeserializationError("BounceAction.diagnostic_message required")
     if data.get("Message") is not None:
         out["message"] = data["Message"]
+    return out
+
+
+def redact_sensitive(value: BounceAction) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sender" in value:
+        out["sender"] = "*** Sensitive Data Redacted ***"
+    if "diagnostic_message" in value:
+        out["diagnostic_message"] = "*** Sensitive Data Redacted ***"
+    if "message" in value:
+        out["message"] = "*** Sensitive Data Redacted ***"
     return out

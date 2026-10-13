@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_emr_serverless._auth._signers
 import capo_emr_serverless._auth._sigv4
 from capo_emr_serverless._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -100,7 +101,19 @@ class SessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_emr_serverless.types.start_session_request.StartSessionRequest",
+        ) -> dict[str, Any]:
+            import capo_emr_serverless.types.start_session_request
+
+            return capo_emr_serverless.types.start_session_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartSession", redact_input=_redact_input),
+        )
         input_: capo_emr_serverless.types.start_session_request.StartSessionRequest = {
             "application_id": application_id,
             "client_token": client_token,
@@ -157,7 +170,19 @@ class SessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_emr_serverless.types.get_session_response.GetSessionResponse",
+        ) -> dict[str, Any]:
+            import capo_emr_serverless.types.get_session_response
+
+            return capo_emr_serverless.types.get_session_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetSession", redact_output=_redact_output),
+        )
         input_: capo_emr_serverless.types.get_session_request.GetSessionRequest = {
             "application_id": application_id,
             "session_id": session_id,
@@ -207,7 +232,9 @@ class SessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("TerminateSession")
+        )
         input_: capo_emr_serverless.types.terminate_session_request.TerminateSessionRequest = {
             "application_id": application_id,
             "session_id": session_id,
@@ -265,7 +292,9 @@ class SessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSessions")
+        )
         input_: capo_emr_serverless.types.list_sessions_request.ListSessionsRequest = {
             "application_id": application_id
         }
@@ -322,7 +351,19 @@ class SessionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_emr_serverless.types.get_session_endpoint_response.GetSessionEndpointResponse",
+        ) -> dict[str, Any]:
+            import capo_emr_serverless.types.get_session_endpoint_response
+
+            return capo_emr_serverless.types.get_session_endpoint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetSessionEndpoint", redact_output=_redact_output),
+        )
         input_: capo_emr_serverless.types.get_session_endpoint_request.GetSessionEndpointRequest = {
             "application_id": application_id,
             "session_id": session_id,
@@ -392,7 +433,19 @@ class AsyncSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_emr_serverless.types.start_session_request.StartSessionRequest",
+        ) -> dict[str, Any]:
+            import capo_emr_serverless.types.start_session_request
+
+            return capo_emr_serverless.types.start_session_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartSession", redact_input=_redact_input),
+        )
         input_: capo_emr_serverless.types.start_session_request.StartSessionRequest = {
             "application_id": application_id,
             "client_token": client_token,
@@ -450,7 +503,19 @@ class AsyncSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_emr_serverless.types.get_session_response.GetSessionResponse",
+        ) -> dict[str, Any]:
+            import capo_emr_serverless.types.get_session_response
+
+            return capo_emr_serverless.types.get_session_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetSession", redact_output=_redact_output),
+        )
         input_: capo_emr_serverless.types.get_session_request.GetSessionRequest = {
             "application_id": application_id,
             "session_id": session_id,
@@ -501,7 +566,9 @@ class AsyncSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("TerminateSession")
+        )
         input_: capo_emr_serverless.types.terminate_session_request.TerminateSessionRequest = {
             "application_id": application_id,
             "session_id": session_id,
@@ -560,7 +627,9 @@ class AsyncSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSessions")
+        )
         input_: capo_emr_serverless.types.list_sessions_request.ListSessionsRequest = {
             "application_id": application_id
         }
@@ -618,7 +687,19 @@ class AsyncSessionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_emr_serverless.types.get_session_endpoint_response.GetSessionEndpointResponse",
+        ) -> dict[str, Any]:
+            import capo_emr_serverless.types.get_session_endpoint_response
+
+            return capo_emr_serverless.types.get_session_endpoint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetSessionEndpoint", redact_output=_redact_output),
+        )
         input_: capo_emr_serverless.types.get_session_endpoint_request.GetSessionEndpointRequest = {
             "application_id": application_id,
             "session_id": session_id,

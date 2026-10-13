@@ -22,10 +22,12 @@ from capo_eventbridgev2._pagination import resolve_path as _resolve_path
 from capo_eventbridgev2._services._aws_config import aws_config
 from capo_eventbridgev2._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -205,7 +207,9 @@ class EventBridgeV2Client:
         )
 
     def operation_options(
-        self, config_overrides: Optional[EventBridgeV2ClientConfig] = None
+        self,
+        config_overrides: Optional[EventBridgeV2ClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: EventBridgeV2ClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -213,8 +217,10 @@ class EventBridgeV2Client:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -285,7 +291,9 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEventBus")
+        )
         input_: capo_eventbridgev2.types.create_event_bus_request.CreateEventBusRequest = {
             "name": name
         }
@@ -354,7 +362,21 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_eventbridgev2.types.create_event_source_request.CreateEventSourceRequest",
+        ) -> dict[str, Any]:
+            import capo_eventbridgev2.types.create_event_source_request
+
+            return (
+                capo_eventbridgev2.types.create_event_source_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateEventSource", redact_input=_redact_input),
+        )
         input_: capo_eventbridgev2.types.create_event_source_request.CreateEventSourceRequest = {
             "name": name,
             "event_bus_arn": event_bus_arn,
@@ -452,7 +474,19 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_eventbridgev2.types.create_subscriber_request.CreateSubscriberRequest",
+        ) -> dict[str, Any]:
+            import capo_eventbridgev2.types.create_subscriber_request
+
+            return capo_eventbridgev2.types.create_subscriber_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateSubscriber", redact_input=_redact_input),
+        )
         input_: capo_eventbridgev2.types.create_subscriber_request.CreateSubscriberRequest = {
             "name": name,
             "event_bus_arn": event_bus_arn,
@@ -528,7 +562,9 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEventBus")
+        )
         input_: capo_eventbridgev2.types.delete_event_bus_request.DeleteEventBusRequest = {
             "event_bus_arn": event_bus_arn
         }
@@ -574,7 +610,9 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEventSource")
+        )
         input_: capo_eventbridgev2.types.delete_event_source_request.DeleteEventSourceRequest = {
             "event_source_arn": event_source_arn
         }
@@ -628,7 +666,9 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_eventbridgev2.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -677,7 +717,9 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSubscriber")
+        )
         input_: capo_eventbridgev2.types.delete_subscriber_request.DeleteSubscriberRequest = {
             "subscriber_arn": subscriber_arn
         }
@@ -723,7 +765,9 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEventBus")
+        )
         input_: capo_eventbridgev2.types.describe_event_bus_request.DescribeEventBusRequest = {
             "event_bus_arn": event_bus_arn
         }
@@ -767,7 +811,19 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_eventbridgev2.types.describe_event_source_response.DescribeEventSourceResponse",
+        ) -> dict[str, Any]:
+            import capo_eventbridgev2.types.describe_event_source_response
+
+            return capo_eventbridgev2.types.describe_event_source_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeEventSource", redact_output=_redact_output),
+        )
         input_: capo_eventbridgev2.types.describe_event_source_request.DescribeEventSourceRequest = {
             "event_source_arn": event_source_arn
         }
@@ -811,7 +867,21 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_eventbridgev2.types.describe_subscriber_response.DescribeSubscriberResponse",
+        ) -> dict[str, Any]:
+            import capo_eventbridgev2.types.describe_subscriber_response
+
+            return (
+                capo_eventbridgev2.types.describe_subscriber_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeSubscriber", redact_output=_redact_output),
+        )
         input_: capo_eventbridgev2.types.describe_subscriber_request.DescribeSubscriberRequest = {
             "subscriber_arn": subscriber_arn
         }
@@ -859,7 +929,9 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_eventbridgev2.types.get_resource_policy_request.GetResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -911,7 +983,9 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEventBuses")
+        )
         input_: capo_eventbridgev2.types.list_event_buses_request.ListEventBusesRequest = {}
         if name_prefix is not None:
             input_["name_prefix"] = name_prefix
@@ -999,7 +1073,9 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEventSources")
+        )
         input_: capo_eventbridgev2.types.list_event_sources_request.ListEventSourcesRequest = {}
         if event_bus_arn is not None:
             input_["event_bus_arn"] = event_bus_arn
@@ -1080,7 +1156,9 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourcePolicies")
+        )
         input_: capo_eventbridgev2.types.list_resource_policies_request.ListResourcePoliciesRequest = {
             "resource_arn": resource_arn
         }
@@ -1158,7 +1236,9 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSubscribers")
+        )
         input_: capo_eventbridgev2.types.list_subscribers_request.ListSubscribersRequest = {}
         if event_bus_arn is not None:
             input_["event_bus_arn"] = event_bus_arn
@@ -1237,7 +1317,9 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_eventbridgev2.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1289,7 +1371,16 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_eventbridgev2.types.put_events_request.PutEventsRequest",
+        ) -> dict[str, Any]:
+            import capo_eventbridgev2.types.put_events_request
+
+            return capo_eventbridgev2.types.put_events_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutEvents", redact_input=_redact_input)
+        )
         input_: capo_eventbridgev2.types.put_events_request.PutEventsRequest = {
             "event_bus_arn": event_bus_arn,
             "entries": entries,
@@ -1349,7 +1440,19 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_eventbridgev2.types.put_raw_events_request.PutRawEventsRequest",
+        ) -> dict[str, Any]:
+            import capo_eventbridgev2.types.put_raw_events_request
+
+            return capo_eventbridgev2.types.put_raw_events_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutRawEvents", redact_input=_redact_input),
+        )
         input_: capo_eventbridgev2.types.put_raw_events_request.PutRawEventsRequest = {
             "event_bus_arn": event_bus_arn,
             "entries": entries,
@@ -1411,7 +1514,9 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_eventbridgev2.types.put_resource_policy_request.PutResourcePolicyRequest = {
             "resource_arn": resource_arn,
             "policy_document": policy_document,
@@ -1462,7 +1567,9 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokeResource")
+        )
         input_: capo_eventbridgev2.types.revoke_resource_request.RevokeResourceRequest = {
             "arn": arn
         }
@@ -1510,7 +1617,9 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_eventbridgev2.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1558,7 +1667,9 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_eventbridgev2.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1614,7 +1725,9 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEventBus")
+        )
         input_: capo_eventbridgev2.types.update_event_bus_request.UpdateEventBusRequest = {
             "event_bus_arn": event_bus_arn
         }
@@ -1672,7 +1785,21 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_eventbridgev2.types.update_event_source_request.UpdateEventSourceRequest",
+        ) -> dict[str, Any]:
+            import capo_eventbridgev2.types.update_event_source_request
+
+            return (
+                capo_eventbridgev2.types.update_event_source_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateEventSource", redact_input=_redact_input),
+        )
         input_: capo_eventbridgev2.types.update_event_source_request.UpdateEventSourceRequest = {
             "event_source_arn": event_source_arn
         }
@@ -1756,7 +1883,19 @@ class EventBridgeV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_eventbridgev2.types.update_subscriber_request.UpdateSubscriberRequest",
+        ) -> dict[str, Any]:
+            import capo_eventbridgev2.types.update_subscriber_request
+
+            return capo_eventbridgev2.types.update_subscriber_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateSubscriber", redact_input=_redact_input),
+        )
         input_: capo_eventbridgev2.types.update_subscriber_request.UpdateSubscriberRequest = {
             "subscriber_arn": subscriber_arn
         }

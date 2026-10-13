@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralaccount#ConnectionTypeDetailMap``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.connection_type
@@ -46,3 +46,14 @@ def deserialize_aws_json_1_0(data: dict) -> ConnectionTypeDetailMap:
             value
         )
     return out
+
+
+def redact_sensitive(value: ConnectionTypeDetailMap) -> dict[str, Any]:
+    import capo_partnercentral_account.types.connection_type_detail
+
+    return {
+        key: capo_partnercentral_account.types.connection_type_detail.redact_sensitive(
+            item
+        )
+        for key, item in value.items()
+    }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.directoryservice#CreateTrustRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -148,4 +148,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTrustRequest:
                 data["SelectiveAuth"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: CreateTrustRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "trust_password" in value:
+        out["trust_password"] = "*** Sensitive Data Redacted ***"
     return out

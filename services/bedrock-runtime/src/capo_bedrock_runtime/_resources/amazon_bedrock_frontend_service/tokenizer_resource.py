@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_runtime._auth._signers
 import capo_bedrock_runtime._auth._sigv4
 from capo_bedrock_runtime._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -69,7 +70,19 @@ class TokenizerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_runtime.types.count_tokens_request.CountTokensRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.count_tokens_request
+
+            return capo_bedrock_runtime.types.count_tokens_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CountTokens", redact_input=_redact_input),
+        )
         input_: capo_bedrock_runtime.types.count_tokens_request.CountTokensRequest = {
             "model_id": model_id,
             "input": input,
@@ -126,7 +139,19 @@ class AsyncTokenizerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_runtime.types.count_tokens_request.CountTokensRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.count_tokens_request
+
+            return capo_bedrock_runtime.types.count_tokens_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CountTokens", redact_input=_redact_input),
+        )
         input_: capo_bedrock_runtime.types.count_tokens_request.CountTokensRequest = {
             "model_id": model_id,
             "input": input,

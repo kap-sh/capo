@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkidentity#ListTagsForResourceResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_json(data: dict) -> ListTagsForResourceResponse:
 
         out["tags"] = capo_chime_sdk_identity.types.tag_list.deserialize_json(
             data["Tags"]
+        )
+    return out
+
+
+def redact_sensitive(value: ListTagsForResourceResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        import capo_chime_sdk_identity.types.tag_list
+
+        out["tags"] = capo_chime_sdk_identity.types.tag_list.redact_sensitive(
+            value["tags"]
         )
     return out

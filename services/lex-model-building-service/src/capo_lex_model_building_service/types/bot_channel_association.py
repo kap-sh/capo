@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexmodelbuildingservice#BotChannelAssociation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -137,4 +137,11 @@ def deserialize_json(data: dict) -> BotChannelAssociation:
         )
     if data.get("failureReason") is not None:
         out["failure_reason"] = data["failureReason"]
+    return out
+
+
+def redact_sensitive(value: BotChannelAssociation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "bot_configuration" in value:
+        out["bot_configuration"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_drs._auth._signers
 import capo_drs._auth._sigv4
 from capo_drs._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -66,7 +67,9 @@ class JobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteJob")
+        )
         input_: capo_drs.types.delete_job_request.DeleteJobRequest = {"job_id": job_id}
 
         response = execute_pipeline(
@@ -118,7 +121,17 @@ class JobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.describe_jobs_response.DescribeJobsResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.describe_jobs_response
+
+            return capo_drs.types.describe_jobs_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeJobs", redact_output=_redact_output),
+        )
         input_: capo_drs.types.describe_jobs_request.DescribeJobsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -174,7 +187,9 @@ class JobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeJobLogItems")
+        )
         input_: capo_drs.types.describe_job_log_items_request.DescribeJobLogItemsRequest = {
             "job_id": job_id
         }
@@ -231,7 +246,9 @@ class AsyncJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteJob")
+        )
         input_: capo_drs.types.delete_job_request.DeleteJobRequest = {"job_id": job_id}
 
         response = await aexecute_pipeline(
@@ -284,7 +301,17 @@ class AsyncJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.describe_jobs_response.DescribeJobsResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.describe_jobs_response
+
+            return capo_drs.types.describe_jobs_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeJobs", redact_output=_redact_output),
+        )
         input_: capo_drs.types.describe_jobs_request.DescribeJobsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -341,7 +368,9 @@ class AsyncJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeJobLogItems")
+        )
         input_: capo_drs.types.describe_job_log_items_request.DescribeJobLogItemsRequest = {
             "job_id": job_id
         }

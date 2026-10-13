@@ -22,7 +22,9 @@ from capo_marketplace_commerce_analytics._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -121,6 +123,7 @@ class AsyncMarketplaceCommerceAnalyticsClient:
         config_overrides: Optional[
             AsyncMarketplaceCommerceAnalyticsClientConfig
         ] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncMarketplaceCommerceAnalyticsClientConfig = (
             config_overrides or {}
@@ -130,8 +133,10 @@ class AsyncMarketplaceCommerceAnalyticsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -199,7 +204,9 @@ class AsyncMarketplaceCommerceAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GenerateDataSet")
+        )
         input_: capo_marketplace_commerce_analytics.types.generate_data_set_request.GenerateDataSetRequest = {
             "data_set_type": data_set_type,
             "data_set_publication_date": data_set_publication_date,
@@ -269,7 +276,9 @@ class AsyncMarketplaceCommerceAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartSupportDataExport")
+        )
         input_: capo_marketplace_commerce_analytics.types.start_support_data_export_request.StartSupportDataExportRequest = {
             "data_set_type": data_set_type,
             "from_date": from_date,

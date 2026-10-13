@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#CreateVoiceConnectorRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -105,5 +105,16 @@ def deserialize_json(data: dict) -> CreateVoiceConnectorRequest:
 
         out["network_type"] = capo_chime_sdk_voice.types.network_type.deserialize_json(
             data["NetworkType"]
+        )
+    return out
+
+
+def redact_sensitive(value: CreateVoiceConnectorRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        import capo_chime_sdk_voice.types.tag_list
+
+        out["tags"] = capo_chime_sdk_voice.types.tag_list.redact_sensitive(
+            value["tags"]
         )
     return out

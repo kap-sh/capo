@@ -25,10 +25,12 @@ from capo_ebs._pagination import resolve_path as _resolve_path
 from capo_ebs._services._aws_config import aws_config
 from capo_ebs._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -139,7 +141,9 @@ class EBSClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[EBSClientConfig] = None
+        self,
+        config_overrides: Optional[EBSClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: EBSClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -147,8 +151,10 @@ class EBSClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -214,7 +220,9 @@ class EBSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CompleteSnapshot")
+        )
         input_: capo_ebs.types.complete_snapshot_request.CompleteSnapshotRequest = {
             "snapshot_id": snapshot_id,
             "changed_blocks_count": changed_blocks_count,
@@ -276,7 +284,17 @@ class EBSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ebs.types.get_snapshot_block_response.GetSnapshotBlockResponse",
+        ) -> dict[str, Any]:
+            import capo_ebs.types.get_snapshot_block_response
+
+            return capo_ebs.types.get_snapshot_block_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSnapshotBlock", redact_output=_redact_output),
+        )
         input_: capo_ebs.types.get_snapshot_block_request.GetSnapshotBlockRequest = {
             "snapshot_id": snapshot_id,
             "block_index": block_index,
@@ -336,7 +354,17 @@ class EBSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ebs.types.list_changed_blocks_response.ListChangedBlocksResponse",
+        ) -> dict[str, Any]:
+            import capo_ebs.types.list_changed_blocks_response
+
+            return capo_ebs.types.list_changed_blocks_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListChangedBlocks", redact_output=_redact_output),
+        )
         input_: capo_ebs.types.list_changed_blocks_request.ListChangedBlocksRequest = {
             "second_snapshot_id": second_snapshot_id
         }
@@ -423,7 +451,17 @@ class EBSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ebs.types.list_snapshot_blocks_response.ListSnapshotBlocksResponse",
+        ) -> dict[str, Any]:
+            import capo_ebs.types.list_snapshot_blocks_response
+
+            return capo_ebs.types.list_snapshot_blocks_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListSnapshotBlocks", redact_output=_redact_output),
+        )
         input_: capo_ebs.types.list_snapshot_blocks_request.ListSnapshotBlocksRequest = {
             "snapshot_id": snapshot_id
         }
@@ -512,7 +550,17 @@ class EBSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ebs.types.put_snapshot_block_request.PutSnapshotBlockRequest",
+        ) -> dict[str, Any]:
+            import capo_ebs.types.put_snapshot_block_request
+
+            return capo_ebs.types.put_snapshot_block_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutSnapshotBlock", redact_input=_redact_input),
+        )
         input_: capo_ebs.types.put_snapshot_block_request.PutSnapshotBlockRequest = {
             "snapshot_id": snapshot_id,
             "block_index": block_index,
@@ -586,7 +634,28 @@ class EBSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ebs.types.start_snapshot_request.StartSnapshotRequest",
+        ) -> dict[str, Any]:
+            import capo_ebs.types.start_snapshot_request
+
+            return capo_ebs.types.start_snapshot_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_ebs.types.start_snapshot_response.StartSnapshotResponse",
+        ) -> dict[str, Any]:
+            import capo_ebs.types.start_snapshot_response
+
+            return capo_ebs.types.start_snapshot_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartSnapshot",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_ebs.types.start_snapshot_request.StartSnapshotRequest = {
             "volume_size": volume_size
         }

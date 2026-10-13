@@ -7,6 +7,7 @@ import capo_application_signals._auth._sigv4
 from capo_application_signals._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -113,7 +114,9 @@ class ServiceLevelObjectiveResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateServiceLevelObjective")
+        )
         input_: capo_application_signals.types.create_service_level_objective_input.CreateServiceLevelObjectiveInput = {
             "name": name
         }
@@ -174,7 +177,9 @@ class ServiceLevelObjectiveResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetServiceLevelObjective")
+        )
         input_: capo_application_signals.types.get_service_level_objective_input.GetServiceLevelObjectiveInput = {
             "id": id
         }
@@ -239,7 +244,9 @@ class ServiceLevelObjectiveResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateServiceLevelObjective")
+        )
         input_: capo_application_signals.types.update_service_level_objective_input.UpdateServiceLevelObjectiveInput = {
             "id": id
         }
@@ -296,7 +303,9 @@ class ServiceLevelObjectiveResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteServiceLevelObjective")
+        )
         input_: capo_application_signals.types.delete_service_level_objective_input.DeleteServiceLevelObjectiveInput = {
             "id": id
         }
@@ -372,7 +381,9 @@ class ServiceLevelObjectiveResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListServiceLevelObjectives")
+        )
         input_: capo_application_signals.types.list_service_level_objectives_input.ListServiceLevelObjectivesInput = {}
         if key_attributes is not None:
             input_["key_attributes"] = key_attributes
@@ -465,7 +476,9 @@ class AsyncServiceLevelObjectiveResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateServiceLevelObjective")
+        )
         input_: capo_application_signals.types.create_service_level_objective_input.CreateServiceLevelObjectiveInput = {
             "name": name
         }
@@ -527,7 +540,9 @@ class AsyncServiceLevelObjectiveResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetServiceLevelObjective")
+        )
         input_: capo_application_signals.types.get_service_level_objective_input.GetServiceLevelObjectiveInput = {
             "id": id
         }
@@ -593,7 +608,9 @@ class AsyncServiceLevelObjectiveResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateServiceLevelObjective")
+        )
         input_: capo_application_signals.types.update_service_level_objective_input.UpdateServiceLevelObjectiveInput = {
             "id": id
         }
@@ -651,7 +668,9 @@ class AsyncServiceLevelObjectiveResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteServiceLevelObjective")
+        )
         input_: capo_application_signals.types.delete_service_level_objective_input.DeleteServiceLevelObjectiveInput = {
             "id": id
         }
@@ -728,7 +747,9 @@ class AsyncServiceLevelObjectiveResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListServiceLevelObjectives")
+        )
         input_: capo_application_signals.types.list_service_level_objectives_input.ListServiceLevelObjectivesInput = {}
         if key_attributes is not None:
             input_["key_attributes"] = key_attributes

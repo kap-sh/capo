@@ -7,6 +7,7 @@ import capo_elementalinference._auth._sigv4
 from capo_elementalinference._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -89,7 +90,9 @@ class DictionaryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDictionary")
+        )
         input_: capo_elementalinference.types.create_dictionary_request.CreateDictionaryRequest = {
             "name": name,
             "language": language,
@@ -141,7 +144,9 @@ class DictionaryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDictionary")
+        )
         input_: capo_elementalinference.types.get_dictionary_request.GetDictionaryRequest = {
             "id": id
         }
@@ -201,7 +206,9 @@ class DictionaryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDictionary")
+        )
         input_: capo_elementalinference.types.update_dictionary_request.UpdateDictionaryRequest = {
             "id": id
         }
@@ -255,7 +262,9 @@ class DictionaryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDictionary")
+        )
         input_: capo_elementalinference.types.delete_dictionary_request.DeleteDictionaryRequest = {
             "id": id
         }
@@ -303,7 +312,9 @@ class DictionaryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDictionaries")
+        )
         input_: capo_elementalinference.types.list_dictionaries_request.ListDictionariesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -352,7 +363,9 @@ class DictionaryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ExportDictionaryEntries")
+        )
         input_: capo_elementalinference.types.export_dictionary_entries_request.ExportDictionaryEntriesRequest = {
             "id": id
         }
@@ -414,7 +427,9 @@ class AsyncDictionaryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDictionary")
+        )
         input_: capo_elementalinference.types.create_dictionary_request.CreateDictionaryRequest = {
             "name": name,
             "language": language,
@@ -467,7 +482,9 @@ class AsyncDictionaryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDictionary")
+        )
         input_: capo_elementalinference.types.get_dictionary_request.GetDictionaryRequest = {
             "id": id
         }
@@ -528,7 +545,9 @@ class AsyncDictionaryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDictionary")
+        )
         input_: capo_elementalinference.types.update_dictionary_request.UpdateDictionaryRequest = {
             "id": id
         }
@@ -583,7 +602,9 @@ class AsyncDictionaryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDictionary")
+        )
         input_: capo_elementalinference.types.delete_dictionary_request.DeleteDictionaryRequest = {
             "id": id
         }
@@ -632,7 +653,9 @@ class AsyncDictionaryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDictionaries")
+        )
         input_: capo_elementalinference.types.list_dictionaries_request.ListDictionariesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -682,7 +705,9 @@ class AsyncDictionaryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ExportDictionaryEntries")
+        )
         input_: capo_elementalinference.types.export_dictionary_entries_request.ExportDictionaryEntriesRequest = {
             "id": id
         }

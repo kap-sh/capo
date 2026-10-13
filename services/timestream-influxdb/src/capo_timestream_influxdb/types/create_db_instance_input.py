@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.timestreaminfluxdb#CreateDbInstanceInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -304,4 +304,13 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDbInstanceInput:
         )
     if data.get("kmsKeyId") is not None:
         out["kms_key_id"] = data["kmsKeyId"]
+    return out
+
+
+def redact_sensitive(value: CreateDbInstanceInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "username" in value:
+        out["username"] = "*** Sensitive Data Redacted ***"
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#AddResourcePermissionsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -63,6 +63,21 @@ def deserialize_json(data: dict) -> AddResourcePermissionsRequest:
         out["notification_options"] = (
             capo_workdocs.types.notification_options.deserialize_json(
                 data["NotificationOptions"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: AddResourcePermissionsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "authentication_token" in value:
+        out["authentication_token"] = "*** Sensitive Data Redacted ***"
+    if "notification_options" in value:
+        import capo_workdocs.types.notification_options
+
+        out["notification_options"] = (
+            capo_workdocs.types.notification_options.redact_sensitive(
+                value["notification_options"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connecthealth#StartMedicalScribeListeningSessionInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -31,3 +31,10 @@ class StartMedicalScribeListeningSessionInput(TypedDict, closed=True):
         "capo_connecthealth.types.medical_scribe_input_stream.MedicalScribeInputStream"
     ]
     """<p/>"""
+
+
+def redact_sensitive(value: StartMedicalScribeListeningSessionInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input_stream" in value:
+        out["input_stream"] = "*** Streaming Data Redacted ***"
+    return out

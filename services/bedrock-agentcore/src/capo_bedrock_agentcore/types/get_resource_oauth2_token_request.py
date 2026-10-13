@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#GetResourceOauth2TokenRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -170,4 +170,21 @@ def deserialize_json(data: dict) -> GetResourceOauth2TokenRequest:
                 data["audiences"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: GetResourceOauth2TokenRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "workload_identity_token" in value:
+        out["workload_identity_token"] = "*** Sensitive Data Redacted ***"
+    if "custom_parameters" in value:
+        import capo_bedrock_agentcore.types.custom_request_parameters_type
+
+        out["custom_parameters"] = (
+            capo_bedrock_agentcore.types.custom_request_parameters_type.redact_sensitive(
+                value["custom_parameters"]
+            )
+        )
+    if "custom_state" in value:
+        out["custom_state"] = "*** Sensitive Data Redacted ***"
     return out

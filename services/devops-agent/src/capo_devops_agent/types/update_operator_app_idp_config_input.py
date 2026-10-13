@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#UpdateOperatorAppIdpConfigInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -30,4 +30,11 @@ def deserialize_json(data: dict) -> UpdateOperatorAppIdpConfigInput:
     out: UpdateOperatorAppIdpConfigInput = {}  # type: ignore[typeddict-item]
     if data.get("idpClientSecret") is not None:
         out["idp_client_secret"] = data["idpClientSecret"]
+    return out
+
+
+def redact_sensitive(value: UpdateOperatorAppIdpConfigInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "idp_client_secret" in value:
+        out["idp_client_secret"] = "*** Sensitive Data Redacted ***"
     return out

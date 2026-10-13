@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appstream#ServiceAccountCredentials``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -34,4 +34,13 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceAccountCredentials:
         out["account_name"] = data["AccountName"]
     if data.get("AccountPassword") is not None:
         out["account_password"] = data["AccountPassword"]
+    return out
+
+
+def redact_sensitive(value: ServiceAccountCredentials) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "account_name" in value:
+        out["account_name"] = "*** Sensitive Data Redacted ***"
+    if "account_password" in value:
+        out["account_password"] = "*** Sensitive Data Redacted ***"
     return out

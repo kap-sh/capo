@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.finspacedata#GetProgrammaticAccessCredentialsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,4 +42,11 @@ def deserialize_json(data: dict) -> GetProgrammaticAccessCredentialsResponse:
         )
     if data.get("durationInMinutes") is not None:
         out["duration_in_minutes"] = data["durationInMinutes"]
+    return out
+
+
+def redact_sensitive(value: GetProgrammaticAccessCredentialsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "credentials" in value:
+        out["credentials"] = "*** Sensitive Data Redacted ***"
     return out

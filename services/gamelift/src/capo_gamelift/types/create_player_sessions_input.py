@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#CreatePlayerSessionsInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,5 +58,18 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePlayerSessionsInput:
             capo_gamelift.types.player_data_map.deserialize_aws_json_1_1(
                 data["PlayerDataMap"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: CreatePlayerSessionsInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "player_ids" in value:
+        out["player_ids"] = "*** Sensitive Data Redacted ***"
+    if "player_data_map" in value:
+        import capo_gamelift.types.player_data_map
+
+        out["player_data_map"] = capo_gamelift.types.player_data_map.redact_sensitive(
+            value["player_data_map"]
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#GuardrailContentFilterConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -51,4 +51,15 @@ def deserialize_json(data: dict) -> GuardrailContentFilterConfig:
         raise DeserializationError(
             "GuardrailContentFilterConfig.output_strength required"
         )
+    return out
+
+
+def redact_sensitive(value: GuardrailContentFilterConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "type" in value:
+        out["type"] = "*** Sensitive Data Redacted ***"
+    if "input_strength" in value:
+        out["input_strength"] = "*** Sensitive Data Redacted ***"
+    if "output_strength" in value:
+        out["output_strength"] = "*** Sensitive Data Redacted ***"
     return out

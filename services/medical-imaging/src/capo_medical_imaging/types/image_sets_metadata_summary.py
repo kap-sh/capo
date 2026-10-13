@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.medicalimaging#ImageSetsMetadataSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -113,4 +113,15 @@ def deserialize_json(data: dict) -> ImageSetsMetadataSummary:
         )
     if data.get("isPrimary") is not None:
         out["is_primary"] = data["isPrimary"]
+    return out
+
+
+def redact_sensitive(value: ImageSetsMetadataSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "dicom_tags" in value:
+        import capo_medical_imaging.types.dicom_tags
+
+        out["dicom_tags"] = capo_medical_imaging.types.dicom_tags.redact_sensitive(
+            value["dicom_tags"]
+        )
     return out

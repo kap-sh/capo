@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.finspacedata#PermissionGroupByUserList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_finspace_data.types.permission_group_by_user
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> PermissionGroupByUserList:
             capo_finspace_data.types.permission_group_by_user.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: PermissionGroupByUserList) -> list[Any]:
+    import capo_finspace_data.types.permission_group_by_user
+
+    return [
+        capo_finspace_data.types.permission_group_by_user.redact_sensitive(item)
+        for item in value
+    ]

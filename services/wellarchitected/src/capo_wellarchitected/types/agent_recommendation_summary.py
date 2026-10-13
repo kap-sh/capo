@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wellarchitected#AgentRecommendationSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -285,4 +285,15 @@ def deserialize_json(data: dict) -> AgentRecommendationSummary:
         out["last_modified_at"] = datetime.datetime.fromisoformat(
             data["lastModifiedAt"].replace("Z", "+00:00")
         )
+    return out
+
+
+def redact_sensitive(value: AgentRecommendationSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "title" in value:
+        out["title"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "update_reason" in value:
+        out["update_reason"] = "*** Sensitive Data Redacted ***"
     return out

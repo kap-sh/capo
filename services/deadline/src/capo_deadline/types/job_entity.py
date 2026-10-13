@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#JobEntity``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -114,3 +114,36 @@ def deserialize_json(data: dict) -> JobEntity:
         }
     else:
         raise DeserializationError("JobEntity: no recognized variant key")
+
+
+def redact_sensitive(value: JobEntity) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "jobDetails" in value:
+        import capo_deadline.types.job_details_entity
+
+        out["jobDetails"] = capo_deadline.types.job_details_entity.redact_sensitive(
+            value["jobDetails"]
+        )
+    if "jobAttachmentDetails" in value:
+        import capo_deadline.types.job_attachment_details_entity
+
+        out["jobAttachmentDetails"] = (
+            capo_deadline.types.job_attachment_details_entity.redact_sensitive(
+                value["jobAttachmentDetails"]
+            )
+        )
+    if "stepDetails" in value:
+        import capo_deadline.types.step_details_entity
+
+        out["stepDetails"] = capo_deadline.types.step_details_entity.redact_sensitive(
+            value["stepDetails"]
+        )
+    if "environmentDetails" in value:
+        import capo_deadline.types.environment_details_entity
+
+        out["environmentDetails"] = (
+            capo_deadline.types.environment_details_entity.redact_sensitive(
+                value["environmentDetails"]
+            )
+        )
+    return out

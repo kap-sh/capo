@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexruntimeservice#IntentSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -122,4 +122,11 @@ def deserialize_json(data: dict) -> IntentSummary:
         )
     if data.get("slotToElicit") is not None:
         out["slot_to_elicit"] = data["slotToElicit"]
+    return out
+
+
+def redact_sensitive(value: IntentSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "slots" in value:
+        out["slots"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.voiceid#DomainSummaries``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_voice_id.types.domain_summary
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_0(data: list) -> DomainSummaries:
             continue
         out.append(capo_voice_id.types.domain_summary.deserialize_aws_json_1_0(item))
     return out
+
+
+def redact_sensitive(value: DomainSummaries) -> list[Any]:
+    import capo_voice_id.types.domain_summary
+
+    return [capo_voice_id.types.domain_summary.redact_sensitive(item) for item in value]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#DisassociatePhoneNumbersFromVoiceConnectorGroupRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -52,5 +52,20 @@ def deserialize_json(
     else:
         raise DeserializationError(
             "DisassociatePhoneNumbersFromVoiceConnectorGroupRequest.e164_phone_numbers required"
+        )
+    return out
+
+
+def redact_sensitive(
+    value: DisassociatePhoneNumbersFromVoiceConnectorGroupRequest,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "e164_phone_numbers" in value:
+        import capo_chime_sdk_voice.types.e164_phone_number_list
+
+        out["e164_phone_numbers"] = (
+            capo_chime_sdk_voice.types.e164_phone_number_list.redact_sensitive(
+                value["e164_phone_numbers"]
+            )
         )
     return out

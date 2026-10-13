@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#ImageBlockDelta``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -48,4 +48,13 @@ def deserialize_json(data: dict) -> ImageBlockDelta:
         out["error"] = capo_bedrock_runtime.types.error_block.deserialize_json(
             data["error"]
         )
+    return out
+
+
+def redact_sensitive(value: ImageBlockDelta) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "source" in value:
+        out["source"] = "*** Sensitive Data Redacted ***"
+    if "error" in value:
+        out["error"] = "*** Sensitive Data Redacted ***"
     return out

@@ -29,7 +29,9 @@ from capo_snow_device_management._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -155,7 +157,9 @@ class AsyncSnowDeviceManagementClient:
         self.task = AsyncTask(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncSnowDeviceManagementClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncSnowDeviceManagementClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSnowDeviceManagementClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -163,8 +167,10 @@ class AsyncSnowDeviceManagementClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -216,7 +222,9 @@ class AsyncSnowDeviceManagementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_snow_device_management.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -262,7 +270,9 @@ class AsyncSnowDeviceManagementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_snow_device_management.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -309,7 +319,9 @@ class AsyncSnowDeviceManagementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_snow_device_management.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -360,7 +372,9 @@ class AsyncSnowDeviceManagementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDevice")
+        )
         input_: capo_snow_device_management.types.describe_device_input.DescribeDeviceInput = {
             "managed_device_id": managed_device_id
         }
@@ -415,7 +429,9 @@ class AsyncSnowDeviceManagementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDevices")
+        )
         input_: capo_snow_device_management.types.list_devices_input.ListDevicesInput = {}
         if job_id is not None:
             input_["job_id"] = job_id
@@ -498,7 +514,9 @@ class AsyncSnowDeviceManagementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDeviceEc2Instances")
+        )
         input_: capo_snow_device_management.types.describe_device_ec2_input.DescribeDeviceEc2Input = {
             "managed_device_id": managed_device_id,
             "instance_ids": instance_ids,
@@ -557,7 +575,9 @@ class AsyncSnowDeviceManagementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeviceResources")
+        )
         input_: capo_snow_device_management.types.list_device_resources_input.ListDeviceResourcesInput = {
             "managed_device_id": managed_device_id
         }
@@ -653,7 +673,9 @@ class AsyncSnowDeviceManagementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTask")
+        )
         input_: capo_snow_device_management.types.create_task_input.CreateTaskInput = {
             "targets": targets,
             "command": command,
@@ -709,7 +731,9 @@ class AsyncSnowDeviceManagementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTask")
+        )
         input_: capo_snow_device_management.types.describe_task_input.DescribeTaskInput = {
             "task_id": task_id
         }
@@ -766,7 +790,9 @@ class AsyncSnowDeviceManagementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTasks")
+        )
         input_: capo_snow_device_management.types.list_tasks_input.ListTasksInput = {}
         if state is not None:
             input_["state"] = state
@@ -847,7 +873,9 @@ class AsyncSnowDeviceManagementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelTask")
+        )
         input_: capo_snow_device_management.types.cancel_task_input.CancelTaskInput = {
             "task_id": task_id
         }
@@ -897,7 +925,9 @@ class AsyncSnowDeviceManagementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeExecution")
+        )
         input_: capo_snow_device_management.types.describe_execution_input.DescribeExecutionInput = {
             "task_id": task_id,
             "managed_device_id": managed_device_id,
@@ -960,7 +990,9 @@ class AsyncSnowDeviceManagementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExecutions")
+        )
         input_: capo_snow_device_management.types.list_executions_input.ListExecutionsInput = {
             "task_id": task_id
         }

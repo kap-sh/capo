@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#InlineRedactionPattern``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -122,4 +122,43 @@ def deserialize_json(data: dict) -> InlineRedactionPattern:
         )
     if data.get("confidenceLevel") is not None:
         out["confidence_level"] = data["confidenceLevel"]
+    return out
+
+
+def redact_sensitive(value: InlineRedactionPattern) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "built_in_pattern_id" in value:
+        out["built_in_pattern_id"] = "*** Sensitive Data Redacted ***"
+    if "custom_pattern" in value:
+        import capo_workspaces_web.types.custom_pattern
+
+        out["custom_pattern"] = (
+            capo_workspaces_web.types.custom_pattern.redact_sensitive(
+                value["custom_pattern"]
+            )
+        )
+    if "redaction_place_holder" in value:
+        import capo_workspaces_web.types.redaction_place_holder
+
+        out["redaction_place_holder"] = (
+            capo_workspaces_web.types.redaction_place_holder.redact_sensitive(
+                value["redaction_place_holder"]
+            )
+        )
+    if "enforced_urls" in value:
+        import capo_workspaces_web.types.inline_redaction_urls
+
+        out["enforced_urls"] = (
+            capo_workspaces_web.types.inline_redaction_urls.redact_sensitive(
+                value["enforced_urls"]
+            )
+        )
+    if "exempt_urls" in value:
+        import capo_workspaces_web.types.inline_redaction_urls
+
+        out["exempt_urls"] = (
+            capo_workspaces_web.types.inline_redaction_urls.redact_sensitive(
+                value["exempt_urls"]
+            )
+        )
     return out

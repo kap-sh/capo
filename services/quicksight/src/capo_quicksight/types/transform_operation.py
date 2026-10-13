@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TransformOperation``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -206,3 +206,32 @@ def deserialize_json(data: dict) -> TransformOperation:
         }
     else:
         raise DeserializationError("TransformOperation: no recognized variant key")
+
+
+def redact_sensitive(value: TransformOperation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "FilterOperation" in value:
+        import capo_quicksight.types.filter_operation
+
+        out["FilterOperation"] = (
+            capo_quicksight.types.filter_operation.redact_sensitive(
+                value["FilterOperation"]
+            )
+        )
+    if "CreateColumnsOperation" in value:
+        import capo_quicksight.types.create_columns_operation
+
+        out["CreateColumnsOperation"] = (
+            capo_quicksight.types.create_columns_operation.redact_sensitive(
+                value["CreateColumnsOperation"]
+            )
+        )
+    if "TagColumnOperation" in value:
+        import capo_quicksight.types.tag_column_operation
+
+        out["TagColumnOperation"] = (
+            capo_quicksight.types.tag_column_operation.redact_sensitive(
+                value["TagColumnOperation"]
+            )
+        )
+    return out

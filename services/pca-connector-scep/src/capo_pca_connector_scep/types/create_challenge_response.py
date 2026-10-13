@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pcaconnectorscep#CreateChallengeResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_json(data: dict) -> CreateChallengeResponse:
 
         out["challenge"] = capo_pca_connector_scep.types.challenge.deserialize_json(
             data["Challenge"]
+        )
+    return out
+
+
+def redact_sensitive(value: CreateChallengeResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "challenge" in value:
+        import capo_pca_connector_scep.types.challenge
+
+        out["challenge"] = capo_pca_connector_scep.types.challenge.redact_sensitive(
+            value["challenge"]
         )
     return out

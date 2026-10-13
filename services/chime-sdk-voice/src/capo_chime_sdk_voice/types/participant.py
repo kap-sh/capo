@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#Participant``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -35,4 +35,13 @@ def deserialize_json(data: dict) -> Participant:
         out["phone_number"] = data["PhoneNumber"]
     if data.get("ProxyPhoneNumber") is not None:
         out["proxy_phone_number"] = data["ProxyPhoneNumber"]
+    return out
+
+
+def redact_sensitive(value: Participant) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "phone_number" in value:
+        out["phone_number"] = "*** Sensitive Data Redacted ***"
+    if "proxy_phone_number" in value:
+        out["proxy_phone_number"] = "*** Sensitive Data Redacted ***"
     return out

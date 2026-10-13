@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#WaypointOptimizationImpedingWaypoint``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -66,4 +66,19 @@ def deserialize_json(data: dict) -> WaypointOptimizationImpedingWaypoint:
         raise DeserializationError(
             "WaypointOptimizationImpedingWaypoint.position required"
         )
+    return out
+
+
+def redact_sensitive(value: WaypointOptimizationImpedingWaypoint) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "failed_constraints" in value:
+        import capo_geo_routes.types.waypoint_optimization_failed_constraint_list
+
+        out["failed_constraints"] = (
+            capo_geo_routes.types.waypoint_optimization_failed_constraint_list.redact_sensitive(
+                value["failed_constraints"]
+            )
+        )
+    if "position" in value:
+        out["position"] = "*** Sensitive Data Redacted ***"
     return out

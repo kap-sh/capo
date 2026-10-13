@@ -9,6 +9,7 @@ import capo_networkflowmonitor._auth._sigv4
 from capo_networkflowmonitor._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -110,7 +111,9 @@ class MonitorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateMonitor")
+        )
         input_: capo_networkflowmonitor.types.create_monitor_input.CreateMonitorInput = {
             "monitor_name": monitor_name,
             "local_resources": local_resources,
@@ -166,7 +169,9 @@ class MonitorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMonitor")
+        )
         input_: capo_networkflowmonitor.types.get_monitor_input.GetMonitorInput = {
             "monitor_name": monitor_name
         }
@@ -233,7 +238,9 @@ class MonitorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateMonitor")
+        )
         input_: capo_networkflowmonitor.types.update_monitor_input.UpdateMonitorInput = {
             "monitor_name": monitor_name
         }
@@ -292,7 +299,9 @@ class MonitorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMonitor")
+        )
         input_: capo_networkflowmonitor.types.delete_monitor_input.DeleteMonitorInput = {
             "monitor_name": monitor_name
         }
@@ -346,7 +355,9 @@ class MonitorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMonitors")
+        )
         input_: capo_networkflowmonitor.types.list_monitors_input.ListMonitorsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -404,7 +415,9 @@ class MonitorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetQueryResultsMonitorTopContributors")
+        )
         input_: capo_networkflowmonitor.types.get_query_results_monitor_top_contributors_input.GetQueryResultsMonitorTopContributorsInput = {
             "monitor_name": monitor_name,
             "query_id": query_id,
@@ -458,7 +471,9 @@ class MonitorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetQueryStatusMonitorTopContributors")
+        )
         input_: capo_networkflowmonitor.types.get_query_status_monitor_top_contributors_input.GetQueryStatusMonitorTopContributorsInput = {
             "monitor_name": monitor_name,
             "query_id": query_id,
@@ -516,7 +531,9 @@ class MonitorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartQueryMonitorTopContributors")
+        )
         input_: capo_networkflowmonitor.types.start_query_monitor_top_contributors_input.StartQueryMonitorTopContributorsInput = {
             "monitor_name": monitor_name,
             "start_time": start_time,
@@ -571,7 +588,9 @@ class MonitorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopQueryMonitorTopContributors")
+        )
         input_: capo_networkflowmonitor.types.stop_query_monitor_top_contributors_input.StopQueryMonitorTopContributorsInput = {
             "monitor_name": monitor_name,
             "query_id": query_id,
@@ -640,7 +659,9 @@ class AsyncMonitorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateMonitor")
+        )
         input_: capo_networkflowmonitor.types.create_monitor_input.CreateMonitorInput = {
             "monitor_name": monitor_name,
             "local_resources": local_resources,
@@ -697,7 +718,9 @@ class AsyncMonitorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMonitor")
+        )
         input_: capo_networkflowmonitor.types.get_monitor_input.GetMonitorInput = {
             "monitor_name": monitor_name
         }
@@ -765,7 +788,9 @@ class AsyncMonitorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateMonitor")
+        )
         input_: capo_networkflowmonitor.types.update_monitor_input.UpdateMonitorInput = {
             "monitor_name": monitor_name
         }
@@ -825,7 +850,9 @@ class AsyncMonitorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMonitor")
+        )
         input_: capo_networkflowmonitor.types.delete_monitor_input.DeleteMonitorInput = {
             "monitor_name": monitor_name
         }
@@ -880,7 +907,9 @@ class AsyncMonitorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMonitors")
+        )
         input_: capo_networkflowmonitor.types.list_monitors_input.ListMonitorsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -939,7 +968,9 @@ class AsyncMonitorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetQueryResultsMonitorTopContributors")
+        )
         input_: capo_networkflowmonitor.types.get_query_results_monitor_top_contributors_input.GetQueryResultsMonitorTopContributorsInput = {
             "monitor_name": monitor_name,
             "query_id": query_id,
@@ -994,7 +1025,9 @@ class AsyncMonitorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetQueryStatusMonitorTopContributors")
+        )
         input_: capo_networkflowmonitor.types.get_query_status_monitor_top_contributors_input.GetQueryStatusMonitorTopContributorsInput = {
             "monitor_name": monitor_name,
             "query_id": query_id,
@@ -1053,7 +1086,9 @@ class AsyncMonitorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartQueryMonitorTopContributors")
+        )
         input_: capo_networkflowmonitor.types.start_query_monitor_top_contributors_input.StartQueryMonitorTopContributorsInput = {
             "monitor_name": monitor_name,
             "start_time": start_time,
@@ -1109,7 +1144,9 @@ class AsyncMonitorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopQueryMonitorTopContributors")
+        )
         input_: capo_networkflowmonitor.types.stop_query_monitor_top_contributors_input.StopQueryMonitorTopContributorsInput = {
             "monitor_name": monitor_name,
             "query_id": query_id,

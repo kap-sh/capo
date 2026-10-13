@@ -24,7 +24,9 @@ from capo_mediastore._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -156,7 +158,9 @@ class AsyncMediaStoreClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncMediaStoreClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncMediaStoreClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncMediaStoreClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -164,8 +168,10 @@ class AsyncMediaStoreClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -219,7 +225,9 @@ class AsyncMediaStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateContainer")
+        )
         input_: capo_mediastore.types.create_container_input.CreateContainerInput = {
             "container_name": container_name
         }
@@ -267,7 +275,9 @@ class AsyncMediaStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContainer")
+        )
         input_: capo_mediastore.types.delete_container_input.DeleteContainerInput = {
             "container_name": container_name
         }
@@ -314,7 +324,9 @@ class AsyncMediaStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContainerPolicy")
+        )
         input_: capo_mediastore.types.delete_container_policy_input.DeleteContainerPolicyInput = {
             "container_name": container_name
         }
@@ -361,7 +373,9 @@ class AsyncMediaStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCorsPolicy")
+        )
         input_: capo_mediastore.types.delete_cors_policy_input.DeleteCorsPolicyInput = {
             "container_name": container_name
         }
@@ -408,7 +422,9 @@ class AsyncMediaStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLifecyclePolicy")
+        )
         input_: capo_mediastore.types.delete_lifecycle_policy_input.DeleteLifecyclePolicyInput = {
             "container_name": container_name
         }
@@ -455,7 +471,9 @@ class AsyncMediaStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMetricPolicy")
+        )
         input_: capo_mediastore.types.delete_metric_policy_input.DeleteMetricPolicyInput = {
             "container_name": container_name
         }
@@ -502,7 +520,9 @@ class AsyncMediaStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeContainer")
+        )
         input_: capo_mediastore.types.describe_container_input.DescribeContainerInput = {}
         if container_name is not None:
             input_["container_name"] = container_name
@@ -549,7 +569,9 @@ class AsyncMediaStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContainerPolicy")
+        )
         input_: capo_mediastore.types.get_container_policy_input.GetContainerPolicyInput = {
             "container_name": container_name
         }
@@ -596,7 +618,9 @@ class AsyncMediaStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCorsPolicy")
+        )
         input_: capo_mediastore.types.get_cors_policy_input.GetCorsPolicyInput = {
             "container_name": container_name
         }
@@ -643,7 +667,9 @@ class AsyncMediaStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLifecyclePolicy")
+        )
         input_: capo_mediastore.types.get_lifecycle_policy_input.GetLifecyclePolicyInput = {
             "container_name": container_name
         }
@@ -690,7 +716,9 @@ class AsyncMediaStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMetricPolicy")
+        )
         input_: capo_mediastore.types.get_metric_policy_input.GetMetricPolicyInput = {
             "container_name": container_name
         }
@@ -740,7 +768,9 @@ class AsyncMediaStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContainers")
+        )
         input_: capo_mediastore.types.list_containers_input.ListContainersInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -813,7 +843,9 @@ class AsyncMediaStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_mediastore.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource": resource
         }
@@ -861,7 +893,9 @@ class AsyncMediaStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutContainerPolicy")
+        )
         input_: capo_mediastore.types.put_container_policy_input.PutContainerPolicyInput = {
             "container_name": container_name,
             "policy": policy,
@@ -910,7 +944,9 @@ class AsyncMediaStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutCorsPolicy")
+        )
         input_: capo_mediastore.types.put_cors_policy_input.PutCorsPolicyInput = {
             "container_name": container_name,
             "cors_policy": cors_policy,
@@ -959,7 +995,9 @@ class AsyncMediaStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutLifecyclePolicy")
+        )
         input_: capo_mediastore.types.put_lifecycle_policy_input.PutLifecyclePolicyInput = {
             "container_name": container_name,
             "lifecycle_policy": lifecycle_policy,
@@ -1008,7 +1046,9 @@ class AsyncMediaStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutMetricPolicy")
+        )
         input_: capo_mediastore.types.put_metric_policy_input.PutMetricPolicyInput = {
             "container_name": container_name,
             "metric_policy": metric_policy,
@@ -1055,7 +1095,9 @@ class AsyncMediaStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAccessLogging")
+        )
         input_: capo_mediastore.types.start_access_logging_input.StartAccessLoggingInput = {
             "container_name": container_name
         }
@@ -1101,7 +1143,9 @@ class AsyncMediaStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopAccessLogging")
+        )
         input_: capo_mediastore.types.stop_access_logging_input.StopAccessLoggingInput = {
             "container_name": container_name
         }
@@ -1149,7 +1193,9 @@ class AsyncMediaStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_mediastore.types.tag_resource_input.TagResourceInput = {
             "resource": resource,
             "tags": tags,
@@ -1198,7 +1244,9 @@ class AsyncMediaStoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_mediastore.types.untag_resource_input.UntagResourceInput = {
             "resource": resource,
             "tag_keys": tag_keys,

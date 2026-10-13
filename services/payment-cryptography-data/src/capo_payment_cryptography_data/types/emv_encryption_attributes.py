@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#EmvEncryptionAttributes``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -104,4 +104,15 @@ def deserialize_json(data: dict) -> EmvEncryptionAttributes:
         )
     if data.get("InitializationVector") is not None:
         out["initialization_vector"] = data["InitializationVector"]
+    return out
+
+
+def redact_sensitive(value: EmvEncryptionAttributes) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "primary_account_number" in value:
+        out["primary_account_number"] = "*** Sensitive Data Redacted ***"
+    if "session_derivation_data" in value:
+        out["session_derivation_data"] = "*** Sensitive Data Redacted ***"
+    if "initialization_vector" in value:
+        out["initialization_vector"] = "*** Sensitive Data Redacted ***"
     return out

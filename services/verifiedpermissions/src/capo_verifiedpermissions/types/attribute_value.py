@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#AttributeValue``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -160,3 +160,44 @@ def deserialize_aws_json_1_0(data: dict) -> AttributeValue:
         return {"duration": data["duration"]}
     else:
         raise DeserializationError("AttributeValue: no recognized variant key")
+
+
+def redact_sensitive(value: AttributeValue) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "boolean" in value:
+        out["boolean"] = "*** Sensitive Data Redacted ***"
+    if "entityIdentifier" in value:
+        import capo_verifiedpermissions.types.entity_identifier
+
+        out["entityIdentifier"] = (
+            capo_verifiedpermissions.types.entity_identifier.redact_sensitive(
+                value["entityIdentifier"]
+            )
+        )
+    if "long" in value:
+        out["long"] = "*** Sensitive Data Redacted ***"
+    if "string" in value:
+        out["string"] = "*** Sensitive Data Redacted ***"
+    if "set" in value:
+        import capo_verifiedpermissions.types.set_attribute
+
+        out["set"] = capo_verifiedpermissions.types.set_attribute.redact_sensitive(
+            value["set"]
+        )
+    if "record" in value:
+        import capo_verifiedpermissions.types.record_attribute
+
+        out["record"] = (
+            capo_verifiedpermissions.types.record_attribute.redact_sensitive(
+                value["record"]
+            )
+        )
+    if "ipaddr" in value:
+        out["ipaddr"] = "*** Sensitive Data Redacted ***"
+    if "decimal" in value:
+        out["decimal"] = "*** Sensitive Data Redacted ***"
+    if "datetime" in value:
+        out["datetime"] = "*** Sensitive Data Redacted ***"
+    if "duration" in value:
+        out["duration"] = "*** Sensitive Data Redacted ***"
+    return out

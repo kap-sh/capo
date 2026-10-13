@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.codebuild#CommandExecutions``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_codebuild.types.command_execution
@@ -31,3 +31,11 @@ def deserialize_aws_json_1_1(data: list) -> CommandExecutions:
             capo_codebuild.types.command_execution.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+def redact_sensitive(value: CommandExecutions) -> list[Any]:
+    import capo_codebuild.types.command_execution
+
+    return [
+        capo_codebuild.types.command_execution.redact_sensitive(item) for item in value
+    ]

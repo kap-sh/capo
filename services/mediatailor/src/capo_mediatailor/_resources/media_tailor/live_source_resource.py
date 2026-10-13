@@ -7,6 +7,7 @@ import capo_mediatailor._auth._sigv4
 from capo_mediatailor._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -80,7 +81,9 @@ class LiveSourceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateLiveSource")
+        )
         input_: capo_mediatailor.types.create_live_source_request.CreateLiveSourceRequest = {
             "http_package_configurations": http_package_configurations,
             "live_source_name": live_source_name,
@@ -128,7 +131,9 @@ class LiveSourceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeLiveSource")
+        )
         input_: capo_mediatailor.types.describe_live_source_request.DescribeLiveSourceRequest = {
             "live_source_name": live_source_name,
             "source_location_name": source_location_name,
@@ -175,7 +180,9 @@ class LiveSourceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateLiveSource")
+        )
         input_: capo_mediatailor.types.update_live_source_request.UpdateLiveSourceRequest = {
             "http_package_configurations": http_package_configurations,
             "live_source_name": live_source_name,
@@ -221,7 +228,9 @@ class LiveSourceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteLiveSource")
+        )
         input_: capo_mediatailor.types.delete_live_source_request.DeleteLiveSourceRequest = {
             "live_source_name": live_source_name,
             "source_location_name": source_location_name,
@@ -268,7 +277,9 @@ class LiveSourceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListLiveSources")
+        )
         input_: capo_mediatailor.types.list_live_sources_request.ListLiveSourcesRequest = {
             "source_location_name": source_location_name
         }
@@ -328,7 +339,9 @@ class AsyncLiveSourceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateLiveSource")
+        )
         input_: capo_mediatailor.types.create_live_source_request.CreateLiveSourceRequest = {
             "http_package_configurations": http_package_configurations,
             "live_source_name": live_source_name,
@@ -377,7 +390,9 @@ class AsyncLiveSourceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeLiveSource")
+        )
         input_: capo_mediatailor.types.describe_live_source_request.DescribeLiveSourceRequest = {
             "live_source_name": live_source_name,
             "source_location_name": source_location_name,
@@ -425,7 +440,9 @@ class AsyncLiveSourceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateLiveSource")
+        )
         input_: capo_mediatailor.types.update_live_source_request.UpdateLiveSourceRequest = {
             "http_package_configurations": http_package_configurations,
             "live_source_name": live_source_name,
@@ -472,7 +489,9 @@ class AsyncLiveSourceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteLiveSource")
+        )
         input_: capo_mediatailor.types.delete_live_source_request.DeleteLiveSourceRequest = {
             "live_source_name": live_source_name,
             "source_location_name": source_location_name,
@@ -520,7 +539,9 @@ class AsyncLiveSourceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListLiveSources")
+        )
         input_: capo_mediatailor.types.list_live_sources_request.ListLiveSourcesRequest = {
             "source_location_name": source_location_name
         }

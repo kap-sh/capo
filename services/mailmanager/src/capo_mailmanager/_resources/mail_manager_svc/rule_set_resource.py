@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_mailmanager._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -85,7 +86,19 @@ class RuleSetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mailmanager.types.create_rule_set_request.CreateRuleSetRequest",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.create_rule_set_request
+
+            return capo_mailmanager.types.create_rule_set_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateRuleSet", redact_input=_redact_input),
+        )
         input_: capo_mailmanager.types.create_rule_set_request.CreateRuleSetRequest = {
             "rule_set_name": rule_set_name,
             "rules": rules,
@@ -135,7 +148,17 @@ class RuleSetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mailmanager.types.get_rule_set_response.GetRuleSetResponse",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.get_rule_set_response
+
+            return capo_mailmanager.types.get_rule_set_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetRuleSet", redact_output=_redact_output),
+        )
         input_: capo_mailmanager.types.get_rule_set_request.GetRuleSetRequest = {
             "rule_set_id": rule_set_id
         }
@@ -186,7 +209,19 @@ class RuleSetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mailmanager.types.update_rule_set_request.UpdateRuleSetRequest",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.update_rule_set_request
+
+            return capo_mailmanager.types.update_rule_set_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateRuleSet", redact_input=_redact_input),
+        )
         input_: capo_mailmanager.types.update_rule_set_request.UpdateRuleSetRequest = {
             "rule_set_id": rule_set_id
         }
@@ -234,7 +269,9 @@ class RuleSetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRuleSet")
+        )
         input_: capo_mailmanager.types.delete_rule_set_request.DeleteRuleSetRequest = {
             "rule_set_id": rule_set_id
         }
@@ -281,7 +318,9 @@ class RuleSetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRuleSets")
+        )
         input_: capo_mailmanager.types.list_rule_sets_request.ListRuleSetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -342,7 +381,19 @@ class AsyncRuleSetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mailmanager.types.create_rule_set_request.CreateRuleSetRequest",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.create_rule_set_request
+
+            return capo_mailmanager.types.create_rule_set_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateRuleSet", redact_input=_redact_input),
+        )
         input_: capo_mailmanager.types.create_rule_set_request.CreateRuleSetRequest = {
             "rule_set_name": rule_set_name,
             "rules": rules,
@@ -393,7 +444,17 @@ class AsyncRuleSetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mailmanager.types.get_rule_set_response.GetRuleSetResponse",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.get_rule_set_response
+
+            return capo_mailmanager.types.get_rule_set_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetRuleSet", redact_output=_redact_output),
+        )
         input_: capo_mailmanager.types.get_rule_set_request.GetRuleSetRequest = {
             "rule_set_id": rule_set_id
         }
@@ -445,7 +506,19 @@ class AsyncRuleSetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mailmanager.types.update_rule_set_request.UpdateRuleSetRequest",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.update_rule_set_request
+
+            return capo_mailmanager.types.update_rule_set_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateRuleSet", redact_input=_redact_input),
+        )
         input_: capo_mailmanager.types.update_rule_set_request.UpdateRuleSetRequest = {
             "rule_set_id": rule_set_id
         }
@@ -494,7 +567,9 @@ class AsyncRuleSetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRuleSet")
+        )
         input_: capo_mailmanager.types.delete_rule_set_request.DeleteRuleSetRequest = {
             "rule_set_id": rule_set_id
         }
@@ -542,7 +617,9 @@ class AsyncRuleSetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRuleSets")
+        )
         input_: capo_mailmanager.types.list_rule_sets_request.ListRuleSetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

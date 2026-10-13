@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glue#UpdateJobRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -44,4 +44,15 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateJobRequest:
         )
     else:
         raise DeserializationError("UpdateJobRequest.job_update required")
+    return out
+
+
+def redact_sensitive(value: UpdateJobRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "job_update" in value:
+        import capo_glue.types.job_update
+
+        out["job_update"] = capo_glue.types.job_update.redact_sensitive(
+            value["job_update"]
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemaker#ModelPackage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -514,6 +514,19 @@ def deserialize_aws_json_1_1(data: dict) -> ModelPackage:
         out["skip_model_validation"] = (
             capo_sagemaker.types.skip_model_validation.deserialize_aws_json_1_1(
                 data["SkipModelValidation"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ModelPackage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "model_card" in value:
+        import capo_sagemaker.types.model_package_model_card
+
+        out["model_card"] = (
+            capo_sagemaker.types.model_package_model_card.redact_sensitive(
+                value["model_card"]
             )
         )
     return out

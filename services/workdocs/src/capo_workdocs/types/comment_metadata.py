@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#CommentMetadata``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -87,4 +87,15 @@ def deserialize_json(data: dict) -> CommentMetadata:
         out["recipient_id"] = data["RecipientId"]
     if data.get("ContributorId") is not None:
         out["contributor_id"] = data["ContributorId"]
+    return out
+
+
+def redact_sensitive(value: CommentMetadata) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "contributor" in value:
+        import capo_workdocs.types.user
+
+        out["contributor"] = capo_workdocs.types.user.redact_sensitive(
+            value["contributor"]
+        )
     return out

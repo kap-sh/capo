@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#GetAgentVersionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,15 @@ def deserialize_json(data: dict) -> GetAgentVersionResponse:
         )
     else:
         raise DeserializationError("GetAgentVersionResponse.agent_version required")
+    return out
+
+
+def redact_sensitive(value: GetAgentVersionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "agent_version" in value:
+        import capo_bedrock_agent.types.agent_version
+
+        out["agent_version"] = capo_bedrock_agent.types.agent_version.redact_sensitive(
+            value["agent_version"]
+        )
     return out

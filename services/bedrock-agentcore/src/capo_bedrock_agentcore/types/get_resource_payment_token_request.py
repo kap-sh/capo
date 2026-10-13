@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#GetResourcePaymentTokenRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -65,5 +65,20 @@ def deserialize_json(data: dict) -> GetResourcePaymentTokenRequest:
     else:
         raise DeserializationError(
             "GetResourcePaymentTokenRequest.payment_token_request required"
+        )
+    return out
+
+
+def redact_sensitive(value: GetResourcePaymentTokenRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "workload_identity_token" in value:
+        out["workload_identity_token"] = "*** Sensitive Data Redacted ***"
+    if "payment_token_request" in value:
+        import capo_bedrock_agentcore.types.payment_token_request_input
+
+        out["payment_token_request"] = (
+            capo_bedrock_agentcore.types.payment_token_request_input.redact_sensitive(
+                value["payment_token_request"]
+            )
         )
     return out

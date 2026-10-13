@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appfabric#AuthRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,11 @@ def deserialize_json(data: dict) -> AuthRequest:
         out["code"] = data["code"]
     else:
         raise DeserializationError("AuthRequest.code required")
+    return out
+
+
+def redact_sensitive(value: AuthRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "code" in value:
+        out["code"] = "*** Sensitive Data Redacted ***"
     return out

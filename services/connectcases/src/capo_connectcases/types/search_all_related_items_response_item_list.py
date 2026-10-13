@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectcases#SearchAllRelatedItemsResponseItemList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_connectcases.types.search_all_related_items_response_item
@@ -41,3 +41,16 @@ def deserialize_json(data: list) -> SearchAllRelatedItemsResponseItemList:
             )
         )
     return out
+
+
+def redact_sensitive(value: SearchAllRelatedItemsResponseItemList) -> list[Any]:
+    import capo_connectcases.types.search_all_related_items_response_item
+
+    return [
+        None
+        if item is None
+        else capo_connectcases.types.search_all_related_items_response_item.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

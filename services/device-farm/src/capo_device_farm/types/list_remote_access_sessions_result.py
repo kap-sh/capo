@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devicefarm#ListRemoteAccessSessionsResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_aws_json_1_1(data: dict) -> ListRemoteAccessSessionsResult:
         )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListRemoteAccessSessionsResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "remote_access_sessions" in value:
+        import capo_device_farm.types.remote_access_sessions
+
+        out["remote_access_sessions"] = (
+            capo_device_farm.types.remote_access_sessions.redact_sensitive(
+                value["remote_access_sessions"]
+            )
+        )
     return out

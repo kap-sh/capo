@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#CardGenerationAttributes``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -181,3 +181,56 @@ def deserialize_json(data: dict) -> CardGenerationAttributes:
         raise DeserializationError(
             "CardGenerationAttributes: no recognized variant key"
         )
+
+
+def redact_sensitive(value: CardGenerationAttributes) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "AmexCardSecurityCodeVersion1" in value:
+        import capo_payment_cryptography_data.types.amex_card_security_code_version1
+
+        out["AmexCardSecurityCodeVersion1"] = (
+            capo_payment_cryptography_data.types.amex_card_security_code_version1.redact_sensitive(
+                value["AmexCardSecurityCodeVersion1"]
+            )
+        )
+    if "AmexCardSecurityCodeVersion2" in value:
+        import capo_payment_cryptography_data.types.amex_card_security_code_version2
+
+        out["AmexCardSecurityCodeVersion2"] = (
+            capo_payment_cryptography_data.types.amex_card_security_code_version2.redact_sensitive(
+                value["AmexCardSecurityCodeVersion2"]
+            )
+        )
+    if "CardVerificationValue1" in value:
+        import capo_payment_cryptography_data.types.card_verification_value1
+
+        out["CardVerificationValue1"] = (
+            capo_payment_cryptography_data.types.card_verification_value1.redact_sensitive(
+                value["CardVerificationValue1"]
+            )
+        )
+    if "CardVerificationValue2" in value:
+        import capo_payment_cryptography_data.types.card_verification_value2
+
+        out["CardVerificationValue2"] = (
+            capo_payment_cryptography_data.types.card_verification_value2.redact_sensitive(
+                value["CardVerificationValue2"]
+            )
+        )
+    if "DynamicCardVerificationCode" in value:
+        import capo_payment_cryptography_data.types.dynamic_card_verification_code
+
+        out["DynamicCardVerificationCode"] = (
+            capo_payment_cryptography_data.types.dynamic_card_verification_code.redact_sensitive(
+                value["DynamicCardVerificationCode"]
+            )
+        )
+    if "DynamicCardVerificationValue" in value:
+        import capo_payment_cryptography_data.types.dynamic_card_verification_value
+
+        out["DynamicCardVerificationValue"] = (
+            capo_payment_cryptography_data.types.dynamic_card_verification_value.redact_sensitive(
+                value["DynamicCardVerificationValue"]
+            )
+        )
+    return out

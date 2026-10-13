@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#GetEnvironmentTemplateVersionOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -43,5 +43,18 @@ def deserialize_aws_json_1_0(data: dict) -> GetEnvironmentTemplateVersionOutput:
     else:
         raise DeserializationError(
             "GetEnvironmentTemplateVersionOutput.environment_template_version required"
+        )
+    return out
+
+
+def redact_sensitive(value: GetEnvironmentTemplateVersionOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "environment_template_version" in value:
+        import capo_proton.types.environment_template_version
+
+        out["environment_template_version"] = (
+            capo_proton.types.environment_template_version.redact_sensitive(
+                value["environment_template_version"]
+            )
         )
     return out

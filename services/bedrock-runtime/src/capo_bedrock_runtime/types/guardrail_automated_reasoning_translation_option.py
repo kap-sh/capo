@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#GuardrailAutomatedReasoningTranslationOption``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,21 @@ def deserialize_json(data: dict) -> GuardrailAutomatedReasoningTranslationOption
         out["translations"] = (
             capo_bedrock_runtime.types.guardrail_automated_reasoning_translation_list.deserialize_json(
                 data["translations"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(
+    value: GuardrailAutomatedReasoningTranslationOption,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "translations" in value:
+        import capo_bedrock_runtime.types.guardrail_automated_reasoning_translation_list
+
+        out["translations"] = (
+            capo_bedrock_runtime.types.guardrail_automated_reasoning_translation_list.redact_sensitive(
+                value["translations"]
             )
         )
     return out

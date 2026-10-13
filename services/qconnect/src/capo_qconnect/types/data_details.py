@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#DataDetails``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -316,3 +316,100 @@ def deserialize_json(data: dict) -> DataDetails:
         }
     else:
         raise DeserializationError("DataDetails: no recognized variant key")
+
+
+def redact_sensitive(value: DataDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "contentData" in value:
+        import capo_qconnect.types.content_data_details
+
+        out["contentData"] = capo_qconnect.types.content_data_details.redact_sensitive(
+            value["contentData"]
+        )
+    if "generativeData" in value:
+        import capo_qconnect.types.generative_data_details
+
+        out["generativeData"] = (
+            capo_qconnect.types.generative_data_details.redact_sensitive(
+                value["generativeData"]
+            )
+        )
+    if "intentDetectedData" in value:
+        import capo_qconnect.types.intent_detected_data_details
+
+        out["intentDetectedData"] = (
+            capo_qconnect.types.intent_detected_data_details.redact_sensitive(
+                value["intentDetectedData"]
+            )
+        )
+    if "sourceContentData" in value:
+        import capo_qconnect.types.source_content_data_details
+
+        out["sourceContentData"] = (
+            capo_qconnect.types.source_content_data_details.redact_sensitive(
+                value["sourceContentData"]
+            )
+        )
+    if "generativeChunkData" in value:
+        import capo_qconnect.types.generative_chunk_data_details
+
+        out["generativeChunkData"] = (
+            capo_qconnect.types.generative_chunk_data_details.redact_sensitive(
+                value["generativeChunkData"]
+            )
+        )
+    if "emailResponseChunkData" in value:
+        import capo_qconnect.types.email_response_chunk_data_details
+
+        out["emailResponseChunkData"] = (
+            capo_qconnect.types.email_response_chunk_data_details.redact_sensitive(
+                value["emailResponseChunkData"]
+            )
+        )
+    if "emailOverviewChunkData" in value:
+        import capo_qconnect.types.email_overview_chunk_data_details
+
+        out["emailOverviewChunkData"] = (
+            capo_qconnect.types.email_overview_chunk_data_details.redact_sensitive(
+                value["emailOverviewChunkData"]
+            )
+        )
+    if "emailGenerativeAnswerChunkData" in value:
+        import capo_qconnect.types.email_generative_answer_chunk_data_details
+
+        out["emailGenerativeAnswerChunkData"] = (
+            capo_qconnect.types.email_generative_answer_chunk_data_details.redact_sensitive(
+                value["emailGenerativeAnswerChunkData"]
+            )
+        )
+    if "caseSummarizationChunkData" in value:
+        import capo_qconnect.types.case_summarization_chunk_data_details
+
+        out["caseSummarizationChunkData"] = (
+            capo_qconnect.types.case_summarization_chunk_data_details.redact_sensitive(
+                value["caseSummarizationChunkData"]
+            )
+        )
+    if "suggestedMessageData" in value:
+        import capo_qconnect.types.suggested_message_data_details
+
+        out["suggestedMessageData"] = (
+            capo_qconnect.types.suggested_message_data_details.redact_sensitive(
+                value["suggestedMessageData"]
+            )
+        )
+    if "notesData" in value:
+        import capo_qconnect.types.notes_data_details
+
+        out["notesData"] = capo_qconnect.types.notes_data_details.redact_sensitive(
+            value["notesData"]
+        )
+    if "notesChunkData" in value:
+        import capo_qconnect.types.notes_chunk_data_details
+
+        out["notesChunkData"] = (
+            capo_qconnect.types.notes_chunk_data_details.redact_sensitive(
+                value["notesChunkData"]
+            )
+        )
+    return out

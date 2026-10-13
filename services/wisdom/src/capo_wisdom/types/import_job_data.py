@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wisdom#ImportJobData``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -151,4 +151,13 @@ def deserialize_json(data: dict) -> ImportJobData:
                 data["externalSourceConfiguration"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: ImportJobData) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "url" in value:
+        out["url"] = "*** Sensitive Data Redacted ***"
+    if "failed_record_report" in value:
+        out["failed_record_report"] = "*** Sensitive Data Redacted ***"
     return out

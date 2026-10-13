@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemakerruntimehttp2#InvokeEndpointWithBidirectionalStreamOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -13,3 +13,12 @@ class InvokeEndpointWithBidirectionalStreamOutput(TypedDict, closed=True):
     """<p>The response payload stream.</p>"""
     invoked_production_variant: NotRequired["str"]
     """<p>The invoked production variant.</p>"""
+
+
+def redact_sensitive(
+    value: InvokeEndpointWithBidirectionalStreamOutput,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "body" in value:
+        out["body"] = "*** Streaming Data Redacted ***"
+    return out

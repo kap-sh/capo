@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityagent#ThreatModel``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -146,5 +146,16 @@ def deserialize_json(data: dict) -> ThreatModel:
 
         out["updated_at"] = datetime.datetime.fromisoformat(
             data["updatedAt"].replace("Z", "+00:00")
+        )
+    return out
+
+
+def redact_sensitive(value: ThreatModel) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "assets" in value:
+        import capo_securityagent.types.assets
+
+        out["assets"] = capo_securityagent.types.assets.redact_sensitive(
+            value["assets"]
         )
     return out

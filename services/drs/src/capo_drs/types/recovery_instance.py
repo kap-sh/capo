@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.drs#RecoveryInstance``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -181,4 +181,11 @@ def deserialize_json(data: dict) -> RecoveryInstance:
         out["agent_version"] = data["agentVersion"]
     if data.get("sourceOutpostArn") is not None:
         out["source_outpost_arn"] = data["sourceOutpostArn"]
+    return out
+
+
+def redact_sensitive(value: RecoveryInstance) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
     return out

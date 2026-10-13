@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appstream#DescribeUserStackAssociationsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -66,4 +66,11 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeUserStackAssociationsRequest
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: DescribeUserStackAssociationsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_name" in value:
+        out["user_name"] = "*** Sensitive Data Redacted ***"
     return out

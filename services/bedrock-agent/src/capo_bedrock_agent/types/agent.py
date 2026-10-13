@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#Agent``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -334,4 +334,13 @@ def deserialize_json(data: dict) -> Agent:
                 data["agentCollaboration"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: Agent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "instruction" in value:
+        out["instruction"] = "*** Sensitive Data Redacted ***"
+    if "prompt_override_configuration" in value:
+        out["prompt_override_configuration"] = "*** Sensitive Data Redacted ***"
     return out

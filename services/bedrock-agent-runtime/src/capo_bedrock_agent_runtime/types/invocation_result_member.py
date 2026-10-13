@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#InvocationResultMember``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -65,3 +65,14 @@ def deserialize_json(data: dict) -> InvocationResultMember:
         }
     else:
         raise DeserializationError("InvocationResultMember: no recognized variant key")
+
+
+def redact_sensitive(value: InvocationResultMember) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "apiResult" in value:
+        import capo_bedrock_agent_runtime.types.api_result
+
+        out["apiResult"] = capo_bedrock_agent_runtime.types.api_result.redact_sensitive(
+            value["apiResult"]
+        )
+    return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.amplify#CreateAppRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -260,5 +260,26 @@ def deserialize_json(data: dict) -> CreateAppRequest:
 
         out["cache_config"] = capo_amplify.types.cache_config.deserialize_json(
             data["cacheConfig"]
+        )
+    return out
+
+
+def redact_sensitive(value: CreateAppRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "oauth_token" in value:
+        out["oauth_token"] = "*** Sensitive Data Redacted ***"
+    if "access_token" in value:
+        out["access_token"] = "*** Sensitive Data Redacted ***"
+    if "basic_auth_credentials" in value:
+        out["basic_auth_credentials"] = "*** Sensitive Data Redacted ***"
+    if "build_spec" in value:
+        out["build_spec"] = "*** Sensitive Data Redacted ***"
+    if "auto_branch_creation_config" in value:
+        import capo_amplify.types.auto_branch_creation_config
+
+        out["auto_branch_creation_config"] = (
+            capo_amplify.types.auto_branch_creation_config.redact_sensitive(
+                value["auto_branch_creation_config"]
+            )
         )
     return out

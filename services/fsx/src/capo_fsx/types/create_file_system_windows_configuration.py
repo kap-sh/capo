@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.fsx#CreateFileSystemWindowsConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -192,6 +192,19 @@ def deserialize_aws_json_1_1(data: dict) -> CreateFileSystemWindowsConfiguration
         out["fsrm_configuration"] = (
             capo_fsx.types.windows_fsrm_configuration.deserialize_aws_json_1_1(
                 data["FsrmConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateFileSystemWindowsConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "self_managed_active_directory_configuration" in value:
+        import capo_fsx.types.self_managed_active_directory_configuration
+
+        out["self_managed_active_directory_configuration"] = (
+            capo_fsx.types.self_managed_active_directory_configuration.redact_sensitive(
+                value["self_managed_active_directory_configuration"]
             )
         )
     return out

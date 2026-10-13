@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#HarnessGatewayOutboundAuth``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -67,3 +67,16 @@ def deserialize_json(data: dict) -> HarnessGatewayOutboundAuth:
         raise DeserializationError(
             "HarnessGatewayOutboundAuth: no recognized variant key"
         )
+
+
+def redact_sensitive(value: HarnessGatewayOutboundAuth) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "oauth" in value:
+        import capo_bedrock_agentcore_control.types.o_auth_credential_provider
+
+        out["oauth"] = (
+            capo_bedrock_agentcore_control.types.o_auth_credential_provider.redact_sensitive(
+                value["oauth"]
+            )
+        )
+    return out

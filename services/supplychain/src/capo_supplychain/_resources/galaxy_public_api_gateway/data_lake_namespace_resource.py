@@ -7,6 +7,7 @@ import capo_supplychain._auth._sigv4
 from capo_supplychain._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -94,7 +95,9 @@ class DataLakeNamespaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDataLakeNamespace")
+        )
         input_: capo_supplychain.types.create_data_lake_namespace_request.CreateDataLakeNamespaceRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -158,7 +161,9 @@ class DataLakeNamespaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataLakeNamespace")
+        )
         input_: capo_supplychain.types.get_data_lake_namespace_request.GetDataLakeNamespaceRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -219,7 +224,9 @@ class DataLakeNamespaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDataLakeNamespace")
+        )
         input_: capo_supplychain.types.update_data_lake_namespace_request.UpdateDataLakeNamespaceRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -278,7 +285,9 @@ class DataLakeNamespaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDataLakeNamespace")
+        )
         input_: capo_supplychain.types.delete_data_lake_namespace_request.DeleteDataLakeNamespaceRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -344,7 +353,9 @@ class DataLakeNamespaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDataLakeNamespaces")
+        )
         input_: capo_supplychain.types.list_data_lake_namespaces_request.ListDataLakeNamespacesRequest = {
             "instance_id": instance_id
         }
@@ -416,7 +427,9 @@ class AsyncDataLakeNamespaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDataLakeNamespace")
+        )
         input_: capo_supplychain.types.create_data_lake_namespace_request.CreateDataLakeNamespaceRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -481,7 +494,9 @@ class AsyncDataLakeNamespaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataLakeNamespace")
+        )
         input_: capo_supplychain.types.get_data_lake_namespace_request.GetDataLakeNamespaceRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -543,7 +558,9 @@ class AsyncDataLakeNamespaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDataLakeNamespace")
+        )
         input_: capo_supplychain.types.update_data_lake_namespace_request.UpdateDataLakeNamespaceRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -603,7 +620,9 @@ class AsyncDataLakeNamespaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDataLakeNamespace")
+        )
         input_: capo_supplychain.types.delete_data_lake_namespace_request.DeleteDataLakeNamespaceRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -670,7 +689,9 @@ class AsyncDataLakeNamespaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDataLakeNamespaces")
+        )
         input_: capo_supplychain.types.list_data_lake_namespaces_request.ListDataLakeNamespacesRequest = {
             "instance_id": instance_id
         }

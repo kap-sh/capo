@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.medicalimaging#CopyImageSetRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,5 +53,18 @@ def deserialize_json(data: dict) -> CopyImageSetRequest:
     else:
         raise DeserializationError(
             "CopyImageSetRequest.copy_image_set_information required"
+        )
+    return out
+
+
+def redact_sensitive(value: CopyImageSetRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "copy_image_set_information" in value:
+        import capo_medical_imaging.types.copy_image_set_information
+
+        out["copy_image_set_information"] = (
+            capo_medical_imaging.types.copy_image_set_information.redact_sensitive(
+                value["copy_image_set_information"]
+            )
         )
     return out

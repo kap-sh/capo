@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devicefarm#RemoteAccessEndpoints``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -35,4 +35,13 @@ def deserialize_aws_json_1_1(data: dict) -> RemoteAccessEndpoints:
         out["remote_driver_endpoint"] = data["remoteDriverEndpoint"]
     if data.get("interactiveEndpoint") is not None:
         out["interactive_endpoint"] = data["interactiveEndpoint"]
+    return out
+
+
+def redact_sensitive(value: RemoteAccessEndpoints) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "remote_driver_endpoint" in value:
+        out["remote_driver_endpoint"] = "*** Sensitive Data Redacted ***"
+    if "interactive_endpoint" in value:
+        out["interactive_endpoint"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#PaymentOutput``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -63,3 +63,22 @@ def deserialize_json(data: dict) -> PaymentOutput:
         }
     else:
         raise DeserializationError("PaymentOutput: no recognized variant key")
+
+
+def redact_sensitive(value: PaymentOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "cryptoX402" in value:
+        import capo_bedrock_agentcore.types.crypto_x402_payment_output
+
+        out["cryptoX402"] = (
+            capo_bedrock_agentcore.types.crypto_x402_payment_output.redact_sensitive(
+                value["cryptoX402"]
+            )
+        )
+    if "mpp" in value:
+        import capo_bedrock_agentcore.types.mpp_payment_output
+
+        out["mpp"] = capo_bedrock_agentcore.types.mpp_payment_output.redact_sensitive(
+            value["mpp"]
+        )
+    return out

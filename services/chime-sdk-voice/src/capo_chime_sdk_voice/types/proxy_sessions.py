@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#ProxySessions``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.proxy_session
@@ -27,3 +27,12 @@ def deserialize_json(data: list) -> ProxySessions:
             continue
         out.append(capo_chime_sdk_voice.types.proxy_session.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ProxySessions) -> list[Any]:
+    import capo_chime_sdk_voice.types.proxy_session
+
+    return [
+        capo_chime_sdk_voice.types.proxy_session.redact_sensitive(item)
+        for item in value
+    ]

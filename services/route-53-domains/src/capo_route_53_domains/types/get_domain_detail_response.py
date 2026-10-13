@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.route53domains#GetDomainDetailResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -319,4 +319,21 @@ def deserialize_aws_json_1_1(data: dict) -> GetDomainDetailResponse:
         )
     if data.get("BillingPrivacy") is not None:
         out["billing_privacy"] = data["BillingPrivacy"]
+    return out
+
+
+def redact_sensitive(value: GetDomainDetailResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "admin_contact" in value:
+        out["admin_contact"] = "*** Sensitive Data Redacted ***"
+    if "registrant_contact" in value:
+        out["registrant_contact"] = "*** Sensitive Data Redacted ***"
+    if "tech_contact" in value:
+        out["tech_contact"] = "*** Sensitive Data Redacted ***"
+    if "abuse_contact_email" in value:
+        out["abuse_contact_email"] = "*** Sensitive Data Redacted ***"
+    if "abuse_contact_phone" in value:
+        out["abuse_contact_phone"] = "*** Sensitive Data Redacted ***"
+    if "billing_contact" in value:
+        out["billing_contact"] = "*** Sensitive Data Redacted ***"
     return out

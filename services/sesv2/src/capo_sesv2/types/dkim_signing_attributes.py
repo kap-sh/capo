@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sesv2#DkimSigningAttributes``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -74,4 +74,11 @@ def deserialize_json(data: dict) -> DkimSigningAttributes:
                 data["DomainSigningAttributesOrigin"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: DkimSigningAttributes) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "domain_signing_private_key" in value:
+        out["domain_signing_private_key"] = "*** Sensitive Data Redacted ***"
     return out

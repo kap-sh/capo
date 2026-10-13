@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#CreateUserAccessLoggingSettingsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -48,4 +48,13 @@ def deserialize_json(data: dict) -> CreateUserAccessLoggingSettingsRequest:
         out["tags"] = capo_workspaces_web.types.tag_list.deserialize_json(data["tags"])
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
+    return out
+
+
+def redact_sensitive(value: CreateUserAccessLoggingSettingsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        import capo_workspaces_web.types.tag_list
+
+        out["tags"] = capo_workspaces_web.types.tag_list.redact_sensitive(value["tags"])
     return out

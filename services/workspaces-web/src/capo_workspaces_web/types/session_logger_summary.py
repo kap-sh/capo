@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#SessionLoggerSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -73,4 +73,19 @@ def deserialize_json(data: dict) -> SessionLoggerSummary:
         out["creation_date"] = capo_workspaces_web.types.timestamp.deserialize_json(
             data["creationDate"]
         )
+    return out
+
+
+def redact_sensitive(value: SessionLoggerSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "log_configuration" in value:
+        import capo_workspaces_web.types.log_configuration
+
+        out["log_configuration"] = (
+            capo_workspaces_web.types.log_configuration.redact_sensitive(
+                value["log_configuration"]
+            )
+        )
+    if "display_name" in value:
+        out["display_name"] = "*** Sensitive Data Redacted ***"
     return out

@@ -24,7 +24,9 @@ from capo_cognito_identity_provider._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -506,6 +508,7 @@ class AsyncCognitoIdentityProviderClient:
     def operation_options(
         self,
         config_overrides: Optional[AsyncCognitoIdentityProviderClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncCognitoIdentityProviderClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -513,8 +516,10 @@ class AsyncCognitoIdentityProviderClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -572,7 +577,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddCustomAttributes")
+        )
         input_: capo_cognito_identity_provider.types.add_custom_attributes_request.AddCustomAttributesRequest = {
             "user_pool_id": user_pool_id,
             "custom_attributes": custom_attributes,
@@ -628,7 +635,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.add_user_pool_client_secret_request.AddUserPoolClientSecretRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.add_user_pool_client_secret_request
+
+            return capo_cognito_identity_provider.types.add_user_pool_client_secret_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.add_user_pool_client_secret_response.AddUserPoolClientSecretResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.add_user_pool_client_secret_response
+
+            return capo_cognito_identity_provider.types.add_user_pool_client_secret_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AddUserPoolClientSecret",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.add_user_pool_client_secret_request.AddUserPoolClientSecretRequest = {
             "user_pool_id": user_pool_id,
             "client_id": client_id,
@@ -683,7 +715,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_add_user_to_group_request.AdminAddUserToGroupRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_add_user_to_group_request
+
+            return capo_cognito_identity_provider.types.admin_add_user_to_group_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AdminAddUserToGroup", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.admin_add_user_to_group_request.AdminAddUserToGroupRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -746,7 +790,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_confirm_sign_up_request.AdminConfirmSignUpRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_confirm_sign_up_request
+
+            return capo_cognito_identity_provider.types.admin_confirm_sign_up_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AdminConfirmSignUp", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.admin_confirm_sign_up_request.AdminConfirmSignUpRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -845,7 +901,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_create_user_request.AdminCreateUserRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_create_user_request
+
+            return capo_cognito_identity_provider.types.admin_create_user_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.admin_create_user_response.AdminCreateUserResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_create_user_response
+
+            return capo_cognito_identity_provider.types.admin_create_user_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AdminCreateUser",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.admin_create_user_request.AdminCreateUserRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -913,7 +994,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_delete_software_token_request.AdminDeleteSoftwareTokenRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_delete_software_token_request
+
+            return capo_cognito_identity_provider.types.admin_delete_software_token_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AdminDeleteSoftwareToken", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.admin_delete_software_token_request.AdminDeleteSoftwareTokenRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -964,7 +1057,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_delete_user_request.AdminDeleteUserRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_delete_user_request
+
+            return capo_cognito_identity_provider.types.admin_delete_user_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AdminDeleteUser", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.admin_delete_user_request.AdminDeleteUserRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -1019,7 +1124,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_delete_user_attributes_request.AdminDeleteUserAttributesRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_delete_user_attributes_request
+
+            return capo_cognito_identity_provider.types.admin_delete_user_attributes_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AdminDeleteUserAttributes", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.admin_delete_user_attributes_request.AdminDeleteUserAttributesRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -1074,7 +1191,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AdminDisableProviderForUser")
+        )
         input_: capo_cognito_identity_provider.types.admin_disable_provider_for_user_request.AdminDisableProviderForUserRequest = {
             "user_pool_id": user_pool_id,
             "user": user,
@@ -1127,7 +1246,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_disable_user_request.AdminDisableUserRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_disable_user_request
+
+            return capo_cognito_identity_provider.types.admin_disable_user_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AdminDisableUser", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.admin_disable_user_request.AdminDisableUserRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -1180,7 +1311,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_enable_user_request.AdminEnableUserRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_enable_user_request
+
+            return capo_cognito_identity_provider.types.admin_enable_user_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AdminEnableUser", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.admin_enable_user_request.AdminEnableUserRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -1234,7 +1377,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_forget_device_request.AdminForgetDeviceRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_forget_device_request
+
+            return capo_cognito_identity_provider.types.admin_forget_device_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AdminForgetDevice", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.admin_forget_device_request.AdminForgetDeviceRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -1290,7 +1445,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_get_device_request.AdminGetDeviceRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_get_device_request
+
+            return capo_cognito_identity_provider.types.admin_get_device_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.admin_get_device_response.AdminGetDeviceResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_get_device_response
+
+            return capo_cognito_identity_provider.types.admin_get_device_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AdminGetDevice",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.admin_get_device_request.AdminGetDeviceRequest = {
             "device_key": device_key,
             "user_pool_id": user_pool_id,
@@ -1344,7 +1524,30 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_get_user_request.AdminGetUserRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_get_user_request
+
+            return capo_cognito_identity_provider.types.admin_get_user_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.admin_get_user_response.AdminGetUserResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_get_user_response
+
+            return capo_cognito_identity_provider.types.admin_get_user_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AdminGetUser", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_cognito_identity_provider.types.admin_get_user_request.AdminGetUserRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -1397,7 +1600,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_get_user_auth_factors_request.AdminGetUserAuthFactorsRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_get_user_auth_factors_request
+
+            return capo_cognito_identity_provider.types.admin_get_user_auth_factors_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.admin_get_user_auth_factors_response.AdminGetUserAuthFactorsResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_get_user_auth_factors_response
+
+            return capo_cognito_identity_provider.types.admin_get_user_auth_factors_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AdminGetUserAuthFactors",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.admin_get_user_auth_factors_request.AdminGetUserAuthFactorsRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -1484,7 +1712,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_initiate_auth_request.AdminInitiateAuthRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_initiate_auth_request
+
+            return capo_cognito_identity_provider.types.admin_initiate_auth_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.admin_initiate_auth_response.AdminInitiateAuthResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_initiate_auth_response
+
+            return capo_cognito_identity_provider.types.admin_initiate_auth_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AdminInitiateAuth",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.admin_initiate_auth_request.AdminInitiateAuthRequest = {
             "user_pool_id": user_pool_id,
             "client_id": client_id,
@@ -1552,7 +1805,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AdminLinkProviderForUser")
+        )
         input_: capo_cognito_identity_provider.types.admin_link_provider_for_user_request.AdminLinkProviderForUserRequest = {
             "user_pool_id": user_pool_id,
             "destination_user": destination_user,
@@ -1614,7 +1869,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_list_devices_request.AdminListDevicesRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_list_devices_request
+
+            return capo_cognito_identity_provider.types.admin_list_devices_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.admin_list_devices_response.AdminListDevicesResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_list_devices_response
+
+            return capo_cognito_identity_provider.types.admin_list_devices_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AdminListDevices",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.admin_list_devices_request.AdminListDevicesRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -1679,7 +1959,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_list_groups_for_user_request.AdminListGroupsForUserRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_list_groups_for_user_request
+
+            return capo_cognito_identity_provider.types.admin_list_groups_for_user_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AdminListGroupsForUser", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.admin_list_groups_for_user_request.AdminListGroupsForUserRequest = {
             "username": username,
             "user_pool_id": user_pool_id,
@@ -1774,7 +2066,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_list_user_auth_events_request.AdminListUserAuthEventsRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_list_user_auth_events_request
+
+            return capo_cognito_identity_provider.types.admin_list_user_auth_events_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AdminListUserAuthEvents", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.admin_list_user_auth_events_request.AdminListUserAuthEventsRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -1860,7 +2164,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_remove_user_from_group_request.AdminRemoveUserFromGroupRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_remove_user_from_group_request
+
+            return capo_cognito_identity_provider.types.admin_remove_user_from_group_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AdminRemoveUserFromGroup", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.admin_remove_user_from_group_request.AdminRemoveUserFromGroupRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -1925,7 +2241,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_reset_user_password_request.AdminResetUserPasswordRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_reset_user_password_request
+
+            return capo_cognito_identity_provider.types.admin_reset_user_password_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AdminResetUserPassword", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.admin_reset_user_password_request.AdminResetUserPasswordRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -2018,7 +2346,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_respond_to_auth_challenge_request.AdminRespondToAuthChallengeRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_respond_to_auth_challenge_request
+
+            return capo_cognito_identity_provider.types.admin_respond_to_auth_challenge_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.admin_respond_to_auth_challenge_response.AdminRespondToAuthChallengeResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_respond_to_auth_challenge_response
+
+            return capo_cognito_identity_provider.types.admin_respond_to_auth_challenge_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AdminRespondToAuthChallenge",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.admin_respond_to_auth_challenge_request.AdminRespondToAuthChallengeRequest = {
             "user_pool_id": user_pool_id,
             "client_id": client_id,
@@ -2099,7 +2452,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_set_user_mfa_preference_request.AdminSetUserMFAPreferenceRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_set_user_mfa_preference_request
+
+            return capo_cognito_identity_provider.types.admin_set_user_mfa_preference_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AdminSetUserMFAPreference", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.admin_set_user_mfa_preference_request.AdminSetUserMFAPreferenceRequest = {
             "username": username,
             "user_pool_id": user_pool_id,
@@ -2168,7 +2533,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_set_user_password_request.AdminSetUserPasswordRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_set_user_password_request
+
+            return capo_cognito_identity_provider.types.admin_set_user_password_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AdminSetUserPassword", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.admin_set_user_password_request.AdminSetUserPasswordRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -2225,7 +2602,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_set_user_settings_request.AdminSetUserSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_set_user_settings_request
+
+            return capo_cognito_identity_provider.types.admin_set_user_settings_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AdminSetUserSettings", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.admin_set_user_settings_request.AdminSetUserSettingsRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -2284,7 +2673,21 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_update_auth_event_feedback_request.AdminUpdateAuthEventFeedbackRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_update_auth_event_feedback_request
+
+            return capo_cognito_identity_provider.types.admin_update_auth_event_feedback_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AdminUpdateAuthEventFeedback", redact_input=_redact_input
+            ),
+        )
         input_: capo_cognito_identity_provider.types.admin_update_auth_event_feedback_request.AdminUpdateAuthEventFeedbackRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -2346,7 +2749,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_update_device_status_request.AdminUpdateDeviceStatusRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_update_device_status_request
+
+            return capo_cognito_identity_provider.types.admin_update_device_status_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AdminUpdateDeviceStatus", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.admin_update_device_status_request.AdminUpdateDeviceStatusRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -2415,7 +2830,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_update_user_attributes_request.AdminUpdateUserAttributesRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_update_user_attributes_request
+
+            return capo_cognito_identity_provider.types.admin_update_user_attributes_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AdminUpdateUserAttributes", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.admin_update_user_attributes_request.AdminUpdateUserAttributesRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -2471,7 +2898,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_user_global_sign_out_request.AdminUserGlobalSignOutRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_user_global_sign_out_request
+
+            return capo_cognito_identity_provider.types.admin_user_global_sign_out_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AdminUserGlobalSignOut", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.admin_user_global_sign_out_request.AdminUserGlobalSignOutRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -2529,7 +2968,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.associate_software_token_request.AssociateSoftwareTokenRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.associate_software_token_request
+
+            return capo_cognito_identity_provider.types.associate_software_token_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.associate_software_token_response.AssociateSoftwareTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.associate_software_token_response
+
+            return capo_cognito_identity_provider.types.associate_software_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AssociateSoftwareToken",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.associate_software_token_request.AssociateSoftwareTokenRequest = {}
         if access_token is not None:
             input_["access_token"] = access_token
@@ -2593,7 +3057,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.change_password_request.ChangePasswordRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.change_password_request
+
+            return capo_cognito_identity_provider.types.change_password_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ChangePassword", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.change_password_request.ChangePasswordRequest = {
             "proposed_password": proposed_password,
             "access_token": access_token,
@@ -2655,7 +3131,21 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.complete_web_authn_registration_request.CompleteWebAuthnRegistrationRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.complete_web_authn_registration_request
+
+            return capo_cognito_identity_provider.types.complete_web_authn_registration_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CompleteWebAuthnRegistration", redact_input=_redact_input
+            ),
+        )
         input_: capo_cognito_identity_provider.types.complete_web_authn_registration_request.CompleteWebAuthnRegistrationRequest = {
             "access_token": access_token,
             "credential": credential,
@@ -2724,7 +3214,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.confirm_device_request.ConfirmDeviceRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.confirm_device_request
+
+            return capo_cognito_identity_provider.types.confirm_device_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ConfirmDevice", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.confirm_device_request.ConfirmDeviceRequest = {
             "access_token": access_token,
             "device_key": device_key,
@@ -2812,7 +3314,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.confirm_forgot_password_request.ConfirmForgotPasswordRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.confirm_forgot_password_request
+
+            return capo_cognito_identity_provider.types.confirm_forgot_password_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ConfirmForgotPassword", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.confirm_forgot_password_request.ConfirmForgotPasswordRequest = {
             "client_id": client_id,
             "username": username,
@@ -2910,7 +3424,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.confirm_sign_up_request.ConfirmSignUpRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.confirm_sign_up_request
+
+            return capo_cognito_identity_provider.types.confirm_sign_up_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.confirm_sign_up_response.ConfirmSignUpResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.confirm_sign_up_response
+
+            return capo_cognito_identity_provider.types.confirm_sign_up_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ConfirmSignUp",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.confirm_sign_up_request.ConfirmSignUpRequest = {
             "client_id": client_id,
             "username": username,
@@ -2991,7 +3530,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGroup")
+        )
         input_: capo_cognito_identity_provider.types.create_group_request.CreateGroupRequest = {
             "group_name": group_name,
             "user_pool_id": user_pool_id,
@@ -3066,7 +3607,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIdentityProvider")
+        )
         input_: capo_cognito_identity_provider.types.create_identity_provider_request.CreateIdentityProviderRequest = {
             "user_pool_id": user_pool_id,
             "provider_name": provider_name,
@@ -3141,7 +3684,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.create_managed_login_branding_request.CreateManagedLoginBrandingRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.create_managed_login_branding_request
+
+            return capo_cognito_identity_provider.types.create_managed_login_branding_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateManagedLoginBranding", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.create_managed_login_branding_request.CreateManagedLoginBrandingRequest = {
             "user_pool_id": user_pool_id,
             "client_id": client_id,
@@ -3206,7 +3761,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateResourceServer")
+        )
         input_: capo_cognito_identity_provider.types.create_resource_server_request.CreateResourceServerRequest = {
             "user_pool_id": user_pool_id,
             "identifier": identifier,
@@ -3276,7 +3833,30 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.create_terms_request.CreateTermsRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.create_terms_request
+
+            return capo_cognito_identity_provider.types.create_terms_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.create_terms_response.CreateTermsResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.create_terms_response
+
+            return capo_cognito_identity_provider.types.create_terms_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateTerms", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_cognito_identity_provider.types.create_terms_request.CreateTermsRequest = {
             "user_pool_id": user_pool_id,
             "client_id": client_id,
@@ -3341,7 +3921,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUserImportJob")
+        )
         input_: capo_cognito_identity_provider.types.create_user_import_job_request.CreateUserImportJobRequest = {
             "job_name": job_name,
             "user_pool_id": user_pool_id,
@@ -3509,7 +4091,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUserPool")
+        )
         input_: capo_cognito_identity_provider.types.create_user_pool_request.CreateUserPoolRequest = {
             "pool_name": pool_name
         }
@@ -3710,7 +4294,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.create_user_pool_client_request.CreateUserPoolClientRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.create_user_pool_client_request
+
+            return capo_cognito_identity_provider.types.create_user_pool_client_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.create_user_pool_client_response.CreateUserPoolClientResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.create_user_pool_client_response
+
+            return capo_cognito_identity_provider.types.create_user_pool_client_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateUserPoolClient",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.create_user_pool_client_request.CreateUserPoolClientRequest = {
             "user_pool_id": user_pool_id,
             "client_name": client_name,
@@ -3824,7 +4433,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUserPoolDomain")
+        )
         input_: capo_cognito_identity_provider.types.create_user_pool_domain_request.CreateUserPoolDomainRequest = {
             "domain": domain,
             "user_pool_id": user_pool_id,
@@ -3895,7 +4506,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUserPoolReplica")
+        )
         input_: capo_cognito_identity_provider.types.create_user_pool_replica_request.CreateUserPoolReplicaRequest = {
             "user_pool_id": user_pool_id,
             "region_name": region_name,
@@ -3947,7 +4560,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGroup")
+        )
         input_: capo_cognito_identity_provider.types.delete_group_request.DeleteGroupRequest = {
             "group_name": group_name,
             "user_pool_id": user_pool_id,
@@ -3998,7 +4613,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIdentityProvider")
+        )
         input_: capo_cognito_identity_provider.types.delete_identity_provider_request.DeleteIdentityProviderRequest = {
             "user_pool_id": user_pool_id,
             "provider_name": provider_name,
@@ -4049,7 +4666,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteManagedLoginBranding")
+        )
         input_: capo_cognito_identity_provider.types.delete_managed_login_branding_request.DeleteManagedLoginBrandingRequest = {
             "managed_login_branding_id": managed_login_branding_id,
             "user_pool_id": user_pool_id,
@@ -4099,7 +4718,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourceServer")
+        )
         input_: capo_cognito_identity_provider.types.delete_resource_server_request.DeleteResourceServerRequest = {
             "user_pool_id": user_pool_id,
             "identifier": identifier,
@@ -4150,7 +4771,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTerms")
+        )
         input_: capo_cognito_identity_provider.types.delete_terms_request.DeleteTermsRequest = {
             "terms_id": terms_id,
             "user_pool_id": user_pool_id,
@@ -4202,7 +4825,18 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.delete_user_request.DeleteUserRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.delete_user_request
+
+            return capo_cognito_identity_provider.types.delete_user_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUser", redact_input=_redact_input)
+        )
         input_: capo_cognito_identity_provider.types.delete_user_request.DeleteUserRequest = {
             "access_token": access_token
         }
@@ -4257,7 +4891,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.delete_user_attributes_request.DeleteUserAttributesRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.delete_user_attributes_request
+
+            return capo_cognito_identity_provider.types.delete_user_attributes_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteUserAttributes", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.delete_user_attributes_request.DeleteUserAttributesRequest = {
             "user_attribute_names": user_attribute_names,
             "access_token": access_token,
@@ -4306,7 +4952,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUserPool")
+        )
         input_: capo_cognito_identity_provider.types.delete_user_pool_request.DeleteUserPoolRequest = {
             "user_pool_id": user_pool_id
         }
@@ -4356,7 +5004,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.delete_user_pool_client_request.DeleteUserPoolClientRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.delete_user_pool_client_request
+
+            return capo_cognito_identity_provider.types.delete_user_pool_client_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteUserPoolClient", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.delete_user_pool_client_request.DeleteUserPoolClientRequest = {
             "user_pool_id": user_pool_id,
             "client_id": client_id,
@@ -4409,7 +5069,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.delete_user_pool_client_secret_request.DeleteUserPoolClientSecretRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.delete_user_pool_client_secret_request
+
+            return capo_cognito_identity_provider.types.delete_user_pool_client_secret_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteUserPoolClientSecret", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.delete_user_pool_client_secret_request.DeleteUserPoolClientSecretRequest = {
             "user_pool_id": user_pool_id,
             "client_id": client_id,
@@ -4462,7 +5134,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUserPoolDomain")
+        )
         input_: capo_cognito_identity_provider.types.delete_user_pool_domain_request.DeleteUserPoolDomainRequest = {
             "domain": domain,
             "user_pool_id": user_pool_id,
@@ -4520,7 +5194,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUserPoolReplica")
+        )
         input_: capo_cognito_identity_provider.types.delete_user_pool_replica_request.DeleteUserPoolReplicaRequest = {
             "user_pool_id": user_pool_id,
             "region_name": region_name,
@@ -4575,7 +5251,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.delete_web_authn_credential_request.DeleteWebAuthnCredentialRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.delete_web_authn_credential_request
+
+            return capo_cognito_identity_provider.types.delete_web_authn_credential_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteWebAuthnCredential", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.delete_web_authn_credential_request.DeleteWebAuthnCredentialRequest = {
             "access_token": access_token,
             "credential_id": credential_id,
@@ -4626,7 +5314,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeIdentityProvider")
+        )
         input_: capo_cognito_identity_provider.types.describe_identity_provider_request.DescribeIdentityProviderRequest = {
             "user_pool_id": user_pool_id,
             "provider_name": provider_name,
@@ -4682,7 +5372,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeManagedLoginBranding")
+        )
         input_: capo_cognito_identity_provider.types.describe_managed_login_branding_request.DescribeManagedLoginBrandingRequest = {
             "user_pool_id": user_pool_id,
             "managed_login_branding_id": managed_login_branding_id,
@@ -4740,7 +5432,21 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.describe_managed_login_branding_by_client_request.DescribeManagedLoginBrandingByClientRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.describe_managed_login_branding_by_client_request
+
+            return capo_cognito_identity_provider.types.describe_managed_login_branding_by_client_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeManagedLoginBrandingByClient", redact_input=_redact_input
+            ),
+        )
         input_: capo_cognito_identity_provider.types.describe_managed_login_branding_by_client_request.DescribeManagedLoginBrandingByClientRequest = {
             "user_pool_id": user_pool_id,
             "client_id": client_id,
@@ -4794,7 +5500,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeResourceServer")
+        )
         input_: capo_cognito_identity_provider.types.describe_resource_server_request.DescribeResourceServerRequest = {
             "user_pool_id": user_pool_id,
             "identifier": identifier,
@@ -4849,7 +5557,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.describe_risk_configuration_request.DescribeRiskConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.describe_risk_configuration_request
+
+            return capo_cognito_identity_provider.types.describe_risk_configuration_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.describe_risk_configuration_response.DescribeRiskConfigurationResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.describe_risk_configuration_response
+
+            return capo_cognito_identity_provider.types.describe_risk_configuration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeRiskConfiguration",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.describe_risk_configuration_request.DescribeRiskConfigurationRequest = {
             "user_pool_id": user_pool_id
         }
@@ -4902,7 +5635,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.describe_terms_response.DescribeTermsResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.describe_terms_response
+
+            return capo_cognito_identity_provider.types.describe_terms_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeTerms", redact_output=_redact_output),
+        )
         input_: capo_cognito_identity_provider.types.describe_terms_request.DescribeTermsRequest = {
             "terms_id": terms_id,
             "user_pool_id": user_pool_id,
@@ -4956,7 +5701,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.describe_terms_by_client_request.DescribeTermsByClientRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.describe_terms_by_client_request
+
+            return capo_cognito_identity_provider.types.describe_terms_by_client_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.describe_terms_by_client_response.DescribeTermsByClientResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.describe_terms_by_client_response
+
+            return capo_cognito_identity_provider.types.describe_terms_by_client_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeTermsByClient",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.describe_terms_by_client_request.DescribeTermsByClientRequest = {
             "client_id": client_id,
             "user_pool_id": user_pool_id,
@@ -5009,7 +5779,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeUserImportJob")
+        )
         input_: capo_cognito_identity_provider.types.describe_user_import_job_request.DescribeUserImportJobRequest = {
             "user_pool_id": user_pool_id,
             "job_id": job_id,
@@ -5060,7 +5832,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeUserPool")
+        )
         input_: capo_cognito_identity_provider.types.describe_user_pool_request.DescribeUserPoolRequest = {
             "user_pool_id": user_pool_id
         }
@@ -5111,7 +5885,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.describe_user_pool_client_request.DescribeUserPoolClientRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.describe_user_pool_client_request
+
+            return capo_cognito_identity_provider.types.describe_user_pool_client_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.describe_user_pool_client_response.DescribeUserPoolClientResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.describe_user_pool_client_response
+
+            return capo_cognito_identity_provider.types.describe_user_pool_client_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeUserPoolClient",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.describe_user_pool_client_request.DescribeUserPoolClientRequest = {
             "user_pool_id": user_pool_id,
             "client_id": client_id,
@@ -5160,7 +5959,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeUserPoolDomain")
+        )
         input_: capo_cognito_identity_provider.types.describe_user_pool_domain_request.DescribeUserPoolDomainRequest = {
             "domain": domain
         }
@@ -5216,7 +6017,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.forget_device_request.ForgetDeviceRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.forget_device_request
+
+            return capo_cognito_identity_provider.types.forget_device_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ForgetDevice", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.forget_device_request.ForgetDeviceRequest = {
             "device_key": device_key
         }
@@ -5295,7 +6108,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.forgot_password_request.ForgotPasswordRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.forgot_password_request
+
+            return capo_cognito_identity_provider.types.forgot_password_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ForgotPassword", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.forgot_password_request.ForgotPasswordRequest = {
             "client_id": client_id,
             "username": username,
@@ -5370,7 +6195,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.get_client_token_request.GetClientTokenRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.get_client_token_request
+
+            return capo_cognito_identity_provider.types.get_client_token_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.get_client_token_response.GetClientTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.get_client_token_response
+
+            return capo_cognito_identity_provider.types.get_client_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetClientToken",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.get_client_token_request.GetClientTokenRequest = {
             "client_id": client_id,
             "secret": secret,
@@ -5424,7 +6274,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCSVHeader")
+        )
         input_: capo_cognito_identity_provider.types.get_csv_header_request.GetCSVHeaderRequest = {
             "user_pool_id": user_pool_id
         }
@@ -5482,7 +6334,30 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.get_device_request.GetDeviceRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.get_device_request
+
+            return capo_cognito_identity_provider.types.get_device_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.get_device_response.GetDeviceResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.get_device_response
+
+            return capo_cognito_identity_provider.types.get_device_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetDevice", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_cognito_identity_provider.types.get_device_request.GetDeviceRequest = {
             "device_key": device_key
         }
@@ -5535,7 +6410,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGroup")
+        )
         input_: capo_cognito_identity_provider.types.get_group_request.GetGroupRequest = {
             "group_name": group_name,
             "user_pool_id": user_pool_id,
@@ -5586,7 +6463,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIdentityProviderByIdentifier")
+        )
         input_: capo_cognito_identity_provider.types.get_identity_provider_by_identifier_request.GetIdentityProviderByIdentifierRequest = {
             "user_pool_id": user_pool_id,
             "idp_identifier": idp_identifier,
@@ -5635,7 +6514,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLogDeliveryConfiguration")
+        )
         input_: capo_cognito_identity_provider.types.get_log_delivery_configuration_request.GetLogDeliveryConfigurationRequest = {
             "user_pool_id": user_pool_id
         }
@@ -5689,7 +6570,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProvisionedLimit")
+        )
         input_: capo_cognito_identity_provider.types.get_provisioned_limit_request.GetProvisionedLimitRequest = {
             "limit_definition": limit_definition
         }
@@ -5736,7 +6619,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSigningCertificate")
+        )
         input_: capo_cognito_identity_provider.types.get_signing_certificate_request.GetSigningCertificateRequest = {
             "user_pool_id": user_pool_id
         }
@@ -5805,7 +6690,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.get_tokens_from_refresh_token_request.GetTokensFromRefreshTokenRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.get_tokens_from_refresh_token_request
+
+            return capo_cognito_identity_provider.types.get_tokens_from_refresh_token_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.get_tokens_from_refresh_token_response.GetTokensFromRefreshTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.get_tokens_from_refresh_token_response
+
+            return capo_cognito_identity_provider.types.get_tokens_from_refresh_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetTokensFromRefreshToken",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.get_tokens_from_refresh_token_request.GetTokensFromRefreshTokenRequest = {
             "refresh_token": refresh_token,
             "client_id": client_id,
@@ -5865,7 +6775,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.get_ui_customization_request.GetUICustomizationRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.get_ui_customization_request
+
+            return capo_cognito_identity_provider.types.get_ui_customization_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.get_ui_customization_response.GetUICustomizationResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.get_ui_customization_response
+
+            return capo_cognito_identity_provider.types.get_ui_customization_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetUICustomization",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.get_ui_customization_request.GetUICustomizationRequest = {
             "user_pool_id": user_pool_id
         }
@@ -5920,7 +6855,34 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.get_user_request.GetUserRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.get_user_request
+
+            return (
+                capo_cognito_identity_provider.types.get_user_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.get_user_response.GetUserResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.get_user_response
+
+            return (
+                capo_cognito_identity_provider.types.get_user_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetUser", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_cognito_identity_provider.types.get_user_request.GetUserRequest = {
             "access_token": access_token
         }
@@ -5987,7 +6949,21 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.get_user_attribute_verification_code_request.GetUserAttributeVerificationCodeRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.get_user_attribute_verification_code_request
+
+            return capo_cognito_identity_provider.types.get_user_attribute_verification_code_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetUserAttributeVerificationCode", redact_input=_redact_input
+            ),
+        )
         input_: capo_cognito_identity_provider.types.get_user_attribute_verification_code_request.GetUserAttributeVerificationCodeRequest = {
             "access_token": access_token,
             "attribute_name": attribute_name,
@@ -6043,7 +7019,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.get_user_auth_factors_request.GetUserAuthFactorsRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.get_user_auth_factors_request
+
+            return capo_cognito_identity_provider.types.get_user_auth_factors_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.get_user_auth_factors_response.GetUserAuthFactorsResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.get_user_auth_factors_response
+
+            return capo_cognito_identity_provider.types.get_user_auth_factors_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetUserAuthFactors",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.get_user_auth_factors_request.GetUserAuthFactorsRequest = {
             "access_token": access_token
         }
@@ -6091,7 +7092,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUserPoolMfaConfig")
+        )
         input_: capo_cognito_identity_provider.types.get_user_pool_mfa_config_request.GetUserPoolMfaConfigRequest = {
             "user_pool_id": user_pool_id
         }
@@ -6143,7 +7146,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.global_sign_out_request.GlobalSignOutRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.global_sign_out_request
+
+            return capo_cognito_identity_provider.types.global_sign_out_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GlobalSignOut", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.global_sign_out_request.GlobalSignOutRequest = {
             "access_token": access_token
         }
@@ -6233,7 +7248,30 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.initiate_auth_request.InitiateAuthRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.initiate_auth_request
+
+            return capo_cognito_identity_provider.types.initiate_auth_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.initiate_auth_response.InitiateAuthResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.initiate_auth_response
+
+            return capo_cognito_identity_provider.types.initiate_auth_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InitiateAuth", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_cognito_identity_provider.types.initiate_auth_request.InitiateAuthRequest = {
             "auth_flow": auth_flow,
             "client_id": client_id,
@@ -6308,7 +7346,30 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.list_devices_request.ListDevicesRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.list_devices_request
+
+            return capo_cognito_identity_provider.types.list_devices_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.list_devices_response.ListDevicesResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.list_devices_response
+
+            return capo_cognito_identity_provider.types.list_devices_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListDevices", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_cognito_identity_provider.types.list_devices_request.ListDevicesRequest = {
             "access_token": access_token
         }
@@ -6369,7 +7430,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroups")
+        )
         input_: capo_cognito_identity_provider.types.list_groups_request.ListGroupsRequest = {
             "user_pool_id": user_pool_id
         }
@@ -6456,7 +7519,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIdentityProviders")
+        )
         input_: capo_cognito_identity_provider.types.list_identity_providers_request.ListIdentityProvidersRequest = {
             "user_pool_id": user_pool_id
         }
@@ -6544,7 +7609,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceServers")
+        )
         input_: capo_cognito_identity_provider.types.list_resource_servers_request.ListResourceServersRequest = {
             "user_pool_id": user_pool_id
         }
@@ -6624,7 +7691,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_cognito_identity_provider.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -6681,7 +7750,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTerms")
+        )
         input_: capo_cognito_identity_provider.types.list_terms_request.ListTermsRequest = {
             "user_pool_id": user_pool_id
         }
@@ -6740,7 +7811,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUserImportJobs")
+        )
         input_: capo_cognito_identity_provider.types.list_user_import_jobs_request.ListUserImportJobsRequest = {
             "user_pool_id": user_pool_id,
             "max_results": max_results,
@@ -6800,7 +7873,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.list_user_pool_clients_response.ListUserPoolClientsResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.list_user_pool_clients_response
+
+            return capo_cognito_identity_provider.types.list_user_pool_clients_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListUserPoolClients", redact_output=_redact_output),
+        )
         input_: capo_cognito_identity_provider.types.list_user_pool_clients_request.ListUserPoolClientsRequest = {
             "user_pool_id": user_pool_id
         }
@@ -6885,7 +7970,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.list_user_pool_client_secrets_request.ListUserPoolClientSecretsRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.list_user_pool_client_secrets_request
+
+            return capo_cognito_identity_provider.types.list_user_pool_client_secrets_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.list_user_pool_client_secrets_response.ListUserPoolClientSecretsResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.list_user_pool_client_secrets_response
+
+            return capo_cognito_identity_provider.types.list_user_pool_client_secrets_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListUserPoolClientSecrets",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.list_user_pool_client_secrets_request.ListUserPoolClientSecretsRequest = {
             "user_pool_id": user_pool_id,
             "client_id": client_id,
@@ -6947,7 +8057,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUserPoolReplicas")
+        )
         input_: capo_cognito_identity_provider.types.list_user_pool_replicas_request.ListUserPoolReplicasRequest = {
             "user_pool_id": user_pool_id
         }
@@ -7000,7 +8112,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUserPools")
+        )
         input_: capo_cognito_identity_provider.types.list_user_pools_request.ListUserPoolsRequest = {
             "max_results": max_results
         }
@@ -7096,7 +8210,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.list_users_response.ListUsersResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.list_users_response
+
+            return capo_cognito_identity_provider.types.list_users_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListUsers", redact_output=_redact_output),
+        )
         input_: capo_cognito_identity_provider.types.list_users_request.ListUsersRequest = {
             "user_pool_id": user_pool_id
         }
@@ -7198,7 +8324,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.list_users_in_group_response.ListUsersInGroupResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.list_users_in_group_response
+
+            return capo_cognito_identity_provider.types.list_users_in_group_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListUsersInGroup", redact_output=_redact_output),
+        )
         input_: capo_cognito_identity_provider.types.list_users_in_group_request.ListUsersInGroupRequest = {
             "user_pool_id": user_pool_id,
             "group_name": group_name,
@@ -7291,7 +8429,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.list_web_authn_credentials_request.ListWebAuthnCredentialsRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.list_web_authn_credentials_request
+
+            return capo_cognito_identity_provider.types.list_web_authn_credentials_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListWebAuthnCredentials", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.list_web_authn_credentials_request.ListWebAuthnCredentialsRequest = {
             "access_token": access_token
         }
@@ -7372,7 +8522,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.resend_confirmation_code_request.ResendConfirmationCodeRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.resend_confirmation_code_request
+
+            return capo_cognito_identity_provider.types.resend_confirmation_code_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ResendConfirmationCode", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.resend_confirmation_code_request.ResendConfirmationCodeRequest = {
             "client_id": client_id,
             "username": username,
@@ -7470,7 +8632,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.respond_to_auth_challenge_request.RespondToAuthChallengeRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.respond_to_auth_challenge_request
+
+            return capo_cognito_identity_provider.types.respond_to_auth_challenge_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.respond_to_auth_challenge_response.RespondToAuthChallengeResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.respond_to_auth_challenge_response
+
+            return capo_cognito_identity_provider.types.respond_to_auth_challenge_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RespondToAuthChallenge",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.respond_to_auth_challenge_request.RespondToAuthChallengeRequest = {
             "client_id": client_id,
             "challenge_name": challenge_name,
@@ -7540,7 +8727,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.revoke_token_request.RevokeTokenRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.revoke_token_request
+
+            return capo_cognito_identity_provider.types.revoke_token_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RevokeToken", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.revoke_token_request.RevokeTokenRequest = {
             "token": token,
             "client_id": client_id,
@@ -7594,7 +8793,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetLogDeliveryConfiguration")
+        )
         input_: capo_cognito_identity_provider.types.set_log_delivery_configuration_request.SetLogDeliveryConfigurationRequest = {
             "user_pool_id": user_pool_id,
             "log_configurations": log_configurations,
@@ -7663,7 +8864,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.set_risk_configuration_request.SetRiskConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.set_risk_configuration_request
+
+            return capo_cognito_identity_provider.types.set_risk_configuration_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.set_risk_configuration_response.SetRiskConfigurationResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.set_risk_configuration_response
+
+            return capo_cognito_identity_provider.types.set_risk_configuration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SetRiskConfiguration",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.set_risk_configuration_request.SetRiskConfigurationRequest = {
             "user_pool_id": user_pool_id
         }
@@ -7734,7 +8960,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.set_ui_customization_request.SetUICustomizationRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.set_ui_customization_request
+
+            return capo_cognito_identity_provider.types.set_ui_customization_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.set_ui_customization_response.SetUICustomizationResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.set_ui_customization_response
+
+            return capo_cognito_identity_provider.types.set_ui_customization_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SetUICustomization",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.set_ui_customization_request.SetUICustomizationRequest = {
             "user_pool_id": user_pool_id
         }
@@ -7808,7 +9059,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.set_user_mfa_preference_request.SetUserMFAPreferenceRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.set_user_mfa_preference_request
+
+            return capo_cognito_identity_provider.types.set_user_mfa_preference_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SetUserMFAPreference", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.set_user_mfa_preference_request.SetUserMFAPreferenceRequest = {
             "access_token": access_token
         }
@@ -7889,7 +9152,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetUserPoolMfaConfig")
+        )
         input_: capo_cognito_identity_provider.types.set_user_pool_mfa_config_request.SetUserPoolMfaConfigRequest = {
             "user_pool_id": user_pool_id
         }
@@ -7955,7 +9220,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.set_user_settings_request.SetUserSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.set_user_settings_request
+
+            return capo_cognito_identity_provider.types.set_user_settings_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SetUserSettings", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.set_user_settings_request.SetUserSettingsRequest = {
             "access_token": access_token,
             "mfa_options": mfa_options,
@@ -8046,7 +9323,34 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.sign_up_request.SignUpRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.sign_up_request
+
+            return (
+                capo_cognito_identity_provider.types.sign_up_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.sign_up_response.SignUpResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.sign_up_response
+
+            return (
+                capo_cognito_identity_provider.types.sign_up_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SignUp", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_cognito_identity_provider.types.sign_up_request.SignUpRequest = {
             "client_id": client_id,
             "username": username,
@@ -8113,7 +9417,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartUserImportJob")
+        )
         input_: capo_cognito_identity_provider.types.start_user_import_job_request.StartUserImportJobRequest = {
             "user_pool_id": user_pool_id,
             "job_id": job_id,
@@ -8167,7 +9473,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.start_web_authn_registration_request.StartWebAuthnRegistrationRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.start_web_authn_registration_request
+
+            return capo_cognito_identity_provider.types.start_web_authn_registration_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartWebAuthnRegistration", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.start_web_authn_registration_request.StartWebAuthnRegistrationRequest = {
             "access_token": access_token
         }
@@ -8219,7 +9537,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopUserImportJob")
+        )
         input_: capo_cognito_identity_provider.types.stop_user_import_job_request.StopUserImportJobRequest = {
             "user_pool_id": user_pool_id,
             "job_id": job_id,
@@ -8273,7 +9593,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_cognito_identity_provider.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -8325,7 +9647,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_cognito_identity_provider.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -8385,7 +9709,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.update_auth_event_feedback_request.UpdateAuthEventFeedbackRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.update_auth_event_feedback_request
+
+            return capo_cognito_identity_provider.types.update_auth_event_feedback_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAuthEventFeedback", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.update_auth_event_feedback_request.UpdateAuthEventFeedbackRequest = {
             "user_pool_id": user_pool_id,
             "username": username,
@@ -8449,7 +9785,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.update_device_status_request.UpdateDeviceStatusRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.update_device_status_request
+
+            return capo_cognito_identity_provider.types.update_device_status_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateDeviceStatus", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.update_device_status_request.UpdateDeviceStatusRequest = {
             "access_token": access_token,
             "device_key": device_key,
@@ -8517,7 +9865,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGroup")
+        )
         input_: capo_cognito_identity_provider.types.update_group_request.UpdateGroupRequest = {
             "group_name": group_name,
             "user_pool_id": user_pool_id,
@@ -8592,7 +9942,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIdentityProvider")
+        )
         input_: capo_cognito_identity_provider.types.update_identity_provider_request.UpdateIdentityProviderRequest = {
             "user_pool_id": user_pool_id,
             "provider_name": provider_name,
@@ -8669,7 +10021,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateManagedLoginBranding")
+        )
         input_: capo_cognito_identity_provider.types.update_managed_login_branding_request.UpdateManagedLoginBrandingRequest = {}
         if user_pool_id is not None:
             input_["user_pool_id"] = user_pool_id
@@ -8734,7 +10088,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProvisionedLimit")
+        )
         input_: capo_cognito_identity_provider.types.update_provisioned_limit_request.UpdateProvisionedLimitRequest = {
             "limit_definition": limit_definition,
             "requested_limit_value": requested_limit_value,
@@ -8792,7 +10148,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateResourceServer")
+        )
         input_: capo_cognito_identity_provider.types.update_resource_server_request.UpdateResourceServerRequest = {
             "user_pool_id": user_pool_id,
             "identifier": identifier,
@@ -8867,7 +10225,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.update_terms_response.UpdateTermsResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.update_terms_response
+
+            return capo_cognito_identity_provider.types.update_terms_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateTerms", redact_output=_redact_output),
+        )
         input_: capo_cognito_identity_provider.types.update_terms_request.UpdateTermsRequest = {
             "terms_id": terms_id,
             "user_pool_id": user_pool_id,
@@ -8945,7 +10315,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.update_user_attributes_request.UpdateUserAttributesRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.update_user_attributes_request
+
+            return capo_cognito_identity_provider.types.update_user_attributes_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateUserAttributes", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.update_user_attributes_request.UpdateUserAttributesRequest = {
             "user_attributes": user_attributes,
             "access_token": access_token,
@@ -9097,7 +10479,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUserPool")
+        )
         input_: capo_cognito_identity_provider.types.update_user_pool_request.UpdateUserPoolRequest = {
             "user_pool_id": user_pool_id
         }
@@ -9282,7 +10666,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.update_user_pool_client_request.UpdateUserPoolClientRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.update_user_pool_client_request
+
+            return capo_cognito_identity_provider.types.update_user_pool_client_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.update_user_pool_client_response.UpdateUserPoolClientResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.update_user_pool_client_response
+
+            return capo_cognito_identity_provider.types.update_user_pool_client_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateUserPoolClient",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.update_user_pool_client_request.UpdateUserPoolClientRequest = {
             "user_pool_id": user_pool_id,
             "client_id": client_id,
@@ -9394,7 +10803,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUserPoolDomain")
+        )
         input_: capo_cognito_identity_provider.types.update_user_pool_domain_request.UpdateUserPoolDomainRequest = {
             "domain": domain,
             "user_pool_id": user_pool_id,
@@ -9460,7 +10871,9 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUserPoolReplica")
+        )
         input_: capo_cognito_identity_provider.types.update_user_pool_replica_request.UpdateUserPoolReplicaRequest = {
             "user_pool_id": user_pool_id,
             "region_name": region_name,
@@ -9531,7 +10944,32 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.verify_software_token_request.VerifySoftwareTokenRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.verify_software_token_request
+
+            return capo_cognito_identity_provider.types.verify_software_token_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.verify_software_token_response.VerifySoftwareTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.verify_software_token_response
+
+            return capo_cognito_identity_provider.types.verify_software_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "VerifySoftwareToken",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cognito_identity_provider.types.verify_software_token_request.VerifySoftwareTokenRequest = {
             "user_code": user_code
         }
@@ -9598,7 +11036,19 @@ class AsyncCognitoIdentityProviderClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.verify_user_attribute_request.VerifyUserAttributeRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.verify_user_attribute_request
+
+            return capo_cognito_identity_provider.types.verify_user_attribute_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("VerifyUserAttribute", redact_input=_redact_input),
+        )
         input_: capo_cognito_identity_provider.types.verify_user_attribute_request.VerifyUserAttributeRequest = {
             "access_token": access_token,
             "attribute_name": attribute_name,

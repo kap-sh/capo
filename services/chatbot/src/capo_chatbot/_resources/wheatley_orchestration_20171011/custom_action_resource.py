@@ -8,6 +8,7 @@ import capo_chatbot._auth._sigv4
 from capo_chatbot._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -101,7 +102,9 @@ class CustomActionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCustomAction")
+        )
         input_: capo_chatbot.types.create_custom_action_request.CreateCustomActionRequest = {
             "definition": definition,
             "action_name": action_name,
@@ -162,7 +165,9 @@ class CustomActionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCustomAction")
+        )
         input_: capo_chatbot.types.get_custom_action_request.GetCustomActionRequest = {
             "custom_action_arn": custom_action_arn
         }
@@ -224,7 +229,9 @@ class CustomActionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCustomAction")
+        )
         input_: capo_chatbot.types.update_custom_action_request.UpdateCustomActionRequest = {
             "custom_action_arn": custom_action_arn,
             "definition": definition,
@@ -280,7 +287,9 @@ class CustomActionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCustomAction")
+        )
         input_: capo_chatbot.types.delete_custom_action_request.DeleteCustomActionRequest = {
             "custom_action_arn": custom_action_arn
         }
@@ -332,7 +341,9 @@ class CustomActionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCustomActions")
+        )
         input_: capo_chatbot.types.list_custom_actions_request.ListCustomActionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -411,7 +422,9 @@ class AsyncCustomActionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCustomAction")
+        )
         input_: capo_chatbot.types.create_custom_action_request.CreateCustomActionRequest = {
             "definition": definition,
             "action_name": action_name,
@@ -473,7 +486,9 @@ class AsyncCustomActionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCustomAction")
+        )
         input_: capo_chatbot.types.get_custom_action_request.GetCustomActionRequest = {
             "custom_action_arn": custom_action_arn
         }
@@ -536,7 +551,9 @@ class AsyncCustomActionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCustomAction")
+        )
         input_: capo_chatbot.types.update_custom_action_request.UpdateCustomActionRequest = {
             "custom_action_arn": custom_action_arn,
             "definition": definition,
@@ -593,7 +610,9 @@ class AsyncCustomActionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCustomAction")
+        )
         input_: capo_chatbot.types.delete_custom_action_request.DeleteCustomActionRequest = {
             "custom_action_arn": custom_action_arn
         }
@@ -646,7 +665,9 @@ class AsyncCustomActionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCustomActions")
+        )
         input_: capo_chatbot.types.list_custom_actions_request.ListCustomActionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#ServiceNowOAuthClientCredentialsConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -67,4 +67,21 @@ def deserialize_json(data: dict) -> ServiceNowOAuthClientCredentialsConfig:
         raise DeserializationError(
             "ServiceNowOAuthClientCredentialsConfig.client_secret required"
         )
+    return out
+
+
+def redact_sensitive(value: ServiceNowOAuthClientCredentialsConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_id" in value:
+        out["client_id"] = "*** Sensitive Data Redacted ***"
+    if "exchange_parameters" in value:
+        import capo_devops_agent.types.exchange_parameters
+
+        out["exchange_parameters"] = (
+            capo_devops_agent.types.exchange_parameters.redact_sensitive(
+                value["exchange_parameters"]
+            )
+        )
+    if "client_secret" in value:
+        out["client_secret"] = "*** Sensitive Data Redacted ***"
     return out

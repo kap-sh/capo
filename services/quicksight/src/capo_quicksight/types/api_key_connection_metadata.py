@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#APIKeyConnectionMetadata``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -43,4 +43,13 @@ def deserialize_json(data: dict) -> APIKeyConnectionMetadata:
         raise DeserializationError("APIKeyConnectionMetadata.api_key required")
     if data.get("Email") is not None:
         out["email"] = data["Email"]
+    return out
+
+
+def redact_sensitive(value: APIKeyConnectionMetadata) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "api_key" in value:
+        out["api_key"] = "*** Sensitive Data Redacted ***"
+    if "email" in value:
+        out["email"] = "*** Sensitive Data Redacted ***"
     return out

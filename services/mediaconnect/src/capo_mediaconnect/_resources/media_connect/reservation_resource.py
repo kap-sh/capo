@@ -7,6 +7,7 @@ import capo_mediaconnect._auth._sigv4
 from capo_mediaconnect._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -76,7 +77,9 @@ class ReservationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PurchaseOffering")
+        )
         input_: capo_mediaconnect.types.purchase_offering_request.PurchaseOfferingRequest = {
             "offering_arn": offering_arn
         }
@@ -127,7 +130,9 @@ class ReservationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeReservation")
+        )
         input_: capo_mediaconnect.types.describe_reservation_request.DescribeReservationRequest = {
             "reservation_arn": reservation_arn
         }
@@ -175,7 +180,9 @@ class ReservationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReservations")
+        )
         input_: capo_mediaconnect.types.list_reservations_request.ListReservationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -235,7 +242,9 @@ class AsyncReservationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PurchaseOffering")
+        )
         input_: capo_mediaconnect.types.purchase_offering_request.PurchaseOfferingRequest = {
             "offering_arn": offering_arn
         }
@@ -287,7 +296,9 @@ class AsyncReservationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeReservation")
+        )
         input_: capo_mediaconnect.types.describe_reservation_request.DescribeReservationRequest = {
             "reservation_arn": reservation_arn
         }
@@ -336,7 +347,9 @@ class AsyncReservationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReservations")
+        )
         input_: capo_mediaconnect.types.list_reservations_request.ListReservationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

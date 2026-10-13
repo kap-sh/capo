@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#RetrievalFilterConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -294,3 +294,86 @@ def deserialize_json(data: dict) -> RetrievalFilterConfiguration:
         raise DeserializationError(
             "RetrievalFilterConfiguration: no recognized variant key"
         )
+
+
+def redact_sensitive(value: RetrievalFilterConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "andAll" in value:
+        import capo_qconnect.types.retrieval_filter_list
+
+        out["andAll"] = capo_qconnect.types.retrieval_filter_list.redact_sensitive(
+            value["andAll"]
+        )
+    if "equals" in value:
+        import capo_qconnect.types.filter_attribute
+
+        out["equals"] = capo_qconnect.types.filter_attribute.redact_sensitive(
+            value["equals"]
+        )
+    if "greaterThan" in value:
+        import capo_qconnect.types.filter_attribute
+
+        out["greaterThan"] = capo_qconnect.types.filter_attribute.redact_sensitive(
+            value["greaterThan"]
+        )
+    if "greaterThanOrEquals" in value:
+        import capo_qconnect.types.filter_attribute
+
+        out["greaterThanOrEquals"] = (
+            capo_qconnect.types.filter_attribute.redact_sensitive(
+                value["greaterThanOrEquals"]
+            )
+        )
+    if "in" in value:
+        import capo_qconnect.types.filter_attribute
+
+        out["in"] = capo_qconnect.types.filter_attribute.redact_sensitive(value["in"])
+    if "lessThan" in value:
+        import capo_qconnect.types.filter_attribute
+
+        out["lessThan"] = capo_qconnect.types.filter_attribute.redact_sensitive(
+            value["lessThan"]
+        )
+    if "lessThanOrEquals" in value:
+        import capo_qconnect.types.filter_attribute
+
+        out["lessThanOrEquals"] = capo_qconnect.types.filter_attribute.redact_sensitive(
+            value["lessThanOrEquals"]
+        )
+    if "listContains" in value:
+        import capo_qconnect.types.filter_attribute
+
+        out["listContains"] = capo_qconnect.types.filter_attribute.redact_sensitive(
+            value["listContains"]
+        )
+    if "notEquals" in value:
+        import capo_qconnect.types.filter_attribute
+
+        out["notEquals"] = capo_qconnect.types.filter_attribute.redact_sensitive(
+            value["notEquals"]
+        )
+    if "notIn" in value:
+        import capo_qconnect.types.filter_attribute
+
+        out["notIn"] = capo_qconnect.types.filter_attribute.redact_sensitive(
+            value["notIn"]
+        )
+    if "orAll" in value:
+        import capo_qconnect.types.retrieval_filter_list
+
+        out["orAll"] = capo_qconnect.types.retrieval_filter_list.redact_sensitive(
+            value["orAll"]
+        )
+    if "startsWith" in value:
+        import capo_qconnect.types.filter_attribute
+
+        out["startsWith"] = capo_qconnect.types.filter_attribute.redact_sensitive(
+            value["startsWith"]
+        )
+    if "stringContains" in value:
+        import capo_qconnect.types.filter_attribute
+
+        out["stringContains"] = capo_qconnect.types.filter_attribute.redact_sensitive(
+            value["stringContains"]
+        )
+    return out

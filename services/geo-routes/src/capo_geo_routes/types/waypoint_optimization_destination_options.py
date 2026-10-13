@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#WaypointOptimizationDestinationOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -98,6 +98,33 @@ def deserialize_json(data: dict) -> WaypointOptimizationDestinationOptions:
         out["side_of_street"] = (
             capo_geo_routes.types.waypoint_optimization_side_of_street_options.deserialize_json(
                 data["SideOfStreet"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: WaypointOptimizationDestinationOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "access_hours" in value:
+        import capo_geo_routes.types.waypoint_optimization_access_hours
+
+        out["access_hours"] = (
+            capo_geo_routes.types.waypoint_optimization_access_hours.redact_sensitive(
+                value["access_hours"]
+            )
+        )
+    if "appointment_time" in value:
+        out["appointment_time"] = "*** Sensitive Data Redacted ***"
+    if "heading" in value:
+        out["heading"] = "*** Sensitive Data Redacted ***"
+    if "service_duration" in value:
+        out["service_duration"] = "*** Sensitive Data Redacted ***"
+    if "side_of_street" in value:
+        import capo_geo_routes.types.waypoint_optimization_side_of_street_options
+
+        out["side_of_street"] = (
+            capo_geo_routes.types.waypoint_optimization_side_of_street_options.redact_sensitive(
+                value["side_of_street"]
             )
         )
     return out

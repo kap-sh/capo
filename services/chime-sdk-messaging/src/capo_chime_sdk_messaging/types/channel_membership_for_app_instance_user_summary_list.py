@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmessaging#ChannelMembershipForAppInstanceUserSummaryList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_chime_sdk_messaging.types.channel_membership_for_app_instance_user_summary
@@ -37,3 +37,16 @@ def deserialize_json(data: list) -> ChannelMembershipForAppInstanceUserSummaryLi
             )
         )
     return out
+
+
+def redact_sensitive(
+    value: ChannelMembershipForAppInstanceUserSummaryList,
+) -> list[Any]:
+    import capo_chime_sdk_messaging.types.channel_membership_for_app_instance_user_summary
+
+    return [
+        capo_chime_sdk_messaging.types.channel_membership_for_app_instance_user_summary.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

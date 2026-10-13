@@ -8,6 +8,7 @@ import capo_nova_act._auth._sigv4
 from capo_nova_act._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -92,7 +93,9 @@ class WorkflowRunResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWorkflowRun")
+        )
         input_: capo_nova_act.types.create_workflow_run_request.CreateWorkflowRunRequest = {
             "workflow_definition_name": workflow_definition_name,
             "model_id": model_id,
@@ -149,7 +152,9 @@ class WorkflowRunResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetWorkflowRun")
+        )
         input_: capo_nova_act.types.get_workflow_run_request.GetWorkflowRunRequest = {
             "workflow_definition_name": workflow_definition_name,
             "workflow_run_id": workflow_run_id,
@@ -202,7 +207,9 @@ class WorkflowRunResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateWorkflowRun")
+        )
         input_: capo_nova_act.types.update_workflow_run_request.UpdateWorkflowRunRequest = {
             "workflow_definition_name": workflow_definition_name,
             "workflow_run_id": workflow_run_id,
@@ -254,7 +261,9 @@ class WorkflowRunResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflowRun")
+        )
         input_: capo_nova_act.types.delete_workflow_run_request.DeleteWorkflowRunRequest = {
             "workflow_definition_name": workflow_definition_name,
             "workflow_run_id": workflow_run_id,
@@ -309,7 +318,9 @@ class WorkflowRunResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkflowRuns")
+        )
         input_: capo_nova_act.types.list_workflow_runs_request.ListWorkflowRunsRequest = {
             "workflow_definition_name": workflow_definition_name
         }
@@ -379,7 +390,9 @@ class AsyncWorkflowRunResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWorkflowRun")
+        )
         input_: capo_nova_act.types.create_workflow_run_request.CreateWorkflowRunRequest = {
             "workflow_definition_name": workflow_definition_name,
             "model_id": model_id,
@@ -437,7 +450,9 @@ class AsyncWorkflowRunResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetWorkflowRun")
+        )
         input_: capo_nova_act.types.get_workflow_run_request.GetWorkflowRunRequest = {
             "workflow_definition_name": workflow_definition_name,
             "workflow_run_id": workflow_run_id,
@@ -491,7 +506,9 @@ class AsyncWorkflowRunResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateWorkflowRun")
+        )
         input_: capo_nova_act.types.update_workflow_run_request.UpdateWorkflowRunRequest = {
             "workflow_definition_name": workflow_definition_name,
             "workflow_run_id": workflow_run_id,
@@ -544,7 +561,9 @@ class AsyncWorkflowRunResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflowRun")
+        )
         input_: capo_nova_act.types.delete_workflow_run_request.DeleteWorkflowRunRequest = {
             "workflow_definition_name": workflow_definition_name,
             "workflow_run_id": workflow_run_id,
@@ -600,7 +619,9 @@ class AsyncWorkflowRunResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkflowRuns")
+        )
         input_: capo_nova_act.types.list_workflow_runs_request.ListWorkflowRunsRequest = {
             "workflow_definition_name": workflow_definition_name
         }

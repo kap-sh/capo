@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemakergeospatial#ListRasterDataCollectionsInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -23,4 +23,11 @@ def serialize_json(value: ListRasterDataCollectionsInput) -> dict:
 
 def deserialize_json(data: dict) -> ListRasterDataCollectionsInput:
     out: ListRasterDataCollectionsInput = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: ListRasterDataCollectionsInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "next_token" in value:
+        out["next_token"] = "*** Sensitive Data Redacted ***"
     return out

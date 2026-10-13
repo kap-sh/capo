@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#GetGeofenceResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -97,4 +97,21 @@ def deserialize_json(data: dict) -> GetGeofenceResponse:
         out["geofence_properties"] = capo_location.types.property_map.deserialize_json(
             data["GeofenceProperties"]
         )
+    return out
+
+
+def redact_sensitive(value: GetGeofenceResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "geometry" in value:
+        import capo_location.types.geofence_geometry
+
+        out["geometry"] = capo_location.types.geofence_geometry.redact_sensitive(
+            value["geometry"]
+        )
+    if "create_time" in value:
+        out["create_time"] = "*** Sensitive Data Redacted ***"
+    if "update_time" in value:
+        out["update_time"] = "*** Sensitive Data Redacted ***"
+    if "geofence_properties" in value:
+        out["geofence_properties"] = "*** Sensitive Data Redacted ***"
     return out

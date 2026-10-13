@@ -7,6 +7,7 @@ import capo_arc_zonal_shift._auth._sigv4
 from capo_arc_zonal_shift._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -88,7 +89,9 @@ class ZonalShifts:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListZonalShifts")
+        )
         input_: capo_arc_zonal_shift.types.list_zonal_shifts_request.ListZonalShiftsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -146,7 +149,9 @@ class ZonalShifts:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartPracticeRun")
+        )
         input_: capo_arc_zonal_shift.types.start_practice_run_request.StartPracticeRunRequest = {
             "resource_identifier": resource_identifier,
             "away_from": away_from,
@@ -200,7 +205,9 @@ class ZonalShifts:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartZonalShift")
+        )
         input_: capo_arc_zonal_shift.types.start_zonal_shift_request.StartZonalShiftRequest = {
             "resource_identifier": resource_identifier,
             "away_from": away_from,
@@ -269,7 +276,9 @@ class AsyncZonalShifts:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListZonalShifts")
+        )
         input_: capo_arc_zonal_shift.types.list_zonal_shifts_request.ListZonalShiftsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -328,7 +337,9 @@ class AsyncZonalShifts:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartPracticeRun")
+        )
         input_: capo_arc_zonal_shift.types.start_practice_run_request.StartPracticeRunRequest = {
             "resource_identifier": resource_identifier,
             "away_from": away_from,
@@ -385,7 +396,9 @@ class AsyncZonalShifts:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartZonalShift")
+        )
         input_: capo_arc_zonal_shift.types.start_zonal_shift_request.StartZonalShiftRequest = {
             "resource_identifier": resource_identifier,
             "away_from": away_from,

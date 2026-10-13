@@ -8,6 +8,7 @@ import capo_supplychain._auth._sigv4
 from capo_supplychain._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -83,7 +84,9 @@ class BillOfMaterialsImportJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateBillOfMaterialsImportJob")
+        )
         input_: capo_supplychain.types.create_bill_of_materials_import_job_request.CreateBillOfMaterialsImportJobRequest = {
             "instance_id": instance_id,
             "s3uri": s3uri,
@@ -146,7 +149,9 @@ class BillOfMaterialsImportJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetBillOfMaterialsImportJob")
+        )
         input_: capo_supplychain.types.get_bill_of_materials_import_job_request.GetBillOfMaterialsImportJobRequest = {
             "instance_id": instance_id,
             "job_id": job_id,
@@ -213,7 +218,9 @@ class AsyncBillOfMaterialsImportJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateBillOfMaterialsImportJob")
+        )
         input_: capo_supplychain.types.create_bill_of_materials_import_job_request.CreateBillOfMaterialsImportJobRequest = {
             "instance_id": instance_id,
             "s3uri": s3uri,
@@ -277,7 +284,9 @@ class AsyncBillOfMaterialsImportJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetBillOfMaterialsImportJob")
+        )
         input_: capo_supplychain.types.get_bill_of_materials_import_job_request.GetBillOfMaterialsImportJobRequest = {
             "instance_id": instance_id,
             "job_id": job_id,

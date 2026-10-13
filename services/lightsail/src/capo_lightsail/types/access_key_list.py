@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lightsail#AccessKeyList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_lightsail.types.access_key
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> AccessKeyList:
             continue
         out.append(capo_lightsail.types.access_key.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: AccessKeyList) -> list[Any]:
+    import capo_lightsail.types.access_key
+
+    return [capo_lightsail.types.access_key.redact_sensitive(item) for item in value]

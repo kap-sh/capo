@@ -21,10 +21,12 @@ from capo_agent_registry._pagination import resolve_path as _resolve_path
 from capo_agent_registry._services._aws_config import aws_config
 from capo_agent_registry._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -109,7 +111,9 @@ class AgentRegistryClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AgentRegistryClientConfig] = None
+        self,
+        config_overrides: Optional[AgentRegistryClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: AgentRegistryClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -117,8 +121,10 @@ class AgentRegistryClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -168,7 +174,21 @@ class AgentRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_agent_registry.types.batch_get_discoverable_registry_record_response.BatchGetDiscoverableRegistryRecordResponse",
+        ) -> dict[str, Any]:
+            import capo_agent_registry.types.batch_get_discoverable_registry_record_response
+
+            return capo_agent_registry.types.batch_get_discoverable_registry_record_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchGetDiscoverableRegistryRecord", redact_output=_redact_output
+            ),
+        )
         input_: capo_agent_registry.types.batch_get_discoverable_registry_record_request.BatchGetDiscoverableRegistryRecordRequest = {
             "entries": entries
         }
@@ -224,7 +244,21 @@ class AgentRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_agent_registry.types.list_discoverable_registry_records_response.ListDiscoverableRegistryRecordsResponse",
+        ) -> dict[str, Any]:
+            import capo_agent_registry.types.list_discoverable_registry_records_response
+
+            return capo_agent_registry.types.list_discoverable_registry_records_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListDiscoverableRegistryRecords", redact_output=_redact_output
+            ),
+        )
         input_: capo_agent_registry.types.list_discoverable_registry_records_request.ListDiscoverableRegistryRecordsRequest = {
             "registry_id": registry_id
         }
@@ -313,7 +347,32 @@ class AgentRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_agent_registry.types.search_discoverable_registry_records_request.SearchDiscoverableRegistryRecordsRequest",
+        ) -> dict[str, Any]:
+            import capo_agent_registry.types.search_discoverable_registry_records_request
+
+            return capo_agent_registry.types.search_discoverable_registry_records_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_agent_registry.types.search_discoverable_registry_records_response.SearchDiscoverableRegistryRecordsResponse",
+        ) -> dict[str, Any]:
+            import capo_agent_registry.types.search_discoverable_registry_records_response
+
+            return capo_agent_registry.types.search_discoverable_registry_records_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchDiscoverableRegistryRecords",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_agent_registry.types.search_discoverable_registry_records_request.SearchDiscoverableRegistryRecordsRequest = {
             "search_query": search_query,
             "registry_ids": registry_ids,

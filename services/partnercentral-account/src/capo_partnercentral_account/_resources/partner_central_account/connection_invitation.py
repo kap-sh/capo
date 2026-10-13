@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_partnercentral_account._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -100,7 +101,32 @@ class ConnectionInvitation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_account.types.create_connection_invitation_request.CreateConnectionInvitationRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.create_connection_invitation_request
+
+            return capo_partnercentral_account.types.create_connection_invitation_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_partnercentral_account.types.create_connection_invitation_response.CreateConnectionInvitationResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.create_connection_invitation_response
+
+            return capo_partnercentral_account.types.create_connection_invitation_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateConnectionInvitation",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_partnercentral_account.types.create_connection_invitation_request.CreateConnectionInvitationRequest = {
             "catalog": catalog,
             "client_token": client_token,
@@ -155,7 +181,19 @@ class ConnectionInvitation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_account.types.get_connection_invitation_response.GetConnectionInvitationResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.get_connection_invitation_response
+
+            return capo_partnercentral_account.types.get_connection_invitation_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetConnectionInvitation", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_account.types.get_connection_invitation_request.GetConnectionInvitationRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -226,7 +264,9 @@ class ConnectionInvitation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConnectionInvitations")
+        )
         input_: capo_partnercentral_account.types.list_connection_invitations_request.ListConnectionInvitationsRequest = {
             "catalog": catalog
         }
@@ -291,7 +331,21 @@ class ConnectionInvitation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_account.types.accept_connection_invitation_response.AcceptConnectionInvitationResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.accept_connection_invitation_response
+
+            return capo_partnercentral_account.types.accept_connection_invitation_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AcceptConnectionInvitation", redact_output=_redact_output
+            ),
+        )
         input_: capo_partnercentral_account.types.accept_connection_invitation_request.AcceptConnectionInvitationRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -345,7 +399,21 @@ class ConnectionInvitation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_account.types.cancel_connection_invitation_response.CancelConnectionInvitationResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.cancel_connection_invitation_response
+
+            return capo_partnercentral_account.types.cancel_connection_invitation_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CancelConnectionInvitation", redact_output=_redact_output
+            ),
+        )
         input_: capo_partnercentral_account.types.cancel_connection_invitation_request.CancelConnectionInvitationRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -401,7 +469,21 @@ class ConnectionInvitation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_account.types.reject_connection_invitation_response.RejectConnectionInvitationResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.reject_connection_invitation_response
+
+            return capo_partnercentral_account.types.reject_connection_invitation_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RejectConnectionInvitation", redact_output=_redact_output
+            ),
+        )
         input_: capo_partnercentral_account.types.reject_connection_invitation_request.RejectConnectionInvitationRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -472,7 +554,32 @@ class AsyncConnectionInvitation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_account.types.create_connection_invitation_request.CreateConnectionInvitationRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.create_connection_invitation_request
+
+            return capo_partnercentral_account.types.create_connection_invitation_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_partnercentral_account.types.create_connection_invitation_response.CreateConnectionInvitationResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.create_connection_invitation_response
+
+            return capo_partnercentral_account.types.create_connection_invitation_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateConnectionInvitation",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_partnercentral_account.types.create_connection_invitation_request.CreateConnectionInvitationRequest = {
             "catalog": catalog,
             "client_token": client_token,
@@ -528,7 +635,19 @@ class AsyncConnectionInvitation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_account.types.get_connection_invitation_response.GetConnectionInvitationResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.get_connection_invitation_response
+
+            return capo_partnercentral_account.types.get_connection_invitation_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetConnectionInvitation", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_account.types.get_connection_invitation_request.GetConnectionInvitationRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -600,7 +719,9 @@ class AsyncConnectionInvitation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConnectionInvitations")
+        )
         input_: capo_partnercentral_account.types.list_connection_invitations_request.ListConnectionInvitationsRequest = {
             "catalog": catalog
         }
@@ -666,7 +787,21 @@ class AsyncConnectionInvitation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_account.types.accept_connection_invitation_response.AcceptConnectionInvitationResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.accept_connection_invitation_response
+
+            return capo_partnercentral_account.types.accept_connection_invitation_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AcceptConnectionInvitation", redact_output=_redact_output
+            ),
+        )
         input_: capo_partnercentral_account.types.accept_connection_invitation_request.AcceptConnectionInvitationRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -721,7 +856,21 @@ class AsyncConnectionInvitation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_account.types.cancel_connection_invitation_response.CancelConnectionInvitationResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.cancel_connection_invitation_response
+
+            return capo_partnercentral_account.types.cancel_connection_invitation_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CancelConnectionInvitation", redact_output=_redact_output
+            ),
+        )
         input_: capo_partnercentral_account.types.cancel_connection_invitation_request.CancelConnectionInvitationRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -778,7 +927,21 @@ class AsyncConnectionInvitation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_account.types.reject_connection_invitation_response.RejectConnectionInvitationResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.reject_connection_invitation_response
+
+            return capo_partnercentral_account.types.reject_connection_invitation_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RejectConnectionInvitation", redact_output=_redact_output
+            ),
+        )
         input_: capo_partnercentral_account.types.reject_connection_invitation_request.RejectConnectionInvitationRequest = {
             "catalog": catalog,
             "identifier": identifier,

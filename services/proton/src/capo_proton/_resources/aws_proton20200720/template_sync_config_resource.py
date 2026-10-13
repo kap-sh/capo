@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_proton._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -82,7 +83,9 @@ class TemplateSyncConfigResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTemplateSyncConfig")
+        )
         input_: capo_proton.types.create_template_sync_config_input.CreateTemplateSyncConfigInput = {
             "template_name": template_name,
             "template_type": template_type,
@@ -139,7 +142,9 @@ class TemplateSyncConfigResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTemplateSyncConfig")
+        )
         input_: capo_proton.types.get_template_sync_config_input.GetTemplateSyncConfigInput = {
             "template_name": template_name,
             "template_type": template_type,
@@ -198,7 +203,9 @@ class TemplateSyncConfigResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTemplateSyncConfig")
+        )
         input_: capo_proton.types.update_template_sync_config_input.UpdateTemplateSyncConfigInput = {
             "template_name": template_name,
             "template_type": template_type,
@@ -254,7 +261,9 @@ class TemplateSyncConfigResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTemplateSyncConfig")
+        )
         input_: capo_proton.types.delete_template_sync_config_input.DeleteTemplateSyncConfigInput = {
             "template_name": template_name,
             "template_type": template_type,
@@ -319,7 +328,9 @@ class AsyncTemplateSyncConfigResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTemplateSyncConfig")
+        )
         input_: capo_proton.types.create_template_sync_config_input.CreateTemplateSyncConfigInput = {
             "template_name": template_name,
             "template_type": template_type,
@@ -377,7 +388,9 @@ class AsyncTemplateSyncConfigResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTemplateSyncConfig")
+        )
         input_: capo_proton.types.get_template_sync_config_input.GetTemplateSyncConfigInput = {
             "template_name": template_name,
             "template_type": template_type,
@@ -437,7 +450,9 @@ class AsyncTemplateSyncConfigResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTemplateSyncConfig")
+        )
         input_: capo_proton.types.update_template_sync_config_input.UpdateTemplateSyncConfigInput = {
             "template_name": template_name,
             "template_type": template_type,
@@ -494,7 +509,9 @@ class AsyncTemplateSyncConfigResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTemplateSyncConfig")
+        )
         input_: capo_proton.types.delete_template_sync_config_input.DeleteTemplateSyncConfigInput = {
             "template_name": template_name,
             "template_type": template_type,

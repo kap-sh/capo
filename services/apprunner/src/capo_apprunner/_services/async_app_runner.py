@@ -24,7 +24,9 @@ from capo_apprunner._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -210,7 +212,9 @@ class AsyncAppRunnerClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncAppRunnerClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncAppRunnerClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncAppRunnerClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -218,8 +222,10 @@ class AsyncAppRunnerClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -277,7 +283,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateCustomDomain")
+        )
         input_: capo_apprunner.types.associate_custom_domain_request.AssociateCustomDomainRequest = {
             "service_arn": service_arn,
             "domain_name": domain_name,
@@ -340,7 +348,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAutoScalingConfiguration")
+        )
         input_: capo_apprunner.types.create_auto_scaling_configuration_request.CreateAutoScalingConfigurationRequest = {
             "auto_scaling_configuration_name": auto_scaling_configuration_name
         }
@@ -398,7 +408,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConnection")
+        )
         input_: capo_apprunner.types.create_connection_request.CreateConnectionRequest = {
             "connection_name": connection_name,
             "provider_type": provider_type,
@@ -453,7 +465,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateObservabilityConfiguration")
+        )
         input_: capo_apprunner.types.create_observability_configuration_request.CreateObservabilityConfigurationRequest = {
             "observability_configuration_name": observability_configuration_name
         }
@@ -531,7 +545,28 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_apprunner.types.create_service_request.CreateServiceRequest",
+        ) -> dict[str, Any]:
+            import capo_apprunner.types.create_service_request
+
+            return capo_apprunner.types.create_service_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_apprunner.types.create_service_response.CreateServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_apprunner.types.create_service_response
+
+            return capo_apprunner.types.create_service_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateService",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_apprunner.types.create_service_request.CreateServiceRequest = {
             "service_name": service_name,
             "source_configuration": source_configuration,
@@ -600,7 +635,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVpcConnector")
+        )
         input_: capo_apprunner.types.create_vpc_connector_request.CreateVpcConnectorRequest = {
             "vpc_connector_name": vpc_connector_name,
             "subnets": subnets,
@@ -658,7 +695,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVpcIngressConnection")
+        )
         input_: capo_apprunner.types.create_vpc_ingress_connection_request.CreateVpcIngressConnectionRequest = {
             "service_arn": service_arn,
             "vpc_ingress_connection_name": vpc_ingress_connection_name,
@@ -710,7 +749,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAutoScalingConfiguration")
+        )
         input_: capo_apprunner.types.delete_auto_scaling_configuration_request.DeleteAutoScalingConfigurationRequest = {
             "auto_scaling_configuration_arn": auto_scaling_configuration_arn
         }
@@ -758,7 +799,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnection")
+        )
         input_: capo_apprunner.types.delete_connection_request.DeleteConnectionRequest = {
             "connection_arn": connection_arn
         }
@@ -804,7 +847,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteObservabilityConfiguration")
+        )
         input_: capo_apprunner.types.delete_observability_configuration_request.DeleteObservabilityConfigurationRequest = {
             "observability_configuration_arn": observability_configuration_arn
         }
@@ -851,7 +896,17 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_apprunner.types.delete_service_response.DeleteServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_apprunner.types.delete_service_response
+
+            return capo_apprunner.types.delete_service_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteService", redact_output=_redact_output),
+        )
         input_: capo_apprunner.types.delete_service_request.DeleteServiceRequest = {
             "service_arn": service_arn
         }
@@ -899,7 +954,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVpcConnector")
+        )
         input_: capo_apprunner.types.delete_vpc_connector_request.DeleteVpcConnectorRequest = {
             "vpc_connector_arn": vpc_connector_arn
         }
@@ -946,7 +1003,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVpcIngressConnection")
+        )
         input_: capo_apprunner.types.delete_vpc_ingress_connection_request.DeleteVpcIngressConnectionRequest = {
             "vpc_ingress_connection_arn": vpc_ingress_connection_arn
         }
@@ -992,7 +1051,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAutoScalingConfiguration")
+        )
         input_: capo_apprunner.types.describe_auto_scaling_configuration_request.DescribeAutoScalingConfigurationRequest = {
             "auto_scaling_configuration_arn": auto_scaling_configuration_arn
         }
@@ -1044,7 +1105,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCustomDomains")
+        )
         input_: capo_apprunner.types.describe_custom_domains_request.DescribeCustomDomainsRequest = {
             "service_arn": service_arn
         }
@@ -1117,7 +1180,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeObservabilityConfiguration")
+        )
         input_: capo_apprunner.types.describe_observability_configuration_request.DescribeObservabilityConfigurationRequest = {
             "observability_configuration_arn": observability_configuration_arn
         }
@@ -1163,7 +1228,19 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_apprunner.types.describe_service_response.DescribeServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_apprunner.types.describe_service_response
+
+            return capo_apprunner.types.describe_service_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeService", redact_output=_redact_output),
+        )
         input_: capo_apprunner.types.describe_service_request.DescribeServiceRequest = {
             "service_arn": service_arn
         }
@@ -1209,7 +1286,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeVpcConnector")
+        )
         input_: capo_apprunner.types.describe_vpc_connector_request.DescribeVpcConnectorRequest = {
             "vpc_connector_arn": vpc_connector_arn
         }
@@ -1255,7 +1334,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeVpcIngressConnection")
+        )
         input_: capo_apprunner.types.describe_vpc_ingress_connection_request.DescribeVpcIngressConnectionRequest = {
             "vpc_ingress_connection_arn": vpc_ingress_connection_arn
         }
@@ -1304,7 +1385,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateCustomDomain")
+        )
         input_: capo_apprunner.types.disassociate_custom_domain_request.DisassociateCustomDomainRequest = {
             "service_arn": service_arn,
             "domain_name": domain_name,
@@ -1358,7 +1441,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAutoScalingConfigurations")
+        )
         input_: capo_apprunner.types.list_auto_scaling_configurations_request.ListAutoScalingConfigurationsRequest = {}
         if auto_scaling_configuration_name is not None:
             input_["auto_scaling_configuration_name"] = auto_scaling_configuration_name
@@ -1440,7 +1525,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConnections")
+        )
         input_: capo_apprunner.types.list_connections_request.ListConnectionsRequest = {}
         if connection_name is not None:
             input_["connection_name"] = connection_name
@@ -1520,7 +1607,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListObservabilityConfigurations")
+        )
         input_: capo_apprunner.types.list_observability_configurations_request.ListObservabilityConfigurationsRequest = {}
         if observability_configuration_name is not None:
             input_["observability_configuration_name"] = (
@@ -1605,7 +1694,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOperations")
+        )
         input_: capo_apprunner.types.list_operations_request.ListOperationsRequest = {
             "service_arn": service_arn
         }
@@ -1681,7 +1772,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServices")
+        )
         input_: capo_apprunner.types.list_services_request.ListServicesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1754,7 +1847,10 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListServicesForAutoScalingConfiguration"),
+        )
         input_: capo_apprunner.types.list_services_for_auto_scaling_configuration_request.ListServicesForAutoScalingConfigurationRequest = {
             "auto_scaling_configuration_arn": auto_scaling_configuration_arn
         }
@@ -1826,7 +1922,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_apprunner.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1873,7 +1971,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVpcConnectors")
+        )
         input_: capo_apprunner.types.list_vpc_connectors_request.ListVpcConnectorsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1945,7 +2045,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVpcIngressConnections")
+        )
         input_: capo_apprunner.types.list_vpc_ingress_connections_request.ListVpcIngressConnectionsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -2019,7 +2121,17 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_apprunner.types.pause_service_response.PauseServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_apprunner.types.pause_service_response
+
+            return capo_apprunner.types.pause_service_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PauseService", redact_output=_redact_output),
+        )
         input_: capo_apprunner.types.pause_service_request.PauseServiceRequest = {
             "service_arn": service_arn
         }
@@ -2066,7 +2178,17 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_apprunner.types.resume_service_response.ResumeServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_apprunner.types.resume_service_response
+
+            return capo_apprunner.types.resume_service_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ResumeService", redact_output=_redact_output),
+        )
         input_: capo_apprunner.types.resume_service_request.ResumeServiceRequest = {
             "service_arn": service_arn
         }
@@ -2112,7 +2234,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDeployment")
+        )
         input_: capo_apprunner.types.start_deployment_request.StartDeploymentRequest = {
             "service_arn": service_arn
         }
@@ -2161,7 +2285,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_apprunner.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2211,7 +2337,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_apprunner.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2258,7 +2386,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDefaultAutoScalingConfiguration")
+        )
         input_: capo_apprunner.types.update_default_auto_scaling_configuration_request.UpdateDefaultAutoScalingConfigurationRequest = {
             "auto_scaling_configuration_arn": auto_scaling_configuration_arn
         }
@@ -2329,7 +2459,28 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_apprunner.types.update_service_request.UpdateServiceRequest",
+        ) -> dict[str, Any]:
+            import capo_apprunner.types.update_service_request
+
+            return capo_apprunner.types.update_service_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_apprunner.types.update_service_response.UpdateServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_apprunner.types.update_service_response
+
+            return capo_apprunner.types.update_service_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateService",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_apprunner.types.update_service_request.UpdateServiceRequest = {
             "service_arn": service_arn
         }
@@ -2390,7 +2541,9 @@ class AsyncAppRunnerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateVpcIngressConnection")
+        )
         input_: capo_apprunner.types.update_vpc_ingress_connection_request.UpdateVpcIngressConnectionRequest = {
             "vpc_ingress_connection_arn": vpc_ingress_connection_arn,
             "ingress_vpc_configuration": ingress_vpc_configuration,

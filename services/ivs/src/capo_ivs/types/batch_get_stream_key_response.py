@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ivs#BatchGetStreamKeyResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -59,4 +59,15 @@ def deserialize_json(data: dict) -> BatchGetStreamKeyResponse:
         import capo_ivs.types.batch_errors
 
         out["errors"] = capo_ivs.types.batch_errors.deserialize_json(data["errors"])
+    return out
+
+
+def redact_sensitive(value: BatchGetStreamKeyResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "stream_keys" in value:
+        import capo_ivs.types.stream_keys
+
+        out["stream_keys"] = capo_ivs.types.stream_keys.redact_sensitive(
+            value["stream_keys"]
+        )
     return out

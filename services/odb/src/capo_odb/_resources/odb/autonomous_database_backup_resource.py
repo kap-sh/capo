@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_odb._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -87,7 +88,9 @@ class AutonomousDatabaseBackupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAutonomousDatabaseBackup")
+        )
         input_: capo_odb.types.create_autonomous_database_backup_input.CreateAutonomousDatabaseBackupInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -143,7 +146,9 @@ class AutonomousDatabaseBackupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAutonomousDatabaseBackup")
+        )
         input_: capo_odb.types.get_autonomous_database_backup_input.GetAutonomousDatabaseBackupInput = {
             "autonomous_database_backup_id": autonomous_database_backup_id
         }
@@ -193,7 +198,9 @@ class AutonomousDatabaseBackupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAutonomousDatabaseBackup")
+        )
         input_: capo_odb.types.update_autonomous_database_backup_input.UpdateAutonomousDatabaseBackupInput = {
             "autonomous_database_backup_id": autonomous_database_backup_id
         }
@@ -243,7 +250,9 @@ class AutonomousDatabaseBackupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAutonomousDatabaseBackup")
+        )
         input_: capo_odb.types.delete_autonomous_database_backup_input.DeleteAutonomousDatabaseBackupInput = {
             "autonomous_database_backup_id": autonomous_database_backup_id
         }
@@ -302,7 +311,9 @@ class AutonomousDatabaseBackupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAutonomousDatabaseBackups")
+        )
         input_: capo_odb.types.list_autonomous_database_backups_input.ListAutonomousDatabaseBackupsInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -377,7 +388,9 @@ class AsyncAutonomousDatabaseBackupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAutonomousDatabaseBackup")
+        )
         input_: capo_odb.types.create_autonomous_database_backup_input.CreateAutonomousDatabaseBackupInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -434,7 +447,9 @@ class AsyncAutonomousDatabaseBackupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAutonomousDatabaseBackup")
+        )
         input_: capo_odb.types.get_autonomous_database_backup_input.GetAutonomousDatabaseBackupInput = {
             "autonomous_database_backup_id": autonomous_database_backup_id
         }
@@ -485,7 +500,9 @@ class AsyncAutonomousDatabaseBackupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAutonomousDatabaseBackup")
+        )
         input_: capo_odb.types.update_autonomous_database_backup_input.UpdateAutonomousDatabaseBackupInput = {
             "autonomous_database_backup_id": autonomous_database_backup_id
         }
@@ -536,7 +553,9 @@ class AsyncAutonomousDatabaseBackupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAutonomousDatabaseBackup")
+        )
         input_: capo_odb.types.delete_autonomous_database_backup_input.DeleteAutonomousDatabaseBackupInput = {
             "autonomous_database_backup_id": autonomous_database_backup_id
         }
@@ -596,7 +615,9 @@ class AsyncAutonomousDatabaseBackupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAutonomousDatabaseBackups")
+        )
         input_: capo_odb.types.list_autonomous_database_backups_input.ListAutonomousDatabaseBackupsInput = {
             "autonomous_database_id": autonomous_database_id
         }

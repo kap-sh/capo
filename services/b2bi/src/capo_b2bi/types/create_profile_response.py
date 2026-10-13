@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.b2bi#CreateProfileResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -105,4 +105,13 @@ def deserialize_aws_json_1_0(data: dict) -> CreateProfileResponse:
         )
     else:
         raise DeserializationError("CreateProfileResponse.created_at required")
+    return out
+
+
+def redact_sensitive(value: CreateProfileResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "phone" in value:
+        out["phone"] = "*** Sensitive Data Redacted ***"
+    if "email" in value:
+        out["email"] = "*** Sensitive Data Redacted ***"
     return out

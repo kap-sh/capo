@@ -7,6 +7,7 @@ import capo_iot_managed_integrations._auth._sigv4
 from capo_iot_managed_integrations._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -95,7 +96,9 @@ class SchemaVersionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSchemaVersion")
+        )
         input_: capo_iot_managed_integrations.types.get_schema_version_request.GetSchemaVersionRequest = {
             "type": type,
             "schema_versioned_id": schema_versioned_id,
@@ -181,7 +184,9 @@ class SchemaVersionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSchemaVersions")
+        )
         input_: capo_iot_managed_integrations.types.list_schema_versions_request.ListSchemaVersionsRequest = {
             "type": type
         }
@@ -265,7 +270,9 @@ class AsyncSchemaVersionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSchemaVersion")
+        )
         input_: capo_iot_managed_integrations.types.get_schema_version_request.GetSchemaVersionRequest = {
             "type": type,
             "schema_versioned_id": schema_versioned_id,
@@ -352,7 +359,9 @@ class AsyncSchemaVersionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSchemaVersions")
+        )
         input_: capo_iot_managed_integrations.types.list_schema_versions_request.ListSchemaVersionsRequest = {
             "type": type
         }

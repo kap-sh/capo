@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.outposts#CreateSiteInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -101,4 +101,13 @@ def deserialize_json(data: dict) -> CreateSiteInput:
                 data["RackPhysicalProperties"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: CreateSiteInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "operating_address" in value:
+        out["operating_address"] = "*** Sensitive Data Redacted ***"
+    if "shipping_address" in value:
+        out["shipping_address"] = "*** Sensitive Data Redacted ***"
     return out

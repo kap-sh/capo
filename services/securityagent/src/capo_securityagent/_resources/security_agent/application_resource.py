@@ -7,6 +7,7 @@ import capo_securityagent._auth._sigv4
 from capo_securityagent._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -86,7 +87,9 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_securityagent.types.create_application_request.CreateApplicationRequest = {}
         if idc_instance_arn is not None:
             input_["idc_instance_arn"] = idc_instance_arn
@@ -134,7 +137,9 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetApplication")
+        )
         input_: capo_securityagent.types.get_application_request.GetApplicationRequest = {
             "application_id": application_id
         }
@@ -184,7 +189,9 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_securityagent.types.update_application_request.UpdateApplicationRequest = {
             "application_id": application_id
         }
@@ -228,7 +235,9 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_securityagent.types.delete_application_request.DeleteApplicationRequest = {
             "application_id": application_id
         }
@@ -272,7 +281,9 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_securityagent.types.list_applications_request.ListApplicationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -334,7 +345,9 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_securityagent.types.create_application_request.CreateApplicationRequest = {}
         if idc_instance_arn is not None:
             input_["idc_instance_arn"] = idc_instance_arn
@@ -383,7 +396,9 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetApplication")
+        )
         input_: capo_securityagent.types.get_application_request.GetApplicationRequest = {
             "application_id": application_id
         }
@@ -434,7 +449,9 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_securityagent.types.update_application_request.UpdateApplicationRequest = {
             "application_id": application_id
         }
@@ -479,7 +496,9 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_securityagent.types.delete_application_request.DeleteApplicationRequest = {
             "application_id": application_id
         }
@@ -524,7 +543,9 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_securityagent.types.list_applications_request.ListApplicationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agentcore_control._auth._signers
 import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -162,7 +163,32 @@ class HarnessResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_harness_request.CreateHarnessRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_harness_request
+
+            return capo_bedrock_agentcore_control.types.create_harness_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.create_harness_response.CreateHarnessResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_harness_response
+
+            return capo_bedrock_agentcore_control.types.create_harness_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateHarness",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.create_harness_request.CreateHarnessRequest = {
             "harness_name": harness_name,
             "execution_role_arn": execution_role_arn,
@@ -252,7 +278,19 @@ class HarnessResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.delete_harness_response.DeleteHarnessResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.delete_harness_response
+
+            return capo_bedrock_agentcore_control.types.delete_harness_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteHarness", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.delete_harness_request.DeleteHarnessRequest = {
             "harness_id": harness_id
         }
@@ -308,7 +346,19 @@ class HarnessResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_harness_response.GetHarnessResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_harness_response
+
+            return capo_bedrock_agentcore_control.types.get_harness_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetHarness", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_harness_request.GetHarnessRequest = {
             "harness_id": harness_id
         }
@@ -362,7 +412,9 @@ class HarnessResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListHarnesses")
+        )
         input_: capo_bedrock_agentcore_control.types.list_harnesses_request.ListHarnessesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -419,7 +471,9 @@ class HarnessResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListHarnessVersions")
+        )
         input_: capo_bedrock_agentcore_control.types.list_harness_versions_request.ListHarnessVersionsRequest = {
             "harness_id": harness_id
         }
@@ -533,7 +587,32 @@ class HarnessResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_harness_request.UpdateHarnessRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_harness_request
+
+            return capo_bedrock_agentcore_control.types.update_harness_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.update_harness_response.UpdateHarnessResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_harness_response
+
+            return capo_bedrock_agentcore_control.types.update_harness_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateHarness",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.update_harness_request.UpdateHarnessRequest = {
             "harness_id": harness_id
         }
@@ -683,7 +762,32 @@ class AsyncHarnessResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_harness_request.CreateHarnessRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_harness_request
+
+            return capo_bedrock_agentcore_control.types.create_harness_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.create_harness_response.CreateHarnessResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_harness_response
+
+            return capo_bedrock_agentcore_control.types.create_harness_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateHarness",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.create_harness_request.CreateHarnessRequest = {
             "harness_name": harness_name,
             "execution_role_arn": execution_role_arn,
@@ -774,7 +878,19 @@ class AsyncHarnessResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.delete_harness_response.DeleteHarnessResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.delete_harness_response
+
+            return capo_bedrock_agentcore_control.types.delete_harness_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteHarness", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.delete_harness_request.DeleteHarnessRequest = {
             "harness_id": harness_id
         }
@@ -831,7 +947,19 @@ class AsyncHarnessResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_harness_response.GetHarnessResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_harness_response
+
+            return capo_bedrock_agentcore_control.types.get_harness_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetHarness", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_harness_request.GetHarnessRequest = {
             "harness_id": harness_id
         }
@@ -886,7 +1014,9 @@ class AsyncHarnessResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListHarnesses")
+        )
         input_: capo_bedrock_agentcore_control.types.list_harnesses_request.ListHarnessesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -944,7 +1074,9 @@ class AsyncHarnessResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListHarnessVersions")
+        )
         input_: capo_bedrock_agentcore_control.types.list_harness_versions_request.ListHarnessVersionsRequest = {
             "harness_id": harness_id
         }
@@ -1059,7 +1191,32 @@ class AsyncHarnessResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_harness_request.UpdateHarnessRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_harness_request
+
+            return capo_bedrock_agentcore_control.types.update_harness_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.update_harness_response.UpdateHarnessResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_harness_response
+
+            return capo_bedrock_agentcore_control.types.update_harness_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateHarness",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.update_harness_request.UpdateHarnessRequest = {
             "harness_id": harness_id
         }

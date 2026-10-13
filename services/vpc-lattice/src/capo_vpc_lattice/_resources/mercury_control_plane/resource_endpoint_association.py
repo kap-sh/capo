@@ -7,6 +7,7 @@ import capo_vpc_lattice._auth._sigv4
 from capo_vpc_lattice._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -73,7 +74,9 @@ class ResourceEndpointAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteResourceEndpointAssociation")
+        )
         input_: capo_vpc_lattice.types.delete_resource_endpoint_association_request.DeleteResourceEndpointAssociationRequest = {
             "resource_endpoint_association_identifier": resource_endpoint_association_identifier
         }
@@ -135,7 +138,9 @@ class ResourceEndpointAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListResourceEndpointAssociations")
+        )
         input_: capo_vpc_lattice.types.list_resource_endpoint_associations_request.ListResourceEndpointAssociationsRequest = {
             "resource_configuration_identifier": resource_configuration_identifier
         }
@@ -200,7 +205,9 @@ class AsyncResourceEndpointAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteResourceEndpointAssociation")
+        )
         input_: capo_vpc_lattice.types.delete_resource_endpoint_association_request.DeleteResourceEndpointAssociationRequest = {
             "resource_endpoint_association_identifier": resource_endpoint_association_identifier
         }
@@ -263,7 +270,9 @@ class AsyncResourceEndpointAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListResourceEndpointAssociations")
+        )
         input_: capo_vpc_lattice.types.list_resource_endpoint_associations_request.ListResourceEndpointAssociationsRequest = {
             "resource_configuration_identifier": resource_configuration_identifier
         }

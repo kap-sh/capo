@@ -21,10 +21,12 @@ from capo_elastic_beanstalk._pagination import resolve_path as _resolve_path
 from capo_elastic_beanstalk._services._aws_config import aws_config
 from capo_elastic_beanstalk._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -236,7 +238,9 @@ class ElasticBeanstalkClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ElasticBeanstalkClientConfig] = None
+        self,
+        config_overrides: Optional[ElasticBeanstalkClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ElasticBeanstalkClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -244,8 +248,10 @@ class ElasticBeanstalkClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -304,7 +310,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AbortEnvironmentUpdate")
+        )
         input_: capo_elastic_beanstalk.types.abort_environment_update_message.AbortEnvironmentUpdateMessage = {}
         if environment_id is not None:
             input_["environment_id"] = environment_id
@@ -354,7 +362,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ApplyEnvironmentManagedAction")
+        )
         input_: capo_elastic_beanstalk.types.apply_environment_managed_action_request.ApplyEnvironmentManagedActionRequest = {
             "action_id": action_id
         }
@@ -401,7 +411,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateEnvironmentOperationsRole")
+        )
         input_: capo_elastic_beanstalk.types.associate_environment_operations_role_message.AssociateEnvironmentOperationsRoleMessage = {
             "environment_name": environment_name,
             "operations_role": operations_role,
@@ -450,7 +462,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CheckDNSAvailability")
+        )
         input_: capo_elastic_beanstalk.types.check_dns_availability_message.CheckDNSAvailabilityMessage = {
             "cname_prefix": cname_prefix
         }
@@ -504,7 +518,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ComposeEnvironments")
+        )
         input_: capo_elastic_beanstalk.types.compose_environments_message.ComposeEnvironmentsMessage = {}
         if application_name is not None:
             input_["application_name"] = application_name
@@ -567,7 +583,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_elastic_beanstalk.types.create_application_message.CreateApplicationMessage = {
             "application_name": application_name
         }
@@ -658,7 +676,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApplicationVersion")
+        )
         input_: capo_elastic_beanstalk.types.create_application_version_message.CreateApplicationVersionMessage = {
             "application_name": application_name,
             "version_label": version_label,
@@ -754,7 +774,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfigurationTemplate")
+        )
         input_: capo_elastic_beanstalk.types.create_configuration_template_message.CreateConfigurationTemplateMessage = {
             "application_name": application_name,
             "template_name": template_name,
@@ -869,7 +891,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEnvironment")
+        )
         input_: capo_elastic_beanstalk.types.create_environment_message.CreateEnvironmentMessage = {
             "application_name": application_name
         }
@@ -954,7 +978,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePlatformVersion")
+        )
         input_: capo_elastic_beanstalk.types.create_platform_version_request.CreatePlatformVersionRequest = {
             "platform_name": platform_name,
             "platform_version": platform_version,
@@ -1007,7 +1033,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStorageLocation")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -1055,7 +1083,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_elastic_beanstalk.types.delete_application_message.DeleteApplicationMessage = {
             "application_name": application_name
         }
@@ -1113,7 +1143,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplicationVersion")
+        )
         input_: capo_elastic_beanstalk.types.delete_application_version_message.DeleteApplicationVersionMessage = {
             "application_name": application_name,
             "version_label": version_label,
@@ -1165,7 +1197,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfigurationTemplate")
+        )
         input_: capo_elastic_beanstalk.types.delete_configuration_template_message.DeleteConfigurationTemplateMessage = {
             "application_name": application_name,
             "template_name": template_name,
@@ -1214,7 +1248,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironmentConfiguration")
+        )
         input_: capo_elastic_beanstalk.types.delete_environment_configuration_message.DeleteEnvironmentConfigurationMessage = {
             "application_name": application_name,
             "environment_name": environment_name,
@@ -1263,7 +1299,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePlatformVersion")
+        )
         input_: capo_elastic_beanstalk.types.delete_platform_version_request.DeletePlatformVersionRequest = {}
         if platform_arn is not None:
             input_["platform_arn"] = platform_arn
@@ -1300,7 +1338,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountAttributes")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -1347,7 +1387,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeApplications")
+        )
         input_: capo_elastic_beanstalk.types.describe_applications_message.DescribeApplicationsMessage = {}
         if application_names is not None:
             input_["application_names"] = application_names
@@ -1407,7 +1449,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeApplicationVersions")
+        )
         input_: capo_elastic_beanstalk.types.describe_application_versions_message.DescribeApplicationVersionsMessage = {}
         if application_name is not None:
             input_["application_name"] = application_name
@@ -1484,7 +1528,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConfigurationOptions")
+        )
         input_: capo_elastic_beanstalk.types.describe_configuration_options_message.DescribeConfigurationOptionsMessage = {}
         if application_name is not None:
             input_["application_name"] = application_name
@@ -1551,7 +1597,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConfigurationSettings")
+        )
         input_: capo_elastic_beanstalk.types.describe_configuration_settings_message.DescribeConfigurationSettingsMessage = {
             "application_name": application_name
         }
@@ -1615,7 +1663,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEnvironmentHealth")
+        )
         input_: capo_elastic_beanstalk.types.describe_environment_health_request.DescribeEnvironmentHealthRequest = {}
         if environment_name is not None:
             input_["environment_name"] = environment_name
@@ -1674,7 +1724,10 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeEnvironmentManagedActionHistory"),
+        )
         input_: capo_elastic_beanstalk.types.describe_environment_managed_action_history_request.DescribeEnvironmentManagedActionHistoryRequest = {}
         if environment_id is not None:
             input_["environment_id"] = environment_id
@@ -1760,7 +1813,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEnvironmentManagedActions")
+        )
         input_: capo_elastic_beanstalk.types.describe_environment_managed_actions_request.DescribeEnvironmentManagedActionsRequest = {}
         if environment_name is not None:
             input_["environment_name"] = environment_name
@@ -1819,7 +1874,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEnvironmentResources")
+        )
         input_: capo_elastic_beanstalk.types.describe_environment_resources_message.DescribeEnvironmentResourcesMessage = {}
         if environment_id is not None:
             input_["environment_id"] = environment_id
@@ -1897,7 +1954,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEnvironments")
+        )
         input_: capo_elastic_beanstalk.types.describe_environments_message.DescribeEnvironmentsMessage = {}
         if application_name is not None:
             input_["application_name"] = application_name
@@ -2003,7 +2062,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEvents")
+        )
         input_: capo_elastic_beanstalk.types.describe_events_message.DescribeEventsMessage = {}
         if application_name is not None:
             input_["application_name"] = application_name
@@ -2152,7 +2213,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInstancesHealth")
+        )
         input_: capo_elastic_beanstalk.types.describe_instances_health_request.DescribeInstancesHealthRequest = {}
         if environment_name is not None:
             input_["environment_name"] = environment_name
@@ -2204,7 +2267,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePlatformVersion")
+        )
         input_: capo_elastic_beanstalk.types.describe_platform_version_request.DescribePlatformVersionRequest = {}
         if platform_arn is not None:
             input_["platform_arn"] = platform_arn
@@ -2245,7 +2310,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateEnvironmentOperationsRole")
+        )
         input_: capo_elastic_beanstalk.types.disassociate_environment_operations_role_message.DisassociateEnvironmentOperationsRoleMessage = {
             "environment_name": environment_name
         }
@@ -2287,7 +2354,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAvailableSolutionStacks")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -2334,7 +2403,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPlatformBranches")
+        )
         input_: capo_elastic_beanstalk.types.list_platform_branches_request.ListPlatformBranchesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -2415,7 +2486,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPlatformVersions")
+        )
         input_: capo_elastic_beanstalk.types.list_platform_versions_request.ListPlatformVersionsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -2491,7 +2564,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_elastic_beanstalk.types.list_tags_for_resource_message.ListTagsForResourceMessage = {
             "resource_arn": resource_arn
         }
@@ -2544,7 +2619,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RebuildEnvironment")
+        )
         input_: capo_elastic_beanstalk.types.rebuild_environment_message.RebuildEnvironmentMessage = {}
         if environment_id is not None:
             input_["environment_id"] = environment_id
@@ -2600,7 +2677,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RequestEnvironmentInfo")
+        )
         input_: capo_elastic_beanstalk.types.request_environment_info_message.RequestEnvironmentInfoMessage = {
             "info_type": info_type
         }
@@ -2656,7 +2735,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestartAppServer")
+        )
         input_: capo_elastic_beanstalk.types.restart_app_server_message.RestartAppServerMessage = {}
         if environment_id is not None:
             input_["environment_id"] = environment_id
@@ -2714,7 +2795,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RetrieveEnvironmentInfo")
+        )
         input_: capo_elastic_beanstalk.types.retrieve_environment_info_message.RetrieveEnvironmentInfoMessage = {
             "info_type": info_type
         }
@@ -2778,7 +2861,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SwapEnvironmentCNAMEs")
+        )
         input_: capo_elastic_beanstalk.types.swap_environment_cnam_es_message.SwapEnvironmentCNAMEsMessage = {}
         if source_environment_id is not None:
             input_["source_environment_id"] = source_environment_id
@@ -2847,7 +2932,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TerminateEnvironment")
+        )
         input_: capo_elastic_beanstalk.types.terminate_environment_message.TerminateEnvironmentMessage = {}
         if environment_id is not None:
             input_["environment_id"] = environment_id
@@ -2905,7 +2992,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_elastic_beanstalk.types.update_application_message.UpdateApplicationMessage = {
             "application_name": application_name
         }
@@ -2952,7 +3041,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApplicationResourceLifecycle")
+        )
         input_: capo_elastic_beanstalk.types.update_application_resource_lifecycle_message.UpdateApplicationResourceLifecycleMessage = {
             "application_name": application_name,
             "resource_lifecycle_config": resource_lifecycle_config,
@@ -3007,7 +3098,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApplicationVersion")
+        )
         input_: capo_elastic_beanstalk.types.update_application_version_message.UpdateApplicationVersionMessage = {
             "application_name": application_name,
             "version_label": version_label,
@@ -3074,7 +3167,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConfigurationTemplate")
+        )
         input_: capo_elastic_beanstalk.types.update_configuration_template_message.UpdateConfigurationTemplateMessage = {
             "application_name": application_name,
             "template_name": template_name,
@@ -3181,7 +3276,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEnvironment")
+        )
         input_: capo_elastic_beanstalk.types.update_environment_message.UpdateEnvironmentMessage = {}
         if application_name is not None:
             input_["application_name"] = application_name
@@ -3254,7 +3351,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTagsForResource")
+        )
         input_: capo_elastic_beanstalk.types.update_tags_for_resource_message.UpdateTagsForResourceMessage = {
             "resource_arn": resource_arn
         }
@@ -3318,7 +3417,9 @@ class ElasticBeanstalkClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ValidateConfigurationSettings")
+        )
         input_: capo_elastic_beanstalk.types.validate_configuration_settings_message.ValidateConfigurationSettingsMessage = {
             "application_name": application_name,
             "option_settings": option_settings,

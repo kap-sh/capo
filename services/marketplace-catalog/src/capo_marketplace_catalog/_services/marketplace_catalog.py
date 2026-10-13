@@ -22,10 +22,12 @@ from capo_marketplace_catalog._pagination import resolve_path as _resolve_path
 from capo_marketplace_catalog._services._aws_config import aws_config
 from capo_marketplace_catalog._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -165,7 +167,9 @@ class MarketplaceCatalogClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[MarketplaceCatalogClientConfig] = None
+        self,
+        config_overrides: Optional[MarketplaceCatalogClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MarketplaceCatalogClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -173,8 +177,10 @@ class MarketplaceCatalogClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -226,7 +232,9 @@ class MarketplaceCatalogClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDescribeEntities")
+        )
         input_: capo_marketplace_catalog.types.batch_describe_entities_request.BatchDescribeEntitiesRequest = {
             "entity_request_list": entity_request_list
         }
@@ -276,7 +284,9 @@ class MarketplaceCatalogClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelChangeSet")
+        )
         input_: capo_marketplace_catalog.types.cancel_change_set_request.CancelChangeSetRequest = {
             "catalog": catalog,
             "change_set_id": change_set_id,
@@ -324,7 +334,9 @@ class MarketplaceCatalogClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_marketplace_catalog.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -381,7 +393,9 @@ class MarketplaceCatalogClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAssessment")
+        )
         input_: capo_marketplace_catalog.types.describe_assessment_request.DescribeAssessmentRequest = {
             "catalog": catalog,
             "assessment_identifier": assessment_identifier,
@@ -466,7 +480,9 @@ class MarketplaceCatalogClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeChangeSet")
+        )
         input_: capo_marketplace_catalog.types.describe_change_set_request.DescribeChangeSetRequest = {
             "catalog": catalog,
             "change_set_id": change_set_id,
@@ -519,7 +535,9 @@ class MarketplaceCatalogClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEntity")
+        )
         input_: capo_marketplace_catalog.types.describe_entity_request.DescribeEntityRequest = {
             "catalog": catalog,
             "entity_id": entity_id,
@@ -567,7 +585,9 @@ class MarketplaceCatalogClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_marketplace_catalog.types.get_resource_policy_request.GetResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -633,7 +653,9 @@ class MarketplaceCatalogClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssessments")
+        )
         input_: capo_marketplace_catalog.types.list_assessments_request.ListAssessmentsRequest = {
             "catalog": catalog
         }
@@ -744,7 +766,9 @@ class MarketplaceCatalogClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListChangeSets")
+        )
         input_: capo_marketplace_catalog.types.list_change_sets_request.ListChangeSetsRequest = {
             "catalog": catalog
         }
@@ -860,7 +884,9 @@ class MarketplaceCatalogClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEntities")
+        )
         input_: capo_marketplace_catalog.types.list_entities_request.ListEntitiesRequest = {
             "catalog": catalog,
             "entity_type": entity_type,
@@ -969,7 +995,9 @@ class MarketplaceCatalogClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_marketplace_catalog.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1018,7 +1046,9 @@ class MarketplaceCatalogClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_marketplace_catalog.types.put_resource_policy_request.PutResourcePolicyRequest = {
             "resource_arn": resource_arn,
             "policy": policy,
@@ -1084,7 +1114,9 @@ class MarketplaceCatalogClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartChangeSet")
+        )
         input_: capo_marketplace_catalog.types.start_change_set_request.StartChangeSetRequest = {
             "catalog": catalog,
             "change_set": change_set,
@@ -1143,7 +1175,9 @@ class MarketplaceCatalogClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_marketplace_catalog.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1193,7 +1227,9 @@ class MarketplaceCatalogClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_marketplace_catalog.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,

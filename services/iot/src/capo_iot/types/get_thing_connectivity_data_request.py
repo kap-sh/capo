@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iot#GetThingConnectivityDataRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -28,4 +28,11 @@ def deserialize_json(data: dict) -> GetThingConnectivityDataRequest:
     out: GetThingConnectivityDataRequest = {}  # type: ignore[typeddict-item]
     if data.get("includeSocketInformation") is not None:
         out["include_socket_information"] = data["includeSocketInformation"]
+    return out
+
+
+def redact_sensitive(value: GetThingConnectivityDataRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "thing_name" in value:
+        out["thing_name"] = "*** Sensitive Data Redacted ***"
     return out

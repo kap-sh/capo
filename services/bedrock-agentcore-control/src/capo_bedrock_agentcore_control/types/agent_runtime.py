@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#AgentRuntime``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -110,4 +110,11 @@ def deserialize_json(data: dict) -> AgentRuntime:
         )
     else:
         raise DeserializationError("AgentRuntime.status required")
+    return out
+
+
+def redact_sensitive(value: AgentRuntime) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

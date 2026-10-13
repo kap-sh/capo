@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#SearchPlaceIndexForPositionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -61,5 +61,26 @@ def deserialize_json(data: dict) -> SearchPlaceIndexForPositionResponse:
     else:
         raise DeserializationError(
             "SearchPlaceIndexForPositionResponse.results required"
+        )
+    return out
+
+
+def redact_sensitive(value: SearchPlaceIndexForPositionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "summary" in value:
+        import capo_location.types.search_place_index_for_position_summary
+
+        out["summary"] = (
+            capo_location.types.search_place_index_for_position_summary.redact_sensitive(
+                value["summary"]
+            )
+        )
+    if "results" in value:
+        import capo_location.types.search_for_position_result_list
+
+        out["results"] = (
+            capo_location.types.search_for_position_result_list.redact_sensitive(
+                value["results"]
+            )
         )
     return out

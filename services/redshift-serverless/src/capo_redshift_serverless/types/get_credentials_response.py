@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.redshiftserverless#GetCredentialsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -70,4 +70,13 @@ def deserialize_aws_json_1_1(data: dict) -> GetCredentialsResponse:
                 data["nextRefreshTime"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: GetCredentialsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "db_user" in value:
+        out["db_user"] = "*** Sensitive Data Redacted ***"
+    if "db_password" in value:
+        out["db_password"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#PathMappingRules``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_deadline.types.path_mapping_rule
@@ -29,3 +29,7 @@ def deserialize_json(data: list) -> PathMappingRules:
             continue
         out.append(capo_deadline.types.path_mapping_rule.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: PathMappingRules) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

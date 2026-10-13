@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.resiliencehubv2#EksSource``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -64,6 +64,19 @@ def deserialize_json(data: dict) -> EksSource:
         out["label_selector"] = (
             capo_resiliencehubv2.types.eks_label_selector.deserialize_json(
                 data["labelSelector"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: EksSource) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "label_selector" in value:
+        import capo_resiliencehubv2.types.eks_label_selector
+
+        out["label_selector"] = (
+            capo_resiliencehubv2.types.eks_label_selector.redact_sensitive(
+                value["label_selector"]
             )
         )
     return out

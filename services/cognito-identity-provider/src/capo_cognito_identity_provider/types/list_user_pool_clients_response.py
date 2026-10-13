@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#ListUserPoolClientsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -48,4 +48,17 @@ def deserialize_aws_json_1_1(data: dict) -> ListUserPoolClientsResponse:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListUserPoolClientsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_pool_clients" in value:
+        import capo_cognito_identity_provider.types.user_pool_client_list_type
+
+        out["user_pool_clients"] = (
+            capo_cognito_identity_provider.types.user_pool_client_list_type.redact_sensitive(
+                value["user_pool_clients"]
+            )
+        )
     return out

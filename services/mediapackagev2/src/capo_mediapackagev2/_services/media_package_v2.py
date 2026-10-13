@@ -25,10 +25,12 @@ from capo_mediapackagev2._resources.mediapackagev2.channel_group_resource import
 from capo_mediapackagev2._services._aws_config import aws_config
 from capo_mediapackagev2._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -201,7 +203,9 @@ class MediaPackageV2Client:
         self.channel_group_resource = ChannelGroupResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[MediaPackageV2ClientConfig] = None
+        self,
+        config_overrides: Optional[MediaPackageV2ClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MediaPackageV2ClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -209,8 +213,10 @@ class MediaPackageV2Client:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -264,7 +270,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_mediapackagev2.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -312,7 +320,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_mediapackagev2.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -361,7 +371,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_mediapackagev2.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -426,7 +438,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateChannelGroup")
+        )
         input_: capo_mediapackagev2.types.create_channel_group_request.CreateChannelGroupRequest = {
             "channel_group_name": channel_group_name
         }
@@ -485,7 +499,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetChannelGroup")
+        )
         input_: capo_mediapackagev2.types.get_channel_group_request.GetChannelGroupRequest = {
             "channel_group_name": channel_group_name
         }
@@ -544,7 +560,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateChannelGroup")
+        )
         input_: capo_mediapackagev2.types.update_channel_group_request.UpdateChannelGroupRequest = {
             "channel_group_name": channel_group_name
         }
@@ -600,7 +618,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChannelGroup")
+        )
         input_: capo_mediapackagev2.types.delete_channel_group_request.DeleteChannelGroupRequest = {
             "channel_group_name": channel_group_name
         }
@@ -655,7 +675,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListChannelGroups")
+        )
         input_: capo_mediapackagev2.types.list_channel_groups_request.ListChannelGroupsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -767,7 +789,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateChannel")
+        )
         input_: capo_mediapackagev2.types.create_channel_request.CreateChannelRequest = {
             "channel_group_name": channel_group_name,
             "channel_name": channel_name,
@@ -842,7 +866,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetChannel")
+        )
         input_: capo_mediapackagev2.types.get_channel_request.GetChannelRequest = {
             "channel_group_name": channel_group_name,
             "channel_name": channel_name,
@@ -919,7 +945,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateChannel")
+        )
         input_: capo_mediapackagev2.types.update_channel_request.UpdateChannelRequest = {
             "channel_group_name": channel_group_name,
             "channel_name": channel_name,
@@ -984,7 +1012,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChannel")
+        )
         input_: capo_mediapackagev2.types.delete_channel_request.DeleteChannelRequest = {
             "channel_group_name": channel_group_name,
             "channel_name": channel_name,
@@ -1043,7 +1073,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListChannels")
+        )
         input_: capo_mediapackagev2.types.list_channels_request.ListChannelsRequest = {
             "channel_group_name": channel_group_name
         }
@@ -1127,7 +1159,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetChannelState")
+        )
         input_: capo_mediapackagev2.types.reset_channel_state_request.ResetChannelStateRequest = {
             "channel_group_name": channel_group_name,
             "channel_name": channel_name,
@@ -1187,7 +1221,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutChannelPolicy")
+        )
         input_: capo_mediapackagev2.types.put_channel_policy_request.PutChannelPolicyRequest = {
             "channel_group_name": channel_group_name,
             "channel_name": channel_name,
@@ -1245,7 +1281,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetChannelPolicy")
+        )
         input_: capo_mediapackagev2.types.get_channel_policy_request.GetChannelPolicyRequest = {
             "channel_group_name": channel_group_name,
             "channel_name": channel_name,
@@ -1300,7 +1338,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChannelPolicy")
+        )
         input_: capo_mediapackagev2.types.delete_channel_policy_request.DeleteChannelPolicyRequest = {
             "channel_group_name": channel_group_name,
             "channel_name": channel_name,
@@ -1409,7 +1449,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateOriginEndpoint")
+        )
         input_: capo_mediapackagev2.types.create_origin_endpoint_request.CreateOriginEndpointRequest = {
             "channel_group_name": channel_group_name,
             "channel_name": channel_name,
@@ -1498,7 +1540,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOriginEndpoint")
+        )
         input_: capo_mediapackagev2.types.get_origin_endpoint_request.GetOriginEndpointRequest = {
             "channel_group_name": channel_group_name,
             "channel_name": channel_name,
@@ -1601,7 +1645,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateOriginEndpoint")
+        )
         input_: capo_mediapackagev2.types.update_origin_endpoint_request.UpdateOriginEndpointRequest = {
             "channel_group_name": channel_group_name,
             "channel_name": channel_name,
@@ -1683,7 +1729,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOriginEndpoint")
+        )
         input_: capo_mediapackagev2.types.delete_origin_endpoint_request.DeleteOriginEndpointRequest = {
             "channel_group_name": channel_group_name,
             "channel_name": channel_name,
@@ -1745,7 +1793,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOriginEndpoints")
+        )
         input_: capo_mediapackagev2.types.list_origin_endpoints_request.ListOriginEndpointsRequest = {
             "channel_group_name": channel_group_name,
             "channel_name": channel_name,
@@ -1834,7 +1884,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetOriginEndpointState")
+        )
         input_: capo_mediapackagev2.types.reset_origin_endpoint_state_request.ResetOriginEndpointStateRequest = {
             "channel_group_name": channel_group_name,
             "channel_name": channel_name,
@@ -1899,7 +1951,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutOriginEndpointPolicy")
+        )
         input_: capo_mediapackagev2.types.put_origin_endpoint_policy_request.PutOriginEndpointPolicyRequest = {
             "channel_group_name": channel_group_name,
             "channel_name": channel_name,
@@ -1960,7 +2014,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOriginEndpointPolicy")
+        )
         input_: capo_mediapackagev2.types.get_origin_endpoint_policy_request.GetOriginEndpointPolicyRequest = {
             "channel_group_name": channel_group_name,
             "channel_name": channel_name,
@@ -2018,7 +2074,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOriginEndpointPolicy")
+        )
         input_: capo_mediapackagev2.types.delete_origin_endpoint_policy_request.DeleteOriginEndpointPolicyRequest = {
             "channel_group_name": channel_group_name,
             "channel_name": channel_name,
@@ -2100,7 +2158,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHarvestJob")
+        )
         input_: capo_mediapackagev2.types.create_harvest_job_request.CreateHarvestJobRequest = {
             "channel_group_name": channel_group_name,
             "channel_name": channel_name,
@@ -2172,7 +2232,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetHarvestJob")
+        )
         input_: capo_mediapackagev2.types.get_harvest_job_request.GetHarvestJobRequest = {
             "channel_group_name": channel_group_name,
             "channel_name": channel_name,
@@ -2238,7 +2300,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelHarvestJob")
+        )
         input_: capo_mediapackagev2.types.cancel_harvest_job_request.CancelHarvestJobRequest = {
             "channel_group_name": channel_group_name,
             "channel_name": channel_name,
@@ -2325,7 +2389,9 @@ class MediaPackageV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHarvestJobs")
+        )
         input_: capo_mediapackagev2.types.list_harvest_jobs_request.ListHarvestJobsRequest = {
             "channel_group_name": channel_group_name
         }

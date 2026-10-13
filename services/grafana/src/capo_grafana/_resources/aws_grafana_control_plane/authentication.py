@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_grafana._auth._signers
 import capo_grafana._auth._sigv4
 from capo_grafana._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -67,7 +68,21 @@ class Authentication:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.describe_workspace_authentication_response.DescribeWorkspaceAuthenticationResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.describe_workspace_authentication_response
+
+            return capo_grafana.types.describe_workspace_authentication_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeWorkspaceAuthentication", redact_output=_redact_output
+            ),
+        )
         input_: capo_grafana.types.describe_workspace_authentication_request.DescribeWorkspaceAuthenticationRequest = {
             "workspace_id": workspace_id
         }
@@ -121,7 +136,32 @@ class Authentication:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_grafana.types.update_workspace_authentication_request.UpdateWorkspaceAuthenticationRequest",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.update_workspace_authentication_request
+
+            return capo_grafana.types.update_workspace_authentication_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_grafana.types.update_workspace_authentication_response.UpdateWorkspaceAuthenticationResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.update_workspace_authentication_response
+
+            return capo_grafana.types.update_workspace_authentication_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateWorkspaceAuthentication",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_grafana.types.update_workspace_authentication_request.UpdateWorkspaceAuthenticationRequest = {
             "workspace_id": workspace_id,
             "authentication_providers": authentication_providers,
@@ -178,7 +218,21 @@ class AsyncAuthentication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.describe_workspace_authentication_response.DescribeWorkspaceAuthenticationResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.describe_workspace_authentication_response
+
+            return capo_grafana.types.describe_workspace_authentication_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeWorkspaceAuthentication", redact_output=_redact_output
+            ),
+        )
         input_: capo_grafana.types.describe_workspace_authentication_request.DescribeWorkspaceAuthenticationRequest = {
             "workspace_id": workspace_id
         }
@@ -233,7 +287,32 @@ class AsyncAuthentication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_grafana.types.update_workspace_authentication_request.UpdateWorkspaceAuthenticationRequest",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.update_workspace_authentication_request
+
+            return capo_grafana.types.update_workspace_authentication_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_grafana.types.update_workspace_authentication_response.UpdateWorkspaceAuthenticationResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.update_workspace_authentication_response
+
+            return capo_grafana.types.update_workspace_authentication_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateWorkspaceAuthentication",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_grafana.types.update_workspace_authentication_request.UpdateWorkspaceAuthenticationRequest = {
             "workspace_id": workspace_id,
             "authentication_providers": authentication_providers,

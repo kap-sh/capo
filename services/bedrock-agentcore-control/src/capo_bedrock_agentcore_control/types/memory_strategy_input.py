@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#MemoryStrategyInput``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -135,3 +135,48 @@ def deserialize_json(data: dict) -> MemoryStrategyInput:
         }
     else:
         raise DeserializationError("MemoryStrategyInput: no recognized variant key")
+
+
+def redact_sensitive(value: MemoryStrategyInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "semanticMemoryStrategy" in value:
+        import capo_bedrock_agentcore_control.types.semantic_memory_strategy_input
+
+        out["semanticMemoryStrategy"] = (
+            capo_bedrock_agentcore_control.types.semantic_memory_strategy_input.redact_sensitive(
+                value["semanticMemoryStrategy"]
+            )
+        )
+    if "summaryMemoryStrategy" in value:
+        import capo_bedrock_agentcore_control.types.summary_memory_strategy_input
+
+        out["summaryMemoryStrategy"] = (
+            capo_bedrock_agentcore_control.types.summary_memory_strategy_input.redact_sensitive(
+                value["summaryMemoryStrategy"]
+            )
+        )
+    if "userPreferenceMemoryStrategy" in value:
+        import capo_bedrock_agentcore_control.types.user_preference_memory_strategy_input
+
+        out["userPreferenceMemoryStrategy"] = (
+            capo_bedrock_agentcore_control.types.user_preference_memory_strategy_input.redact_sensitive(
+                value["userPreferenceMemoryStrategy"]
+            )
+        )
+    if "customMemoryStrategy" in value:
+        import capo_bedrock_agentcore_control.types.custom_memory_strategy_input
+
+        out["customMemoryStrategy"] = (
+            capo_bedrock_agentcore_control.types.custom_memory_strategy_input.redact_sensitive(
+                value["customMemoryStrategy"]
+            )
+        )
+    if "episodicMemoryStrategy" in value:
+        import capo_bedrock_agentcore_control.types.episodic_memory_strategy_input
+
+        out["episodicMemoryStrategy"] = (
+            capo_bedrock_agentcore_control.types.episodic_memory_strategy_input.redact_sensitive(
+                value["episodicMemoryStrategy"]
+            )
+        )
+    return out

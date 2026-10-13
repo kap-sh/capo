@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.firehose#HttpEndpointConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -44,4 +44,13 @@ def deserialize_aws_json_1_1(data: dict) -> HttpEndpointConfiguration:
         out["name"] = data["Name"]
     if data.get("AccessKey") is not None:
         out["access_key"] = data["AccessKey"]
+    return out
+
+
+def redact_sensitive(value: HttpEndpointConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "url" in value:
+        out["url"] = "*** Sensitive Data Redacted ***"
+    if "access_key" in value:
+        out["access_key"] = "*** Sensitive Data Redacted ***"
     return out

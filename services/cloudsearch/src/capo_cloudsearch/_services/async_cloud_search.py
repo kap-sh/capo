@@ -22,7 +22,9 @@ from capo_cloudsearch._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -167,7 +169,9 @@ class AsyncCloudSearchClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncCloudSearchClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncCloudSearchClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncCloudSearchClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -175,8 +179,10 @@ class AsyncCloudSearchClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -226,7 +232,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BuildSuggesters")
+        )
         input_: capo_cloudsearch.types.build_suggesters_request.BuildSuggestersRequest = {
             "domain_name": domain_name
         }
@@ -274,7 +282,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDomain")
+        )
         input_: capo_cloudsearch.types.create_domain_request.CreateDomainRequest = {
             "domain_name": domain_name
         }
@@ -321,7 +331,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DefineAnalysisScheme")
+        )
         input_: capo_cloudsearch.types.define_analysis_scheme_request.DefineAnalysisSchemeRequest = {
             "domain_name": domain_name,
             "analysis_scheme": analysis_scheme,
@@ -369,7 +381,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DefineExpression")
+        )
         input_: capo_cloudsearch.types.define_expression_request.DefineExpressionRequest = {
             "domain_name": domain_name,
             "expression": expression,
@@ -420,7 +434,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DefineIndexField")
+        )
         input_: capo_cloudsearch.types.define_index_field_request.DefineIndexFieldRequest = {
             "domain_name": domain_name,
             "index_field": index_field,
@@ -468,7 +484,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DefineSuggester")
+        )
         input_: capo_cloudsearch.types.define_suggester_request.DefineSuggesterRequest = {
             "domain_name": domain_name,
             "suggester": suggester,
@@ -518,7 +536,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAnalysisScheme")
+        )
         input_: capo_cloudsearch.types.delete_analysis_scheme_request.DeleteAnalysisSchemeRequest = {
             "domain_name": domain_name,
             "analysis_scheme_name": analysis_scheme_name,
@@ -564,7 +584,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomain")
+        )
         input_: capo_cloudsearch.types.delete_domain_request.DeleteDomainRequest = {
             "domain_name": domain_name
         }
@@ -613,7 +635,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteExpression")
+        )
         input_: capo_cloudsearch.types.delete_expression_request.DeleteExpressionRequest = {
             "domain_name": domain_name,
             "expression_name": expression_name,
@@ -663,7 +687,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIndexField")
+        )
         input_: capo_cloudsearch.types.delete_index_field_request.DeleteIndexFieldRequest = {
             "domain_name": domain_name,
             "index_field_name": index_field_name,
@@ -713,7 +739,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSuggester")
+        )
         input_: capo_cloudsearch.types.delete_suggester_request.DeleteSuggesterRequest = {
             "domain_name": domain_name,
             "suggester_name": suggester_name,
@@ -766,7 +794,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAnalysisSchemes")
+        )
         input_: capo_cloudsearch.types.describe_analysis_schemes_request.DescribeAnalysisSchemesRequest = {
             "domain_name": domain_name
         }
@@ -821,7 +851,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAvailabilityOptions")
+        )
         input_: capo_cloudsearch.types.describe_availability_options_request.DescribeAvailabilityOptionsRequest = {
             "domain_name": domain_name
         }
@@ -873,7 +905,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDomainEndpointOptions")
+        )
         input_: capo_cloudsearch.types.describe_domain_endpoint_options_request.DescribeDomainEndpointOptionsRequest = {
             "domain_name": domain_name
         }
@@ -922,7 +956,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDomains")
+        )
         input_: capo_cloudsearch.types.describe_domains_request.DescribeDomainsRequest = {}
         if domain_names is not None:
             input_["domain_names"] = domain_names
@@ -974,7 +1010,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeExpressions")
+        )
         input_: capo_cloudsearch.types.describe_expressions_request.DescribeExpressionsRequest = {
             "domain_name": domain_name
         }
@@ -1030,7 +1068,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeIndexFields")
+        )
         input_: capo_cloudsearch.types.describe_index_fields_request.DescribeIndexFieldsRequest = {
             "domain_name": domain_name
         }
@@ -1077,7 +1117,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeScalingParameters")
+        )
         input_: capo_cloudsearch.types.describe_scaling_parameters_request.DescribeScalingParametersRequest = {
             "domain_name": domain_name
         }
@@ -1125,7 +1167,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeServiceAccessPolicies")
+        )
         input_: capo_cloudsearch.types.describe_service_access_policies_request.DescribeServiceAccessPoliciesRequest = {
             "domain_name": domain_name
         }
@@ -1181,7 +1225,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSuggesters")
+        )
         input_: capo_cloudsearch.types.describe_suggesters_request.DescribeSuggestersRequest = {
             "domain_name": domain_name
         }
@@ -1229,7 +1275,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("IndexDocuments")
+        )
         input_: capo_cloudsearch.types.index_documents_request.IndexDocumentsRequest = {
             "domain_name": domain_name
         }
@@ -1267,7 +1315,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomainNames")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -1315,7 +1365,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAvailabilityOptions")
+        )
         input_: capo_cloudsearch.types.update_availability_options_request.UpdateAvailabilityOptionsRequest = {
             "domain_name": domain_name,
             "multi_az": multi_az,
@@ -1368,7 +1420,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDomainEndpointOptions")
+        )
         input_: capo_cloudsearch.types.update_domain_endpoint_options_request.UpdateDomainEndpointOptionsRequest = {
             "domain_name": domain_name,
             "domain_endpoint_options": domain_endpoint_options,
@@ -1416,7 +1470,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateScalingParameters")
+        )
         input_: capo_cloudsearch.types.update_scaling_parameters_request.UpdateScalingParametersRequest = {
             "domain_name": domain_name,
             "scaling_parameters": scaling_parameters,
@@ -1467,7 +1523,9 @@ class AsyncCloudSearchClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateServiceAccessPolicies")
+        )
         input_: capo_cloudsearch.types.update_service_access_policies_request.UpdateServiceAccessPoliciesRequest = {
             "domain_name": domain_name,
             "access_policies": access_policies,

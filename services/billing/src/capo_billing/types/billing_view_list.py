@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.billing#BillingViewList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_billing.types.billing_view_list_element
@@ -33,3 +33,12 @@ def deserialize_aws_json_1_0(data: list) -> BillingViewList:
             capo_billing.types.billing_view_list_element.deserialize_aws_json_1_0(item)
         )
     return out
+
+
+def redact_sensitive(value: BillingViewList) -> list[Any]:
+    import capo_billing.types.billing_view_list_element
+
+    return [
+        capo_billing.types.billing_view_list_element.redact_sensitive(item)
+        for item in value
+    ]

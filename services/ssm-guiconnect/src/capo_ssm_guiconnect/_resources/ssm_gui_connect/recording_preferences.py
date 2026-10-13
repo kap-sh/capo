@@ -8,6 +8,7 @@ import capo_ssm_guiconnect._auth._sigv4
 from capo_ssm_guiconnect._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -78,7 +79,9 @@ class RecordingPreferences:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateConnectionRecordingPreferences")
+        )
         input_: capo_ssm_guiconnect.types.update_connection_recording_preferences_request.UpdateConnectionRecordingPreferencesRequest = {
             "connection_recording_preferences": connection_recording_preferences
         }
@@ -145,7 +148,9 @@ class AsyncRecordingPreferences:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateConnectionRecordingPreferences")
+        )
         input_: capo_ssm_guiconnect.types.update_connection_recording_preferences_request.UpdateConnectionRecordingPreferencesRequest = {
             "connection_recording_preferences": connection_recording_preferences
         }

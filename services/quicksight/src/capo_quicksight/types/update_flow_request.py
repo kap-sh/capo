@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#UpdateFlowRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,4 +58,11 @@ def deserialize_json(data: dict) -> UpdateFlowRequest:
         out["flow_definition"] = data["FlowDefinition"]
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
+    return out
+
+
+def redact_sensitive(value: UpdateFlowRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "flow_definition" in value:
+        out["flow_definition"] = "*** Sensitive Data Redacted ***"
     return out

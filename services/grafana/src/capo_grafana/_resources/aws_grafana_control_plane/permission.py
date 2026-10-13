@@ -7,6 +7,7 @@ import capo_grafana._auth._sigv4
 from capo_grafana._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -81,7 +82,9 @@ class Permission:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPermissions")
+        )
         input_: capo_grafana.types.list_permissions_request.ListPermissionsRequest = {
             "workspace_id": workspace_id
         }
@@ -140,7 +143,9 @@ class Permission:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdatePermissions")
+        )
         input_: capo_grafana.types.update_permissions_request.UpdatePermissionsRequest = {
             "update_instruction_batch": update_instruction_batch,
             "workspace_id": workspace_id,
@@ -206,7 +211,9 @@ class AsyncPermission:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPermissions")
+        )
         input_: capo_grafana.types.list_permissions_request.ListPermissionsRequest = {
             "workspace_id": workspace_id
         }
@@ -266,7 +273,9 @@ class AsyncPermission:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdatePermissions")
+        )
         input_: capo_grafana.types.update_permissions_request.UpdatePermissionsRequest = {
             "update_instruction_batch": update_instruction_batch,
             "workspace_id": workspace_id,

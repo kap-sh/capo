@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudfront#DistributionConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -370,5 +370,24 @@ def deserialize_xml(el: Element) -> DistributionConfig:
             capo_cloudfront.types.cache_tag_config.deserialize_xml(
                 child_cache_tag_config
             )
+        )
+    return out
+
+
+def redact_sensitive(value: DistributionConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "origins" in value:
+        import capo_cloudfront.types.origins
+
+        out["origins"] = capo_cloudfront.types.origins.redact_sensitive(
+            value["origins"]
+        )
+    if "comment" in value:
+        out["comment"] = "*** Sensitive Data Redacted ***"
+    if "tenant_config" in value:
+        import capo_cloudfront.types.tenant_config
+
+        out["tenant_config"] = capo_cloudfront.types.tenant_config.redact_sensitive(
+            value["tenant_config"]
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#TenantDatabase``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -188,4 +188,17 @@ def deserialize_query(el: Element) -> TenantDatabase:
         import capo_rds.types.tag_list
 
         out["tag_list"] = capo_rds.types.tag_list.deserialize_query(child_tag_list)
+    return out
+
+
+def redact_sensitive(value: TenantDatabase) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "pending_modified_values" in value:
+        import capo_rds.types.tenant_database_pending_modified_values
+
+        out["pending_modified_values"] = (
+            capo_rds.types.tenant_database_pending_modified_values.redact_sensitive(
+                value["pending_modified_values"]
+            )
+        )
     return out

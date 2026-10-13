@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_mwaa_serverless._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -124,7 +125,9 @@ class WorkflowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWorkflow")
+        )
         input_: capo_mwaa_serverless.types.create_workflow_request.CreateWorkflowRequest = {
             "name": name,
             "definition_s3_location": definition_s3_location,
@@ -197,7 +200,9 @@ class WorkflowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetWorkflow")
+        )
         input_: capo_mwaa_serverless.types.get_workflow_request.GetWorkflowRequest = {
             "workflow_arn": workflow_arn
         }
@@ -275,7 +280,9 @@ class WorkflowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateWorkflow")
+        )
         input_: capo_mwaa_serverless.types.update_workflow_request.UpdateWorkflowRequest = {
             "workflow_arn": workflow_arn,
             "definition_s3_location": definition_s3_location,
@@ -341,7 +348,9 @@ class WorkflowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflow")
+        )
         input_: capo_mwaa_serverless.types.delete_workflow_request.DeleteWorkflowRequest = {
             "workflow_arn": workflow_arn
         }
@@ -392,7 +401,9 @@ class WorkflowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkflows")
+        )
         input_: capo_mwaa_serverless.types.list_workflows_request.ListWorkflowsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -485,7 +496,9 @@ class AsyncWorkflowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWorkflow")
+        )
         input_: capo_mwaa_serverless.types.create_workflow_request.CreateWorkflowRequest = {
             "name": name,
             "definition_s3_location": definition_s3_location,
@@ -559,7 +572,9 @@ class AsyncWorkflowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetWorkflow")
+        )
         input_: capo_mwaa_serverless.types.get_workflow_request.GetWorkflowRequest = {
             "workflow_arn": workflow_arn
         }
@@ -638,7 +653,9 @@ class AsyncWorkflowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateWorkflow")
+        )
         input_: capo_mwaa_serverless.types.update_workflow_request.UpdateWorkflowRequest = {
             "workflow_arn": workflow_arn,
             "definition_s3_location": definition_s3_location,
@@ -705,7 +722,9 @@ class AsyncWorkflowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflow")
+        )
         input_: capo_mwaa_serverless.types.delete_workflow_request.DeleteWorkflowRequest = {
             "workflow_arn": workflow_arn
         }
@@ -757,7 +776,9 @@ class AsyncWorkflowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkflows")
+        )
         input_: capo_mwaa_serverless.types.list_workflows_request.ListWorkflowsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

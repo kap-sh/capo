@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.resiliencehub#DescribeAppAssessmentResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,15 @@ def deserialize_json(data: dict) -> DescribeAppAssessmentResponse:
         )
     else:
         raise DeserializationError("DescribeAppAssessmentResponse.assessment required")
+    return out
+
+
+def redact_sensitive(value: DescribeAppAssessmentResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "assessment" in value:
+        import capo_resiliencehub.types.app_assessment
+
+        out["assessment"] = capo_resiliencehub.types.app_assessment.redact_sensitive(
+            value["assessment"]
+        )
     return out

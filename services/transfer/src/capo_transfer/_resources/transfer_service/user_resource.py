@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_transfer._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -107,7 +108,9 @@ class UserResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateUser")
+        )
         input_: capo_transfer.types.create_user_request.CreateUserRequest = {
             "role": role,
             "server_id": server_id,
@@ -171,7 +174,9 @@ class UserResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeUser")
+        )
         input_: capo_transfer.types.describe_user_request.DescribeUserRequest = {
             "server_id": server_id,
             "user_name": user_name,
@@ -241,7 +246,9 @@ class UserResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateUser")
+        )
         input_: capo_transfer.types.update_user_request.UpdateUserRequest = {
             "server_id": server_id,
             "user_name": user_name,
@@ -300,7 +307,9 @@ class UserResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteUser")
+        )
         input_: capo_transfer.types.delete_user_request.DeleteUserRequest = {
             "server_id": server_id,
             "user_name": user_name,
@@ -352,7 +361,9 @@ class UserResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListUsers")
+        )
         input_: capo_transfer.types.list_users_request.ListUsersRequest = {
             "server_id": server_id
         }
@@ -437,7 +448,9 @@ class AsyncUserResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateUser")
+        )
         input_: capo_transfer.types.create_user_request.CreateUserRequest = {
             "role": role,
             "server_id": server_id,
@@ -502,7 +515,9 @@ class AsyncUserResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeUser")
+        )
         input_: capo_transfer.types.describe_user_request.DescribeUserRequest = {
             "server_id": server_id,
             "user_name": user_name,
@@ -573,7 +588,9 @@ class AsyncUserResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateUser")
+        )
         input_: capo_transfer.types.update_user_request.UpdateUserRequest = {
             "server_id": server_id,
             "user_name": user_name,
@@ -633,7 +650,9 @@ class AsyncUserResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteUser")
+        )
         input_: capo_transfer.types.delete_user_request.DeleteUserRequest = {
             "server_id": server_id,
             "user_name": user_name,
@@ -686,7 +705,9 @@ class AsyncUserResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListUsers")
+        )
         input_: capo_transfer.types.list_users_request.ListUsersRequest = {
             "server_id": server_id
         }

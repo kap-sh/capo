@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.transfer#CustomHttpHeaders``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_transfer.types.custom_http_header
@@ -31,3 +31,7 @@ def deserialize_aws_json_1_1(data: list) -> CustomHttpHeaders:
             capo_transfer.types.custom_http_header.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+def redact_sensitive(value: CustomHttpHeaders) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

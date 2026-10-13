@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lightsail#Sessions``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_lightsail.types.session
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> Sessions:
             continue
         out.append(capo_lightsail.types.session.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: Sessions) -> list[Any]:
+    import capo_lightsail.types.session
+
+    return [capo_lightsail.types.session.redact_sensitive(item) for item in value]

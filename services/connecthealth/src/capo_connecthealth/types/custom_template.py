@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connecthealth#CustomTemplate``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -60,4 +60,17 @@ def deserialize_json(data: dict) -> CustomTemplate:
         )
     else:
         raise DeserializationError("CustomTemplate.template_instructions required")
+    return out
+
+
+def redact_sensitive(value: CustomTemplate) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "template_instructions" in value:
+        import capo_connecthealth.types.template_instructions
+
+        out["template_instructions"] = (
+            capo_connecthealth.types.template_instructions.redact_sensitive(
+                value["template_instructions"]
+            )
+        )
     return out

@@ -7,6 +7,7 @@ import capo_cleanroomsml._auth._sigv4
 from capo_cleanroomsml._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -87,7 +88,9 @@ class TrainingDataset:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTrainingDataset")
+        )
         input_: capo_cleanroomsml.types.create_training_dataset_request.CreateTrainingDatasetRequest = {
             "name": name,
             "role_arn": role_arn,
@@ -139,7 +142,9 @@ class TrainingDataset:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTrainingDataset")
+        )
         input_: capo_cleanroomsml.types.get_training_dataset_request.GetTrainingDatasetRequest = {
             "training_dataset_arn": training_dataset_arn
         }
@@ -184,7 +189,9 @@ class TrainingDataset:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTrainingDataset")
+        )
         input_: capo_cleanroomsml.types.delete_training_dataset_request.DeleteTrainingDatasetRequest = {
             "training_dataset_arn": training_dataset_arn
         }
@@ -231,7 +238,9 @@ class TrainingDataset:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTrainingDatasets")
+        )
         input_: capo_cleanroomsml.types.list_training_datasets_request.ListTrainingDatasetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -295,7 +304,9 @@ class AsyncTrainingDataset:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTrainingDataset")
+        )
         input_: capo_cleanroomsml.types.create_training_dataset_request.CreateTrainingDatasetRequest = {
             "name": name,
             "role_arn": role_arn,
@@ -348,7 +359,9 @@ class AsyncTrainingDataset:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTrainingDataset")
+        )
         input_: capo_cleanroomsml.types.get_training_dataset_request.GetTrainingDatasetRequest = {
             "training_dataset_arn": training_dataset_arn
         }
@@ -394,7 +407,9 @@ class AsyncTrainingDataset:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTrainingDataset")
+        )
         input_: capo_cleanroomsml.types.delete_training_dataset_request.DeleteTrainingDatasetRequest = {
             "training_dataset_arn": training_dataset_arn
         }
@@ -442,7 +457,9 @@ class AsyncTrainingDataset:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTrainingDatasets")
+        )
         input_: capo_cleanroomsml.types.list_training_datasets_request.ListTrainingDatasetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

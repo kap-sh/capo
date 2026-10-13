@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#InstanceSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -121,4 +121,11 @@ def deserialize_json(data: dict) -> InstanceSummary:
         out["outbound_calls_enabled"] = data["OutboundCallsEnabled"]
     if data.get("InstanceAccessUrl") is not None:
         out["instance_access_url"] = data["InstanceAccessUrl"]
+    return out
+
+
+def redact_sensitive(value: InstanceSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "instance_alias" in value:
+        out["instance_alias"] = "*** Sensitive Data Redacted ***"
     return out

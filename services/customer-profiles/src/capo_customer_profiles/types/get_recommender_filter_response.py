@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#GetRecommenderFilterResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -116,4 +116,13 @@ def deserialize_json(data: dict) -> GetRecommenderFilterResponse:
         )
     else:
         raise DeserializationError("GetRecommenderFilterResponse.tags required")
+    return out
+
+
+def redact_sensitive(value: GetRecommenderFilterResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "recommender_filter_expression" in value:
+        out["recommender_filter_expression"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

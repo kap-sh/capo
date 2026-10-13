@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmeetings#BatchCreateAttendeeRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -43,4 +43,17 @@ def deserialize_json(data: dict) -> BatchCreateAttendeeRequest:
         )
     else:
         raise DeserializationError("BatchCreateAttendeeRequest.attendees required")
+    return out
+
+
+def redact_sensitive(value: BatchCreateAttendeeRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "attendees" in value:
+        import capo_chime_sdk_meetings.types.create_attendee_request_item_list
+
+        out["attendees"] = (
+            capo_chime_sdk_meetings.types.create_attendee_request_item_list.redact_sensitive(
+                value["attendees"]
+            )
+        )
     return out

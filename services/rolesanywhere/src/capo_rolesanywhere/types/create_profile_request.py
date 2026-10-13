@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rolesanywhere#CreateProfileRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -106,4 +106,13 @@ def deserialize_json(data: dict) -> CreateProfileRequest:
         out["tags"] = capo_rolesanywhere.types.tag_list.deserialize_json(data["tags"])
     if data.get("acceptRoleSessionName") is not None:
         out["accept_role_session_name"] = data["acceptRoleSessionName"]
+    return out
+
+
+def redact_sensitive(value: CreateProfileRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        import capo_rolesanywhere.types.tag_list
+
+        out["tags"] = capo_rolesanywhere.types.tag_list.redact_sensitive(value["tags"])
     return out

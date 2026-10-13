@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.signin#IntrospectOAuth2TokenWithIAMRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -35,4 +35,11 @@ def deserialize_json(data: dict) -> IntrospectOAuth2TokenWithIAMRequest:
         raise DeserializationError("IntrospectOAuth2TokenWithIAMRequest.token required")
     if data.get("token_type_hint") is not None:
         out["token_type_hint"] = data["token_type_hint"]
+    return out
+
+
+def redact_sensitive(value: IntrospectOAuth2TokenWithIAMRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "token" in value:
+        out["token"] = "*** Sensitive Data Redacted ***"
     return out

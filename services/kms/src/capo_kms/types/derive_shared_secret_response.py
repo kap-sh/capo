@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kms#DeriveSharedSecretResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -97,4 +97,11 @@ def deserialize_aws_json_1_1(data: dict) -> DeriveSharedSecretResponse:
         out["key_origin"] = capo_kms.types.origin_type.deserialize_aws_json_1_1(
             data["KeyOrigin"]
         )
+    return out
+
+
+def redact_sensitive(value: DeriveSharedSecretResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "shared_secret" in value:
+        out["shared_secret"] = "*** Sensitive Data Redacted ***"
     return out

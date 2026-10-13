@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glue#ConnectionInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -204,6 +204,19 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectionInput:
         out["validate_for_compute_environments"] = (
             capo_glue.types.compute_environment_list.deserialize_aws_json_1_1(
                 data["ValidateForComputeEnvironments"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ConnectionInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "authentication_configuration" in value:
+        import capo_glue.types.authentication_configuration_input
+
+        out["authentication_configuration"] = (
+            capo_glue.types.authentication_configuration_input.redact_sensitive(
+                value["authentication_configuration"]
             )
         )
     return out

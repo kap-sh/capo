@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#ToolConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -165,4 +165,25 @@ def deserialize_json(data: dict) -> ToolConfiguration:
                 data["userInteractionConfiguration"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: ToolConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "title" in value:
+        out["title"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "instruction" in value:
+        out["instruction"] = "*** Sensitive Data Redacted ***"
+    if "override_input_values" in value:
+        out["override_input_values"] = "*** Sensitive Data Redacted ***"
+    if "output_filters" in value:
+        out["output_filters"] = "*** Sensitive Data Redacted ***"
+    if "input_schema" in value:
+        out["input_schema"] = "*** Sensitive Data Redacted ***"
+    if "output_schema" in value:
+        out["output_schema"] = "*** Sensitive Data Redacted ***"
+    if "annotations" in value:
+        out["annotations"] = "*** Sensitive Data Redacted ***"
     return out

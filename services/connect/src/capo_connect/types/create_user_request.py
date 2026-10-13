@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#CreateUserRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -228,4 +228,31 @@ def deserialize_json(data: dict) -> CreateUserRequest:
         import capo_connect.types.tag_map
 
         out["tags"] = capo_connect.types.tag_map.deserialize_json(data["Tags"])
+    return out
+
+
+def redact_sensitive(value: CreateUserRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
+    if "identity_info" in value:
+        import capo_connect.types.user_identity_info
+
+        out["identity_info"] = capo_connect.types.user_identity_info.redact_sensitive(
+            value["identity_info"]
+        )
+    if "phone_config" in value:
+        import capo_connect.types.user_phone_config
+
+        out["phone_config"] = capo_connect.types.user_phone_config.redact_sensitive(
+            value["phone_config"]
+        )
+    if "phone_number_configs" in value:
+        import capo_connect.types.phone_number_configs
+
+        out["phone_number_configs"] = (
+            capo_connect.types.phone_number_configs.redact_sensitive(
+                value["phone_number_configs"]
+            )
+        )
     return out

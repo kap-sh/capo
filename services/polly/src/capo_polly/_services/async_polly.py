@@ -26,7 +26,9 @@ from capo_polly._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -146,7 +148,9 @@ class AsyncPollyClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncPollyClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncPollyClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncPollyClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -154,8 +158,10 @@ class AsyncPollyClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -212,7 +218,9 @@ class AsyncPollyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLexicon")
+        )
         input_: capo_polly.types.delete_lexicon_input.DeleteLexiconInput = {
             "name": name
         }
@@ -271,7 +279,9 @@ class AsyncPollyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeVoices")
+        )
         input_: capo_polly.types.describe_voices_input.DescribeVoicesInput = {}
         if engine is not None:
             input_["engine"] = engine
@@ -324,7 +334,17 @@ class AsyncPollyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_polly.types.get_lexicon_output.GetLexiconOutput",
+        ) -> dict[str, Any]:
+            import capo_polly.types.get_lexicon_output
+
+            return capo_polly.types.get_lexicon_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetLexicon", redact_output=_redact_output),
+        )
         input_: capo_polly.types.get_lexicon_input.GetLexiconInput = {"name": name}
 
         response = await aexecute_pipeline(
@@ -370,7 +390,9 @@ class AsyncPollyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSpeechSynthesisTask")
+        )
         input_: capo_polly.types.get_speech_synthesis_task_input.GetSpeechSynthesisTaskInput = {
             "task_id": task_id
         }
@@ -421,7 +443,9 @@ class AsyncPollyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLexicons")
+        )
         input_: capo_polly.types.list_lexicons_input.ListLexiconsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -470,7 +494,9 @@ class AsyncPollyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSpeechSynthesisTasks")
+        )
         input_: capo_polly.types.list_speech_synthesis_tasks_input.ListSpeechSynthesisTasksInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -553,7 +579,16 @@ class AsyncPollyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_polly.types.put_lexicon_input.PutLexiconInput",
+        ) -> dict[str, Any]:
+            import capo_polly.types.put_lexicon_input
+
+            return capo_polly.types.put_lexicon_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutLexicon", redact_input=_redact_input)
+        )
         input_: capo_polly.types.put_lexicon_input.PutLexiconInput = {
             "name": name,
             "content": content,
@@ -618,7 +653,36 @@ class AsyncPollyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_polly.types.start_speech_synthesis_stream_input.StartSpeechSynthesisStreamInput",
+        ) -> dict[str, Any]:
+            import capo_polly.types.start_speech_synthesis_stream_input
+
+            return (
+                capo_polly.types.start_speech_synthesis_stream_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_polly.types.start_speech_synthesis_stream_output.StartSpeechSynthesisStreamOutput",
+        ) -> dict[str, Any]:
+            import capo_polly.types.start_speech_synthesis_stream_output
+
+            return (
+                capo_polly.types.start_speech_synthesis_stream_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartSpeechSynthesisStream",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_polly.types.start_speech_synthesis_stream_input.StartSpeechSynthesisStreamInput = {
             "engine": engine,
             "output_format": output_format,
@@ -713,7 +777,9 @@ class AsyncPollyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartSpeechSynthesisTask")
+        )
         input_: capo_polly.types.start_speech_synthesis_task_input.StartSpeechSynthesisTaskInput = {
             "output_format": output_format,
             "output_s3_bucket_name": output_s3_bucket_name,
@@ -811,7 +877,17 @@ class AsyncPollyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_polly.types.synthesize_speech_output.SynthesizeSpeechOutput",
+        ) -> dict[str, Any]:
+            import capo_polly.types.synthesize_speech_output
+
+            return capo_polly.types.synthesize_speech_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SynthesizeSpeech", redact_output=_redact_output),
+        )
         input_: capo_polly.types.synthesize_speech_input.SynthesizeSpeechInput = {
             "output_format": output_format,
             "text": text,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SemanticTableMap``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.data_set_entity_resource_id
@@ -31,3 +31,12 @@ def deserialize_json(data: dict) -> SemanticTableMap:
 
         out[key] = capo_quicksight.types.semantic_table.deserialize_json(value)
     return out
+
+
+def redact_sensitive(value: SemanticTableMap) -> dict[str, Any]:
+    import capo_quicksight.types.semantic_table
+
+    return {
+        key: capo_quicksight.types.semantic_table.redact_sensitive(item)
+        for key, item in value.items()
+    }

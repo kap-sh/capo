@@ -22,10 +22,12 @@ from capo_networkmanager._pagination import resolve_path as _resolve_path
 from capo_networkmanager._services._aws_config import aws_config
 from capo_networkmanager._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -382,7 +384,9 @@ class NetworkManagerClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[NetworkManagerClientConfig] = None
+        self,
+        config_overrides: Optional[NetworkManagerClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: NetworkManagerClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -390,8 +394,10 @@ class NetworkManagerClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -447,7 +453,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptAttachment")
+        )
         input_: capo_networkmanager.types.accept_attachment_request.AcceptAttachmentRequest = {
             "attachment_id": attachment_id
         }
@@ -502,7 +510,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateConnectPeer")
+        )
         input_: capo_networkmanager.types.associate_connect_peer_request.AssociateConnectPeerRequest = {
             "global_network_id": global_network_id,
             "connect_peer_id": connect_peer_id,
@@ -561,7 +571,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateCustomerGateway")
+        )
         input_: capo_networkmanager.types.associate_customer_gateway_request.AssociateCustomerGatewayRequest = {
             "customer_gateway_arn": customer_gateway_arn,
             "global_network_id": global_network_id,
@@ -618,7 +630,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateLink")
+        )
         input_: capo_networkmanager.types.associate_link_request.AssociateLinkRequest = {
             "global_network_id": global_network_id,
             "device_id": device_id,
@@ -675,7 +689,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateTransitGatewayConnectPeer")
+        )
         input_: capo_networkmanager.types.associate_transit_gateway_connect_peer_request.AssociateTransitGatewayConnectPeerRequest = {
             "global_network_id": global_network_id,
             "transit_gateway_connect_peer_arn": transit_gateway_connect_peer_arn,
@@ -743,7 +759,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConnectAttachment")
+        )
         input_: capo_networkmanager.types.create_connect_attachment_request.CreateConnectAttachmentRequest = {
             "core_network_id": core_network_id,
             "edge_location": edge_location,
@@ -817,7 +835,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConnection")
+        )
         input_: capo_networkmanager.types.create_connection_request.CreateConnectionRequest = {
             "global_network_id": global_network_id,
             "device_id": device_id,
@@ -897,7 +917,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConnectPeer")
+        )
         input_: capo_networkmanager.types.create_connect_peer_request.CreateConnectPeerRequest = {
             "connect_attachment_id": connect_attachment_id,
             "peer_address": peer_address,
@@ -974,7 +996,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCoreNetwork")
+        )
         input_: capo_networkmanager.types.create_core_network_request.CreateCoreNetworkRequest = {
             "global_network_id": global_network_id
         }
@@ -1040,7 +1064,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCoreNetworkPrefixListAssociation")
+        )
         input_: capo_networkmanager.types.create_core_network_prefix_list_association_request.CreateCoreNetworkPrefixListAssociationRequest = {
             "core_network_id": core_network_id,
             "prefix_list_arn": prefix_list_arn,
@@ -1124,7 +1150,30 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_networkmanager.types.create_device_request.CreateDeviceRequest",
+        ) -> dict[str, Any]:
+            import capo_networkmanager.types.create_device_request
+
+            return capo_networkmanager.types.create_device_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_networkmanager.types.create_device_response.CreateDeviceResponse",
+        ) -> dict[str, Any]:
+            import capo_networkmanager.types.create_device_response
+
+            return capo_networkmanager.types.create_device_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDevice", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_networkmanager.types.create_device_request.CreateDeviceRequest = {
             "global_network_id": global_network_id
         }
@@ -1204,7 +1253,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDirectConnectGatewayAttachment")
+        )
         input_: capo_networkmanager.types.create_direct_connect_gateway_attachment_request.CreateDirectConnectGatewayAttachmentRequest = {
             "core_network_id": core_network_id,
             "direct_connect_gateway_arn": direct_connect_gateway_arn,
@@ -1265,7 +1316,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGlobalNetwork")
+        )
         input_: capo_networkmanager.types.create_global_network_request.CreateGlobalNetworkRequest = {}
         if description is not None:
             input_["description"] = description
@@ -1334,7 +1387,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLink")
+        )
         input_: capo_networkmanager.types.create_link_request.CreateLinkRequest = {
             "global_network_id": global_network_id,
             "bandwidth": bandwidth,
@@ -1401,7 +1456,30 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_networkmanager.types.create_site_request.CreateSiteRequest",
+        ) -> dict[str, Any]:
+            import capo_networkmanager.types.create_site_request
+
+            return capo_networkmanager.types.create_site_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_networkmanager.types.create_site_response.CreateSiteResponse",
+        ) -> dict[str, Any]:
+            import capo_networkmanager.types.create_site_response
+
+            return capo_networkmanager.types.create_site_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateSite", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_networkmanager.types.create_site_request.CreateSiteRequest = {
             "global_network_id": global_network_id
         }
@@ -1467,7 +1545,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSiteToSiteVpnAttachment")
+        )
         input_: capo_networkmanager.types.create_site_to_site_vpn_attachment_request.CreateSiteToSiteVpnAttachmentRequest = {
             "core_network_id": core_network_id,
             "vpn_connection_arn": vpn_connection_arn,
@@ -1531,7 +1611,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTransitGatewayPeering")
+        )
         input_: capo_networkmanager.types.create_transit_gateway_peering_request.CreateTransitGatewayPeeringRequest = {
             "core_network_id": core_network_id,
             "transit_gateway_arn": transit_gateway_arn,
@@ -1597,7 +1679,10 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateTransitGatewayRouteTableAttachment"),
+        )
         input_: capo_networkmanager.types.create_transit_gateway_route_table_attachment_request.CreateTransitGatewayRouteTableAttachmentRequest = {
             "peering_id": peering_id,
             "transit_gateway_route_table_arn": transit_gateway_route_table_arn,
@@ -1669,7 +1754,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVpcAttachment")
+        )
         input_: capo_networkmanager.types.create_vpc_attachment_request.CreateVpcAttachmentRequest = {
             "core_network_id": core_network_id,
             "vpc_arn": vpc_arn,
@@ -1730,7 +1817,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAttachment")
+        )
         input_: capo_networkmanager.types.delete_attachment_request.DeleteAttachmentRequest = {
             "attachment_id": attachment_id
         }
@@ -1782,7 +1871,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnection")
+        )
         input_: capo_networkmanager.types.delete_connection_request.DeleteConnectionRequest = {
             "global_network_id": global_network_id,
             "connection_id": connection_id,
@@ -1831,7 +1922,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnectPeer")
+        )
         input_: capo_networkmanager.types.delete_connect_peer_request.DeleteConnectPeerRequest = {
             "connect_peer_id": connect_peer_id
         }
@@ -1879,7 +1972,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCoreNetwork")
+        )
         input_: capo_networkmanager.types.delete_core_network_request.DeleteCoreNetworkRequest = {
             "core_network_id": core_network_id
         }
@@ -1929,7 +2024,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCoreNetworkPolicyVersion")
+        )
         input_: capo_networkmanager.types.delete_core_network_policy_version_request.DeleteCoreNetworkPolicyVersionRequest = {
             "core_network_id": core_network_id,
             "policy_version_id": policy_version_id,
@@ -1981,7 +2078,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCoreNetworkPrefixListAssociation")
+        )
         input_: capo_networkmanager.types.delete_core_network_prefix_list_association_request.DeleteCoreNetworkPrefixListAssociationRequest = {
             "core_network_id": core_network_id,
             "prefix_list_arn": prefix_list_arn,
@@ -2032,7 +2131,19 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_networkmanager.types.delete_device_response.DeleteDeviceResponse",
+        ) -> dict[str, Any]:
+            import capo_networkmanager.types.delete_device_response
+
+            return capo_networkmanager.types.delete_device_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteDevice", redact_output=_redact_output),
+        )
         input_: capo_networkmanager.types.delete_device_request.DeleteDeviceRequest = {
             "global_network_id": global_network_id,
             "device_id": device_id,
@@ -2081,7 +2192,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGlobalNetwork")
+        )
         input_: capo_networkmanager.types.delete_global_network_request.DeleteGlobalNetworkRequest = {
             "global_network_id": global_network_id
         }
@@ -2131,7 +2244,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLink")
+        )
         input_: capo_networkmanager.types.delete_link_request.DeleteLinkRequest = {
             "global_network_id": global_network_id,
             "link_id": link_id,
@@ -2180,7 +2295,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePeering")
+        )
         input_: capo_networkmanager.types.delete_peering_request.DeletePeeringRequest = {
             "peering_id": peering_id
         }
@@ -2227,7 +2344,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_networkmanager.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -2277,7 +2396,19 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_networkmanager.types.delete_site_response.DeleteSiteResponse",
+        ) -> dict[str, Any]:
+            import capo_networkmanager.types.delete_site_response
+
+            return capo_networkmanager.types.delete_site_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteSite", redact_output=_redact_output),
+        )
         input_: capo_networkmanager.types.delete_site_request.DeleteSiteRequest = {
             "global_network_id": global_network_id,
             "site_id": site_id,
@@ -2328,7 +2459,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterTransitGateway")
+        )
         input_: capo_networkmanager.types.deregister_transit_gateway_request.DeregisterTransitGatewayRequest = {
             "global_network_id": global_network_id,
             "transit_gateway_arn": transit_gateway_arn,
@@ -2384,7 +2517,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeGlobalNetworks")
+        )
         input_: capo_networkmanager.types.describe_global_networks_request.DescribeGlobalNetworksRequest = {}
         if global_network_ids is not None:
             input_["global_network_ids"] = global_network_ids
@@ -2465,7 +2600,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateConnectPeer")
+        )
         input_: capo_networkmanager.types.disassociate_connect_peer_request.DisassociateConnectPeerRequest = {
             "global_network_id": global_network_id,
             "connect_peer_id": connect_peer_id,
@@ -2516,7 +2653,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateCustomerGateway")
+        )
         input_: capo_networkmanager.types.disassociate_customer_gateway_request.DisassociateCustomerGatewayRequest = {
             "global_network_id": global_network_id,
             "customer_gateway_arn": customer_gateway_arn,
@@ -2571,7 +2710,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateLink")
+        )
         input_: capo_networkmanager.types.disassociate_link_request.DisassociateLinkRequest = {
             "global_network_id": global_network_id,
             "device_id": device_id,
@@ -2623,7 +2764,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateTransitGatewayConnectPeer")
+        )
         input_: capo_networkmanager.types.disassociate_transit_gateway_connect_peer_request.DisassociateTransitGatewayConnectPeerRequest = {
             "global_network_id": global_network_id,
             "transit_gateway_connect_peer_arn": transit_gateway_connect_peer_arn,
@@ -2674,7 +2817,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExecuteCoreNetworkChangeSet")
+        )
         input_: capo_networkmanager.types.execute_core_network_change_set_request.ExecuteCoreNetworkChangeSetRequest = {
             "core_network_id": core_network_id,
             "policy_version_id": policy_version_id,
@@ -2722,7 +2867,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnectAttachment")
+        )
         input_: capo_networkmanager.types.get_connect_attachment_request.GetConnectAttachmentRequest = {
             "attachment_id": attachment_id
         }
@@ -2781,7 +2928,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnections")
+        )
         input_: capo_networkmanager.types.get_connections_request.GetConnectionsRequest = {
             "global_network_id": global_network_id
         }
@@ -2867,7 +3016,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnectPeer")
+        )
         input_: capo_networkmanager.types.get_connect_peer_request.GetConnectPeerRequest = {
             "connect_peer_id": connect_peer_id
         }
@@ -2925,7 +3076,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnectPeerAssociations")
+        )
         input_: capo_networkmanager.types.get_connect_peer_associations_request.GetConnectPeerAssociationsRequest = {
             "global_network_id": global_network_id
         }
@@ -3007,7 +3160,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCoreNetwork")
+        )
         input_: capo_networkmanager.types.get_core_network_request.GetCoreNetworkRequest = {
             "core_network_id": core_network_id
         }
@@ -3062,7 +3217,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCoreNetworkChangeEvents")
+        )
         input_: capo_networkmanager.types.get_core_network_change_events_request.GetCoreNetworkChangeEventsRequest = {
             "core_network_id": core_network_id,
             "policy_version_id": policy_version_id,
@@ -3149,7 +3306,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCoreNetworkChangeSet")
+        )
         input_: capo_networkmanager.types.get_core_network_change_set_request.GetCoreNetworkChangeSetRequest = {
             "core_network_id": core_network_id,
             "policy_version_id": policy_version_id,
@@ -3234,7 +3393,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCoreNetworkPolicy")
+        )
         input_: capo_networkmanager.types.get_core_network_policy_request.GetCoreNetworkPolicyRequest = {
             "core_network_id": core_network_id
         }
@@ -3296,7 +3457,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCustomerGatewayAssociations")
+        )
         input_: capo_networkmanager.types.get_customer_gateway_associations_request.GetCustomerGatewayAssociationsRequest = {
             "global_network_id": global_network_id
         }
@@ -3390,7 +3553,19 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_networkmanager.types.get_devices_response.GetDevicesResponse",
+        ) -> dict[str, Any]:
+            import capo_networkmanager.types.get_devices_response
+
+            return capo_networkmanager.types.get_devices_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDevices", redact_output=_redact_output),
+        )
         input_: capo_networkmanager.types.get_devices_request.GetDevicesRequest = {
             "global_network_id": global_network_id
         }
@@ -3476,7 +3651,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDirectConnectGatewayAttachment")
+        )
         input_: capo_networkmanager.types.get_direct_connect_gateway_attachment_request.GetDirectConnectGatewayAttachmentRequest = {
             "attachment_id": attachment_id
         }
@@ -3533,7 +3710,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLinkAssociations")
+        )
         input_: capo_networkmanager.types.get_link_associations_request.GetLinkAssociationsRequest = {
             "global_network_id": global_network_id
         }
@@ -3635,7 +3814,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLinks")
+        )
         input_: capo_networkmanager.types.get_links_request.GetLinksRequest = {
             "global_network_id": global_network_id
         }
@@ -3740,7 +3921,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNetworkResourceCounts")
+        )
         input_: capo_networkmanager.types.get_network_resource_counts_request.GetNetworkResourceCountsRequest = {
             "global_network_id": global_network_id
         }
@@ -3852,7 +4035,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNetworkResourceRelationships")
+        )
         input_: capo_networkmanager.types.get_network_resource_relationships_request.GetNetworkResourceRelationshipsRequest = {
             "global_network_id": global_network_id
         }
@@ -3994,7 +4179,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNetworkResources")
+        )
         input_: capo_networkmanager.types.get_network_resources_request.GetNetworkResourcesRequest = {
             "global_network_id": global_network_id
         }
@@ -4142,7 +4329,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNetworkRoutes")
+        )
         input_: capo_networkmanager.types.get_network_routes_request.GetNetworkRoutesRequest = {
             "global_network_id": global_network_id,
             "route_table_identifier": route_table_identifier,
@@ -4236,7 +4425,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNetworkTelemetry")
+        )
         input_: capo_networkmanager.types.get_network_telemetry_request.GetNetworkTelemetryRequest = {
             "global_network_id": global_network_id
         }
@@ -4347,7 +4538,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_networkmanager.types.get_resource_policy_request.GetResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -4398,7 +4591,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRouteAnalysis")
+        )
         input_: capo_networkmanager.types.get_route_analysis_request.GetRouteAnalysisRequest = {
             "global_network_id": global_network_id,
             "route_analysis_id": route_analysis_id,
@@ -4454,7 +4649,16 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_networkmanager.types.get_sites_response.GetSitesResponse",
+        ) -> dict[str, Any]:
+            import capo_networkmanager.types.get_sites_response
+
+            return capo_networkmanager.types.get_sites_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSites", redact_output=_redact_output)
+        )
         input_: capo_networkmanager.types.get_sites_request.GetSitesRequest = {
             "global_network_id": global_network_id
         }
@@ -4534,7 +4738,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSiteToSiteVpnAttachment")
+        )
         input_: capo_networkmanager.types.get_site_to_site_vpn_attachment_request.GetSiteToSiteVpnAttachmentRequest = {
             "attachment_id": attachment_id
         }
@@ -4592,7 +4798,10 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetTransitGatewayConnectPeerAssociations"),
+        )
         input_: capo_networkmanager.types.get_transit_gateway_connect_peer_associations_request.GetTransitGatewayConnectPeerAssociationsRequest = {
             "global_network_id": global_network_id
         }
@@ -4678,7 +4887,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTransitGatewayPeering")
+        )
         input_: capo_networkmanager.types.get_transit_gateway_peering_request.GetTransitGatewayPeeringRequest = {
             "peering_id": peering_id
         }
@@ -4735,7 +4946,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTransitGatewayRegistrations")
+        )
         input_: capo_networkmanager.types.get_transit_gateway_registrations_request.GetTransitGatewayRegistrationsRequest = {
             "global_network_id": global_network_id
         }
@@ -4817,7 +5030,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTransitGatewayRouteTableAttachment")
+        )
         input_: capo_networkmanager.types.get_transit_gateway_route_table_attachment_request.GetTransitGatewayRouteTableAttachmentRequest = {
             "attachment_id": attachment_id
         }
@@ -4866,7 +5081,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetVpcAttachment")
+        )
         input_: capo_networkmanager.types.get_vpc_attachment_request.GetVpcAttachmentRequest = {
             "attachment_id": attachment_id
         }
@@ -4923,7 +5140,10 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAttachmentRoutingPolicyAssociations"),
+        )
         input_: capo_networkmanager.types.list_attachment_routing_policy_associations_request.ListAttachmentRoutingPolicyAssociationsRequest = {
             "core_network_id": core_network_id
         }
@@ -5026,7 +5246,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAttachments")
+        )
         input_: capo_networkmanager.types.list_attachments_request.ListAttachmentsRequest = {}
         if core_network_id is not None:
             input_["core_network_id"] = core_network_id
@@ -5135,7 +5357,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConnectPeers")
+        )
         input_: capo_networkmanager.types.list_connect_peers_request.ListConnectPeersRequest = {}
         if core_network_id is not None:
             input_["core_network_id"] = core_network_id
@@ -5225,7 +5449,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCoreNetworkPolicyVersions")
+        )
         input_: capo_networkmanager.types.list_core_network_policy_versions_request.ListCoreNetworkPolicyVersionsRequest = {
             "core_network_id": core_network_id
         }
@@ -5311,7 +5537,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCoreNetworkPrefixListAssociations")
+        )
         input_: capo_networkmanager.types.list_core_network_prefix_list_associations_request.ListCoreNetworkPrefixListAssociationsRequest = {
             "core_network_id": core_network_id
         }
@@ -5423,7 +5651,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCoreNetworkRoutingInformation")
+        )
         input_: capo_networkmanager.types.list_core_network_routing_information_request.ListCoreNetworkRoutingInformationRequest = {
             "core_network_id": core_network_id,
             "segment_name": segment_name,
@@ -5540,7 +5770,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCoreNetworks")
+        )
         input_: capo_networkmanager.types.list_core_networks_request.ListCoreNetworksRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -5611,7 +5843,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOrganizationServiceAccessStatus")
+        )
         input_: capo_networkmanager.types.list_organization_service_access_status_request.ListOrganizationServiceAccessStatusRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -5677,7 +5911,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPeerings")
+        )
         input_: capo_networkmanager.types.list_peerings_request.ListPeeringsRequest = {}
         if core_network_id is not None:
             input_["core_network_id"] = core_network_id
@@ -5771,7 +6007,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_networkmanager.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -5828,7 +6066,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAttachmentRoutingPolicyLabel")
+        )
         input_: capo_networkmanager.types.put_attachment_routing_policy_label_request.PutAttachmentRoutingPolicyLabelRequest = {
             "core_network_id": core_network_id,
             "attachment_id": attachment_id,
@@ -5894,7 +6134,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutCoreNetworkPolicy")
+        )
         input_: capo_networkmanager.types.put_core_network_policy_request.PutCoreNetworkPolicyRequest = {
             "core_network_id": core_network_id,
             "policy_document": policy_document,
@@ -5952,7 +6194,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_networkmanager.types.put_resource_policy_request.PutResourcePolicyRequest = {
             "policy_document": policy_document,
             "resource_arn": resource_arn,
@@ -6003,7 +6247,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterTransitGateway")
+        )
         input_: capo_networkmanager.types.register_transit_gateway_request.RegisterTransitGatewayRequest = {
             "global_network_id": global_network_id,
             "transit_gateway_arn": transit_gateway_arn,
@@ -6054,7 +6300,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectAttachment")
+        )
         input_: capo_networkmanager.types.reject_attachment_request.RejectAttachmentRequest = {
             "attachment_id": attachment_id
         }
@@ -6105,7 +6353,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveAttachmentRoutingPolicyLabel")
+        )
         input_: capo_networkmanager.types.remove_attachment_routing_policy_label_request.RemoveAttachmentRoutingPolicyLabelRequest = {
             "core_network_id": core_network_id,
             "attachment_id": attachment_id,
@@ -6156,7 +6406,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreCoreNetworkPolicyVersion")
+        )
         input_: capo_networkmanager.types.restore_core_network_policy_version_request.RestoreCoreNetworkPolicyVersionRequest = {
             "core_network_id": core_network_id,
             "policy_version_id": policy_version_id,
@@ -6205,7 +6457,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartOrganizationServiceAccessUpdate")
+        )
         input_: capo_networkmanager.types.start_organization_service_access_update_request.StartOrganizationServiceAccessUpdateRequest = {
             "action": action
         }
@@ -6263,7 +6517,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartRouteAnalysis")
+        )
         input_: capo_networkmanager.types.start_route_analysis_request.StartRouteAnalysisRequest = {
             "global_network_id": global_network_id,
             "source": source,
@@ -6320,7 +6576,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_networkmanager.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -6371,7 +6629,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_networkmanager.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -6432,7 +6692,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConnection")
+        )
         input_: capo_networkmanager.types.update_connection_request.UpdateConnectionRequest = {
             "global_network_id": global_network_id,
             "connection_id": connection_id,
@@ -6491,7 +6753,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCoreNetwork")
+        )
         input_: capo_networkmanager.types.update_core_network_request.UpdateCoreNetworkRequest = {
             "core_network_id": core_network_id
         }
@@ -6570,7 +6834,30 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_networkmanager.types.update_device_request.UpdateDeviceRequest",
+        ) -> dict[str, Any]:
+            import capo_networkmanager.types.update_device_request
+
+            return capo_networkmanager.types.update_device_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_networkmanager.types.update_device_response.UpdateDeviceResponse",
+        ) -> dict[str, Any]:
+            import capo_networkmanager.types.update_device_response
+
+            return capo_networkmanager.types.update_device_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDevice", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_networkmanager.types.update_device_request.UpdateDeviceRequest = {
             "global_network_id": global_network_id,
             "device_id": device_id,
@@ -6639,7 +6926,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDirectConnectGatewayAttachment")
+        )
         input_: capo_networkmanager.types.update_direct_connect_gateway_attachment_request.UpdateDirectConnectGatewayAttachmentRequest = {
             "attachment_id": attachment_id
         }
@@ -6693,7 +6982,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGlobalNetwork")
+        )
         input_: capo_networkmanager.types.update_global_network_request.UpdateGlobalNetworkRequest = {
             "global_network_id": global_network_id
         }
@@ -6760,7 +7051,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLink")
+        )
         input_: capo_networkmanager.types.update_link_request.UpdateLinkRequest = {
             "global_network_id": global_network_id,
             "link_id": link_id,
@@ -6821,7 +7114,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNetworkResourceMetadata")
+        )
         input_: capo_networkmanager.types.update_network_resource_metadata_request.UpdateNetworkResourceMetadataRequest = {
             "global_network_id": global_network_id,
             "resource_arn": resource_arn,
@@ -6879,7 +7174,30 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_networkmanager.types.update_site_request.UpdateSiteRequest",
+        ) -> dict[str, Any]:
+            import capo_networkmanager.types.update_site_request
+
+            return capo_networkmanager.types.update_site_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_networkmanager.types.update_site_response.UpdateSiteResponse",
+        ) -> dict[str, Any]:
+            import capo_networkmanager.types.update_site_response
+
+            return capo_networkmanager.types.update_site_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateSite", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_networkmanager.types.update_site_request.UpdateSiteRequest = {
             "global_network_id": global_network_id,
             "site_id": site_id,
@@ -6942,7 +7260,9 @@ class NetworkManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateVpcAttachment")
+        )
         input_: capo_networkmanager.types.update_vpc_attachment_request.UpdateVpcAttachmentRequest = {
             "attachment_id": attachment_id
         }

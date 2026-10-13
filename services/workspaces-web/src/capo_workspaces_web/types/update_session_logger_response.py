@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#UpdateSessionLoggerResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -39,5 +39,18 @@ def deserialize_json(data: dict) -> UpdateSessionLoggerResponse:
     else:
         raise DeserializationError(
             "UpdateSessionLoggerResponse.session_logger required"
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateSessionLoggerResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "session_logger" in value:
+        import capo_workspaces_web.types.session_logger
+
+        out["session_logger"] = (
+            capo_workspaces_web.types.session_logger.redact_sensitive(
+                value["session_logger"]
+            )
         )
     return out

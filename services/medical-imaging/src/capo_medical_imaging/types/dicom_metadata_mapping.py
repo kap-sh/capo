@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.medicalimaging#DicomMetadataMapping``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,4 +47,13 @@ def deserialize_json(data: dict) -> DicomMetadataMapping:
         out["metadata_file_path"] = data["metadataFilePath"]
     else:
         raise DeserializationError("DicomMetadataMapping.metadata_file_path required")
+    return out
+
+
+def redact_sensitive(value: DicomMetadataMapping) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "study_instance_uid" in value:
+        out["study_instance_uid"] = "*** Sensitive Data Redacted ***"
+    if "series_instance_uid" in value:
+        out["series_instance_uid"] = "*** Sensitive Data Redacted ***"
     return out

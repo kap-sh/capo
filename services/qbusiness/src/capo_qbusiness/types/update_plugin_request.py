@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qbusiness#UpdatePluginRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -89,6 +89,19 @@ def deserialize_json(data: dict) -> UpdatePluginRequest:
         out["auth_configuration"] = (
             capo_qbusiness.types.plugin_auth_configuration.deserialize_json(
                 data["authConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdatePluginRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "custom_plugin_configuration" in value:
+        import capo_qbusiness.types.custom_plugin_configuration
+
+        out["custom_plugin_configuration"] = (
+            capo_qbusiness.types.custom_plugin_configuration.redact_sensitive(
+                value["custom_plugin_configuration"]
             )
         )
     return out

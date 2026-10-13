@@ -7,6 +7,7 @@ import capo_route53globalresolver._auth._sigv4
 from capo_route53globalresolver._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -81,7 +82,9 @@ class HostedZoneAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateHostedZone")
+        )
         input_: capo_route53globalresolver.types.associate_hosted_zone_input.AssociateHostedZoneInput = {
             "hosted_zone_id": hosted_zone_id,
             "resource_arn": resource_arn,
@@ -130,7 +133,9 @@ class HostedZoneAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetHostedZoneAssociation")
+        )
         input_: capo_route53globalresolver.types.get_hosted_zone_association_input.GetHostedZoneAssociationInput = {
             "hosted_zone_association_id": hosted_zone_association_id
         }
@@ -183,7 +188,9 @@ class HostedZoneAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateHostedZoneAssociation")
+        )
         input_: capo_route53globalresolver.types.update_hosted_zone_association_input.UpdateHostedZoneAssociationInput = {
             "hosted_zone_association_id": hosted_zone_association_id
         }
@@ -238,7 +245,9 @@ class HostedZoneAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListHostedZoneAssociations")
+        )
         input_: capo_route53globalresolver.types.list_hosted_zone_associations_input.ListHostedZoneAssociationsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -301,7 +310,9 @@ class AsyncHostedZoneAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateHostedZone")
+        )
         input_: capo_route53globalresolver.types.associate_hosted_zone_input.AssociateHostedZoneInput = {
             "hosted_zone_id": hosted_zone_id,
             "resource_arn": resource_arn,
@@ -351,7 +362,9 @@ class AsyncHostedZoneAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetHostedZoneAssociation")
+        )
         input_: capo_route53globalresolver.types.get_hosted_zone_association_input.GetHostedZoneAssociationInput = {
             "hosted_zone_association_id": hosted_zone_association_id
         }
@@ -405,7 +418,9 @@ class AsyncHostedZoneAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateHostedZoneAssociation")
+        )
         input_: capo_route53globalresolver.types.update_hosted_zone_association_input.UpdateHostedZoneAssociationInput = {
             "hosted_zone_association_id": hosted_zone_association_id
         }
@@ -461,7 +476,9 @@ class AsyncHostedZoneAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListHostedZoneAssociations")
+        )
         input_: capo_route53globalresolver.types.list_hosted_zone_associations_input.ListHostedZoneAssociationsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#PipeSourceActiveMQBrokerParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -72,4 +72,11 @@ def deserialize_json(data: dict) -> PipeSourceActiveMQBrokerParameters:
         out["maximum_batching_window_in_seconds"] = data[
             "MaximumBatchingWindowInSeconds"
         ]
+    return out
+
+
+def redact_sensitive(value: PipeSourceActiveMQBrokerParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "queue_name" in value:
+        out["queue_name"] = "*** Sensitive Data Redacted ***"
     return out

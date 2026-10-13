@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.finspacedata#DatasetOwnerInfo``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,4 +39,11 @@ def deserialize_json(data: dict) -> DatasetOwnerInfo:
         out["phone_number"] = data["phoneNumber"]
     if data.get("email") is not None:
         out["email"] = data["email"]
+    return out
+
+
+def redact_sensitive(value: DatasetOwnerInfo) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "email" in value:
+        out["email"] = "*** Sensitive Data Redacted ***"
     return out

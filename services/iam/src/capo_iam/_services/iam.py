@@ -23,10 +23,12 @@ from capo_iam._pagination import resolve_path as _resolve_path
 from capo_iam._services._aws_config import aws_config
 from capo_iam._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 from capo_iam.errors import ServiceError, WaiterTimeoutError
@@ -483,7 +485,9 @@ class IAMClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[IAMClientConfig] = None
+        self,
+        config_overrides: Optional[IAMClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: IAMClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -491,8 +495,10 @@ class IAMClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -541,7 +547,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptDelegationRequest")
+        )
         input_: capo_iam.types.accept_delegation_request_request.AcceptDelegationRequestRequest = {
             "delegation_request_id": delegation_request_id
         }
@@ -601,7 +609,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcquireRole")
+        )
         input_: capo_iam.types.acquire_role_request.AcquireRoleRequest = {
             "template_arn": template_arn
         }
@@ -658,7 +668,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddClientIDToOpenIDConnectProvider")
+        )
         input_: capo_iam.types.add_client_id_to_open_id_connect_provider_request.AddClientIDToOpenIDConnectProviderRequest = {
             "open_id_connect_provider_arn": open_id_connect_provider_arn,
             "client_id": client_id,
@@ -712,7 +724,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddRoleToInstanceProfile")
+        )
         input_: capo_iam.types.add_role_to_instance_profile_request.AddRoleToInstanceProfileRequest = {
             "instance_profile_name": instance_profile_name,
             "role_name": role_name,
@@ -764,7 +778,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddUserToGroup")
+        )
         input_: capo_iam.types.add_user_to_group_request.AddUserToGroupRequest = {
             "group_name": group_name,
             "user_name": user_name,
@@ -809,7 +825,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateDelegationRequest")
+        )
         input_: capo_iam.types.associate_delegation_request_request.AssociateDelegationRequestRequest = {
             "delegation_request_id": delegation_request_id
         }
@@ -862,7 +880,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachGroupPolicy")
+        )
         input_: capo_iam.types.attach_group_policy_request.AttachGroupPolicyRequest = {
             "group_name": group_name,
             "policy_arn": policy_arn,
@@ -917,7 +937,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachRolePolicy")
+        )
         input_: capo_iam.types.attach_role_policy_request.AttachRolePolicyRequest = {
             "role_name": role_name,
             "policy_arn": policy_arn,
@@ -971,7 +993,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachUserPolicy")
+        )
         input_: capo_iam.types.attach_user_policy_request.AttachUserPolicyRequest = {
             "user_name": user_name,
             "policy_arn": policy_arn,
@@ -1026,7 +1050,17 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iam.types.change_password_request.ChangePasswordRequest",
+        ) -> dict[str, Any]:
+            import capo_iam.types.change_password_request
+
+            return capo_iam.types.change_password_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ChangePassword", redact_input=_redact_input),
+        )
         input_: capo_iam.types.change_password_request.ChangePasswordRequest = {
             "old_password": old_password,
             "new_password": new_password,
@@ -1080,7 +1114,17 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iam.types.create_access_key_response.CreateAccessKeyResponse",
+        ) -> dict[str, Any]:
+            import capo_iam.types.create_access_key_response
+
+            return capo_iam.types.create_access_key_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateAccessKey", redact_output=_redact_output),
+        )
         input_: capo_iam.types.create_access_key_request.CreateAccessKeyRequest = {}
         if user_name is not None:
             input_["user_name"] = user_name
@@ -1130,7 +1174,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccountAlias")
+        )
         input_: capo_iam.types.create_account_alias_request.CreateAccountAliasRequest = {
             "account_alias": account_alias
         }
@@ -1199,7 +1245,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDelegationRequest")
+        )
         input_: capo_iam.types.create_delegation_request_request.CreateDelegationRequestRequest = {
             "description": description,
             "permissions": permissions,
@@ -1265,7 +1313,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGroup")
+        )
         input_: capo_iam.types.create_group_request.CreateGroupRequest = {
             "group_name": group_name
         }
@@ -1326,7 +1376,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInstanceProfile")
+        )
         input_: capo_iam.types.create_instance_profile_request.CreateInstanceProfileRequest = {
             "instance_profile_name": instance_profile_name
         }
@@ -1389,7 +1441,17 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iam.types.create_login_profile_request.CreateLoginProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_iam.types.create_login_profile_request
+
+            return capo_iam.types.create_login_profile_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateLoginProfile", redact_input=_redact_input),
+        )
         input_: capo_iam.types.create_login_profile_request.CreateLoginProfileRequest = {}
         if user_name is not None:
             input_["user_name"] = user_name
@@ -1457,7 +1519,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateOpenIDConnectProvider")
+        )
         input_: capo_iam.types.create_open_id_connect_provider_request.CreateOpenIDConnectProviderRequest = {
             "url": url
         }
@@ -1521,7 +1585,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePolicy")
+        )
         input_: capo_iam.types.create_policy_request.CreatePolicyRequest = {
             "policy_name": policy_name,
             "policy_document": policy_document,
@@ -1579,7 +1645,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePolicyVersion")
+        )
         input_: capo_iam.types.create_policy_version_request.CreatePolicyVersionRequest = {
             "policy_arn": policy_arn,
             "policy_document": policy_document,
@@ -1652,7 +1720,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRole")
+        )
         input_: capo_iam.types.create_role_request.CreateRoleRequest = {
             "role_name": role_name,
             "assume_role_policy_document": assume_role_policy_document,
@@ -1722,7 +1792,17 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iam.types.create_saml_provider_request.CreateSAMLProviderRequest",
+        ) -> dict[str, Any]:
+            import capo_iam.types.create_saml_provider_request
+
+            return capo_iam.types.create_saml_provider_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateSAMLProvider", redact_input=_redact_input),
+        )
         input_: capo_iam.types.create_saml_provider_request.CreateSAMLProviderRequest = {
             "saml_metadata_document": saml_metadata_document,
             "name": name,
@@ -1783,7 +1863,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateServiceLinkedRole")
+        )
         input_: capo_iam.types.create_service_linked_role_request.CreateServiceLinkedRoleRequest = {
             "aws_service_name": aws_service_name
         }
@@ -1838,7 +1920,21 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iam.types.create_service_specific_credential_response.CreateServiceSpecificCredentialResponse",
+        ) -> dict[str, Any]:
+            import capo_iam.types.create_service_specific_credential_response
+
+            return capo_iam.types.create_service_specific_credential_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateServiceSpecificCredential", redact_output=_redact_output
+            ),
+        )
         input_: capo_iam.types.create_service_specific_credential_request.CreateServiceSpecificCredentialRequest = {
             "user_name": user_name,
             "service_name": service_name,
@@ -1901,7 +1997,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUser")
+        )
         input_: capo_iam.types.create_user_request.CreateUserRequest = {
             "user_name": user_name
         }
@@ -1958,7 +2056,19 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iam.types.create_virtual_mfa_device_response.CreateVirtualMFADeviceResponse",
+        ) -> dict[str, Any]:
+            import capo_iam.types.create_virtual_mfa_device_response
+
+            return capo_iam.types.create_virtual_mfa_device_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateVirtualMFADevice", redact_output=_redact_output),
+        )
         input_: capo_iam.types.create_virtual_mfa_device_request.CreateVirtualMFADeviceRequest = {
             "virtual_mfa_device_name": virtual_mfa_device_name
         }
@@ -2011,7 +2121,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeactivateMFADevice")
+        )
         input_: capo_iam.types.deactivate_mfa_device_request.DeactivateMFADeviceRequest = {
             "serial_number": serial_number
         }
@@ -2066,7 +2178,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessKey")
+        )
         input_: capo_iam.types.delete_access_key_request.DeleteAccessKeyRequest = {
             "access_key_id": access_key_id
         }
@@ -2118,7 +2232,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccountAlias")
+        )
         input_: capo_iam.types.delete_account_alias_request.DeleteAccountAliasRequest = {
             "account_alias": account_alias
         }
@@ -2159,7 +2275,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccountPasswordPolicy")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -2200,7 +2318,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGroup")
+        )
         input_: capo_iam.types.delete_group_request.DeleteGroupRequest = {
             "group_name": group_name
         }
@@ -2251,7 +2371,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGroupPolicy")
+        )
         input_: capo_iam.types.delete_group_policy_request.DeleteGroupPolicyRequest = {
             "group_name": group_name,
             "policy_name": policy_name,
@@ -2302,7 +2424,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInstanceProfile")
+        )
         input_: capo_iam.types.delete_instance_profile_request.DeleteInstanceProfileRequest = {
             "instance_profile_name": instance_profile_name
         }
@@ -2352,7 +2476,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLoginProfile")
+        )
         input_: capo_iam.types.delete_login_profile_request.DeleteLoginProfileRequest = {}
         if user_name is not None:
             input_["user_name"] = user_name
@@ -2395,7 +2521,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOpenIDConnectProvider")
+        )
         input_: capo_iam.types.delete_open_id_connect_provider_request.DeleteOpenIDConnectProviderRequest = {
             "open_id_connect_provider_arn": open_id_connect_provider_arn
         }
@@ -2440,7 +2568,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePolicy")
+        )
         input_: capo_iam.types.delete_policy_request.DeletePolicyRequest = {
             "policy_arn": policy_arn
         }
@@ -2487,7 +2617,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePolicyVersion")
+        )
         input_: capo_iam.types.delete_policy_version_request.DeletePolicyVersionRequest = {
             "policy_arn": policy_arn,
             "version_id": version_id,
@@ -2540,7 +2672,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRole")
+        )
         input_: capo_iam.types.delete_role_request.DeleteRoleRequest = {
             "role_name": role_name
         }
@@ -2583,7 +2717,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRolePermissionsBoundary")
+        )
         input_: capo_iam.types.delete_role_permissions_boundary_request.DeleteRolePermissionsBoundaryRequest = {
             "role_name": role_name
         }
@@ -2635,7 +2771,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRolePolicy")
+        )
         input_: capo_iam.types.delete_role_policy_request.DeleteRolePolicyRequest = {
             "role_name": role_name,
             "policy_name": policy_name,
@@ -2680,7 +2818,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSAMLProvider")
+        )
         input_: capo_iam.types.delete_saml_provider_request.DeleteSAMLProviderRequest = {
             "saml_provider_arn": saml_provider_arn
         }
@@ -2724,7 +2864,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteServerCertificate")
+        )
         input_: capo_iam.types.delete_server_certificate_request.DeleteServerCertificateRequest = {
             "server_certificate_name": server_certificate_name
         }
@@ -2769,7 +2911,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteServiceLinkedRole")
+        )
         input_: capo_iam.types.delete_service_linked_role_request.DeleteServiceLinkedRoleRequest = {
             "role_name": role_name
         }
@@ -2812,7 +2956,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteServiceSpecificCredential")
+        )
         input_: capo_iam.types.delete_service_specific_credential_request.DeleteServiceSpecificCredentialRequest = {
             "service_specific_credential_id": service_specific_credential_id
         }
@@ -2868,7 +3014,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSigningCertificate")
+        )
         input_: capo_iam.types.delete_signing_certificate_request.DeleteSigningCertificateRequest = {
             "certificate_id": certificate_id
         }
@@ -2913,7 +3061,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSSHPublicKey")
+        )
         input_: capo_iam.types.delete_ssh_public_key_request.DeleteSSHPublicKeyRequest = {
             "user_name": user_name,
             "ssh_public_key_id": ssh_public_key_id,
@@ -2965,7 +3115,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUser")
+        )
         input_: capo_iam.types.delete_user_request.DeleteUserRequest = {
             "user_name": user_name
         }
@@ -3007,7 +3159,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUserPermissionsBoundary")
+        )
         input_: capo_iam.types.delete_user_permissions_boundary_request.DeleteUserPermissionsBoundaryRequest = {
             "user_name": user_name
         }
@@ -3058,7 +3212,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUserPolicy")
+        )
         input_: capo_iam.types.delete_user_policy_request.DeleteUserPolicyRequest = {
             "user_name": user_name,
             "policy_name": policy_name,
@@ -3110,7 +3266,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVirtualMFADevice")
+        )
         input_: capo_iam.types.delete_virtual_mfa_device_request.DeleteVirtualMFADeviceRequest = {
             "serial_number": serial_number
         }
@@ -3156,7 +3314,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachGroupPolicy")
+        )
         input_: capo_iam.types.detach_group_policy_request.DetachGroupPolicyRequest = {
             "group_name": group_name,
             "policy_arn": policy_arn,
@@ -3204,7 +3364,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachRolePolicy")
+        )
         input_: capo_iam.types.detach_role_policy_request.DetachRolePolicyRequest = {
             "role_name": role_name,
             "policy_arn": policy_arn,
@@ -3251,7 +3413,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachUserPolicy")
+        )
         input_: capo_iam.types.detach_user_policy_request.DetachUserPolicyRequest = {
             "user_name": user_name,
             "policy_arn": policy_arn,
@@ -3298,7 +3462,10 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisableOrganizationsRootCredentialsManagement"),
+        )
         input_: capo_iam.types.disable_organizations_root_credentials_management_request.DisableOrganizationsRootCredentialsManagementRequest = {}
 
         response = execute_pipeline(
@@ -3342,7 +3509,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableOrganizationsRootSessions")
+        )
         input_: capo_iam.types.disable_organizations_root_sessions_request.DisableOrganizationsRootSessionsRequest = {}
 
         response = execute_pipeline(
@@ -3373,7 +3542,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableOutboundWebIdentityFederation")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -3423,7 +3594,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableMFADevice")
+        )
         input_: capo_iam.types.enable_mfa_device_request.EnableMFADeviceRequest = {
             "user_name": user_name,
             "serial_number": serial_number,
@@ -3473,7 +3646,10 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("EnableOrganizationsRootCredentialsManagement"),
+        )
         input_: capo_iam.types.enable_organizations_root_credentials_management_request.EnableOrganizationsRootCredentialsManagementRequest = {}
 
         response = execute_pipeline(
@@ -3518,7 +3694,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableOrganizationsRootSessions")
+        )
         input_: capo_iam.types.enable_organizations_root_sessions_request.EnableOrganizationsRootSessionsRequest = {}
 
         response = execute_pipeline(
@@ -3553,7 +3731,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableOutboundWebIdentityFederation")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -3588,7 +3768,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GenerateCredentialReport")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -3638,7 +3820,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GenerateOrganizationsAccessReport")
+        )
         input_: capo_iam.types.generate_organizations_access_report_request.GenerateOrganizationsAccessReportRequest = {
             "entity_path": entity_path
         }
@@ -3694,7 +3878,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GenerateServiceLastAccessedDetails")
+        )
         input_: capo_iam.types.generate_service_last_accessed_details_request.GenerateServiceLastAccessedDetailsRequest = {
             "arn": arn
         }
@@ -3740,7 +3926,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessKeyLastUsed")
+        )
         input_: capo_iam.types.get_access_key_last_used_request.GetAccessKeyLastUsedRequest = {
             "access_key_id": access_key_id
         }
@@ -3787,7 +3975,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountAuthorizationDetails")
+        )
         input_: capo_iam.types.get_account_authorization_details_request.GetAccountAuthorizationDetailsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -3856,7 +4046,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountPasswordPolicy")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -3891,7 +4083,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountProperties")
+        )
         input_: capo_iam.types.get_account_properties_request.GetAccountPropertiesRequest = {}
 
         response = execute_pipeline(
@@ -3932,7 +4126,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountSummary")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -3972,7 +4168,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContextKeysForCustomPolicy")
+        )
         input_: capo_iam.types.get_context_keys_for_custom_policy_request.GetContextKeysForCustomPolicyRequest = {
             "policy_input_list": policy_input_list
         }
@@ -4020,7 +4218,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContextKeysForPrincipalPolicy")
+        )
         input_: capo_iam.types.get_context_keys_for_principal_policy_request.GetContextKeysForPrincipalPolicyRequest = {
             "policy_source_arn": policy_source_arn
         }
@@ -4062,7 +4262,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCredentialReport")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -4107,7 +4309,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDelegationRequest")
+        )
         input_: capo_iam.types.get_delegation_request_request.GetDelegationRequestRequest = {
             "delegation_request_id": delegation_request_id
         }
@@ -4155,7 +4359,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGroup")
+        )
         input_: capo_iam.types.get_group_request.GetGroupRequest = {
             "group_name": group_name
         }
@@ -4228,7 +4434,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGroupPolicy")
+        )
         input_: capo_iam.types.get_group_policy_request.GetGroupPolicyRequest = {
             "group_name": group_name,
             "policy_name": policy_name,
@@ -4276,7 +4484,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetHumanReadableSummary")
+        )
         input_: capo_iam.types.get_human_readable_summary_request.GetHumanReadableSummaryRequest = {
             "entity_arn": entity_arn
         }
@@ -4328,7 +4538,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInstanceProfile")
+        )
         input_: capo_iam.types.get_instance_profile_request.GetInstanceProfileRequest = {
             "instance_profile_name": instance_profile_name
         }
@@ -4423,7 +4635,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLoginProfile")
+        )
         input_: capo_iam.types.get_login_profile_request.GetLoginProfileRequest = {}
         if user_name is not None:
             input_["user_name"] = user_name
@@ -4469,7 +4683,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMFADevice")
+        )
         input_: capo_iam.types.get_mfa_device_request.GetMFADeviceRequest = {
             "serial_number": serial_number
         }
@@ -4516,7 +4732,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOpenIDConnectProvider")
+        )
         input_: capo_iam.types.get_open_id_connect_provider_request.GetOpenIDConnectProviderRequest = {
             "open_id_connect_provider_arn": open_id_connect_provider_arn
         }
@@ -4571,7 +4789,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOrganizationsAccessReport")
+        )
         input_: capo_iam.types.get_organizations_access_report_request.GetOrganizationsAccessReportRequest = {
             "job_id": job_id
         }
@@ -4614,7 +4834,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOutboundWebIdentityFederationInfo")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -4654,7 +4876,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPolicy")
+        )
         input_: capo_iam.types.get_policy_request.GetPolicyRequest = {
             "policy_arn": policy_arn
         }
@@ -4748,7 +4972,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPolicyVersion")
+        )
         input_: capo_iam.types.get_policy_version_request.GetPolicyVersionRequest = {
             "policy_arn": policy_arn,
             "version_id": version_id,
@@ -4797,7 +5023,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRole")
+        )
         input_: capo_iam.types.get_role_request.GetRoleRequest = {
             "role_name": role_name
         }
@@ -4888,7 +5116,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRolePolicy")
+        )
         input_: capo_iam.types.get_role_policy_request.GetRolePolicyRequest = {
             "role_name": role_name,
             "policy_name": policy_name,
@@ -4938,7 +5168,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRoleTemplateVersion")
+        )
         input_: capo_iam.types.get_role_template_version_request.GetRoleTemplateVersionRequest = {
             "template_arn": template_arn
         }
@@ -4985,7 +5217,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSAMLProvider")
+        )
         input_: capo_iam.types.get_saml_provider_request.GetSAMLProviderRequest = {
             "saml_provider_arn": saml_provider_arn
         }
@@ -5029,7 +5263,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServerCertificate")
+        )
         input_: capo_iam.types.get_server_certificate_request.GetServerCertificateRequest = {
             "server_certificate_name": server_certificate_name
         }
@@ -5083,7 +5319,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServiceLastAccessedDetails")
+        )
         input_: capo_iam.types.get_service_last_accessed_details_request.GetServiceLastAccessedDetailsRequest = {
             "job_id": job_id
         }
@@ -5143,7 +5381,10 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetServiceLastAccessedDetailsWithEntities"),
+        )
         input_: capo_iam.types.get_service_last_accessed_details_with_entities_request.GetServiceLastAccessedDetailsWithEntitiesRequest = {
             "job_id": job_id,
             "service_namespace": service_namespace,
@@ -5193,7 +5434,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServiceLinkedRoleDeletionStatus")
+        )
         input_: capo_iam.types.get_service_linked_role_deletion_status_request.GetServiceLinkedRoleDeletionStatusRequest = {
             "deletion_task_id": deletion_task_id
         }
@@ -5241,7 +5484,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSSHPublicKey")
+        )
         input_: capo_iam.types.get_ssh_public_key_request.GetSSHPublicKeyRequest = {
             "user_name": user_name,
             "ssh_public_key_id": ssh_public_key_id,
@@ -5293,7 +5538,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUser")
+        )
         input_: capo_iam.types.get_user_request.GetUserRequest = {}
         if user_name is not None:
             input_["user_name"] = user_name
@@ -5386,7 +5633,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUserPolicy")
+        )
         input_: capo_iam.types.get_user_policy_request.GetUserPolicyRequest = {
             "user_name": user_name,
             "policy_name": policy_name,
@@ -5443,7 +5692,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessKeys")
+        )
         input_: capo_iam.types.list_access_keys_request.ListAccessKeysRequest = {}
         if user_name is not None:
             input_["user_name"] = user_name
@@ -5523,7 +5774,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccountAliases")
+        )
         input_: capo_iam.types.list_account_aliases_request.ListAccountAliasesRequest = {}
         if marker is not None:
             input_["marker"] = marker
@@ -5597,7 +5850,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAttachedGroupPolicies")
+        )
         input_: capo_iam.types.list_attached_group_policies_request.ListAttachedGroupPoliciesRequest = {
             "group_name": group_name
         }
@@ -5679,7 +5934,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAttachedRolePolicies")
+        )
         input_: capo_iam.types.list_attached_role_policies_request.ListAttachedRolePoliciesRequest = {
             "role_name": role_name
         }
@@ -5761,7 +6018,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAttachedUserPolicies")
+        )
         input_: capo_iam.types.list_attached_user_policies_request.ListAttachedUserPoliciesRequest = {
             "user_name": user_name
         }
@@ -5841,7 +6100,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDelegationRequests")
+        )
         input_: capo_iam.types.list_delegation_requests_request.ListDelegationRequestsRequest = {}
         if owner_id is not None:
             input_["owner_id"] = owner_id
@@ -5904,7 +6165,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEntitiesForPolicy")
+        )
         input_: capo_iam.types.list_entities_for_policy_request.ListEntitiesForPolicyRequest = {
             "policy_arn": policy_arn
         }
@@ -5997,7 +6260,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroupPolicies")
+        )
         input_: capo_iam.types.list_group_policies_request.ListGroupPoliciesRequest = {
             "group_name": group_name
         }
@@ -6077,7 +6342,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroups")
+        )
         input_: capo_iam.types.list_groups_request.ListGroupsRequest = {}
         if path_prefix is not None:
             input_["path_prefix"] = path_prefix
@@ -6158,7 +6425,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroupsForUser")
+        )
         input_: capo_iam.types.list_groups_for_user_request.ListGroupsForUserRequest = {
             "user_name": user_name
         }
@@ -6232,7 +6501,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInstanceProfiles")
+        )
         input_: capo_iam.types.list_instance_profiles_request.ListInstanceProfilesRequest = {}
         if path_prefix is not None:
             input_["path_prefix"] = path_prefix
@@ -6307,7 +6578,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInstanceProfilesForRole")
+        )
         input_: capo_iam.types.list_instance_profiles_for_role_request.ListInstanceProfilesForRoleRequest = {
             "role_name": role_name
         }
@@ -6382,7 +6655,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInstanceProfileTags")
+        )
         input_: capo_iam.types.list_instance_profile_tags_request.ListInstanceProfileTagsRequest = {
             "instance_profile_name": instance_profile_name
         }
@@ -6459,7 +6734,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMFADevices")
+        )
         input_: capo_iam.types.list_mfa_devices_request.ListMFADevicesRequest = {}
         if user_name is not None:
             input_["user_name"] = user_name
@@ -6537,7 +6814,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMFADeviceTags")
+        )
         input_: capo_iam.types.list_mfa_device_tags_request.ListMFADeviceTagsRequest = {
             "serial_number": serial_number
         }
@@ -6601,7 +6880,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOpenIDConnectProviders")
+        )
         input_: capo_iam.types.list_open_id_connect_providers_request.ListOpenIDConnectProvidersRequest = {}
 
         response = execute_pipeline(
@@ -6648,7 +6929,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOpenIDConnectProviderTags")
+        )
         input_: capo_iam.types.list_open_id_connect_provider_tags_request.ListOpenIDConnectProviderTagsRequest = {
             "open_id_connect_provider_arn": open_id_connect_provider_arn
         }
@@ -6721,7 +7004,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOrganizationsFeatures")
+        )
         input_: capo_iam.types.list_organizations_features_request.ListOrganizationsFeaturesRequest = {}
 
         response = execute_pipeline(
@@ -6774,7 +7059,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPolicies")
+        )
         input_: capo_iam.types.list_policies_request.ListPoliciesRequest = {}
         if scope is not None:
             input_["scope"] = scope
@@ -6869,7 +7156,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPoliciesGrantingServiceAccess")
+        )
         input_: capo_iam.types.list_policies_granting_service_access_request.ListPoliciesGrantingServiceAccessRequest = {
             "arn": arn,
             "service_namespaces": service_namespaces,
@@ -6921,7 +7210,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPolicyTags")
+        )
         input_: capo_iam.types.list_policy_tags_request.ListPolicyTagsRequest = {
             "policy_arn": policy_arn
         }
@@ -6997,7 +7288,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPolicyVersions")
+        )
         input_: capo_iam.types.list_policy_versions_request.ListPolicyVersionsRequest = {
             "policy_arn": policy_arn
         }
@@ -7072,7 +7365,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRolePolicies")
+        )
         input_: capo_iam.types.list_role_policies_request.ListRolePoliciesRequest = {
             "role_name": role_name
         }
@@ -7144,7 +7439,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRoles")
+        )
         input_: capo_iam.types.list_roles_request.ListRolesRequest = {}
         if path_prefix is not None:
             input_["path_prefix"] = path_prefix
@@ -7225,7 +7522,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRoleTags")
+        )
         input_: capo_iam.types.list_role_tags_request.ListRoleTagsRequest = {
             "role_name": role_name
         }
@@ -7289,7 +7588,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSAMLProviders")
+        )
         input_: capo_iam.types.list_saml_providers_request.ListSAMLProvidersRequest = {}
 
         response = execute_pipeline(
@@ -7336,7 +7637,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSAMLProviderTags")
+        )
         input_: capo_iam.types.list_saml_provider_tags_request.ListSAMLProviderTagsRequest = {
             "saml_provider_arn": saml_provider_arn
         }
@@ -7410,7 +7713,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServerCertificates")
+        )
         input_: capo_iam.types.list_server_certificates_request.ListServerCertificatesRequest = {}
         if path_prefix is not None:
             input_["path_prefix"] = path_prefix
@@ -7487,7 +7792,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServerCertificateTags")
+        )
         input_: capo_iam.types.list_server_certificate_tags_request.ListServerCertificateTagsRequest = {
             "server_certificate_name": server_certificate_name
         }
@@ -7566,7 +7873,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceSpecificCredentials")
+        )
         input_: capo_iam.types.list_service_specific_credentials_request.ListServiceSpecificCredentialsRequest = {}
         if user_name is not None:
             input_["user_name"] = user_name
@@ -7630,7 +7939,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSigningCertificates")
+        )
         input_: capo_iam.types.list_signing_certificates_request.ListSigningCertificatesRequest = {}
         if user_name is not None:
             input_["user_name"] = user_name
@@ -7706,7 +8017,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSSHPublicKeys")
+        )
         input_: capo_iam.types.list_ssh_public_keys_request.ListSSHPublicKeysRequest = {}
         if user_name is not None:
             input_["user_name"] = user_name
@@ -7781,7 +8094,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUserPolicies")
+        )
         input_: capo_iam.types.list_user_policies_request.ListUserPoliciesRequest = {
             "user_name": user_name
         }
@@ -7859,7 +8174,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUsers")
+        )
         input_: capo_iam.types.list_users_request.ListUsersRequest = {}
         if path_prefix is not None:
             input_["path_prefix"] = path_prefix
@@ -7940,7 +8257,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUserTags")
+        )
         input_: capo_iam.types.list_user_tags_request.ListUserTagsRequest = {
             "user_name": user_name
         }
@@ -8023,7 +8342,19 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iam.types.list_virtual_mfa_devices_response.ListVirtualMFADevicesResponse",
+        ) -> dict[str, Any]:
+            import capo_iam.types.list_virtual_mfa_devices_response
+
+            return capo_iam.types.list_virtual_mfa_devices_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListVirtualMFADevices", redact_output=_redact_output),
+        )
         input_: capo_iam.types.list_virtual_mfa_devices_request.ListVirtualMFADevicesRequest = {}
         if assignment_status is not None:
             input_["assignment_status"] = assignment_status
@@ -8097,7 +8428,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccountProperties")
+        )
         input_: capo_iam.types.put_account_properties_request.PutAccountPropertiesRequest = {
             "properties": properties
         }
@@ -8151,7 +8484,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutGroupPolicy")
+        )
         input_: capo_iam.types.put_group_policy_request.PutGroupPolicyRequest = {
             "group_name": group_name,
             "policy_name": policy_name,
@@ -8200,7 +8535,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRolePermissionsBoundary")
+        )
         input_: capo_iam.types.put_role_permissions_boundary_request.PutRolePermissionsBoundaryRequest = {
             "role_name": role_name,
             "permissions_boundary": permissions_boundary,
@@ -8256,7 +8593,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRolePolicy")
+        )
         input_: capo_iam.types.put_role_policy_request.PutRolePolicyRequest = {
             "role_name": role_name,
             "policy_name": policy_name,
@@ -8304,7 +8643,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutUserPermissionsBoundary")
+        )
         input_: capo_iam.types.put_user_permissions_boundary_request.PutUserPermissionsBoundaryRequest = {
             "user_name": user_name,
             "permissions_boundary": permissions_boundary,
@@ -8359,7 +8700,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutUserPolicy")
+        )
         input_: capo_iam.types.put_user_policy_request.PutUserPolicyRequest = {
             "user_name": user_name,
             "policy_name": policy_name,
@@ -8407,7 +8750,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectDelegationRequest")
+        )
         input_: capo_iam.types.reject_delegation_request_request.RejectDelegationRequestRequest = {
             "delegation_request_id": delegation_request_id
         }
@@ -8455,7 +8800,10 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RemoveClientIDFromOpenIDConnectProvider"),
+        )
         input_: capo_iam.types.remove_client_id_from_open_id_connect_provider_request.RemoveClientIDFromOpenIDConnectProviderRequest = {
             "open_id_connect_provider_arn": open_id_connect_provider_arn,
             "client_id": client_id,
@@ -8508,7 +8856,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveRoleFromInstanceProfile")
+        )
         input_: capo_iam.types.remove_role_from_instance_profile_request.RemoveRoleFromInstanceProfileRequest = {
             "instance_profile_name": instance_profile_name,
             "role_name": role_name,
@@ -8560,7 +8910,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveUserFromGroup")
+        )
         input_: capo_iam.types.remove_user_from_group_request.RemoveUserFromGroupRequest = {
             "group_name": group_name,
             "user_name": user_name,
@@ -8606,7 +8958,21 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iam.types.reset_service_specific_credential_response.ResetServiceSpecificCredentialResponse",
+        ) -> dict[str, Any]:
+            import capo_iam.types.reset_service_specific_credential_response
+
+            return capo_iam.types.reset_service_specific_credential_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ResetServiceSpecificCredential", redact_output=_redact_output
+            ),
+        )
         input_: capo_iam.types.reset_service_specific_credential_request.ResetServiceSpecificCredentialRequest = {
             "service_specific_credential_id": service_specific_credential_id
         }
@@ -8659,7 +9025,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResyncMFADevice")
+        )
         input_: capo_iam.types.resync_mfa_device_request.ResyncMFADeviceRequest = {
             "user_name": user_name,
             "serial_number": serial_number,
@@ -8706,7 +9074,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendDelegationToken")
+        )
         input_: capo_iam.types.send_delegation_token_request.SendDelegationTokenRequest = {
             "delegation_request_id": delegation_request_id
         }
@@ -8752,7 +9122,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetDefaultPolicyVersion")
+        )
         input_: capo_iam.types.set_default_policy_version_request.SetDefaultPolicyVersionRequest = {
             "policy_arn": policy_arn,
             "version_id": version_id,
@@ -8800,7 +9172,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetSecurityTokenServicePreferences")
+        )
         input_: capo_iam.types.set_security_token_service_preferences_request.SetSecurityTokenServicePreferencesRequest = {
             "global_endpoint_token_version": global_endpoint_token_version
         }
@@ -8882,7 +9256,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SimulateCustomPolicy")
+        )
         input_: capo_iam.types.simulate_custom_policy_request.SimulateCustomPolicyRequest = {
             "policy_input_list": policy_input_list,
             "action_names": action_names,
@@ -9051,7 +9427,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SimulatePrincipalPolicy")
+        )
         input_: capo_iam.types.simulate_principal_policy_request.SimulatePrincipalPolicyRequest = {
             "policy_source_arn": policy_source_arn,
             "action_names": action_names,
@@ -9184,7 +9562,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagInstanceProfile")
+        )
         input_: capo_iam.types.tag_instance_profile_request.TagInstanceProfileRequest = {
             "instance_profile_name": instance_profile_name,
             "tags": tags,
@@ -9232,7 +9612,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagMFADevice")
+        )
         input_: capo_iam.types.tag_mfa_device_request.TagMFADeviceRequest = {
             "serial_number": serial_number,
             "tags": tags,
@@ -9280,7 +9662,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagOpenIDConnectProvider")
+        )
         input_: capo_iam.types.tag_open_id_connect_provider_request.TagOpenIDConnectProviderRequest = {
             "open_id_connect_provider_arn": open_id_connect_provider_arn,
             "tags": tags,
@@ -9328,7 +9712,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagPolicy")
+        )
         input_: capo_iam.types.tag_policy_request.TagPolicyRequest = {
             "policy_arn": policy_arn,
             "tags": tags,
@@ -9382,7 +9768,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagRole")
+        )
         input_: capo_iam.types.tag_role_request.TagRoleRequest = {
             "role_name": role_name,
             "tags": tags,
@@ -9430,7 +9818,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagSAMLProvider")
+        )
         input_: capo_iam.types.tag_saml_provider_request.TagSAMLProviderRequest = {
             "saml_provider_arn": saml_provider_arn,
             "tags": tags,
@@ -9478,7 +9868,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagServerCertificate")
+        )
         input_: capo_iam.types.tag_server_certificate_request.TagServerCertificateRequest = {
             "server_certificate_name": server_certificate_name,
             "tags": tags,
@@ -9532,7 +9924,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagUser")
+        )
         input_: capo_iam.types.tag_user_request.TagUserRequest = {
             "user_name": user_name,
             "tags": tags,
@@ -9579,7 +9973,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagInstanceProfile")
+        )
         input_: capo_iam.types.untag_instance_profile_request.UntagInstanceProfileRequest = {
             "instance_profile_name": instance_profile_name,
             "tag_keys": tag_keys,
@@ -9626,7 +10022,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagMFADevice")
+        )
         input_: capo_iam.types.untag_mfa_device_request.UntagMFADeviceRequest = {
             "serial_number": serial_number,
             "tag_keys": tag_keys,
@@ -9673,7 +10071,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagOpenIDConnectProvider")
+        )
         input_: capo_iam.types.untag_open_id_connect_provider_request.UntagOpenIDConnectProviderRequest = {
             "open_id_connect_provider_arn": open_id_connect_provider_arn,
             "tag_keys": tag_keys,
@@ -9720,7 +10120,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagPolicy")
+        )
         input_: capo_iam.types.untag_policy_request.UntagPolicyRequest = {
             "policy_arn": policy_arn,
             "tag_keys": tag_keys,
@@ -9772,7 +10174,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagRole")
+        )
         input_: capo_iam.types.untag_role_request.UntagRoleRequest = {
             "role_name": role_name,
             "tag_keys": tag_keys,
@@ -9819,7 +10223,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagSAMLProvider")
+        )
         input_: capo_iam.types.untag_saml_provider_request.UntagSAMLProviderRequest = {
             "saml_provider_arn": saml_provider_arn,
             "tag_keys": tag_keys,
@@ -9866,7 +10272,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagServerCertificate")
+        )
         input_: capo_iam.types.untag_server_certificate_request.UntagServerCertificateRequest = {
             "server_certificate_name": server_certificate_name,
             "tag_keys": tag_keys,
@@ -9918,7 +10326,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagUser")
+        )
         input_: capo_iam.types.untag_user_request.UntagUserRequest = {
             "user_name": user_name,
             "tag_keys": tag_keys,
@@ -9975,7 +10385,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccessKey")
+        )
         input_: capo_iam.types.update_access_key_request.UpdateAccessKeyRequest = {
             "access_key_id": access_key_id,
             "status": status,
@@ -10058,7 +10470,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccountPasswordPolicy")
+        )
         input_: capo_iam.types.update_account_password_policy_request.UpdateAccountPasswordPolicyRequest = {}
         if minimum_password_length is not None:
             input_["minimum_password_length"] = minimum_password_length
@@ -10127,7 +10541,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAssumeRolePolicy")
+        )
         input_: capo_iam.types.update_assume_role_policy_request.UpdateAssumeRolePolicyRequest = {
             "role_name": role_name,
             "policy_document": policy_document,
@@ -10174,7 +10590,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDelegationRequest")
+        )
         input_: capo_iam.types.update_delegation_request_request.UpdateDelegationRequestRequest = {
             "delegation_request_id": delegation_request_id
         }
@@ -10230,7 +10648,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGroup")
+        )
         input_: capo_iam.types.update_group_request.UpdateGroupRequest = {
             "group_name": group_name
         }
@@ -10291,7 +10711,17 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iam.types.update_login_profile_request.UpdateLoginProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_iam.types.update_login_profile_request
+
+            return capo_iam.types.update_login_profile_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateLoginProfile", redact_input=_redact_input),
+        )
         input_: capo_iam.types.update_login_profile_request.UpdateLoginProfileRequest = {
             "user_name": user_name
         }
@@ -10341,7 +10771,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateOpenIDConnectProviderThumbprint")
+        )
         input_: capo_iam.types.update_open_id_connect_provider_thumbprint_request.UpdateOpenIDConnectProviderThumbprintRequest = {
             "open_id_connect_provider_arn": open_id_connect_provider_arn,
             "thumbprint_list": thumbprint_list,
@@ -10395,7 +10827,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRole")
+        )
         input_: capo_iam.types.update_role_request.UpdateRoleRequest = {
             "role_name": role_name
         }
@@ -10448,7 +10882,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRoleDescription")
+        )
         input_: capo_iam.types.update_role_description_request.UpdateRoleDescriptionRequest = {
             "role_name": role_name,
             "description": description,
@@ -10512,7 +10948,17 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iam.types.update_saml_provider_request.UpdateSAMLProviderRequest",
+        ) -> dict[str, Any]:
+            import capo_iam.types.update_saml_provider_request
+
+            return capo_iam.types.update_saml_provider_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateSAMLProvider", redact_input=_redact_input),
+        )
         input_: capo_iam.types.update_saml_provider_request.UpdateSAMLProviderRequest = {
             "saml_provider_arn": saml_provider_arn
         }
@@ -10570,7 +11016,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateServerCertificate")
+        )
         input_: capo_iam.types.update_server_certificate_request.UpdateServerCertificateRequest = {
             "server_certificate_name": server_certificate_name
         }
@@ -10619,7 +11067,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateServiceSpecificCredential")
+        )
         input_: capo_iam.types.update_service_specific_credential_request.UpdateServiceSpecificCredentialRequest = {
             "service_specific_credential_id": service_specific_credential_id,
             "status": status,
@@ -10678,7 +11128,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSigningCertificate")
+        )
         input_: capo_iam.types.update_signing_certificate_request.UpdateSigningCertificateRequest = {
             "certificate_id": certificate_id,
             "status": status,
@@ -10727,7 +11179,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSSHPublicKey")
+        )
         input_: capo_iam.types.update_ssh_public_key_request.UpdateSSHPublicKeyRequest = {
             "user_name": user_name,
             "ssh_public_key_id": ssh_public_key_id,
@@ -10785,7 +11239,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUser")
+        )
         input_: capo_iam.types.update_user_request.UpdateUserRequest = {
             "user_name": user_name
         }
@@ -10856,7 +11312,19 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iam.types.upload_server_certificate_request.UploadServerCertificateRequest",
+        ) -> dict[str, Any]:
+            import capo_iam.types.upload_server_certificate_request
+
+            return capo_iam.types.upload_server_certificate_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UploadServerCertificate", redact_input=_redact_input),
+        )
         input_: capo_iam.types.upload_server_certificate_request.UploadServerCertificateRequest = {
             "server_certificate_name": server_certificate_name,
             "certificate_body": certificate_body,
@@ -10924,7 +11392,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UploadSigningCertificate")
+        )
         input_: capo_iam.types.upload_signing_certificate_request.UploadSigningCertificateRequest = {
             "certificate_body": certificate_body
         }
@@ -10975,7 +11445,9 @@ class IAMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UploadSSHPublicKey")
+        )
         input_: capo_iam.types.upload_ssh_public_key_request.UploadSSHPublicKeyRequest = {
             "user_name": user_name,
             "ssh_public_key_body": ssh_public_key_body,

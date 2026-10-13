@@ -8,6 +8,7 @@ import capo_networkmonitor._auth._sigv4
 from capo_networkmonitor._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -87,7 +88,9 @@ class ProbeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateProbe")
+        )
         input_: capo_networkmonitor.types.create_probe_input.CreateProbeInput = {
             "monitor_name": monitor_name,
             "probe": probe,
@@ -142,7 +145,9 @@ class ProbeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetProbe")
+        )
         input_: capo_networkmonitor.types.get_probe_input.GetProbeInput = {
             "monitor_name": monitor_name,
             "probe_id": probe_id,
@@ -207,7 +212,9 @@ class ProbeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateProbe")
+        )
         input_: capo_networkmonitor.types.update_probe_input.UpdateProbeInput = {
             "monitor_name": monitor_name,
             "probe_id": probe_id,
@@ -268,7 +275,9 @@ class ProbeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteProbe")
+        )
         input_: capo_networkmonitor.types.delete_probe_input.DeleteProbeInput = {
             "monitor_name": monitor_name,
             "probe_id": probe_id,
@@ -329,7 +338,9 @@ class AsyncProbeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateProbe")
+        )
         input_: capo_networkmonitor.types.create_probe_input.CreateProbeInput = {
             "monitor_name": monitor_name,
             "probe": probe,
@@ -385,7 +396,9 @@ class AsyncProbeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetProbe")
+        )
         input_: capo_networkmonitor.types.get_probe_input.GetProbeInput = {
             "monitor_name": monitor_name,
             "probe_id": probe_id,
@@ -451,7 +464,9 @@ class AsyncProbeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateProbe")
+        )
         input_: capo_networkmonitor.types.update_probe_input.UpdateProbeInput = {
             "monitor_name": monitor_name,
             "probe_id": probe_id,
@@ -513,7 +528,9 @@ class AsyncProbeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteProbe")
+        )
         input_: capo_networkmonitor.types.delete_probe_input.DeleteProbeInput = {
             "monitor_name": monitor_name,
             "probe_id": probe_id,

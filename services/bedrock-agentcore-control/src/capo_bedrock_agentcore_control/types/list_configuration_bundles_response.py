@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#ListConfigurationBundlesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_json(data: dict) -> ListConfigurationBundlesResponse:
         raise DeserializationError("ListConfigurationBundlesResponse.bundles required")
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListConfigurationBundlesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "bundles" in value:
+        import capo_bedrock_agentcore_control.types.configuration_bundle_summary_list
+
+        out["bundles"] = (
+            capo_bedrock_agentcore_control.types.configuration_bundle_summary_list.redact_sensitive(
+                value["bundles"]
+            )
+        )
     return out

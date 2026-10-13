@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#ValidateStateMachineDefinitionOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -73,4 +73,17 @@ def deserialize_aws_json_1_0(data: dict) -> ValidateStateMachineDefinitionOutput
         )
     if data.get("truncated") is not None:
         out["truncated"] = data["truncated"]
+    return out
+
+
+def redact_sensitive(value: ValidateStateMachineDefinitionOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "diagnostics" in value:
+        import capo_sfn.types.validate_state_machine_definition_diagnostic_list
+
+        out["diagnostics"] = (
+            capo_sfn.types.validate_state_machine_definition_diagnostic_list.redact_sensitive(
+                value["diagnostics"]
+            )
+        )
     return out

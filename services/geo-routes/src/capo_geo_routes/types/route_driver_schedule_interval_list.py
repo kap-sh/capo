@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteDriverScheduleIntervalList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_routes.types.route_driver_schedule_interval
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> RouteDriverScheduleIntervalList:
             capo_geo_routes.types.route_driver_schedule_interval.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: RouteDriverScheduleIntervalList) -> list[Any]:
+    import capo_geo_routes.types.route_driver_schedule_interval
+
+    return [
+        capo_geo_routes.types.route_driver_schedule_interval.redact_sensitive(item)
+        for item in value
+    ]

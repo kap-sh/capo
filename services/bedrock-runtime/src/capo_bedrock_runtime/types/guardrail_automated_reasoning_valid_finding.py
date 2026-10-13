@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#GuardrailAutomatedReasoningValidFinding``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -100,6 +100,35 @@ def deserialize_json(data: dict) -> GuardrailAutomatedReasoningValidFinding:
         out["logic_warning"] = (
             capo_bedrock_runtime.types.guardrail_automated_reasoning_logic_warning.deserialize_json(
                 data["logicWarning"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GuardrailAutomatedReasoningValidFinding) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "translation" in value:
+        import capo_bedrock_runtime.types.guardrail_automated_reasoning_translation
+
+        out["translation"] = (
+            capo_bedrock_runtime.types.guardrail_automated_reasoning_translation.redact_sensitive(
+                value["translation"]
+            )
+        )
+    if "claims_true_scenario" in value:
+        import capo_bedrock_runtime.types.guardrail_automated_reasoning_scenario
+
+        out["claims_true_scenario"] = (
+            capo_bedrock_runtime.types.guardrail_automated_reasoning_scenario.redact_sensitive(
+                value["claims_true_scenario"]
+            )
+        )
+    if "logic_warning" in value:
+        import capo_bedrock_runtime.types.guardrail_automated_reasoning_logic_warning
+
+        out["logic_warning"] = (
+            capo_bedrock_runtime.types.guardrail_automated_reasoning_logic_warning.redact_sensitive(
+                value["logic_warning"]
             )
         )
     return out

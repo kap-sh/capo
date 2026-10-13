@@ -37,10 +37,12 @@ from capo_network_security_manager._resources.piccolo_customer_api_service.templ
 from capo_network_security_manager._services._aws_config import aws_config
 from capo_network_security_manager._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -257,7 +259,9 @@ class NetworkSecurityManagerClient:
         self.template = Template(self)
 
     def operation_options(
-        self, config_overrides: Optional[NetworkSecurityManagerClientConfig] = None
+        self,
+        config_overrides: Optional[NetworkSecurityManagerClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: NetworkSecurityManagerClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -265,8 +269,10 @@ class NetworkSecurityManagerClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -319,7 +325,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAdminAccount")
+        )
         input_: capo_network_security_manager.types.delete_admin_account_request.DeleteAdminAccountRequest = {
             "account_id": account_id
         }
@@ -385,7 +393,19 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_network_security_manager.types.generate_rule_configuration_request.GenerateRuleConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_network_security_manager.types.generate_rule_configuration_request
+
+            return capo_network_security_manager.types.generate_rule_configuration_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GenerateRuleConfiguration", redact_input=_redact_input),
+        )
         input_: capo_network_security_manager.types.generate_rule_configuration_request.GenerateRuleConfigurationRequest = {
             "prompt": prompt,
             "rule_firewall_type": rule_firewall_type,
@@ -447,7 +467,19 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_network_security_manager.types.get_admin_account_response.GetAdminAccountResponse",
+        ) -> dict[str, Any]:
+            import capo_network_security_manager.types.get_admin_account_response
+
+            return capo_network_security_manager.types.get_admin_account_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAdminAccount", redact_output=_redact_output),
+        )
         input_: capo_network_security_manager.types.get_admin_account_request.GetAdminAccountRequest = {
             "account_id": account_id
         }
@@ -505,7 +537,19 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_network_security_manager.types.list_admin_accounts_response.ListAdminAccountsResponse",
+        ) -> dict[str, Any]:
+            import capo_network_security_manager.types.list_admin_accounts_response
+
+            return capo_network_security_manager.types.list_admin_accounts_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAdminAccounts", redact_output=_redact_output),
+        )
         input_: capo_network_security_manager.types.list_admin_accounts_request.ListAdminAccountsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -594,7 +638,10 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAggregateResourceSynchronizationStatuses"),
+        )
         input_: capo_network_security_manager.types.list_aggregate_resource_synchronization_statuses_input.ListAggregateResourceSynchronizationStatusesInput = {}
         if synchronization_status is not None:
             input_["synchronization_status"] = synchronization_status
@@ -687,7 +734,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceAssociations")
+        )
         input_: capo_network_security_manager.types.list_resource_associations_input.ListResourceAssociationsInput = {
             "resource_identifier": resource_identifier
         }
@@ -771,7 +820,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_network_security_manager.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -832,7 +883,19 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_network_security_manager.types.put_admin_account_response.PutAdminAccountResponse",
+        ) -> dict[str, Any]:
+            import capo_network_security_manager.types.put_admin_account_response
+
+            return capo_network_security_manager.types.put_admin_account_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutAdminAccount", redact_output=_redact_output),
+        )
         input_: capo_network_security_manager.types.put_admin_account_request.PutAdminAccountRequest = {
             "account_id": account_id,
             "priority": priority,
@@ -891,7 +954,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_network_security_manager.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -950,7 +1015,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_network_security_manager.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1027,7 +1094,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDeployment")
+        )
         input_: capo_network_security_manager.types.create_deployment_input.CreateDeploymentInput = {
             "deployment_name": deployment_name,
             "deployment_configuration": deployment_configuration,
@@ -1094,7 +1163,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeployment")
+        )
         input_: capo_network_security_manager.types.get_deployment_input.GetDeploymentInput = {
             "deployment_identifier": deployment_identifier
         }
@@ -1173,7 +1244,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDeployment")
+        )
         input_: capo_network_security_manager.types.update_deployment_input.UpdateDeploymentInput = {
             "deployment_identifier": deployment_identifier,
             "update_token": update_token,
@@ -1237,7 +1310,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDeployment")
+        )
         input_: capo_network_security_manager.types.delete_deployment_input.DeleteDeploymentInput = {
             "deployment_identifier": deployment_identifier
         }
@@ -1299,7 +1374,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeployments")
+        )
         input_: capo_network_security_manager.types.list_deployments_input.ListDeploymentsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1393,7 +1470,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDeploymentSnapshot")
+        )
         input_: capo_network_security_manager.types.create_deployment_snapshot_input.CreateDeploymentSnapshotInput = {
             "deployment_identifier": deployment_identifier
         }
@@ -1459,7 +1538,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeploymentSnapshots")
+        )
         input_: capo_network_security_manager.types.list_deployment_snapshots_input.ListDeploymentSnapshotsInput = {
             "deployment_identifier": deployment_identifier
         }
@@ -1555,7 +1636,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceSynchronizationStatuses")
+        )
         input_: capo_network_security_manager.types.list_resource_synchronization_statuses_input.ListResourceSynchronizationStatusesInput = {
             "deployment_identifier": deployment_identifier
         }
@@ -1672,7 +1755,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePolicy")
+        )
         input_: capo_network_security_manager.types.create_policy_input.CreatePolicyInput = {
             "policy_name": policy_name,
             "priority": priority,
@@ -1741,7 +1826,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPolicy")
+        )
         input_: capo_network_security_manager.types.get_policy_input.GetPolicyInput = {
             "policy_identifier": policy_identifier
         }
@@ -1820,7 +1907,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePolicy")
+        )
         input_: capo_network_security_manager.types.update_policy_input.UpdatePolicyInput = {
             "policy_identifier": policy_identifier,
             "update_token": update_token,
@@ -1886,7 +1975,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePolicy")
+        )
         input_: capo_network_security_manager.types.delete_policy_input.DeletePolicyInput = {
             "policy_identifier": policy_identifier
         }
@@ -1948,7 +2039,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPolicies")
+        )
         input_: capo_network_security_manager.types.list_policies_input.ListPoliciesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2042,7 +2135,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePolicySnapshot")
+        )
         input_: capo_network_security_manager.types.create_policy_snapshot_input.CreatePolicySnapshotInput = {
             "policy_identifier": policy_identifier
         }
@@ -2108,7 +2203,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPolicySnapshots")
+        )
         input_: capo_network_security_manager.types.list_policy_snapshots_input.ListPolicySnapshotsInput = {
             "policy_identifier": policy_identifier
         }
@@ -2215,7 +2312,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRule")
+        )
         input_: capo_network_security_manager.types.create_rule_input.CreateRuleInput = {
             "rule_name": rule_name,
             "firewall_type": firewall_type,
@@ -2284,7 +2383,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRule")
+        )
         input_: capo_network_security_manager.types.get_rule_input.GetRuleInput = {
             "rule_identifier": rule_identifier
         }
@@ -2359,7 +2460,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRule")
+        )
         input_: capo_network_security_manager.types.update_rule_input.UpdateRuleInput = {
             "rule_identifier": rule_identifier,
             "update_token": update_token,
@@ -2421,7 +2524,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRule")
+        )
         input_: capo_network_security_manager.types.delete_rule_input.DeleteRuleInput = {
             "rule_identifier": rule_identifier
         }
@@ -2483,7 +2588,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRules")
+        )
         input_: capo_network_security_manager.types.list_rules_input.ListRulesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2577,7 +2684,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRuleSnapshot")
+        )
         input_: capo_network_security_manager.types.create_rule_snapshot_input.CreateRuleSnapshotInput = {
             "rule_identifier": rule_identifier
         }
@@ -2643,7 +2752,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRuleSnapshots")
+        )
         input_: capo_network_security_manager.types.list_rule_snapshots_input.ListRuleSnapshotsInput = {
             "rule_identifier": rule_identifier
         }
@@ -2746,7 +2857,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateScope")
+        )
         input_: capo_network_security_manager.types.create_scope_input.CreateScopeInput = {
             "scope_name": scope_name,
             "scope_configuration": scope_configuration,
@@ -2809,7 +2922,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetScope")
+        )
         input_: capo_network_security_manager.types.get_scope_input.GetScopeInput = {
             "scope_identifier": scope_identifier
         }
@@ -2880,7 +2995,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateScope")
+        )
         input_: capo_network_security_manager.types.update_scope_input.UpdateScopeInput = {
             "scope_identifier": scope_identifier,
             "update_token": update_token,
@@ -2940,7 +3057,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteScope")
+        )
         input_: capo_network_security_manager.types.delete_scope_input.DeleteScopeInput = {
             "scope_identifier": scope_identifier
         }
@@ -3002,7 +3121,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListScopes")
+        )
         input_: capo_network_security_manager.types.list_scopes_input.ListScopesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3096,7 +3217,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateScopeSnapshot")
+        )
         input_: capo_network_security_manager.types.create_scope_snapshot_input.CreateScopeSnapshotInput = {
             "scope_identifier": scope_identifier
         }
@@ -3162,7 +3285,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListScopeSnapshots")
+        )
         input_: capo_network_security_manager.types.list_scope_snapshots_input.ListScopeSnapshotsInput = {
             "scope_identifier": scope_identifier
         }
@@ -3267,7 +3392,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTemplate")
+        )
         input_: capo_network_security_manager.types.create_template_input.CreateTemplateInput = {
             "template_name": template_name,
             "associated_rule_list": associated_rule_list,
@@ -3331,7 +3458,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTemplate")
+        )
         input_: capo_network_security_manager.types.get_template_input.GetTemplateInput = {
             "template_identifier": template_identifier
         }
@@ -3402,7 +3531,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTemplate")
+        )
         input_: capo_network_security_manager.types.update_template_input.UpdateTemplateInput = {
             "template_identifier": template_identifier,
             "update_token": update_token,
@@ -3462,7 +3593,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTemplate")
+        )
         input_: capo_network_security_manager.types.delete_template_input.DeleteTemplateInput = {
             "template_identifier": template_identifier
         }
@@ -3526,7 +3659,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTemplates")
+        )
         input_: capo_network_security_manager.types.list_templates_input.ListTemplatesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3622,7 +3757,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTemplateSnapshot")
+        )
         input_: capo_network_security_manager.types.create_template_snapshot_input.CreateTemplateSnapshotInput = {
             "template_identifier": template_identifier
         }
@@ -3688,7 +3825,9 @@ class NetworkSecurityManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTemplateSnapshots")
+        )
         input_: capo_network_security_manager.types.list_template_snapshots_input.ListTemplateSnapshotsInput = {
             "template_identifier": template_identifier
         }

@@ -24,7 +24,9 @@ from capo_iottwinmaker._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -236,7 +238,9 @@ class AsyncIoTTwinMakerClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncIoTTwinMakerClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncIoTTwinMakerClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncIoTTwinMakerClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -244,8 +248,10 @@ class AsyncIoTTwinMakerClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -300,7 +306,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchPutPropertyValues")
+        )
         input_: capo_iottwinmaker.types.batch_put_property_values_request.BatchPutPropertyValuesRequest = {
             "workspace_id": workspace_id,
             "entries": entries,
@@ -350,7 +358,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelMetadataTransferJob")
+        )
         input_: capo_iottwinmaker.types.cancel_metadata_transfer_job_request.CancelMetadataTransferJobRequest = {
             "metadata_transfer_job_id": metadata_transfer_job_id
         }
@@ -431,7 +441,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateComponentType")
+        )
         input_: capo_iottwinmaker.types.create_component_type_request.CreateComponentTypeRequest = {
             "workspace_id": workspace_id,
             "component_type_id": component_type_id,
@@ -519,7 +531,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEntity")
+        )
         input_: capo_iottwinmaker.types.create_entity_request.CreateEntityRequest = {
             "workspace_id": workspace_id,
             "entity_name": entity_name,
@@ -588,7 +602,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMetadataTransferJob")
+        )
         input_: capo_iottwinmaker.types.create_metadata_transfer_job_request.CreateMetadataTransferJobRequest = {
             "sources": sources,
             "destination": destination,
@@ -658,7 +674,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateScene")
+        )
         input_: capo_iottwinmaker.types.create_scene_request.CreateSceneRequest = {
             "workspace_id": workspace_id,
             "scene_id": scene_id,
@@ -723,7 +741,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSyncJob")
+        )
         input_: capo_iottwinmaker.types.create_sync_job_request.CreateSyncJobRequest = {
             "workspace_id": workspace_id,
             "sync_source": sync_source,
@@ -784,7 +804,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkspace")
+        )
         input_: capo_iottwinmaker.types.create_workspace_request.CreateWorkspaceRequest = {
             "workspace_id": workspace_id
         }
@@ -842,7 +864,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteComponentType")
+        )
         input_: capo_iottwinmaker.types.delete_component_type_request.DeleteComponentTypeRequest = {
             "workspace_id": workspace_id,
             "component_type_id": component_type_id,
@@ -895,7 +919,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEntity")
+        )
         input_: capo_iottwinmaker.types.delete_entity_request.DeleteEntityRequest = {
             "workspace_id": workspace_id,
             "entity_id": entity_id,
@@ -948,7 +974,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteScene")
+        )
         input_: capo_iottwinmaker.types.delete_scene_request.DeleteSceneRequest = {
             "workspace_id": workspace_id,
             "scene_id": scene_id,
@@ -1000,7 +1028,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSyncJob")
+        )
         input_: capo_iottwinmaker.types.delete_sync_job_request.DeleteSyncJobRequest = {
             "workspace_id": workspace_id,
             "sync_source": sync_source,
@@ -1049,7 +1079,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkspace")
+        )
         input_: capo_iottwinmaker.types.delete_workspace_request.DeleteWorkspaceRequest = {
             "workspace_id": workspace_id
         }
@@ -1106,7 +1138,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExecuteQuery")
+        )
         input_: capo_iottwinmaker.types.execute_query_request.ExecuteQueryRequest = {
             "workspace_id": workspace_id,
             "query_statement": query_statement,
@@ -1186,7 +1220,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetComponentType")
+        )
         input_: capo_iottwinmaker.types.get_component_type_request.GetComponentTypeRequest = {
             "workspace_id": workspace_id,
             "component_type_id": component_type_id,
@@ -1237,7 +1273,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEntity")
+        )
         input_: capo_iottwinmaker.types.get_entity_request.GetEntityRequest = {
             "workspace_id": workspace_id,
             "entity_id": entity_id,
@@ -1286,7 +1324,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMetadataTransferJob")
+        )
         input_: capo_iottwinmaker.types.get_metadata_transfer_job_request.GetMetadataTransferJobRequest = {
             "metadata_transfer_job_id": metadata_transfer_job_id
         }
@@ -1327,7 +1367,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPricingPlan")
+        )
         input_: capo_iottwinmaker.types.get_pricing_plan_request.GetPricingPlanRequest = {}
 
         response = await aexecute_pipeline(
@@ -1399,7 +1441,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPropertyValue")
+        )
         input_: capo_iottwinmaker.types.get_property_value_request.GetPropertyValueRequest = {
             "selected_properties": selected_properties,
             "workspace_id": workspace_id,
@@ -1545,7 +1589,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPropertyValueHistory")
+        )
         input_: capo_iottwinmaker.types.get_property_value_history_request.GetPropertyValueHistoryRequest = {
             "workspace_id": workspace_id,
             "selected_properties": selected_properties,
@@ -1677,7 +1723,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetScene")
+        )
         input_: capo_iottwinmaker.types.get_scene_request.GetSceneRequest = {
             "workspace_id": workspace_id,
             "scene_id": scene_id,
@@ -1729,7 +1777,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSyncJob")
+        )
         input_: capo_iottwinmaker.types.get_sync_job_request.GetSyncJobRequest = {
             "sync_source": sync_source
         }
@@ -1779,7 +1829,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkspace")
+        )
         input_: capo_iottwinmaker.types.get_workspace_request.GetWorkspaceRequest = {
             "workspace_id": workspace_id
         }
@@ -1837,7 +1889,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListComponents")
+        )
         input_: capo_iottwinmaker.types.list_components_request.ListComponentsRequest = {
             "workspace_id": workspace_id,
             "entity_id": entity_id,
@@ -1926,7 +1980,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListComponentTypes")
+        )
         input_: capo_iottwinmaker.types.list_component_types_request.ListComponentTypesRequest = {
             "workspace_id": workspace_id
         }
@@ -2012,7 +2068,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEntities")
+        )
         input_: capo_iottwinmaker.types.list_entities_request.ListEntitiesRequest = {
             "workspace_id": workspace_id
         }
@@ -2100,7 +2158,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMetadataTransferJobs")
+        )
         input_: capo_iottwinmaker.types.list_metadata_transfer_jobs_request.ListMetadataTransferJobsRequest = {
             "source_type": source_type,
             "destination_type": destination_type,
@@ -2194,7 +2254,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProperties")
+        )
         input_: capo_iottwinmaker.types.list_properties_request.ListPropertiesRequest = {
             "workspace_id": workspace_id,
             "entity_id": entity_id,
@@ -2283,7 +2345,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListScenes")
+        )
         input_: capo_iottwinmaker.types.list_scenes_request.ListScenesRequest = {
             "workspace_id": workspace_id
         }
@@ -2362,7 +2426,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSyncJobs")
+        )
         input_: capo_iottwinmaker.types.list_sync_jobs_request.ListSyncJobsRequest = {
             "workspace_id": workspace_id
         }
@@ -2447,7 +2513,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSyncResources")
+        )
         input_: capo_iottwinmaker.types.list_sync_resources_request.ListSyncResourcesRequest = {
             "workspace_id": workspace_id,
             "sync_source": sync_source,
@@ -2530,7 +2598,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_iottwinmaker.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2583,7 +2653,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkspaces")
+        )
         input_: capo_iottwinmaker.types.list_workspaces_request.ListWorkspacesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2652,7 +2724,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_iottwinmaker.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2700,7 +2774,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_iottwinmaker.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2780,7 +2856,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateComponentType")
+        )
         input_: capo_iottwinmaker.types.update_component_type_request.UpdateComponentTypeRequest = {
             "workspace_id": workspace_id,
             "component_type_id": component_type_id,
@@ -2865,7 +2943,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEntity")
+        )
         input_: capo_iottwinmaker.types.update_entity_request.UpdateEntityRequest = {
             "workspace_id": workspace_id,
             "entity_id": entity_id,
@@ -2929,7 +3009,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePricingPlan")
+        )
         input_: capo_iottwinmaker.types.update_pricing_plan_request.UpdatePricingPlanRequest = {
             "pricing_mode": pricing_mode
         }
@@ -2993,7 +3075,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateScene")
+        )
         input_: capo_iottwinmaker.types.update_scene_request.UpdateSceneRequest = {
             "workspace_id": workspace_id,
             "scene_id": scene_id,
@@ -3057,7 +3141,9 @@ class AsyncIoTTwinMakerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkspace")
+        )
         input_: capo_iottwinmaker.types.update_workspace_request.UpdateWorkspaceRequest = {
             "workspace_id": workspace_id
         }

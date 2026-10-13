@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#SearchInventoryResultItems``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_datazone.types.search_inventory_result_item
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> SearchInventoryResultItems:
             capo_datazone.types.search_inventory_result_item.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: SearchInventoryResultItems) -> list[Any]:
+    import capo_datazone.types.search_inventory_result_item
+
+    return [
+        capo_datazone.types.search_inventory_result_item.redact_sensitive(item)
+        for item in value
+    ]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#RestoreDBInstanceFromDBSnapshotMessage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -592,4 +592,11 @@ def deserialize_query(el: Element) -> RestoreDBInstanceFromDBSnapshotMessage:
         out["master_user_secret_kms_key_id"] = str(
             child_master_user_secret_kms_key_id.text or ""
         )
+    return out
+
+
+def redact_sensitive(value: RestoreDBInstanceFromDBSnapshotMessage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tde_credential_password" in value:
+        out["tde_credential_password"] = "*** Sensitive Data Redacted ***"
     return out

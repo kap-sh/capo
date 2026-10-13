@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#PipeSourceManagedStreamingKafkaParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -83,4 +83,15 @@ def deserialize_json(data: dict) -> PipeSourceManagedStreamingKafkaParameters:
         out["credentials"] = capo_pipes.types.msk_access_credentials.deserialize_json(
             data["Credentials"]
         )
+    return out
+
+
+def redact_sensitive(
+    value: PipeSourceManagedStreamingKafkaParameters,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "topic_name" in value:
+        out["topic_name"] = "*** Sensitive Data Redacted ***"
+    if "consumer_group_id" in value:
+        out["consumer_group_id"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyBuildResultAssetManifestList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_build_result_asset_manifest_entry
@@ -39,3 +39,16 @@ def deserialize_json(
             )
         )
     return out
+
+
+def redact_sensitive(
+    value: AutomatedReasoningPolicyBuildResultAssetManifestList,
+) -> list[Any]:
+    import capo_bedrock.types.automated_reasoning_policy_build_result_asset_manifest_entry
+
+    return [
+        capo_bedrock.types.automated_reasoning_policy_build_result_asset_manifest_entry.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

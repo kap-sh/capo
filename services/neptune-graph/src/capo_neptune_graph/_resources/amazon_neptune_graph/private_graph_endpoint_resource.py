@@ -7,6 +7,7 @@ import capo_neptune_graph._auth._sigv4
 from capo_neptune_graph._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -86,7 +87,9 @@ class PrivateGraphEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePrivateGraphEndpoint")
+        )
         input_: capo_neptune_graph.types.create_private_graph_endpoint_input.CreatePrivateGraphEndpointInput = {
             "graph_identifier": graph_identifier
         }
@@ -141,7 +144,9 @@ class PrivateGraphEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePrivateGraphEndpoint")
+        )
         input_: capo_neptune_graph.types.delete_private_graph_endpoint_input.DeletePrivateGraphEndpointInput = {
             "graph_identifier": graph_identifier,
             "vpc_id": vpc_id,
@@ -190,7 +195,9 @@ class PrivateGraphEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPrivateGraphEndpoint")
+        )
         input_: capo_neptune_graph.types.get_private_graph_endpoint_input.GetPrivateGraphEndpointInput = {
             "graph_identifier": graph_identifier,
             "vpc_id": vpc_id,
@@ -243,7 +250,9 @@ class PrivateGraphEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPrivateGraphEndpoints")
+        )
         input_: capo_neptune_graph.types.list_private_graph_endpoints_input.ListPrivateGraphEndpointsInput = {
             "graph_identifier": graph_identifier
         }
@@ -309,7 +318,9 @@ class AsyncPrivateGraphEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePrivateGraphEndpoint")
+        )
         input_: capo_neptune_graph.types.create_private_graph_endpoint_input.CreatePrivateGraphEndpointInput = {
             "graph_identifier": graph_identifier
         }
@@ -365,7 +376,9 @@ class AsyncPrivateGraphEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePrivateGraphEndpoint")
+        )
         input_: capo_neptune_graph.types.delete_private_graph_endpoint_input.DeletePrivateGraphEndpointInput = {
             "graph_identifier": graph_identifier,
             "vpc_id": vpc_id,
@@ -415,7 +428,9 @@ class AsyncPrivateGraphEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPrivateGraphEndpoint")
+        )
         input_: capo_neptune_graph.types.get_private_graph_endpoint_input.GetPrivateGraphEndpointInput = {
             "graph_identifier": graph_identifier,
             "vpc_id": vpc_id,
@@ -469,7 +484,9 @@ class AsyncPrivateGraphEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPrivateGraphEndpoints")
+        )
         input_: capo_neptune_graph.types.list_private_graph_endpoints_input.ListPrivateGraphEndpointsInput = {
             "graph_identifier": graph_identifier
         }

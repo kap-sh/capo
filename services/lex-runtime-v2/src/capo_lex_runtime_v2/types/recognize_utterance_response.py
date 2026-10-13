@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexruntimev2#RecognizeUtteranceResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -43,3 +43,10 @@ class RecognizeUtteranceResponse(TypedDict, closed=True):
         "capo_lex_runtime_v2.types.non_empty_string.NonEmptyString"
     ]
     """<p>The bot member that recognized the utterance.</p>"""
+
+
+def redact_sensitive(value: RecognizeUtteranceResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "audio_stream" in value:
+        out["audio_stream"] = "*** Streaming Data Redacted ***"
+    return out

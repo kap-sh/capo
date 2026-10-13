@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#SpanToolUseValue``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -44,4 +44,11 @@ def deserialize_json(data: dict) -> SpanToolUseValue:
         out["arguments"] = data["arguments"]
     else:
         raise DeserializationError("SpanToolUseValue.arguments required")
+    return out
+
+
+def redact_sensitive(value: SpanToolUseValue) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "arguments" in value:
+        out["arguments"] = "*** Sensitive Data Redacted ***"
     return out

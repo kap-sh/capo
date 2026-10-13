@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TreeMapAggregatedFieldWells``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -76,6 +76,35 @@ def deserialize_json(data: dict) -> TreeMapAggregatedFieldWells:
         out["colors"] = (
             capo_quicksight.types.tree_map_measure_field_list.deserialize_json(
                 data["Colors"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: TreeMapAggregatedFieldWells) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "groups" in value:
+        import capo_quicksight.types.tree_map_dimension_field_list
+
+        out["groups"] = (
+            capo_quicksight.types.tree_map_dimension_field_list.redact_sensitive(
+                value["groups"]
+            )
+        )
+    if "sizes" in value:
+        import capo_quicksight.types.tree_map_measure_field_list
+
+        out["sizes"] = (
+            capo_quicksight.types.tree_map_measure_field_list.redact_sensitive(
+                value["sizes"]
+            )
+        )
+    if "colors" in value:
+        import capo_quicksight.types.tree_map_measure_field_list
+
+        out["colors"] = (
+            capo_quicksight.types.tree_map_measure_field_list.redact_sensitive(
+                value["colors"]
             )
         )
     return out

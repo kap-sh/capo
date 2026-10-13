@@ -7,6 +7,7 @@ import capo_arc_zonal_shift._auth._sigv4
 from capo_arc_zonal_shift._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -74,7 +75,9 @@ class Autoshift:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAutoshifts")
+        )
         input_: capo_arc_zonal_shift.types.list_autoshifts_request.ListAutoshiftsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -138,7 +141,9 @@ class AsyncAutoshift:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAutoshifts")
+        )
         input_: capo_arc_zonal_shift.types.list_autoshifts_request.ListAutoshiftsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

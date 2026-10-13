@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#DimensionList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_customer_profiles.types.dimension
@@ -27,3 +27,11 @@ def deserialize_json(data: list) -> DimensionList:
             continue
         out.append(capo_customer_profiles.types.dimension.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: DimensionList) -> list[Any]:
+    import capo_customer_profiles.types.dimension
+
+    return [
+        capo_customer_profiles.types.dimension.redact_sensitive(item) for item in value
+    ]

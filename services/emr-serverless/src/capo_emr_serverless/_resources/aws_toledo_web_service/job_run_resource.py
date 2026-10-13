@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_emr_serverless._auth._signers
 import capo_emr_serverless._auth._sigv4
 from capo_emr_serverless._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -120,7 +121,19 @@ class JobRunResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_emr_serverless.types.start_job_run_request.StartJobRunRequest",
+        ) -> dict[str, Any]:
+            import capo_emr_serverless.types.start_job_run_request
+
+            return capo_emr_serverless.types.start_job_run_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartJobRun", redact_input=_redact_input),
+        )
         input_: capo_emr_serverless.types.start_job_run_request.StartJobRunRequest = {
             "application_id": application_id,
             "client_token": client_token,
@@ -189,7 +202,19 @@ class JobRunResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_emr_serverless.types.get_job_run_response.GetJobRunResponse",
+        ) -> dict[str, Any]:
+            import capo_emr_serverless.types.get_job_run_response
+
+            return capo_emr_serverless.types.get_job_run_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetJobRun", redact_output=_redact_output),
+        )
         input_: capo_emr_serverless.types.get_job_run_request.GetJobRunRequest = {
             "application_id": application_id,
             "job_run_id": job_run_id,
@@ -243,7 +268,9 @@ class JobRunResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelJobRun")
+        )
         input_: capo_emr_serverless.types.cancel_job_run_request.CancelJobRunRequest = {
             "application_id": application_id,
             "job_run_id": job_run_id,
@@ -306,7 +333,9 @@ class JobRunResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListJobRuns")
+        )
         input_: capo_emr_serverless.types.list_job_runs_request.ListJobRunsRequest = {
             "application_id": application_id
         }
@@ -371,7 +400,9 @@ class JobRunResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDashboardForJobRun")
+        )
         input_: capo_emr_serverless.types.get_dashboard_for_job_run_request.GetDashboardForJobRunRequest = {
             "application_id": application_id,
             "job_run_id": job_run_id,
@@ -427,7 +458,9 @@ class JobRunResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListJobRunAttempts")
+        )
         input_: capo_emr_serverless.types.list_job_run_attempts_request.ListJobRunAttemptsRequest = {
             "application_id": application_id,
             "job_run_id": job_run_id,
@@ -512,7 +545,19 @@ class AsyncJobRunResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_emr_serverless.types.start_job_run_request.StartJobRunRequest",
+        ) -> dict[str, Any]:
+            import capo_emr_serverless.types.start_job_run_request
+
+            return capo_emr_serverless.types.start_job_run_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartJobRun", redact_input=_redact_input),
+        )
         input_: capo_emr_serverless.types.start_job_run_request.StartJobRunRequest = {
             "application_id": application_id,
             "client_token": client_token,
@@ -582,7 +627,19 @@ class AsyncJobRunResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_emr_serverless.types.get_job_run_response.GetJobRunResponse",
+        ) -> dict[str, Any]:
+            import capo_emr_serverless.types.get_job_run_response
+
+            return capo_emr_serverless.types.get_job_run_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetJobRun", redact_output=_redact_output),
+        )
         input_: capo_emr_serverless.types.get_job_run_request.GetJobRunRequest = {
             "application_id": application_id,
             "job_run_id": job_run_id,
@@ -637,7 +694,9 @@ class AsyncJobRunResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelJobRun")
+        )
         input_: capo_emr_serverless.types.cancel_job_run_request.CancelJobRunRequest = {
             "application_id": application_id,
             "job_run_id": job_run_id,
@@ -701,7 +760,9 @@ class AsyncJobRunResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListJobRuns")
+        )
         input_: capo_emr_serverless.types.list_job_runs_request.ListJobRunsRequest = {
             "application_id": application_id
         }
@@ -767,7 +828,9 @@ class AsyncJobRunResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDashboardForJobRun")
+        )
         input_: capo_emr_serverless.types.get_dashboard_for_job_run_request.GetDashboardForJobRunRequest = {
             "application_id": application_id,
             "job_run_id": job_run_id,
@@ -824,7 +887,9 @@ class AsyncJobRunResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListJobRunAttempts")
+        )
         input_: capo_emr_serverless.types.list_job_run_attempts_request.ListJobRunAttemptsRequest = {
             "application_id": application_id,
             "job_run_id": job_run_id,

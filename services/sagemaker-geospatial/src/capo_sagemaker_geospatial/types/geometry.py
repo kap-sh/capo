@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemakergeospatial#Geometry``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -45,4 +45,17 @@ def deserialize_json(data: dict) -> Geometry:
         )
     else:
         raise DeserializationError("Geometry.coordinates required")
+    return out
+
+
+def redact_sensitive(value: Geometry) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "coordinates" in value:
+        import capo_sagemaker_geospatial.types.linear_rings
+
+        out["coordinates"] = (
+            capo_sagemaker_geospatial.types.linear_rings.redact_sensitive(
+                value["coordinates"]
+            )
+        )
     return out

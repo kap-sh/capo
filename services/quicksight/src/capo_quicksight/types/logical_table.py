@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#LogicalTable``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -65,4 +65,17 @@ def deserialize_json(data: dict) -> LogicalTable:
         )
     else:
         raise DeserializationError("LogicalTable.source required")
+    return out
+
+
+def redact_sensitive(value: LogicalTable) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "data_transforms" in value:
+        import capo_quicksight.types.transform_operation_list
+
+        out["data_transforms"] = (
+            capo_quicksight.types.transform_operation_list.redact_sensitive(
+                value["data_transforms"]
+            )
+        )
     return out

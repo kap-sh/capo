@@ -8,6 +8,7 @@ import capo_iot_managed_integrations._auth._sigv4
 from capo_iot_managed_integrations._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -90,7 +91,9 @@ class EventLogConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEventLogConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.create_event_log_configuration_request.CreateEventLogConfigurationRequest = {
             "resource_type": resource_type,
             "event_log_level": event_log_level,
@@ -141,7 +144,9 @@ class EventLogConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEventLogConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.delete_event_log_configuration_request.DeleteEventLogConfigurationRequest = {
             "id": id
         }
@@ -188,7 +193,9 @@ class EventLogConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEventLogConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.get_event_log_configuration_request.GetEventLogConfigurationRequest = {
             "id": id
         }
@@ -240,7 +247,9 @@ class EventLogConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEventLogConfigurations")
+        )
         input_: capo_iot_managed_integrations.types.list_event_log_configurations_request.ListEventLogConfigurationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -289,7 +298,9 @@ class EventLogConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateEventLogConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.update_event_log_configuration_request.UpdateEventLogConfigurationRequest = {
             "id": id,
             "event_log_level": event_log_level,
@@ -354,7 +365,9 @@ class AsyncEventLogConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEventLogConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.create_event_log_configuration_request.CreateEventLogConfigurationRequest = {
             "resource_type": resource_type,
             "event_log_level": event_log_level,
@@ -406,7 +419,9 @@ class AsyncEventLogConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEventLogConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.delete_event_log_configuration_request.DeleteEventLogConfigurationRequest = {
             "id": id
         }
@@ -454,7 +469,9 @@ class AsyncEventLogConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEventLogConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.get_event_log_configuration_request.GetEventLogConfigurationRequest = {
             "id": id
         }
@@ -507,7 +524,9 @@ class AsyncEventLogConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEventLogConfigurations")
+        )
         input_: capo_iot_managed_integrations.types.list_event_log_configurations_request.ListEventLogConfigurationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -557,7 +576,9 @@ class AsyncEventLogConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateEventLogConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.update_event_log_configuration_request.UpdateEventLogConfigurationRequest = {
             "id": id,
             "event_log_level": event_log_level,

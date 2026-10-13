@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#PolicyEngine``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -147,4 +147,11 @@ def deserialize_json(data: dict) -> PolicyEngine:
         )
     else:
         raise DeserializationError("PolicyEngine.status_reasons required")
+    return out
+
+
+def redact_sensitive(value: PolicyEngine) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

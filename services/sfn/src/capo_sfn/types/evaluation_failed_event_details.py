@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#EvaluationFailedEventDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -51,4 +51,15 @@ def deserialize_aws_json_1_0(data: dict) -> EvaluationFailedEventDetails:
         out["state"] = data["state"]
     else:
         raise DeserializationError("EvaluationFailedEventDetails.state required")
+    return out
+
+
+def redact_sensitive(value: EvaluationFailedEventDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "error" in value:
+        out["error"] = "*** Sensitive Data Redacted ***"
+    if "cause" in value:
+        out["cause"] = "*** Sensitive Data Redacted ***"
+    if "location" in value:
+        out["location"] = "*** Sensitive Data Redacted ***"
     return out

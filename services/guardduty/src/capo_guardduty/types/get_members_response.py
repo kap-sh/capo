@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.guardduty#GetMembersResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -50,4 +50,13 @@ def deserialize_json(data: dict) -> GetMembersResponse:
                 data["unprocessedAccounts"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: GetMembersResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "members" in value:
+        import capo_guardduty.types.members
+
+        out["members"] = capo_guardduty.types.members.redact_sensitive(value["members"])
     return out

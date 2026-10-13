@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.identitystore#GetUserIdRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -50,4 +50,17 @@ def deserialize_aws_json_1_1(data: dict) -> GetUserIdRequest:
         )
     else:
         raise DeserializationError("GetUserIdRequest.alternate_identifier required")
+    return out
+
+
+def redact_sensitive(value: GetUserIdRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "alternate_identifier" in value:
+        import capo_identitystore.types.alternate_identifier
+
+        out["alternate_identifier"] = (
+            capo_identitystore.types.alternate_identifier.redact_sensitive(
+                value["alternate_identifier"]
+            )
+        )
     return out

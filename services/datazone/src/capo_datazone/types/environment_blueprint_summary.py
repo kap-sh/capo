@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#EnvironmentBlueprintSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -125,4 +125,11 @@ def deserialize_json(data: dict) -> EnvironmentBlueprintSummary:
                 data["blueprintCategory"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: EnvironmentBlueprintSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

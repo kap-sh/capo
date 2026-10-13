@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#SemanticMemoryStrategyInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -96,6 +96,21 @@ def deserialize_json(data: dict) -> SemanticMemoryStrategyInput:
         out["memory_record_schema"] = (
             capo_bedrock_agentcore_control.types.memory_record_schema.deserialize_json(
                 data["memoryRecordSchema"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SemanticMemoryStrategyInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "memory_record_schema" in value:
+        import capo_bedrock_agentcore_control.types.memory_record_schema
+
+        out["memory_record_schema"] = (
+            capo_bedrock_agentcore_control.types.memory_record_schema.redact_sensitive(
+                value["memory_record_schema"]
             )
         )
     return out

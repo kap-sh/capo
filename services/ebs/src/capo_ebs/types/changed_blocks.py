@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ebs#ChangedBlocks``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_ebs.types.changed_block
@@ -27,3 +27,7 @@ def deserialize_json(data: list) -> ChangedBlocks:
             continue
         out.append(capo_ebs.types.changed_block.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ChangedBlocks) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

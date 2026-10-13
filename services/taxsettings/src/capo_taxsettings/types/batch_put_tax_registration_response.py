@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.taxsettings#BatchPutTaxRegistrationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -57,4 +57,17 @@ def deserialize_json(data: dict) -> BatchPutTaxRegistrationResponse:
         )
     else:
         raise DeserializationError("BatchPutTaxRegistrationResponse.errors required")
+    return out
+
+
+def redact_sensitive(value: BatchPutTaxRegistrationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "errors" in value:
+        import capo_taxsettings.types.batch_put_tax_registration_errors
+
+        out["errors"] = (
+            capo_taxsettings.types.batch_put_tax_registration_errors.redact_sensitive(
+                value["errors"]
+            )
+        )
     return out

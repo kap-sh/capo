@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#ListMessageTemplateVersionsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,17 @@ def deserialize_json(data: dict) -> ListMessageTemplateVersionsResponse:
         )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListMessageTemplateVersionsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "message_template_version_summaries" in value:
+        import capo_qconnect.types.message_template_version_summary_list
+
+        out["message_template_version_summaries"] = (
+            capo_qconnect.types.message_template_version_summary_list.redact_sensitive(
+                value["message_template_version_summaries"]
+            )
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#CellValueSynonyms``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.cell_value_synonym
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> CellValueSynonyms:
             continue
         out.append(capo_quicksight.types.cell_value_synonym.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: CellValueSynonyms) -> list[Any]:
+    import capo_quicksight.types.cell_value_synonym
+
+    return [
+        capo_quicksight.types.cell_value_synonym.redact_sensitive(item)
+        for item in value
+    ]

@@ -25,7 +25,9 @@ from capo_resiliencehub._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -281,7 +283,9 @@ class AsyncresiliencehubClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncresiliencehubClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncresiliencehubClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncresiliencehubClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -289,8 +293,10 @@ class AsyncresiliencehubClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -346,7 +352,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptResourceGroupingRecommendations")
+        )
         input_: capo_resiliencehub.types.accept_resource_grouping_recommendations_request.AcceptResourceGroupingRecommendationsRequest = {
             "app_arn": app_arn,
             "entries": entries,
@@ -399,7 +407,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddDraftAppVersionResourceMappings")
+        )
         input_: capo_resiliencehub.types.add_draft_app_version_resource_mappings_request.AddDraftAppVersionResourceMappingsRequest = {
             "app_arn": app_arn,
             "resource_mappings": resource_mappings,
@@ -450,7 +460,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchUpdateRecommendationStatus")
+        )
         input_: capo_resiliencehub.types.batch_update_recommendation_status_request.BatchUpdateRecommendationStatusRequest = {
             "app_arn": app_arn,
             "request_entries": request_entries,
@@ -527,7 +539,26 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resiliencehub.types.create_app_request.CreateAppRequest",
+        ) -> dict[str, Any]:
+            import capo_resiliencehub.types.create_app_request
+
+            return capo_resiliencehub.types.create_app_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_resiliencehub.types.create_app_response.CreateAppResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehub.types.create_app_response
+
+            return capo_resiliencehub.types.create_app_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateApp", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_resiliencehub.types.create_app_request.CreateAppRequest = {
             "name": name
         }
@@ -608,7 +639,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAppVersionAppComponent")
+        )
         input_: capo_resiliencehub.types.create_app_version_app_component_request.CreateAppVersionAppComponentRequest = {
             "app_arn": app_arn,
             "name": name,
@@ -693,7 +726,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAppVersionResource")
+        )
         input_: capo_resiliencehub.types.create_app_version_resource_request.CreateAppVersionResourceRequest = {
             "app_arn": app_arn,
             "logical_resource_id": logical_resource_id,
@@ -780,7 +815,32 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resiliencehub.types.create_recommendation_template_request.CreateRecommendationTemplateRequest",
+        ) -> dict[str, Any]:
+            import capo_resiliencehub.types.create_recommendation_template_request
+
+            return capo_resiliencehub.types.create_recommendation_template_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_resiliencehub.types.create_recommendation_template_response.CreateRecommendationTemplateResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehub.types.create_recommendation_template_response
+
+            return capo_resiliencehub.types.create_recommendation_template_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateRecommendationTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_resiliencehub.types.create_recommendation_template_request.CreateRecommendationTemplateRequest = {
             "assessment_arn": assessment_arn,
             "name": name,
@@ -861,7 +921,32 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resiliencehub.types.create_resiliency_policy_request.CreateResiliencyPolicyRequest",
+        ) -> dict[str, Any]:
+            import capo_resiliencehub.types.create_resiliency_policy_request
+
+            return capo_resiliencehub.types.create_resiliency_policy_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_resiliencehub.types.create_resiliency_policy_response.CreateResiliencyPolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehub.types.create_resiliency_policy_response
+
+            return capo_resiliencehub.types.create_resiliency_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateResiliencyPolicy",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_resiliencehub.types.create_resiliency_policy_request.CreateResiliencyPolicyRequest = {
             "policy_name": policy_name,
             "tier": tier,
@@ -928,7 +1013,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApp")
+        )
         input_: capo_resiliencehub.types.delete_app_request.DeleteAppRequest = {
             "app_arn": app_arn
         }
@@ -986,7 +1073,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAppAssessment")
+        )
         input_: capo_resiliencehub.types.delete_app_assessment_request.DeleteAppAssessmentRequest = {
             "assessment_arn": assessment_arn
         }
@@ -1052,7 +1141,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAppInputSource")
+        )
         input_: capo_resiliencehub.types.delete_app_input_source_request.DeleteAppInputSourceRequest = {
             "app_arn": app_arn
         }
@@ -1116,7 +1207,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAppVersionAppComponent")
+        )
         input_: capo_resiliencehub.types.delete_app_version_app_component_request.DeleteAppVersionAppComponentRequest = {
             "app_arn": app_arn,
             "id": id,
@@ -1191,7 +1284,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAppVersionResource")
+        )
         input_: capo_resiliencehub.types.delete_app_version_resource_request.DeleteAppVersionResourceRequest = {
             "app_arn": app_arn
         }
@@ -1256,7 +1351,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRecommendationTemplate")
+        )
         input_: capo_resiliencehub.types.delete_recommendation_template_request.DeleteRecommendationTemplateRequest = {
             "recommendation_template_arn": recommendation_template_arn
         }
@@ -1312,7 +1409,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResiliencyPolicy")
+        )
         input_: capo_resiliencehub.types.delete_resiliency_policy_request.DeleteResiliencyPolicyRequest = {
             "policy_arn": policy_arn
         }
@@ -1363,7 +1462,19 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resiliencehub.types.describe_app_response.DescribeAppResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehub.types.describe_app_response
+
+            return capo_resiliencehub.types.describe_app_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeApp", redact_output=_redact_output),
+        )
         input_: capo_resiliencehub.types.describe_app_request.DescribeAppRequest = {
             "app_arn": app_arn
         }
@@ -1411,7 +1522,19 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resiliencehub.types.describe_app_assessment_response.DescribeAppAssessmentResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehub.types.describe_app_assessment_response
+
+            return capo_resiliencehub.types.describe_app_assessment_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeAppAssessment", redact_output=_redact_output),
+        )
         input_: capo_resiliencehub.types.describe_app_assessment_request.DescribeAppAssessmentRequest = {
             "assessment_arn": assessment_arn
         }
@@ -1461,7 +1584,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAppVersion")
+        )
         input_: capo_resiliencehub.types.describe_app_version_request.DescribeAppVersionRequest = {
             "app_arn": app_arn,
             "app_version": app_version,
@@ -1515,7 +1640,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAppVersionAppComponent")
+        )
         input_: capo_resiliencehub.types.describe_app_version_app_component_request.DescribeAppVersionAppComponentRequest = {
             "app_arn": app_arn,
             "app_version": app_version,
@@ -1586,7 +1713,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAppVersionResource")
+        )
         input_: capo_resiliencehub.types.describe_app_version_resource_request.DescribeAppVersionResourceRequest = {
             "app_arn": app_arn,
             "app_version": app_version,
@@ -1649,7 +1778,10 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeAppVersionResourcesResolutionStatus"),
+        )
         input_: capo_resiliencehub.types.describe_app_version_resources_resolution_status_request.DescribeAppVersionResourcesResolutionStatusRequest = {
             "app_arn": app_arn,
             "app_version": app_version,
@@ -1702,7 +1834,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAppVersionTemplate")
+        )
         input_: capo_resiliencehub.types.describe_app_version_template_request.DescribeAppVersionTemplateRequest = {
             "app_arn": app_arn,
             "app_version": app_version,
@@ -1751,7 +1885,10 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeDraftAppVersionResourcesImportStatus"),
+        )
         input_: capo_resiliencehub.types.describe_draft_app_version_resources_import_status_request.DescribeDraftAppVersionResourcesImportStatusRequest = {
             "app_arn": app_arn
         }
@@ -1799,7 +1936,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMetricsExport")
+        )
         input_: capo_resiliencehub.types.describe_metrics_export_request.DescribeMetricsExportRequest = {
             "metrics_export_id": metrics_export_id
         }
@@ -1847,7 +1986,19 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resiliencehub.types.describe_resiliency_policy_response.DescribeResiliencyPolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehub.types.describe_resiliency_policy_response
+
+            return capo_resiliencehub.types.describe_resiliency_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeResiliencyPolicy", redact_output=_redact_output),
+        )
         input_: capo_resiliencehub.types.describe_resiliency_policy_request.DescribeResiliencyPolicyRequest = {
             "policy_arn": policy_arn
         }
@@ -1897,7 +2048,10 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeResourceGroupingRecommendationTask"),
+        )
         input_: capo_resiliencehub.types.describe_resource_grouping_recommendation_task_request.DescribeResourceGroupingRecommendationTaskRequest = {
             "app_arn": app_arn
         }
@@ -1963,7 +2117,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportResourcesToDraftAppVersion")
+        )
         input_: capo_resiliencehub.types.import_resources_to_draft_app_version_request.ImportResourcesToDraftAppVersionRequest = {
             "app_arn": app_arn
         }
@@ -2023,7 +2179,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAlarmRecommendations")
+        )
         input_: capo_resiliencehub.types.list_alarm_recommendations_request.ListAlarmRecommendationsRequest = {
             "assessment_arn": assessment_arn
         }
@@ -2099,7 +2257,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAppAssessmentComplianceDrifts")
+        )
         input_: capo_resiliencehub.types.list_app_assessment_compliance_drifts_request.ListAppAssessmentComplianceDriftsRequest = {
             "assessment_arn": assessment_arn
         }
@@ -2175,7 +2335,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAppAssessmentResourceDrifts")
+        )
         input_: capo_resiliencehub.types.list_app_assessment_resource_drifts_request.ListAppAssessmentResourceDriftsRequest = {
             "assessment_arn": assessment_arn
         }
@@ -2274,7 +2436,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAppAssessments")
+        )
         input_: capo_resiliencehub.types.list_app_assessments_request.ListAppAssessmentsRequest = {}
         if app_arn is not None:
             input_["app_arn"] = app_arn
@@ -2381,7 +2545,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAppComponentCompliances")
+        )
         input_: capo_resiliencehub.types.list_app_component_compliances_request.ListAppComponentCompliancesRequest = {
             "assessment_arn": assessment_arn
         }
@@ -2458,7 +2624,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAppComponentRecommendations")
+        )
         input_: capo_resiliencehub.types.list_app_component_recommendations_request.ListAppComponentRecommendationsRequest = {
             "assessment_arn": assessment_arn
         }
@@ -2537,7 +2705,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAppInputSources")
+        )
         input_: capo_resiliencehub.types.list_app_input_sources_request.ListAppInputSourcesRequest = {
             "app_arn": app_arn,
             "app_version": app_version,
@@ -2632,7 +2802,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApps")
+        )
         input_: capo_resiliencehub.types.list_apps_request.ListAppsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2738,7 +2910,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAppVersionAppComponents")
+        )
         input_: capo_resiliencehub.types.list_app_version_app_components_request.ListAppVersionAppComponentsRequest = {
             "app_arn": app_arn,
             "app_version": app_version,
@@ -2820,7 +2994,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAppVersionResourceMappings")
+        )
         input_: capo_resiliencehub.types.list_app_version_resource_mappings_request.ListAppVersionResourceMappingsRequest = {
             "app_arn": app_arn,
             "app_version": app_version,
@@ -2905,7 +3081,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAppVersionResources")
+        )
         input_: capo_resiliencehub.types.list_app_version_resources_request.ListAppVersionResourcesRequest = {
             "app_arn": app_arn,
             "app_version": app_version,
@@ -2992,7 +3170,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAppVersions")
+        )
         input_: capo_resiliencehub.types.list_app_versions_request.ListAppVersionsRequest = {
             "app_arn": app_arn
         }
@@ -3084,7 +3264,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMetrics")
+        )
         input_: capo_resiliencehub.types.list_metrics_request.ListMetricsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3190,7 +3372,21 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resiliencehub.types.list_recommendation_templates_response.ListRecommendationTemplatesResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehub.types.list_recommendation_templates_response
+
+            return capo_resiliencehub.types.list_recommendation_templates_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListRecommendationTemplates", redact_output=_redact_output
+            ),
+        )
         input_: capo_resiliencehub.types.list_recommendation_templates_request.ListRecommendationTemplatesRequest = {}
         if assessment_arn is not None:
             input_["assessment_arn"] = assessment_arn
@@ -3289,7 +3485,19 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resiliencehub.types.list_resiliency_policies_response.ListResiliencyPoliciesResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehub.types.list_resiliency_policies_response
+
+            return capo_resiliencehub.types.list_resiliency_policies_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListResiliencyPolicies", redact_output=_redact_output),
+        )
         input_: capo_resiliencehub.types.list_resiliency_policies_request.ListResiliencyPoliciesRequest = {}
         if policy_name is not None:
             input_["policy_name"] = policy_name
@@ -3366,7 +3574,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceGroupingRecommendations")
+        )
         input_: capo_resiliencehub.types.list_resource_grouping_recommendations_request.ListResourceGroupingRecommendationsRequest = {}
         if app_arn is not None:
             input_["app_arn"] = app_arn
@@ -3446,7 +3656,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSopRecommendations")
+        )
         input_: capo_resiliencehub.types.list_sop_recommendations_request.ListSopRecommendationsRequest = {
             "assessment_arn": assessment_arn
         }
@@ -3521,7 +3733,21 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resiliencehub.types.list_suggested_resiliency_policies_response.ListSuggestedResiliencyPoliciesResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehub.types.list_suggested_resiliency_policies_response
+
+            return capo_resiliencehub.types.list_suggested_resiliency_policies_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListSuggestedResiliencyPolicies", redact_output=_redact_output
+            ),
+        )
         input_: capo_resiliencehub.types.list_suggested_resiliency_policies_request.ListSuggestedResiliencyPoliciesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3590,7 +3816,19 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resiliencehub.types.list_tags_for_resource_response.ListTagsForResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehub.types.list_tags_for_resource_response
+
+            return capo_resiliencehub.types.list_tags_for_resource_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_resiliencehub.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3643,7 +3881,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTestRecommendations")
+        )
         input_: capo_resiliencehub.types.list_test_recommendations_request.ListTestRecommendationsRequest = {
             "assessment_arn": assessment_arn
         }
@@ -3725,7 +3965,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUnsupportedAppVersionResources")
+        )
         input_: capo_resiliencehub.types.list_unsupported_app_version_resources_request.ListUnsupportedAppVersionResourcesRequest = {
             "app_arn": app_arn,
             "app_version": app_version,
@@ -3810,7 +4052,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PublishAppVersion")
+        )
         input_: capo_resiliencehub.types.publish_app_version_request.PublishAppVersionRequest = {
             "app_arn": app_arn
         }
@@ -3863,7 +4107,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDraftAppVersionTemplate")
+        )
         input_: capo_resiliencehub.types.put_draft_app_version_template_request.PutDraftAppVersionTemplateRequest = {
             "app_arn": app_arn,
             "app_template_body": app_template_body,
@@ -3914,7 +4160,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectResourceGroupingRecommendations")
+        )
         input_: capo_resiliencehub.types.reject_resource_grouping_recommendations_request.RejectResourceGroupingRecommendationsRequest = {
             "app_arn": app_arn,
             "entries": entries,
@@ -3988,7 +4236,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveDraftAppVersionResourceMappings")
+        )
         input_: capo_resiliencehub.types.remove_draft_app_version_resource_mappings_request.RemoveDraftAppVersionResourceMappingsRequest = {
             "app_arn": app_arn
         }
@@ -4051,7 +4301,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResolveAppVersionResources")
+        )
         input_: capo_resiliencehub.types.resolve_app_version_resources_request.ResolveAppVersionResourcesRequest = {
             "app_arn": app_arn,
             "app_version": app_version,
@@ -4112,7 +4364,36 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resiliencehub.types.start_app_assessment_request.StartAppAssessmentRequest",
+        ) -> dict[str, Any]:
+            import capo_resiliencehub.types.start_app_assessment_request
+
+            return (
+                capo_resiliencehub.types.start_app_assessment_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_resiliencehub.types.start_app_assessment_response.StartAppAssessmentResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehub.types.start_app_assessment_response
+
+            return (
+                capo_resiliencehub.types.start_app_assessment_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartAppAssessment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_resiliencehub.types.start_app_assessment_request.StartAppAssessmentRequest = {
             "app_arn": app_arn,
             "app_version": app_version,
@@ -4172,7 +4453,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMetricsExport")
+        )
         input_: capo_resiliencehub.types.start_metrics_export_request.StartMetricsExportRequest = {}
         if bucket_name is not None:
             input_["bucket_name"] = bucket_name
@@ -4224,7 +4507,10 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartResourceGroupingRecommendationTask"),
+        )
         input_: capo_resiliencehub.types.start_resource_grouping_recommendation_task_request.StartResourceGroupingRecommendationTaskRequest = {
             "app_arn": app_arn
         }
@@ -4274,7 +4560,19 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resiliencehub.types.tag_resource_request.TagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_resiliencehub.types.tag_resource_request
+
+            return capo_resiliencehub.types.tag_resource_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_resiliencehub.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -4325,7 +4623,19 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resiliencehub.types.untag_resource_request.UntagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_resiliencehub.types.untag_resource_request
+
+            return capo_resiliencehub.types.untag_resource_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UntagResource", redact_input=_redact_input),
+        )
         input_: capo_resiliencehub.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -4397,7 +4707,17 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resiliencehub.types.update_app_response.UpdateAppResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehub.types.update_app_response
+
+            return capo_resiliencehub.types.update_app_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateApp", redact_output=_redact_output),
+        )
         input_: capo_resiliencehub.types.update_app_request.UpdateAppRequest = {
             "app_arn": app_arn
         }
@@ -4464,7 +4784,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAppVersion")
+        )
         input_: capo_resiliencehub.types.update_app_version_request.UpdateAppVersionRequest = {
             "app_arn": app_arn
         }
@@ -4525,7 +4847,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAppVersionAppComponent")
+        )
         input_: capo_resiliencehub.types.update_app_version_app_component_request.UpdateAppVersionAppComponentRequest = {
             "app_arn": app_arn,
             "id": id,
@@ -4614,7 +4938,9 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAppVersionResource")
+        )
         input_: capo_resiliencehub.types.update_app_version_resource_request.UpdateAppVersionResourceRequest = {
             "app_arn": app_arn
         }
@@ -4699,7 +5025,19 @@ class AsyncresiliencehubClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resiliencehub.types.update_resiliency_policy_response.UpdateResiliencyPolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehub.types.update_resiliency_policy_response
+
+            return capo_resiliencehub.types.update_resiliency_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateResiliencyPolicy", redact_output=_redact_output),
+        )
         input_: capo_resiliencehub.types.update_resiliency_policy_request.UpdateResiliencyPolicyRequest = {
             "policy_arn": policy_arn
         }

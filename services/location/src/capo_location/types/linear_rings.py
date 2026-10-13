@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#LinearRings``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_location.types.linear_ring
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> LinearRings:
             continue
         out.append(capo_location.types.linear_ring.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: LinearRings) -> list[Any]:
+    import capo_location.types.linear_ring
+
+    return [capo_location.types.linear_ring.redact_sensitive(item) for item in value]

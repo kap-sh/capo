@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SectionBasedLayoutConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -106,5 +106,34 @@ def deserialize_json(data: dict) -> SectionBasedLayoutConfiguration:
     else:
         raise DeserializationError(
             "SectionBasedLayoutConfiguration.canvas_size_options required"
+        )
+    return out
+
+
+def redact_sensitive(value: SectionBasedLayoutConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "header_sections" in value:
+        import capo_quicksight.types.header_footer_section_configuration_list
+
+        out["header_sections"] = (
+            capo_quicksight.types.header_footer_section_configuration_list.redact_sensitive(
+                value["header_sections"]
+            )
+        )
+    if "body_sections" in value:
+        import capo_quicksight.types.body_section_configuration_list
+
+        out["body_sections"] = (
+            capo_quicksight.types.body_section_configuration_list.redact_sensitive(
+                value["body_sections"]
+            )
+        )
+    if "footer_sections" in value:
+        import capo_quicksight.types.header_footer_section_configuration_list
+
+        out["footer_sections"] = (
+            capo_quicksight.types.header_footer_section_configuration_list.redact_sensitive(
+                value["footer_sections"]
+            )
         )
     return out

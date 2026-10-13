@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemakergeospatial#SearchRasterDataCollectionOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,6 +53,21 @@ def deserialize_json(data: dict) -> SearchRasterDataCollectionOutput:
         out["items"] = (
             capo_sagemaker_geospatial.types.item_source_list.deserialize_json(
                 data["Items"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SearchRasterDataCollectionOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "next_token" in value:
+        out["next_token"] = "*** Sensitive Data Redacted ***"
+    if "items" in value:
+        import capo_sagemaker_geospatial.types.item_source_list
+
+        out["items"] = (
+            capo_sagemaker_geospatial.types.item_source_list.redact_sensitive(
+                value["items"]
             )
         )
     return out

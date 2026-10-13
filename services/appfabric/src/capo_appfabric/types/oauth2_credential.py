@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appfabric#Oauth2Credential``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,11 @@ def deserialize_json(data: dict) -> Oauth2Credential:
         out["client_secret"] = data["clientSecret"]
     else:
         raise DeserializationError("Oauth2Credential.client_secret required")
+    return out
+
+
+def redact_sensitive(value: Oauth2Credential) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_secret" in value:
+        out["client_secret"] = "*** Sensitive Data Redacted ***"
     return out

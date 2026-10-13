@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.docdbelastic#CreateClusterInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -146,4 +146,11 @@ def deserialize_json(data: dict) -> CreateClusterInput:
         out["preferred_backup_window"] = data["preferredBackupWindow"]
     if data.get("shardInstanceCount") is not None:
         out["shard_instance_count"] = data["shardInstanceCount"]
+    return out
+
+
+def redact_sensitive(value: CreateClusterInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "admin_user_password" in value:
+        out["admin_user_password"] = "*** Sensitive Data Redacted ***"
     return out

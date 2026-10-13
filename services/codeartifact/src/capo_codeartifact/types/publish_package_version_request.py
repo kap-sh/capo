@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.codeartifact#PublishPackageVersionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,3 +41,10 @@ class PublishPackageVersionRequest(TypedDict, closed=True):
     """<p>The SHA256 hash of the <code>assetContent</code> to publish. This value must be calculated by the caller and provided with the request (see <a href="https://docs.aws.amazon.com/codeartifact/latest/ug/using-generic.html#publishing-generic-packages">Publishing a generic package</a> in the <i>CodeArtifact User Guide</i>).</p> <p>This value is used as an integrity check to verify that the <code>assetContent</code> has not changed after it was originally sent.</p>"""
     unfinished: NotRequired["capo_codeartifact.types.boolean_optional.BooleanOptional"]
     """<p>Specifies whether the package version should remain in the <code>unfinished</code> state. If omitted, the package version status will be set to <code>Published</code> (see <a href="https://docs.aws.amazon.com/codeartifact/latest/ug/packages-overview.html#package-version-status">Package version status</a> in the <i>CodeArtifact User Guide</i>).</p> <p>Valid values: <code>unfinished</code> </p>"""
+
+
+def redact_sensitive(value: PublishPackageVersionRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "asset_content" in value:
+        out["asset_content"] = "*** Streaming Data Redacted ***"
+    return out

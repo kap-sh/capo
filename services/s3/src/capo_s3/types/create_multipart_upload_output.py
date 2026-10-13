@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#CreateMultipartUploadOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -87,4 +87,13 @@ def deserialize_xml(el: Element) -> CreateMultipartUploadOutput:
     child_upload_id = el.find("UploadId")
     if child_upload_id is not None:
         out["upload_id"] = str(child_upload_id.text or "")
+    return out
+
+
+def redact_sensitive(value: CreateMultipartUploadOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ssekms_key_id" in value:
+        out["ssekms_key_id"] = "*** Sensitive Data Redacted ***"
+    if "ssekms_encryption_context" in value:
+        out["ssekms_encryption_context"] = "*** Sensitive Data Redacted ***"
     return out

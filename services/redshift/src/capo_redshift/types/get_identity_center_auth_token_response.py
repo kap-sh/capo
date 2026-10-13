@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.redshift#GetIdentityCenterAuthTokenResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,11 @@ def deserialize_query(el: Element) -> GetIdentityCenterAuthTokenResponse:
         out["expiration_time"] = capo_redshift.types.t_stamp.deserialize_query(
             child_expiration_time
         )
+    return out
+
+
+def redact_sensitive(value: GetIdentityCenterAuthTokenResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "token" in value:
+        out["token"] = "*** Sensitive Data Redacted ***"
     return out

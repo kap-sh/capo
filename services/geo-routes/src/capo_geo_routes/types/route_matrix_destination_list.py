@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteMatrixDestinationList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_routes.types.route_matrix_destination
@@ -31,3 +31,12 @@ def deserialize_json(data: list) -> RouteMatrixDestinationList:
             capo_geo_routes.types.route_matrix_destination.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: RouteMatrixDestinationList) -> list[Any]:
+    import capo_geo_routes.types.route_matrix_destination
+
+    return [
+        capo_geo_routes.types.route_matrix_destination.redact_sensitive(item)
+        for item in value
+    ]

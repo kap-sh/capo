@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyGeneratedTestCase``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -62,4 +62,15 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyGeneratedTestCase:
         raise DeserializationError(
             "AutomatedReasoningPolicyGeneratedTestCase.expected_aggregated_findings_result required"
         )
+    return out
+
+
+def redact_sensitive(
+    value: AutomatedReasoningPolicyGeneratedTestCase,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "query_content" in value:
+        out["query_content"] = "*** Sensitive Data Redacted ***"
+    if "guard_content" in value:
+        out["guard_content"] = "*** Sensitive Data Redacted ***"
     return out

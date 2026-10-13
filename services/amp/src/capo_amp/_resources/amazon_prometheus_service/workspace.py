@@ -8,6 +8,7 @@ import capo_amp._auth._sigv4
 from capo_amp._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -81,7 +82,9 @@ class Workspace:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWorkspace")
+        )
         input_: capo_amp.types.create_workspace_request.CreateWorkspaceRequest = {}
         if alias is not None:
             input_["alias"] = alias
@@ -135,7 +138,9 @@ class Workspace:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeWorkspace")
+        )
         input_: capo_amp.types.describe_workspace_request.DescribeWorkspaceRequest = {
             "workspace_id": workspace_id
         }
@@ -188,7 +193,9 @@ class Workspace:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateWorkspaceAlias")
+        )
         input_: capo_amp.types.update_workspace_alias_request.UpdateWorkspaceAliasRequest = {
             "workspace_id": workspace_id
         }
@@ -243,7 +250,9 @@ class Workspace:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkspace")
+        )
         input_: capo_amp.types.delete_workspace_request.DeleteWorkspaceRequest = {
             "workspace_id": workspace_id
         }
@@ -296,7 +305,9 @@ class Workspace:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkspaces")
+        )
         input_: capo_amp.types.list_workspaces_request.ListWorkspacesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -362,7 +373,9 @@ class AsyncWorkspace:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWorkspace")
+        )
         input_: capo_amp.types.create_workspace_request.CreateWorkspaceRequest = {}
         if alias is not None:
             input_["alias"] = alias
@@ -417,7 +430,9 @@ class AsyncWorkspace:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeWorkspace")
+        )
         input_: capo_amp.types.describe_workspace_request.DescribeWorkspaceRequest = {
             "workspace_id": workspace_id
         }
@@ -471,7 +486,9 @@ class AsyncWorkspace:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateWorkspaceAlias")
+        )
         input_: capo_amp.types.update_workspace_alias_request.UpdateWorkspaceAliasRequest = {
             "workspace_id": workspace_id
         }
@@ -527,7 +544,9 @@ class AsyncWorkspace:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkspace")
+        )
         input_: capo_amp.types.delete_workspace_request.DeleteWorkspaceRequest = {
             "workspace_id": workspace_id
         }
@@ -581,7 +600,9 @@ class AsyncWorkspace:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkspaces")
+        )
         input_: capo_amp.types.list_workspaces_request.ListWorkspacesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

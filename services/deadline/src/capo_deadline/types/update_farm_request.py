@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#UpdateFarmRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -52,4 +52,11 @@ def deserialize_json(data: dict) -> UpdateFarmRequest:
         out["description"] = data["description"]
     if data.get("costScaleFactor") is not None:
         out["cost_scale_factor"] = float(data["costScaleFactor"])
+    return out
+
+
+def redact_sensitive(value: UpdateFarmRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

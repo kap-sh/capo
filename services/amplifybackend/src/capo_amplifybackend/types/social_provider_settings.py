@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.amplifybackend#SocialProviderSettings``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -96,4 +96,17 @@ def deserialize_json(data: dict) -> SocialProviderSettings:
                 data["SignInWithApple"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: SocialProviderSettings) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "facebook" in value:
+        out["facebook"] = "*** Sensitive Data Redacted ***"
+    if "google" in value:
+        out["google"] = "*** Sensitive Data Redacted ***"
+    if "login_with_amazon" in value:
+        out["login_with_amazon"] = "*** Sensitive Data Redacted ***"
+    if "sign_in_with_apple" in value:
+        out["sign_in_with_apple"] = "*** Sensitive Data Redacted ***"
     return out

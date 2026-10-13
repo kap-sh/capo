@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.socialmessaging#GetWhatsAppMessageMediaInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -84,4 +84,13 @@ def deserialize_json(data: dict) -> GetWhatsAppMessageMediaInput:
                 data["destinationS3File"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: GetWhatsAppMessageMediaInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "destination_s3_presigned_url" in value:
+        out["destination_s3_presigned_url"] = "*** Sensitive Data Redacted ***"
+    if "destination_s3_file" in value:
+        out["destination_s3_file"] = "*** Sensitive Data Redacted ***"
     return out

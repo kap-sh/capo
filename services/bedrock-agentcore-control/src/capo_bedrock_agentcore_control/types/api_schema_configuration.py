@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#ApiSchemaConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -56,3 +56,10 @@ def deserialize_json(data: dict) -> ApiSchemaConfiguration:
         return {"inlinePayload": data["inlinePayload"]}
     else:
         raise DeserializationError("ApiSchemaConfiguration: no recognized variant key")
+
+
+def redact_sensitive(value: ApiSchemaConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inlinePayload" in value:
+        out["inlinePayload"] = "*** Sensitive Data Redacted ***"
+    return out

@@ -25,7 +25,9 @@ from capo_redshift_data._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -153,7 +155,9 @@ class AsyncRedshiftDataClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncRedshiftDataClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncRedshiftDataClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncRedshiftDataClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -161,8 +165,10 @@ class AsyncRedshiftDataClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -263,7 +269,9 @@ class AsyncRedshiftDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchExecuteStatement")
+        )
         input_: capo_redshift_data.types.batch_execute_statement_input.BatchExecuteStatementInput = {
             "sqls": sqls
         }
@@ -340,7 +348,9 @@ class AsyncRedshiftDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelStatement")
+        )
         input_: capo_redshift_data.types.cancel_statement_request.CancelStatementRequest = {
             "id": id
         }
@@ -393,7 +403,9 @@ class AsyncRedshiftDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStatement")
+        )
         input_: capo_redshift_data.types.describe_statement_request.DescribeStatementRequest = {
             "id": id
         }
@@ -465,7 +477,9 @@ class AsyncRedshiftDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTable")
+        )
         input_: capo_redshift_data.types.describe_table_request.DescribeTableRequest = {
             "database": database
         }
@@ -615,7 +629,9 @@ class AsyncRedshiftDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExecuteStatement")
+        )
         input_: capo_redshift_data.types.execute_statement_input.ExecuteStatementInput = {
             "sql": sql
         }
@@ -695,7 +711,9 @@ class AsyncRedshiftDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStatementResult")
+        )
         input_: capo_redshift_data.types.get_statement_result_request.GetStatementResultRequest = {
             "id": id
         }
@@ -777,7 +795,9 @@ class AsyncRedshiftDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStatementResultV2")
+        )
         input_: capo_redshift_data.types.get_statement_result_v2_request.GetStatementResultV2Request = {
             "id": id
         }
@@ -870,7 +890,9 @@ class AsyncRedshiftDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatabases")
+        )
         input_: capo_redshift_data.types.list_databases_request.ListDatabasesRequest = {}
         if cluster_identifier is not None:
             input_["cluster_identifier"] = cluster_identifier
@@ -985,7 +1007,9 @@ class AsyncRedshiftDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSchemas")
+        )
         input_: capo_redshift_data.types.list_schemas_request.ListSchemasRequest = {
             "database": database
         }
@@ -1108,7 +1132,9 @@ class AsyncRedshiftDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSessions")
+        )
         input_: capo_redshift_data.types.list_sessions_request.ListSessionsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1231,7 +1257,9 @@ class AsyncRedshiftDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStatements")
+        )
         input_: capo_redshift_data.types.list_statements_request.ListStatementsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1356,7 +1384,9 @@ class AsyncRedshiftDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTables")
+        )
         input_: capo_redshift_data.types.list_tables_request.ListTablesRequest = {
             "database": database
         }

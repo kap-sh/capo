@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_ecs._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -69,7 +70,9 @@ class ServiceDeploymentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeServiceDeployments")
+        )
         input_: capo_ecs.types.describe_service_deployments_request.DescribeServiceDeploymentsRequest = {
             "service_deployment_arns": service_deployment_arns
         }
@@ -134,7 +137,9 @@ class AsyncServiceDeploymentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeServiceDeployments")
+        )
         input_: capo_ecs.types.describe_service_deployments_request.DescribeServiceDeploymentsRequest = {
             "service_deployment_arns": service_deployment_arns
         }

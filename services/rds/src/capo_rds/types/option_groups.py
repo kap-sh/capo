@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#OptionGroups``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,4 +47,15 @@ def deserialize_query(el: Element) -> OptionGroups:
     child_marker = el.find("Marker")
     if child_marker is not None:
         out["marker"] = str(child_marker.text or "")
+    return out
+
+
+def redact_sensitive(value: OptionGroups) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "option_groups_list" in value:
+        import capo_rds.types.option_groups_list
+
+        out["option_groups_list"] = capo_rds.types.option_groups_list.redact_sensitive(
+            value["option_groups_list"]
+        )
     return out

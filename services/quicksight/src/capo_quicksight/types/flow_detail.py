@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#FlowDetail``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -133,4 +133,11 @@ def deserialize_json(data: dict) -> FlowDetail:
         out["step_aliases"] = capo_quicksight.types.step_alias_list.deserialize_json(
             data["StepAliases"]
         )
+    return out
+
+
+def redact_sensitive(value: FlowDetail) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "flow_definition" in value:
+        out["flow_definition"] = "*** Sensitive Data Redacted ***"
     return out

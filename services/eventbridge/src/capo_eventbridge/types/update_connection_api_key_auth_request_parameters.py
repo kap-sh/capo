@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridge#UpdateConnectionApiKeyAuthRequestParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -36,4 +36,13 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateConnectionApiKeyAuthRequestPar
         out["api_key_name"] = data["ApiKeyName"]
     if data.get("ApiKeyValue") is not None:
         out["api_key_value"] = data["ApiKeyValue"]
+    return out
+
+
+def redact_sensitive(
+    value: UpdateConnectionApiKeyAuthRequestParameters,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "api_key_value" in value:
+        out["api_key_value"] = "*** Sensitive Data Redacted ***"
     return out

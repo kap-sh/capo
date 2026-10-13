@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#RuntimeTargetConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,6 +56,19 @@ def deserialize_json(data: dict) -> RuntimeTargetConfiguration:
         out["schema"] = (
             capo_bedrock_agentcore_control.types.http_api_schema_configuration.deserialize_json(
                 data["schema"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: RuntimeTargetConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "schema" in value:
+        import capo_bedrock_agentcore_control.types.http_api_schema_configuration
+
+        out["schema"] = (
+            capo_bedrock_agentcore_control.types.http_api_schema_configuration.redact_sensitive(
+                value["schema"]
             )
         )
     return out

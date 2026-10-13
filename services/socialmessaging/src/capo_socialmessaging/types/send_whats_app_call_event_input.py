@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.socialmessaging#SendWhatsAppCallEventInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -63,4 +63,11 @@ def deserialize_json(data: dict) -> SendWhatsAppCallEventInput:
         )
     else:
         raise DeserializationError("SendWhatsAppCallEventInput.call_event required")
+    return out
+
+
+def redact_sensitive(value: SendWhatsAppCallEventInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "call_event" in value:
+        out["call_event"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#LlmAsAJudgeEvaluatorConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -68,4 +68,13 @@ def deserialize_json(data: dict) -> LlmAsAJudgeEvaluatorConfig:
         )
     else:
         raise DeserializationError("LlmAsAJudgeEvaluatorConfig.model_config required")
+    return out
+
+
+def redact_sensitive(value: LlmAsAJudgeEvaluatorConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "instructions" in value:
+        out["instructions"] = "*** Sensitive Data Redacted ***"
+    if "rating_scale" in value:
+        out["rating_scale"] = "*** Sensitive Data Redacted ***"
     return out

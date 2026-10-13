@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.entityresolution#RecordList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_entityresolution.types.record
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> RecordList:
             continue
         out.append(capo_entityresolution.types.record.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: RecordList) -> list[Any]:
+    import capo_entityresolution.types.record
+
+    return [capo_entityresolution.types.record.redact_sensitive(item) for item in value]

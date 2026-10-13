@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_ecs._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -90,7 +91,9 @@ class TaskSetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTaskSet")
+        )
         input_: capo_ecs.types.update_task_set_request.UpdateTaskSetRequest = {
             "cluster": cluster,
             "service": service,
@@ -157,7 +160,9 @@ class TaskSetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTaskSet")
+        )
         input_: capo_ecs.types.delete_task_set_request.DeleteTaskSetRequest = {
             "cluster": cluster,
             "service": service,
@@ -251,7 +256,9 @@ class TaskSetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTaskSet")
+        )
         input_: capo_ecs.types.create_task_set_request.CreateTaskSetRequest = {
             "service": service,
             "cluster": cluster,
@@ -335,7 +342,9 @@ class TaskSetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeTaskSets")
+        )
         input_: capo_ecs.types.describe_task_sets_request.DescribeTaskSetsRequest = {
             "cluster": cluster,
             "service": service,
@@ -410,7 +419,9 @@ class AsyncTaskSetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTaskSet")
+        )
         input_: capo_ecs.types.update_task_set_request.UpdateTaskSetRequest = {
             "cluster": cluster,
             "service": service,
@@ -478,7 +489,9 @@ class AsyncTaskSetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTaskSet")
+        )
         input_: capo_ecs.types.delete_task_set_request.DeleteTaskSetRequest = {
             "cluster": cluster,
             "service": service,
@@ -573,7 +586,9 @@ class AsyncTaskSetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTaskSet")
+        )
         input_: capo_ecs.types.create_task_set_request.CreateTaskSetRequest = {
             "service": service,
             "cluster": cluster,
@@ -658,7 +673,9 @@ class AsyncTaskSetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeTaskSets")
+        )
         input_: capo_ecs.types.describe_task_sets_request.DescribeTaskSetsRequest = {
             "cluster": cluster,
             "service": service,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#Configuration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -66,3 +66,24 @@ def deserialize_aws_json_1_0(data: dict) -> Configuration:
         }
     else:
         raise DeserializationError("Configuration: no recognized variant key")
+
+
+def redact_sensitive(value: Configuration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "cognitoUserPoolConfiguration" in value:
+        import capo_verifiedpermissions.types.cognito_user_pool_configuration
+
+        out["cognitoUserPoolConfiguration"] = (
+            capo_verifiedpermissions.types.cognito_user_pool_configuration.redact_sensitive(
+                value["cognitoUserPoolConfiguration"]
+            )
+        )
+    if "openIdConnectConfiguration" in value:
+        import capo_verifiedpermissions.types.open_id_connect_configuration
+
+        out["openIdConnectConfiguration"] = (
+            capo_verifiedpermissions.types.open_id_connect_configuration.redact_sensitive(
+                value["openIdConnectConfiguration"]
+            )
+        )
+    return out

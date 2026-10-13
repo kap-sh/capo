@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#ManagedSourceConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -48,3 +48,16 @@ def deserialize_json(data: dict) -> ManagedSourceConfiguration:
         raise DeserializationError(
             "ManagedSourceConfiguration: no recognized variant key"
         )
+
+
+def redact_sensitive(value: ManagedSourceConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "webCrawlerConfiguration" in value:
+        import capo_qconnect.types.web_crawler_configuration
+
+        out["webCrawlerConfiguration"] = (
+            capo_qconnect.types.web_crawler_configuration.redact_sensitive(
+                value["webCrawlerConfiguration"]
+            )
+        )
+    return out

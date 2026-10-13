@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_partnercentral_selling._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -98,7 +99,19 @@ class Engagement:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.create_engagement_request.CreateEngagementRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.create_engagement_request
+
+            return capo_partnercentral_selling.types.create_engagement_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateEngagement", redact_input=_redact_input),
+        )
         input_: capo_partnercentral_selling.types.create_engagement_request.CreateEngagementRequest = {
             "catalog": catalog,
             "client_token": client_token,
@@ -154,7 +167,19 @@ class Engagement:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.get_engagement_response.GetEngagementResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.get_engagement_response
+
+            return capo_partnercentral_selling.types.get_engagement_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetEngagement", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_selling.types.get_engagement_request.GetEngagementRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -231,7 +256,32 @@ class Engagement:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.list_engagements_request.ListEngagementsRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_engagements_request
+
+            return capo_partnercentral_selling.types.list_engagements_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.list_engagements_response.ListEngagementsResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_engagements_response
+
+            return capo_partnercentral_selling.types.list_engagements_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListEngagements",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_partnercentral_selling.types.list_engagements_request.ListEngagementsRequest = {
             "catalog": catalog
         }
@@ -302,7 +352,19 @@ class Engagement:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.list_engagement_members_response.ListEngagementMembersResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_engagement_members_response
+
+            return capo_partnercentral_selling.types.list_engagement_members_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListEngagementMembers", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_selling.types.list_engagement_members_request.ListEngagementMembersRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -376,7 +438,19 @@ class AsyncEngagement:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.create_engagement_request.CreateEngagementRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.create_engagement_request
+
+            return capo_partnercentral_selling.types.create_engagement_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateEngagement", redact_input=_redact_input),
+        )
         input_: capo_partnercentral_selling.types.create_engagement_request.CreateEngagementRequest = {
             "catalog": catalog,
             "client_token": client_token,
@@ -433,7 +507,19 @@ class AsyncEngagement:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.get_engagement_response.GetEngagementResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.get_engagement_response
+
+            return capo_partnercentral_selling.types.get_engagement_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetEngagement", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_selling.types.get_engagement_request.GetEngagementRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -511,7 +597,32 @@ class AsyncEngagement:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.list_engagements_request.ListEngagementsRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_engagements_request
+
+            return capo_partnercentral_selling.types.list_engagements_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.list_engagements_response.ListEngagementsResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_engagements_response
+
+            return capo_partnercentral_selling.types.list_engagements_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListEngagements",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_partnercentral_selling.types.list_engagements_request.ListEngagementsRequest = {
             "catalog": catalog
         }
@@ -583,7 +694,19 @@ class AsyncEngagement:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.list_engagement_members_response.ListEngagementMembersResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_engagement_members_response
+
+            return capo_partnercentral_selling.types.list_engagement_members_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListEngagementMembers", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_selling.types.list_engagement_members_request.ListEngagementMembersRequest = {
             "catalog": catalog,
             "identifier": identifier,

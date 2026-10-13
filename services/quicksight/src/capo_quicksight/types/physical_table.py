@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#PhysicalTable``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -132,3 +132,14 @@ def deserialize_json(data: dict) -> PhysicalTable:
         }
     else:
         raise DeserializationError("PhysicalTable: no recognized variant key")
+
+
+def redact_sensitive(value: PhysicalTable) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "CustomSql" in value:
+        import capo_quicksight.types.custom_sql
+
+        out["CustomSql"] = capo_quicksight.types.custom_sql.redact_sensitive(
+            value["CustomSql"]
+        )
+    return out

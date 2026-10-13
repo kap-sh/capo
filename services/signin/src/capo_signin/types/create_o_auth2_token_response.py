@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.signin#CreateOAuth2TokenResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -40,4 +40,17 @@ def deserialize_json(data: dict) -> CreateOAuth2TokenResponse:
         )
     else:
         raise DeserializationError("CreateOAuth2TokenResponse.token_output required")
+    return out
+
+
+def redact_sensitive(value: CreateOAuth2TokenResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "token_output" in value:
+        import capo_signin.types.create_o_auth2_token_response_body
+
+        out["token_output"] = (
+            capo_signin.types.create_o_auth2_token_response_body.redact_sensitive(
+                value["token_output"]
+            )
+        )
     return out

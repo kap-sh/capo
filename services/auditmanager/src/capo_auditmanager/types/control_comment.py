@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#ControlComment``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,13 @@ def deserialize_json(data: dict) -> ControlComment:
         out["posted_date"] = capo_auditmanager.types.timestamp.deserialize_json(
             data["postedDate"]
         )
+    return out
+
+
+def redact_sensitive(value: ControlComment) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "author_name" in value:
+        out["author_name"] = "*** Sensitive Data Redacted ***"
+    if "comment_body" in value:
+        out["comment_body"] = "*** Sensitive Data Redacted ***"
     return out

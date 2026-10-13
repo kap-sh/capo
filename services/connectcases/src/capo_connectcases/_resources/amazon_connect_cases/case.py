@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_connectcases._auth._signers
 import capo_connectcases._auth._sigv4
 from capo_connectcases._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -99,7 +100,16 @@ class Case:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connectcases.types.create_case_request.CreateCaseRequest",
+        ) -> dict[str, Any]:
+            import capo_connectcases.types.create_case_request
+
+            return capo_connectcases.types.create_case_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCase", redact_input=_redact_input)
+        )
         input_: capo_connectcases.types.create_case_request.CreateCaseRequest = {
             "domain_id": domain_id,
             "template_id": template_id,
@@ -161,7 +171,9 @@ class Case:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCase")
+        )
         input_: capo_connectcases.types.get_case_request.GetCaseRequest = {
             "case_id": case_id,
             "domain_id": domain_id,
@@ -217,7 +229,16 @@ class Case:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connectcases.types.update_case_request.UpdateCaseRequest",
+        ) -> dict[str, Any]:
+            import capo_connectcases.types.update_case_request
+
+            return capo_connectcases.types.update_case_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCase", redact_input=_redact_input)
+        )
         input_: capo_connectcases.types.update_case_request.UpdateCaseRequest = {
             "domain_id": domain_id,
             "case_id": case_id,
@@ -270,7 +291,9 @@ class Case:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCase")
+        )
         input_: capo_connectcases.types.delete_case_request.DeleteCaseRequest = {
             "domain_id": domain_id,
             "case_id": case_id,
@@ -324,7 +347,21 @@ class Case:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_connectcases.types.get_case_audit_events_response.GetCaseAuditEventsResponse",
+        ) -> dict[str, Any]:
+            import capo_connectcases.types.get_case_audit_events_response
+
+            return (
+                capo_connectcases.types.get_case_audit_events_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetCaseAuditEvents", redact_output=_redact_output),
+        )
         input_: capo_connectcases.types.get_case_audit_events_request.GetCaseAuditEventsRequest = {
             "case_id": case_id,
             "domain_id": domain_id,
@@ -382,7 +419,9 @@ class Case:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCasesForContact")
+        )
         input_: capo_connectcases.types.list_cases_for_contact_request.ListCasesForContactRequest = {
             "domain_id": domain_id,
             "contact_arn": contact_arn,
@@ -448,7 +487,9 @@ class Case:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SearchCases")
+        )
         input_: capo_connectcases.types.search_cases_request.SearchCasesRequest = {
             "domain_id": domain_id
         }
@@ -523,7 +564,16 @@ class AsyncCase:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connectcases.types.create_case_request.CreateCaseRequest",
+        ) -> dict[str, Any]:
+            import capo_connectcases.types.create_case_request
+
+            return capo_connectcases.types.create_case_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCase", redact_input=_redact_input)
+        )
         input_: capo_connectcases.types.create_case_request.CreateCaseRequest = {
             "domain_id": domain_id,
             "template_id": template_id,
@@ -586,7 +636,9 @@ class AsyncCase:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCase")
+        )
         input_: capo_connectcases.types.get_case_request.GetCaseRequest = {
             "case_id": case_id,
             "domain_id": domain_id,
@@ -643,7 +695,16 @@ class AsyncCase:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connectcases.types.update_case_request.UpdateCaseRequest",
+        ) -> dict[str, Any]:
+            import capo_connectcases.types.update_case_request
+
+            return capo_connectcases.types.update_case_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCase", redact_input=_redact_input)
+        )
         input_: capo_connectcases.types.update_case_request.UpdateCaseRequest = {
             "domain_id": domain_id,
             "case_id": case_id,
@@ -697,7 +758,9 @@ class AsyncCase:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCase")
+        )
         input_: capo_connectcases.types.delete_case_request.DeleteCaseRequest = {
             "domain_id": domain_id,
             "case_id": case_id,
@@ -752,7 +815,21 @@ class AsyncCase:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_connectcases.types.get_case_audit_events_response.GetCaseAuditEventsResponse",
+        ) -> dict[str, Any]:
+            import capo_connectcases.types.get_case_audit_events_response
+
+            return (
+                capo_connectcases.types.get_case_audit_events_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetCaseAuditEvents", redact_output=_redact_output),
+        )
         input_: capo_connectcases.types.get_case_audit_events_request.GetCaseAuditEventsRequest = {
             "case_id": case_id,
             "domain_id": domain_id,
@@ -811,7 +888,9 @@ class AsyncCase:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCasesForContact")
+        )
         input_: capo_connectcases.types.list_cases_for_contact_request.ListCasesForContactRequest = {
             "domain_id": domain_id,
             "contact_arn": contact_arn,
@@ -878,7 +957,9 @@ class AsyncCase:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SearchCases")
+        )
         input_: capo_connectcases.types.search_cases_request.SearchCasesRequest = {
             "domain_id": domain_id
         }

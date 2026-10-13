@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#EntityIdentifier``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,13 @@ def deserialize_aws_json_1_0(data: dict) -> EntityIdentifier:
         out["entity_id"] = data["entityId"]
     else:
         raise DeserializationError("EntityIdentifier.entity_id required")
+    return out
+
+
+def redact_sensitive(value: EntityIdentifier) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "entity_type" in value:
+        out["entity_type"] = "*** Sensitive Data Redacted ***"
+    if "entity_id" in value:
+        out["entity_id"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agentcore._auth._signers
 import capo_bedrock_agentcore._auth._sigv4
 from capo_bedrock_agentcore._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -75,7 +76,19 @@ class RegistryRecordResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.search_registry_records_response.SearchRegistryRecordsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.search_registry_records_response
+
+            return capo_bedrock_agentcore.types.search_registry_records_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("SearchRegistryRecords", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore.types.search_registry_records_request.SearchRegistryRecordsRequest = {
             "search_query": search_query,
             "registry_ids": registry_ids,
@@ -142,7 +155,19 @@ class AsyncRegistryRecordResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.search_registry_records_response.SearchRegistryRecordsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.search_registry_records_response
+
+            return capo_bedrock_agentcore.types.search_registry_records_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("SearchRegistryRecords", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore.types.search_registry_records_request.SearchRegistryRecordsRequest = {
             "search_query": search_query,
             "registry_ids": registry_ids,

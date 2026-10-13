@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#ShareResultsList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_workdocs.types.share_result
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> ShareResultsList:
             continue
         out.append(capo_workdocs.types.share_result.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ShareResultsList) -> list[Any]:
+    import capo_workdocs.types.share_result
+
+    return [capo_workdocs.types.share_result.redact_sensitive(item) for item in value]

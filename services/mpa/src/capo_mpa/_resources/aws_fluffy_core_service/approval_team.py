@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_mpa._auth._signers
 import capo_mpa._auth._sigv4
 from capo_mpa._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -97,7 +98,17 @@ class ApprovalTeam:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mpa.types.create_approval_team_request.CreateApprovalTeamRequest",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.create_approval_team_request
+
+            return capo_mpa.types.create_approval_team_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateApprovalTeam", redact_input=_redact_input),
+        )
         input_: capo_mpa.types.create_approval_team_request.CreateApprovalTeamRequest = {
             "approval_strategy": approval_strategy,
             "approvers": approvers,
@@ -153,7 +164,17 @@ class ApprovalTeam:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mpa.types.get_approval_team_response.GetApprovalTeamResponse",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.get_approval_team_response
+
+            return capo_mpa.types.get_approval_team_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetApprovalTeam", redact_output=_redact_output),
+        )
         input_: capo_mpa.types.get_approval_team_request.GetApprovalTeamRequest = {
             "arn": arn
         }
@@ -214,7 +235,17 @@ class ApprovalTeam:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mpa.types.update_approval_team_request.UpdateApprovalTeamRequest",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.update_approval_team_request
+
+            return capo_mpa.types.update_approval_team_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateApprovalTeam", redact_input=_redact_input),
+        )
         input_: capo_mpa.types.update_approval_team_request.UpdateApprovalTeamRequest = {
             "arn": arn
         }
@@ -272,7 +303,9 @@ class ApprovalTeam:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteInactiveApprovalTeamVersion")
+        )
         input_: capo_mpa.types.delete_inactive_approval_team_version_request.DeleteInactiveApprovalTeamVersionRequest = {
             "arn": arn,
             "version_id": version_id,
@@ -321,7 +354,17 @@ class ApprovalTeam:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mpa.types.list_approval_teams_response.ListApprovalTeamsResponse",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.list_approval_teams_response
+
+            return capo_mpa.types.list_approval_teams_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListApprovalTeams", redact_output=_redact_output),
+        )
         input_: capo_mpa.types.list_approval_teams_request.ListApprovalTeamsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -373,7 +416,9 @@ class ApprovalTeam:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartActiveApprovalTeamDeletion")
+        )
         input_: capo_mpa.types.start_active_approval_team_deletion_request.StartActiveApprovalTeamDeletionRequest = {
             "arn": arn
         }
@@ -426,7 +471,9 @@ class ApprovalTeam:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartApprovalTeamBaseline")
+        )
         input_: capo_mpa.types.start_approval_team_baseline_request.StartApprovalTeamBaselineRequest = {
             "arn": arn
         }
@@ -494,7 +541,17 @@ class AsyncApprovalTeam:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mpa.types.create_approval_team_request.CreateApprovalTeamRequest",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.create_approval_team_request
+
+            return capo_mpa.types.create_approval_team_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateApprovalTeam", redact_input=_redact_input),
+        )
         input_: capo_mpa.types.create_approval_team_request.CreateApprovalTeamRequest = {
             "approval_strategy": approval_strategy,
             "approvers": approvers,
@@ -551,7 +608,17 @@ class AsyncApprovalTeam:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mpa.types.get_approval_team_response.GetApprovalTeamResponse",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.get_approval_team_response
+
+            return capo_mpa.types.get_approval_team_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetApprovalTeam", redact_output=_redact_output),
+        )
         input_: capo_mpa.types.get_approval_team_request.GetApprovalTeamRequest = {
             "arn": arn
         }
@@ -613,7 +680,17 @@ class AsyncApprovalTeam:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mpa.types.update_approval_team_request.UpdateApprovalTeamRequest",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.update_approval_team_request
+
+            return capo_mpa.types.update_approval_team_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateApprovalTeam", redact_input=_redact_input),
+        )
         input_: capo_mpa.types.update_approval_team_request.UpdateApprovalTeamRequest = {
             "arn": arn
         }
@@ -672,7 +749,9 @@ class AsyncApprovalTeam:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteInactiveApprovalTeamVersion")
+        )
         input_: capo_mpa.types.delete_inactive_approval_team_version_request.DeleteInactiveApprovalTeamVersionRequest = {
             "arn": arn,
             "version_id": version_id,
@@ -722,7 +801,17 @@ class AsyncApprovalTeam:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mpa.types.list_approval_teams_response.ListApprovalTeamsResponse",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.list_approval_teams_response
+
+            return capo_mpa.types.list_approval_teams_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListApprovalTeams", redact_output=_redact_output),
+        )
         input_: capo_mpa.types.list_approval_teams_request.ListApprovalTeamsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -775,7 +864,9 @@ class AsyncApprovalTeam:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartActiveApprovalTeamDeletion")
+        )
         input_: capo_mpa.types.start_active_approval_team_deletion_request.StartActiveApprovalTeamDeletionRequest = {
             "arn": arn
         }
@@ -829,7 +920,9 @@ class AsyncApprovalTeam:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartApprovalTeamBaseline")
+        )
         input_: capo_mpa.types.start_approval_team_baseline_request.StartApprovalTeamBaselineRequest = {
             "arn": arn
         }

@@ -22,10 +22,12 @@ from capo_rekognition._pagination import resolve_path as _resolve_path
 from capo_rekognition._services._aws_config import aws_config
 from capo_rekognition._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -361,7 +363,9 @@ class RekognitionClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[RekognitionClientConfig] = None
+        self,
+        config_overrides: Optional[RekognitionClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: RekognitionClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -369,8 +373,10 @@ class RekognitionClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -443,7 +449,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateFaces")
+        )
         input_: capo_rekognition.types.associate_faces_request.AssociateFacesRequest = {
             "collection_id": collection_id,
             "user_id": user_id,
@@ -514,7 +522,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CompareFaces")
+        )
         input_: capo_rekognition.types.compare_faces_request.CompareFacesRequest = {
             "source_image": source_image,
             "target_image": target_image,
@@ -588,7 +598,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CopyProjectVersion")
+        )
         input_: capo_rekognition.types.copy_project_version_request.CopyProjectVersionRequest = {
             "source_project_arn": source_project_arn,
             "source_project_version_arn": source_project_version_arn,
@@ -653,7 +665,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCollection")
+        )
         input_: capo_rekognition.types.create_collection_request.CreateCollectionRequest = {
             "collection_id": collection_id
         }
@@ -720,7 +734,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataset")
+        )
         input_: capo_rekognition.types.create_dataset_request.CreateDatasetRequest = {
             "dataset_type": dataset_type,
             "project_arn": project_arn,
@@ -780,7 +796,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFaceLivenessSession")
+        )
         input_: capo_rekognition.types.create_face_liveness_session_request.CreateFaceLivenessSessionRequest = {}
         if kms_key_id is not None:
             input_["kms_key_id"] = kms_key_id
@@ -849,7 +867,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProject")
+        )
         input_: capo_rekognition.types.create_project_request.CreateProjectRequest = {
             "project_name": project_name
         }
@@ -936,7 +956,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProjectVersion")
+        )
         input_: capo_rekognition.types.create_project_version_request.CreateProjectVersionRequest = {
             "project_arn": project_arn,
             "version_name": version_name,
@@ -1023,7 +1045,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStreamProcessor")
+        )
         input_: capo_rekognition.types.create_stream_processor_request.CreateStreamProcessorRequest = {
             "input": input,
             "output": output,
@@ -1100,7 +1124,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUser")
+        )
         input_: capo_rekognition.types.create_user_request.CreateUserRequest = {
             "collection_id": collection_id,
             "user_id": user_id,
@@ -1158,7 +1184,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCollection")
+        )
         input_: capo_rekognition.types.delete_collection_request.DeleteCollectionRequest = {
             "collection_id": collection_id
         }
@@ -1214,7 +1242,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataset")
+        )
         input_: capo_rekognition.types.delete_dataset_request.DeleteDatasetRequest = {
             "dataset_arn": dataset_arn
         }
@@ -1270,7 +1300,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFaces")
+        )
         input_: capo_rekognition.types.delete_faces_request.DeleteFacesRequest = {
             "collection_id": collection_id,
             "face_ids": face_ids,
@@ -1326,7 +1358,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProject")
+        )
         input_: capo_rekognition.types.delete_project_request.DeleteProjectRequest = {
             "project_arn": project_arn
         }
@@ -1387,7 +1421,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProjectPolicy")
+        )
         input_: capo_rekognition.types.delete_project_policy_request.DeleteProjectPolicyRequest = {
             "project_arn": project_arn,
             "policy_name": policy_name,
@@ -1445,7 +1481,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProjectVersion")
+        )
         input_: capo_rekognition.types.delete_project_version_request.DeleteProjectVersionRequest = {
             "project_version_arn": project_version_arn
         }
@@ -1494,7 +1532,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStreamProcessor")
+        )
         input_: capo_rekognition.types.delete_stream_processor_request.DeleteStreamProcessorRequest = {
             "name": name
         }
@@ -1556,7 +1596,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUser")
+        )
         input_: capo_rekognition.types.delete_user_request.DeleteUserRequest = {
             "collection_id": collection_id,
             "user_id": user_id,
@@ -1610,7 +1652,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCollection")
+        )
         input_: capo_rekognition.types.describe_collection_request.DescribeCollectionRequest = {
             "collection_id": collection_id
         }
@@ -1658,7 +1702,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataset")
+        )
         input_: capo_rekognition.types.describe_dataset_request.DescribeDatasetRequest = {
             "dataset_arn": dataset_arn
         }
@@ -1720,7 +1766,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProjects")
+        )
         input_: capo_rekognition.types.describe_projects_request.DescribeProjectsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1820,7 +1868,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProjectVersions")
+        )
         input_: capo_rekognition.types.describe_project_versions_request.DescribeProjectVersionsRequest = {
             "project_arn": project_arn
         }
@@ -1905,7 +1955,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStreamProcessor")
+        )
         input_: capo_rekognition.types.describe_stream_processor_request.DescribeStreamProcessorRequest = {
             "name": name
         }
@@ -1969,7 +2021,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetectCustomLabels")
+        )
         input_: capo_rekognition.types.detect_custom_labels_request.DetectCustomLabelsRequest = {
             "project_version_arn": project_version_arn,
             "image": image,
@@ -2032,7 +2086,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetectFaces")
+        )
         input_: capo_rekognition.types.detect_faces_request.DetectFacesRequest = {
             "image": image
         }
@@ -2102,7 +2158,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetectLabels")
+        )
         input_: capo_rekognition.types.detect_labels_request.DetectLabelsRequest = {
             "image": image
         }
@@ -2173,7 +2231,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetectModerationLabels")
+        )
         input_: capo_rekognition.types.detect_moderation_labels_request.DetectModerationLabelsRequest = {
             "image": image
         }
@@ -2233,7 +2293,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetectProtectiveEquipment")
+        )
         input_: capo_rekognition.types.detect_protective_equipment_request.DetectProtectiveEquipmentRequest = {
             "image": image
         }
@@ -2289,7 +2351,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetectText")
+        )
         input_: capo_rekognition.types.detect_text_request.DetectTextRequest = {
             "image": image
         }
@@ -2355,7 +2419,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateFaces")
+        )
         input_: capo_rekognition.types.disassociate_faces_request.DisassociateFacesRequest = {
             "collection_id": collection_id,
             "user_id": user_id,
@@ -2415,7 +2481,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DistributeDatasetEntries")
+        )
         input_: capo_rekognition.types.distribute_dataset_entries_request.DistributeDatasetEntriesRequest = {
             "datasets": datasets
         }
@@ -2463,7 +2531,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCelebrityInfo")
+        )
         input_: capo_rekognition.types.get_celebrity_info_request.GetCelebrityInfoRequest = {
             "id": id
         }
@@ -2522,7 +2592,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCelebrityRecognition")
+        )
         input_: capo_rekognition.types.get_celebrity_recognition_request.GetCelebrityRecognitionRequest = {
             "job_id": job_id
         }
@@ -2618,7 +2690,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContentModeration")
+        )
         input_: capo_rekognition.types.get_content_moderation_request.GetContentModerationRequest = {
             "job_id": job_id
         }
@@ -2712,7 +2786,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFaceDetection")
+        )
         input_: capo_rekognition.types.get_face_detection_request.GetFaceDetectionRequest = {
             "job_id": job_id
         }
@@ -2787,7 +2863,21 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rekognition.types.get_face_liveness_session_results_response.GetFaceLivenessSessionResultsResponse",
+        ) -> dict[str, Any]:
+            import capo_rekognition.types.get_face_liveness_session_results_response
+
+            return capo_rekognition.types.get_face_liveness_session_results_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetFaceLivenessSessionResults", redact_output=_redact_output
+            ),
+        )
         input_: capo_rekognition.types.get_face_liveness_session_results_request.GetFaceLivenessSessionResultsRequest = {
             "session_id": session_id
         }
@@ -2846,7 +2936,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFaceSearch")
+        )
         input_: capo_rekognition.types.get_face_search_request.GetFaceSearchRequest = {
             "job_id": job_id
         }
@@ -2944,7 +3036,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLabelDetection")
+        )
         input_: capo_rekognition.types.get_label_detection_request.GetLabelDetectionRequest = {
             "job_id": job_id
         }
@@ -3031,7 +3125,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMediaAnalysisJob")
+        )
         input_: capo_rekognition.types.get_media_analysis_job_request.GetMediaAnalysisJobRequest = {
             "job_id": job_id
         }
@@ -3092,7 +3188,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPersonTracking")
+        )
         input_: capo_rekognition.types.get_person_tracking_request.GetPersonTrackingRequest = {
             "job_id": job_id
         }
@@ -3180,7 +3278,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSegmentDetection")
+        )
         input_: capo_rekognition.types.get_segment_detection_request.GetSegmentDetectionRequest = {
             "job_id": job_id
         }
@@ -3262,7 +3362,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTextDetection")
+        )
         input_: capo_rekognition.types.get_text_detection_request.GetTextDetectionRequest = {
             "job_id": job_id
         }
@@ -3365,7 +3467,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("IndexFaces")
+        )
         input_: capo_rekognition.types.index_faces_request.IndexFacesRequest = {
             "collection_id": collection_id,
             "image": image,
@@ -3433,7 +3537,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCollections")
+        )
         input_: capo_rekognition.types.list_collections_request.ListCollectionsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3535,7 +3641,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatasetEntries")
+        )
         input_: capo_rekognition.types.list_dataset_entries_request.ListDatasetEntriesRequest = {
             "dataset_arn": dataset_arn
         }
@@ -3653,7 +3761,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatasetLabels")
+        )
         input_: capo_rekognition.types.list_dataset_labels_request.ListDatasetLabelsRequest = {
             "dataset_arn": dataset_arn
         }
@@ -3749,7 +3859,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFaces")
+        )
         input_: capo_rekognition.types.list_faces_request.ListFacesRequest = {
             "collection_id": collection_id
         }
@@ -3840,7 +3952,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMediaAnalysisJobs")
+        )
         input_: capo_rekognition.types.list_media_analysis_jobs_request.ListMediaAnalysisJobsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3922,7 +4036,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProjectPolicies")
+        )
         input_: capo_rekognition.types.list_project_policies_request.ListProjectPoliciesRequest = {
             "project_arn": project_arn
         }
@@ -4005,7 +4121,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStreamProcessors")
+        )
         input_: capo_rekognition.types.list_stream_processors_request.ListStreamProcessorsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4076,7 +4194,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_rekognition.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -4139,7 +4259,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUsers")
+        )
         input_: capo_rekognition.types.list_users_request.ListUsersRequest = {
             "collection_id": collection_id
         }
@@ -4237,7 +4359,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutProjectPolicy")
+        )
         input_: capo_rekognition.types.put_project_policy_request.PutProjectPolicyRequest = {
             "project_arn": project_arn,
             "policy_name": policy_name,
@@ -4291,7 +4415,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RecognizeCelebrities")
+        )
         input_: capo_rekognition.types.recognize_celebrities_request.RecognizeCelebritiesRequest = {
             "image": image
         }
@@ -4351,7 +4477,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchFaces")
+        )
         input_: capo_rekognition.types.search_faces_request.SearchFacesRequest = {
             "collection_id": collection_id,
             "face_id": face_id,
@@ -4423,7 +4551,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchFacesByImage")
+        )
         input_: capo_rekognition.types.search_faces_by_image_request.SearchFacesByImageRequest = {
             "collection_id": collection_id,
             "image": image,
@@ -4494,7 +4624,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchUsers")
+        )
         input_: capo_rekognition.types.search_users_request.SearchUsersRequest = {
             "collection_id": collection_id
         }
@@ -4570,7 +4702,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchUsersByImage")
+        )
         input_: capo_rekognition.types.search_users_by_image_request.SearchUsersByImageRequest = {
             "collection_id": collection_id,
             "image": image,
@@ -4638,7 +4772,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCelebrityRecognition")
+        )
         input_: capo_rekognition.types.start_celebrity_recognition_request.StartCelebrityRecognitionRequest = {
             "video": video
         }
@@ -4707,7 +4843,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartContentModeration")
+        )
         input_: capo_rekognition.types.start_content_moderation_request.StartContentModerationRequest = {
             "video": video
         }
@@ -4780,7 +4918,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartFaceDetection")
+        )
         input_: capo_rekognition.types.start_face_detection_request.StartFaceDetectionRequest = {
             "video": video
         }
@@ -4854,7 +4994,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartFaceSearch")
+        )
         input_: capo_rekognition.types.start_face_search_request.StartFaceSearchRequest = {
             "video": video,
             "collection_id": collection_id,
@@ -4934,7 +5076,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartLabelDetection")
+        )
         input_: capo_rekognition.types.start_label_detection_request.StartLabelDetectionRequest = {
             "video": video
         }
@@ -5019,7 +5163,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMediaAnalysisJob")
+        )
         input_: capo_rekognition.types.start_media_analysis_job_request.StartMediaAnalysisJobRequest = {
             "operations_config": operations_config,
             "input": input,
@@ -5089,7 +5235,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartPersonTracking")
+        )
         input_: capo_rekognition.types.start_person_tracking_request.StartPersonTrackingRequest = {
             "video": video
         }
@@ -5157,7 +5305,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartProjectVersion")
+        )
         input_: capo_rekognition.types.start_project_version_request.StartProjectVersionRequest = {
             "project_version_arn": project_version_arn,
             "min_inference_units": min_inference_units,
@@ -5226,7 +5376,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartSegmentDetection")
+        )
         input_: capo_rekognition.types.start_segment_detection_request.StartSegmentDetectionRequest = {
             "video": video,
             "segment_types": segment_types,
@@ -5292,7 +5444,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartStreamProcessor")
+        )
         input_: capo_rekognition.types.start_stream_processor_request.StartStreamProcessorRequest = {
             "name": name
         }
@@ -5359,7 +5513,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartTextDetection")
+        )
         input_: capo_rekognition.types.start_text_detection_request.StartTextDetectionRequest = {
             "video": video
         }
@@ -5422,7 +5578,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopProjectVersion")
+        )
         input_: capo_rekognition.types.stop_project_version_request.StopProjectVersionRequest = {
             "project_version_arn": project_version_arn
         }
@@ -5471,7 +5629,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopStreamProcessor")
+        )
         input_: capo_rekognition.types.stop_stream_processor_request.StopStreamProcessorRequest = {
             "name": name
         }
@@ -5522,7 +5682,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_rekognition.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -5573,7 +5735,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_rekognition.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -5632,7 +5796,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDatasetEntries")
+        )
         input_: capo_rekognition.types.update_dataset_entries_request.UpdateDatasetEntriesRequest = {
             "dataset_arn": dataset_arn,
             "changes": changes,
@@ -5698,7 +5864,9 @@ class RekognitionClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateStreamProcessor")
+        )
         input_: capo_rekognition.types.update_stream_processor_request.UpdateStreamProcessorRequest = {
             "name": name
         }

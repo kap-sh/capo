@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#UpdateIdentityProviderResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -41,5 +41,18 @@ def deserialize_json(data: dict) -> UpdateIdentityProviderResponse:
     else:
         raise DeserializationError(
             "UpdateIdentityProviderResponse.identity_provider required"
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateIdentityProviderResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "identity_provider" in value:
+        import capo_workspaces_web.types.identity_provider
+
+        out["identity_provider"] = (
+            capo_workspaces_web.types.identity_provider.redact_sensitive(
+                value["identity_provider"]
+            )
         )
     return out

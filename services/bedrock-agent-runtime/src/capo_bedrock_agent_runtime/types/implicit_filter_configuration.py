@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#ImplicitFilterConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -50,4 +50,17 @@ def deserialize_json(data: dict) -> ImplicitFilterConfiguration:
         out["model_arn"] = data["modelArn"]
     else:
         raise DeserializationError("ImplicitFilterConfiguration.model_arn required")
+    return out
+
+
+def redact_sensitive(value: ImplicitFilterConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "metadata_attributes" in value:
+        import capo_bedrock_agent_runtime.types.metadata_attribute_schema_list
+
+        out["metadata_attributes"] = (
+            capo_bedrock_agent_runtime.types.metadata_attribute_schema_list.redact_sensitive(
+                value["metadata_attributes"]
+            )
+        )
     return out

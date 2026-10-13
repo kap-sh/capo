@@ -7,6 +7,7 @@ import capo_cleanroomsml._auth._sigv4
 from capo_cleanroomsml._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -125,7 +126,9 @@ class TrainedModelInferenceJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartTrainedModelInferenceJob")
+        )
         input_: capo_cleanroomsml.types.start_trained_model_inference_job_request.StartTrainedModelInferenceJobRequest = {
             "membership_identifier": membership_identifier,
             "name": name,
@@ -200,7 +203,9 @@ class TrainedModelInferenceJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTrainedModelInferenceJob")
+        )
         input_: capo_cleanroomsml.types.get_trained_model_inference_job_request.GetTrainedModelInferenceJobRequest = {
             "membership_identifier": membership_identifier,
             "trained_model_inference_job_arn": trained_model_inference_job_arn,
@@ -258,7 +263,9 @@ class TrainedModelInferenceJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTrainedModelInferenceJobs")
+        )
         input_: capo_cleanroomsml.types.list_trained_model_inference_jobs_request.ListTrainedModelInferenceJobsRequest = {
             "membership_identifier": membership_identifier
         }
@@ -315,7 +322,9 @@ class TrainedModelInferenceJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelTrainedModelInferenceJob")
+        )
         input_: capo_cleanroomsml.types.cancel_trained_model_inference_job_request.CancelTrainedModelInferenceJobRequest = {
             "membership_identifier": membership_identifier,
             "trained_model_inference_job_arn": trained_model_inference_job_arn,
@@ -408,7 +417,9 @@ class AsyncTrainedModelInferenceJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartTrainedModelInferenceJob")
+        )
         input_: capo_cleanroomsml.types.start_trained_model_inference_job_request.StartTrainedModelInferenceJobRequest = {
             "membership_identifier": membership_identifier,
             "name": name,
@@ -484,7 +495,9 @@ class AsyncTrainedModelInferenceJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTrainedModelInferenceJob")
+        )
         input_: capo_cleanroomsml.types.get_trained_model_inference_job_request.GetTrainedModelInferenceJobRequest = {
             "membership_identifier": membership_identifier,
             "trained_model_inference_job_arn": trained_model_inference_job_arn,
@@ -543,7 +556,9 @@ class AsyncTrainedModelInferenceJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTrainedModelInferenceJobs")
+        )
         input_: capo_cleanroomsml.types.list_trained_model_inference_jobs_request.ListTrainedModelInferenceJobsRequest = {
             "membership_identifier": membership_identifier
         }
@@ -601,7 +616,9 @@ class AsyncTrainedModelInferenceJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelTrainedModelInferenceJob")
+        )
         input_: capo_cleanroomsml.types.cancel_trained_model_inference_job_request.CancelTrainedModelInferenceJobRequest = {
             "membership_identifier": membership_identifier,
             "trained_model_inference_job_arn": trained_model_inference_job_arn,

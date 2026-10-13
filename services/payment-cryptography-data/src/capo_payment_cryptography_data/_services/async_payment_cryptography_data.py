@@ -22,7 +22,9 @@ from capo_payment_cryptography_data._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -173,6 +175,7 @@ class AsyncPaymentCryptographyDataClient:
     def operation_options(
         self,
         config_overrides: Optional[AsyncPaymentCryptographyDataClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncPaymentCryptographyDataClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -180,8 +183,10 @@ class AsyncPaymentCryptographyDataClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -243,7 +248,30 @@ class AsyncPaymentCryptographyDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_payment_cryptography_data.types.decrypt_data_input.DecryptDataInput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.decrypt_data_input
+
+            return capo_payment_cryptography_data.types.decrypt_data_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_payment_cryptography_data.types.decrypt_data_output.DecryptDataOutput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.decrypt_data_output
+
+            return capo_payment_cryptography_data.types.decrypt_data_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DecryptData", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_payment_cryptography_data.types.decrypt_data_input.DecryptDataInput = {
             "key_identifier": key_identifier,
             "cipher_text": cipher_text,
@@ -303,7 +331,30 @@ class AsyncPaymentCryptographyDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_payment_cryptography_data.types.encrypt_data_input.EncryptDataInput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.encrypt_data_input
+
+            return capo_payment_cryptography_data.types.encrypt_data_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_payment_cryptography_data.types.encrypt_data_output.EncryptDataOutput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.encrypt_data_output
+
+            return capo_payment_cryptography_data.types.encrypt_data_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "EncryptData", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_payment_cryptography_data.types.encrypt_data_input.EncryptDataInput = {
             "key_identifier": key_identifier,
             "plain_text": plain_text,
@@ -359,7 +410,32 @@ class AsyncPaymentCryptographyDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_payment_cryptography_data.types.generate_as2805_kek_validation_input.GenerateAs2805KekValidationInput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.generate_as2805_kek_validation_input
+
+            return capo_payment_cryptography_data.types.generate_as2805_kek_validation_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_payment_cryptography_data.types.generate_as2805_kek_validation_output.GenerateAs2805KekValidationOutput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.generate_as2805_kek_validation_output
+
+            return capo_payment_cryptography_data.types.generate_as2805_kek_validation_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GenerateAs2805KekValidation",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_payment_cryptography_data.types.generate_as2805_kek_validation_input.GenerateAs2805KekValidationInput = {
             "key_identifier": key_identifier,
             "kek_validation_type": kek_validation_type,
@@ -415,7 +491,32 @@ class AsyncPaymentCryptographyDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_payment_cryptography_data.types.generate_auth_request_cryptogram_input.GenerateAuthRequestCryptogramInput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.generate_auth_request_cryptogram_input
+
+            return capo_payment_cryptography_data.types.generate_auth_request_cryptogram_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_payment_cryptography_data.types.generate_auth_request_cryptogram_output.GenerateAuthRequestCryptogramOutput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.generate_auth_request_cryptogram_output
+
+            return capo_payment_cryptography_data.types.generate_auth_request_cryptogram_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GenerateAuthRequestCryptogram",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_payment_cryptography_data.types.generate_auth_request_cryptogram_input.GenerateAuthRequestCryptogramInput = {
             "key_identifier": key_identifier,
             "transaction_data": transaction_data,
@@ -474,7 +575,32 @@ class AsyncPaymentCryptographyDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_payment_cryptography_data.types.generate_card_validation_data_input.GenerateCardValidationDataInput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.generate_card_validation_data_input
+
+            return capo_payment_cryptography_data.types.generate_card_validation_data_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_payment_cryptography_data.types.generate_card_validation_data_output.GenerateCardValidationDataOutput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.generate_card_validation_data_output
+
+            return capo_payment_cryptography_data.types.generate_card_validation_data_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GenerateCardValidationData",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_payment_cryptography_data.types.generate_card_validation_data_input.GenerateCardValidationDataInput = {
             "key_identifier": key_identifier,
             "primary_account_number": primary_account_number,
@@ -534,7 +660,30 @@ class AsyncPaymentCryptographyDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_payment_cryptography_data.types.generate_mac_input.GenerateMacInput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.generate_mac_input
+
+            return capo_payment_cryptography_data.types.generate_mac_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_payment_cryptography_data.types.generate_mac_output.GenerateMacOutput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.generate_mac_output
+
+            return capo_payment_cryptography_data.types.generate_mac_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GenerateMac", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_payment_cryptography_data.types.generate_mac_input.GenerateMacInput = {
             "key_identifier": key_identifier,
             "message_data": message_data,
@@ -598,7 +747,32 @@ class AsyncPaymentCryptographyDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_payment_cryptography_data.types.generate_mac_emv_pin_change_input.GenerateMacEmvPinChangeInput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.generate_mac_emv_pin_change_input
+
+            return capo_payment_cryptography_data.types.generate_mac_emv_pin_change_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_payment_cryptography_data.types.generate_mac_emv_pin_change_output.GenerateMacEmvPinChangeOutput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.generate_mac_emv_pin_change_output
+
+            return capo_payment_cryptography_data.types.generate_mac_emv_pin_change_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GenerateMacEmvPinChange",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_payment_cryptography_data.types.generate_mac_emv_pin_change_input.GenerateMacEmvPinChangeInput = {
             "new_pin_pek_identifier": new_pin_pek_identifier,
             "new_encrypted_pin_block": new_encrypted_pin_block,
@@ -669,7 +843,32 @@ class AsyncPaymentCryptographyDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_payment_cryptography_data.types.generate_pin_data_input.GeneratePinDataInput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.generate_pin_data_input
+
+            return capo_payment_cryptography_data.types.generate_pin_data_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_payment_cryptography_data.types.generate_pin_data_output.GeneratePinDataOutput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.generate_pin_data_output
+
+            return capo_payment_cryptography_data.types.generate_pin_data_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GeneratePinData",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_payment_cryptography_data.types.generate_pin_data_input.GeneratePinDataInput = {
             "generation_key_identifier": generation_key_identifier,
             "encryption_key_identifier": encryption_key_identifier,
@@ -742,7 +941,32 @@ class AsyncPaymentCryptographyDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_payment_cryptography_data.types.re_encrypt_data_input.ReEncryptDataInput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.re_encrypt_data_input
+
+            return capo_payment_cryptography_data.types.re_encrypt_data_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_payment_cryptography_data.types.re_encrypt_data_output.ReEncryptDataOutput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.re_encrypt_data_output
+
+            return capo_payment_cryptography_data.types.re_encrypt_data_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ReEncryptData",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_payment_cryptography_data.types.re_encrypt_data_input.ReEncryptDataInput = {
             "incoming_key_identifier": incoming_key_identifier,
             "outgoing_key_identifier": outgoing_key_identifier,
@@ -804,7 +1028,32 @@ class AsyncPaymentCryptographyDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_payment_cryptography_data.types.translate_key_material_input.TranslateKeyMaterialInput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.translate_key_material_input
+
+            return capo_payment_cryptography_data.types.translate_key_material_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_payment_cryptography_data.types.translate_key_material_output.TranslateKeyMaterialOutput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.translate_key_material_output
+
+            return capo_payment_cryptography_data.types.translate_key_material_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "TranslateKeyMaterial",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_payment_cryptography_data.types.translate_key_material_input.TranslateKeyMaterialInput = {
             "incoming_key_material": incoming_key_material,
             "outgoing_key_material": outgoing_key_material,
@@ -883,7 +1132,32 @@ class AsyncPaymentCryptographyDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_payment_cryptography_data.types.translate_pin_data_input.TranslatePinDataInput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.translate_pin_data_input
+
+            return capo_payment_cryptography_data.types.translate_pin_data_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_payment_cryptography_data.types.translate_pin_data_output.TranslatePinDataOutput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.translate_pin_data_output
+
+            return capo_payment_cryptography_data.types.translate_pin_data_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "TranslatePinData",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_payment_cryptography_data.types.translate_pin_data_input.TranslatePinDataInput = {
             "incoming_key_identifier": incoming_key_identifier,
             "outgoing_key_identifier": outgoing_key_identifier,
@@ -958,7 +1232,32 @@ class AsyncPaymentCryptographyDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_payment_cryptography_data.types.verify_auth_request_cryptogram_input.VerifyAuthRequestCryptogramInput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.verify_auth_request_cryptogram_input
+
+            return capo_payment_cryptography_data.types.verify_auth_request_cryptogram_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_payment_cryptography_data.types.verify_auth_request_cryptogram_output.VerifyAuthRequestCryptogramOutput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.verify_auth_request_cryptogram_output
+
+            return capo_payment_cryptography_data.types.verify_auth_request_cryptogram_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "VerifyAuthRequestCryptogram",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_payment_cryptography_data.types.verify_auth_request_cryptogram_input.VerifyAuthRequestCryptogramInput = {
             "key_identifier": key_identifier,
             "transaction_data": transaction_data,
@@ -1019,7 +1318,19 @@ class AsyncPaymentCryptographyDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_payment_cryptography_data.types.verify_card_validation_data_input.VerifyCardValidationDataInput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.verify_card_validation_data_input
+
+            return capo_payment_cryptography_data.types.verify_card_validation_data_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("VerifyCardValidationData", redact_input=_redact_input),
+        )
         input_: capo_payment_cryptography_data.types.verify_card_validation_data_input.VerifyCardValidationDataInput = {
             "key_identifier": key_identifier,
             "primary_account_number": primary_account_number,
@@ -1081,7 +1392,20 @@ class AsyncPaymentCryptographyDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_payment_cryptography_data.types.verify_mac_input.VerifyMacInput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.verify_mac_input
+
+            return (
+                capo_payment_cryptography_data.types.verify_mac_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("VerifyMac", redact_input=_redact_input)
+        )
         input_: capo_payment_cryptography_data.types.verify_mac_input.VerifyMacInput = {
             "key_identifier": key_identifier,
             "message_data": message_data,
@@ -1158,7 +1482,19 @@ class AsyncPaymentCryptographyDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_payment_cryptography_data.types.verify_pin_data_input.VerifyPinDataInput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography_data.types.verify_pin_data_input
+
+            return capo_payment_cryptography_data.types.verify_pin_data_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("VerifyPinData", redact_input=_redact_input),
+        )
         input_: capo_payment_cryptography_data.types.verify_pin_data_input.VerifyPinDataInput = {
             "verification_key_identifier": verification_key_identifier,
             "encryption_key_identifier": encryption_key_identifier,

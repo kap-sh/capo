@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssmsap#GetDatabaseOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,15 @@ def deserialize_json(data: dict) -> GetDatabaseOutput:
         import capo_ssm_sap.types.tag_map
 
         out["tags"] = capo_ssm_sap.types.tag_map.deserialize_json(data["Tags"])
+    return out
+
+
+def redact_sensitive(value: GetDatabaseOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "database" in value:
+        import capo_ssm_sap.types.database
+
+        out["database"] = capo_ssm_sap.types.database.redact_sensitive(
+            value["database"]
+        )
     return out

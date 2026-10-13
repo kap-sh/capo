@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.organizations#ResponsibilityTransfer``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -172,4 +172,23 @@ def deserialize_aws_json_1_1(data: dict) -> ResponsibilityTransfer:
         )
     if data.get("ActiveHandshakeId") is not None:
         out["active_handshake_id"] = data["ActiveHandshakeId"]
+    return out
+
+
+def redact_sensitive(value: ResponsibilityTransfer) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "source" in value:
+        import capo_organizations.types.transfer_participant
+
+        out["source"] = capo_organizations.types.transfer_participant.redact_sensitive(
+            value["source"]
+        )
+    if "target" in value:
+        import capo_organizations.types.transfer_participant
+
+        out["target"] = capo_organizations.types.transfer_participant.redact_sensitive(
+            value["target"]
+        )
     return out

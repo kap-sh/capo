@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#PipeTargetRedshiftDataParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -71,4 +71,19 @@ def deserialize_json(data: dict) -> PipeTargetRedshiftDataParameters:
         out["sqls"] = capo_pipes.types.sqls.deserialize_json(data["Sqls"])
     else:
         raise DeserializationError("PipeTargetRedshiftDataParameters.sqls required")
+    return out
+
+
+def redact_sensitive(value: PipeTargetRedshiftDataParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "database" in value:
+        out["database"] = "*** Sensitive Data Redacted ***"
+    if "db_user" in value:
+        out["db_user"] = "*** Sensitive Data Redacted ***"
+    if "statement_name" in value:
+        out["statement_name"] = "*** Sensitive Data Redacted ***"
+    if "sqls" in value:
+        import capo_pipes.types.sqls
+
+        out["sqls"] = capo_pipes.types.sqls.redact_sensitive(value["sqls"])
     return out

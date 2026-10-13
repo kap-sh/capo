@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workmail#ResetPasswordRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -44,4 +44,11 @@ def deserialize_aws_json_1_1(data: dict) -> ResetPasswordRequest:
         out["password"] = data["Password"]
     else:
         raise DeserializationError("ResetPasswordRequest.password required")
+    return out
+
+
+def redact_sensitive(value: ResetPasswordRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
     return out

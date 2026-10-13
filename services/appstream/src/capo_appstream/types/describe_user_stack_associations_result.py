@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appstream#DescribeUserStackAssociationsResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeUserStackAssociationsResult:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: DescribeUserStackAssociationsResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_stack_associations" in value:
+        import capo_appstream.types.user_stack_association_list
+
+        out["user_stack_associations"] = (
+            capo_appstream.types.user_stack_association_list.redact_sensitive(
+                value["user_stack_associations"]
+            )
+        )
     return out

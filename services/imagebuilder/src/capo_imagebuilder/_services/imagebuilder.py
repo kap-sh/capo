@@ -21,10 +21,12 @@ from capo_imagebuilder._pagination import resolve_path as _resolve_path
 from capo_imagebuilder._services._aws_config import aws_config
 from capo_imagebuilder._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -360,7 +362,9 @@ class imagebuilderClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[imagebuilderClientConfig] = None
+        self,
+        config_overrides: Optional[imagebuilderClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: imagebuilderClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -368,8 +372,10 @@ class imagebuilderClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -433,7 +439,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelImageCreation")
+        )
         input_: capo_imagebuilder.types.cancel_image_creation_request.CancelImageCreationRequest = {
             "image_build_version_arn": image_build_version_arn,
             "client_token": client_token,
@@ -492,7 +500,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelLifecycleExecution")
+        )
         input_: capo_imagebuilder.types.cancel_lifecycle_execution_request.CancelLifecycleExecutionRequest = {
             "lifecycle_execution_id": lifecycle_execution_id,
             "client_token": client_token,
@@ -589,7 +599,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateComponent")
+        )
         input_: capo_imagebuilder.types.create_component_request.CreateComponentRequest = {
             "name": name,
             "semantic_version": semantic_version,
@@ -718,7 +730,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateContainerRecipe")
+        )
         input_: capo_imagebuilder.types.create_container_recipe_request.CreateContainerRecipeRequest = {
             "container_type": container_type,
             "name": name,
@@ -821,7 +835,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDistributionConfiguration")
+        )
         input_: capo_imagebuilder.types.create_distribution_configuration_request.CreateDistributionConfigurationRequest = {
             "name": name,
             "distributions": distributions,
@@ -930,7 +946,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateImage")
+        )
         input_: capo_imagebuilder.types.create_image_request.CreateImageRequest = {
             "infrastructure_configuration_arn": infrastructure_configuration_arn,
             "client_token": client_token,
@@ -1070,7 +1088,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateImagePipeline")
+        )
         input_: capo_imagebuilder.types.create_image_pipeline_request.CreateImagePipelineRequest = {
             "name": name,
             "infrastructure_configuration_arn": infrastructure_configuration_arn,
@@ -1204,7 +1224,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateImageRecipe")
+        )
         input_: capo_imagebuilder.types.create_image_recipe_request.CreateImageRecipeRequest = {
             "name": name,
             "semantic_version": semantic_version,
@@ -1338,7 +1360,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInfrastructureConfiguration")
+        )
         input_: capo_imagebuilder.types.create_infrastructure_configuration_request.CreateInfrastructureConfigurationRequest = {
             "name": name,
             "instance_profile_name": instance_profile_name,
@@ -1451,7 +1475,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLifecyclePolicy")
+        )
         input_: capo_imagebuilder.types.create_lifecycle_policy_request.CreateLifecyclePolicyRequest = {
             "name": name,
             "execution_role": execution_role,
@@ -1552,7 +1578,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkflow")
+        )
         input_: capo_imagebuilder.types.create_workflow_request.CreateWorkflowRequest = {
             "name": name,
             "semantic_version": semantic_version,
@@ -1624,7 +1652,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteComponent")
+        )
         input_: capo_imagebuilder.types.delete_component_request.DeleteComponentRequest = {
             "component_build_version_arn": component_build_version_arn
         }
@@ -1679,7 +1709,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContainerRecipe")
+        )
         input_: capo_imagebuilder.types.delete_container_recipe_request.DeleteContainerRecipeRequest = {
             "container_recipe_arn": container_recipe_arn
         }
@@ -1734,7 +1766,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDistributionConfiguration")
+        )
         input_: capo_imagebuilder.types.delete_distribution_configuration_request.DeleteDistributionConfigurationRequest = {
             "distribution_configuration_arn": distribution_configuration_arn
         }
@@ -1789,7 +1823,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteImage")
+        )
         input_: capo_imagebuilder.types.delete_image_request.DeleteImageRequest = {
             "image_build_version_arn": image_build_version_arn
         }
@@ -1844,7 +1880,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteImagePipeline")
+        )
         input_: capo_imagebuilder.types.delete_image_pipeline_request.DeleteImagePipelineRequest = {
             "image_pipeline_arn": image_pipeline_arn
         }
@@ -1901,7 +1939,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteImageRecipe")
+        )
         input_: capo_imagebuilder.types.delete_image_recipe_request.DeleteImageRecipeRequest = {
             "image_recipe_arn": image_recipe_arn
         }
@@ -1956,7 +1996,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInfrastructureConfiguration")
+        )
         input_: capo_imagebuilder.types.delete_infrastructure_configuration_request.DeleteInfrastructureConfigurationRequest = {
             "infrastructure_configuration_arn": infrastructure_configuration_arn
         }
@@ -2011,7 +2053,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLifecyclePolicy")
+        )
         input_: capo_imagebuilder.types.delete_lifecycle_policy_request.DeleteLifecyclePolicyRequest = {
             "lifecycle_policy_arn": lifecycle_policy_arn
         }
@@ -2066,7 +2110,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflow")
+        )
         input_: capo_imagebuilder.types.delete_workflow_request.DeleteWorkflowRequest = {
             "workflow_build_version_arn": workflow_build_version_arn
         }
@@ -2138,7 +2184,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DistributeImage")
+        )
         input_: capo_imagebuilder.types.distribute_image_request.DistributeImageRequest = {
             "source_image": source_image,
             "distribution_configuration_arn": distribution_configuration_arn,
@@ -2199,7 +2247,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetComponent")
+        )
         input_: capo_imagebuilder.types.get_component_request.GetComponentRequest = {
             "component_build_version_arn": component_build_version_arn
         }
@@ -2253,7 +2303,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetComponentPolicy")
+        )
         input_: capo_imagebuilder.types.get_component_policy_request.GetComponentPolicyRequest = {
             "component_arn": component_arn
         }
@@ -2307,7 +2359,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContainerRecipe")
+        )
         input_: capo_imagebuilder.types.get_container_recipe_request.GetContainerRecipeRequest = {
             "container_recipe_arn": container_recipe_arn
         }
@@ -2361,7 +2415,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContainerRecipePolicy")
+        )
         input_: capo_imagebuilder.types.get_container_recipe_policy_request.GetContainerRecipePolicyRequest = {
             "container_recipe_arn": container_recipe_arn
         }
@@ -2415,7 +2471,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDistributionConfiguration")
+        )
         input_: capo_imagebuilder.types.get_distribution_configuration_request.GetDistributionConfigurationRequest = {
             "distribution_configuration_arn": distribution_configuration_arn
         }
@@ -2469,7 +2527,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetImage")
+        )
         input_: capo_imagebuilder.types.get_image_request.GetImageRequest = {
             "image_build_version_arn": image_build_version_arn
         }
@@ -2523,7 +2583,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetImagePipeline")
+        )
         input_: capo_imagebuilder.types.get_image_pipeline_request.GetImagePipelineRequest = {
             "image_pipeline_arn": image_pipeline_arn
         }
@@ -2577,7 +2639,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetImagePolicy")
+        )
         input_: capo_imagebuilder.types.get_image_policy_request.GetImagePolicyRequest = {
             "image_arn": image_arn
         }
@@ -2631,7 +2695,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetImageRecipe")
+        )
         input_: capo_imagebuilder.types.get_image_recipe_request.GetImageRecipeRequest = {
             "image_recipe_arn": image_recipe_arn
         }
@@ -2685,7 +2751,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetImageRecipePolicy")
+        )
         input_: capo_imagebuilder.types.get_image_recipe_policy_request.GetImageRecipePolicyRequest = {
             "image_recipe_arn": image_recipe_arn
         }
@@ -2739,7 +2807,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInfrastructureConfiguration")
+        )
         input_: capo_imagebuilder.types.get_infrastructure_configuration_request.GetInfrastructureConfigurationRequest = {
             "infrastructure_configuration_arn": infrastructure_configuration_arn
         }
@@ -2793,7 +2863,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLifecycleExecution")
+        )
         input_: capo_imagebuilder.types.get_lifecycle_execution_request.GetLifecycleExecutionRequest = {
             "lifecycle_execution_id": lifecycle_execution_id
         }
@@ -2847,7 +2919,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLifecyclePolicy")
+        )
         input_: capo_imagebuilder.types.get_lifecycle_policy_request.GetLifecyclePolicyRequest = {
             "lifecycle_policy_arn": lifecycle_policy_arn
         }
@@ -2901,7 +2975,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMarketplaceResource")
+        )
         input_: capo_imagebuilder.types.get_marketplace_resource_request.GetMarketplaceResourceRequest = {
             "resource_type": resource_type,
             "resource_arn": resource_arn,
@@ -2958,7 +3034,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkflow")
+        )
         input_: capo_imagebuilder.types.get_workflow_request.GetWorkflowRequest = {
             "workflow_build_version_arn": workflow_build_version_arn
         }
@@ -3012,7 +3090,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkflowExecution")
+        )
         input_: capo_imagebuilder.types.get_workflow_execution_request.GetWorkflowExecutionRequest = {
             "workflow_execution_id": workflow_execution_id
         }
@@ -3066,7 +3146,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkflowStepExecution")
+        )
         input_: capo_imagebuilder.types.get_workflow_step_execution_request.GetWorkflowStepExecutionRequest = {
             "step_execution_id": step_execution_id
         }
@@ -3154,7 +3236,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportComponent")
+        )
         input_: capo_imagebuilder.types.import_component_request.ImportComponentRequest = {
             "name": name,
             "semantic_version": semantic_version,
@@ -3258,7 +3342,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportDiskImage")
+        )
         input_: capo_imagebuilder.types.import_disk_image_request.ImportDiskImageRequest = {
             "name": name,
             "semantic_version": semantic_version,
@@ -3347,7 +3433,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportVmImage")
+        )
         input_: capo_imagebuilder.types.import_vm_image_request.ImportVmImageRequest = {
             "name": name,
             "semantic_version": semantic_version,
@@ -3424,7 +3512,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListComponentBuildVersions")
+        )
         input_: capo_imagebuilder.types.list_component_build_versions_request.ListComponentBuildVersionsRequest = {}
         if component_version_arn is not None:
             input_["component_version_arn"] = component_version_arn
@@ -3524,7 +3614,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListComponents")
+        )
         input_: capo_imagebuilder.types.list_components_request.ListComponentsRequest = {}
         if owner is not None:
             input_["owner"] = owner
@@ -3628,7 +3720,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContainerRecipes")
+        )
         input_: capo_imagebuilder.types.list_container_recipes_request.ListContainerRecipesRequest = {}
         if owner is not None:
             input_["owner"] = owner
@@ -3726,7 +3820,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDistributionConfigurations")
+        )
         input_: capo_imagebuilder.types.list_distribution_configurations_request.ListDistributionConfigurationsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -3826,7 +3922,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImageBuildVersions")
+        )
         input_: capo_imagebuilder.types.list_image_build_versions_request.ListImageBuildVersionsRequest = {}
         if image_version_arn is not None:
             input_["image_version_arn"] = image_version_arn
@@ -3929,7 +4027,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImagePackages")
+        )
         input_: capo_imagebuilder.types.list_image_packages_request.ListImagePackagesRequest = {
             "image_build_version_arn": image_build_version_arn
         }
@@ -4026,7 +4126,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImagePipelineImages")
+        )
         input_: capo_imagebuilder.types.list_image_pipeline_images_request.ListImagePipelineImagesRequest = {
             "image_pipeline_arn": image_pipeline_arn
         }
@@ -4124,7 +4226,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImagePipelines")
+        )
         input_: capo_imagebuilder.types.list_image_pipelines_request.ListImagePipelinesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -4220,7 +4324,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImageRecipes")
+        )
         input_: capo_imagebuilder.types.list_image_recipes_request.ListImageRecipesRequest = {}
         if owner is not None:
             input_["owner"] = owner
@@ -4326,7 +4432,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImages")
+        )
         input_: capo_imagebuilder.types.list_images_request.ListImagesRequest = {}
         if owner is not None:
             input_["owner"] = owner
@@ -4430,7 +4538,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImageScanFindingAggregations")
+        )
         input_: capo_imagebuilder.types.list_image_scan_finding_aggregations_request.ListImageScanFindingAggregationsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -4520,7 +4630,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImageScanFindings")
+        )
         input_: capo_imagebuilder.types.list_image_scan_findings_request.ListImageScanFindingsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -4616,7 +4728,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInfrastructureConfigurations")
+        )
         input_: capo_imagebuilder.types.list_infrastructure_configurations_request.ListInfrastructureConfigurationsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -4716,7 +4830,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLifecycleExecutionResources")
+        )
         input_: capo_imagebuilder.types.list_lifecycle_execution_resources_request.ListLifecycleExecutionResourcesRequest = {
             "lifecycle_execution_id": lifecycle_execution_id
         }
@@ -4816,7 +4932,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLifecycleExecutions")
+        )
         input_: capo_imagebuilder.types.list_lifecycle_executions_request.ListLifecycleExecutionsRequest = {
             "resource_arn": resource_arn
         }
@@ -4910,7 +5028,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLifecyclePolicies")
+        )
         input_: capo_imagebuilder.types.list_lifecycle_policies_request.ListLifecyclePoliciesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -4992,7 +5112,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_imagebuilder.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -5053,7 +5175,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWaitingWorkflowSteps")
+        )
         input_: capo_imagebuilder.types.list_waiting_workflow_steps_request.ListWaitingWorkflowStepsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -5145,7 +5269,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkflowBuildVersions")
+        )
         input_: capo_imagebuilder.types.list_workflow_build_versions_request.ListWorkflowBuildVersionsRequest = {}
         if workflow_version_arn is not None:
             input_["workflow_version_arn"] = workflow_version_arn
@@ -5241,7 +5367,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkflowExecutions")
+        )
         input_: capo_imagebuilder.types.list_workflow_executions_request.ListWorkflowExecutionsRequest = {
             "image_build_version_arn": image_build_version_arn
         }
@@ -5339,7 +5467,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkflows")
+        )
         input_: capo_imagebuilder.types.list_workflows_request.ListWorkflowsRequest = {}
         if owner is not None:
             input_["owner"] = owner
@@ -5441,7 +5571,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkflowStepExecutions")
+        )
         input_: capo_imagebuilder.types.list_workflow_step_executions_request.ListWorkflowStepExecutionsRequest = {
             "workflow_execution_id": workflow_execution_id
         }
@@ -5532,7 +5664,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutComponentPolicy")
+        )
         input_: capo_imagebuilder.types.put_component_policy_request.PutComponentPolicyRequest = {
             "component_arn": component_arn,
             "policy": policy,
@@ -5591,7 +5725,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutContainerRecipePolicy")
+        )
         input_: capo_imagebuilder.types.put_container_recipe_policy_request.PutContainerRecipePolicyRequest = {
             "container_recipe_arn": container_recipe_arn,
             "policy": policy,
@@ -5650,7 +5786,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutImagePolicy")
+        )
         input_: capo_imagebuilder.types.put_image_policy_request.PutImagePolicyRequest = {
             "image_arn": image_arn,
             "policy": policy,
@@ -5709,7 +5847,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutImageRecipePolicy")
+        )
         input_: capo_imagebuilder.types.put_image_recipe_policy_request.PutImageRecipePolicyRequest = {
             "image_recipe_arn": image_recipe_arn,
             "policy": policy,
@@ -5768,7 +5908,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RetryImage")
+        )
         input_: capo_imagebuilder.types.retry_image_request.RetryImageRequest = {
             "image_build_version_arn": image_build_version_arn,
             "client_token": client_token,
@@ -5837,7 +5979,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendWorkflowStepAction")
+        )
         input_: capo_imagebuilder.types.send_workflow_step_action_request.SendWorkflowStepActionRequest = {
             "step_execution_id": step_execution_id,
             "image_build_version_arn": image_build_version_arn,
@@ -5903,7 +6047,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartImagePipelineExecution")
+        )
         input_: capo_imagebuilder.types.start_image_pipeline_execution_request.StartImagePipelineExecutionRequest = {
             "image_pipeline_arn": image_pipeline_arn,
             "client_token": client_token,
@@ -5983,7 +6129,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartResourceStateUpdate")
+        )
         input_: capo_imagebuilder.types.start_resource_state_update_request.StartResourceStateUpdateRequest = {
             "resource_arn": resource_arn,
             "state": state,
@@ -6046,7 +6194,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_imagebuilder.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -6100,7 +6250,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_imagebuilder.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -6166,7 +6318,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDistributionConfiguration")
+        )
         input_: capo_imagebuilder.types.update_distribution_configuration_request.UpdateDistributionConfigurationRequest = {
             "distribution_configuration_arn": distribution_configuration_arn,
             "distributions": distributions,
@@ -6278,7 +6432,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateImagePipeline")
+        )
         input_: capo_imagebuilder.types.update_image_pipeline_request.UpdateImagePipelineRequest = {
             "image_pipeline_arn": image_pipeline_arn,
             "infrastructure_configuration_arn": infrastructure_configuration_arn,
@@ -6406,7 +6562,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateInfrastructureConfiguration")
+        )
         input_: capo_imagebuilder.types.update_infrastructure_configuration_request.UpdateInfrastructureConfigurationRequest = {
             "infrastructure_configuration_arn": infrastructure_configuration_arn,
             "instance_profile_name": instance_profile_name,
@@ -6505,7 +6663,9 @@ class imagebuilderClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLifecyclePolicy")
+        )
         input_: capo_imagebuilder.types.update_lifecycle_policy_request.UpdateLifecyclePolicyRequest = {
             "lifecycle_policy_arn": lifecycle_policy_arn,
             "execution_role": execution_role,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.comprehend#DetectSyntaxRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -48,4 +48,11 @@ def deserialize_aws_json_1_1(data: dict) -> DetectSyntaxRequest:
         )
     else:
         raise DeserializationError("DetectSyntaxRequest.language_code required")
+    return out
+
+
+def redact_sensitive(value: DetectSyntaxRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text" in value:
+        out["text"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DataLabelType``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -119,6 +119,19 @@ def deserialize_json(data: dict) -> DataLabelType:
         out["maximum_label_type"] = (
             capo_quicksight.types.maximum_label_type.deserialize_json(
                 data["MaximumLabelType"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DataLabelType) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "data_path_label_type" in value:
+        import capo_quicksight.types.data_path_label_type
+
+        out["data_path_label_type"] = (
+            capo_quicksight.types.data_path_label_type.redact_sensitive(
+                value["data_path_label_type"]
             )
         )
     return out

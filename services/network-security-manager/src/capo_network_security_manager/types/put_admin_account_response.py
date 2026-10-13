@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.networksecuritymanager#PutAdminAccountResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> PutAdminAccountResponse:
         out["admin_account_details"] = (
             capo_network_security_manager.types.admin_account_details.deserialize_json(
                 data["adminAccountDetails"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: PutAdminAccountResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "admin_account_details" in value:
+        import capo_network_security_manager.types.admin_account_details
+
+        out["admin_account_details"] = (
+            capo_network_security_manager.types.admin_account_details.redact_sensitive(
+                value["admin_account_details"]
             )
         )
     return out

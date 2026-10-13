@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.resourceexplorer2#ServiceView``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -104,4 +104,11 @@ def deserialize_json(data: dict) -> ServiceView:
                 data["ServiceLinkedRecorder"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: ServiceView) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "filters" in value:
+        out["filters"] = "*** Sensitive Data Redacted ***"
     return out

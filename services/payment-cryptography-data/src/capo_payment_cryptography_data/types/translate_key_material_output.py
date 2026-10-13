@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#TranslateKeyMaterialOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -42,4 +42,17 @@ def deserialize_json(data: dict) -> TranslateKeyMaterialOutput:
         )
     else:
         raise DeserializationError("TranslateKeyMaterialOutput.wrapped_key required")
+    return out
+
+
+def redact_sensitive(value: TranslateKeyMaterialOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "wrapped_key" in value:
+        import capo_payment_cryptography_data.types.wrapped_working_key
+
+        out["wrapped_key"] = (
+            capo_payment_cryptography_data.types.wrapped_working_key.redact_sensitive(
+                value["wrapped_key"]
+            )
+        )
     return out

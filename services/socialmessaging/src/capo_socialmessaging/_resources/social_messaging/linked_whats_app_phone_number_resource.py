@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_socialmessaging._auth._signers
 import capo_socialmessaging._auth._sigv4
 from capo_socialmessaging._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -95,7 +96,10 @@ class LinkedWhatsAppPhoneNumberResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetLinkedWhatsAppBusinessAccountPhoneNumber"),
+        )
         input_: capo_socialmessaging.types.get_linked_whats_app_business_account_phone_number_input.GetLinkedWhatsAppBusinessAccountPhoneNumberInput = {
             "id": id
         }
@@ -147,7 +151,9 @@ class LinkedWhatsAppPhoneNumberResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWhatsAppMessageMedia")
+        )
         input_: capo_socialmessaging.types.delete_whats_app_message_media_input.DeleteWhatsAppMessageMediaInput = {
             "media_id": media_id,
             "origination_phone_number_id": origination_phone_number_id,
@@ -198,7 +204,9 @@ class LinkedWhatsAppPhoneNumberResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetWhatsAppBusinessPublicKey")
+        )
         input_: capo_socialmessaging.types.get_whats_app_business_public_key_input.GetWhatsAppBusinessPublicKeyInput = {
             "origination_phone_number_id": origination_phone_number_id
         }
@@ -256,7 +264,19 @@ class LinkedWhatsAppPhoneNumberResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_socialmessaging.types.get_whats_app_call_permission_input.GetWhatsAppCallPermissionInput",
+        ) -> dict[str, Any]:
+            import capo_socialmessaging.types.get_whats_app_call_permission_input
+
+            return capo_socialmessaging.types.get_whats_app_call_permission_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetWhatsAppCallPermission", redact_input=_redact_input),
+        )
         input_: capo_socialmessaging.types.get_whats_app_call_permission_input.GetWhatsAppCallPermissionInput = {
             "origination_phone_number_id": origination_phone_number_id
         }
@@ -322,7 +342,19 @@ class LinkedWhatsAppPhoneNumberResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_socialmessaging.types.get_whats_app_message_media_input.GetWhatsAppMessageMediaInput",
+        ) -> dict[str, Any]:
+            import capo_socialmessaging.types.get_whats_app_message_media_input
+
+            return capo_socialmessaging.types.get_whats_app_message_media_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetWhatsAppMessageMedia", redact_input=_redact_input),
+        )
         input_: capo_socialmessaging.types.get_whats_app_message_media_input.GetWhatsAppMessageMediaInput = {
             "media_id": media_id,
             "origination_phone_number_id": origination_phone_number_id,
@@ -385,7 +417,19 @@ class LinkedWhatsAppPhoneNumberResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_socialmessaging.types.post_whats_app_message_media_input.PostWhatsAppMessageMediaInput",
+        ) -> dict[str, Any]:
+            import capo_socialmessaging.types.post_whats_app_message_media_input
+
+            return capo_socialmessaging.types.post_whats_app_message_media_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("PostWhatsAppMessageMedia", redact_input=_redact_input),
+        )
         input_: capo_socialmessaging.types.post_whats_app_message_media_input.PostWhatsAppMessageMediaInput = {
             "origination_phone_number_id": origination_phone_number_id
         }
@@ -447,7 +491,9 @@ class LinkedWhatsAppPhoneNumberResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutWhatsAppBusinessPublicKey")
+        )
         input_: capo_socialmessaging.types.put_whats_app_business_public_key_input.PutWhatsAppBusinessPublicKeyInput = {
             "origination_phone_number_id": origination_phone_number_id
         }
@@ -506,7 +552,19 @@ class LinkedWhatsAppPhoneNumberResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_socialmessaging.types.send_whats_app_call_event_input.SendWhatsAppCallEventInput",
+        ) -> dict[str, Any]:
+            import capo_socialmessaging.types.send_whats_app_call_event_input
+
+            return capo_socialmessaging.types.send_whats_app_call_event_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("SendWhatsAppCallEvent", redact_input=_redact_input),
+        )
         input_: capo_socialmessaging.types.send_whats_app_call_event_input.SendWhatsAppCallEventInput = {
             "origination_phone_number_id": origination_phone_number_id,
             "meta_api_version": meta_api_version,
@@ -561,7 +619,19 @@ class LinkedWhatsAppPhoneNumberResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_socialmessaging.types.send_whats_app_message_input.SendWhatsAppMessageInput",
+        ) -> dict[str, Any]:
+            import capo_socialmessaging.types.send_whats_app_message_input
+
+            return capo_socialmessaging.types.send_whats_app_message_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("SendWhatsAppMessage", redact_input=_redact_input),
+        )
         input_: capo_socialmessaging.types.send_whats_app_message_input.SendWhatsAppMessageInput = {
             "origination_phone_number_id": origination_phone_number_id,
             "message": message,
@@ -615,7 +685,10 @@ class LinkedWhatsAppPhoneNumberResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateLinkedWhatsAppBusinessAccountPhoneNumber"),
+        )
         input_: capo_socialmessaging.types.update_linked_whats_app_business_account_phone_number_input.UpdateLinkedWhatsAppBusinessAccountPhoneNumberInput = {
             "id": id,
             "call_settings": call_settings,
@@ -671,7 +744,10 @@ class AsyncLinkedWhatsAppPhoneNumberResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetLinkedWhatsAppBusinessAccountPhoneNumber"),
+        )
         input_: capo_socialmessaging.types.get_linked_whats_app_business_account_phone_number_input.GetLinkedWhatsAppBusinessAccountPhoneNumberInput = {
             "id": id
         }
@@ -724,7 +800,9 @@ class AsyncLinkedWhatsAppPhoneNumberResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWhatsAppMessageMedia")
+        )
         input_: capo_socialmessaging.types.delete_whats_app_message_media_input.DeleteWhatsAppMessageMediaInput = {
             "media_id": media_id,
             "origination_phone_number_id": origination_phone_number_id,
@@ -776,7 +854,9 @@ class AsyncLinkedWhatsAppPhoneNumberResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetWhatsAppBusinessPublicKey")
+        )
         input_: capo_socialmessaging.types.get_whats_app_business_public_key_input.GetWhatsAppBusinessPublicKeyInput = {
             "origination_phone_number_id": origination_phone_number_id
         }
@@ -835,7 +915,19 @@ class AsyncLinkedWhatsAppPhoneNumberResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_socialmessaging.types.get_whats_app_call_permission_input.GetWhatsAppCallPermissionInput",
+        ) -> dict[str, Any]:
+            import capo_socialmessaging.types.get_whats_app_call_permission_input
+
+            return capo_socialmessaging.types.get_whats_app_call_permission_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetWhatsAppCallPermission", redact_input=_redact_input),
+        )
         input_: capo_socialmessaging.types.get_whats_app_call_permission_input.GetWhatsAppCallPermissionInput = {
             "origination_phone_number_id": origination_phone_number_id
         }
@@ -902,7 +994,19 @@ class AsyncLinkedWhatsAppPhoneNumberResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_socialmessaging.types.get_whats_app_message_media_input.GetWhatsAppMessageMediaInput",
+        ) -> dict[str, Any]:
+            import capo_socialmessaging.types.get_whats_app_message_media_input
+
+            return capo_socialmessaging.types.get_whats_app_message_media_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetWhatsAppMessageMedia", redact_input=_redact_input),
+        )
         input_: capo_socialmessaging.types.get_whats_app_message_media_input.GetWhatsAppMessageMediaInput = {
             "media_id": media_id,
             "origination_phone_number_id": origination_phone_number_id,
@@ -966,7 +1070,19 @@ class AsyncLinkedWhatsAppPhoneNumberResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_socialmessaging.types.post_whats_app_message_media_input.PostWhatsAppMessageMediaInput",
+        ) -> dict[str, Any]:
+            import capo_socialmessaging.types.post_whats_app_message_media_input
+
+            return capo_socialmessaging.types.post_whats_app_message_media_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("PostWhatsAppMessageMedia", redact_input=_redact_input),
+        )
         input_: capo_socialmessaging.types.post_whats_app_message_media_input.PostWhatsAppMessageMediaInput = {
             "origination_phone_number_id": origination_phone_number_id
         }
@@ -1029,7 +1145,9 @@ class AsyncLinkedWhatsAppPhoneNumberResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutWhatsAppBusinessPublicKey")
+        )
         input_: capo_socialmessaging.types.put_whats_app_business_public_key_input.PutWhatsAppBusinessPublicKeyInput = {
             "origination_phone_number_id": origination_phone_number_id
         }
@@ -1089,7 +1207,19 @@ class AsyncLinkedWhatsAppPhoneNumberResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_socialmessaging.types.send_whats_app_call_event_input.SendWhatsAppCallEventInput",
+        ) -> dict[str, Any]:
+            import capo_socialmessaging.types.send_whats_app_call_event_input
+
+            return capo_socialmessaging.types.send_whats_app_call_event_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("SendWhatsAppCallEvent", redact_input=_redact_input),
+        )
         input_: capo_socialmessaging.types.send_whats_app_call_event_input.SendWhatsAppCallEventInput = {
             "origination_phone_number_id": origination_phone_number_id,
             "meta_api_version": meta_api_version,
@@ -1145,7 +1275,19 @@ class AsyncLinkedWhatsAppPhoneNumberResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_socialmessaging.types.send_whats_app_message_input.SendWhatsAppMessageInput",
+        ) -> dict[str, Any]:
+            import capo_socialmessaging.types.send_whats_app_message_input
+
+            return capo_socialmessaging.types.send_whats_app_message_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("SendWhatsAppMessage", redact_input=_redact_input),
+        )
         input_: capo_socialmessaging.types.send_whats_app_message_input.SendWhatsAppMessageInput = {
             "origination_phone_number_id": origination_phone_number_id,
             "message": message,
@@ -1200,7 +1342,10 @@ class AsyncLinkedWhatsAppPhoneNumberResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateLinkedWhatsAppBusinessAccountPhoneNumber"),
+        )
         input_: capo_socialmessaging.types.update_linked_whats_app_business_account_phone_number_input.UpdateLinkedWhatsAppBusinessAccountPhoneNumberInput = {
             "id": id,
             "call_settings": call_settings,

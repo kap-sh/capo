@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#PassthroughTargetConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -134,6 +134,27 @@ def deserialize_json(data: dict) -> PassthroughTargetConfiguration:
         out["static_query_parameter_conflict_resolution"] = (
             capo_bedrock_agentcore_control.types.static_query_parameter_conflict_resolution.deserialize_json(
                 data["staticQueryParameterConflictResolution"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: PassthroughTargetConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "schema" in value:
+        import capo_bedrock_agentcore_control.types.http_api_schema_configuration
+
+        out["schema"] = (
+            capo_bedrock_agentcore_control.types.http_api_schema_configuration.redact_sensitive(
+                value["schema"]
+            )
+        )
+    if "static_query_parameters" in value:
+        import capo_bedrock_agentcore_control.types.static_query_parameters
+
+        out["static_query_parameters"] = (
+            capo_bedrock_agentcore_control.types.static_query_parameters.redact_sensitive(
+                value["static_query_parameters"]
             )
         )
     return out

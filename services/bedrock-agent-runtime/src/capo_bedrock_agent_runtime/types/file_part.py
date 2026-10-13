@@ -1,7 +1,7 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#FilePart``."""
 
 import json
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,4 +56,15 @@ def deserialize_event_json(message: Message) -> FilePart:
     out: FilePart = {}  # type: ignore[typeddict-item]
     if payload:
         out = deserialize_json(json.loads(payload))
+    return out
+
+
+def redact_sensitive(value: FilePart) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "files" in value:
+        import capo_bedrock_agent_runtime.types.output_files
+
+        out["files"] = capo_bedrock_agent_runtime.types.output_files.redact_sensitive(
+            value["files"]
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#InsightVisual``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -136,4 +136,25 @@ def deserialize_json(data: dict) -> InsightVisual:
         out["topic_identifier"] = data["TopicIdentifier"]
     if data.get("VisualContentAltText") is not None:
         out["visual_content_alt_text"] = data["VisualContentAltText"]
+    return out
+
+
+def redact_sensitive(value: InsightVisual) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "insight_configuration" in value:
+        import capo_quicksight.types.insight_configuration
+
+        out["insight_configuration"] = (
+            capo_quicksight.types.insight_configuration.redact_sensitive(
+                value["insight_configuration"]
+            )
+        )
+    if "actions" in value:
+        import capo_quicksight.types.visual_custom_action_list
+
+        out["actions"] = (
+            capo_quicksight.types.visual_custom_action_list.redact_sensitive(
+                value["actions"]
+            )
+        )
     return out

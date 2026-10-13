@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#SpotInstanceRequestList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from capo_ec2._protocol.xml import Element
 
@@ -42,3 +42,11 @@ def deserialize_ec2_query_flat(parent: Element, tag: str) -> SpotInstanceRequest
     for child in parent.findall(tag):
         out.append(capo_ec2.types.spot_instance_request.deserialize_ec2_query(child))
     return out
+
+
+def redact_sensitive(value: SpotInstanceRequestList) -> list[Any]:
+    import capo_ec2.types.spot_instance_request
+
+    return [
+        capo_ec2.types.spot_instance_request.redact_sensitive(item) for item in value
+    ]

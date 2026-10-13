@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_ecs._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -89,7 +90,9 @@ class ContainerInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAttributes")
+        )
         input_: capo_ecs.types.delete_attributes_request.DeleteAttributesRequest = {
             "attributes": attributes
         }
@@ -150,7 +153,9 @@ class ContainerInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeContainerInstances")
+        )
         input_: capo_ecs.types.describe_container_instances_request.DescribeContainerInstancesRequest = {
             "container_instances": container_instances
         }
@@ -228,7 +233,9 @@ class ContainerInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTasks")
+        )
         input_: capo_ecs.types.list_tasks_request.ListTasksRequest = {}
         if cluster is not None:
             input_["cluster"] = cluster
@@ -303,7 +310,9 @@ class ContainerInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutAttributes")
+        )
         input_: capo_ecs.types.put_attributes_request.PutAttributesRequest = {
             "attributes": attributes
         }
@@ -372,7 +381,9 @@ class ContainerInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RegisterContainerInstance")
+        )
         input_: capo_ecs.types.register_container_instance_request.RegisterContainerInstanceRequest = {}
         if cluster is not None:
             input_["cluster"] = cluster
@@ -448,7 +459,9 @@ class ContainerInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateContainerAgent")
+        )
         input_: capo_ecs.types.update_container_agent_request.UpdateContainerAgentRequest = {
             "container_instance": container_instance
         }
@@ -507,7 +520,9 @@ class ContainerInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateContainerInstancesState")
+        )
         input_: capo_ecs.types.update_container_instances_state_request.UpdateContainerInstancesStateRequest = {
             "container_instances": container_instances,
             "status": status,
@@ -572,7 +587,9 @@ class AsyncContainerInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAttributes")
+        )
         input_: capo_ecs.types.delete_attributes_request.DeleteAttributesRequest = {
             "attributes": attributes
         }
@@ -634,7 +651,9 @@ class AsyncContainerInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeContainerInstances")
+        )
         input_: capo_ecs.types.describe_container_instances_request.DescribeContainerInstancesRequest = {
             "container_instances": container_instances
         }
@@ -715,7 +734,9 @@ class AsyncContainerInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTasks")
+        )
         input_: capo_ecs.types.list_tasks_request.ListTasksRequest = {}
         if cluster is not None:
             input_["cluster"] = cluster
@@ -791,7 +812,9 @@ class AsyncContainerInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutAttributes")
+        )
         input_: capo_ecs.types.put_attributes_request.PutAttributesRequest = {
             "attributes": attributes
         }
@@ -861,7 +884,9 @@ class AsyncContainerInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RegisterContainerInstance")
+        )
         input_: capo_ecs.types.register_container_instance_request.RegisterContainerInstanceRequest = {}
         if cluster is not None:
             input_["cluster"] = cluster
@@ -938,7 +963,9 @@ class AsyncContainerInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateContainerAgent")
+        )
         input_: capo_ecs.types.update_container_agent_request.UpdateContainerAgentRequest = {
             "container_instance": container_instance
         }
@@ -998,7 +1025,9 @@ class AsyncContainerInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateContainerInstancesState")
+        )
         input_: capo_ecs.types.update_container_instances_state_request.UpdateContainerInstancesStateRequest = {
             "container_instances": container_instances,
             "status": status,

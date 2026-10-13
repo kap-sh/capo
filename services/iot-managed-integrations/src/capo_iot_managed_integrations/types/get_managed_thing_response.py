@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#GetManagedThingResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -339,4 +339,31 @@ def deserialize_json(data: dict) -> GetManagedThingResponse:
                 data["WiFiSimpleSetupConfiguration"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: GetManagedThingResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "owner" in value:
+        out["owner"] = "*** Sensitive Data Redacted ***"
+    if "model" in value:
+        out["model"] = "*** Sensitive Data Redacted ***"
+    if "brand" in value:
+        out["brand"] = "*** Sensitive Data Redacted ***"
+    if "serial_number" in value:
+        out["serial_number"] = "*** Sensitive Data Redacted ***"
+    if "universal_product_code" in value:
+        out["universal_product_code"] = "*** Sensitive Data Redacted ***"
+    if "international_article_number" in value:
+        out["international_article_number"] = "*** Sensitive Data Redacted ***"
+    if "connector_device_id" in value:
+        out["connector_device_id"] = "*** Sensitive Data Redacted ***"
+    if "device_specific_key" in value:
+        out["device_specific_key"] = "*** Sensitive Data Redacted ***"
+    if "mac_address" in value:
+        out["mac_address"] = "*** Sensitive Data Redacted ***"
+    if "classification" in value:
+        out["classification"] = "*** Sensitive Data Redacted ***"
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
     return out

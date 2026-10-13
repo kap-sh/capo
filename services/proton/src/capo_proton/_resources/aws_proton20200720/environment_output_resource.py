@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_proton._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -71,7 +72,19 @@ class EnvironmentOutputResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.list_environment_outputs_output.ListEnvironmentOutputsOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.list_environment_outputs_output
+
+            return capo_proton.types.list_environment_outputs_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListEnvironmentOutputs", redact_output=_redact_output),
+        )
         input_: capo_proton.types.list_environment_outputs_input.ListEnvironmentOutputsInput = {
             "environment_name": environment_name
         }
@@ -136,7 +149,19 @@ class AsyncEnvironmentOutputResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.list_environment_outputs_output.ListEnvironmentOutputsOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.list_environment_outputs_output
+
+            return capo_proton.types.list_environment_outputs_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListEnvironmentOutputs", redact_output=_redact_output),
+        )
         input_: capo_proton.types.list_environment_outputs_input.ListEnvironmentOutputsInput = {
             "environment_name": environment_name
         }

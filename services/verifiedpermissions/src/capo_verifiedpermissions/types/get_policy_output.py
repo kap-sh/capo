@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#GetPolicyOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -205,4 +205,41 @@ def deserialize_aws_json_1_0(data: dict) -> GetPolicyOutput:
         )
     if data.get("name") is not None:
         out["name"] = data["name"]
+    return out
+
+
+def redact_sensitive(value: GetPolicyOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "principal" in value:
+        import capo_verifiedpermissions.types.entity_identifier
+
+        out["principal"] = (
+            capo_verifiedpermissions.types.entity_identifier.redact_sensitive(
+                value["principal"]
+            )
+        )
+    if "resource" in value:
+        import capo_verifiedpermissions.types.entity_identifier
+
+        out["resource"] = (
+            capo_verifiedpermissions.types.entity_identifier.redact_sensitive(
+                value["resource"]
+            )
+        )
+    if "actions" in value:
+        import capo_verifiedpermissions.types.action_identifier_list
+
+        out["actions"] = (
+            capo_verifiedpermissions.types.action_identifier_list.redact_sensitive(
+                value["actions"]
+            )
+        )
+    if "definition" in value:
+        import capo_verifiedpermissions.types.policy_definition_detail
+
+        out["definition"] = (
+            capo_verifiedpermissions.types.policy_definition_detail.redact_sensitive(
+                value["definition"]
+            )
+        )
     return out

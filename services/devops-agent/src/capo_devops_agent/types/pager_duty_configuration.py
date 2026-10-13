@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#PagerDutyConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -46,4 +46,11 @@ def deserialize_json(data: dict) -> PagerDutyConfiguration:
         out["customer_email"] = data["customerEmail"]
     else:
         raise DeserializationError("PagerDutyConfiguration.customer_email required")
+    return out
+
+
+def redact_sensitive(value: PagerDutyConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "customer_email" in value:
+        out["customer_email"] = "*** Sensitive Data Redacted ***"
     return out

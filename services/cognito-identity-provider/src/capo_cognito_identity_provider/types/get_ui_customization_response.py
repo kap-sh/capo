@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#GetUICustomizationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -43,5 +43,18 @@ def deserialize_aws_json_1_1(data: dict) -> GetUICustomizationResponse:
     else:
         raise DeserializationError(
             "GetUICustomizationResponse.ui_customization required"
+        )
+    return out
+
+
+def redact_sensitive(value: GetUICustomizationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ui_customization" in value:
+        import capo_cognito_identity_provider.types.ui_customization_type
+
+        out["ui_customization"] = (
+            capo_cognito_identity_provider.types.ui_customization_type.redact_sensitive(
+                value["ui_customization"]
+            )
         )
     return out

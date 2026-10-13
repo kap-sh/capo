@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_location._auth._signers
 import capo_location._auth._sigv4
 from capo_location._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -90,7 +91,26 @@ class ApiKeyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.create_key_request.CreateKeyRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_key_request
+
+            return capo_location.types.create_key_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_location.types.create_key_response.CreateKeyResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_key_response
+
+            return capo_location.types.create_key_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateKey", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_location.types.create_key_request.CreateKeyRequest = {
             "key_name": key_name,
             "restrictions": restrictions,
@@ -146,7 +166,17 @@ class ApiKeyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.describe_key_response.DescribeKeyResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.describe_key_response
+
+            return capo_location.types.describe_key_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeKey", redact_output=_redact_output),
+        )
         input_: capo_location.types.describe_key_request.DescribeKeyRequest = {
             "key_name": key_name
         }
@@ -207,7 +237,26 @@ class ApiKeyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.update_key_request.UpdateKeyRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_key_request
+
+            return capo_location.types.update_key_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_location.types.update_key_response.UpdateKeyResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_key_response
+
+            return capo_location.types.update_key_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateKey", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_location.types.update_key_request.UpdateKeyRequest = {
             "key_name": key_name
         }
@@ -266,7 +315,9 @@ class ApiKeyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteKey")
+        )
         input_: capo_location.types.delete_key_request.DeleteKeyRequest = {
             "key_name": key_name
         }
@@ -318,7 +369,16 @@ class ApiKeyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_keys_response.ListKeysResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_keys_response
+
+            return capo_location.types.list_keys_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListKeys", redact_output=_redact_output)
+        )
         input_: capo_location.types.list_keys_request.ListKeysRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -388,7 +448,26 @@ class AsyncApiKeyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.create_key_request.CreateKeyRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_key_request
+
+            return capo_location.types.create_key_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_location.types.create_key_response.CreateKeyResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_key_response
+
+            return capo_location.types.create_key_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateKey", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_location.types.create_key_request.CreateKeyRequest = {
             "key_name": key_name,
             "restrictions": restrictions,
@@ -445,7 +524,17 @@ class AsyncApiKeyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.describe_key_response.DescribeKeyResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.describe_key_response
+
+            return capo_location.types.describe_key_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeKey", redact_output=_redact_output),
+        )
         input_: capo_location.types.describe_key_request.DescribeKeyRequest = {
             "key_name": key_name
         }
@@ -507,7 +596,26 @@ class AsyncApiKeyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.update_key_request.UpdateKeyRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_key_request
+
+            return capo_location.types.update_key_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_location.types.update_key_response.UpdateKeyResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_key_response
+
+            return capo_location.types.update_key_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateKey", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_location.types.update_key_request.UpdateKeyRequest = {
             "key_name": key_name
         }
@@ -567,7 +675,9 @@ class AsyncApiKeyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteKey")
+        )
         input_: capo_location.types.delete_key_request.DeleteKeyRequest = {
             "key_name": key_name
         }
@@ -620,7 +730,16 @@ class AsyncApiKeyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_keys_response.ListKeysResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_keys_response
+
+            return capo_location.types.list_keys_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListKeys", redact_output=_redact_output)
+        )
         input_: capo_location.types.list_keys_request.ListKeysRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

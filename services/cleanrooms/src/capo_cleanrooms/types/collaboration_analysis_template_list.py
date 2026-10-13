@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cleanrooms#CollaborationAnalysisTemplateList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_cleanrooms.types.collaboration_analysis_template
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> CollaborationAnalysisTemplateList:
             capo_cleanrooms.types.collaboration_analysis_template.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: CollaborationAnalysisTemplateList) -> list[Any]:
+    import capo_cleanrooms.types.collaboration_analysis_template
+
+    return [
+        capo_cleanrooms.types.collaboration_analysis_template.redact_sensitive(item)
+        for item in value
+    ]

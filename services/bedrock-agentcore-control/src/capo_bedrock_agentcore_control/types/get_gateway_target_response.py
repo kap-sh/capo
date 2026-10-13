@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#GetGatewayTargetResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -320,6 +320,31 @@ def deserialize_json(data: dict) -> GetGatewayTargetResponse:
         out["certificate_configurations"] = (
             capo_bedrock_agentcore_control.types.certificate_configuration_list.deserialize_json(
                 data["certificateConfigurations"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GetGatewayTargetResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "target_configuration" in value:
+        import capo_bedrock_agentcore_control.types.target_configuration
+
+        out["target_configuration"] = (
+            capo_bedrock_agentcore_control.types.target_configuration.redact_sensitive(
+                value["target_configuration"]
+            )
+        )
+    if "credential_provider_configurations" in value:
+        import capo_bedrock_agentcore_control.types.credential_provider_configurations
+
+        out["credential_provider_configurations"] = (
+            capo_bedrock_agentcore_control.types.credential_provider_configurations.redact_sensitive(
+                value["credential_provider_configurations"]
             )
         )
     return out

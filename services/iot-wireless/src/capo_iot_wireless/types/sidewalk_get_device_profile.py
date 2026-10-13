@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotwireless#SidewalkGetDeviceProfile``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -57,4 +57,11 @@ def deserialize_json(data: dict) -> SidewalkGetDeviceProfile:
                 data["DakCertificateMetadata"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: SidewalkGetDeviceProfile) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "application_server_public_key" in value:
+        out["application_server_public_key"] = "*** Sensitive Data Redacted ***"
     return out

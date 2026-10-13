@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chime#BatchUpdatePhoneNumberRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -41,5 +41,18 @@ def deserialize_json(data: dict) -> BatchUpdatePhoneNumberRequest:
     else:
         raise DeserializationError(
             "BatchUpdatePhoneNumberRequest.update_phone_number_request_items required"
+        )
+    return out
+
+
+def redact_sensitive(value: BatchUpdatePhoneNumberRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "update_phone_number_request_items" in value:
+        import capo_chime.types.update_phone_number_request_item_list
+
+        out["update_phone_number_request_items"] = (
+            capo_chime.types.update_phone_number_request_item_list.redact_sensitive(
+                value["update_phone_number_request_items"]
+            )
         )
     return out

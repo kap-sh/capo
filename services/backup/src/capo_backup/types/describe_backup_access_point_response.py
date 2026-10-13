@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.backup#DescribeBackupAccessPointResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -146,4 +146,11 @@ def deserialize_json(data: dict) -> DescribeBackupAccessPointResponse:
         raise DeserializationError("DescribeBackupAccessPointResponse.status required")
     if data.get("StatusMessage") is not None:
         out["status_message"] = data["StatusMessage"]
+    return out
+
+
+def redact_sensitive(value: DescribeBackupAccessPointResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "access_point_metadata" in value:
+        out["access_point_metadata"] = "*** Sensitive Data Redacted ***"
     return out

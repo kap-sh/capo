@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#DescribeFleetPortSettingsOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -83,4 +83,17 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeFleetPortSettingsOutput:
         )
     if data.get("Location") is not None:
         out["location"] = data["Location"]
+    return out
+
+
+def redact_sensitive(value: DescribeFleetPortSettingsOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inbound_permissions" in value:
+        import capo_gamelift.types.ip_permissions_list
+
+        out["inbound_permissions"] = (
+            capo_gamelift.types.ip_permissions_list.redact_sensitive(
+                value["inbound_permissions"]
+            )
+        )
     return out

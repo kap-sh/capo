@@ -33,10 +33,12 @@ from capo_controlcatalog._resources.control_catalog.objective_resource import (
 from capo_controlcatalog._services._aws_config import aws_config
 from capo_controlcatalog._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -150,7 +152,9 @@ class ControlCatalogClient:
         self.objective_resource = ObjectiveResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[ControlCatalogClientConfig] = None
+        self,
+        config_overrides: Optional[ControlCatalogClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ControlCatalogClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -158,8 +162,10 @@ class ControlCatalogClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -221,7 +227,9 @@ class ControlCatalogClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListControlMappings")
+        )
         input_: capo_controlcatalog.types.list_control_mappings_request.ListControlMappingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -310,7 +318,9 @@ class ControlCatalogClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCommonControls")
+        )
         input_: capo_controlcatalog.types.list_common_controls_request.ListCommonControlsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -390,7 +400,9 @@ class ControlCatalogClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetControl")
+        )
         input_: capo_controlcatalog.types.get_control_request.GetControlRequest = {
             "control_arn": control_arn
         }
@@ -446,7 +458,9 @@ class ControlCatalogClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListControls")
+        )
         input_: capo_controlcatalog.types.list_controls_request.ListControlsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -531,7 +545,9 @@ class ControlCatalogClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomains")
+        )
         input_: capo_controlcatalog.types.list_domains_request.ListDomainsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -614,7 +630,9 @@ class ControlCatalogClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListObjectives")
+        )
         input_: capo_controlcatalog.types.list_objectives_request.ListObjectivesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

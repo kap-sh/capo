@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rekognition#AuditImages``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_rekognition.types.audit_image
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> AuditImages:
             continue
         out.append(capo_rekognition.types.audit_image.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: AuditImages) -> list[Any]:
+    import capo_rekognition.types.audit_image
+
+    return [capo_rekognition.types.audit_image.redact_sensitive(item) for item in value]

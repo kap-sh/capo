@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#CoinbaseCdpTokenResponseOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -38,4 +38,13 @@ def deserialize_json(data: dict) -> CoinbaseCdpTokenResponseOutput:
         )
     if data.get("walletAuthToken") is not None:
         out["wallet_auth_token"] = data["walletAuthToken"]
+    return out
+
+
+def redact_sensitive(value: CoinbaseCdpTokenResponseOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "bearer_token" in value:
+        out["bearer_token"] = "*** Sensitive Data Redacted ***"
+    if "wallet_auth_token" in value:
+        out["wallet_auth_token"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#CreateMacSystemIntegrityProtectionModificationTaskRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -127,4 +127,13 @@ def deserialize_ec2_query(
                 child_tag_specifications
             )
         )
+    return out
+
+
+def redact_sensitive(
+    value: CreateMacSystemIntegrityProtectionModificationTaskRequest,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "mac_credentials" in value:
+        out["mac_credentials"] = "*** Sensitive Data Redacted ***"
     return out

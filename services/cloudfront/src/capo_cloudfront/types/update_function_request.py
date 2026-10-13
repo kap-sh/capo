@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudfront#UpdateFunctionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -60,4 +60,11 @@ def deserialize_xml(el: Element) -> UpdateFunctionRequest:
         )
     else:
         raise DeserializationError("UpdateFunctionRequest.function_code required")
+    return out
+
+
+def redact_sensitive(value: UpdateFunctionRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "function_code" in value:
+        out["function_code"] = "*** Sensitive Data Redacted ***"
     return out

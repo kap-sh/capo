@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazon.awshealthlakedatatransformationfrontendservice#SourceValidationIssueList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_healthlake.types.source_validation_issue
@@ -33,3 +33,7 @@ def deserialize_aws_json_1_0(data: list) -> SourceValidationIssueList:
             capo_healthlake.types.source_validation_issue.deserialize_aws_json_1_0(item)
         )
     return out
+
+
+def redact_sensitive(value: SourceValidationIssueList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

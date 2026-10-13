@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#VerifyAuthRequestCryptogramOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,11 @@ def deserialize_json(data: dict) -> VerifyAuthRequestCryptogramOutput:
         )
     if data.get("AuthResponseValue") is not None:
         out["auth_response_value"] = data["AuthResponseValue"]
+    return out
+
+
+def redact_sensitive(value: VerifyAuthRequestCryptogramOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "auth_response_value" in value:
+        out["auth_response_value"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.drs#TagResourceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -35,4 +35,11 @@ def deserialize_json(data: dict) -> TagResourceRequest:
         out["tags"] = capo_drs.types.tags_map.deserialize_json(data["tags"])
     else:
         raise DeserializationError("TagResourceRequest.tags required")
+    return out
+
+
+def redact_sensitive(value: TagResourceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mailmanager#GetRuleSetResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -98,4 +98,13 @@ def deserialize_aws_json_1_0(data: dict) -> GetRuleSetResponse:
         )
     else:
         raise DeserializationError("GetRuleSetResponse.rules required")
+    return out
+
+
+def redact_sensitive(value: GetRuleSetResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "rules" in value:
+        import capo_mailmanager.types.rules
+
+        out["rules"] = capo_mailmanager.types.rules.redact_sensitive(value["rules"])
     return out

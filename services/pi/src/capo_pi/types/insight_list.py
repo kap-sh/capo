@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pi#InsightList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_pi.types.insight
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> InsightList:
             continue
         out.append(capo_pi.types.insight.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: InsightList) -> list[Any]:
+    import capo_pi.types.insight
+
+    return [capo_pi.types.insight.redact_sensitive(item) for item in value]

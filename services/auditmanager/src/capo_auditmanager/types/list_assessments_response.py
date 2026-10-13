@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#ListAssessmentsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_json(data: dict) -> ListAssessmentsResponse:
         )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListAssessmentsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "assessment_metadata" in value:
+        import capo_auditmanager.types.list_assessment_metadata
+
+        out["assessment_metadata"] = (
+            capo_auditmanager.types.list_assessment_metadata.redact_sensitive(
+                value["assessment_metadata"]
+            )
+        )
     return out

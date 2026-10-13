@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agent._auth._signers
 import capo_bedrock_agent._auth._sigv4
 from capo_bedrock_agent._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -124,7 +125,32 @@ class ActionGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.create_agent_action_group_request.CreateAgentActionGroupRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_agent_action_group_request
+
+            return capo_bedrock_agent.types.create_agent_action_group_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.create_agent_action_group_response.CreateAgentActionGroupResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_agent_action_group_response
+
+            return capo_bedrock_agent.types.create_agent_action_group_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAgentActionGroup",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agent.types.create_agent_action_group_request.CreateAgentActionGroupRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -199,7 +225,9 @@ class ActionGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAgentActionGroup")
+        )
         input_: capo_bedrock_agent.types.delete_agent_action_group_request.DeleteAgentActionGroupRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -254,7 +282,19 @@ class ActionGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agent.types.get_agent_action_group_response.GetAgentActionGroupResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.get_agent_action_group_response
+
+            return capo_bedrock_agent.types.get_agent_action_group_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAgentActionGroup", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agent.types.get_agent_action_group_request.GetAgentActionGroupRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -309,7 +349,9 @@ class ActionGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAgentActionGroups")
+        )
         input_: capo_bedrock_agent.types.list_agent_action_groups_request.ListAgentActionGroupsRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -395,7 +437,32 @@ class ActionGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.update_agent_action_group_request.UpdateAgentActionGroupRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_agent_action_group_request
+
+            return capo_bedrock_agent.types.update_agent_action_group_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.update_agent_action_group_response.UpdateAgentActionGroupResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_agent_action_group_response
+
+            return capo_bedrock_agent.types.update_agent_action_group_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAgentActionGroup",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agent.types.update_agent_action_group_request.UpdateAgentActionGroupRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -503,7 +570,32 @@ class AsyncActionGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.create_agent_action_group_request.CreateAgentActionGroupRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_agent_action_group_request
+
+            return capo_bedrock_agent.types.create_agent_action_group_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.create_agent_action_group_response.CreateAgentActionGroupResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_agent_action_group_response
+
+            return capo_bedrock_agent.types.create_agent_action_group_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAgentActionGroup",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agent.types.create_agent_action_group_request.CreateAgentActionGroupRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -579,7 +671,9 @@ class AsyncActionGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAgentActionGroup")
+        )
         input_: capo_bedrock_agent.types.delete_agent_action_group_request.DeleteAgentActionGroupRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -635,7 +729,19 @@ class AsyncActionGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agent.types.get_agent_action_group_response.GetAgentActionGroupResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.get_agent_action_group_response
+
+            return capo_bedrock_agent.types.get_agent_action_group_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAgentActionGroup", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agent.types.get_agent_action_group_request.GetAgentActionGroupRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -691,7 +797,9 @@ class AsyncActionGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAgentActionGroups")
+        )
         input_: capo_bedrock_agent.types.list_agent_action_groups_request.ListAgentActionGroupsRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -778,7 +886,32 @@ class AsyncActionGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.update_agent_action_group_request.UpdateAgentActionGroupRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_agent_action_group_request
+
+            return capo_bedrock_agent.types.update_agent_action_group_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.update_agent_action_group_response.UpdateAgentActionGroupResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_agent_action_group_response
+
+            return capo_bedrock_agent.types.update_agent_action_group_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAgentActionGroup",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agent.types.update_agent_action_group_request.UpdateAgentActionGroupRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,

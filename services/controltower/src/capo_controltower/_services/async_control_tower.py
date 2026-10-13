@@ -48,7 +48,9 @@ from capo_controltower._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -225,7 +227,9 @@ class AsyncControlTowerClient:
         self.tagging_resource = AsyncTaggingResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncControlTowerClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncControlTowerClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncControlTowerClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -233,8 +237,10 @@ class AsyncControlTowerClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -298,7 +304,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableControl")
+        )
         input_: capo_controltower.types.disable_control_input.DisableControlInput = {}
         if control_identifier is not None:
             input_["control_identifier"] = control_identifier
@@ -350,7 +358,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBaselineOperation")
+        )
         input_: capo_controltower.types.get_baseline_operation_input.GetBaselineOperationInput = {
             "operation_identifier": operation_identifier
         }
@@ -398,7 +408,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBaseline")
+        )
         input_: capo_controltower.types.get_baseline_input.GetBaselineInput = {
             "baseline_identifier": baseline_identifier
         }
@@ -449,7 +461,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBaselines")
+        )
         input_: capo_controltower.types.list_baselines_input.ListBaselinesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -524,7 +538,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetControlOperation")
+        )
         input_: capo_controltower.types.get_control_operation_input.GetControlOperationInput = {
             "operation_identifier": operation_identifier
         }
@@ -581,7 +597,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListControlOperations")
+        )
         input_: capo_controltower.types.list_control_operations_input.ListControlOperationsInput = {}
         if filter is not None:
             input_["filter"] = filter
@@ -674,7 +692,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableBaseline")
+        )
         input_: capo_controltower.types.enable_baseline_input.EnableBaselineInput = {
             "baseline_version": baseline_version,
             "baseline_identifier": baseline_identifier,
@@ -728,7 +748,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEnabledBaseline")
+        )
         input_: capo_controltower.types.get_enabled_baseline_input.GetEnabledBaselineInput = {
             "enabled_baseline_identifier": enabled_baseline_identifier
         }
@@ -784,7 +806,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEnabledBaseline")
+        )
         input_: capo_controltower.types.update_enabled_baseline_input.UpdateEnabledBaselineInput = {
             "baseline_version": baseline_version,
             "enabled_baseline_identifier": enabled_baseline_identifier,
@@ -837,7 +861,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableBaseline")
+        )
         input_: capo_controltower.types.disable_baseline_input.DisableBaselineInput = {
             "enabled_baseline_identifier": enabled_baseline_identifier
         }
@@ -896,7 +922,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEnabledBaselines")
+        )
         input_: capo_controltower.types.list_enabled_baselines_input.ListEnabledBaselinesInput = {}
         if filter is not None:
             input_["filter"] = filter
@@ -983,7 +1011,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetEnabledBaseline")
+        )
         input_: capo_controltower.types.reset_enabled_baseline_input.ResetEnabledBaselineInput = {
             "enabled_baseline_identifier": enabled_baseline_identifier
         }
@@ -1041,7 +1071,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableControl")
+        )
         input_: capo_controltower.types.enable_control_input.EnableControlInput = {
             "control_identifier": control_identifier,
             "target_identifier": target_identifier,
@@ -1094,7 +1126,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEnabledControl")
+        )
         input_: capo_controltower.types.get_enabled_control_input.GetEnabledControlInput = {
             "enabled_control_identifier": enabled_control_identifier
         }
@@ -1146,7 +1180,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEnabledControl")
+        )
         input_: capo_controltower.types.update_enabled_control_input.UpdateEnabledControlInput = {
             "parameters": parameters,
             "enabled_control_identifier": enabled_control_identifier,
@@ -1209,7 +1245,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEnabledControls")
+        )
         input_: capo_controltower.types.list_enabled_controls_input.ListEnabledControlsInput = {}
         if target_identifier is not None:
             input_["target_identifier"] = target_identifier
@@ -1300,7 +1338,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetEnabledControl")
+        )
         input_: capo_controltower.types.reset_enabled_control_input.ResetEnabledControlInput = {
             "enabled_control_identifier": enabled_control_identifier
         }
@@ -1348,7 +1388,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLandingZoneOperation")
+        )
         input_: capo_controltower.types.get_landing_zone_operation_input.GetLandingZoneOperationInput = {
             "operation_identifier": operation_identifier
         }
@@ -1403,7 +1445,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLandingZoneOperations")
+        )
         input_: capo_controltower.types.list_landing_zone_operations_input.ListLandingZoneOperationsInput = {}
         if filter is not None:
             input_["filter"] = filter
@@ -1490,7 +1534,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLandingZone")
+        )
         input_: capo_controltower.types.create_landing_zone_input.CreateLandingZoneInput = {
             "version": version
         }
@@ -1544,7 +1590,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLandingZone")
+        )
         input_: capo_controltower.types.get_landing_zone_input.GetLandingZoneInput = {
             "landing_zone_identifier": landing_zone_identifier
         }
@@ -1601,7 +1649,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLandingZone")
+        )
         input_: capo_controltower.types.update_landing_zone_input.UpdateLandingZoneInput = {
             "version": version,
             "landing_zone_identifier": landing_zone_identifier,
@@ -1655,7 +1705,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLandingZone")
+        )
         input_: capo_controltower.types.delete_landing_zone_input.DeleteLandingZoneInput = {
             "landing_zone_identifier": landing_zone_identifier
         }
@@ -1706,7 +1758,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLandingZones")
+        )
         input_: capo_controltower.types.list_landing_zones_input.ListLandingZonesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1782,7 +1836,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetLandingZone")
+        )
         input_: capo_controltower.types.reset_landing_zone_input.ResetLandingZoneInput = {
             "landing_zone_identifier": landing_zone_identifier
         }
@@ -1828,7 +1884,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_controltower.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -1876,7 +1934,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_controltower.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1925,7 +1985,9 @@ class AsyncControlTowerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_controltower.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,

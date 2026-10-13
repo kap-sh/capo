@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.route53domains#ExtraParamList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_route_53_domains.types.extra_param
@@ -29,3 +29,11 @@ def deserialize_aws_json_1_1(data: list) -> ExtraParamList:
             capo_route_53_domains.types.extra_param.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+def redact_sensitive(value: ExtraParamList) -> list[Any]:
+    import capo_route_53_domains.types.extra_param
+
+    return [
+        capo_route_53_domains.types.extra_param.redact_sensitive(item) for item in value
+    ]

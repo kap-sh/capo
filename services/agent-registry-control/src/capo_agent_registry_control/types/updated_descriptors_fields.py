@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.agentregistrycontrol#UpdatedDescriptorsFields``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -142,6 +142,43 @@ def deserialize_json(data: dict) -> UpdatedDescriptorsFields:
         out["agui"] = (
             capo_agent_registry_control.types.updated_ag_ui_descriptor.deserialize_json(
                 data["agui"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdatedDescriptorsFields) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "mcp_server" in value:
+        import capo_agent_registry_control.types.updated_mcp_server_descriptor
+
+        out["mcp_server"] = (
+            capo_agent_registry_control.types.updated_mcp_server_descriptor.redact_sensitive(
+                value["mcp_server"]
+            )
+        )
+    if "a2a_agent_card" in value:
+        import capo_agent_registry_control.types.updated_a2a_agent_card_descriptor
+
+        out["a2a_agent_card"] = (
+            capo_agent_registry_control.types.updated_a2a_agent_card_descriptor.redact_sensitive(
+                value["a2a_agent_card"]
+            )
+        )
+    if "agent_skills_definition" in value:
+        import capo_agent_registry_control.types.updated_agent_skills_definition_descriptor
+
+        out["agent_skills_definition"] = (
+            capo_agent_registry_control.types.updated_agent_skills_definition_descriptor.redact_sensitive(
+                value["agent_skills_definition"]
+            )
+        )
+    if "custom" in value:
+        import capo_agent_registry_control.types.updated_custom_descriptor
+
+        out["custom"] = (
+            capo_agent_registry_control.types.updated_custom_descriptor.redact_sensitive(
+                value["custom"]
             )
         )
     return out

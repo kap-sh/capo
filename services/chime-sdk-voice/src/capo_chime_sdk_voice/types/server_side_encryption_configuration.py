@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#ServerSideEncryptionConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -30,4 +30,11 @@ def deserialize_json(data: dict) -> ServerSideEncryptionConfiguration:
         raise DeserializationError(
             "ServerSideEncryptionConfiguration.kms_key_arn required"
         )
+    return out
+
+
+def redact_sensitive(value: ServerSideEncryptionConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "kms_key_arn" in value:
+        out["kms_key_arn"] = "*** Sensitive Data Redacted ***"
     return out

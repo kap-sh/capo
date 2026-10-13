@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_ecs._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -124,7 +125,9 @@ class ServiceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateServicePrimaryTaskSet")
+        )
         input_: capo_ecs.types.update_service_primary_task_set_request.UpdateServicePrimaryTaskSetRequest = {
             "cluster": cluster,
             "service": service,
@@ -210,7 +213,36 @@ class ServiceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ecs.types.create_express_gateway_service_request.CreateExpressGatewayServiceRequest",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.create_express_gateway_service_request
+
+            return (
+                capo_ecs.types.create_express_gateway_service_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_ecs.types.create_express_gateway_service_response.CreateExpressGatewayServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.create_express_gateway_service_response
+
+            return (
+                capo_ecs.types.create_express_gateway_service_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateExpressGatewayService",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_ecs.types.create_express_gateway_service_request.CreateExpressGatewayServiceRequest = {
             "infrastructure_role_arn": infrastructure_role_arn
         }
@@ -385,7 +417,9 @@ class ServiceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateService")
+        )
         input_: capo_ecs.types.create_service_request.CreateServiceRequest = {
             "service_name": service_name
         }
@@ -489,7 +523,23 @@ class ServiceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.delete_express_gateway_service_response.DeleteExpressGatewayServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.delete_express_gateway_service_response
+
+            return (
+                capo_ecs.types.delete_express_gateway_service_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DeleteExpressGatewayService", redact_output=_redact_output
+            ),
+        )
         input_: capo_ecs.types.delete_express_gateway_service_request.DeleteExpressGatewayServiceRequest = {
             "service_arn": service_arn
         }
@@ -547,7 +597,9 @@ class ServiceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteService")
+        )
         input_: capo_ecs.types.delete_service_request.DeleteServiceRequest = {
             "service": service
         }
@@ -604,7 +656,21 @@ class ServiceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.describe_express_gateway_service_response.DescribeExpressGatewayServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.describe_express_gateway_service_response
+
+            return capo_ecs.types.describe_express_gateway_service_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeExpressGatewayService", redact_output=_redact_output
+            ),
+        )
         input_: capo_ecs.types.describe_express_gateway_service_request.DescribeExpressGatewayServiceRequest = {
             "service_arn": service_arn
         }
@@ -667,7 +733,9 @@ class ServiceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeServices")
+        )
         input_: capo_ecs.types.describe_services_request.DescribeServicesRequest = {
             "services": services
         }
@@ -738,7 +806,9 @@ class ServiceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListServiceDeployments")
+        )
         input_: capo_ecs.types.list_service_deployments_request.ListServiceDeploymentsRequest = {
             "service": service
         }
@@ -815,7 +885,9 @@ class ServiceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListServices")
+        )
         input_: capo_ecs.types.list_services_request.ListServicesRequest = {}
         if cluster is not None:
             input_["cluster"] = cluster
@@ -886,7 +958,9 @@ class ServiceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopServiceDeployment")
+        )
         input_: capo_ecs.types.stop_service_deployment_request.StopServiceDeploymentRequest = {
             "service_deployment_arn": service_deployment_arn
         }
@@ -966,7 +1040,36 @@ class ServiceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ecs.types.update_express_gateway_service_request.UpdateExpressGatewayServiceRequest",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.update_express_gateway_service_request
+
+            return (
+                capo_ecs.types.update_express_gateway_service_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_ecs.types.update_express_gateway_service_response.UpdateExpressGatewayServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.update_express_gateway_service_response
+
+            return (
+                capo_ecs.types.update_express_gateway_service_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateExpressGatewayService",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_ecs.types.update_express_gateway_service_request.UpdateExpressGatewayServiceRequest = {
             "service_arn": service_arn
         }
@@ -1130,7 +1233,9 @@ class ServiceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateService")
+        )
         input_: capo_ecs.types.update_service_request.UpdateServiceRequest = {
             "service": service
         }
@@ -1243,7 +1348,9 @@ class AsyncServiceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateServicePrimaryTaskSet")
+        )
         input_: capo_ecs.types.update_service_primary_task_set_request.UpdateServicePrimaryTaskSetRequest = {
             "cluster": cluster,
             "service": service,
@@ -1330,7 +1437,36 @@ class AsyncServiceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ecs.types.create_express_gateway_service_request.CreateExpressGatewayServiceRequest",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.create_express_gateway_service_request
+
+            return (
+                capo_ecs.types.create_express_gateway_service_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_ecs.types.create_express_gateway_service_response.CreateExpressGatewayServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.create_express_gateway_service_response
+
+            return (
+                capo_ecs.types.create_express_gateway_service_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateExpressGatewayService",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_ecs.types.create_express_gateway_service_request.CreateExpressGatewayServiceRequest = {
             "infrastructure_role_arn": infrastructure_role_arn
         }
@@ -1506,7 +1642,9 @@ class AsyncServiceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateService")
+        )
         input_: capo_ecs.types.create_service_request.CreateServiceRequest = {
             "service_name": service_name
         }
@@ -1611,7 +1749,23 @@ class AsyncServiceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.delete_express_gateway_service_response.DeleteExpressGatewayServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.delete_express_gateway_service_response
+
+            return (
+                capo_ecs.types.delete_express_gateway_service_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DeleteExpressGatewayService", redact_output=_redact_output
+            ),
+        )
         input_: capo_ecs.types.delete_express_gateway_service_request.DeleteExpressGatewayServiceRequest = {
             "service_arn": service_arn
         }
@@ -1670,7 +1824,9 @@ class AsyncServiceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteService")
+        )
         input_: capo_ecs.types.delete_service_request.DeleteServiceRequest = {
             "service": service
         }
@@ -1728,7 +1884,21 @@ class AsyncServiceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.describe_express_gateway_service_response.DescribeExpressGatewayServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.describe_express_gateway_service_response
+
+            return capo_ecs.types.describe_express_gateway_service_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeExpressGatewayService", redact_output=_redact_output
+            ),
+        )
         input_: capo_ecs.types.describe_express_gateway_service_request.DescribeExpressGatewayServiceRequest = {
             "service_arn": service_arn
         }
@@ -1792,7 +1962,9 @@ class AsyncServiceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeServices")
+        )
         input_: capo_ecs.types.describe_services_request.DescribeServicesRequest = {
             "services": services
         }
@@ -1864,7 +2036,9 @@ class AsyncServiceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListServiceDeployments")
+        )
         input_: capo_ecs.types.list_service_deployments_request.ListServiceDeploymentsRequest = {
             "service": service
         }
@@ -1942,7 +2116,9 @@ class AsyncServiceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListServices")
+        )
         input_: capo_ecs.types.list_services_request.ListServicesRequest = {}
         if cluster is not None:
             input_["cluster"] = cluster
@@ -2014,7 +2190,9 @@ class AsyncServiceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopServiceDeployment")
+        )
         input_: capo_ecs.types.stop_service_deployment_request.StopServiceDeploymentRequest = {
             "service_deployment_arn": service_deployment_arn
         }
@@ -2095,7 +2273,36 @@ class AsyncServiceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ecs.types.update_express_gateway_service_request.UpdateExpressGatewayServiceRequest",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.update_express_gateway_service_request
+
+            return (
+                capo_ecs.types.update_express_gateway_service_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_ecs.types.update_express_gateway_service_response.UpdateExpressGatewayServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.update_express_gateway_service_response
+
+            return (
+                capo_ecs.types.update_express_gateway_service_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateExpressGatewayService",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_ecs.types.update_express_gateway_service_request.UpdateExpressGatewayServiceRequest = {
             "service_arn": service_arn
         }
@@ -2260,7 +2467,9 @@ class AsyncServiceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateService")
+        )
         input_: capo_ecs.types.update_service_request.UpdateServiceRequest = {
             "service": service
         }

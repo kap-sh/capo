@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#AcceptChoice``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,4 +37,11 @@ def deserialize_json(data: dict) -> AcceptChoice:
         out["prediction_choice"] = data["predictionChoice"]
     if data.get("editedValue") is not None:
         out["edited_value"] = data["editedValue"]
+    return out
+
+
+def redact_sensitive(value: AcceptChoice) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "edited_value" in value:
+        out["edited_value"] = "*** Sensitive Data Redacted ***"
     return out

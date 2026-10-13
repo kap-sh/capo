@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.notificationscontacts#CreateEmailContactRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,4 +53,11 @@ def deserialize_json(data: dict) -> CreateEmailContactRequest:
         out["tags"] = capo_notificationscontacts.types.tag_map.deserialize_json(
             data["tags"]
         )
+    return out
+
+
+def redact_sensitive(value: CreateEmailContactRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
     return out

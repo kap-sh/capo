@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sns#DeleteSMSSandboxPhoneNumberInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -33,4 +33,11 @@ def deserialize_query(el: Element) -> DeleteSMSSandboxPhoneNumberInput:
         raise DeserializationError(
             "DeleteSMSSandboxPhoneNumberInput.phone_number required"
         )
+    return out
+
+
+def redact_sensitive(value: DeleteSMSSandboxPhoneNumberInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "phone_number" in value:
+        out["phone_number"] = "*** Sensitive Data Redacted ***"
     return out

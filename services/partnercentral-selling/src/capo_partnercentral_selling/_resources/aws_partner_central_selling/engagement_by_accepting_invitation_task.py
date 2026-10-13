@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_partnercentral_selling._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -82,7 +83,10 @@ class EngagementByAcceptingInvitationTask:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartEngagementByAcceptingInvitationTask"),
+        )
         input_: capo_partnercentral_selling.types.start_engagement_by_accepting_invitation_task_request.StartEngagementByAcceptingInvitationTaskRequest = {
             "catalog": catalog,
             "client_token": client_token,
@@ -157,7 +161,10 @@ class EngagementByAcceptingInvitationTask:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListEngagementByAcceptingInvitationTasks"),
+        )
         input_: capo_partnercentral_selling.types.list_engagement_by_accepting_invitation_tasks_request.ListEngagementByAcceptingInvitationTasksRequest = {
             "catalog": catalog
         }
@@ -234,7 +241,10 @@ class AsyncEngagementByAcceptingInvitationTask:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartEngagementByAcceptingInvitationTask"),
+        )
         input_: capo_partnercentral_selling.types.start_engagement_by_accepting_invitation_task_request.StartEngagementByAcceptingInvitationTaskRequest = {
             "catalog": catalog,
             "client_token": client_token,
@@ -310,7 +320,10 @@ class AsyncEngagementByAcceptingInvitationTask:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListEngagementByAcceptingInvitationTasks"),
+        )
         input_: capo_partnercentral_selling.types.list_engagement_by_accepting_invitation_tasks_request.ListEngagementByAcceptingInvitationTasksRequest = {
             "catalog": catalog
         }

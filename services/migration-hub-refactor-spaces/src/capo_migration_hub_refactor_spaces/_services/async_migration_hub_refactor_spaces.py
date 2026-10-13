@@ -25,7 +25,9 @@ from capo_migration_hub_refactor_spaces._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -188,6 +190,7 @@ class AsyncMigrationHubRefactorSpacesClient:
     def operation_options(
         self,
         config_overrides: Optional[AsyncMigrationHubRefactorSpacesClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncMigrationHubRefactorSpacesClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -195,8 +198,10 @@ class AsyncMigrationHubRefactorSpacesClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -270,7 +275,32 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_migration_hub_refactor_spaces.types.create_application_request.CreateApplicationRequest",
+        ) -> dict[str, Any]:
+            import capo_migration_hub_refactor_spaces.types.create_application_request
+
+            return capo_migration_hub_refactor_spaces.types.create_application_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_migration_hub_refactor_spaces.types.create_application_response.CreateApplicationResponse",
+        ) -> dict[str, Any]:
+            import capo_migration_hub_refactor_spaces.types.create_application_response
+
+            return capo_migration_hub_refactor_spaces.types.create_application_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateApplication",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_migration_hub_refactor_spaces.types.create_application_request.CreateApplicationRequest = {
             "name": name,
             "environment_identifier": environment_identifier,
@@ -344,7 +374,32 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_migration_hub_refactor_spaces.types.create_environment_request.CreateEnvironmentRequest",
+        ) -> dict[str, Any]:
+            import capo_migration_hub_refactor_spaces.types.create_environment_request
+
+            return capo_migration_hub_refactor_spaces.types.create_environment_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_migration_hub_refactor_spaces.types.create_environment_response.CreateEnvironmentResponse",
+        ) -> dict[str, Any]:
+            import capo_migration_hub_refactor_spaces.types.create_environment_response
+
+            return capo_migration_hub_refactor_spaces.types.create_environment_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateEnvironment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_migration_hub_refactor_spaces.types.create_environment_request.CreateEnvironmentRequest = {
             "name": name,
             "network_fabric_type": network_fabric_type,
@@ -424,7 +479,30 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_migration_hub_refactor_spaces.types.create_route_request.CreateRouteRequest",
+        ) -> dict[str, Any]:
+            import capo_migration_hub_refactor_spaces.types.create_route_request
+
+            return capo_migration_hub_refactor_spaces.types.create_route_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_migration_hub_refactor_spaces.types.create_route_response.CreateRouteResponse",
+        ) -> dict[str, Any]:
+            import capo_migration_hub_refactor_spaces.types.create_route_response
+
+            return capo_migration_hub_refactor_spaces.types.create_route_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateRoute", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_migration_hub_refactor_spaces.types.create_route_request.CreateRouteRequest = {
             "environment_identifier": environment_identifier,
             "application_identifier": application_identifier,
@@ -516,7 +594,32 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_migration_hub_refactor_spaces.types.create_service_request.CreateServiceRequest",
+        ) -> dict[str, Any]:
+            import capo_migration_hub_refactor_spaces.types.create_service_request
+
+            return capo_migration_hub_refactor_spaces.types.create_service_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_migration_hub_refactor_spaces.types.create_service_response.CreateServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_migration_hub_refactor_spaces.types.create_service_response
+
+            return capo_migration_hub_refactor_spaces.types.create_service_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateService",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_migration_hub_refactor_spaces.types.create_service_request.CreateServiceRequest = {
             "name": name,
             "environment_identifier": environment_identifier,
@@ -583,7 +686,9 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_migration_hub_refactor_spaces.types.delete_application_request.DeleteApplicationRequest = {
             "environment_identifier": environment_identifier,
             "application_identifier": application_identifier,
@@ -633,7 +738,9 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironment")
+        )
         input_: capo_migration_hub_refactor_spaces.types.delete_environment_request.DeleteEnvironmentRequest = {
             "environment_identifier": environment_identifier
         }
@@ -681,7 +788,9 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_migration_hub_refactor_spaces.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {
             "identifier": identifier
         }
@@ -734,7 +843,9 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRoute")
+        )
         input_: capo_migration_hub_refactor_spaces.types.delete_route_request.DeleteRouteRequest = {
             "environment_identifier": environment_identifier,
             "application_identifier": application_identifier,
@@ -789,7 +900,9 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteService")
+        )
         input_: capo_migration_hub_refactor_spaces.types.delete_service_request.DeleteServiceRequest = {
             "environment_identifier": environment_identifier,
             "application_identifier": application_identifier,
@@ -841,7 +954,19 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_migration_hub_refactor_spaces.types.get_application_response.GetApplicationResponse",
+        ) -> dict[str, Any]:
+            import capo_migration_hub_refactor_spaces.types.get_application_response
+
+            return capo_migration_hub_refactor_spaces.types.get_application_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetApplication", redact_output=_redact_output),
+        )
         input_: capo_migration_hub_refactor_spaces.types.get_application_request.GetApplicationRequest = {
             "environment_identifier": environment_identifier,
             "application_identifier": application_identifier,
@@ -890,7 +1015,19 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_migration_hub_refactor_spaces.types.get_environment_response.GetEnvironmentResponse",
+        ) -> dict[str, Any]:
+            import capo_migration_hub_refactor_spaces.types.get_environment_response
+
+            return capo_migration_hub_refactor_spaces.types.get_environment_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetEnvironment", redact_output=_redact_output),
+        )
         input_: capo_migration_hub_refactor_spaces.types.get_environment_request.GetEnvironmentRequest = {
             "environment_identifier": environment_identifier
         }
@@ -938,7 +1075,9 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_migration_hub_refactor_spaces.types.get_resource_policy_request.GetResourcePolicyRequest = {
             "identifier": identifier
         }
@@ -990,7 +1129,18 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_migration_hub_refactor_spaces.types.get_route_response.GetRouteResponse",
+        ) -> dict[str, Any]:
+            import capo_migration_hub_refactor_spaces.types.get_route_response
+
+            return capo_migration_hub_refactor_spaces.types.get_route_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRoute", redact_output=_redact_output)
+        )
         input_: capo_migration_hub_refactor_spaces.types.get_route_request.GetRouteRequest = {
             "environment_identifier": environment_identifier,
             "application_identifier": application_identifier,
@@ -1044,7 +1194,19 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_migration_hub_refactor_spaces.types.get_service_response.GetServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_migration_hub_refactor_spaces.types.get_service_response
+
+            return capo_migration_hub_refactor_spaces.types.get_service_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetService", redact_output=_redact_output),
+        )
         input_: capo_migration_hub_refactor_spaces.types.get_service_request.GetServiceRequest = {
             "environment_identifier": environment_identifier,
             "application_identifier": application_identifier,
@@ -1104,7 +1266,19 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_migration_hub_refactor_spaces.types.list_applications_response.ListApplicationsResponse",
+        ) -> dict[str, Any]:
+            import capo_migration_hub_refactor_spaces.types.list_applications_response
+
+            return capo_migration_hub_refactor_spaces.types.list_applications_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListApplications", redact_output=_redact_output),
+        )
         input_: capo_migration_hub_refactor_spaces.types.list_applications_request.ListApplicationsRequest = {
             "environment_identifier": environment_identifier
         }
@@ -1189,7 +1363,19 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_migration_hub_refactor_spaces.types.list_environments_response.ListEnvironmentsResponse",
+        ) -> dict[str, Any]:
+            import capo_migration_hub_refactor_spaces.types.list_environments_response
+
+            return capo_migration_hub_refactor_spaces.types.list_environments_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListEnvironments", redact_output=_redact_output),
+        )
         input_: capo_migration_hub_refactor_spaces.types.list_environments_request.ListEnvironmentsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1272,7 +1458,9 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEnvironmentVpcs")
+        )
         input_: capo_migration_hub_refactor_spaces.types.list_environment_vpcs_request.ListEnvironmentVpcsRequest = {
             "environment_identifier": environment_identifier
         }
@@ -1363,7 +1551,19 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_migration_hub_refactor_spaces.types.list_routes_response.ListRoutesResponse",
+        ) -> dict[str, Any]:
+            import capo_migration_hub_refactor_spaces.types.list_routes_response
+
+            return capo_migration_hub_refactor_spaces.types.list_routes_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListRoutes", redact_output=_redact_output),
+        )
         input_: capo_migration_hub_refactor_spaces.types.list_routes_request.ListRoutesRequest = {
             "environment_identifier": environment_identifier,
             "application_identifier": application_identifier,
@@ -1457,7 +1657,19 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_migration_hub_refactor_spaces.types.list_services_response.ListServicesResponse",
+        ) -> dict[str, Any]:
+            import capo_migration_hub_refactor_spaces.types.list_services_response
+
+            return capo_migration_hub_refactor_spaces.types.list_services_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListServices", redact_output=_redact_output),
+        )
         input_: capo_migration_hub_refactor_spaces.types.list_services_request.ListServicesRequest = {
             "environment_identifier": environment_identifier,
             "application_identifier": application_identifier,
@@ -1537,7 +1749,19 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_migration_hub_refactor_spaces.types.list_tags_for_resource_response.ListTagsForResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_migration_hub_refactor_spaces.types.list_tags_for_resource_response
+
+            return capo_migration_hub_refactor_spaces.types.list_tags_for_resource_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_migration_hub_refactor_spaces.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1588,7 +1812,9 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_migration_hub_refactor_spaces.types.put_resource_policy_request.PutResourcePolicyRequest = {
             "resource_arn": resource_arn,
             "policy": policy,
@@ -1637,7 +1863,19 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_migration_hub_refactor_spaces.types.tag_resource_request.TagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_migration_hub_refactor_spaces.types.tag_resource_request
+
+            return capo_migration_hub_refactor_spaces.types.tag_resource_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_migration_hub_refactor_spaces.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1686,7 +1924,19 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_migration_hub_refactor_spaces.types.untag_resource_request.UntagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_migration_hub_refactor_spaces.types.untag_resource_request
+
+            return capo_migration_hub_refactor_spaces.types.untag_resource_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UntagResource", redact_input=_redact_input),
+        )
         input_: capo_migration_hub_refactor_spaces.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1741,7 +1991,9 @@ class AsyncMigrationHubRefactorSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRoute")
+        )
         input_: capo_migration_hub_refactor_spaces.types.update_route_request.UpdateRouteRequest = {
             "environment_identifier": environment_identifier,
             "application_identifier": application_identifier,

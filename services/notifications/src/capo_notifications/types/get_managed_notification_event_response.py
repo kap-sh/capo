@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.notifications#GetManagedNotificationEventResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -81,5 +81,18 @@ def deserialize_json(data: dict) -> GetManagedNotificationEventResponse:
     else:
         raise DeserializationError(
             "GetManagedNotificationEventResponse.content required"
+        )
+    return out
+
+
+def redact_sensitive(value: GetManagedNotificationEventResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        import capo_notifications.types.managed_notification_event
+
+        out["content"] = (
+            capo_notifications.types.managed_notification_event.redact_sensitive(
+                value["content"]
+            )
         )
     return out

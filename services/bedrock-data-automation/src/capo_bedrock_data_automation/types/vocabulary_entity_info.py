@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockdataautomation#VocabularyEntityInfo``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -66,4 +66,19 @@ def deserialize_json(data: dict) -> VocabularyEntityInfo:
         )
     else:
         raise DeserializationError("VocabularyEntityInfo.phrases required")
+    return out
+
+
+def redact_sensitive(value: VocabularyEntityInfo) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "phrases" in value:
+        import capo_bedrock_data_automation.types.phrase_list
+
+        out["phrases"] = (
+            capo_bedrock_data_automation.types.phrase_list.redact_sensitive(
+                value["phrases"]
+            )
+        )
     return out

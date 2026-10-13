@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudfrontkeyvaluestore#UpdateKeysRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -64,6 +64,19 @@ def deserialize_json(data: dict) -> UpdateKeysRequest:
         out["deletes"] = (
             capo_cloudfront_keyvaluestore.types.delete_key_requests_list.deserialize_json(
                 data["Deletes"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateKeysRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "puts" in value:
+        import capo_cloudfront_keyvaluestore.types.put_key_requests_list
+
+        out["puts"] = (
+            capo_cloudfront_keyvaluestore.types.put_key_requests_list.redact_sensitive(
+                value["puts"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#Address``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -179,6 +179,63 @@ def deserialize_json(data: dict) -> Address:
         out["secondary_address_components"] = (
             capo_geo_places.types.secondary_address_component_list.deserialize_json(
                 data["SecondaryAddressComponents"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: Address) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "label" in value:
+        out["label"] = "*** Sensitive Data Redacted ***"
+    if "country" in value:
+        import capo_geo_places.types.country
+
+        out["country"] = capo_geo_places.types.country.redact_sensitive(
+            value["country"]
+        )
+    if "region" in value:
+        import capo_geo_places.types.region
+
+        out["region"] = capo_geo_places.types.region.redact_sensitive(value["region"])
+    if "sub_region" in value:
+        import capo_geo_places.types.sub_region
+
+        out["sub_region"] = capo_geo_places.types.sub_region.redact_sensitive(
+            value["sub_region"]
+        )
+    if "locality" in value:
+        out["locality"] = "*** Sensitive Data Redacted ***"
+    if "district" in value:
+        out["district"] = "*** Sensitive Data Redacted ***"
+    if "sub_district" in value:
+        out["sub_district"] = "*** Sensitive Data Redacted ***"
+    if "postal_code" in value:
+        out["postal_code"] = "*** Sensitive Data Redacted ***"
+    if "block" in value:
+        out["block"] = "*** Sensitive Data Redacted ***"
+    if "sub_block" in value:
+        out["sub_block"] = "*** Sensitive Data Redacted ***"
+    if "street" in value:
+        out["street"] = "*** Sensitive Data Redacted ***"
+    if "street_components" in value:
+        import capo_geo_places.types.street_components_list
+
+        out["street_components"] = (
+            capo_geo_places.types.street_components_list.redact_sensitive(
+                value["street_components"]
+            )
+        )
+    if "address_number" in value:
+        out["address_number"] = "*** Sensitive Data Redacted ***"
+    if "building" in value:
+        out["building"] = "*** Sensitive Data Redacted ***"
+    if "secondary_address_components" in value:
+        import capo_geo_places.types.secondary_address_component_list
+
+        out["secondary_address_components"] = (
+            capo_geo_places.types.secondary_address_component_list.redact_sensitive(
+                value["secondary_address_components"]
             )
         )
     return out

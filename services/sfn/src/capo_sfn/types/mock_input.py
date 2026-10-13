@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#MockInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -60,5 +60,18 @@ def deserialize_aws_json_1_0(data: dict) -> MockInput:
             capo_sfn.types.mock_response_validation_mode.deserialize_aws_json_1_0(
                 data["fieldValidationMode"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: MockInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "result" in value:
+        out["result"] = "*** Sensitive Data Redacted ***"
+    if "error_output" in value:
+        import capo_sfn.types.mock_error_output
+
+        out["error_output"] = capo_sfn.types.mock_error_output.redact_sensitive(
+            value["error_output"]
         )
     return out

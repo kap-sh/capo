@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.supplychain#DataIntegrationFlow``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -132,4 +132,17 @@ def deserialize_json(data: dict) -> DataIntegrationFlow:
         )
     else:
         raise DeserializationError("DataIntegrationFlow.last_modified_time required")
+    return out
+
+
+def redact_sensitive(value: DataIntegrationFlow) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "transformation" in value:
+        import capo_supplychain.types.data_integration_flow_transformation
+
+        out["transformation"] = (
+            capo_supplychain.types.data_integration_flow_transformation.redact_sensitive(
+                value["transformation"]
+            )
+        )
     return out

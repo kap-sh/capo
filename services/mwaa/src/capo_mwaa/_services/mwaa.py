@@ -21,10 +21,12 @@ from capo_mwaa._pagination import resolve_path as _resolve_path
 from capo_mwaa._services._aws_config import aws_config
 from capo_mwaa._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -157,7 +159,9 @@ class MWAAClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[MWAAClientConfig] = None
+        self,
+        config_overrides: Optional[MWAAClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MWAAClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -165,8 +169,10 @@ class MWAAClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -215,7 +221,17 @@ class MWAAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mwaa.types.create_cli_token_response.CreateCliTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_mwaa.types.create_cli_token_response
+
+            return capo_mwaa.types.create_cli_token_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateCliToken", redact_output=_redact_output),
+        )
         input_: capo_mwaa.types.create_cli_token_request.CreateCliTokenRequest = {
             "name": name
         }
@@ -332,7 +348,17 @@ class MWAAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mwaa.types.create_environment_input.CreateEnvironmentInput",
+        ) -> dict[str, Any]:
+            import capo_mwaa.types.create_environment_input
+
+            return capo_mwaa.types.create_environment_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateEnvironment", redact_input=_redact_input),
+        )
         input_: capo_mwaa.types.create_environment_input.CreateEnvironmentInput = {
             "name": name,
             "execution_role_arn": execution_role_arn,
@@ -424,7 +450,19 @@ class MWAAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mwaa.types.create_web_login_token_response.CreateWebLoginTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_mwaa.types.create_web_login_token_response
+
+            return capo_mwaa.types.create_web_login_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateWebLoginToken", redact_output=_redact_output),
+        )
         input_: capo_mwaa.types.create_web_login_token_request.CreateWebLoginTokenRequest = {
             "name": name
         }
@@ -470,7 +508,9 @@ class MWAAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironment")
+        )
         input_: capo_mwaa.types.delete_environment_input.DeleteEnvironmentInput = {
             "name": name
         }
@@ -515,7 +555,17 @@ class MWAAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mwaa.types.get_environment_output.GetEnvironmentOutput",
+        ) -> dict[str, Any]:
+            import capo_mwaa.types.get_environment_output
+
+            return capo_mwaa.types.get_environment_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetEnvironment", redact_output=_redact_output),
+        )
         input_: capo_mwaa.types.get_environment_input.GetEnvironmentInput = {
             "name": name
         }
@@ -578,7 +628,28 @@ class MWAAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mwaa.types.invoke_rest_api_request.InvokeRestApiRequest",
+        ) -> dict[str, Any]:
+            import capo_mwaa.types.invoke_rest_api_request
+
+            return capo_mwaa.types.invoke_rest_api_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_mwaa.types.invoke_rest_api_response.InvokeRestApiResponse",
+        ) -> dict[str, Any]:
+            import capo_mwaa.types.invoke_rest_api_response
+
+            return capo_mwaa.types.invoke_rest_api_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeRestApi",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mwaa.types.invoke_rest_api_request.InvokeRestApiRequest = {
             "name": name,
             "path": path,
@@ -630,7 +701,9 @@ class MWAAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEnvironments")
+        )
         input_: capo_mwaa.types.list_environments_input.ListEnvironmentsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -698,7 +771,9 @@ class MWAAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_mwaa.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -744,7 +819,9 @@ class MWAAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PublishMetrics")
+        )
         input_: capo_mwaa.types.publish_metrics_input.PublishMetricsInput = {
             "environment_name": environment_name,
             "metric_data": metric_data,
@@ -790,7 +867,9 @@ class MWAAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_mwaa.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -838,7 +917,9 @@ class MWAAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_mwaa.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -955,7 +1036,17 @@ class MWAAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mwaa.types.update_environment_input.UpdateEnvironmentInput",
+        ) -> dict[str, Any]:
+            import capo_mwaa.types.update_environment_input
+
+            return capo_mwaa.types.update_environment_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateEnvironment", redact_input=_redact_input),
+        )
         input_: capo_mwaa.types.update_environment_input.UpdateEnvironmentInput = {
             "name": name
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#SearchUsersResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -51,4 +51,15 @@ def deserialize_json(data: dict) -> SearchUsersResponse:
         out["next_token"] = data["NextToken"]
     if data.get("ApproximateTotalCount") is not None:
         out["approximate_total_count"] = data["ApproximateTotalCount"]
+    return out
+
+
+def redact_sensitive(value: SearchUsersResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "users" in value:
+        import capo_connect.types.user_search_summary_list
+
+        out["users"] = capo_connect.types.user_search_summary_list.redact_sensitive(
+            value["users"]
+        )
     return out

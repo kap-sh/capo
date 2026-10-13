@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.polly#PutLexiconInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -31,4 +31,11 @@ def deserialize_json(data: dict) -> PutLexiconInput:
         out["content"] = data["Content"]
     else:
         raise DeserializationError("PutLexiconInput.content required")
+    return out
+
+
+def redact_sensitive(value: PutLexiconInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        out["content"] = "*** Sensitive Data Redacted ***"
     return out

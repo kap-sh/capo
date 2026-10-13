@@ -21,10 +21,12 @@ from capo_signer._pagination import resolve_path as _resolve_path
 from capo_signer._services._aws_config import aws_config
 from capo_signer._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -165,7 +167,9 @@ class signerClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[signerClientConfig] = None
+        self,
+        config_overrides: Optional[signerClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: signerClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -173,8 +177,10 @@ class signerClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -243,7 +249,9 @@ class signerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddProfilePermission")
+        )
         input_: capo_signer.types.add_profile_permission_request.AddProfilePermissionRequest = {
             "profile_name": profile_name,
             "action": action,
@@ -294,7 +302,9 @@ class signerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelSigningProfile")
+        )
         input_: capo_signer.types.cancel_signing_profile_request.CancelSigningProfileRequest = {
             "profile_name": profile_name
         }
@@ -340,7 +350,9 @@ class signerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSigningJob")
+        )
         input_: capo_signer.types.describe_signing_job_request.DescribeSigningJobRequest = {
             "job_id": job_id
         }
@@ -394,7 +406,9 @@ class signerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRevocationStatus")
+        )
         input_: capo_signer.types.get_revocation_status_request.GetRevocationStatusRequest = {
             "signature_timestamp": signature_timestamp,
             "platform_id": platform_id,
@@ -444,7 +458,9 @@ class signerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSigningPlatform")
+        )
         input_: capo_signer.types.get_signing_platform_request.GetSigningPlatformRequest = {
             "platform_id": platform_id
         }
@@ -492,7 +508,9 @@ class signerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSigningProfile")
+        )
         input_: capo_signer.types.get_signing_profile_request.GetSigningProfileRequest = {
             "profile_name": profile_name
         }
@@ -543,7 +561,9 @@ class signerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProfilePermissions")
+        )
         input_: capo_signer.types.list_profile_permissions_request.ListProfilePermissionsRequest = {
             "profile_name": profile_name
         }
@@ -611,7 +631,9 @@ class signerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSigningJobs")
+        )
         input_: capo_signer.types.list_signing_jobs_request.ListSigningJobsRequest = {}
         if status is not None:
             input_["status"] = status
@@ -722,7 +744,9 @@ class signerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSigningPlatforms")
+        )
         input_: capo_signer.types.list_signing_platforms_request.ListSigningPlatformsRequest = {}
         if category is not None:
             input_["category"] = category
@@ -808,7 +832,9 @@ class signerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSigningProfiles")
+        )
         input_: capo_signer.types.list_signing_profiles_request.ListSigningProfilesRequest = {}
         if include_canceled is not None:
             input_["include_canceled"] = include_canceled
@@ -889,7 +915,9 @@ class signerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_signer.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -956,7 +984,9 @@ class signerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutSigningProfile")
+        )
         input_: capo_signer.types.put_signing_profile_request.PutSigningProfileRequest = {
             "profile_name": profile_name,
             "platform_id": platform_id,
@@ -1019,7 +1049,9 @@ class signerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveProfilePermission")
+        )
         input_: capo_signer.types.remove_profile_permission_request.RemoveProfilePermissionRequest = {
             "profile_name": profile_name,
             "revision_id": revision_id,
@@ -1070,7 +1102,9 @@ class signerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokeSignature")
+        )
         input_: capo_signer.types.revoke_signature_request.RevokeSignatureRequest = {
             "job_id": job_id,
             "reason": reason,
@@ -1124,7 +1158,9 @@ class signerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokeSigningProfile")
+        )
         input_: capo_signer.types.revoke_signing_profile_request.RevokeSigningProfileRequest = {
             "profile_name": profile_name,
             "profile_version": profile_version,
@@ -1180,7 +1216,9 @@ class signerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SignPayload")
+        )
         input_: capo_signer.types.sign_payload_request.SignPayloadRequest = {
             "profile_name": profile_name,
             "payload": payload,
@@ -1240,7 +1278,9 @@ class signerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartSigningJob")
+        )
         input_: capo_signer.types.start_signing_job_request.StartSigningJobRequest = {
             "source": source,
             "destination": destination,
@@ -1293,7 +1333,9 @@ class signerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_signer.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1342,7 +1384,9 @@ class signerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_signer.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,

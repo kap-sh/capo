@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#GuardrailContextualGroundingFilterConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -46,4 +46,13 @@ def deserialize_json(data: dict) -> GuardrailContextualGroundingFilterConfig:
         out["threshold"] = float(data["threshold"])
     else:
         out["threshold"] = 0
+    return out
+
+
+def redact_sensitive(value: GuardrailContextualGroundingFilterConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "type" in value:
+        out["type"] = "*** Sensitive Data Redacted ***"
+    if "threshold" in value:
+        out["threshold"] = "*** Sensitive Data Redacted ***"
     return out

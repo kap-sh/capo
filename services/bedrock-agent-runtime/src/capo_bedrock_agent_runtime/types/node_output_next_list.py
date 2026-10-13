@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#NodeOutputNextList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.node_output_next
@@ -33,3 +33,7 @@ def deserialize_json(data: list) -> NodeOutputNextList:
             capo_bedrock_agent_runtime.types.node_output_next.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: NodeOutputNextList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

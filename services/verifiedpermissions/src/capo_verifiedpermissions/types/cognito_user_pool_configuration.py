@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#CognitoUserPoolConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -68,6 +68,25 @@ def deserialize_aws_json_1_0(data: dict) -> CognitoUserPoolConfiguration:
         out["group_configuration"] = (
             capo_verifiedpermissions.types.cognito_group_configuration.deserialize_aws_json_1_0(
                 data["groupConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CognitoUserPoolConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_ids" in value:
+        import capo_verifiedpermissions.types.client_ids
+
+        out["client_ids"] = capo_verifiedpermissions.types.client_ids.redact_sensitive(
+            value["client_ids"]
+        )
+    if "group_configuration" in value:
+        import capo_verifiedpermissions.types.cognito_group_configuration
+
+        out["group_configuration"] = (
+            capo_verifiedpermissions.types.cognito_group_configuration.redact_sensitive(
+                value["group_configuration"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemaker#DescribeModelCardResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -171,4 +171,11 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeModelCardResponse:
                 data["ModelCardProcessingStatus"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: DescribeModelCardResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        out["content"] = "*** Sensitive Data Redacted ***"
     return out

@@ -8,6 +8,7 @@ import capo_mediaconnect._auth._sigv4
 from capo_mediaconnect._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -94,7 +95,9 @@ class RouterNetworkInterfaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRouterNetworkInterface")
+        )
         input_: capo_mediaconnect.types.create_router_network_interface_request.CreateRouterNetworkInterfaceRequest = {
             "name": name,
             "configuration": configuration,
@@ -151,7 +154,9 @@ class RouterNetworkInterfaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRouterNetworkInterface")
+        )
         input_: capo_mediaconnect.types.get_router_network_interface_request.GetRouterNetworkInterfaceRequest = {
             "arn": arn
         }
@@ -205,7 +210,9 @@ class RouterNetworkInterfaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateRouterNetworkInterface")
+        )
         input_: capo_mediaconnect.types.update_router_network_interface_request.UpdateRouterNetworkInterfaceRequest = {
             "arn": arn
         }
@@ -258,7 +265,9 @@ class RouterNetworkInterfaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRouterNetworkInterface")
+        )
         input_: capo_mediaconnect.types.delete_router_network_interface_request.DeleteRouterNetworkInterfaceRequest = {
             "arn": arn
         }
@@ -311,7 +320,9 @@ class RouterNetworkInterfaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRouterNetworkInterfaces")
+        )
         input_: capo_mediaconnect.types.list_router_network_interfaces_request.ListRouterNetworkInterfacesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -362,7 +373,9 @@ class RouterNetworkInterfaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchGetRouterNetworkInterface")
+        )
         input_: capo_mediaconnect.types.batch_get_router_network_interface_request.BatchGetRouterNetworkInterfaceRequest = {
             "arns": arns
         }
@@ -427,7 +440,9 @@ class AsyncRouterNetworkInterfaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRouterNetworkInterface")
+        )
         input_: capo_mediaconnect.types.create_router_network_interface_request.CreateRouterNetworkInterfaceRequest = {
             "name": name,
             "configuration": configuration,
@@ -485,7 +500,9 @@ class AsyncRouterNetworkInterfaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRouterNetworkInterface")
+        )
         input_: capo_mediaconnect.types.get_router_network_interface_request.GetRouterNetworkInterfaceRequest = {
             "arn": arn
         }
@@ -540,7 +557,9 @@ class AsyncRouterNetworkInterfaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateRouterNetworkInterface")
+        )
         input_: capo_mediaconnect.types.update_router_network_interface_request.UpdateRouterNetworkInterfaceRequest = {
             "arn": arn
         }
@@ -594,7 +613,9 @@ class AsyncRouterNetworkInterfaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRouterNetworkInterface")
+        )
         input_: capo_mediaconnect.types.delete_router_network_interface_request.DeleteRouterNetworkInterfaceRequest = {
             "arn": arn
         }
@@ -648,7 +669,9 @@ class AsyncRouterNetworkInterfaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRouterNetworkInterfaces")
+        )
         input_: capo_mediaconnect.types.list_router_network_interfaces_request.ListRouterNetworkInterfacesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -700,7 +723,9 @@ class AsyncRouterNetworkInterfaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchGetRouterNetworkInterface")
+        )
         input_: capo_mediaconnect.types.batch_get_router_network_interface_request.BatchGetRouterNetworkInterfaceRequest = {
             "arns": arns
         }

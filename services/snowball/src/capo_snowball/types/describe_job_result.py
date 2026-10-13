@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.snowball#DescribeJobResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -52,6 +52,25 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeJobResult:
         out["sub_job_metadata"] = (
             capo_snowball.types.job_metadata_list.deserialize_aws_json_1_1(
                 data["SubJobMetadata"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeJobResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "job_metadata" in value:
+        import capo_snowball.types.job_metadata
+
+        out["job_metadata"] = capo_snowball.types.job_metadata.redact_sensitive(
+            value["job_metadata"]
+        )
+    if "sub_job_metadata" in value:
+        import capo_snowball.types.job_metadata_list
+
+        out["sub_job_metadata"] = (
+            capo_snowball.types.job_metadata_list.redact_sensitive(
+                value["sub_job_metadata"]
             )
         )
     return out

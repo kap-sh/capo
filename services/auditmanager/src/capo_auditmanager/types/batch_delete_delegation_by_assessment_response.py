@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#BatchDeleteDelegationByAssessmentResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,4 +39,13 @@ def deserialize_json(data: dict) -> BatchDeleteDelegationByAssessmentResponse:
                 data["errors"]
             )
         )
+    return out
+
+
+def redact_sensitive(
+    value: BatchDeleteDelegationByAssessmentResponse,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "errors" in value:
+        out["errors"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.networkmanager#SiteList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_networkmanager.types.site
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> SiteList:
             continue
         out.append(capo_networkmanager.types.site.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: SiteList) -> list[Any]:
+    import capo_networkmanager.types.site
+
+    return [capo_networkmanager.types.site.redact_sensitive(item) for item in value]

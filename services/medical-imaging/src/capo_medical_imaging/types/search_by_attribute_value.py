@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.medicalimaging#SearchByAttributeValue``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -154,3 +154,26 @@ def deserialize_json(data: dict) -> SearchByAttributeValue:
         return {"isPrimary": data["isPrimary"]}
     else:
         raise DeserializationError("SearchByAttributeValue: no recognized variant key")
+
+
+def redact_sensitive(value: SearchByAttributeValue) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "DICOMPatientId" in value:
+        out["DICOMPatientId"] = "*** Sensitive Data Redacted ***"
+    if "DICOMAccessionNumber" in value:
+        out["DICOMAccessionNumber"] = "*** Sensitive Data Redacted ***"
+    if "DICOMStudyId" in value:
+        out["DICOMStudyId"] = "*** Sensitive Data Redacted ***"
+    if "DICOMStudyInstanceUID" in value:
+        out["DICOMStudyInstanceUID"] = "*** Sensitive Data Redacted ***"
+    if "DICOMSeriesInstanceUID" in value:
+        out["DICOMSeriesInstanceUID"] = "*** Sensitive Data Redacted ***"
+    if "DICOMStudyDateAndTime" in value:
+        import capo_medical_imaging.types.dicom_study_date_and_time
+
+        out["DICOMStudyDateAndTime"] = (
+            capo_medical_imaging.types.dicom_study_date_and_time.redact_sensitive(
+                value["DICOMStudyDateAndTime"]
+            )
+        )
+    return out

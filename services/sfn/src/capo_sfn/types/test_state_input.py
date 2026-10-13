@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#TestStateInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -116,6 +116,33 @@ def deserialize_aws_json_1_0(data: dict) -> TestStateInput:
         out["state_configuration"] = (
             capo_sfn.types.test_state_configuration.deserialize_aws_json_1_0(
                 data["stateConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: TestStateInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "definition" in value:
+        out["definition"] = "*** Sensitive Data Redacted ***"
+    if "input" in value:
+        out["input"] = "*** Sensitive Data Redacted ***"
+    if "variables" in value:
+        out["variables"] = "*** Sensitive Data Redacted ***"
+    if "state_name" in value:
+        out["state_name"] = "*** Sensitive Data Redacted ***"
+    if "mock" in value:
+        import capo_sfn.types.mock_input
+
+        out["mock"] = capo_sfn.types.mock_input.redact_sensitive(value["mock"])
+    if "context" in value:
+        out["context"] = "*** Sensitive Data Redacted ***"
+    if "state_configuration" in value:
+        import capo_sfn.types.test_state_configuration
+
+        out["state_configuration"] = (
+            capo_sfn.types.test_state_configuration.redact_sensitive(
+                value["state_configuration"]
             )
         )
     return out

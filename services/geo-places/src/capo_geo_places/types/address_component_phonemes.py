@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#AddressComponentPhonemes``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -191,6 +191,83 @@ def deserialize_json(data: dict) -> AddressComponentPhonemes:
         out["street"] = (
             capo_geo_places.types.phoneme_transcription_list.deserialize_json(
                 data["Street"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: AddressComponentPhonemes) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "country" in value:
+        import capo_geo_places.types.phoneme_transcription_list
+
+        out["country"] = (
+            capo_geo_places.types.phoneme_transcription_list.redact_sensitive(
+                value["country"]
+            )
+        )
+    if "region" in value:
+        import capo_geo_places.types.phoneme_transcription_list
+
+        out["region"] = (
+            capo_geo_places.types.phoneme_transcription_list.redact_sensitive(
+                value["region"]
+            )
+        )
+    if "sub_region" in value:
+        import capo_geo_places.types.phoneme_transcription_list
+
+        out["sub_region"] = (
+            capo_geo_places.types.phoneme_transcription_list.redact_sensitive(
+                value["sub_region"]
+            )
+        )
+    if "locality" in value:
+        import capo_geo_places.types.phoneme_transcription_list
+
+        out["locality"] = (
+            capo_geo_places.types.phoneme_transcription_list.redact_sensitive(
+                value["locality"]
+            )
+        )
+    if "district" in value:
+        import capo_geo_places.types.phoneme_transcription_list
+
+        out["district"] = (
+            capo_geo_places.types.phoneme_transcription_list.redact_sensitive(
+                value["district"]
+            )
+        )
+    if "sub_district" in value:
+        import capo_geo_places.types.phoneme_transcription_list
+
+        out["sub_district"] = (
+            capo_geo_places.types.phoneme_transcription_list.redact_sensitive(
+                value["sub_district"]
+            )
+        )
+    if "block" in value:
+        import capo_geo_places.types.phoneme_transcription_list
+
+        out["block"] = (
+            capo_geo_places.types.phoneme_transcription_list.redact_sensitive(
+                value["block"]
+            )
+        )
+    if "sub_block" in value:
+        import capo_geo_places.types.phoneme_transcription_list
+
+        out["sub_block"] = (
+            capo_geo_places.types.phoneme_transcription_list.redact_sensitive(
+                value["sub_block"]
+            )
+        )
+    if "street" in value:
+        import capo_geo_places.types.phoneme_transcription_list
+
+        out["street"] = (
+            capo_geo_places.types.phoneme_transcription_list.redact_sensitive(
+                value["street"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#PivotFieldSortOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -44,4 +44,15 @@ def deserialize_json(data: dict) -> PivotFieldSortOptions:
         )
     else:
         raise DeserializationError("PivotFieldSortOptions.sort_by required")
+    return out
+
+
+def redact_sensitive(value: PivotFieldSortOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sort_by" in value:
+        import capo_quicksight.types.pivot_table_sort_by
+
+        out["sort_by"] = capo_quicksight.types.pivot_table_sort_by.redact_sensitive(
+            value["sort_by"]
+        )
     return out

@@ -30,10 +30,12 @@ from capo_partnercentral_benefits._resources.partner_central_benefits_service.be
 from capo_partnercentral_benefits._services._aws_config import aws_config
 from capo_partnercentral_benefits._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -173,7 +175,9 @@ class PartnerCentralBenefitsClient:
         self.benefit_application = BenefitApplication(self)
 
     def operation_options(
-        self, config_overrides: Optional[PartnerCentralBenefitsClientConfig] = None
+        self,
+        config_overrides: Optional[PartnerCentralBenefitsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: PartnerCentralBenefitsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -181,8 +185,10 @@ class PartnerCentralBenefitsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -243,7 +249,9 @@ class PartnerCentralBenefitsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AmendBenefitApplication")
+        )
         input_: capo_partnercentral_benefits.types.amend_benefit_application_input.AmendBenefitApplicationInput = {
             "catalog": catalog,
             "client_token": client_token,
@@ -300,7 +308,9 @@ class PartnerCentralBenefitsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateBenefitApplicationResource")
+        )
         input_: capo_partnercentral_benefits.types.associate_benefit_application_resource_input.AssociateBenefitApplicationResourceInput = {
             "catalog": catalog,
             "benefit_application_identifier": benefit_application_identifier,
@@ -356,7 +366,9 @@ class PartnerCentralBenefitsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelBenefitApplication")
+        )
         input_: capo_partnercentral_benefits.types.cancel_benefit_application_input.CancelBenefitApplicationInput = {
             "catalog": catalog,
             "client_token": client_token,
@@ -440,7 +452,19 @@ class PartnerCentralBenefitsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_benefits.types.create_benefit_application_input.CreateBenefitApplicationInput",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_benefits.types.create_benefit_application_input
+
+            return capo_partnercentral_benefits.types.create_benefit_application_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateBenefitApplication", redact_input=_redact_input),
+        )
         input_: capo_partnercentral_benefits.types.create_benefit_application_input.CreateBenefitApplicationInput = {
             "catalog": catalog,
             "client_token": client_token,
@@ -510,7 +534,9 @@ class PartnerCentralBenefitsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateBenefitApplicationResource")
+        )
         input_: capo_partnercentral_benefits.types.disassociate_benefit_application_resource_input.DisassociateBenefitApplicationResourceInput = {
             "catalog": catalog,
             "benefit_application_identifier": benefit_application_identifier,
@@ -561,7 +587,9 @@ class PartnerCentralBenefitsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBenefit")
+        )
         input_: capo_partnercentral_benefits.types.get_benefit_input.GetBenefitInput = {
             "catalog": catalog,
             "identifier": identifier,
@@ -611,7 +639,9 @@ class PartnerCentralBenefitsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBenefitAllocation")
+        )
         input_: capo_partnercentral_benefits.types.get_benefit_allocation_input.GetBenefitAllocationInput = {
             "catalog": catalog,
             "identifier": identifier,
@@ -662,7 +692,19 @@ class PartnerCentralBenefitsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_benefits.types.get_benefit_application_output.GetBenefitApplicationOutput",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_benefits.types.get_benefit_application_output
+
+            return capo_partnercentral_benefits.types.get_benefit_application_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetBenefitApplication", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_benefits.types.get_benefit_application_input.GetBenefitApplicationInput = {
             "catalog": catalog,
             "identifier": identifier,
@@ -730,7 +772,9 @@ class PartnerCentralBenefitsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBenefitAllocations")
+        )
         input_: capo_partnercentral_benefits.types.list_benefit_allocations_input.ListBenefitAllocationsInput = {
             "catalog": catalog
         }
@@ -856,7 +900,9 @@ class PartnerCentralBenefitsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBenefitApplications")
+        )
         input_: capo_partnercentral_benefits.types.list_benefit_applications_input.ListBenefitApplicationsInput = {
             "catalog": catalog
         }
@@ -984,7 +1030,9 @@ class PartnerCentralBenefitsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBenefits")
+        )
         input_: capo_partnercentral_benefits.types.list_benefits_input.ListBenefitsInput = {
             "catalog": catalog
         }
@@ -1076,7 +1124,9 @@ class PartnerCentralBenefitsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_partnercentral_benefits.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1130,7 +1180,9 @@ class PartnerCentralBenefitsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RecallBenefitApplication")
+        )
         input_: capo_partnercentral_benefits.types.recall_benefit_application_input.RecallBenefitApplicationInput = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1184,7 +1236,9 @@ class PartnerCentralBenefitsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SubmitBenefitApplication")
+        )
         input_: capo_partnercentral_benefits.types.submit_benefit_application_input.SubmitBenefitApplicationInput = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1236,7 +1290,9 @@ class PartnerCentralBenefitsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_partnercentral_benefits.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1288,7 +1344,9 @@ class PartnerCentralBenefitsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_partnercentral_benefits.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1361,7 +1419,19 @@ class PartnerCentralBenefitsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_benefits.types.update_benefit_application_input.UpdateBenefitApplicationInput",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_benefits.types.update_benefit_application_input
+
+            return capo_partnercentral_benefits.types.update_benefit_application_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateBenefitApplication", redact_input=_redact_input),
+        )
         input_: capo_partnercentral_benefits.types.update_benefit_application_input.UpdateBenefitApplicationInput = {
             "catalog": catalog,
             "client_token": client_token,

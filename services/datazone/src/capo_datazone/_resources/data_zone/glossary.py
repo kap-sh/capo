@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_datazone._auth._signers
 import capo_datazone._auth._sigv4
 from capo_datazone._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -94,7 +95,28 @@ class Glossary:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_glossary_input.CreateGlossaryInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_glossary_input
+
+            return capo_datazone.types.create_glossary_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_glossary_output.CreateGlossaryOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_glossary_output
+
+            return capo_datazone.types.create_glossary_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateGlossary",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_glossary_input.CreateGlossaryInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -155,7 +177,17 @@ class Glossary:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_glossary_output.GetGlossaryOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_glossary_output
+
+            return capo_datazone.types.get_glossary_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetGlossary", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_glossary_input.GetGlossaryInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -217,7 +249,28 @@ class Glossary:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_glossary_input.UpdateGlossaryInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_glossary_input
+
+            return capo_datazone.types.update_glossary_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.update_glossary_output.UpdateGlossaryOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_glossary_output
+
+            return capo_datazone.types.update_glossary_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateGlossary",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_glossary_input.UpdateGlossaryInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -278,7 +331,9 @@ class Glossary:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGlossary")
+        )
         input_: capo_datazone.types.delete_glossary_input.DeleteGlossaryInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -350,7 +405,28 @@ class AsyncGlossary:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_glossary_input.CreateGlossaryInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_glossary_input
+
+            return capo_datazone.types.create_glossary_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_glossary_output.CreateGlossaryOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_glossary_output
+
+            return capo_datazone.types.create_glossary_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateGlossary",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_glossary_input.CreateGlossaryInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -412,7 +488,17 @@ class AsyncGlossary:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_glossary_output.GetGlossaryOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_glossary_output
+
+            return capo_datazone.types.get_glossary_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetGlossary", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_glossary_input.GetGlossaryInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -475,7 +561,28 @@ class AsyncGlossary:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_glossary_input.UpdateGlossaryInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_glossary_input
+
+            return capo_datazone.types.update_glossary_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.update_glossary_output.UpdateGlossaryOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_glossary_output
+
+            return capo_datazone.types.update_glossary_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateGlossary",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_glossary_input.UpdateGlossaryInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -537,7 +644,9 @@ class AsyncGlossary:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGlossary")
+        )
         input_: capo_datazone.types.delete_glossary_input.DeleteGlossaryInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,

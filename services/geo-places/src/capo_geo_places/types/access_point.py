@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#AccessPoint``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -62,4 +62,15 @@ def deserialize_json(data: dict) -> AccessPoint:
         out["primary"] = data["Primary"]
     if data.get("Label") is not None:
         out["label"] = data["Label"]
+    return out
+
+
+def redact_sensitive(value: AccessPoint) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "position" in value:
+        out["position"] = "*** Sensitive Data Redacted ***"
+    if "primary" in value:
+        out["primary"] = "*** Sensitive Data Redacted ***"
+    if "label" in value:
+        out["label"] = "*** Sensitive Data Redacted ***"
     return out

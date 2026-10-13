@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#PipeTargetKinesisStreamParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -30,4 +30,11 @@ def deserialize_json(data: dict) -> PipeTargetKinesisStreamParameters:
         raise DeserializationError(
             "PipeTargetKinesisStreamParameters.partition_key required"
         )
+    return out
+
+
+def redact_sensitive(value: PipeTargetKinesisStreamParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "partition_key" in value:
+        out["partition_key"] = "*** Sensitive Data Redacted ***"
     return out

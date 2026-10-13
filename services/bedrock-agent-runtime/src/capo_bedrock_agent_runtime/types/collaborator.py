@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#Collaborator``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -189,4 +189,39 @@ def deserialize_json(data: dict) -> Collaborator:
         )
     if data.get("agentName") is not None:
         out["agent_name"] = data["agentName"]
+    return out
+
+
+def redact_sensitive(value: Collaborator) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "instruction" in value:
+        out["instruction"] = "*** Sensitive Data Redacted ***"
+    if "action_groups" in value:
+        import capo_bedrock_agent_runtime.types.agent_action_groups
+
+        out["action_groups"] = (
+            capo_bedrock_agent_runtime.types.agent_action_groups.redact_sensitive(
+                value["action_groups"]
+            )
+        )
+    if "knowledge_bases" in value:
+        import capo_bedrock_agent_runtime.types.knowledge_bases
+
+        out["knowledge_bases"] = (
+            capo_bedrock_agent_runtime.types.knowledge_bases.redact_sensitive(
+                value["knowledge_bases"]
+            )
+        )
+    if "prompt_override_configuration" in value:
+        out["prompt_override_configuration"] = "*** Sensitive Data Redacted ***"
+    if "collaborator_configurations" in value:
+        import capo_bedrock_agent_runtime.types.collaborator_configurations
+
+        out["collaborator_configurations"] = (
+            capo_bedrock_agent_runtime.types.collaborator_configurations.redact_sensitive(
+                value["collaborator_configurations"]
+            )
+        )
+    if "agent_name" in value:
+        out["agent_name"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#SendConnectorEventRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -138,6 +138,31 @@ def deserialize_json(data: dict) -> SendConnectorEventRequest:
         out["matter_endpoint"] = (
             capo_iot_managed_integrations.types.matter_endpoint.deserialize_json(
                 data["MatterEndpoint"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SendConnectorEventRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_id" in value:
+        out["user_id"] = "*** Sensitive Data Redacted ***"
+    if "message" in value:
+        out["message"] = "*** Sensitive Data Redacted ***"
+    if "connector_device_id" in value:
+        out["connector_device_id"] = "*** Sensitive Data Redacted ***"
+    if "devices" in value:
+        import capo_iot_managed_integrations.types.devices
+
+        out["devices"] = capo_iot_managed_integrations.types.devices.redact_sensitive(
+            value["devices"]
+        )
+    if "matter_endpoint" in value:
+        import capo_iot_managed_integrations.types.matter_endpoint
+
+        out["matter_endpoint"] = (
+            capo_iot_managed_integrations.types.matter_endpoint.redact_sensitive(
+                value["matter_endpoint"]
             )
         )
     return out

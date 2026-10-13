@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteFerryLegDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -190,4 +190,67 @@ def deserialize_json(data: dict) -> RouteFerryLegDetails:
         )
     else:
         raise DeserializationError("RouteFerryLegDetails.travel_steps required")
+    return out
+
+
+def redact_sensitive(value: RouteFerryLegDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "after_travel_steps" in value:
+        import capo_geo_routes.types.route_ferry_after_travel_step_list
+
+        out["after_travel_steps"] = (
+            capo_geo_routes.types.route_ferry_after_travel_step_list.redact_sensitive(
+                value["after_travel_steps"]
+            )
+        )
+    if "arrival" in value:
+        import capo_geo_routes.types.route_ferry_arrival
+
+        out["arrival"] = capo_geo_routes.types.route_ferry_arrival.redact_sensitive(
+            value["arrival"]
+        )
+    if "before_travel_steps" in value:
+        import capo_geo_routes.types.route_ferry_before_travel_step_list
+
+        out["before_travel_steps"] = (
+            capo_geo_routes.types.route_ferry_before_travel_step_list.redact_sensitive(
+                value["before_travel_steps"]
+            )
+        )
+    if "departure" in value:
+        import capo_geo_routes.types.route_ferry_departure
+
+        out["departure"] = capo_geo_routes.types.route_ferry_departure.redact_sensitive(
+            value["departure"]
+        )
+    if "pass_through_waypoints" in value:
+        import capo_geo_routes.types.route_pass_through_waypoint_list
+
+        out["pass_through_waypoints"] = (
+            capo_geo_routes.types.route_pass_through_waypoint_list.redact_sensitive(
+                value["pass_through_waypoints"]
+            )
+        )
+    if "route_name" in value:
+        out["route_name"] = "*** Sensitive Data Redacted ***"
+    if "spans" in value:
+        import capo_geo_routes.types.route_ferry_span_list
+
+        out["spans"] = capo_geo_routes.types.route_ferry_span_list.redact_sensitive(
+            value["spans"]
+        )
+    if "summary" in value:
+        import capo_geo_routes.types.route_ferry_summary
+
+        out["summary"] = capo_geo_routes.types.route_ferry_summary.redact_sensitive(
+            value["summary"]
+        )
+    if "travel_steps" in value:
+        import capo_geo_routes.types.route_ferry_travel_step_list
+
+        out["travel_steps"] = (
+            capo_geo_routes.types.route_ferry_travel_step_list.redact_sensitive(
+                value["travel_steps"]
+            )
+        )
     return out

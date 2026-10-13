@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#WaypointOptimizationTruckOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -127,4 +127,39 @@ def deserialize_json(data: dict) -> WaypointOptimizationTruckOptions:
         out["width"] = data["Width"]
     else:
         out["width"] = 0
+    return out
+
+
+def redact_sensitive(value: WaypointOptimizationTruckOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "gross_weight" in value:
+        out["gross_weight"] = "*** Sensitive Data Redacted ***"
+    if "hazardous_cargos" in value:
+        import capo_geo_routes.types.waypoint_optimization_hazardous_cargo_type_list
+
+        out["hazardous_cargos"] = (
+            capo_geo_routes.types.waypoint_optimization_hazardous_cargo_type_list.redact_sensitive(
+                value["hazardous_cargos"]
+            )
+        )
+    if "height" in value:
+        out["height"] = "*** Sensitive Data Redacted ***"
+    if "length" in value:
+        out["length"] = "*** Sensitive Data Redacted ***"
+    if "trailer" in value:
+        import capo_geo_routes.types.waypoint_optimization_trailer_options
+
+        out["trailer"] = (
+            capo_geo_routes.types.waypoint_optimization_trailer_options.redact_sensitive(
+                value["trailer"]
+            )
+        )
+    if "truck_type" in value:
+        out["truck_type"] = "*** Sensitive Data Redacted ***"
+    if "tunnel_restriction_code" in value:
+        out["tunnel_restriction_code"] = "*** Sensitive Data Redacted ***"
+    if "weight_per_axle" in value:
+        out["weight_per_axle"] = "*** Sensitive Data Redacted ***"
+    if "width" in value:
+        out["width"] = "*** Sensitive Data Redacted ***"
     return out

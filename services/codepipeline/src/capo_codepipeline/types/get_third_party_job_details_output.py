@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.codepipeline#GetThirdPartyJobDetailsOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_aws_json_1_1(data: dict) -> GetThirdPartyJobDetailsOutput:
         out["job_details"] = (
             capo_codepipeline.types.third_party_job_details.deserialize_aws_json_1_1(
                 data["jobDetails"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GetThirdPartyJobDetailsOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "job_details" in value:
+        import capo_codepipeline.types.third_party_job_details
+
+        out["job_details"] = (
+            capo_codepipeline.types.third_party_job_details.redact_sensitive(
+                value["job_details"]
             )
         )
     return out

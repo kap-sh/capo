@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#StartOutboundEmailContactRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -128,4 +128,41 @@ def deserialize_json(data: dict) -> StartOutboundEmailContactRequest:
         )
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
+    return out
+
+
+def redact_sensitive(value: StartOutboundEmailContactRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "from_email_address" in value:
+        import capo_connect.types.email_address_info
+
+        out["from_email_address"] = (
+            capo_connect.types.email_address_info.redact_sensitive(
+                value["from_email_address"]
+            )
+        )
+    if "destination_email_address" in value:
+        import capo_connect.types.email_address_info
+
+        out["destination_email_address"] = (
+            capo_connect.types.email_address_info.redact_sensitive(
+                value["destination_email_address"]
+            )
+        )
+    if "additional_recipients" in value:
+        import capo_connect.types.outbound_additional_recipients
+
+        out["additional_recipients"] = (
+            capo_connect.types.outbound_additional_recipients.redact_sensitive(
+                value["additional_recipients"]
+            )
+        )
+    if "email_message" in value:
+        import capo_connect.types.outbound_email_content
+
+        out["email_message"] = (
+            capo_connect.types.outbound_email_content.redact_sensitive(
+                value["email_message"]
+            )
+        )
     return out

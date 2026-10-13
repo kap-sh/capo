@@ -3,13 +3,14 @@ from __future__ import annotations
 import uuid
 from collections.abc import AsyncGenerator, Generator
 from contextlib import asynccontextmanager, contextmanager
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_sagemaker_geospatial._auth._signers
 import capo_sagemaker_geospatial._auth._sigv4
 from capo_sagemaker_geospatial._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -107,7 +108,32 @@ class EarthObservationJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker_geospatial.types.start_earth_observation_job_input.StartEarthObservationJobInput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.start_earth_observation_job_input
+
+            return capo_sagemaker_geospatial.types.start_earth_observation_job_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemaker_geospatial.types.start_earth_observation_job_output.StartEarthObservationJobOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.start_earth_observation_job_output
+
+            return capo_sagemaker_geospatial.types.start_earth_observation_job_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartEarthObservationJob",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sagemaker_geospatial.types.start_earth_observation_job_input.StartEarthObservationJobInput = {
             "name": name,
             "input_config": input_config,
@@ -164,7 +190,19 @@ class EarthObservationJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sagemaker_geospatial.types.get_earth_observation_job_output.GetEarthObservationJobOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.get_earth_observation_job_output
+
+            return capo_sagemaker_geospatial.types.get_earth_observation_job_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetEarthObservationJob", redact_output=_redact_output),
+        )
         input_: capo_sagemaker_geospatial.types.get_earth_observation_job_input.GetEarthObservationJobInput = {
             "arn": arn
         }
@@ -212,7 +250,9 @@ class EarthObservationJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEarthObservationJob")
+        )
         input_: capo_sagemaker_geospatial.types.delete_earth_observation_job_input.DeleteEarthObservationJobInput = {
             "arn": arn
         }
@@ -273,7 +313,32 @@ class EarthObservationJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker_geospatial.types.list_earth_observation_job_input.ListEarthObservationJobInput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.list_earth_observation_job_input
+
+            return capo_sagemaker_geospatial.types.list_earth_observation_job_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemaker_geospatial.types.list_earth_observation_job_output.ListEarthObservationJobOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.list_earth_observation_job_output
+
+            return capo_sagemaker_geospatial.types.list_earth_observation_job_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListEarthObservationJobs",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sagemaker_geospatial.types.list_earth_observation_job_input.ListEarthObservationJobInput = {}
         if status_equals is not None:
             input_["status_equals"] = status_equals
@@ -338,7 +403,9 @@ class EarthObservationJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ExportEarthObservationJob")
+        )
         input_: capo_sagemaker_geospatial.types.export_earth_observation_job_input.ExportEarthObservationJobInput = {
             "arn": arn,
             "execution_role_arn": execution_role_arn,
@@ -419,7 +486,18 @@ class EarthObservationJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sagemaker_geospatial.types.get_tile_output.GetTileOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.get_tile_output
+
+            return capo_sagemaker_geospatial.types.get_tile_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTile", redact_output=_redact_output)
+        )
         input_: capo_sagemaker_geospatial.types.get_tile_input.GetTileInput = {
             "x": x,
             "y": y,
@@ -486,7 +564,9 @@ class EarthObservationJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopEarthObservationJob")
+        )
         input_: capo_sagemaker_geospatial.types.stop_earth_observation_job_input.StopEarthObservationJobInput = {
             "arn": arn
         }
@@ -553,7 +633,32 @@ class AsyncEarthObservationJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker_geospatial.types.start_earth_observation_job_input.StartEarthObservationJobInput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.start_earth_observation_job_input
+
+            return capo_sagemaker_geospatial.types.start_earth_observation_job_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemaker_geospatial.types.start_earth_observation_job_output.StartEarthObservationJobOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.start_earth_observation_job_output
+
+            return capo_sagemaker_geospatial.types.start_earth_observation_job_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartEarthObservationJob",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sagemaker_geospatial.types.start_earth_observation_job_input.StartEarthObservationJobInput = {
             "name": name,
             "input_config": input_config,
@@ -611,7 +716,19 @@ class AsyncEarthObservationJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sagemaker_geospatial.types.get_earth_observation_job_output.GetEarthObservationJobOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.get_earth_observation_job_output
+
+            return capo_sagemaker_geospatial.types.get_earth_observation_job_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetEarthObservationJob", redact_output=_redact_output),
+        )
         input_: capo_sagemaker_geospatial.types.get_earth_observation_job_input.GetEarthObservationJobInput = {
             "arn": arn
         }
@@ -660,7 +777,9 @@ class AsyncEarthObservationJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEarthObservationJob")
+        )
         input_: capo_sagemaker_geospatial.types.delete_earth_observation_job_input.DeleteEarthObservationJobInput = {
             "arn": arn
         }
@@ -722,7 +841,32 @@ class AsyncEarthObservationJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemaker_geospatial.types.list_earth_observation_job_input.ListEarthObservationJobInput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.list_earth_observation_job_input
+
+            return capo_sagemaker_geospatial.types.list_earth_observation_job_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemaker_geospatial.types.list_earth_observation_job_output.ListEarthObservationJobOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.list_earth_observation_job_output
+
+            return capo_sagemaker_geospatial.types.list_earth_observation_job_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListEarthObservationJobs",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sagemaker_geospatial.types.list_earth_observation_job_input.ListEarthObservationJobInput = {}
         if status_equals is not None:
             input_["status_equals"] = status_equals
@@ -788,7 +932,9 @@ class AsyncEarthObservationJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ExportEarthObservationJob")
+        )
         input_: capo_sagemaker_geospatial.types.export_earth_observation_job_input.ExportEarthObservationJobInput = {
             "arn": arn,
             "execution_role_arn": execution_role_arn,
@@ -872,7 +1018,18 @@ class AsyncEarthObservationJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sagemaker_geospatial.types.get_tile_output.GetTileOutput",
+        ) -> dict[str, Any]:
+            import capo_sagemaker_geospatial.types.get_tile_output
+
+            return capo_sagemaker_geospatial.types.get_tile_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTile", redact_output=_redact_output)
+        )
         input_: capo_sagemaker_geospatial.types.get_tile_input.GetTileInput = {
             "x": x,
             "y": y,
@@ -940,7 +1097,9 @@ class AsyncEarthObservationJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopEarthObservationJob")
+        )
         input_: capo_sagemaker_geospatial.types.stop_earth_observation_job_input.StopEarthObservationJobInput = {
             "arn": arn
         }

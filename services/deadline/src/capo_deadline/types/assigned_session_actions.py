@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#AssignedSessionActions``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_deadline.types.assigned_session_action
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> AssignedSessionActions:
             continue
         out.append(capo_deadline.types.assigned_session_action.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: AssignedSessionActions) -> list[Any]:
+    import capo_deadline.types.assigned_session_action
+
+    return [
+        capo_deadline.types.assigned_session_action.redact_sensitive(item)
+        for item in value
+    ]

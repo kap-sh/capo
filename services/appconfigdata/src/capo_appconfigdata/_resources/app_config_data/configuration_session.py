@@ -7,6 +7,7 @@ import capo_appconfigdata._auth._sigv4
 from capo_appconfigdata._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -73,7 +74,9 @@ class ConfigurationSession:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartConfigurationSession")
+        )
         input_: capo_appconfigdata.types.start_configuration_session_request.StartConfigurationSessionRequest = {
             "application_identifier": application_identifier,
             "environment_identifier": environment_identifier,
@@ -139,7 +142,9 @@ class AsyncConfigurationSession:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartConfigurationSession")
+        )
         input_: capo_appconfigdata.types.start_configuration_session_request.StartConfigurationSessionRequest = {
             "application_identifier": application_identifier,
             "environment_identifier": environment_identifier,

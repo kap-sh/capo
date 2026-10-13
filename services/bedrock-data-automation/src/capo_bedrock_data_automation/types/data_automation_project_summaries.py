@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockdataautomation#DataAutomationProjectSummaries``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.data_automation_project_summary
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> DataAutomationProjectSummaries:
             )
         )
     return out
+
+
+def redact_sensitive(value: DataAutomationProjectSummaries) -> list[Any]:
+    import capo_bedrock_data_automation.types.data_automation_project_summary
+
+    return [
+        capo_bedrock_data_automation.types.data_automation_project_summary.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

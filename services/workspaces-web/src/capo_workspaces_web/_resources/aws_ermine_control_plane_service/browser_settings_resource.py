@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_workspaces_web._auth._signers
 import capo_workspaces_web._auth._sigv4
 from capo_workspaces_web._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -104,7 +105,19 @@ class BrowserSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_browser_settings_request.CreateBrowserSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_browser_settings_request
+
+            return capo_workspaces_web.types.create_browser_settings_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateBrowserSettings", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.create_browser_settings_request.CreateBrowserSettingsRequest = {}
         if tags is not None:
             input_["tags"] = tags
@@ -162,7 +175,19 @@ class BrowserSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.get_browser_settings_response.GetBrowserSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.get_browser_settings_response
+
+            return capo_workspaces_web.types.get_browser_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetBrowserSettings", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.get_browser_settings_request.GetBrowserSettingsRequest = {
             "browser_settings_arn": browser_settings_arn
         }
@@ -221,7 +246,32 @@ class BrowserSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.update_browser_settings_request.UpdateBrowserSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_browser_settings_request
+
+            return capo_workspaces_web.types.update_browser_settings_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_web.types.update_browser_settings_response.UpdateBrowserSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_browser_settings_response
+
+            return capo_workspaces_web.types.update_browser_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateBrowserSettings",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workspaces_web.types.update_browser_settings_request.UpdateBrowserSettingsRequest = {
             "browser_settings_arn": browser_settings_arn
         }
@@ -275,7 +325,9 @@ class BrowserSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteBrowserSettings")
+        )
         input_: capo_workspaces_web.types.delete_browser_settings_request.DeleteBrowserSettingsRequest = {
             "browser_settings_arn": browser_settings_arn
         }
@@ -327,7 +379,9 @@ class BrowserSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListBrowserSettings")
+        )
         input_: capo_workspaces_web.types.list_browser_settings_request.ListBrowserSettingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -404,7 +458,19 @@ class AsyncBrowserSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_browser_settings_request.CreateBrowserSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_browser_settings_request
+
+            return capo_workspaces_web.types.create_browser_settings_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateBrowserSettings", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.create_browser_settings_request.CreateBrowserSettingsRequest = {}
         if tags is not None:
             input_["tags"] = tags
@@ -463,7 +529,19 @@ class AsyncBrowserSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.get_browser_settings_response.GetBrowserSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.get_browser_settings_response
+
+            return capo_workspaces_web.types.get_browser_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetBrowserSettings", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.get_browser_settings_request.GetBrowserSettingsRequest = {
             "browser_settings_arn": browser_settings_arn
         }
@@ -523,7 +601,32 @@ class AsyncBrowserSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.update_browser_settings_request.UpdateBrowserSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_browser_settings_request
+
+            return capo_workspaces_web.types.update_browser_settings_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_web.types.update_browser_settings_response.UpdateBrowserSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_browser_settings_response
+
+            return capo_workspaces_web.types.update_browser_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateBrowserSettings",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workspaces_web.types.update_browser_settings_request.UpdateBrowserSettingsRequest = {
             "browser_settings_arn": browser_settings_arn
         }
@@ -578,7 +681,9 @@ class AsyncBrowserSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteBrowserSettings")
+        )
         input_: capo_workspaces_web.types.delete_browser_settings_request.DeleteBrowserSettingsRequest = {
             "browser_settings_arn": browser_settings_arn
         }
@@ -631,7 +736,9 @@ class AsyncBrowserSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListBrowserSettings")
+        )
         input_: capo_workspaces_web.types.list_browser_settings_request.ListBrowserSettingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

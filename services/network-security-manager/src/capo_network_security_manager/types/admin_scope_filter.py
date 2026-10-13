@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.networksecuritymanager#AdminScopeFilter``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -81,3 +81,24 @@ def deserialize_json(data: dict) -> AdminScopeFilter:
         }
     else:
         raise DeserializationError("AdminScopeFilter: no recognized variant key")
+
+
+def redact_sensitive(value: AdminScopeFilter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "includeOnly" in value:
+        import capo_network_security_manager.types.admin_scope_selection
+
+        out["includeOnly"] = (
+            capo_network_security_manager.types.admin_scope_selection.redact_sensitive(
+                value["includeOnly"]
+            )
+        )
+    if "excludeOnly" in value:
+        import capo_network_security_manager.types.admin_scope_selection
+
+        out["excludeOnly"] = (
+            capo_network_security_manager.types.admin_scope_selection.redact_sensitive(
+                value["excludeOnly"]
+            )
+        )
+    return out

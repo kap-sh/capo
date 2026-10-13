@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_odb._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -66,7 +67,9 @@ class DbNodeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDbNode")
+        )
         input_: capo_odb.types.get_db_node_input.GetDbNodeInput = {
             "db_node_id": db_node_id
         }
@@ -121,7 +124,9 @@ class DbNodeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDbNodes")
+        )
         input_: capo_odb.types.list_db_nodes_input.ListDbNodesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -178,7 +183,9 @@ class DbNodeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RebootDbNode")
+        )
         input_: capo_odb.types.reboot_db_node_input.RebootDbNodeInput = {
             "db_node_id": db_node_id
         }
@@ -231,7 +238,9 @@ class DbNodeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartDbNode")
+        )
         input_: capo_odb.types.start_db_node_input.StartDbNodeInput = {
             "db_node_id": db_node_id
         }
@@ -282,7 +291,9 @@ class DbNodeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopDbNode")
+        )
         input_: capo_odb.types.stop_db_node_input.StopDbNodeInput = {
             "db_node_id": db_node_id
         }
@@ -343,7 +354,9 @@ class AsyncDbNodeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDbNode")
+        )
         input_: capo_odb.types.get_db_node_input.GetDbNodeInput = {
             "db_node_id": db_node_id
         }
@@ -401,7 +414,9 @@ class AsyncDbNodeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDbNodes")
+        )
         input_: capo_odb.types.list_db_nodes_input.ListDbNodesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -459,7 +474,9 @@ class AsyncDbNodeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RebootDbNode")
+        )
         input_: capo_odb.types.reboot_db_node_input.RebootDbNodeInput = {
             "db_node_id": db_node_id
         }
@@ -515,7 +532,9 @@ class AsyncDbNodeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartDbNode")
+        )
         input_: capo_odb.types.start_db_node_input.StartDbNodeInput = {
             "db_node_id": db_node_id
         }
@@ -571,7 +590,9 @@ class AsyncDbNodeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopDbNode")
+        )
         input_: capo_odb.types.stop_db_node_input.StopDbNodeInput = {
             "db_node_id": db_node_id
         }

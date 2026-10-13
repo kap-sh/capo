@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#ResourcePath``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> ResourcePath:
         out["components"] = (
             capo_workdocs.types.resource_path_component_list.deserialize_json(
                 data["Components"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ResourcePath) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "components" in value:
+        import capo_workdocs.types.resource_path_component_list
+
+        out["components"] = (
+            capo_workdocs.types.resource_path_component_list.redact_sensitive(
+                value["components"]
             )
         )
     return out

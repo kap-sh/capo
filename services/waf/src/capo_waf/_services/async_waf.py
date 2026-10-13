@@ -22,7 +22,9 @@ from capo_waf._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -285,7 +287,9 @@ class AsyncWAFClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncWAFClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncWAFClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncWAFClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -293,8 +297,10 @@ class AsyncWAFClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -351,7 +357,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateByteMatchSet")
+        )
         input_: capo_waf.types.create_byte_match_set_request.CreateByteMatchSetRequest = {
             "name": name,
             "change_token": change_token,
@@ -403,7 +411,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGeoMatchSet")
+        )
         input_: capo_waf.types.create_geo_match_set_request.CreateGeoMatchSetRequest = {
             "name": name,
             "change_token": change_token,
@@ -461,7 +471,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIPSet")
+        )
         input_: capo_waf.types.create_ip_set_request.CreateIPSetRequest = {
             "name": name,
             "change_token": change_token,
@@ -523,7 +535,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRateBasedRule")
+        )
         input_: capo_waf.types.create_rate_based_rule_request.CreateRateBasedRuleRequest = {
             "name": name,
             "metric_name": metric_name,
@@ -578,7 +592,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRegexMatchSet")
+        )
         input_: capo_waf.types.create_regex_match_set_request.CreateRegexMatchSetRequest = {
             "name": name,
             "change_token": change_token,
@@ -630,7 +646,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRegexPatternSet")
+        )
         input_: capo_waf.types.create_regex_pattern_set_request.CreateRegexPatternSetRequest = {
             "name": name,
             "change_token": change_token,
@@ -694,7 +712,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRule")
+        )
         input_: capo_waf.types.create_rule_request.CreateRuleRequest = {
             "name": name,
             "metric_name": metric_name,
@@ -754,7 +774,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRuleGroup")
+        )
         input_: capo_waf.types.create_rule_group_request.CreateRuleGroupRequest = {
             "name": name,
             "metric_name": metric_name,
@@ -815,7 +837,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSizeConstraintSet")
+        )
         input_: capo_waf.types.create_size_constraint_set_request.CreateSizeConstraintSetRequest = {
             "name": name,
             "change_token": change_token,
@@ -873,7 +897,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSqlInjectionMatchSet")
+        )
         input_: capo_waf.types.create_sql_injection_match_set_request.CreateSqlInjectionMatchSetRequest = {
             "name": name,
             "change_token": change_token,
@@ -940,7 +966,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWebACL")
+        )
         input_: capo_waf.types.create_web_acl_request.CreateWebACLRequest = {
             "name": name,
             "metric_name": metric_name,
@@ -997,7 +1025,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWebACLMigrationStack")
+        )
         input_: capo_waf.types.create_web_acl_migration_stack_request.CreateWebACLMigrationStackRequest = {
             "web_acl_id": web_acl_id,
             "s3_bucket_name": s3_bucket_name,
@@ -1056,7 +1086,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateXssMatchSet")
+        )
         input_: capo_waf.types.create_xss_match_set_request.CreateXssMatchSetRequest = {
             "name": name,
             "change_token": change_token,
@@ -1114,7 +1146,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteByteMatchSet")
+        )
         input_: capo_waf.types.delete_byte_match_set_request.DeleteByteMatchSetRequest = {
             "byte_match_set_id": byte_match_set_id,
             "change_token": change_token,
@@ -1166,7 +1200,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGeoMatchSet")
+        )
         input_: capo_waf.types.delete_geo_match_set_request.DeleteGeoMatchSetRequest = {
             "geo_match_set_id": geo_match_set_id,
             "change_token": change_token,
@@ -1224,7 +1260,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIPSet")
+        )
         input_: capo_waf.types.delete_ip_set_request.DeleteIPSetRequest = {
             "ip_set_id": ip_set_id,
             "change_token": change_token,
@@ -1271,7 +1309,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLoggingConfiguration")
+        )
         input_: capo_waf.types.delete_logging_configuration_request.DeleteLoggingConfigurationRequest = {
             "resource_arn": resource_arn
         }
@@ -1317,7 +1357,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePermissionPolicy")
+        )
         input_: capo_waf.types.delete_permission_policy_request.DeletePermissionPolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -1370,7 +1412,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRateBasedRule")
+        )
         input_: capo_waf.types.delete_rate_based_rule_request.DeleteRateBasedRuleRequest = {
             "rule_id": rule_id,
             "change_token": change_token,
@@ -1422,7 +1466,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRegexMatchSet")
+        )
         input_: capo_waf.types.delete_regex_match_set_request.DeleteRegexMatchSetRequest = {
             "regex_match_set_id": regex_match_set_id,
             "change_token": change_token,
@@ -1476,7 +1522,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRegexPatternSet")
+        )
         input_: capo_waf.types.delete_regex_pattern_set_request.DeleteRegexPatternSetRequest = {
             "regex_pattern_set_id": regex_pattern_set_id,
             "change_token": change_token,
@@ -1536,7 +1584,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRule")
+        )
         input_: capo_waf.types.delete_rule_request.DeleteRuleRequest = {
             "rule_id": rule_id,
             "change_token": change_token,
@@ -1590,7 +1640,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRuleGroup")
+        )
         input_: capo_waf.types.delete_rule_group_request.DeleteRuleGroupRequest = {
             "rule_group_id": rule_group_id,
             "change_token": change_token,
@@ -1648,7 +1700,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSizeConstraintSet")
+        )
         input_: capo_waf.types.delete_size_constraint_set_request.DeleteSizeConstraintSetRequest = {
             "size_constraint_set_id": size_constraint_set_id,
             "change_token": change_token,
@@ -1706,7 +1760,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSqlInjectionMatchSet")
+        )
         input_: capo_waf.types.delete_sql_injection_match_set_request.DeleteSqlInjectionMatchSetRequest = {
             "sql_injection_match_set_id": sql_injection_match_set_id,
             "change_token": change_token,
@@ -1766,7 +1822,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWebACL")
+        )
         input_: capo_waf.types.delete_web_acl_request.DeleteWebACLRequest = {
             "web_acl_id": web_acl_id,
             "change_token": change_token,
@@ -1824,7 +1882,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteXssMatchSet")
+        )
         input_: capo_waf.types.delete_xss_match_set_request.DeleteXssMatchSetRequest = {
             "xss_match_set_id": xss_match_set_id,
             "change_token": change_token,
@@ -1877,7 +1937,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetByteMatchSet")
+        )
         input_: capo_waf.types.get_byte_match_set_request.GetByteMatchSetRequest = {
             "byte_match_set_id": byte_match_set_id
         }
@@ -1921,7 +1983,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetChangeToken")
+        )
         input_: capo_waf.types.get_change_token_request.GetChangeTokenRequest = {}
 
         response = await aexecute_pipeline(
@@ -1970,7 +2034,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetChangeTokenStatus")
+        )
         input_: capo_waf.types.get_change_token_status_request.GetChangeTokenStatusRequest = {
             "change_token": change_token
         }
@@ -2016,7 +2082,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGeoMatchSet")
+        )
         input_: capo_waf.types.get_geo_match_set_request.GetGeoMatchSetRequest = {
             "geo_match_set_id": geo_match_set_id
         }
@@ -2068,7 +2136,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIPSet")
+        )
         input_: capo_waf.types.get_ip_set_request.GetIPSetRequest = {
             "ip_set_id": ip_set_id
         }
@@ -2113,7 +2183,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLoggingConfiguration")
+        )
         input_: capo_waf.types.get_logging_configuration_request.GetLoggingConfigurationRequest = {
             "resource_arn": resource_arn
         }
@@ -2158,7 +2230,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPermissionPolicy")
+        )
         input_: capo_waf.types.get_permission_policy_request.GetPermissionPolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -2204,7 +2278,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRateBasedRule")
+        )
         input_: capo_waf.types.get_rate_based_rule_request.GetRateBasedRuleRequest = {
             "rule_id": rule_id
         }
@@ -2253,7 +2329,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRateBasedRuleManagedKeys")
+        )
         input_: capo_waf.types.get_rate_based_rule_managed_keys_request.GetRateBasedRuleManagedKeysRequest = {
             "rule_id": rule_id
         }
@@ -2301,7 +2379,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRegexMatchSet")
+        )
         input_: capo_waf.types.get_regex_match_set_request.GetRegexMatchSetRequest = {
             "regex_match_set_id": regex_match_set_id
         }
@@ -2347,7 +2427,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRegexPatternSet")
+        )
         input_: capo_waf.types.get_regex_pattern_set_request.GetRegexPatternSetRequest = {
             "regex_pattern_set_id": regex_pattern_set_id
         }
@@ -2397,7 +2479,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRule")
+        )
         input_: capo_waf.types.get_rule_request.GetRuleRequest = {"rule_id": rule_id}
 
         response = await aexecute_pipeline(
@@ -2440,7 +2524,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRuleGroup")
+        )
         input_: capo_waf.types.get_rule_group_request.GetRuleGroupRequest = {
             "rule_group_id": rule_group_id
         }
@@ -2491,7 +2577,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSampledRequests")
+        )
         input_: capo_waf.types.get_sampled_requests_request.GetSampledRequestsRequest = {
             "web_acl_id": web_acl_id,
             "rule_id": rule_id,
@@ -2546,7 +2634,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSizeConstraintSet")
+        )
         input_: capo_waf.types.get_size_constraint_set_request.GetSizeConstraintSetRequest = {
             "size_constraint_set_id": size_constraint_set_id
         }
@@ -2598,7 +2688,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSqlInjectionMatchSet")
+        )
         input_: capo_waf.types.get_sql_injection_match_set_request.GetSqlInjectionMatchSetRequest = {
             "sql_injection_match_set_id": sql_injection_match_set_id
         }
@@ -2650,7 +2742,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWebACL")
+        )
         input_: capo_waf.types.get_web_acl_request.GetWebACLRequest = {
             "web_acl_id": web_acl_id
         }
@@ -2702,7 +2796,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetXssMatchSet")
+        )
         input_: capo_waf.types.get_xss_match_set_request.GetXssMatchSetRequest = {
             "xss_match_set_id": xss_match_set_id
         }
@@ -2752,7 +2848,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListActivatedRulesInRuleGroup")
+        )
         input_: capo_waf.types.list_activated_rules_in_rule_group_request.ListActivatedRulesInRuleGroupRequest = {}
         if rule_group_id is not None:
             input_["rule_group_id"] = rule_group_id
@@ -2803,7 +2901,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListByteMatchSets")
+        )
         input_: capo_waf.types.list_byte_match_sets_request.ListByteMatchSetsRequest = {}
         if next_marker is not None:
             input_["next_marker"] = next_marker
@@ -2852,7 +2952,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGeoMatchSets")
+        )
         input_: capo_waf.types.list_geo_match_sets_request.ListGeoMatchSetsRequest = {}
         if next_marker is not None:
             input_["next_marker"] = next_marker
@@ -2907,7 +3009,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIPSets")
+        )
         input_: capo_waf.types.list_ip_sets_request.ListIPSetsRequest = {}
         if next_marker is not None:
             input_["next_marker"] = next_marker
@@ -2957,7 +3061,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLoggingConfigurations")
+        )
         input_: capo_waf.types.list_logging_configurations_request.ListLoggingConfigurationsRequest = {}
         if next_marker is not None:
             input_["next_marker"] = next_marker
@@ -3006,7 +3112,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRateBasedRules")
+        )
         input_: capo_waf.types.list_rate_based_rules_request.ListRateBasedRulesRequest = {}
         if next_marker is not None:
             input_["next_marker"] = next_marker
@@ -3055,7 +3163,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRegexMatchSets")
+        )
         input_: capo_waf.types.list_regex_match_sets_request.ListRegexMatchSetsRequest = {}
         if next_marker is not None:
             input_["next_marker"] = next_marker
@@ -3104,7 +3214,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRegexPatternSets")
+        )
         input_: capo_waf.types.list_regex_pattern_sets_request.ListRegexPatternSetsRequest = {}
         if next_marker is not None:
             input_["next_marker"] = next_marker
@@ -3152,7 +3264,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRuleGroups")
+        )
         input_: capo_waf.types.list_rule_groups_request.ListRuleGroupsRequest = {}
         if next_marker is not None:
             input_["next_marker"] = next_marker
@@ -3207,7 +3321,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRules")
+        )
         input_: capo_waf.types.list_rules_request.ListRulesRequest = {}
         if next_marker is not None:
             input_["next_marker"] = next_marker
@@ -3262,7 +3378,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSizeConstraintSets")
+        )
         input_: capo_waf.types.list_size_constraint_sets_request.ListSizeConstraintSetsRequest = {}
         if next_marker is not None:
             input_["next_marker"] = next_marker
@@ -3317,7 +3435,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSqlInjectionMatchSets")
+        )
         input_: capo_waf.types.list_sql_injection_match_sets_request.ListSqlInjectionMatchSetsRequest = {}
         if next_marker is not None:
             input_["next_marker"] = next_marker
@@ -3366,7 +3486,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSubscribedRuleGroups")
+        )
         input_: capo_waf.types.list_subscribed_rule_groups_request.ListSubscribedRuleGroupsRequest = {}
         if next_marker is not None:
             input_["next_marker"] = next_marker
@@ -3421,7 +3543,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_waf.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3478,7 +3602,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWebACLs")
+        )
         input_: capo_waf.types.list_web_ac_ls_request.ListWebACLsRequest = {}
         if next_marker is not None:
             input_["next_marker"] = next_marker
@@ -3533,7 +3659,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListXssMatchSets")
+        )
         input_: capo_waf.types.list_xss_match_sets_request.ListXssMatchSetsRequest = {}
         if next_marker is not None:
             input_["next_marker"] = next_marker
@@ -3582,7 +3710,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutLoggingConfiguration")
+        )
         input_: capo_waf.types.put_logging_configuration_request.PutLoggingConfigurationRequest = {
             "logging_configuration": logging_configuration
         }
@@ -3631,7 +3761,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutPermissionPolicy")
+        )
         input_: capo_waf.types.put_permission_policy_request.PutPermissionPolicyRequest = {
             "resource_arn": resource_arn,
             "policy": policy,
@@ -3684,7 +3816,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_waf.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -3736,7 +3870,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_waf.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -3798,7 +3934,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateByteMatchSet")
+        )
         input_: capo_waf.types.update_byte_match_set_request.UpdateByteMatchSetRequest = {
             "byte_match_set_id": byte_match_set_id,
             "change_token": change_token,
@@ -3856,7 +3994,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGeoMatchSet")
+        )
         input_: capo_waf.types.update_geo_match_set_request.UpdateGeoMatchSetRequest = {
             "geo_match_set_id": geo_match_set_id,
             "change_token": change_token,
@@ -3920,7 +4060,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIPSet")
+        )
         input_: capo_waf.types.update_ip_set_request.UpdateIPSetRequest = {
             "ip_set_id": ip_set_id,
             "change_token": change_token,
@@ -3980,7 +4122,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRateBasedRule")
+        )
         input_: capo_waf.types.update_rate_based_rule_request.UpdateRateBasedRuleRequest = {
             "rule_id": rule_id,
             "change_token": change_token,
@@ -4038,7 +4182,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRegexMatchSet")
+        )
         input_: capo_waf.types.update_regex_match_set_request.UpdateRegexMatchSetRequest = {
             "regex_match_set_id": regex_match_set_id,
             "updates": updates,
@@ -4097,7 +4243,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRegexPatternSet")
+        )
         input_: capo_waf.types.update_regex_pattern_set_request.UpdateRegexPatternSetRequest = {
             "regex_pattern_set_id": regex_pattern_set_id,
             "updates": updates,
@@ -4161,7 +4309,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRule")
+        )
         input_: capo_waf.types.update_rule_request.UpdateRuleRequest = {
             "rule_id": rule_id,
             "change_token": change_token,
@@ -4217,7 +4367,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRuleGroup")
+        )
         input_: capo_waf.types.update_rule_group_request.UpdateRuleGroupRequest = {
             "rule_group_id": rule_group_id,
             "updates": updates,
@@ -4281,7 +4433,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSizeConstraintSet")
+        )
         input_: capo_waf.types.update_size_constraint_set_request.UpdateSizeConstraintSetRequest = {
             "size_constraint_set_id": size_constraint_set_id,
             "change_token": change_token,
@@ -4344,7 +4498,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSqlInjectionMatchSet")
+        )
         input_: capo_waf.types.update_sql_injection_match_set_request.UpdateSqlInjectionMatchSetRequest = {
             "sql_injection_match_set_id": sql_injection_match_set_id,
             "change_token": change_token,
@@ -4411,7 +4567,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWebACL")
+        )
         input_: capo_waf.types.update_web_acl_request.UpdateWebACLRequest = {
             "web_acl_id": web_acl_id,
             "change_token": change_token,
@@ -4477,7 +4635,9 @@ class AsyncWAFClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateXssMatchSet")
+        )
         input_: capo_waf.types.update_xss_match_set_request.UpdateXssMatchSetRequest = {
             "xss_match_set_id": xss_match_set_id,
             "change_token": change_token,

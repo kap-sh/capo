@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#MediaStreamSourceList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.media_stream_source
@@ -37,3 +37,12 @@ def deserialize_json(data: list) -> MediaStreamSourceList:
             )
         )
     return out
+
+
+def redact_sensitive(value: MediaStreamSourceList) -> list[Any]:
+    import capo_chime_sdk_media_pipelines.types.media_stream_source
+
+    return [
+        capo_chime_sdk_media_pipelines.types.media_stream_source.redact_sensitive(item)
+        for item in value
+    ]

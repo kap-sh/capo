@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.identitystore#DescribeGroupResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -131,4 +131,19 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeGroupResponse:
         out["created_by"] = data["CreatedBy"]
     if data.get("UpdatedBy") is not None:
         out["updated_by"] = data["UpdatedBy"]
+    return out
+
+
+def redact_sensitive(value: DescribeGroupResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "display_name" in value:
+        out["display_name"] = "*** Sensitive Data Redacted ***"
+    if "external_ids" in value:
+        import capo_identitystore.types.external_ids
+
+        out["external_ids"] = capo_identitystore.types.external_ids.redact_sensitive(
+            value["external_ids"]
+        )
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

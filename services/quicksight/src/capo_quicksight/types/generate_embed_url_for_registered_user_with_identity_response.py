@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#GenerateEmbedUrlForRegisteredUserWithIdentityResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -47,4 +47,13 @@ def deserialize_json(
         raise DeserializationError(
             "GenerateEmbedUrlForRegisteredUserWithIdentityResponse.request_id required"
         )
+    return out
+
+
+def redact_sensitive(
+    value: GenerateEmbedUrlForRegisteredUserWithIdentityResponse,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "embed_url" in value:
+        out["embed_url"] = "*** Sensitive Data Redacted ***"
     return out

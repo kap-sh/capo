@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#GetKnowledgeBaseResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -38,4 +38,17 @@ def deserialize_json(data: dict) -> GetKnowledgeBaseResponse:
         )
     else:
         raise DeserializationError("GetKnowledgeBaseResponse.knowledge_base required")
+    return out
+
+
+def redact_sensitive(value: GetKnowledgeBaseResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "knowledge_base" in value:
+        import capo_bedrock_agent.types.knowledge_base
+
+        out["knowledge_base"] = (
+            capo_bedrock_agent.types.knowledge_base.redact_sensitive(
+                value["knowledge_base"]
+            )
+        )
     return out

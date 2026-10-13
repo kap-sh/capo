@@ -21,10 +21,12 @@ from capo_uxc._pagination import resolve_path as _resolve_path
 from capo_uxc._services._aws_config import aws_config
 from capo_uxc._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -112,7 +114,9 @@ class uxcClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[uxcClientConfig] = None
+        self,
+        config_overrides: Optional[uxcClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: uxcClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -120,8 +124,10 @@ class uxcClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -170,7 +176,9 @@ class uxcClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountCustomizations")
+        )
         input_: capo_uxc.types.get_account_customizations_input.GetAccountCustomizationsInput = {}
 
         response = execute_pipeline(
@@ -222,7 +230,9 @@ class uxcClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServices")
+        )
         input_: capo_uxc.types.list_services_input.ListServicesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -301,7 +311,9 @@ class uxcClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccountCustomizations")
+        )
         input_: capo_uxc.types.update_account_customizations_input.UpdateAccountCustomizationsInput = {}
         if account_color is not None:
             input_["account_color"] = account_color

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#PivotTableSortBy``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,5 +58,16 @@ def deserialize_json(data: dict) -> PivotTableSortBy:
 
         out["data_path"] = capo_quicksight.types.data_path_sort.deserialize_json(
             data["DataPath"]
+        )
+    return out
+
+
+def redact_sensitive(value: PivotTableSortBy) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "data_path" in value:
+        import capo_quicksight.types.data_path_sort
+
+        out["data_path"] = capo_quicksight.types.data_path_sort.redact_sensitive(
+            value["data_path"]
         )
     return out

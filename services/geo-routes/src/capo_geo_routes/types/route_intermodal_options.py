@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteIntermodalOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -148,6 +148,59 @@ def deserialize_json(data: dict) -> RouteIntermodalOptions:
         out["vehicle"] = (
             capo_geo_routes.types.route_intermodal_vehicle_options.deserialize_json(
                 data["Vehicle"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: RouteIntermodalOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "accessibility_attributes" in value:
+        import capo_geo_routes.types.route_accessibility_attribute_list
+
+        out["accessibility_attributes"] = (
+            capo_geo_routes.types.route_accessibility_attribute_list.redact_sensitive(
+                value["accessibility_attributes"]
+            )
+        )
+    if "pedestrian" in value:
+        import capo_geo_routes.types.route_intermodal_pedestrian_options
+
+        out["pedestrian"] = (
+            capo_geo_routes.types.route_intermodal_pedestrian_options.redact_sensitive(
+                value["pedestrian"]
+            )
+        )
+    if "rental" in value:
+        import capo_geo_routes.types.route_intermodal_rental_options
+
+        out["rental"] = (
+            capo_geo_routes.types.route_intermodal_rental_options.redact_sensitive(
+                value["rental"]
+            )
+        )
+    if "taxi" in value:
+        import capo_geo_routes.types.route_intermodal_taxi_options
+
+        out["taxi"] = (
+            capo_geo_routes.types.route_intermodal_taxi_options.redact_sensitive(
+                value["taxi"]
+            )
+        )
+    if "transit" in value:
+        import capo_geo_routes.types.route_intermodal_transit_options
+
+        out["transit"] = (
+            capo_geo_routes.types.route_intermodal_transit_options.redact_sensitive(
+                value["transit"]
+            )
+        )
+    if "vehicle" in value:
+        import capo_geo_routes.types.route_intermodal_vehicle_options
+
+        out["vehicle"] = (
+            capo_geo_routes.types.route_intermodal_vehicle_options.redact_sensitive(
+                value["vehicle"]
             )
         )
     return out

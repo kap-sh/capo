@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#IsolineDestinationOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -80,6 +80,31 @@ def deserialize_json(data: dict) -> IsolineDestinationOptions:
         out["side_of_street"] = (
             capo_geo_routes.types.isoline_side_of_street_options.deserialize_json(
                 data["SideOfStreet"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: IsolineDestinationOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "avoid_actions_for_distance" in value:
+        out["avoid_actions_for_distance"] = "*** Sensitive Data Redacted ***"
+    if "heading" in value:
+        out["heading"] = "*** Sensitive Data Redacted ***"
+    if "matching" in value:
+        import capo_geo_routes.types.isoline_matching_options
+
+        out["matching"] = (
+            capo_geo_routes.types.isoline_matching_options.redact_sensitive(
+                value["matching"]
+            )
+        )
+    if "side_of_street" in value:
+        import capo_geo_routes.types.isoline_side_of_street_options
+
+        out["side_of_street"] = (
+            capo_geo_routes.types.isoline_side_of_street_options.redact_sensitive(
+                value["side_of_street"]
             )
         )
     return out

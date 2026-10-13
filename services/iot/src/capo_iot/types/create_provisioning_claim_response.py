@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iot#CreateProvisioningClaimResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,4 +56,13 @@ def deserialize_json(data: dict) -> CreateProvisioningClaimResponse:
         out["expiration"] = capo_iot.types.date_type.deserialize_json(
             data["expiration"]
         )
+    return out
+
+
+def redact_sensitive(value: CreateProvisioningClaimResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "key_pair" in value:
+        import capo_iot.types.key_pair
+
+        out["key_pair"] = capo_iot.types.key_pair.redact_sensitive(value["key_pair"])
     return out

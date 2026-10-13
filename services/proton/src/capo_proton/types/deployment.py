@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#Deployment``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -218,5 +218,24 @@ def deserialize_aws_json_1_0(data: dict) -> Deployment:
             capo_proton.types.deployment_state.deserialize_aws_json_1_0(
                 data["targetState"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: Deployment) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "deployment_status_message" in value:
+        out["deployment_status_message"] = "*** Sensitive Data Redacted ***"
+    if "initial_state" in value:
+        import capo_proton.types.deployment_state
+
+        out["initial_state"] = capo_proton.types.deployment_state.redact_sensitive(
+            value["initial_state"]
+        )
+    if "target_state" in value:
+        import capo_proton.types.deployment_state
+
+        out["target_state"] = capo_proton.types.deployment_state.redact_sensitive(
+            value["target_state"]
         )
     return out

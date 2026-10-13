@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexruntimev2#StartConversationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -28,3 +28,10 @@ class StartConversationRequest(TypedDict, closed=True):
     """<p>The conversation type that you are using the Amazon Lex V2. If the conversation mode is <code>AUDIO</code> you can send both audio and DTMF information. If the mode is <code>TEXT</code> you can only send text.</p>"""
     request_event_stream: "capo_lex_runtime_v2.types.start_conversation_request_event_stream.StartConversationRequestEventStream"
     """<p>Represents the stream of events to Amazon Lex V2 from your application. The events are encoded as HTTP/2 data frames.</p>"""
+
+
+def redact_sensitive(value: StartConversationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "request_event_stream" in value:
+        out["request_event_stream"] = "*** Streaming Data Redacted ***"
+    return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#VectorSearchBedrockRerankingConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -67,6 +67,21 @@ def deserialize_json(data: dict) -> VectorSearchBedrockRerankingConfiguration:
         out["metadata_configuration"] = (
             capo_bedrock_agent_runtime.types.metadata_configuration_for_reranking.deserialize_json(
                 data["metadataConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(
+    value: VectorSearchBedrockRerankingConfiguration,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "metadata_configuration" in value:
+        import capo_bedrock_agent_runtime.types.metadata_configuration_for_reranking
+
+        out["metadata_configuration"] = (
+            capo_bedrock_agent_runtime.types.metadata_configuration_for_reranking.redact_sensitive(
+                value["metadata_configuration"]
             )
         )
     return out

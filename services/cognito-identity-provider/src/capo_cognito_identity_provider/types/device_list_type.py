@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#DeviceListType``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.device_type
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_1(data: list) -> DeviceListType:
             )
         )
     return out
+
+
+def redact_sensitive(value: DeviceListType) -> list[Any]:
+    import capo_cognito_identity_provider.types.device_type
+
+    return [
+        capo_cognito_identity_provider.types.device_type.redact_sensitive(item)
+        for item in value
+    ]

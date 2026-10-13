@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#ExchangeParameters``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_devops_agent.types.exchange_parameter_value
@@ -25,3 +25,7 @@ def deserialize_json(data: dict) -> ExchangeParameters:
             continue
         out[key] = value
     return out
+
+
+def redact_sensitive(value: ExchangeParameters) -> dict[str, Any]:
+    return dict.fromkeys(value, "*** Sensitive Data Redacted ***")

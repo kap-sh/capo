@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#CreateAssociationBatchRequestEntries``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_ssm.types.create_association_batch_request_entry
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_1(data: list) -> CreateAssociationBatchRequestEntries
             )
         )
     return out
+
+
+def redact_sensitive(value: CreateAssociationBatchRequestEntries) -> list[Any]:
+    import capo_ssm.types.create_association_batch_request_entry
+
+    return [
+        capo_ssm.types.create_association_batch_request_entry.redact_sensitive(item)
+        for item in value
+    ]

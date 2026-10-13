@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#FilterList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_pipes.types.filter
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> FilterList:
             continue
         out.append(capo_pipes.types.filter.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: FilterList) -> list[Any]:
+    import capo_pipes.types.filter
+
+    return [capo_pipes.types.filter.redact_sensitive(item) for item in value]

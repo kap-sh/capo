@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#SignUpRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -158,4 +158,35 @@ def deserialize_aws_json_1_1(data: dict) -> SignUpRequest:
                 data["ClientMetadata"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: SignUpRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_id" in value:
+        out["client_id"] = "*** Sensitive Data Redacted ***"
+    if "secret_hash" in value:
+        out["secret_hash"] = "*** Sensitive Data Redacted ***"
+    if "username" in value:
+        out["username"] = "*** Sensitive Data Redacted ***"
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
+    if "user_attributes" in value:
+        import capo_cognito_identity_provider.types.attribute_list_type
+
+        out["user_attributes"] = (
+            capo_cognito_identity_provider.types.attribute_list_type.redact_sensitive(
+                value["user_attributes"]
+            )
+        )
+    if "validation_data" in value:
+        import capo_cognito_identity_provider.types.attribute_list_type
+
+        out["validation_data"] = (
+            capo_cognito_identity_provider.types.attribute_list_type.redact_sensitive(
+                value["validation_data"]
+            )
+        )
+    if "user_context_data" in value:
+        out["user_context_data"] = "*** Sensitive Data Redacted ***"
     return out

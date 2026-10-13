@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentity#GetOpenIdTokenForDeveloperIdentityResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,4 +32,13 @@ def deserialize_aws_json_1_1(data: dict) -> GetOpenIdTokenForDeveloperIdentityRe
         out["identity_id"] = data["IdentityId"]
     if data.get("Token") is not None:
         out["token"] = data["Token"]
+    return out
+
+
+def redact_sensitive(
+    value: GetOpenIdTokenForDeveloperIdentityResponse,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "token" in value:
+        out["token"] = "*** Sensitive Data Redacted ***"
     return out

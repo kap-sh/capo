@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.medicalimaging#SearchImageSetsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -60,4 +60,17 @@ def deserialize_json(data: dict) -> SearchImageSetsResponse:
         out["sort"] = capo_medical_imaging.types.sort.deserialize_json(data["sort"])
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: SearchImageSetsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "image_sets_metadata_summaries" in value:
+        import capo_medical_imaging.types.image_sets_metadata_summaries
+
+        out["image_sets_metadata_summaries"] = (
+            capo_medical_imaging.types.image_sets_metadata_summaries.redact_sensitive(
+                value["image_sets_metadata_summaries"]
+            )
+        )
     return out

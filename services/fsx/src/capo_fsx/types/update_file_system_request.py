@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.fsx#UpdateFileSystemRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -160,5 +160,26 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateFileSystemRequest:
 
         out["network_type"] = capo_fsx.types.network_type.deserialize_aws_json_1_1(
             data["NetworkType"]
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateFileSystemRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "windows_configuration" in value:
+        import capo_fsx.types.update_file_system_windows_configuration
+
+        out["windows_configuration"] = (
+            capo_fsx.types.update_file_system_windows_configuration.redact_sensitive(
+                value["windows_configuration"]
+            )
+        )
+    if "ontap_configuration" in value:
+        import capo_fsx.types.update_file_system_ontap_configuration
+
+        out["ontap_configuration"] = (
+            capo_fsx.types.update_file_system_ontap_configuration.redact_sensitive(
+                value["ontap_configuration"]
+            )
         )
     return out

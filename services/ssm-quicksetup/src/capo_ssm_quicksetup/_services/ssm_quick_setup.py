@@ -21,10 +21,12 @@ from capo_ssm_quicksetup._pagination import resolve_path as _resolve_path
 from capo_ssm_quicksetup._services._aws_config import aws_config
 from capo_ssm_quicksetup._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -132,7 +134,9 @@ class SSMQuickSetupClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[SSMQuickSetupClientConfig] = None
+        self,
+        config_overrides: Optional[SSMQuickSetupClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: SSMQuickSetupClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -140,8 +144,10 @@ class SSMQuickSetupClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -200,7 +206,19 @@ class SSMQuickSetupClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ssm_quicksetup.types.create_configuration_manager_input.CreateConfigurationManagerInput",
+        ) -> dict[str, Any]:
+            import capo_ssm_quicksetup.types.create_configuration_manager_input
+
+            return capo_ssm_quicksetup.types.create_configuration_manager_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateConfigurationManager", redact_input=_redact_input),
+        )
         input_: capo_ssm_quicksetup.types.create_configuration_manager_input.CreateConfigurationManagerInput = {
             "configuration_definitions": configuration_definitions
         }
@@ -252,7 +270,9 @@ class SSMQuickSetupClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfigurationManager")
+        )
         input_: capo_ssm_quicksetup.types.delete_configuration_manager_input.DeleteConfigurationManagerInput = {
             "manager_arn": manager_arn
         }
@@ -300,7 +320,9 @@ class SSMQuickSetupClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConfiguration")
+        )
         input_: capo_ssm_quicksetup.types.get_configuration_input.GetConfigurationInput = {
             "configuration_id": configuration_id
         }
@@ -348,7 +370,19 @@ class SSMQuickSetupClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm_quicksetup.types.get_configuration_manager_output.GetConfigurationManagerOutput",
+        ) -> dict[str, Any]:
+            import capo_ssm_quicksetup.types.get_configuration_manager_output
+
+            return capo_ssm_quicksetup.types.get_configuration_manager_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetConfigurationManager", redact_output=_redact_output),
+        )
         input_: capo_ssm_quicksetup.types.get_configuration_manager_input.GetConfigurationManagerInput = {
             "manager_arn": manager_arn
         }
@@ -390,7 +424,9 @@ class SSMQuickSetupClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServiceSettings")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -438,7 +474,9 @@ class SSMQuickSetupClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfigurationManagers")
+        )
         input_: capo_ssm_quicksetup.types.list_configuration_managers_input.ListConfigurationManagersInput = {}
         if starting_token is not None:
             input_["starting_token"] = starting_token
@@ -522,7 +560,9 @@ class SSMQuickSetupClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfigurations")
+        )
         input_: capo_ssm_quicksetup.types.list_configurations_input.ListConfigurationsInput = {}
         if starting_token is not None:
             input_["starting_token"] = starting_token
@@ -599,7 +639,9 @@ class SSMQuickSetupClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQuickSetupTypes")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -644,7 +686,19 @@ class SSMQuickSetupClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm_quicksetup.types.list_tags_for_resource_response.ListTagsForResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_ssm_quicksetup.types.list_tags_for_resource_response
+
+            return capo_ssm_quicksetup.types.list_tags_for_resource_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_ssm_quicksetup.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -692,7 +746,17 @@ class SSMQuickSetupClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ssm_quicksetup.types.tag_resource_input.TagResourceInput",
+        ) -> dict[str, Any]:
+            import capo_ssm_quicksetup.types.tag_resource_input
+
+            return capo_ssm_quicksetup.types.tag_resource_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_ssm_quicksetup.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -741,7 +805,9 @@ class SSMQuickSetupClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_ssm_quicksetup.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -802,7 +868,9 @@ class SSMQuickSetupClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConfigurationDefinition")
+        )
         input_: capo_ssm_quicksetup.types.update_configuration_definition_input.UpdateConfigurationDefinitionInput = {
             "manager_arn": manager_arn,
             "id": id,
@@ -865,7 +933,9 @@ class SSMQuickSetupClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConfigurationManager")
+        )
         input_: capo_ssm_quicksetup.types.update_configuration_manager_input.UpdateConfigurationManagerInput = {
             "manager_arn": manager_arn
         }
@@ -916,7 +986,9 @@ class SSMQuickSetupClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateServiceSettings")
+        )
         input_: capo_ssm_quicksetup.types.update_service_settings_input.UpdateServiceSettingsInput = {}
         if explorer_enabling_role_arn is not None:
             input_["explorer_enabling_role_arn"] = explorer_enabling_role_arn

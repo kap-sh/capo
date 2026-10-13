@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#AddResourcePermissionsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -34,5 +34,16 @@ def deserialize_json(data: dict) -> AddResourcePermissionsResponse:
 
         out["share_results"] = capo_workdocs.types.share_results_list.deserialize_json(
             data["ShareResults"]
+        )
+    return out
+
+
+def redact_sensitive(value: AddResourcePermissionsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "share_results" in value:
+        import capo_workdocs.types.share_results_list
+
+        out["share_results"] = capo_workdocs.types.share_results_list.redact_sensitive(
+            value["share_results"]
         )
     return out

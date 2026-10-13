@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_mailmanager._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -117,7 +118,19 @@ class IngressPointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mailmanager.types.create_ingress_point_request.CreateIngressPointRequest",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.create_ingress_point_request
+
+            return capo_mailmanager.types.create_ingress_point_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateIngressPoint", redact_input=_redact_input),
+        )
         input_: capo_mailmanager.types.create_ingress_point_request.CreateIngressPointRequest = {
             "ingress_point_name": ingress_point_name,
             "type": type,
@@ -187,7 +200,19 @@ class IngressPointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mailmanager.types.get_ingress_point_response.GetIngressPointResponse",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.get_ingress_point_response
+
+            return capo_mailmanager.types.get_ingress_point_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetIngressPoint", redact_output=_redact_output),
+        )
         input_: capo_mailmanager.types.get_ingress_point_request.GetIngressPointRequest = {
             "ingress_point_id": ingress_point_id
         }
@@ -268,7 +293,19 @@ class IngressPointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mailmanager.types.update_ingress_point_request.UpdateIngressPointRequest",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.update_ingress_point_request
+
+            return capo_mailmanager.types.update_ingress_point_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateIngressPoint", redact_input=_redact_input),
+        )
         input_: capo_mailmanager.types.update_ingress_point_request.UpdateIngressPointRequest = {
             "ingress_point_id": ingress_point_id
         }
@@ -330,7 +367,9 @@ class IngressPointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteIngressPoint")
+        )
         input_: capo_mailmanager.types.delete_ingress_point_request.DeleteIngressPointRequest = {
             "ingress_point_id": ingress_point_id
         }
@@ -390,7 +429,9 @@ class IngressPointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListIngressPoints")
+        )
         input_: capo_mailmanager.types.list_ingress_points_request.ListIngressPointsRequest = {}
         if page_size is not None:
             input_["page_size"] = page_size
@@ -476,7 +517,19 @@ class AsyncIngressPointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mailmanager.types.create_ingress_point_request.CreateIngressPointRequest",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.create_ingress_point_request
+
+            return capo_mailmanager.types.create_ingress_point_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateIngressPoint", redact_input=_redact_input),
+        )
         input_: capo_mailmanager.types.create_ingress_point_request.CreateIngressPointRequest = {
             "ingress_point_name": ingress_point_name,
             "type": type,
@@ -547,7 +600,19 @@ class AsyncIngressPointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mailmanager.types.get_ingress_point_response.GetIngressPointResponse",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.get_ingress_point_response
+
+            return capo_mailmanager.types.get_ingress_point_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetIngressPoint", redact_output=_redact_output),
+        )
         input_: capo_mailmanager.types.get_ingress_point_request.GetIngressPointRequest = {
             "ingress_point_id": ingress_point_id
         }
@@ -629,7 +694,19 @@ class AsyncIngressPointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mailmanager.types.update_ingress_point_request.UpdateIngressPointRequest",
+        ) -> dict[str, Any]:
+            import capo_mailmanager.types.update_ingress_point_request
+
+            return capo_mailmanager.types.update_ingress_point_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateIngressPoint", redact_input=_redact_input),
+        )
         input_: capo_mailmanager.types.update_ingress_point_request.UpdateIngressPointRequest = {
             "ingress_point_id": ingress_point_id
         }
@@ -692,7 +769,9 @@ class AsyncIngressPointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteIngressPoint")
+        )
         input_: capo_mailmanager.types.delete_ingress_point_request.DeleteIngressPointRequest = {
             "ingress_point_id": ingress_point_id
         }
@@ -753,7 +832,9 @@ class AsyncIngressPointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListIngressPoints")
+        )
         input_: capo_mailmanager.types.list_ingress_points_request.ListIngressPointsRequest = {}
         if page_size is not None:
             input_["page_size"] = page_size

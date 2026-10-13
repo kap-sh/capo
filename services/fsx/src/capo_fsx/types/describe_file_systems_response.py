@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.fsx#DescribeFileSystemsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,15 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeFileSystemsResponse:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: DescribeFileSystemsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "file_systems" in value:
+        import capo_fsx.types.file_systems
+
+        out["file_systems"] = capo_fsx.types.file_systems.redact_sensitive(
+            value["file_systems"]
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chatbot#TeamsChannelConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -166,4 +166,13 @@ def deserialize_json(data: dict) -> TeamsChannelConfiguration:
         out["state"] = data["State"]
     if data.get("StateReason") is not None:
         out["state_reason"] = data["StateReason"]
+    return out
+
+
+def redact_sensitive(value: TeamsChannelConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "channel_name" in value:
+        out["channel_name"] = "*** Sensitive Data Redacted ***"
+    if "team_name" in value:
+        out["team_name"] = "*** Sensitive Data Redacted ***"
     return out

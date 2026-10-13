@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mwaa#CreateWebLoginTokenResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,11 @@ def deserialize_json(data: dict) -> CreateWebLoginTokenResponse:
         out["iam_identity"] = data["IamIdentity"]
     if data.get("AirflowIdentity") is not None:
         out["airflow_identity"] = data["AirflowIdentity"]
+    return out
+
+
+def redact_sensitive(value: CreateWebLoginTokenResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "web_token" in value:
+        out["web_token"] = "*** Sensitive Data Redacted ***"
     return out

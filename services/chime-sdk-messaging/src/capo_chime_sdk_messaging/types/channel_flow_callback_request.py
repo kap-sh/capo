@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmessaging#ChannelFlowCallbackRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -64,5 +64,18 @@ def deserialize_json(data: dict) -> ChannelFlowCallbackRequest:
     else:
         raise DeserializationError(
             "ChannelFlowCallbackRequest.channel_message required"
+        )
+    return out
+
+
+def redact_sensitive(value: ChannelFlowCallbackRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "channel_message" in value:
+        import capo_chime_sdk_messaging.types.channel_message_callback
+
+        out["channel_message"] = (
+            capo_chime_sdk_messaging.types.channel_message_callback.redact_sensitive(
+                value["channel_message"]
+            )
         )
     return out

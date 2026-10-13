@@ -25,7 +25,9 @@ from capo_iot_wireless._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -441,7 +443,9 @@ class AsyncIoTWirelessClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncIoTWirelessClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncIoTWirelessClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncIoTWirelessClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -449,8 +453,10 @@ class AsyncIoTWirelessClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -511,7 +517,32 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_wireless.types.associate_aws_account_with_partner_account_request.AssociateAwsAccountWithPartnerAccountRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_wireless.types.associate_aws_account_with_partner_account_request
+
+            return capo_iot_wireless.types.associate_aws_account_with_partner_account_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_iot_wireless.types.associate_aws_account_with_partner_account_response.AssociateAwsAccountWithPartnerAccountResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_wireless.types.associate_aws_account_with_partner_account_response
+
+            return capo_iot_wireless.types.associate_aws_account_with_partner_account_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AssociateAwsAccountWithPartnerAccount",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_iot_wireless.types.associate_aws_account_with_partner_account_request.AssociateAwsAccountWithPartnerAccountRequest = {
             "sidewalk": sidewalk
         }
@@ -563,7 +594,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateMulticastGroupWithFuotaTask")
+        )
         input_: capo_iot_wireless.types.associate_multicast_group_with_fuota_task_request.AssociateMulticastGroupWithFuotaTaskRequest = {
             "id": id,
             "multicast_group_id": multicast_group_id,
@@ -611,7 +644,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateWirelessDeviceWithFuotaTask")
+        )
         input_: capo_iot_wireless.types.associate_wireless_device_with_fuota_task_request.AssociateWirelessDeviceWithFuotaTaskRequest = {
             "id": id,
             "wireless_device_id": wireless_device_id,
@@ -659,7 +694,10 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AssociateWirelessDeviceWithMulticastGroup"),
+        )
         input_: capo_iot_wireless.types.associate_wireless_device_with_multicast_group_request.AssociateWirelessDeviceWithMulticastGroupRequest = {
             "id": id,
             "wireless_device_id": wireless_device_id,
@@ -711,7 +749,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateWirelessDeviceWithThing")
+        )
         input_: capo_iot_wireless.types.associate_wireless_device_with_thing_request.AssociateWirelessDeviceWithThingRequest = {
             "id": id,
             "thing_arn": thing_arn,
@@ -763,7 +803,10 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AssociateWirelessGatewayWithCertificate"),
+        )
         input_: capo_iot_wireless.types.associate_wireless_gateway_with_certificate_request.AssociateWirelessGatewayWithCertificateRequest = {
             "id": id,
             "iot_certificate_id": iot_certificate_id,
@@ -815,7 +858,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateWirelessGatewayWithThing")
+        )
         input_: capo_iot_wireless.types.associate_wireless_gateway_with_thing_request.AssociateWirelessGatewayWithThingRequest = {
             "id": id,
             "thing_arn": thing_arn,
@@ -862,7 +907,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelMulticastGroupSession")
+        )
         input_: capo_iot_wireless.types.cancel_multicast_group_session_request.CancelMulticastGroupSessionRequest = {
             "id": id
         }
@@ -927,7 +974,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDestination")
+        )
         input_: capo_iot_wireless.types.create_destination_request.CreateDestinationRequest = {
             "name": name,
             "expression_type": expression_type,
@@ -1001,7 +1050,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDeviceProfile")
+        )
         input_: capo_iot_wireless.types.create_device_profile_request.CreateDeviceProfileRequest = {}
         if name is not None:
             input_["name"] = name
@@ -1078,7 +1129,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFuotaTask")
+        )
         input_: capo_iot_wireless.types.create_fuota_task_request.CreateFuotaTaskRequest = {
             "firmware_update_image": firmware_update_image,
             "firmware_update_role": firmware_update_role,
@@ -1156,7 +1209,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMulticastGroup")
+        )
         input_: capo_iot_wireless.types.create_multicast_group_request.CreateMulticastGroupRequest = {
             "lo_ra_wan": lo_ra_wan
         }
@@ -1233,7 +1288,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateNetworkAnalyzerConfiguration")
+        )
         input_: capo_iot_wireless.types.create_network_analyzer_configuration_request.CreateNetworkAnalyzerConfigurationRequest = {
             "name": name
         }
@@ -1308,7 +1365,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateServiceProfile")
+        )
         input_: capo_iot_wireless.types.create_service_profile_request.CreateServiceProfileRequest = {}
         if name is not None:
             input_["name"] = name
@@ -1390,7 +1449,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWirelessDevice")
+        )
         input_: capo_iot_wireless.types.create_wireless_device_request.CreateWirelessDeviceRequest = {
             "type": type,
             "destination_name": destination_name,
@@ -1466,7 +1527,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWirelessGateway")
+        )
         input_: capo_iot_wireless.types.create_wireless_gateway_request.CreateWirelessGatewayRequest = {
             "lo_ra_wan": lo_ra_wan
         }
@@ -1526,7 +1589,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWirelessGatewayTask")
+        )
         input_: capo_iot_wireless.types.create_wireless_gateway_task_request.CreateWirelessGatewayTaskRequest = {
             "id": id,
             "wireless_gateway_task_definition_id": wireless_gateway_task_definition_id,
@@ -1590,7 +1655,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWirelessGatewayTaskDefinition")
+        )
         input_: capo_iot_wireless.types.create_wireless_gateway_task_definition_request.CreateWirelessGatewayTaskDefinitionRequest = {
             "auto_create_tasks": auto_create_tasks
         }
@@ -1650,7 +1717,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDestination")
+        )
         input_: capo_iot_wireless.types.delete_destination_request.DeleteDestinationRequest = {
             "name": name
         }
@@ -1699,7 +1768,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDeviceProfile")
+        )
         input_: capo_iot_wireless.types.delete_device_profile_request.DeleteDeviceProfileRequest = {
             "id": id
         }
@@ -1744,7 +1815,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFuotaTask")
+        )
         input_: capo_iot_wireless.types.delete_fuota_task_request.DeleteFuotaTaskRequest = {
             "id": id
         }
@@ -1790,7 +1863,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMulticastGroup")
+        )
         input_: capo_iot_wireless.types.delete_multicast_group_request.DeleteMulticastGroupRequest = {
             "id": id
         }
@@ -1836,7 +1911,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNetworkAnalyzerConfiguration")
+        )
         input_: capo_iot_wireless.types.delete_network_analyzer_configuration_request.DeleteNetworkAnalyzerConfigurationRequest = {
             "configuration_name": configuration_name
         }
@@ -1890,7 +1967,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQueuedMessages")
+        )
         input_: capo_iot_wireless.types.delete_queued_messages_request.DeleteQueuedMessagesRequest = {
             "id": id,
             "message_id": message_id,
@@ -1942,7 +2021,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteServiceProfile")
+        )
         input_: capo_iot_wireless.types.delete_service_profile_request.DeleteServiceProfileRequest = {
             "id": id
         }
@@ -1990,7 +2071,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWirelessDevice")
+        )
         input_: capo_iot_wireless.types.delete_wireless_device_request.DeleteWirelessDeviceRequest = {
             "id": id
         }
@@ -2039,7 +2122,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWirelessDeviceImportTask")
+        )
         input_: capo_iot_wireless.types.delete_wireless_device_import_task_request.DeleteWirelessDeviceImportTaskRequest = {
             "id": id
         }
@@ -2087,7 +2172,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWirelessGateway")
+        )
         input_: capo_iot_wireless.types.delete_wireless_gateway_request.DeleteWirelessGatewayRequest = {
             "id": id
         }
@@ -2135,7 +2222,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWirelessGatewayTask")
+        )
         input_: capo_iot_wireless.types.delete_wireless_gateway_task_request.DeleteWirelessGatewayTaskRequest = {
             "id": id
         }
@@ -2183,7 +2272,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWirelessGatewayTaskDefinition")
+        )
         input_: capo_iot_wireless.types.delete_wireless_gateway_task_definition_request.DeleteWirelessGatewayTaskDefinitionRequest = {
             "id": id
         }
@@ -2234,7 +2325,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterWirelessDevice")
+        )
         input_: capo_iot_wireless.types.deregister_wireless_device_request.DeregisterWirelessDeviceRequest = {
             "identifier": identifier
         }
@@ -2285,7 +2378,10 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateAwsAccountFromPartnerAccount"),
+        )
         input_: capo_iot_wireless.types.disassociate_aws_account_from_partner_account_request.DisassociateAwsAccountFromPartnerAccountRequest = {
             "partner_account_id": partner_account_id,
             "partner_type": partner_type,
@@ -2332,7 +2428,10 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateMulticastGroupFromFuotaTask"),
+        )
         input_: capo_iot_wireless.types.disassociate_multicast_group_from_fuota_task_request.DisassociateMulticastGroupFromFuotaTaskRequest = {
             "id": id,
             "multicast_group_id": multicast_group_id,
@@ -2380,7 +2479,10 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateWirelessDeviceFromFuotaTask"),
+        )
         input_: capo_iot_wireless.types.disassociate_wireless_device_from_fuota_task_request.DisassociateWirelessDeviceFromFuotaTaskRequest = {
             "id": id,
             "wireless_device_id": wireless_device_id,
@@ -2427,7 +2529,10 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateWirelessDeviceFromMulticastGroup"),
+        )
         input_: capo_iot_wireless.types.disassociate_wireless_device_from_multicast_group_request.DisassociateWirelessDeviceFromMulticastGroupRequest = {
             "id": id,
             "wireless_device_id": wireless_device_id,
@@ -2477,7 +2582,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateWirelessDeviceFromThing")
+        )
         input_: capo_iot_wireless.types.disassociate_wireless_device_from_thing_request.DisassociateWirelessDeviceFromThingRequest = {
             "id": id
         }
@@ -2525,7 +2632,10 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateWirelessGatewayFromCertificate"),
+        )
         input_: capo_iot_wireless.types.disassociate_wireless_gateway_from_certificate_request.DisassociateWirelessGatewayFromCertificateRequest = {
             "id": id
         }
@@ -2574,7 +2684,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateWirelessGatewayFromThing")
+        )
         input_: capo_iot_wireless.types.disassociate_wireless_gateway_from_thing_request.DisassociateWirelessGatewayFromThingRequest = {
             "id": id
         }
@@ -2622,7 +2734,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDestination")
+        )
         input_: capo_iot_wireless.types.get_destination_request.GetDestinationRequest = {
             "name": name
         }
@@ -2670,7 +2784,19 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_wireless.types.get_device_profile_response.GetDeviceProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_wireless.types.get_device_profile_response
+
+            return capo_iot_wireless.types.get_device_profile_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDeviceProfile", redact_output=_redact_output),
+        )
         input_: capo_iot_wireless.types.get_device_profile_request.GetDeviceProfileRequest = {
             "id": id
         }
@@ -2710,7 +2836,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEventConfigurationByResourceTypes")
+        )
         input_: capo_iot_wireless.types.get_event_configuration_by_resource_types_request.GetEventConfigurationByResourceTypesRequest = {}
 
         response = await aexecute_pipeline(
@@ -2753,7 +2881,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFuotaTask")
+        )
         input_: capo_iot_wireless.types.get_fuota_task_request.GetFuotaTaskRequest = {
             "id": id
         }
@@ -2795,7 +2925,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLogLevelsByResourceTypes")
+        )
         input_: capo_iot_wireless.types.get_log_levels_by_resource_types_request.GetLogLevelsByResourceTypesRequest = {}
 
         response = await aexecute_pipeline(
@@ -2836,7 +2968,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMetricConfiguration")
+        )
         input_: capo_iot_wireless.types.get_metric_configuration_request.GetMetricConfigurationRequest = {}
 
         response = await aexecute_pipeline(
@@ -2885,7 +3019,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMetrics")
+        )
         input_: capo_iot_wireless.types.get_metrics_request.GetMetricsRequest = {}
         if summary_metric_queries is not None:
             input_["summary_metric_queries"] = summary_metric_queries
@@ -2932,7 +3068,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMulticastGroup")
+        )
         input_: capo_iot_wireless.types.get_multicast_group_request.GetMulticastGroupRequest = {
             "id": id
         }
@@ -2977,7 +3115,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMulticastGroupSession")
+        )
         input_: capo_iot_wireless.types.get_multicast_group_session_request.GetMulticastGroupSessionRequest = {
             "id": id
         }
@@ -3022,7 +3162,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNetworkAnalyzerConfiguration")
+        )
         input_: capo_iot_wireless.types.get_network_analyzer_configuration_request.GetNetworkAnalyzerConfigurationRequest = {
             "configuration_name": configuration_name
         }
@@ -3073,7 +3215,21 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_wireless.types.get_partner_account_response.GetPartnerAccountResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_wireless.types.get_partner_account_response
+
+            return (
+                capo_iot_wireless.types.get_partner_account_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetPartnerAccount", redact_output=_redact_output),
+        )
         input_: capo_iot_wireless.types.get_partner_account_request.GetPartnerAccountRequest = {
             "partner_account_id": partner_account_id,
             "partner_type": partner_type,
@@ -3124,7 +3280,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPosition")
+        )
         input_: capo_iot_wireless.types.get_position_request.GetPositionRequest = {
             "resource_identifier": resource_identifier,
             "resource_type": resource_type,
@@ -3175,7 +3333,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPositionConfiguration")
+        )
         input_: capo_iot_wireless.types.get_position_configuration_request.GetPositionConfigurationRequest = {
             "resource_identifier": resource_identifier,
             "resource_type": resource_type,
@@ -3244,7 +3404,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPositionEstimate")
+        )
         input_: capo_iot_wireless.types.get_position_estimate_request.GetPositionEstimateRequest = {}
         if wi_fi_access_points is not None:
             input_["wi_fi_access_points"] = wi_fi_access_points
@@ -3310,7 +3472,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourceEventConfiguration")
+        )
         input_: capo_iot_wireless.types.get_resource_event_configuration_request.GetResourceEventConfigurationRequest = {
             "identifier": identifier,
             "identifier_type": identifier_type,
@@ -3362,7 +3526,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourceLogLevel")
+        )
         input_: capo_iot_wireless.types.get_resource_log_level_request.GetResourceLogLevelRequest = {
             "resource_identifier": resource_identifier,
             "resource_type": resource_type,
@@ -3413,7 +3579,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePosition")
+        )
         input_: capo_iot_wireless.types.get_resource_position_request.GetResourcePositionRequest = {
             "resource_identifier": resource_identifier,
             "resource_type": resource_type,
@@ -3463,7 +3631,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServiceEndpoint")
+        )
         input_: capo_iot_wireless.types.get_service_endpoint_request.GetServiceEndpointRequest = {}
         if service_type is not None:
             input_["service_type"] = service_type
@@ -3513,7 +3683,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServiceProfile")
+        )
         input_: capo_iot_wireless.types.get_service_profile_request.GetServiceProfileRequest = {
             "id": id
         }
@@ -3565,7 +3737,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWirelessDevice")
+        )
         input_: capo_iot_wireless.types.get_wireless_device_request.GetWirelessDeviceRequest = {
             "identifier": identifier,
             "identifier_type": identifier_type,
@@ -3615,7 +3789,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWirelessDeviceImportTask")
+        )
         input_: capo_iot_wireless.types.get_wireless_device_import_task_request.GetWirelessDeviceImportTaskRequest = {
             "id": id
         }
@@ -3663,7 +3839,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWirelessDeviceStatistics")
+        )
         input_: capo_iot_wireless.types.get_wireless_device_statistics_request.GetWirelessDeviceStatisticsRequest = {
             "wireless_device_id": wireless_device_id
         }
@@ -3713,7 +3891,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWirelessGateway")
+        )
         input_: capo_iot_wireless.types.get_wireless_gateway_request.GetWirelessGatewayRequest = {
             "identifier": identifier,
             "identifier_type": identifier_type,
@@ -3762,7 +3942,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWirelessGatewayCertificate")
+        )
         input_: capo_iot_wireless.types.get_wireless_gateway_certificate_request.GetWirelessGatewayCertificateRequest = {
             "id": id
         }
@@ -3810,7 +3992,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWirelessGatewayFirmwareInformation")
+        )
         input_: capo_iot_wireless.types.get_wireless_gateway_firmware_information_request.GetWirelessGatewayFirmwareInformationRequest = {
             "id": id
         }
@@ -3858,7 +4042,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWirelessGatewayStatistics")
+        )
         input_: capo_iot_wireless.types.get_wireless_gateway_statistics_request.GetWirelessGatewayStatisticsRequest = {
             "wireless_gateway_id": wireless_gateway_id
         }
@@ -3906,7 +4092,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWirelessGatewayTask")
+        )
         input_: capo_iot_wireless.types.get_wireless_gateway_task_request.GetWirelessGatewayTaskRequest = {
             "id": id
         }
@@ -3954,7 +4142,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWirelessGatewayTaskDefinition")
+        )
         input_: capo_iot_wireless.types.get_wireless_gateway_task_definition_request.GetWirelessGatewayTaskDefinitionRequest = {
             "id": id
         }
@@ -4003,7 +4193,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDestinations")
+        )
         input_: capo_iot_wireless.types.list_destinations_request.ListDestinationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4077,7 +4269,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeviceProfiles")
+        )
         input_: capo_iot_wireless.types.list_device_profiles_request.ListDeviceProfilesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4158,7 +4352,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDevicesForWirelessDeviceImportTask")
+        )
         input_: capo_iot_wireless.types.list_devices_for_wireless_device_import_task_request.ListDevicesForWirelessDeviceImportTaskRequest = {
             "id": id
         }
@@ -4214,7 +4410,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEventConfigurations")
+        )
         input_: capo_iot_wireless.types.list_event_configurations_request.ListEventConfigurationsRequest = {
             "resource_type": resource_type
         }
@@ -4266,7 +4464,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFuotaTasks")
+        )
         input_: capo_iot_wireless.types.list_fuota_tasks_request.ListFuotaTasksRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4335,7 +4535,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMulticastGroups")
+        )
         input_: capo_iot_wireless.types.list_multicast_groups_request.ListMulticastGroupsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4406,7 +4608,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMulticastGroupsByFuotaTask")
+        )
         input_: capo_iot_wireless.types.list_multicast_groups_by_fuota_task_request.ListMulticastGroupsByFuotaTaskRequest = {
             "id": id
         }
@@ -4479,7 +4683,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNetworkAnalyzerConfigurations")
+        )
         input_: capo_iot_wireless.types.list_network_analyzer_configurations_request.ListNetworkAnalyzerConfigurationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4549,7 +4755,21 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_wireless.types.list_partner_accounts_response.ListPartnerAccountsResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_wireless.types.list_partner_accounts_response
+
+            return (
+                capo_iot_wireless.types.list_partner_accounts_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListPartnerAccounts", redact_output=_redact_output),
+        )
         input_: capo_iot_wireless.types.list_partner_accounts_request.ListPartnerAccountsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4603,7 +4823,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPositionConfigurations")
+        )
         input_: capo_iot_wireless.types.list_position_configurations_request.ListPositionConfigurationsRequest = {}
         if resource_type is not None:
             input_["resource_type"] = resource_type
@@ -4686,7 +4908,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQueuedMessages")
+        )
         input_: capo_iot_wireless.types.list_queued_messages_request.ListQueuedMessagesRequest = {
             "id": id
         }
@@ -4766,7 +4990,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceProfiles")
+        )
         input_: capo_iot_wireless.types.list_service_profiles_request.ListServiceProfilesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4835,7 +5061,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_iot_wireless.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -4885,7 +5113,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWirelessDeviceImportTasks")
+        )
         input_: capo_iot_wireless.types.list_wireless_device_import_tasks_request.ListWirelessDeviceImportTasksRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4958,7 +5188,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWirelessDevices")
+        )
         input_: capo_iot_wireless.types.list_wireless_devices_request.ListWirelessDevicesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -5064,7 +5296,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWirelessGateways")
+        )
         input_: capo_iot_wireless.types.list_wireless_gateways_request.ListWirelessGatewaysRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -5138,7 +5372,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWirelessGatewayTaskDefinitions")
+        )
         input_: capo_iot_wireless.types.list_wireless_gateway_task_definitions_request.ListWirelessGatewayTaskDefinitionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -5200,7 +5436,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutPositionConfiguration")
+        )
         input_: capo_iot_wireless.types.put_position_configuration_request.PutPositionConfigurationRequest = {
             "resource_identifier": resource_identifier,
             "resource_type": resource_type,
@@ -5255,7 +5493,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourceLogLevel")
+        )
         input_: capo_iot_wireless.types.put_resource_log_level_request.PutResourceLogLevelRequest = {
             "resource_identifier": resource_identifier,
             "resource_type": resource_type,
@@ -5299,7 +5539,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetAllResourceLogLevels")
+        )
         input_: capo_iot_wireless.types.reset_all_resource_log_levels_request.ResetAllResourceLogLevelsRequest = {}
 
         response = await aexecute_pipeline(
@@ -5346,7 +5588,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetResourceLogLevel")
+        )
         input_: capo_iot_wireless.types.reset_resource_log_level_request.ResetResourceLogLevelRequest = {
             "resource_identifier": resource_identifier,
             "resource_type": resource_type,
@@ -5395,7 +5639,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendDataToMulticastGroup")
+        )
         input_: capo_iot_wireless.types.send_data_to_multicast_group_request.SendDataToMulticastGroupRequest = {
             "id": id,
             "payload_data": payload_data,
@@ -5451,7 +5697,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendDataToWirelessDevice")
+        )
         input_: capo_iot_wireless.types.send_data_to_wireless_device_request.SendDataToWirelessDeviceRequest = {
             "id": id,
             "transmit_mode": transmit_mode,
@@ -5504,7 +5752,10 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartBulkAssociateWirelessDeviceWithMulticastGroup"),
+        )
         input_: capo_iot_wireless.types.start_bulk_associate_wireless_device_with_multicast_group_request.StartBulkAssociateWirelessDeviceWithMulticastGroupRequest = {
             "id": id
         }
@@ -5557,7 +5808,10 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartBulkDisassociateWirelessDeviceFromMulticastGroup"),
+        )
         input_: capo_iot_wireless.types.start_bulk_disassociate_wireless_device_from_multicast_group_request.StartBulkDisassociateWirelessDeviceFromMulticastGroupRequest = {
             "id": id
         }
@@ -5610,7 +5864,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartFuotaTask")
+        )
         input_: capo_iot_wireless.types.start_fuota_task_request.StartFuotaTaskRequest = {
             "id": id
         }
@@ -5659,7 +5915,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMulticastGroupSession")
+        )
         input_: capo_iot_wireless.types.start_multicast_group_session_request.StartMulticastGroupSessionRequest = {
             "id": id,
             "lo_ra_wan": lo_ra_wan,
@@ -5721,7 +5979,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartSingleWirelessDeviceImportTask")
+        )
         input_: capo_iot_wireless.types.start_single_wireless_device_import_task_request.StartSingleWirelessDeviceImportTaskRequest = {
             "destination_name": destination_name,
             "sidewalk": sidewalk,
@@ -5790,7 +6050,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartWirelessDeviceImportTask")
+        )
         input_: capo_iot_wireless.types.start_wireless_device_import_task_request.StartWirelessDeviceImportTaskRequest = {
             "destination_name": destination_name,
             "sidewalk": sidewalk,
@@ -5849,7 +6111,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_iot_wireless.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -5897,7 +6161,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestWirelessDevice")
+        )
         input_: capo_iot_wireless.types.test_wireless_device_request.TestWirelessDeviceRequest = {
             "id": id
         }
@@ -5947,7 +6213,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_iot_wireless.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -6008,7 +6276,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDestination")
+        )
         input_: capo_iot_wireless.types.update_destination_request.UpdateDestinationRequest = {
             "name": name
         }
@@ -6081,7 +6351,10 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateEventConfigurationByResourceTypes"),
+        )
         input_: capo_iot_wireless.types.update_event_configuration_by_resource_types_request.UpdateEventConfigurationByResourceTypesRequest = {}
         if device_registration_state is not None:
             input_["device_registration_state"] = device_registration_state
@@ -6158,7 +6431,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFuotaTask")
+        )
         input_: capo_iot_wireless.types.update_fuota_task_request.UpdateFuotaTaskRequest = {
             "id": id
         }
@@ -6233,7 +6508,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLogLevelsByResourceTypes")
+        )
         input_: capo_iot_wireless.types.update_log_levels_by_resource_types_request.UpdateLogLevelsByResourceTypesRequest = {}
         if default_log_level is not None:
             input_["default_log_level"] = default_log_level
@@ -6290,7 +6567,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMetricConfiguration")
+        )
         input_: capo_iot_wireless.types.update_metric_configuration_request.UpdateMetricConfigurationRequest = {}
         if summary_metric is not None:
             input_["summary_metric"] = summary_metric
@@ -6343,7 +6622,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMulticastGroup")
+        )
         input_: capo_iot_wireless.types.update_multicast_group_request.UpdateMulticastGroupRequest = {
             "id": id
         }
@@ -6424,7 +6705,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNetworkAnalyzerConfiguration")
+        )
         input_: capo_iot_wireless.types.update_network_analyzer_configuration_request.UpdateNetworkAnalyzerConfigurationRequest = {
             "configuration_name": configuration_name
         }
@@ -6491,7 +6774,21 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_wireless.types.update_partner_account_request.UpdatePartnerAccountRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_wireless.types.update_partner_account_request
+
+            return (
+                capo_iot_wireless.types.update_partner_account_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdatePartnerAccount", redact_input=_redact_input),
+        )
         input_: capo_iot_wireless.types.update_partner_account_request.UpdatePartnerAccountRequest = {
             "sidewalk": sidewalk,
             "partner_account_id": partner_account_id,
@@ -6545,7 +6842,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePosition")
+        )
         input_: capo_iot_wireless.types.update_position_request.UpdatePositionRequest = {
             "resource_identifier": resource_identifier,
             "resource_type": resource_type,
@@ -6622,7 +6921,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateResourceEventConfiguration")
+        )
         input_: capo_iot_wireless.types.update_resource_event_configuration_request.UpdateResourceEventConfigurationRequest = {
             "identifier": identifier,
             "identifier_type": identifier_type,
@@ -6689,7 +6990,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateResourcePosition")
+        )
         input_: capo_iot_wireless.types.update_resource_position_request.UpdateResourcePositionRequest = {
             "resource_identifier": resource_identifier,
             "resource_type": resource_type,
@@ -6762,7 +7065,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWirelessDevice")
+        )
         input_: capo_iot_wireless.types.update_wireless_device_request.UpdateWirelessDeviceRequest = {
             "id": id
         }
@@ -6825,7 +7130,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWirelessDeviceImportTask")
+        )
         input_: capo_iot_wireless.types.update_wireless_device_import_task_request.UpdateWirelessDeviceImportTaskRequest = {
             "id": id,
             "sidewalk": sidewalk,
@@ -6890,7 +7197,9 @@ class AsyncIoTWirelessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWirelessGateway")
+        )
         input_: capo_iot_wireless.types.update_wireless_gateway_request.UpdateWirelessGatewayRequest = {
             "id": id
         }

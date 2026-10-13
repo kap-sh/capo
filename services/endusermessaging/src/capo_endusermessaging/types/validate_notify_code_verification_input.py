@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.endusermessaging#ValidateNotifyCodeVerificationInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,4 +47,13 @@ def deserialize_json(data: dict) -> ValidateNotifyCodeVerificationInput:
         out["code"] = data["code"]
     else:
         raise DeserializationError("ValidateNotifyCodeVerificationInput.code required")
+    return out
+
+
+def redact_sensitive(value: ValidateNotifyCodeVerificationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "destination_identity" in value:
+        out["destination_identity"] = "*** Sensitive Data Redacted ***"
+    if "code" in value:
+        out["code"] = "*** Sensitive Data Redacted ***"
     return out

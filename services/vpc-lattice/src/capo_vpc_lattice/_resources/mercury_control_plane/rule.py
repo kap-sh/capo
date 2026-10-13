@@ -8,6 +8,7 @@ import capo_vpc_lattice._auth._sigv4
 from capo_vpc_lattice._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -103,7 +104,9 @@ class Rule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRule")
+        )
         input_: capo_vpc_lattice.types.create_rule_request.CreateRuleRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -164,7 +167,9 @@ class Rule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRule")
+        )
         input_: capo_vpc_lattice.types.get_rule_request.GetRuleRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -225,7 +230,9 @@ class Rule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateRule")
+        )
         input_: capo_vpc_lattice.types.update_rule_request.UpdateRuleRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -285,7 +292,9 @@ class Rule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRule")
+        )
         input_: capo_vpc_lattice.types.delete_rule_request.DeleteRuleRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -340,7 +349,9 @@ class Rule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRules")
+        )
         input_: capo_vpc_lattice.types.list_rules_request.ListRulesRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -416,7 +427,9 @@ class AsyncRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRule")
+        )
         input_: capo_vpc_lattice.types.create_rule_request.CreateRuleRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -478,7 +491,9 @@ class AsyncRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRule")
+        )
         input_: capo_vpc_lattice.types.get_rule_request.GetRuleRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -540,7 +555,9 @@ class AsyncRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateRule")
+        )
         input_: capo_vpc_lattice.types.update_rule_request.UpdateRuleRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -601,7 +618,9 @@ class AsyncRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRule")
+        )
         input_: capo_vpc_lattice.types.delete_rule_request.DeleteRuleRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -657,7 +676,9 @@ class AsyncRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRules")
+        )
         input_: capo_vpc_lattice.types.list_rules_request.ListRulesRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,

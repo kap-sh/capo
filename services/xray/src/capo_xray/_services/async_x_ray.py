@@ -24,7 +24,9 @@ from capo_xray._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -231,7 +233,9 @@ class AsyncXRayClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncXRayClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncXRayClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncXRayClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -239,8 +243,10 @@ class AsyncXRayClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -293,7 +299,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetTraces")
+        )
         input_: capo_xray.types.batch_get_traces_request.BatchGetTracesRequest = {
             "trace_ids": trace_ids
         }
@@ -362,7 +370,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelTraceRetrieval")
+        )
         input_: capo_xray.types.cancel_trace_retrieval_request.CancelTraceRetrievalRequest = {
             "retrieval_token": retrieval_token
         }
@@ -417,7 +427,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGroup")
+        )
         input_: capo_xray.types.create_group_request.CreateGroupRequest = {
             "group_name": group_name
         }
@@ -471,7 +483,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSamplingRule")
+        )
         input_: capo_xray.types.create_sampling_rule_request.CreateSamplingRuleRequest = {
             "sampling_rule": sampling_rule
         }
@@ -520,7 +534,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGroup")
+        )
         input_: capo_xray.types.delete_group_request.DeleteGroupRequest = {}
         if group_name is not None:
             input_["group_name"] = group_name
@@ -572,7 +588,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_xray.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {
             "policy_name": policy_name
         }
@@ -621,7 +639,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSamplingRule")
+        )
         input_: capo_xray.types.delete_sampling_rule_request.DeleteSamplingRuleRequest = {}
         if rule_name is not None:
             input_["rule_name"] = rule_name
@@ -662,7 +682,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEncryptionConfig")
+        )
         input_: capo_xray.types.get_encryption_config_request.GetEncryptionConfigRequest = {}
 
         response = await aexecute_pipeline(
@@ -705,7 +727,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGroup")
+        )
         input_: capo_xray.types.get_group_request.GetGroupRequest = {}
         if group_name is not None:
             input_["group_name"] = group_name
@@ -754,7 +778,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGroups")
+        )
         input_: capo_xray.types.get_groups_request.GetGroupsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -820,7 +846,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIndexingRules")
+        )
         input_: capo_xray.types.get_indexing_rules_request.GetIndexingRulesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -865,7 +893,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInsight")
+        )
         input_: capo_xray.types.get_insight_request.GetInsightRequest = {
             "insight_id": insight_id
         }
@@ -916,7 +946,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInsightEvents")
+        )
         input_: capo_xray.types.get_insight_events_request.GetInsightEventsRequest = {
             "insight_id": insight_id
         }
@@ -994,7 +1026,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInsightImpactGraph")
+        )
         input_: capo_xray.types.get_insight_impact_graph_request.GetInsightImpactGraphRequest = {
             "insight_id": insight_id,
             "start_time": start_time,
@@ -1057,7 +1091,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInsightSummaries")
+        )
         input_: capo_xray.types.get_insight_summaries_request.GetInsightSummariesRequest = {
             "start_time": start_time,
             "end_time": end_time,
@@ -1147,7 +1183,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRetrievedTracesGraph")
+        )
         input_: capo_xray.types.get_retrieved_traces_graph_request.GetRetrievedTracesGraphRequest = {
             "retrieval_token": retrieval_token
         }
@@ -1194,7 +1232,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSamplingRules")
+        )
         input_: capo_xray.types.get_sampling_rules_request.GetSamplingRulesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1258,7 +1298,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSamplingStatisticSummaries")
+        )
         input_: capo_xray.types.get_sampling_statistic_summaries_request.GetSamplingStatisticSummariesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1326,7 +1368,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSamplingTargets")
+        )
         input_: capo_xray.types.get_sampling_targets_request.GetSamplingTargetsRequest = {
             "sampling_statistics_documents": sampling_statistics_documents
         }
@@ -1383,7 +1427,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServiceGraph")
+        )
         input_: capo_xray.types.get_service_graph_request.GetServiceGraphRequest = {
             "start_time": start_time,
             "end_time": end_time,
@@ -1480,7 +1526,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTimeSeriesServiceStatistics")
+        )
         input_: capo_xray.types.get_time_series_service_statistics_request.GetTimeSeriesServiceStatisticsRequest = {
             "start_time": start_time,
             "end_time": end_time,
@@ -1577,7 +1625,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTraceGraph")
+        )
         input_: capo_xray.types.get_trace_graph_request.GetTraceGraphRequest = {
             "trace_ids": trace_ids
         }
@@ -1639,7 +1689,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTraceSegmentDestination")
+        )
         input_: capo_xray.types.get_trace_segment_destination_request.GetTraceSegmentDestinationRequest = {}
 
         response = await aexecute_pipeline(
@@ -1700,7 +1752,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTraceSummaries")
+        )
         input_: capo_xray.types.get_trace_summaries_request.GetTraceSummariesRequest = {
             "start_time": start_time,
             "end_time": end_time,
@@ -1795,7 +1849,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourcePolicies")
+        )
         input_: capo_xray.types.list_resource_policies_request.ListResourcePoliciesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1868,7 +1924,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRetrievedTraces")
+        )
         input_: capo_xray.types.list_retrieved_traces_request.ListRetrievedTracesRequest = {
             "retrieval_token": retrieval_token
         }
@@ -1920,7 +1978,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_xray.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1990,7 +2050,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutEncryptionConfig")
+        )
         input_: capo_xray.types.put_encryption_config_request.PutEncryptionConfigRequest = {
             "type": type
         }
@@ -2049,7 +2111,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_xray.types.put_resource_policy_request.PutResourcePolicyRequest = {
             "policy_name": policy_name,
             "policy_document": policy_document,
@@ -2107,7 +2171,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutTelemetryRecords")
+        )
         input_: capo_xray.types.put_telemetry_records_request.PutTelemetryRecordsRequest = {
             "telemetry_records": telemetry_records
         }
@@ -2158,7 +2224,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutTraceSegments")
+        )
         input_: capo_xray.types.put_trace_segments_request.PutTraceSegmentsRequest = {
             "trace_segment_documents": trace_segment_documents
         }
@@ -2208,7 +2276,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartTraceRetrieval")
+        )
         input_: capo_xray.types.start_trace_retrieval_request.StartTraceRetrievalRequest = {
             "trace_ids": trace_ids,
             "start_time": start_time,
@@ -2259,7 +2329,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_xray.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2308,7 +2380,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_xray.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2364,7 +2438,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGroup")
+        )
         input_: capo_xray.types.update_group_request.UpdateGroupRequest = {}
         if group_name is not None:
             input_["group_name"] = group_name
@@ -2418,7 +2494,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIndexingRule")
+        )
         input_: capo_xray.types.update_indexing_rule_request.UpdateIndexingRuleRequest = {
             "name": name,
             "rule": rule,
@@ -2464,7 +2542,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSamplingRule")
+        )
         input_: capo_xray.types.update_sampling_rule_request.UpdateSamplingRuleRequest = {
             "sampling_rule_update": sampling_rule_update
         }
@@ -2511,7 +2591,9 @@ class AsyncXRayClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTraceSegmentDestination")
+        )
         input_: capo_xray.types.update_trace_segment_destination_request.UpdateTraceSegmentDestinationRequest = {}
         if destination is not None:
             input_["destination"] = destination

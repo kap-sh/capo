@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agent._auth._signers
 import capo_bedrock_agent._auth._sigv4
 from capo_bedrock_agent._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -110,7 +111,9 @@ class KnowledgeBaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateAgentKnowledgeBase")
+        )
         input_: capo_bedrock_agent.types.associate_agent_knowledge_base_request.AssociateAgentKnowledgeBaseRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -181,7 +184,34 @@ class KnowledgeBaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.create_knowledge_base_request.CreateKnowledgeBaseRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_knowledge_base_request
+
+            return (
+                capo_bedrock_agent.types.create_knowledge_base_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.create_knowledge_base_response.CreateKnowledgeBaseResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_knowledge_base_response
+
+            return capo_bedrock_agent.types.create_knowledge_base_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateKnowledgeBase",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agent.types.create_knowledge_base_request.CreateKnowledgeBaseRequest = {
             "name": name,
             "role_arn": role_arn,
@@ -240,7 +270,9 @@ class KnowledgeBaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteKnowledgeBase")
+        )
         input_: capo_bedrock_agent.types.delete_knowledge_base_request.DeleteKnowledgeBaseRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -292,7 +324,9 @@ class KnowledgeBaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateAgentKnowledgeBase")
+        )
         input_: capo_bedrock_agent.types.disassociate_agent_knowledge_base_request.DisassociateAgentKnowledgeBaseRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -345,7 +379,9 @@ class KnowledgeBaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAgentKnowledgeBase")
+        )
         input_: capo_bedrock_agent.types.get_agent_knowledge_base_request.GetAgentKnowledgeBaseRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -396,7 +432,21 @@ class KnowledgeBaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agent.types.get_knowledge_base_response.GetKnowledgeBaseResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.get_knowledge_base_response
+
+            return (
+                capo_bedrock_agent.types.get_knowledge_base_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetKnowledgeBase", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agent.types.get_knowledge_base_request.GetKnowledgeBaseRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -449,7 +499,9 @@ class KnowledgeBaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAgentKnowledgeBases")
+        )
         input_: capo_bedrock_agent.types.list_agent_knowledge_bases_request.ListAgentKnowledgeBasesRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -502,7 +554,9 @@ class KnowledgeBaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListKnowledgeBases")
+        )
         input_: capo_bedrock_agent.types.list_knowledge_bases_request.ListKnowledgeBasesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -564,7 +618,9 @@ class KnowledgeBaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAgentKnowledgeBase")
+        )
         input_: capo_bedrock_agent.types.update_agent_knowledge_base_request.UpdateAgentKnowledgeBaseRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -632,7 +688,34 @@ class KnowledgeBaseResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.update_knowledge_base_request.UpdateKnowledgeBaseRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_knowledge_base_request
+
+            return (
+                capo_bedrock_agent.types.update_knowledge_base_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.update_knowledge_base_response.UpdateKnowledgeBaseResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_knowledge_base_response
+
+            return capo_bedrock_agent.types.update_knowledge_base_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateKnowledgeBase",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agent.types.update_knowledge_base_request.UpdateKnowledgeBaseRequest = {
             "knowledge_base_id": knowledge_base_id,
             "name": name,
@@ -704,7 +787,9 @@ class AsyncKnowledgeBaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateAgentKnowledgeBase")
+        )
         input_: capo_bedrock_agent.types.associate_agent_knowledge_base_request.AssociateAgentKnowledgeBaseRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -776,7 +861,34 @@ class AsyncKnowledgeBaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.create_knowledge_base_request.CreateKnowledgeBaseRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_knowledge_base_request
+
+            return (
+                capo_bedrock_agent.types.create_knowledge_base_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.create_knowledge_base_response.CreateKnowledgeBaseResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_knowledge_base_response
+
+            return capo_bedrock_agent.types.create_knowledge_base_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateKnowledgeBase",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agent.types.create_knowledge_base_request.CreateKnowledgeBaseRequest = {
             "name": name,
             "role_arn": role_arn,
@@ -836,7 +948,9 @@ class AsyncKnowledgeBaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteKnowledgeBase")
+        )
         input_: capo_bedrock_agent.types.delete_knowledge_base_request.DeleteKnowledgeBaseRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -889,7 +1003,9 @@ class AsyncKnowledgeBaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateAgentKnowledgeBase")
+        )
         input_: capo_bedrock_agent.types.disassociate_agent_knowledge_base_request.DisassociateAgentKnowledgeBaseRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -943,7 +1059,9 @@ class AsyncKnowledgeBaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAgentKnowledgeBase")
+        )
         input_: capo_bedrock_agent.types.get_agent_knowledge_base_request.GetAgentKnowledgeBaseRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -995,7 +1113,21 @@ class AsyncKnowledgeBaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agent.types.get_knowledge_base_response.GetKnowledgeBaseResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.get_knowledge_base_response
+
+            return (
+                capo_bedrock_agent.types.get_knowledge_base_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetKnowledgeBase", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agent.types.get_knowledge_base_request.GetKnowledgeBaseRequest = {
             "knowledge_base_id": knowledge_base_id
         }
@@ -1049,7 +1181,9 @@ class AsyncKnowledgeBaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAgentKnowledgeBases")
+        )
         input_: capo_bedrock_agent.types.list_agent_knowledge_bases_request.ListAgentKnowledgeBasesRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -1103,7 +1237,9 @@ class AsyncKnowledgeBaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListKnowledgeBases")
+        )
         input_: capo_bedrock_agent.types.list_knowledge_bases_request.ListKnowledgeBasesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1166,7 +1302,9 @@ class AsyncKnowledgeBaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAgentKnowledgeBase")
+        )
         input_: capo_bedrock_agent.types.update_agent_knowledge_base_request.UpdateAgentKnowledgeBaseRequest = {
             "agent_id": agent_id,
             "agent_version": agent_version,
@@ -1235,7 +1373,34 @@ class AsyncKnowledgeBaseResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.update_knowledge_base_request.UpdateKnowledgeBaseRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_knowledge_base_request
+
+            return (
+                capo_bedrock_agent.types.update_knowledge_base_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.update_knowledge_base_response.UpdateKnowledgeBaseResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_knowledge_base_response
+
+            return capo_bedrock_agent.types.update_knowledge_base_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateKnowledgeBase",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agent.types.update_knowledge_base_request.UpdateKnowledgeBaseRequest = {
             "knowledge_base_id": knowledge_base_id,
             "name": name,

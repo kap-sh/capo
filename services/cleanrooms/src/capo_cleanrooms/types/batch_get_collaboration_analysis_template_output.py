@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cleanrooms#BatchGetCollaborationAnalysisTemplateOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -63,5 +63,20 @@ def deserialize_json(data: dict) -> BatchGetCollaborationAnalysisTemplateOutput:
     else:
         raise DeserializationError(
             "BatchGetCollaborationAnalysisTemplateOutput.errors required"
+        )
+    return out
+
+
+def redact_sensitive(
+    value: BatchGetCollaborationAnalysisTemplateOutput,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "collaboration_analysis_templates" in value:
+        import capo_cleanrooms.types.collaboration_analysis_template_list
+
+        out["collaboration_analysis_templates"] = (
+            capo_cleanrooms.types.collaboration_analysis_template_list.redact_sensitive(
+                value["collaboration_analysis_templates"]
+            )
         )
     return out

@@ -7,6 +7,7 @@ import capo_groundstation._auth._sigv4
 from capo_groundstation._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -106,7 +107,9 @@ class MissionProfile:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateMissionProfile")
+        )
         input_: capo_groundstation.types.create_mission_profile_request.CreateMissionProfileRequest = {
             "name": name,
             "minimum_viable_contact_duration_seconds": minimum_viable_contact_duration_seconds,
@@ -170,7 +173,9 @@ class MissionProfile:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMissionProfile")
+        )
         input_: capo_groundstation.types.get_mission_profile_request.GetMissionProfileRequest = {
             "mission_profile_id": mission_profile_id
         }
@@ -247,7 +252,9 @@ class MissionProfile:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateMissionProfile")
+        )
         input_: capo_groundstation.types.update_mission_profile_request.UpdateMissionProfileRequest = {
             "mission_profile_id": mission_profile_id
         }
@@ -318,7 +325,9 @@ class MissionProfile:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMissionProfile")
+        )
         input_: capo_groundstation.types.delete_mission_profile_request.DeleteMissionProfileRequest = {
             "mission_profile_id": mission_profile_id
         }
@@ -369,7 +378,9 @@ class MissionProfile:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMissionProfiles")
+        )
         input_: capo_groundstation.types.list_mission_profiles_request.ListMissionProfilesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -448,7 +459,9 @@ class AsyncMissionProfile:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateMissionProfile")
+        )
         input_: capo_groundstation.types.create_mission_profile_request.CreateMissionProfileRequest = {
             "name": name,
             "minimum_viable_contact_duration_seconds": minimum_viable_contact_duration_seconds,
@@ -513,7 +526,9 @@ class AsyncMissionProfile:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMissionProfile")
+        )
         input_: capo_groundstation.types.get_mission_profile_request.GetMissionProfileRequest = {
             "mission_profile_id": mission_profile_id
         }
@@ -591,7 +606,9 @@ class AsyncMissionProfile:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateMissionProfile")
+        )
         input_: capo_groundstation.types.update_mission_profile_request.UpdateMissionProfileRequest = {
             "mission_profile_id": mission_profile_id
         }
@@ -663,7 +680,9 @@ class AsyncMissionProfile:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMissionProfile")
+        )
         input_: capo_groundstation.types.delete_mission_profile_request.DeleteMissionProfileRequest = {
             "mission_profile_id": mission_profile_id
         }
@@ -715,7 +734,9 @@ class AsyncMissionProfile:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMissionProfiles")
+        )
         input_: capo_groundstation.types.list_mission_profiles_request.ListMissionProfilesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

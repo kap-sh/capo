@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.repostspace#ChannelsList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_repostspace.types.channel_data
@@ -27,3 +27,11 @@ def deserialize_json(data: list) -> ChannelsList:
             continue
         out.append(capo_repostspace.types.channel_data.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ChannelsList) -> list[Any]:
+    import capo_repostspace.types.channel_data
+
+    return [
+        capo_repostspace.types.channel_data.redact_sensitive(item) for item in value
+    ]

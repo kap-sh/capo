@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#ToolDefinitions``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.tool_definition
@@ -33,3 +33,7 @@ def deserialize_json(data: list) -> ToolDefinitions:
             capo_bedrock_agentcore_control.types.tool_definition.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: ToolDefinitions) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

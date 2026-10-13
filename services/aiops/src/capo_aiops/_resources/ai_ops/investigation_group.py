@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_aiops._auth._signers
 import capo_aiops._auth._sigv4
 from capo_aiops._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -106,7 +107,9 @@ class InvestigationGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateInvestigationGroup")
+        )
         input_: capo_aiops.types.create_investigation_group_input.CreateInvestigationGroupInput = {
             "name": name,
             "role_arn": role_arn,
@@ -172,7 +175,9 @@ class InvestigationGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetInvestigationGroup")
+        )
         input_: capo_aiops.types.get_investigation_group_request.GetInvestigationGroupRequest = {
             "identifier": identifier
         }
@@ -241,7 +246,9 @@ class InvestigationGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateInvestigationGroup")
+        )
         input_: capo_aiops.types.update_investigation_group_request.UpdateInvestigationGroupRequest = {
             "identifier": identifier
         }
@@ -302,7 +309,9 @@ class InvestigationGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteInvestigationGroup")
+        )
         input_: capo_aiops.types.delete_investigation_group_request.DeleteInvestigationGroupRequest = {
             "identifier": identifier
         }
@@ -355,7 +364,32 @@ class InvestigationGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_aiops.types.list_investigation_groups_input.ListInvestigationGroupsInput",
+        ) -> dict[str, Any]:
+            import capo_aiops.types.list_investigation_groups_input
+
+            return capo_aiops.types.list_investigation_groups_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_aiops.types.list_investigation_groups_output.ListInvestigationGroupsOutput",
+        ) -> dict[str, Any]:
+            import capo_aiops.types.list_investigation_groups_output
+
+            return capo_aiops.types.list_investigation_groups_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListInvestigationGroups",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_aiops.types.list_investigation_groups_input.ListInvestigationGroupsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -437,7 +471,9 @@ class AsyncInvestigationGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateInvestigationGroup")
+        )
         input_: capo_aiops.types.create_investigation_group_input.CreateInvestigationGroupInput = {
             "name": name,
             "role_arn": role_arn,
@@ -504,7 +540,9 @@ class AsyncInvestigationGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetInvestigationGroup")
+        )
         input_: capo_aiops.types.get_investigation_group_request.GetInvestigationGroupRequest = {
             "identifier": identifier
         }
@@ -574,7 +612,9 @@ class AsyncInvestigationGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateInvestigationGroup")
+        )
         input_: capo_aiops.types.update_investigation_group_request.UpdateInvestigationGroupRequest = {
             "identifier": identifier
         }
@@ -636,7 +676,9 @@ class AsyncInvestigationGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteInvestigationGroup")
+        )
         input_: capo_aiops.types.delete_investigation_group_request.DeleteInvestigationGroupRequest = {
             "identifier": identifier
         }
@@ -690,7 +732,32 @@ class AsyncInvestigationGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_aiops.types.list_investigation_groups_input.ListInvestigationGroupsInput",
+        ) -> dict[str, Any]:
+            import capo_aiops.types.list_investigation_groups_input
+
+            return capo_aiops.types.list_investigation_groups_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_aiops.types.list_investigation_groups_output.ListInvestigationGroupsOutput",
+        ) -> dict[str, Any]:
+            import capo_aiops.types.list_investigation_groups_output
+
+            return capo_aiops.types.list_investigation_groups_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListInvestigationGroups",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_aiops.types.list_investigation_groups_input.ListInvestigationGroupsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token

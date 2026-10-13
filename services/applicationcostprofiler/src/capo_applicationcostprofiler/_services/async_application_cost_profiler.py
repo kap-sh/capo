@@ -24,7 +24,9 @@ from capo_applicationcostprofiler._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -127,6 +129,7 @@ class AsyncApplicationCostProfilerClient:
     def operation_options(
         self,
         config_overrides: Optional[AsyncApplicationCostProfilerClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncApplicationCostProfilerClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -134,8 +137,10 @@ class AsyncApplicationCostProfilerClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -188,7 +193,9 @@ class AsyncApplicationCostProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReportDefinition")
+        )
         input_: capo_applicationcostprofiler.types.delete_report_definition_request.DeleteReportDefinitionRequest = {
             "report_id": report_id
         }
@@ -235,7 +242,9 @@ class AsyncApplicationCostProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReportDefinition")
+        )
         input_: capo_applicationcostprofiler.types.get_report_definition_request.GetReportDefinitionRequest = {
             "report_id": report_id
         }
@@ -282,7 +291,9 @@ class AsyncApplicationCostProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportApplicationUsage")
+        )
         input_: capo_applicationcostprofiler.types.import_application_usage_request.ImportApplicationUsageRequest = {
             "source_s3_location": source_s3_location
         }
@@ -333,7 +344,9 @@ class AsyncApplicationCostProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReportDefinitions")
+        )
         input_: capo_applicationcostprofiler.types.list_report_definitions_request.ListReportDefinitionsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -414,7 +427,9 @@ class AsyncApplicationCostProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutReportDefinition")
+        )
         input_: capo_applicationcostprofiler.types.put_report_definition_request.PutReportDefinitionRequest = {
             "report_id": report_id,
             "report_description": report_description,
@@ -473,7 +488,9 @@ class AsyncApplicationCostProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateReportDefinition")
+        )
         input_: capo_applicationcostprofiler.types.update_report_definition_request.UpdateReportDefinitionRequest = {
             "report_id": report_id,
             "report_description": report_description,

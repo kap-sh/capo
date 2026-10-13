@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemakergeospatial#RasterDataCollectionQueryWithBandFilterInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -105,6 +105,23 @@ def deserialize_json(data: dict) -> RasterDataCollectionQueryWithBandFilterInput
         out["band_filter"] = (
             capo_sagemaker_geospatial.types.string_list_input.deserialize_json(
                 data["BandFilter"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(
+    value: RasterDataCollectionQueryWithBandFilterInput,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "time_range_filter" in value:
+        out["time_range_filter"] = "*** Sensitive Data Redacted ***"
+    if "area_of_interest" in value:
+        import capo_sagemaker_geospatial.types.area_of_interest
+
+        out["area_of_interest"] = (
+            capo_sagemaker_geospatial.types.area_of_interest.redact_sensitive(
+                value["area_of_interest"]
             )
         )
     return out
